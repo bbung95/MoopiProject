@@ -1,150 +1,88 @@
-package com.model2.mvc.service.domain;
+package com.moopi.mvc.service.domain;
 
+import java.io.File;
 import java.sql.Date;
 
 public class Reply {
 
+
+	private int replyNo;
 	private int boardNo;
-	private String boardCategory;
-	private User boardWriter;
-	private String boardName;
-	private String boardContent;
-	private Date boardRegDate;
-	private Date boardUpdate;
-	private String boardState;
-	private String boardPassword;
-	private int boardMoimNo;
-	
+	private User replyWriter;
+	private String replyContent;
+	private Date replyRegDate;
+	private File replyFile; 							// file은 어떻게해야하나...
+	private String replyState;
 	
 	public Reply() {
 	}
+	
+	public int getReplyNo() {
+		return replyNo;
+	}
 
-		
+	public void setReplyNo(int replyNo) {
+		this.replyNo = replyNo;
+	}
 
 	public int getBoardNo() {
 		return boardNo;
 	}
-
-
 
 	public void setBoardNo(int boardNo) {
 		this.boardNo = boardNo;
 	}
 
 
-
-	public String getBoardCategory() {
-		return boardCategory;
+	public User getReplyWriter() {
+		return replyWriter;
 	}
 
 
-
-	public void setBoardCategory(String boardCategory) {
-		this.boardCategory = boardCategory;
+	public void setReplyWriter(User replyWriter) {
+		this.replyWriter = replyWriter;
 	}
 
 
-
-	public User getBoardWriter() {
-		return boardWriter;
+	public String getReplyContent() {
+		return replyContent;
 	}
 
 
-
-	public void setBoardWriter(User boardWriter) {
-		this.boardWriter = boardWriter;
+	public void setReplyContent(String replyContent) {
+		this.replyContent = replyContent;
 	}
 
-
-
-	public String getBoardName() {
-		return boardName;
+	
+	public Date getReplyRegDate() {
+		return replyRegDate;
 	}
 
-
-
-	public void setBoardName(String boardName) {
-		this.boardName = boardName;
+	public void setReplyRegDate(Date replyRegDate) {
+		this.replyRegDate = replyRegDate;
 	}
 
-
-
-	public String getBoardContent() {
-		return boardContent;
+	public File getReplyFile() {
+		return replyFile;
 	}
 
-
-
-	public void setBoardContent(String boardContent) {
-		this.boardContent = boardContent;
+	public void setReplyFile(File replyFile) {
+		this.replyFile = replyFile;
 	}
 
-
-
-	public Date getBoardRegDate() {
-		return boardRegDate;
+	public String getReplyState() {
+		return replyState;
 	}
 
-
-
-	public void setBoardRegDate(Date boardRegDate) {
-		this.boardRegDate = boardRegDate;
+	public void setReplyState(String replyState) {
+		this.replyState = replyState;
 	}
-
-
-
-	public Date getBoardUpdate() {
-		return boardUpdate;
-	}
-
-
-
-	public void setBoardUpdate(Date boardUpdate) {
-		this.boardUpdate = boardUpdate;
-	}
-
-
-
-	public String getBoardState() {
-		return boardState;
-	}
-
-
-
-	public void setBoardState(String boardState) {
-		this.boardState = boardState;
-	}
-
-
-
-	public String getBoardPassword() {
-		return boardPassword;
-	}
-
-
-
-	public void setBoardPassword(String boardPassword) {
-		this.boardPassword = boardPassword;
-	}
-
-
-
-	public int getBoardMoimNo() {
-		return boardMoimNo;
-	}
-
-
-
-	public void setBoardMoimNo(int boardMoimNo) {
-		this.boardMoimNo = boardMoimNo;
-	}
-
 
 
 	public String toString() {
 		
-		return "Board [ boardNo = "+boardNo+" boardCategory = "+boardCategory+" boardWriter = "+ boardWriter+" boardName = "+ boardName+ " boardContent = "+ boardContent
-				+" boardRegDate = "+boardRegDate +" boardUpdate = "+boardUpdate+" boardState = "+boardState +" boardPassword = "+boardPassword +" boardMoimNo = "+boardMoimNo+" ]";
+		return "Reply [ replyNo = "+replyNo+" boardNo = "+boardNo+" replyWriter = "+ replyWriter+" replyContent = "+ replyContent+ " replyRegDate = "+ replyRegDate
+				+" replyFile = "+replyFile +" replyState = "+replyState+" ]";
 	}
 	
 	

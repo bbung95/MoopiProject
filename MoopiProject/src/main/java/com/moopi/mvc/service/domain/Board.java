@@ -14,7 +14,7 @@ public class Board {
 	private String boardState;
 	private String boardPassword;
 	private int boardMoimNo;
-	
+	private int boardLike;
 	
 	public Board() {
 	}
