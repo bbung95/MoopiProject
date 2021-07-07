@@ -2,7 +2,7 @@ package com.moopi.mvc.service.domain;
 
 import java.util.Date;
 
-public class MoimMember {
+public class Member {
 
 	private int memberNo; //모임무피 회원 No
 	private User mmUser;  //모임무피 회원
@@ -14,7 +14,7 @@ public class MoimMember {
 	private Date memberRegDate;  //해당모임무피에 가입한 날
 	
 
-	public MoimMember() {
+	public Member() {
 		
 	}
 

@@ -10,6 +10,7 @@ public class Meeting {
 	private String mtContent; // 정모 내용
 	private Date mtStart; //정모 시작시간
 	private Date mtEnd; //정모 종료시간
+	private Date mtRegDate; //정모 등록시간
 	private int mtMaxCount; //정모 최대 참가인원
 	private int mtCurrentCount; //정모 현재 참가인원
 	private User mtCounstructor; //정모 주최자
