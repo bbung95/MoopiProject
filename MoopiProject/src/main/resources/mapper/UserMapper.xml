@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.moopi.mvc.mapper.UserMapper">
+ 	
+ 	
+	<resultMap id="userSelectMap" type="user">
+		<result property="userId" 			column="user_id" 			jdbcType="VARCHAR"/>
+		<result property="userName"	column="user_name" 		jdbcType="VARCHAR" />
+		<result property="password" 	column="password" 		jdbcType="VARCHAR" />
+		<result property="role" 				column="role" 					jdbcType="VARCHAR" />
+		<result property="ssn" 				column="ssn" 					jdbcType="VARCHAR" />
+		<result property="phone" 			column="cell_phone" 		jdbcType="VARCHAR" />
+		<result property="addr" 				column="addr" 					jdbcType="VARCHAR" />
+		<result property="email" 			column="email" 				jdbcType="NUMERIC"  />
+		<result property="regDate" 		column="reg_date" 			jdbcType="DATE" />
+	</resultMap>
+	
+	<select id="getUser" parameterType="string" resultMap="userSelectMap">
+		SELECT
+			user_id , user_name , password , role ,  cell_phone ,  addr , email , reg_date 		
+			FROM users 
+		WHERE user_id = #{userId}	
+	</select>
+	
+</mapper>
