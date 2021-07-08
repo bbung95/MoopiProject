@@ -39,9 +39,9 @@ public class BoardController {
 	@Value("#{commonProperties['pageSize']}")
 	int pageSize;
 	
-	//@RequestMapping("addProduct.do")
+	//@RequestMapping("addBoard.do")
 	@RequestMapping(value="addBoard")
-	public String addProduct(@ModelAttribute("board") Board board, Model model) 
+	public String addBoard(@ModelAttribute("board") Board board, Model model) 
 									throws Exception {
 		System.out.println("/addBoard 실행");
 		
@@ -54,7 +54,7 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="getBoard")
-	public String getProduct(@RequestParam("boardNo") int boardNo, HttpSession session,
+	public String getBoard(@RequestParam("boardNo") int boardNo, HttpSession session,
 											Model model)throws Exception{
 			
 		System.out.println("/getBoard 실행");
@@ -68,7 +68,7 @@ public class BoardController {
 	
 	
 //	@RequestMapping(value="listBoard")
-//	public String listProduct(@ModelAttribute("search") Search search, Model model,
+//	public String listBoard(@ModelAttribute("search") Search search, Model model,
 //								HttpServletRequest request) throws Exception {
 //
 //		   System.out.println("/board/listBoard : GET / POST ");
@@ -120,7 +120,8 @@ public class BoardController {
 		
 		session.setAttribute("board", board);
 		 
-		return "redirect:/board/getBoard?boardNo="+board.getBoardNo();
+		return "redirect:/board/getBoard?boardNo=";
+		//+board.getBoardNo();
 		
 	}
 	
