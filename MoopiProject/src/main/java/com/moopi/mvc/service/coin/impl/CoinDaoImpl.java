@@ -1,18 +1,19 @@
-//package com.moopi.mvc.service.letter.impl;
+//package com.moopi.mvc.service.coin.impl;
 //
 //import java.util.List;
 //
 //import org.apache.ibatis.session.SqlSession;
+//import org.eclipse.jdt.internal.compiler.ast.ThisReference;
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.beans.factory.annotation.Qualifier;
 //import org.springframework.stereotype.Service;
 //
 //import com.moopi.mvc.common.Search;
-//import com.moopi.mvc.service.domain.Letter;
-//import com.moopi.mvc.service.letter.LetterDao;
+//import com.moopi.mvc.service.coin.CoinDao;
+//import com.moopi.mvc.service.domain.Coin;
 //
-//@Service("letterDaoImpl")
-//public class LetterDaoImpl implements LetterDao{
+//@Service("coinDaoImpl")
+//public class CoinDaoImpl implements CoinDao{
 //
 //	@Autowired
 //	@Qualifier("sqlSessionTemplate")
@@ -23,30 +24,30 @@
 //	}
 //	
 //	//Constructor
-//	public LetterDaoImpl() {
+//	public CoinDaoImpl() {
 //		System.out.println(this.getClass());
 //	}
 //
 //	@Override
-//	public void insertLetter(Letter letter) throws Exception {
+//	public void insertCoin(Coin coin) throws Exception {
 //		// TODO Auto-generated method stub
 //		
 //	}
 //
 //	@Override
-//	public List<Letter> getLetterList(Search search) throws Exception {
+//	public List<Coin> getCoinList(Search search) throws Exception {
 //		// TODO Auto-generated method stub
 //		return null;
 //	}
 //
 //	@Override
-//	public Letter findLetter(int letterNo) throws Exception {
+//	public Coin findCoin(int coinNo) throws Exception {
 //		// TODO Auto-generated method stub
 //		return null;
 //	}
 //
 //	@Override
-//	public void updateLetter(Letter letter) throws Exception {
+//	public void updateCoin(Coin coin) throws Exception {
 //		// TODO Auto-generated method stub
 //		
 //	}

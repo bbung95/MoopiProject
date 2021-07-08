@@ -2,150 +2,40 @@ package com.moopi.mvc.service.domain;
 
 import java.sql.Date;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@ToString
 public class Board {
 
+	// 보드번호 10000 부터 시작
 	private int boardNo;
+	// 보드 유형 1. 무피게시판 2. 문의게시판 3. 마이홈 4. 모임게시판
 	private String boardCategory;
+	// 작성자
 	private User boardWriter;
+	// 게시글 제목
 	private String boardName;
-	private String boardContent;
+	// 게시글 내용
+	private String boardContent; 
+	// 게시글 작성시간
 	private Date boardRegDate;
-	private Date boardUpdate;
+	// 게시글 수정시간
+	private Date boardUpdate; 
+	// 게시글 상태  1. 정상 2. 삭제 
 	private String boardState;
+	// 문의게시글용 비밀번호.
 	private String boardPassword;
+	// 모임게시판용 모임고유번호
 	private int boardMoimNo;
+	// 게시글 좋아요 카운트
 	private int boardLike;
 	
 	public Board() {
 	}
 
-		
-
-	public int getBoardNo() {
-		return boardNo;
-	}
-
-
-
-	public void setBoardNo(int boardNo) {
-		this.boardNo = boardNo;
-	}
-
-
-
-	public String getBoardCategory() {
-		return boardCategory;
-	}
-
-
-
-	public void setBoardCategory(String boardCategory) {
-		this.boardCategory = boardCategory;
-	}
-
-
-
-	public User getBoardWriter() {
-		return boardWriter;
-	}
-
-
-
-	public void setBoardWriter(User boardWriter) {
-		this.boardWriter = boardWriter;
-	}
-
-
-
-	public String getBoardName() {
-		return boardName;
-	}
-
-
-
-	public void setBoardName(String boardName) {
-		this.boardName = boardName;
-	}
-
-
-
-	public String getBoardContent() {
-		return boardContent;
-	}
-
-
-
-	public void setBoardContent(String boardContent) {
-		this.boardContent = boardContent;
-	}
-
-
-
-	public Date getBoardRegDate() {
-		return boardRegDate;
-	}
-
-
-
-	public void setBoardRegDate(Date boardRegDate) {
-		this.boardRegDate = boardRegDate;
-	}
-
-
-
-	public Date getBoardUpdate() {
-		return boardUpdate;
-	}
-
-
-
-	public void setBoardUpdate(Date boardUpdate) {
-		this.boardUpdate = boardUpdate;
-	}
-
-
-
-	public String getBoardState() {
-		return boardState;
-	}
-
-
-
-	public void setBoardState(String boardState) {
-		this.boardState = boardState;
-	}
-
-
-
-	public String getBoardPassword() {
-		return boardPassword;
-	}
-
-
-
-	public void setBoardPassword(String boardPassword) {
-		this.boardPassword = boardPassword;
-	}
-
-
-
-	public int getBoardMoimNo() {
-		return boardMoimNo;
-	}
-
-
-
-	public void setBoardMoimNo(int boardMoimNo) {
-		this.boardMoimNo = boardMoimNo;
-	}
-
-
-
-	public String toString() {
-		
-		return "Board [ boardNo = "+boardNo+" boardCategory = "+boardCategory+" boardWriter = "+ boardWriter+" boardName = "+ boardName+ " boardContent = "+ boardContent
-				+" boardRegDate = "+boardRegDate +" boardUpdate = "+boardUpdate+" boardState = "+boardState +" boardPassword = "+boardPassword +" boardMoimNo = "+boardMoimNo+" ]";
-	}
-	
 	
 }

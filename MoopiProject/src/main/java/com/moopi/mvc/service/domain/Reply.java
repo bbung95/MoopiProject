@@ -3,87 +3,33 @@ package com.moopi.mvc.service.domain;
 import java.io.File;
 import java.sql.Date;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@ToString
 public class Reply {
 
-
+	// 리플고유번호
 	private int replyNo;
+	// 게시글 번호
 	private int boardNo;
+	// 리플 작성자
 	private User replyWriter;
+	// 리플 내용
 	private String replyContent;
+	// 리플 작성시간
 	private Date replyRegDate;
-	private File replyFile; 							// file은 어떻게해야하나...
+	// 리플 첨부파일
+	private File replyFile;
+	// 리플 상태 1. 정상 2. 삭제
 	private String replyState;
 	
 	public Reply() {
 	}
 	
-	public int getReplyNo() {
-		return replyNo;
-	}
-
-	public void setReplyNo(int replyNo) {
-		this.replyNo = replyNo;
-	}
-
-	public int getBoardNo() {
-		return boardNo;
-	}
-
-	public void setBoardNo(int boardNo) {
-		this.boardNo = boardNo;
-	}
-
-
-	public User getReplyWriter() {
-		return replyWriter;
-	}
-
-
-	public void setReplyWriter(User replyWriter) {
-		this.replyWriter = replyWriter;
-	}
-
-
-	public String getReplyContent() {
-		return replyContent;
-	}
-
-
-	public void setReplyContent(String replyContent) {
-		this.replyContent = replyContent;
-	}
-
-	
-	public Date getReplyRegDate() {
-		return replyRegDate;
-	}
-
-	public void setReplyRegDate(Date replyRegDate) {
-		this.replyRegDate = replyRegDate;
-	}
-
-	public File getReplyFile() {
-		return replyFile;
-	}
-
-	public void setReplyFile(File replyFile) {
-		this.replyFile = replyFile;
-	}
-
-	public String getReplyState() {
-		return replyState;
-	}
-
-	public void setReplyState(String replyState) {
-		this.replyState = replyState;
-	}
-
-
-	public String toString() {
-		
-		return "Reply [ replyNo = "+replyNo+" boardNo = "+boardNo+" replyWriter = "+ replyWriter+" replyContent = "+ replyContent+ " replyRegDate = "+ replyRegDate
-				+" replyFile = "+replyFile +" replyState = "+replyState+" ]";
-	}
 	
 	
 }
