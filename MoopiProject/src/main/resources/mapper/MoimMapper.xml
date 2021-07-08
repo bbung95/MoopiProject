@@ -4,8 +4,8 @@
 		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.moopi.mvc.mapper.MoimMapper">
- 	
+<!--<mapper namespace="com.moopi.mvc.mapper.MoimMapper">-->
+<mapper namespace="com.moopi.mvc.service.moim.MoimMapper">   	
  	
 	<resultMap id="moimSelectMap" type="moim">
 		<result property="mmNo" 			column="mm_no" 		jdbcType="NUMERIC"/>
