@@ -13,11 +13,11 @@ import com.moopi.mvc.service.domain.User;
 import com.moopi.mvc.service.user.UserDao;
 import com.moopi.mvc.service.user.UserService;
 
-@Service("userServiceImpl")
+//@Service("userServiceImpl")
 public class UserServiceImpl implements UserService {
 
-	@Autowired
-	@Qualifier("userDaoImpl")
+//	@Autowired
+//	@Qualifier("userDaoImpl")
 	private UserDao userDao;
 	
 	public UserServiceImpl() {
@@ -50,18 +50,5 @@ public class UserServiceImpl implements UserService {
 	public void updateUser(User user) throws Exception{
 		userDao.updateUser(user);
 	}
-	
-	
-	/* 회원 아이디 중복체크
-	public boolean checkDuplication(String userId) throws Exception {
-		boolean result = true;
-		
-		User user = userDao.getUser(userId);
-		if(user != null) {
-			result = false;
-		}
-		return result;
-	}
-	*/
 
 }
