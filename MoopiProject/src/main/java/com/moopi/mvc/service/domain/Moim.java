@@ -15,8 +15,8 @@ public class Moim {
 	private String mmName;   //모임무피 명
 	private String mmContent;  //모임무피 소개글
 	private File mmFile;  //모임무피 대표썸넬
-	private int mmCurrentCount; //모임무피 현재정원
 	private int mmMaxCount;  //모임무피 가입정원
+	private int mmCurrentCount; //모임무피 현재정원
 	private User mmConstructor;   //모임무피 생성자
 	private Date mmRegDate;  //모임무피 생성일
 	private int mmInterest;   //모임무피 관심사 넘버
