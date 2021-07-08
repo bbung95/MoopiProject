@@ -4,6 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+
 import com.moopi.mvc.common.Search;
 import com.moopi.mvc.service.board.BoardDao;
 import com.moopi.mvc.service.board.BoardService;
@@ -11,7 +14,7 @@ import com.moopi.mvc.service.domain.Board;
 
 
 
-@Service("boardServiceImpl")
+//@Service("boardServiceImpl")
 public class BoardServiceImpl implements BoardService {
 
 	@Autowired
@@ -37,7 +40,7 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public Board getBoard(int boardNo) throws Exception {
 		// TODO Auto-generated method stub
-		return boardDao.findBoard(boardNo);
+		return boardDao.getBoard(boardNo);
 	}
 
 	@Override
