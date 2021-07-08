@@ -1,6 +1,9 @@
+package com.moopi.mvc.service.board.impl;
 
 import java.util.List;
 import java.util.Map;
+
+import org.apache.ibatis.session.SqlSession;
 
 import com.moopi.mvc.common.Search;
 import com.moopi.mvc.service.board.BoardDao;
@@ -8,11 +11,11 @@ import com.moopi.mvc.service.domain.Board;
 
 
 
-@Service("boardDaoImpl")
+//@Service("boardDaoImpl")
 public class BoardDaoImpl implements BoardDao {
 
-	@Autowired
-	@Qualifier("sqlSessionTemplate")
+//	@Autowired
+//	@Qualifier("sqlSessionTemplate")
 	private SqlSession sqlSession;
 	
 	public void setSqlSession(SqlSession sqlSession) {
@@ -35,7 +38,7 @@ public class BoardDaoImpl implements BoardDao {
 	}
 
 	@Override
-	public Board findBoard(int prodNo) throws Exception {
+	public Board getBoard(int prodNo) throws Exception {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("BoardMapper.getBoard", prodNo);
 	}
