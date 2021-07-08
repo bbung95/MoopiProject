@@ -273,7 +273,7 @@ INCREMENT BY 1;
 create table REPLY(
 	REPLY_NO		number  primary key 
 ,	BD_NO			NUMERIC  not null
-,	REPLY_WRITER_ID		VARCHAR2(30) not null     
+,	REPLY_WRITER	VARCHAR2(30) not null     
 ,	REPLY_CONTENT		VARCHAR2(500) not null 
 ,	REPLY_FILE			VARCHAR2(100) 
 ,	REPLY_REGDATE 		date default sysdate  not null
