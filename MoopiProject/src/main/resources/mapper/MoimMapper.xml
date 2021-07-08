@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.moopi.mvc.mapper.MoimMapper">
+ 	
+ 	
+	<resultMap id="moimSelectMap" type="moim">
+		<result property="mmNo" 			column="mm_no" 		jdbcType="NUMERIC"/>
+		<result property="mmName"				column="mm_name" 		jdbcType="VARCHAR" />
+		<result property="mmContent" 			column="mm_content" 		jdbcType="VARCHAR" />
+		<result property="mmFile" 			column="mm_image" 			jdbcType="VARCHAR" />
+		<result property="mmMaxCount" 			column="mm_max_count" 			jdbcType="NUMERIC" />
+		<result property="mmCurrentCount" 			column="mm_current_count" 	jdbcType="NUMERIC" />
+		<result property="mmConstructor.userId" 			column="mm_constructor" 			jdbcType="VARCHAR" />
+		<result property="mmRegDate" 			column="mm_regdate" 			jdbcType="DATE"  />
+		<result property="mmInterest" 			column="mm_interest" 		jdbcType="NUMERIC" />
+		<result property="mmAddr" 			column="mm_addr" 			jdbcType="VARCHAR"  />
+		<result property="mmState" 			column="mm_state" 			jdbcType="VARCHAR"  />
+		<result property="mmMinAge" 			column="mm_min_age" 			jdbcType="NUMERIC"  />
+		<result property="mmMaxAge" 			column="mm_max_age" 			jdbcType="NUMERIC"  />
+		<result property="mmType" 			column="mm_type" 			jdbcType="VARCHAR"  />
+		
+	</resultMap>
+	
+	
+	<select id="getMoim" parameterType="int" resultMap="moimSelectMap">
+		SELECT
+			mm_no, mm_name, mm_content, mm_image, mm_max_count, mm_current_count, mm_constructor, mm_regdate,
+			mm_interest, mm_addr, mm_state, mm_min_age, mm_max_age, mm_type 		
+			FROM moim 
+		WHERE mm_no = #{mmNo}	
+	</select>
+	
+	
+	<insert id="addMoim"	parameterType="moim" >
+	 	INSERT
+		INTO moim(
+		mm_no, mm_name, mm_content, mm_image, mm_max_count, mm_current_count, mm_constructor, mm_regdate,
+		mm_interest, mm_addr, mm_state, mm_min_age, mm_max_age, mm_type 
+		) 
+		VALUES(moim_seq.nextval, #{mmName}, #{mmContent}, #{mmFile}, 
+		#{mmMaxCount}, 1, #{mmConstructor}, SYSDATE, #{mmInterest}, #{mmAddr}, #{mmState}, #{mmMinAge},               
+		#{mmMaxAge}, #{mmType}
+		)
+	 </insert>
+	 
+	 
+	 <update	id="updateMoim"	parameterType="moim" >
+	   	UPDATE moim
+	   	<set>
+	   		mm_name 	= #{mmName} ,
+			mm_content	= #{{mmContent},
+			mm_image = #{prodDetail} ,
+			mm_max_count = #{mmMaxCount},
+			mm_interest = #{mmInterest},
+			mm_addr = #{mmAddr},
+			mm_state = #{mmState},
+			mm_type = #{mmType}
+			
+	   	</set>
+	   	WHERE mm_no = #{mmNo}
+	 </update>
+	
+	
+	
+</mapper>
