@@ -1,29 +1,42 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<!DOCTYPE mapper
-		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+						"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.moopi.mvc.mapper.UserMapper">
  	
- 	
 	<resultMap id="userSelectMap" type="user">
-		<result property="userId" 			column="user_id" 			jdbcType="VARCHAR"/>
-		<result property="userName"	column="user_name" 		jdbcType="VARCHAR" />
-		<result property="password" 	column="password" 		jdbcType="VARCHAR" />
-		<result property="role" 				column="role" 					jdbcType="VARCHAR" />
-		<result property="ssn" 				column="ssn" 					jdbcType="VARCHAR" />
-		<result property="phone" 			column="cell_phone" 		jdbcType="VARCHAR" />
-		<result property="addr" 				column="addr" 					jdbcType="VARCHAR" />
-		<result property="email" 			column="email" 				jdbcType="NUMERIC"  />
-		<result property="regDate" 		column="reg_date" 			jdbcType="DATE" />
+		<result property="userId"			column="user_id"			jdbcType="VARCHAR"/>
+		<result property="password"			column="pwd"				jdbcType="VARCHAR"/>
+		<result property="userName"			column="user_name"			jdbcType="VARCHAR"/>
+		<result property="phone"			column="phone"				jdbcType="VARCHAR"/>
+		<result property="birth"			column="birth"				jdbcType="DATE"/>
+		<result property="age"				column="age"				jdbcType="NUMBER"/>
+		<result property="gender"			column="gender"				jdbcType="VARCHAR"/>
+		<result property="joinPath"			column="join_path"			jdbcType="CHAR"/>
+		<result property="regDate"			column="regdate"			jdbcType="DATE"/>
+		<result property="userRole"			column="user_Role"			jdbcType="VARCHAR"/>
+		<result property="fullAddr"			column="full_addr"			jdbcType="VARCHAR"/>
+		<result property="addr"				column="addr"				jdbcType="VARCHAR"/>
+		<result property="nickname"			column="nickname"			jdbcType="VARCHAR"/>
+		<result property="profileImage"		column="profile_image"		jdbcType="VARCHAR"/>
+		<result property="profileContent"	column="profile_content"	jdbcType="VARCHAR"/>
+		<result property="interestFirst"	column="intest_first"		jdbcType="NUMBER"/>
+		<result property="interestSecond"	column="intest_second"		jdbcType="NUMBER"/>
+		<result property="interestThird"	column="intest_third"		jdbcType="NUMBER"/>
+		<result property="myhomeState"		column="myhome_State"		jdbcType="CHAR"/>
+		<result property="stateReason"		column="state_reason"		jdbcType="VARCHAR"/>
+		<result property="stateRegdate"		column="state_regdate"		jdbcType="DATE"/>
+		<result property="coin"				column="coin"				jdbcType="NUMBER"/>
+		<result property="badge"			column="badge"				jdbcType="CHAR"/>
 	</resultMap>
 	
-	<select id="getUser" parameterType="string" resultMap="userSelectMap">
-		SELECT
-			user_id , user_name , password , role ,  cell_phone ,  addr , email , reg_date 		
-			FROM users 
-		WHERE user_id = #{userId}	
-	</select>
+	<insert id="addUser"	parameterType="user" >
+		INSERT 
+		INTO users( user_id, pwd, user_name, phone, birth, age, gender, join_path, regdate, user_Role, full_addr, addr, nickname )
+		VALUES ( #{user_id}, #{pwd}, #{user_name, #{phone}, #{birth}, #{age}, #{gender}, #{join_path}, #{regdate}, #{user_role}, #{full_addr}, #{addr}, #{nickname} );
+	 </insert>
 	
+	<select id="getUser"	parameterType="String"		resultMap="userSelectMap">
+	</select>
 </mapper>
