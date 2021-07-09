@@ -11,7 +11,7 @@
 		<result property="userName"			column="user_name"			jdbcType="VARCHAR"/>
 		<result property="phone"			column="phone"				jdbcType="VARCHAR"/>
 		<result property="birth"			column="birth"				jdbcType="DATE"/>
-		<result property="age"				column="age"				jdbcType="NUMBER"/>
+		<result property="age"				column="age"				jdbcType="INTEGER"/>
 		<result property="gender"			column="gender"				jdbcType="VARCHAR"/>
 		<result property="joinPath"			column="join_path"			jdbcType="CHAR"/>
 		<result property="regDate"			column="regdate"			jdbcType="DATE"/>
@@ -21,13 +21,13 @@
 		<result property="nickname"			column="nickname"			jdbcType="VARCHAR"/>
 		<result property="profileImage"		column="profile_image"		jdbcType="VARCHAR"/>
 		<result property="profileContent"	column="profile_content"	jdbcType="VARCHAR"/>
-		<result property="interestFirst"	column="intest_first"		jdbcType="NUMBER"/>
-		<result property="interestSecond"	column="intest_second"		jdbcType="NUMBER"/>
-		<result property="interestThird"	column="intest_third"		jdbcType="NUMBER"/>
+		<result property="interestFirst"	column="intest_first"		jdbcType="INTEGER"/>
+		<result property="interestSecond"	column="intest_second"		jdbcType="INTEGER"/>
+		<result property="interestThird"	column="intest_third"		jdbcType="INTEGER"/>
 		<result property="myhomeState"		column="myhome_State"		jdbcType="CHAR"/>
 		<result property="stateReason"		column="state_reason"		jdbcType="VARCHAR"/>
 		<result property="stateRegdate"		column="state_regdate"		jdbcType="DATE"/>
-		<result property="coin"				column="coin"				jdbcType="NUMBER"/>
+		<result property="coin"				column="coin"				jdbcType="INTEGER"/>
 		<result property="badge"			column="badge"				jdbcType="CHAR"/>
 	</resultMap>
 	
@@ -40,7 +40,7 @@
 	<insert id="addUser"	parameterType="user" >
 		INSERT 
 		INTO users( user_id, pwd, user_name, phone, birth, age, gender, join_path, regdate, user_Role, full_addr, addr, nickname )
-		VALUES ( #{user_id}, #{pwd}, #{user_name, #{phone}, #{birth}, #{age}, #{gender}, #{join_path}, #{regdate}, #{user_role}, #{full_addr}, #{addr}, #{nickname} );
+		VALUES ( #{user_id}, #{pwd}, #{user_name}, #{phone}, #{birth}, #{age}, #{gender}, #{join_path}, #{regdate}, #{user_role}, #{full_addr}, #{addr}, #{nickname} );
 	 </insert>
 	
 	<select id="getUser"	parameterType="String"		resultMap="userSelectMap">

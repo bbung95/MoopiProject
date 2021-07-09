@@ -15,7 +15,7 @@ public class CommonApplicationTest {
 	private CommonServiceImpl commonService;
 	
 	
-	@Test
+	//@Test
 	public void addNoticeTest() {
 		
 		System.out.println("addNoticeTest :: ");
@@ -23,9 +23,9 @@ public class CommonApplicationTest {
 		notice.setNoticeNo(1);
 		notice.setNoticeContent("알림입니다");
 		notice.setNoticeState("1");
-		notice.setNoticeTarget(122);
+		notice.setNoticeTarget("122");
 		notice.setNoticeType("1");
-		notice.setToUserId("뻥뻥이");
+		notice.setToUserId("user01");
 		
 		commonService.addNotice(notice);
 		
@@ -36,15 +36,15 @@ public class CommonApplicationTest {
 
 	}
 	
-	//@Test
+	@Test
 	public void getNoticeTest() {
 		
 		System.out.println("getNoticeTest :: ");
 		Notice notice = commonService.getNotice(1);
 		System.out.println(notice);
 		
-		Assertions.assertEquals("1", notice.getNoticeNo());
-		Assertions.assertEquals("bbung", notice.getToUserId());
+		Assertions.assertEquals(1, notice.getNoticeNo());
+		Assertions.assertEquals("user01", notice.getToUserId());
 	}
 	
 	

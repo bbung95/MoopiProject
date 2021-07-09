@@ -8,21 +8,23 @@ import com.moopi.mvc.service.domain.Notice;
 
 @Service
 public class CommonServiceImpl {
-
+	
 	@Autowired
 	private CommonDaoImpl commonDao;
 	
-	public CommonServiceImpl() {
-	}
-	
-	public void addNotice(Notice noitce) {
+	public void addNotice(Notice notice) {
 		
-		commonDao.addNotice(noitce);
+		commonDao.addNotice(notice);
 	}
 	
 	public Notice getNotice(int noticeNo) {
 		
 		return commonDao.getNotice(noticeNo);
+	}
+	
+	public void deleteNotice(int noticeNo) {
+		
+		commonDao.deleteNotice(noticeNo);
 	}
 	
 

@@ -15,7 +15,7 @@ public class Notice {
 	private String noticeContent;
 	private String toUserId;
 	private Date noticeRegDate;
-	private Object noticeTarget;
+	private String noticeTarget;
 	private String noticeType;
 	private String noticeState;
 	
