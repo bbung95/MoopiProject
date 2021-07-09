@@ -21,9 +21,9 @@ public class MoimServiceImpl {
 	}
 	
 	
-//	public void addMoim(Moim moim) throws Exception {
-//		moimMapper.addMoim(moim);
-//	}
+	public void addMoim(Moim moim) throws Exception {
+		moimDao.addMoim(moim);
+	}
 
 //	public Map<String, Object> getMoimList(Search search) throws Exception {
 //		
@@ -38,8 +38,8 @@ public class MoimServiceImpl {
 //	}
 
 
-//	public void updateMoim(Moim moim) throws Exception {
-//		moimMapper.updateMoim(moim);
-//	}
+	public void updateMoim(Moim moim) throws Exception {
+		moimDao.updateMoim(moim);
+	}
 
 }

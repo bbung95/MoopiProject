@@ -11,10 +11,10 @@
 		<result property="mmNo" 			column="MM_NO" 		jdbcType="NUMERIC"/>
 		<result property="mmName"				column="MM_NAME" 		jdbcType="VARCHAR" />
 		<result property="mmContent" 			column="MM_CONTENT" 		jdbcType="VARCHAR" />
-		<!-- <result property="mmFile" 			column="mm_image" 			jdbcType="VARCHAR" /> -->
+		<result property="mmFile" 			column="mm_image" 			jdbcType="VARCHAR" /> 
 		<result property="mmMaxCount" 			column="MM_MAX_COUNT" 			jdbcType="NUMERIC" />
 		<result property="mmCurrentCount" 			column="MM_CURRENT_COUNT" 	jdbcType="NUMERIC" />
-		<!-- <result property="mmConstructor.userId" 			column="mm_constructor" 			jdbcType="VARCHAR" /> -->
+		<result property="mmConstructor" 			column="mm_constructor" 			jdbcType="VARCHAR" />
 		<result property="mmRegDate" 			column="MM_REGDATE" 			jdbcType="DATE"  />
 		<result property="mmInterest" 			column="MM_INTEREST" 		jdbcType="NUMERIC" />
 		<result property="mmAddr" 			column="MM_ADDR" 			jdbcType="VARCHAR"  />
@@ -25,6 +25,7 @@
 		
 	</resultMap>
 	
+	<!-- 
 	<select id="getMoim" parameterType="int" resultMap="moimSelectMap">
 		SELECT
 			MM_NO, MM_NAME, MM_CONTENT, MM_MAX_COUNT, MM_CURRENT_COUNT, MM_REGDATE,
@@ -32,49 +33,56 @@
 			FROM MOIM 
 		WHERE mm_no = #{mmNo}	
 	</select>
-	
-	<!-- 
-	<select id="getMoim" parameterType="int" resultMap="moimSelectMap">
-		SELECT
-			mm_no, mm_name, mm_content, mm_image, mm_max_count, mm_current_count, mm_constructor, mm_regdate,
-			mm_interest, mm_addr, mm_state, mm_min_age, mm_max_age, mm_type 		
-			FROM moim 
-		WHERE mm_no = #{mmNo}	
-	</select>
 	 -->
 
-	
-	
+	<select id="getMoim" parameterType="int" resultMap="moimSelectMap">
+		SELECT
+			MM_NO, MM_NAME, MM_CONTENT, MM_IMAGE, MM_MAX_COUNT, MM_CURRENT_COUNT, MM_CONSTRUCTOR, MM_REGDATE,
+			MM_INTEREST, MM_ADDR, MM_STATE, MM_MIN_AGE, MM_MAX_AGE, MM_TYPE 		
+			FROM MOIM 
+		WHERE MM_NO = #{mmNo}	
+	</select>
+<!-- 
+<insert id="addMoim"	parameterType="moim" >
+	 	INSERT
+		INTO MOIM(
+		MM_NO, MM_NAME, MM_CONTENT, MM_IMAGE, MM_MAX_COUNT, MM_CURRENT_COUNT, MM_CONSTRUCTOR, MM_REGDATE,
+		MM_INTEREST, MM_ADDR, MM_STATE, MM_MIN_AGE, MM_MAX_AGE, MM_TYPE 
+		) 
+		#{moim.mmNo}, #{moim.mmName}, #{moim.mmContent}, #{moim.mmFile}, 
+		#{moim.mmMaxCount}, '1', #{moim.mmConstructor}, now(), #{moim.mmInterest}, #{moim.mmAddr}, #{moim.mmState}, #{moim.mmMinAge},               
+		#{moim.mmMaxAge}, #{moim.mmType}
+		)
+	 </insert>
+ -->
 	<insert id="addMoim"	parameterType="moim" >
 	 	INSERT
-		INTO moim(
-		mm_no, mm_name, mm_content, mm_image, mm_max_count, mm_current_count, mm_constructor, mm_regdate,
-		mm_interest, mm_addr, mm_state, mm_min_age, mm_max_age, mm_type 
+		INTO MOIM(
+		MM_NO, MM_NAME, MM_CONTENT, MM_IMAGE, MM_MAX_COUNT, MM_CURRENT_COUNT, MM_CONSTRUCTOR, MM_REGDATE,
+		MM_INTEREST, MM_ADDR, MM_STATE, MM_MIN_AGE, MM_MAX_AGE, MM_TYPE 
 		) 
-		VALUES(moim_seq.nextval, #{mmName}, #{mmContent}, #{mmFile}, 
-		#{mmMaxCount}, 1, #{mmConstructor}, SYSDATE, #{mmInterest}, #{mmAddr}, #{mmState}, #{mmMinAge},               
+		#{mmNo}, #{mmName}, #{mmContent}, #{mmFile}, 
+		#{mmMaxCount}, '1', #{mmConstructor}, now(), #{mmInterest}, #{mmAddr}, #{mmState}, #{mmMinAge},               
 		#{mmMaxAge}, #{mmType}
 		)
 	 </insert>
 	
-	
-	 
-	 <!-- 
 	 <update	id="updateMoim"	parameterType="moim" >
-	   	UPDATE moim
+	   	UPDATE MOIM
 	   	<set>
-	   		mm_name 	= #{mmName} ,
-			mm_content	= #{{mmContent},
-			mm_image = #{prodDetail} ,
-			mm_max_count = #{mmMaxCount},
-			mm_interest = #{mmInterest},
-			mm_addr = #{mmAddr},
-			mm_state = #{mmState},
-			mm_type = #{mmType}
-			
+	   		MM_NAME 	= #{mmName} ,
+			MM_CONTENT	= #{mmContent},
+			MM_IMAGE = #{mmFile} ,
+			MM_MAX_COUNT = #{mmMaxCount},
+			MM_INTEREST = #{mmInterest},
+			MM_ADDR = #{mmAddr},
+			MM_STATE = #{mmState},
+			MM_TYPE = #{mmType},
+			MM_MIN_AGE = #{mmMinAge},
+			MM_MAX_AGE = #{mmMaxAge}
 	   	</set>
-	   	WHERE mm_no = #{mmNo}
+	   	WHERE MM_NO = #{mmNo}
 	 </update>
-	  -->
+	  
 	
 </mapper>
