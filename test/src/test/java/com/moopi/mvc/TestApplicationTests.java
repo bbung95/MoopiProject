@@ -22,12 +22,12 @@ class TestApplicationTests {
 	public void getUser() {
 		
 		System.out.println("Test getUser :::");
-		System.out.println(userService.getUser("user02"));
-		User user = userService.getUser("user02");
+		System.out.println(userService.getUser("user04"));
+		User user = userService.getUser("user04");
 		System.out.println(user);
 		
-		Assertions.assertEquals("user02", user.getUserId());
-		Assertions.assertEquals("2222", user.getPassword());
+		Assertions.assertEquals("user04", user.getUserId());
+		Assertions.assertEquals("박성", user.getUserName());
 	}
 	
 
