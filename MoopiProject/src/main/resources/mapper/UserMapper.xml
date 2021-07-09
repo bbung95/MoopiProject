@@ -1,12 +1,16 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<!-- <?xml version="1.0" encoding="UTF-8" ?>
 
-<!DOCTYPE mapper
-		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+						"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
+<<<<<<< HEAD
 <mapper namespace="com.moopi.mvc.service.flash.FlashDao">
  	
+=======
+<mapper namespace="com.moopi.mvc.service.payment.PaymentDao">
+>>>>>>> refs/remotes/origin/master
  	
+<<<<<<< HEAD
 	<resultMap id="flashSelectMap" type="flash">
 		<result property="flashNo" 			column="FLASH_NO" 			jdbcType="NUMERIC"/>
 		<result property="flashName"	column="FLASH_NAME" 		jdbcType="VARCHAR" />
@@ -22,13 +26,51 @@
 		<result property="flashInterest" 		column="FLASH_INTEREST" 			jdbcType="NUMERIC" />
 		<result property="flashMapX" 		column="FLASH_MAP_X" 			jdbcType="VARCHAR" />
 		<result property="flashMapY" 		column="FLASH_MAP_Y" 			jdbcType="VARCHAR" />
+=======
+	<resultMap id="userSelectMap" type="user">
+		<result property="userId"			column="USER_ID"			jdbcType="VARCHAR"/>
+		<result property="password"			column="PWD"				jdbcType="VARCHAR"/>
+		<result property="userName"			column="USER_NAME"			jdbcType="VARCHAR"/>
+		<result property="phone"			column="PHONE"				jdbcType="VARCHAR"/>
+		<result property="birth"			column="BIRTH"				jdbcType="DATE"/>
+		<result property="age"				column="AGE"				jdbcType="NUMBER"/>
+		<result property="gender"			column="GENDER"				jdbcType="VARCHAR"/>
+		<result property="joinPath"			column="JOIN_PATH"			jdbcType="CHAR"/>
+		<result property="regDate"			column="REGDATE"			jdbcType="DATE"/>
+		<result property="userRole"			column="USER_ROLE"			jdbcType="VARCHAR"/>
+		<result property="fullAddr"			column="FULL_ADDR"			jdbcType="VARCHAR"/>
+		<result property="addr"				column="ADDR"				jdbcType="VARCHAR"/>
+		<result property="nickname"			column="NICKNAME"			jdbcType="VARCHAR"/>
+		<result property="profileImage"		column="PROFILE_IMAGE"		jdbcType="VARCHAR"/>
+		<result property="profileContent"	column="PROFILE_CONTENT"	jdbcType="VARCHAR"/>
+		<result property="interestFirst"	column="INTEREST_FIRST"		jdbcType="NUMBER"/>
+		<result property="interestSecond"	column="INTEREST_SECONT"		jdbcType="NUMBER"/>
+		<result property="interestThird"	column="INTEREST_THIRD"		jdbcType="NUMBER"/>
+		<result property="myhomeState"		column="MYHOME_STATE"		jdbcType="CHAR"/>
+		<result property="stateReason"		column="STATE_REASON"		jdbcType="VARCHAR"/>
+		<result property="stateRegdate"		column="STATE_REGDATE"		jdbcType="DATE"/>
+		<result property="coin"				column="COIN"				jdbcType="NUMBER"/>
+		<result property="badge"			column="BADGE"				jdbcType="CHAR"/>
+>>>>>>> refs/remotes/origin/master
 	</resultMap>
 	
+<<<<<<< HEAD
 	<select id="getFlash" parameterType="int" resultMap="flashSelectMap">
+=======
+	<select id="findPayment" parameterType="int" resultMap="userSelectMap">
+>>>>>>> refs/remotes/origin/master
 		SELECT
 			flash_no , flash_name , flash_content , flash_file , flash_constructor , flash_regdate , flash_time , flash_current_count , flash_max_count , flash_addr , flash_state , flash_interest , flash_map_x , flash_map_y 		
 			FROM flash 
 		WHERE flash_no = #{flashNo}	
 	</select>
 	
-</mapper>
+	<insert id="addUser"	parameterType="user" >
+		INSERT 
+		INTO users( user_id, pwd, user_name, phone, birth, age, gender, join_path, regdate, user_Role, full_addr, addr, nickname )
+		VALUES ( #{user_id}, #{pwd}, #{user_name}, #{phone}, #{birth}, #{age}, #{gender}, #{join_path}, #{regdate}, #{user_role}, #{full_addr}, #{addr}, #{nickname} );
+	</insert>
+	
+	<select id="getUser"	parameterType="String"		resultMap="userSelectMap">
+	</select>
+</mapper> -->

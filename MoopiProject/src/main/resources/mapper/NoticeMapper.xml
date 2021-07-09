@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.moopi.mvc.service.common.CommonDao">
+ 	
+	<resultMap id="noticeSelectMap" type="notice">
+		<result property="noticeNo" 		column="notice_no" 			jdbcType="NUMERIC"/>
+		<result property="noticeContent"	column="notice_content" 	jdbcType="VARCHAR"/>
+		<result property="toUserId" 		column="TO_USER_ID" 		jdbcType="VARCHAR"/>
+		<result property="noticeTarget" 	column="notice_target" 		jdbcType="VARCHAR"/>
+		<result property="noticeType" 		column="category" 			jdbcType="VARCHAR"/>
+		<result property="noticeState" 		column="notice_state" 		jdbcType="CHAR"/>
+		<result property="noticeRegDate" 	column="notice_regdate" 	jdbcType="DATE"/>
+	</resultMap>
+	
+	<insert id="addNotice">
+		INSERT 
+		INTO notice(notice_no, to_user_id, notice_target, notice_content, notice_regdate, notice_state, category)
+		VALUES (#{noticeNo}, #{toUserId), #{noticeTarget}, #{noticeContent}, sysdate, #{noticeState}, #{noticeType})
+	</insert>
+	
+	<select id="getNotice" parameterType="int" resultMap="">
+		SELECT
+		*
+		FROM notice
+		WHERE notice_no in (#{noticeNo})
+	</select>
+	
+	<select id="getListNotice" parameterType="map" resultMap="">
+		SELECT
+		*
+		FROM ( SELECT
+				inner_table.* , ROWNUM AS row_seq
+				FROM (SELECT
+						*
+						FROM notice
+						WHERE to_user_id in (#{userId})
+						ORDER BY notice_regdate DESC) inner_table
+				WHERE ROWNUM &lt;= #{search.endRowNum} )
+		WHERE row_seq BETWEEN #{search.startRowNum} AND #{search.endRowNum}
+	</select>
+	
+	<delete id="deleteNotice" parameterType="int">
+		DELETE
+		FROM notice
+		WHERE notice_no in (#{noticeNo})
+	</delete>
+	
+	<select id="getTotalCount" parameterType="map" resultType="int">
+		SELECT COUNT(*)
+		FROM (SELECT
+				*
+				FROM notice
+				WHERE to_user_id in (#{user.userId}) 
+				)countTable
+	</select>
+	
+</mapper>
