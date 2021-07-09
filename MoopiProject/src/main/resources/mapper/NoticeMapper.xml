@@ -5,31 +5,39 @@
 		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.moopi.mvc.service.common.CommonDao">
+<mapper namespace="com.moopi.mvc.service.common.CommonDaoImpl">
  	
 	<resultMap id="noticeSelectMap" type="notice">
+		<result property="noticeNo" 		column="NOTICE_NO" 			jdbcType="NUMERIC"/>
+		<result property="noticeContent"	column="NOTICE_CONTENT" 	jdbcType="VARCHAR"/>
+		<result property="toUserId" 		column="NOTICE_TO_USER_ID" 	jdbcType="VARCHAR"/>
+		<result property="noticeTarget" 	column="NOTICE_TARGER" 		jdbcType="VARCHAR"/>
+		<result property="noticeType" 		column="CATEGORY" 			jdbcType="VARCHAR"/>
+		<result property="noticeState" 		column="NOTICE_STATE" 		jdbcType="CHAR"/>
+		<result property="noticeRegDate" 	column="NOTICE_REGDATE" 	jdbcType="DATE"/>
 		<result property="noticeNo" 		column="notice_no" 			jdbcType="NUMERIC"/>
 		<result property="noticeContent"	column="notice_content" 	jdbcType="VARCHAR"/>
-		<result property="toUserId" 		column="to_user_id" 		jdbcType="VARCHAR"/>
+		<result property="toUserId" 		column="TO_USER_ID" 		jdbcType="VARCHAR"/>
 		<result property="noticeTarget" 	column="notice_target" 		jdbcType="VARCHAR"/>
 		<result property="noticeType" 		column="category" 			jdbcType="VARCHAR"/>
 		<result property="noticeState" 		column="notice_state" 		jdbcType="CHAR"/>
 		<result property="noticeRegDate" 	column="notice_regdate" 	jdbcType="DATE"/>
 	</resultMap>
 	
-	<insert id="addNotice">
+	<insert id="addNotice" parameterType="Notice">
 		INSERT 
-		INTO notice(notice_no, to_user_id, notice_target, notice_content, notice_regdate, notice_state, category)
-		VALUES (#{noticeNo}, #{toUserId), #{noticeTarget}, #{noticeContent}, sysdate, #{noticeState}, #{noticeType})
+		INTO notice(NOTICE_NO, NOTICE_TO_USER_ID, NOTICE_TARGER, NOTICE_CONTENT, NOTICE_REGDATE, NOTICE_STATE, CATEGORY)
+		VALUES (#{notice.noticeNo}, #{notice.toUserId}, #{notice.noticeTarget}, #{notice.noticeContent}, now(), #{notice.noticeState}, #{notice.noticeType})
 	</insert>
 	
-	<select id="getNotice" parameterType="int" resultMap="">
+	<select id="getNotice" parameterType="int" resultMap="noticeSelectMap">
 		SELECT
 		*
 		FROM notice
 		WHERE notice_no in (#{noticeNo})
 	</select>
 	
+	<!-- 
 	<select id="getListNotice" parameterType="map" resultMap="">
 		SELECT
 		*
@@ -43,6 +51,7 @@
 				WHERE ROWNUM &lt;= #{search.endRowNum} )
 		WHERE row_seq BETWEEN #{search.startRowNum} AND #{search.endRowNum}
 	</select>
+	-->
 	
 	<delete id="deleteNotice" parameterType="int">
 		DELETE
@@ -50,6 +59,7 @@
 		WHERE notice_no in (#{noticeNo})
 	</delete>
 	
+	<!--
 	<select id="getTotalCount" parameterType="map" resultType="int">
 		SELECT COUNT(*)
 		FROM (SELECT
@@ -57,7 +67,7 @@
 				FROM notice
 				WHERE to_user_id in (#{user.userId}) 
 				)countTable
-	</select>
+	</select> -->
 	
 </mapper>
  -->
