@@ -1,8 +1,10 @@
-<!-- <?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
+
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 						"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <mapper namespace="com.moopi.mvc.service.flash.FlashDao">
  	
@@ -27,6 +29,12 @@
 		<result property="flashMapX" 		column="FLASH_MAP_X" 			jdbcType="VARCHAR" />
 		<result property="flashMapY" 		column="FLASH_MAP_Y" 			jdbcType="VARCHAR" />
 =======
+=======
+<mapper namespace="com.moopi.mvc.service.payment.PaymentDao">
+ 	<!-- 
+ 	
+ 	 
+>>>>>>> refs/heads/new/cyu
 	<resultMap id="userSelectMap" type="user">
 		<result property="userId"			column="user_id"			jdbcType="VARCHAR"/>
 		<result property="password"			column="pwd"				jdbcType="VARCHAR"/>
@@ -97,4 +105,8 @@
 	
 	<select id="getUser"	parameterType="String"		resultMap="userSelectMap">
 	</select>
-</mapper> -->
+-->
+</mapper>
+
+
+
