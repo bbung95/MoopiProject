@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<!-- <?xml version="1.0" encoding="UTF-8" ?>
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 						"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
@@ -29,6 +29,29 @@
 		<result property="stateRegdate"		column="state_regdate"		jdbcType="DATE"/>
 		<result property="coin"				column="coin"				jdbcType="INTEGER"/>
 		<result property="badge"			column="badge"				jdbcType="CHAR"/>
+		<result property="userId"			column="USER_ID"			jdbcType="VARCHAR"/>
+		<result property="password"			column="PWD"				jdbcType="VARCHAR"/>
+		<result property="userName"			column="USER_NAME"			jdbcType="VARCHAR"/>
+		<result property="phone"			column="PHONE"				jdbcType="VARCHAR"/>
+		<result property="birth"			column="BIRTH"				jdbcType="DATE"/>
+		<result property="age"				column="AGE"				jdbcType="NUMBER"/>
+		<result property="gender"			column="GENDER"				jdbcType="VARCHAR"/>
+		<result property="joinPath"			column="JOIN_PATH"			jdbcType="CHAR"/>
+		<result property="regDate"			column="REGDATE"			jdbcType="DATE"/>
+		<result property="userRole"			column="USER_ROLE"			jdbcType="VARCHAR"/>
+		<result property="fullAddr"			column="FULL_ADDR"			jdbcType="VARCHAR"/>
+		<result property="addr"				column="ADDR"				jdbcType="VARCHAR"/>
+		<result property="nickname"			column="NICKNAME"			jdbcType="VARCHAR"/>
+		<result property="profileImage"		column="PROFILE_IMAGE"		jdbcType="VARCHAR"/>
+		<result property="profileContent"	column="PROFILE_CONTENT"	jdbcType="VARCHAR"/>
+		<result property="interestFirst"	column="INTEREST_FIRST"		jdbcType="NUMBER"/>
+		<result property="interestSecond"	column="INTEREST_SECONT"		jdbcType="NUMBER"/>
+		<result property="interestThird"	column="INTEREST_THIRD"		jdbcType="NUMBER"/>
+		<result property="myhomeState"		column="MYHOME_STATE"		jdbcType="CHAR"/>
+		<result property="stateReason"		column="STATE_REASON"		jdbcType="VARCHAR"/>
+		<result property="stateRegdate"		column="STATE_REGDATE"		jdbcType="DATE"/>
+		<result property="coin"				column="COIN"				jdbcType="NUMBER"/>
+		<result property="badge"			column="BADGE"				jdbcType="CHAR"/>
 	</resultMap>
 	
 	<select id="findPayment" parameterType="int" resultMap="userSelectMap">
@@ -37,12 +60,14 @@
 			FROM users 
 		WHERE user_id = #{userId}	
 	</select>
+	
 	<insert id="addUser"	parameterType="user" >
 		INSERT 
 		INTO users( user_id, pwd, user_name, phone, birth, age, gender, join_path, regdate, user_Role, full_addr, addr, nickname )
 		VALUES ( #{user_id}, #{pwd}, #{user_name}, #{phone}, #{birth}, #{age}, #{gender}, #{join_path}, #{regdate}, #{user_role}, #{full_addr}, #{addr}, #{nickname} );
 	 </insert>
+	</insert>
 	
 	<select id="getUser"	parameterType="String"		resultMap="userSelectMap">
 	</select>
-</mapper>
+</mapper> -->
