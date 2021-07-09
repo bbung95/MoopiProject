@@ -4,8 +4,7 @@
 		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.moopi.mvc.mapper.UserMapper">
- 	
+<mapper namespace="com.moopi.mvc.service.payment.PaymentDao">
  	
 	<resultMap id="userSelectMap" type="user">
 		<result property="userId" 			column="user_id" 			jdbcType="VARCHAR"/>
@@ -19,7 +18,7 @@
 		<result property="regDate" 		column="reg_date" 			jdbcType="DATE" />
 	</resultMap>
 	
-	<select id="getUser" parameterType="string" resultMap="userSelectMap">
+	<select id="findPayment" parameterType="int" resultMap="userSelectMap">
 		SELECT
 			user_id , user_name , password , role ,  cell_phone ,  addr , email , reg_date 		
 			FROM users 

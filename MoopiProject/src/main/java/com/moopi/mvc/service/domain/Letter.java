@@ -9,7 +9,6 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-
 public class Letter {
 
 	private int letterNo;
