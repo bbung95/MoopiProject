@@ -9,7 +9,7 @@
 	<resultMap id="noticeSelectMap" type="notice">
 		<result property="noticeNo" 		column="notice_no" 			jdbcType="NUMERIC"/>
 		<result property="noticeContent"	column="notice_content" 	jdbcType="VARCHAR"/>
-		<result property="toUserId" 		column="to_user_id" 		jdbcType="VARCHAR"/>
+		<result property="toUserId" 		column="TO_USER_ID" 		jdbcType="VARCHAR"/>
 		<result property="noticeTarget" 	column="notice_target" 		jdbcType="VARCHAR"/>
 		<result property="noticeType" 		column="category" 			jdbcType="VARCHAR"/>
 		<result property="noticeState" 		column="notice_state" 		jdbcType="CHAR"/>
