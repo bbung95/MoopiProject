@@ -11,12 +11,11 @@ import org.springframework.stereotype.Service;
 import com.moopi.mvc.common.Search;
 import com.moopi.mvc.service.domain.Flash;
 import com.moopi.mvc.service.flash.FlashDao;
-import com.moopi.mvc.service.flash.FlashService;
 
-//@Service("flashServiceImpl")
-public class FlashServiceImpl implements FlashService {
+@Service
+public class FlashServiceImpl {
 
-	// @Autowired
+	@Autowired
 	// @Qualifier("flashDaoImpl")
 	private FlashDao flashDao;
 
@@ -25,31 +24,30 @@ public class FlashServiceImpl implements FlashService {
 		System.out.println(this.getClass());
 	}
 
-	@Override
+	
 	public void addFlash(Flash flash) throws Exception {
 		flashDao.insertFlash(flash);
 	}
 
-	@Override
 	public Flash getFlash(int flashNo) throws Exception {
 
-		return flashDao.findFlash(flashNo);
+		return flashDao.getFlash(flashNo);
 	}
 
-	@Override
-	public Map<String, Object> getFlashList(Search search) throws Exception {
+	
+//	public Map<String, Object> getFlashList(Map map) throws Exception {
+//
+//		List<Flash> list = flashDao.getFlashList(map);
+//		int totalCount = flashDao.getTotalCount(search);
+//
+//		Map<String, Object> map = new HashMap<String, Object>();
+//		map.put("list", list);
+//		map.put("totalCount", totalCount);
+//
+//		return map;
+//	}
 
-		List<Flash> list = flashDao.getFlashList(search);
-		int totalCount = flashDao.getTotalCount(search);
-
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("list", list);
-		map.put("totalCount", totalCount);
-
-		return map;
-	}
-
-	@Override
+	
 	public void updateFlash(Flash flash) throws Exception {
 		flashDao.updateFlash(flash);
 
