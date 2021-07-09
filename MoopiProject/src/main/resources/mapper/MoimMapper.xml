@@ -8,28 +8,28 @@
 <mapper namespace="com.moopi.mvc.service.moim.MoimDao">   	
  	
 	<resultMap id="moimSelectMap" type="moim">
-		<result property="mmNo" 			column="mm_no" 		jdbcType="NUMERIC"/>
-		<result property="mmName"				column="mm_name" 		jdbcType="VARCHAR" />
-		<result property="mmContent" 			column="mm_content" 		jdbcType="VARCHAR" />
+		<result property="mmNo" 			column="MM_NO" 		jdbcType="NUMERIC"/>
+		<result property="mmName"				column="MM_NAME" 		jdbcType="VARCHAR" />
+		<result property="mmContent" 			column="MM_CONTENT" 		jdbcType="VARCHAR" />
 		<!-- <result property="mmFile" 			column="mm_image" 			jdbcType="VARCHAR" /> -->
-		<result property="mmMaxCount" 			column="mm_max_count" 			jdbcType="NUMERIC" />
-		<result property="mmCurrentCount" 			column="mm_current_count" 	jdbcType="NUMERIC" />
+		<result property="mmMaxCount" 			column="MM_MAX_COUNT" 			jdbcType="NUMERIC" />
+		<result property="mmCurrentCount" 			column="MM_CURRENT_COUNT" 	jdbcType="NUMERIC" />
 		<!-- <result property="mmConstructor.userId" 			column="mm_constructor" 			jdbcType="VARCHAR" /> -->
-		<result property="mmRegDate" 			column="mm_regdate" 			jdbcType="DATE"  />
-		<result property="mmInterest" 			column="mm_interest" 		jdbcType="NUMERIC" />
-		<result property="mmAddr" 			column="mm_addr" 			jdbcType="VARCHAR"  />
-		<result property="mmState" 			column="mm_state" 			jdbcType="VARCHAR"  />
-		<result property="mmMinAge" 			column="mm_min_age" 			jdbcType="NUMERIC"  />
-		<result property="mmMaxAge" 			column="mm_max_age" 			jdbcType="NUMERIC"  />
-		<result property="mmType" 			column="mm_type" 			jdbcType="VARCHAR"  />
+		<result property="mmRegDate" 			column="MM_REGDATE" 			jdbcType="DATE"  />
+		<result property="mmInterest" 			column="MM_INTEREST" 		jdbcType="NUMERIC" />
+		<result property="mmAddr" 			column="MM_ADDR" 			jdbcType="VARCHAR"  />
+		<result property="mmState" 			column="MM_STATE" 			jdbcType="VARCHAR"  />
+		<result property="mmMinAge" 			column="MM_MIN_AGE" 			jdbcType="NUMERIC"  />
+		<result property="mmMaxAge" 			column="MM_MAX_AGE" 			jdbcType="NUMERIC"  />
+		<result property="mmType" 			column="MM_TYPE" 			jdbcType="VARCHAR"  />
 		
 	</resultMap>
 	
 	<select id="getMoim" parameterType="int" resultMap="moimSelectMap">
 		SELECT
-			mm_no, mm_name, mm_content, mm_max_count, mm_current_count, mm_regdate,
-			mm_interest, mm_addr, mm_state, mm_min_age, mm_max_age, mm_type 		
-			FROM moim 
+			MM_NO, MM_NAME, MM_CONTENT, MM_MAX_COUNT, MM_CURRENT_COUNT, MM_REGDATE,
+			MM_INTEREST, MM_ADDR, MM_STATE, MM_MIN_AGE, MM_MAX_AGE, MM_TYPE 		
+			FROM MOIM 
 		WHERE mm_no = #{mmNo}	
 	</select>
 	

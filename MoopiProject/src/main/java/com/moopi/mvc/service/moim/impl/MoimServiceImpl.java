@@ -1,33 +1,29 @@
 package com.moopi.mvc.service.moim.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 //import com.moopi.mvc.common.Search;
-import com.moopi.mvc.service.moim.MoimDao;
 import com.moopi.mvc.service.domain.Moim;
+import com.moopi.mvc.service.moim.MoimDao;
 
 
 @Service
 public class MoimServiceImpl {
 
-	public MoimServiceImpl() {
-	}
-
 	@Autowired
 	private MoimDao moimDao;
 	
-
-//	public void addMoim(Moim moim) throws Exception {
-//		moimMapper.addMoim(moim);
-//	}
-
-
 	public Moim getMoim(int mmNo) {
 		System.out.println("모임서비스임플 시작");
 		return moimDao.getMoim(mmNo);
 	}
-
+	
+	
+//	public void addMoim(Moim moim) throws Exception {
+//		moimMapper.addMoim(moim);
+//	}
 
 //	public Map<String, Object> getMoimList(Search search) throws Exception {
 //		
