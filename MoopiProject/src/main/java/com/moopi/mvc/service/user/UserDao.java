@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.moopi.mvc.service.domain.User;
 
-@Mapper
+//@Mapper
 public interface UserDao {
 	
 	// 회원가입
