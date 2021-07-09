@@ -17,10 +17,6 @@ public class MoimController {
 	private MoimServiceImpl moimService;
 
 	
-	public MoimController() {
-		// TODO Auto-generated constructor stub
-	}
-	
 	@RequestMapping("getMoim")
 	public String getMoim(@RequestParam("mmNo") int mmNo, Model model) throws Exception{
 		
