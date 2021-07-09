@@ -20,12 +20,12 @@ import com.moopi.mvc.common.Search;
 import com.moopi.mvc.service.board.BoardService;
 import com.moopi.mvc.service.domain.Board;
 
-@Controller
-@RequestMapping("/board/*")
+//@Controller
+//@RequestMapping("/board/*")
 public class BoardController {
 	
-	@Autowired
-	@Qualifier("boardServiceImpl")
+//	@Autowired
+//	@Qualifier("boardServiceImpl")
 	private BoardService boardService;
 	
 	public BoardController() {
