@@ -5,16 +5,16 @@
 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <!--<mapper namespace="com.moopi.mvc.mapper.MoimMapper">-->
-<mapper namespace="com.moopi.mvc.service.moim.MoimMapper">   	
+<mapper namespace="com.moopi.mvc.service.moim.MoimDao">   	
  	
 	<resultMap id="moimSelectMap" type="moim">
 		<result property="mmNo" 			column="mm_no" 		jdbcType="NUMERIC"/>
 		<result property="mmName"				column="mm_name" 		jdbcType="VARCHAR" />
 		<result property="mmContent" 			column="mm_content" 		jdbcType="VARCHAR" />
-		<result property="mmFile" 			column="mm_image" 			jdbcType="VARCHAR" />
+		<!-- <result property="mmFile" 			column="mm_image" 			jdbcType="VARCHAR" /> -->
 		<result property="mmMaxCount" 			column="mm_max_count" 			jdbcType="NUMERIC" />
 		<result property="mmCurrentCount" 			column="mm_current_count" 	jdbcType="NUMERIC" />
-		<result property="mmConstructor.userId" 			column="mm_constructor" 			jdbcType="VARCHAR" />
+		<!-- <result property="mmConstructor.userId" 			column="mm_constructor" 			jdbcType="VARCHAR" /> -->
 		<result property="mmRegDate" 			column="mm_regdate" 			jdbcType="DATE"  />
 		<result property="mmInterest" 			column="mm_interest" 		jdbcType="NUMERIC" />
 		<result property="mmAddr" 			column="mm_addr" 			jdbcType="VARCHAR"  />
@@ -25,7 +25,15 @@
 		
 	</resultMap>
 	
+	<select id="getMoim" parameterType="int" resultMap="moimSelectMap">
+		SELECT
+			mm_no, mm_name, mm_content, mm_max_count, mm_current_count, mm_regdate,
+			mm_interest, mm_addr, mm_state, mm_min_age, mm_max_age, mm_type 		
+			FROM moim 
+		WHERE mm_no = #{mmNo}	
+	</select>
 	
+	<!-- 
 	<select id="getMoim" parameterType="int" resultMap="moimSelectMap">
 		SELECT
 			mm_no, mm_name, mm_content, mm_image, mm_max_count, mm_current_count, mm_constructor, mm_regdate,
@@ -33,8 +41,10 @@
 			FROM moim 
 		WHERE mm_no = #{mmNo}	
 	</select>
+	 -->
+
 	
-	
+	<!-- 
 	<insert id="addMoim"	parameterType="moim" >
 	 	INSERT
 		INTO moim(
@@ -46,8 +56,10 @@
 		#{mmMaxAge}, #{mmType}
 		)
 	 </insert>
+	 -->
+	
 	 
-	 
+	 <!-- 
 	 <update	id="updateMoim"	parameterType="moim" >
 	   	UPDATE moim
 	   	<set>
@@ -63,7 +75,6 @@
 	   	</set>
 	   	WHERE mm_no = #{mmNo}
 	 </update>
-	
-	
+	  -->
 	
 </mapper>

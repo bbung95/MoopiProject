@@ -3,16 +3,19 @@ package com.moopi.mvc.service.moim.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.moopi.mvc.common.Search;
-import com.moopi.mvc.service.moim.MoimMapper;
+//import com.moopi.mvc.common.Search;
+import com.moopi.mvc.service.moim.MoimDao;
 import com.moopi.mvc.service.domain.Moim;
 
 
 @Service
 public class MoimServiceImpl {
 
+	public MoimServiceImpl() {
+	}
+
 	@Autowired
-	private MoimMapper moimMapper;
+	private MoimDao moimDao;
 	
 
 //	public void addMoim(Moim moim) throws Exception {
@@ -22,7 +25,7 @@ public class MoimServiceImpl {
 
 	public Moim getMoim(int mmNo) {
 		System.out.println("모임서비스임플 시작");
-		return moimMapper.getMoim(mmNo);
+		return moimDao.getMoim(mmNo);
 	}
 
 

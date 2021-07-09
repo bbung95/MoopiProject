@@ -10,7 +10,6 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-
 public class Flash {
 
 	private int flashNo;			//번개무피 넘버

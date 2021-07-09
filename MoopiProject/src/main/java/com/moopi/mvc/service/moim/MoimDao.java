@@ -1,15 +1,14 @@
 package com.moopi.mvc.service.moim;
 
-import java.util.List;
-
+//import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import com.moopi.mvc.common.Search;
+//import com.moopi.mvc.common.Search;
 import com.moopi.mvc.service.domain.Moim;
 
 @Mapper
-public interface MoimMapper {
+public interface MoimDao {
 
 	//public void addMoim(Moim moim) throws Exception;
 	
