@@ -13,6 +13,10 @@ configurations {
 	compileOnly {
 		extendsFrom annotationProcessor
 	}
+	
+	all {
+      exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+    }
 }
 
 repositories {
@@ -32,6 +36,7 @@ dependencies {
 	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
 	implementation 'javax.servlet:jstl'
 	implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.23'
+	implementation 'org.springframework.boot:spring-boot-starter-log4j2'
 	
 	
 }
