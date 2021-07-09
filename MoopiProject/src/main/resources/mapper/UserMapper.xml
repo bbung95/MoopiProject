@@ -37,11 +37,12 @@
 			FROM users 
 		WHERE user_id = #{userId}	
 	</select>
+	
 	<insert id="addUser"	parameterType="user" >
 		INSERT 
 		INTO users( user_id, pwd, user_name, phone, birth, age, gender, join_path, regdate, user_Role, full_addr, addr, nickname )
 		VALUES ( #{user_id}, #{pwd}, #{user_name, #{phone}, #{birth}, #{age}, #{gender}, #{join_path}, #{regdate}, #{user_role}, #{full_addr}, #{addr}, #{nickname} );
-	 </insert>
+	</insert>
 	
 	<select id="getUser"	parameterType="String"		resultMap="userSelectMap">
 	</select>
