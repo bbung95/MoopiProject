@@ -9,7 +9,6 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-
 public class User {
 	
 	// 회원가입

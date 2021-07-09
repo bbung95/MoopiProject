@@ -2,6 +2,13 @@ package com.moopi.mvc.service.domain;
 
 import java.util.Date;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+@Setter
+@Getter
+@ToString
 public class Member {
 
 	private int memberNo; //모임무피 회원 No
@@ -18,92 +25,4 @@ public class Member {
 		
 	}
 
-
-	public int getMemberNo() {
-		return memberNo;
-	}
-
-
-	public void setMemberNo(int memberNo) {
-		this.memberNo = memberNo;
-	}
-
-
-	public User getMmUser() {
-		return mmUser;
-	}
-
-
-	public void setMmUser(User mmUser) {
-		this.mmUser = mmUser;
-	}
-
-
-	public int getMmNo() {
-		return mmNo;
-	}
-
-
-	public void setMmNo(int mmNo) {
-		this.mmNo = mmNo;
-	}
-
-
-	public int getMemberRole() {
-		return memberRole;
-	}
-
-
-	public void setMemberRole(int memberRole) {
-		this.memberRole = memberRole;
-	}
-
-
-	public int getWriteCount() {
-		return writeCount;
-	}
-
-
-	public void setWriteCount(int writeCount) {
-		this.writeCount = writeCount;
-	}
-
-
-	public int getReplyCount() {
-		return replyCount;
-	}
-
-
-	public void setReplyCount(int replyCount) {
-		this.replyCount = replyCount;
-	}
-
-
-	public int getMtCount() {
-		return mtCount;
-	}
-
-
-	public void setMtCount(int mtCount) {
-		this.mtCount = mtCount;
-	}
-
-
-	public Date getMemberRegDate() {
-		return memberRegDate;
-	}
-
-
-	public void setMemberRegDate(Date memberRegDate) {
-		this.memberRegDate = memberRegDate;
-	}
-
-
-	@Override
-	public String toString() {
-		return "MoimMember [memberNo=" + memberNo + ", mmUser=" + mmUser + ", mmNo=" + mmNo + ", memberRole="
-				+ memberRole + ", writeCount=" + writeCount + ", replyCount=" + replyCount + ", mtCount=" + mtCount
-				+ ", memberRegDate=" + memberRegDate + "]";
-	}
-	
 }
