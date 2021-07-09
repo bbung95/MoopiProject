@@ -17,8 +17,7 @@ import com.moopi.mvc.service.domain.Board;
 //@Service("boardServiceImpl")
 public class BoardServiceImpl implements BoardService {
 
-	@Autowired
-	@Qualifier("boardDaoImpl")
+//	@Autowired
 	private BoardDao boardDao;
 	
 	public void setBoardDao(BoardDao boardDao) {
