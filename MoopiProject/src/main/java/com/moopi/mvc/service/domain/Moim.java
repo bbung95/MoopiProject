@@ -28,7 +28,6 @@ public class Moim {
 	private int mmType;  //모임무피 가입유형 (1일반 2자유)
 	
 	public Moim() {
-			
 	}
 
 }

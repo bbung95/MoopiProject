@@ -13,9 +13,9 @@ public interface BoardDao {
 	
 	public List<Board> getBoardList(Search search) throws Exception ;
 
-	public Board findBoard(int prodNo) throws Exception;
+	public Board getBoard(int boardNo) throws Exception;
 	
-	public void updateBoard(Board product) throws Exception;
+	public void updateBoard(Board board) throws Exception;
 	
 	public int getTotalCount(Search search) throws Exception ;
 	 
