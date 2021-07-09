@@ -11,7 +11,7 @@ import lombok.ToString;
 @ToString
 public class Report {
 	
-	private int reportNo;
+	private int 	reportNo;
 	private String	reportCategory;
 	private String	targetName;
 	private String	reportTarget;

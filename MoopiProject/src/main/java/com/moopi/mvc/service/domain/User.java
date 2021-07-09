@@ -1,6 +1,6 @@
 package com.moopi.mvc.service.domain;
 
-import java.sql.Date;
+import java.util.Date;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -21,9 +21,9 @@ public class User {
 	private String gender;				// 성별 - 남, 녀
 	private String phone;				// 모바일번호
 	private String nickname;			// 회원 닉네임
-	private int birth1;					// 생년월일 - 년
-	private int birth2;					// 생년월일 - 월
-	private int birth3;					// 생년월일 - 일
+//	private int birth1;					// 생년월일 - 년
+//	private int birth2;					// 생년월일 - 월
+//	private int birth3;					// 생년월일 - 일
 	private int age;					// 나이
 	private String fullAddr;			// 전체 주소지
 	private String addr;				// 일부 주소지 (구)
@@ -48,4 +48,5 @@ public class User {
 	// Constructor
 	public User() {
 	}
+
 }

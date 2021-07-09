@@ -1,4 +1,4 @@
-//package com.moopi.mvc.service.letter.impl;
+//package com.moopi.mvc.service.payment.impl;
 //
 //import java.util.List;
 //
@@ -8,11 +8,11 @@
 //import org.springframework.stereotype.Service;
 //
 //import com.moopi.mvc.common.Search;
-//import com.moopi.mvc.service.domain.Letter;
-//import com.moopi.mvc.service.letter.LetterDao;
+//import com.moopi.mvc.service.domain.Payment;
+//import com.moopi.mvc.service.payment.PaymentDao;
 //
-//@Service("letterDaoImpl")
-//public class LetterDaoImpl implements LetterDao{
+//@Service("paymentDaoImpl")
+//public class PaymentDaoService implements PaymentDao{
 //
 //	@Autowired
 //	@Qualifier("sqlSessionTemplate")
@@ -23,30 +23,30 @@
 //	}
 //	
 //	//Constructor
-//	public LetterDaoImpl() {
+//	public PaymentDaoService() {
 //		System.out.println(this.getClass());
 //	}
 //
 //	@Override
-//	public void insertLetter(Letter letter) throws Exception {
+//	public void insertPayment(Payment payment) throws Exception {
 //		// TODO Auto-generated method stub
 //		
 //	}
 //
 //	@Override
-//	public List<Letter> getLetterList(Search search) throws Exception {
+//	public List<Payment> getPaymentList(Search search) throws Exception {
 //		// TODO Auto-generated method stub
 //		return null;
 //	}
 //
 //	@Override
-//	public Letter findLetter(int letterNo) throws Exception {
+//	public Payment findPayment(int paymentNo) throws Exception {
 //		// TODO Auto-generated method stub
 //		return null;
 //	}
 //
 //	@Override
-//	public void updateLetter(Letter letter) throws Exception {
+//	public void updatePayment(Payment payment) throws Exception {
 //		// TODO Auto-generated method stub
 //		
 //	}
