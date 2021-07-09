@@ -44,7 +44,7 @@
 	 -->
 
 	
-	<!-- 
+	
 	<insert id="addMoim"	parameterType="moim" >
 	 	INSERT
 		INTO moim(
@@ -56,7 +56,7 @@
 		#{mmMaxAge}, #{mmType}
 		)
 	 </insert>
-	 -->
+	
 	
 	 
 	 <!-- 
