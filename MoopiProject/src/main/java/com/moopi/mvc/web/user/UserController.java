@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 package com.moopi.mvc.web.user;
 
 import java.util.List;
@@ -73,7 +72,7 @@ public class UserController {
 //	public int getTotalCount(Search search) throws Exception;
 
 }
-=======
+
 //package com.moopi.mvc.web.user;
 //
 //import java.util.List;
@@ -149,4 +148,4 @@ public class UserController {
 ////	public int getTotalCount(Search search) throws Exception;
 //
 //}
->>>>>>> refs/remotes/origin/master
+
