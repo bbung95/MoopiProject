@@ -12,15 +12,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.moopi.mvc.service.domain.User;
-import com.moopi.mvc.service.user.UserService;
 
-@Controller
-@RequestMapping("/user/*")
+//@Controller
+//@RequestMapping("/user/*")
 public class UserController {
 
-	@Autowired
-	@Qualifier("userServiceImpl")
-	private UserService userService;
+	//@Autowired
+	//@Qualifier("userServiceImpl")
+	//private UserServiceImpl userService;
 
 	public UserController() {
 		System.out.println(this.getClass());
