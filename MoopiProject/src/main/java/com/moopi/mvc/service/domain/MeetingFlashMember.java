@@ -2,6 +2,13 @@ package com.moopi.mvc.service.domain;
 
 import java.util.Date;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+@Setter
+@Getter
+@ToString
 public class MeetingFlashMember {
 
 	
@@ -16,61 +23,4 @@ public class MeetingFlashMember {
 		
 	}
 
-	public int getMeflNo() {
-		return meflNo;
-	}
-
-	public void setMeflNo(int meflNo) {
-		this.meflNo = meflNo;
-	}
-
-	public String getMeflId() {
-		return meflId;
-	}
-
-	public void setMeflId(String meflId) {
-		this.meflId = meflId;
-	}
-
-	public int getTargetNo() {
-		return targetNo;
-	}
-
-	public void setTargetNo(int targetNo) {
-		this.targetNo = targetNo;
-	}
-
-	public Date getJoinRegDate() {
-		return joinRegDate;
-	}
-
-	public void setJoinRegDate(Date joinRegDate) {
-		this.joinRegDate = joinRegDate;
-	}
-
-	public int getJoinState() {
-		return joinState;
-	}
-
-	public void setJoinState(int joinState) {
-		this.joinState = joinState;
-	}
-
-	public int getMeflType() {
-		return meflType;
-	}
-
-	public void setMeflType(int meflType) {
-		this.meflType = meflType;
-	}
-
-	@Override
-	public String toString() {
-		return "MeetingFlashMember [meflNo=" + meflNo + ", meflId=" + meflId + ", targetNo=" + targetNo
-				+ ", joinRegDate=" + joinRegDate + ", joinState=" + joinState + ", meflType=" + meflType + "]";
-	}
-	
-	
-	
-	
 }

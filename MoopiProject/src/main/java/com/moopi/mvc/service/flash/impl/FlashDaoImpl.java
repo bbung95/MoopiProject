@@ -1,4 +1,4 @@
-//package com.moopi.mvc.service.letter.impl;
+//package com.moopi.mvc.service.flash.impl;
 //
 //import java.util.List;
 //
@@ -8,11 +8,11 @@
 //import org.springframework.stereotype.Service;
 //
 //import com.moopi.mvc.common.Search;
-//import com.moopi.mvc.service.domain.Letter;
-//import com.moopi.mvc.service.letter.LetterDao;
+//import com.moopi.mvc.service.domain.Flash;
+//import com.moopi.mvc.service.flash.FlashDao;
 //
-//@Service("letterDaoImpl")
-//public class LetterDaoImpl implements LetterDao{
+//@Service("flashDaoImpl")
+//public class FlashDaoImpl implements FlashDao {
 //
 //	@Autowired
 //	@Qualifier("sqlSessionTemplate")
@@ -21,39 +21,39 @@
 //	public void setSqlSession(SqlSession sqlSession) {
 //		this.sqlSession = sqlSession;
 //	}
-//	
-//	//Constructor
-//	public LetterDaoImpl() {
+//
+//	// Constructor
+//	public FlashDaoImpl() {
 //		System.out.println(this.getClass());
 //	}
 //
 //	@Override
-//	public void insertLetter(Letter letter) throws Exception {
-//		// TODO Auto-generated method stub
-//		
+//	public void insertFlash(Flash flash) throws Exception {
+//		//sqlSession.insert();
+//
 //	}
 //
 //	@Override
-//	public List<Letter> getLetterList(Search search) throws Exception {
-//		// TODO Auto-generated method stub
+//	public List<Flash> getFlashList(Search search) throws Exception {
+//		//return sqlSession.selectList(null);
 //		return null;
 //	}
 //
 //	@Override
-//	public Letter findLetter(int letterNo) throws Exception {
-//		// TODO Auto-generated method stub
+//	public Flash findFlash(int flashNo) throws Exception {
+//		//return sqlSession.selectOne(null);
 //		return null;
 //	}
 //
 //	@Override
-//	public void updateLetter(Letter letter) throws Exception {
-//		// TODO Auto-generated method stub
-//		
+//	public void updateFlash(Flash flash) throws Exception {
+//		//sqlSession.update(null);
+//
 //	}
 //
 //	@Override
 //	public int getTotalCount(Search search) throws Exception {
-//		// TODO Auto-generated method stub
+//		//return sqlSession.selectOne(null);
 //		return 0;
 //	}
 //
