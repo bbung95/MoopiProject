@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--<mapper namespace="com.moopi.mvc.mapper.MoimMapper">-->
+<mapper namespace="com.moopi.mvc.service.meeting.MeetingDao">   	
+ 	
+	<resultMap id="meetingSelectMap" type="meeting">
+		<result property="mtNo" 			column="MT_NO" 		jdbcType="NUMERIC"/>
+		<result property="mmNo"				column="MM_NO" 		jdbcType="NUMERIC" />
+		<result property="mtName" 			column="MT_NAME" 		jdbcType="VARCHAR" />
+		<result property="mtContent" 			column="MT_CONTENT" 			jdbcType="VARCHAR" /> 
+		<result property="mtStart" 			column="MT_START_DATE" 			jdbcType="DATE" />
+		<result property="mtEnd" 			column="MT_END_DATE" 	jdbcType="DATE" />
+		<result property="mtRegDate" 			column="MT_REGDATE" 			jdbcType="DATE" />
+		<result property="mtMaxCount" 			column="MT_MAX_COUNT" 			jdbcType="NUMERIC"  />
+		<result property="mtCurrentCount" 			column="MT_CURRENT_COUNT" 		jdbcType="NUMERIC" />
+		<result property="mtConstructor" 			column="MT_CONSTRUCTOR" 			jdbcType="VARCHAR"  />
+		<result property="mtAddr" 			column="MT_ADDR" 			jdbcType="VARCHAR"  />
+		<result property="mtState" 			column="MT_STATE" 			jdbcType="NUMERIC"  />
+		<result property="mtMapX" 			column="MT_MAP_X" 			jdbcType="NUMERIC"  />
+		<result property="mtMapY" 			column="MT_MAP_Y" 			jdbcType="NUMERIC"  />
+		
+	</resultMap>
+
+	<select id="getMeeting" parameterType="int" resultMap="meetingSelectMap">
+		SELECT
+			MT_NO, MM_NO, MT_NAME, MT_CONTENT, MT_START_DATE, MT_END_DATE, MT_REGDATE, MT_MAX_COUNT, MT_CURRENT_COUNT, 
+			MT_CONSTRUCTOR, MT_ADDR, MT_STATE, MT_MAP_X, MT_MAP_Y		
+			FROM MEETING
+		WHERE MT_NO = #{mtNo}	
+	</select>
+
+
+	<insert id="addMeeting"	parameterType="meeting" >
+	 	INSERT
+		INTO MEETING(
+		MT_NO, MM_NO, MT_NAME, MT_CONTENT, MT_START_DATE, MT_END_DATE, MT_REGDATE, MT_MAX_COUNT, MT_CURRENT_COUNT, 
+		MT_CONSTRUCTOR, MT_ADDR, MT_STATE, MT_MAP_X, MT_MAP_Y
+		)
+		VALUES( 
+		#{mtNo}, #{mmNo}, #{mtName}, #{mtContent}, 
+		#{mtStart}, #{mtEnd}, now(), #{mtMaxCount}, #{mtCurrentCount}, #{mtConstructor}, #{mtAddr},               
+		#{mtState}, #{mtMapX}, #{mtMapY}
+		)
+	 </insert>
+
+	 <update	id="updateMeeting"	parameterType="meeting" >
+	   	UPDATE MEETING
+	   	<set>
+	   		MT_NAME 	= #{mtName} ,
+			MT_CONTENT	= #{mtContent},
+			MT_MAX_COUNT = #{mtMaxCount},
+			MT_ADDR = #{mtAddr},
+			MT_STATE = #{mtState},
+	   	</set>
+	   	WHERE MT_NO = #{mtNo}
+	 </update>
+	  
+  	
+	<select  id="getMeetingList"  parameterType="int"	resultMap="meetingSelectMap">
+		SELECT
+		MT_NO, MM_NO, MT_NAME, MT_CONTENT, MT_START_DATE, MT_END_DATE, MT_REGDATE, MT_MAX_COUNT, MT_CURRENT_COUNT, 
+		MT_CONSTRUCTOR, MT_ADDR, MT_STATE, MT_MAP_X, MT_MAP_Y		
+		FROM MEETING
+		<where>
+		mm_no = #{mmNo}
+		</where>	
+	 </select>
+	
+
+<!--  
+	<select  id="getTotalCount"  parameterType="search"	 resultType="int">
+	  	select count(*)
+			from meeting
+			<if test="searchCondition != null">
+			<where>
+			<if test="searchCondition == 1 and searchKeyword !='' ">
+			mm_interest = #{searchKeyword}
+			</if>
+			<if test="searchCondition == 2 and searchKeyword !='' ">
+			mm_addr = #{searchKeyword}
+			</if>
+			</where>
+			</if> 					
+	 </select>
+-->
+
+</mapper>

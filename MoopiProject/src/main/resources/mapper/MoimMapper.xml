@@ -24,16 +24,6 @@
 		<result property="mmType" 			column="MM_TYPE" 			jdbcType="VARCHAR"  />
 		
 	</resultMap>
-	
-	<!-- 
-	<select id="getMoim" parameterType="int" resultMap="moimSelectMap">
-		SELECT
-			MM_NO, MM_NAME, MM_CONTENT, MM_MAX_COUNT, MM_CURRENT_COUNT, MM_REGDATE,
-			MM_INTEREST, MM_ADDR, MM_STATE, MM_MIN_AGE, MM_MAX_AGE, MM_TYPE 		
-			FROM MOIM 
-		WHERE mm_no = #{mmNo}	
-	</select>
-	 -->
 
 	<select id="getMoim" parameterType="int" resultMap="moimSelectMap">
 		SELECT
@@ -42,25 +32,14 @@
 			FROM MOIM 
 		WHERE MM_NO = #{mmNo}	
 	</select>
-<!-- 
-<insert id="addMoim"	parameterType="moim" >
-	 	INSERT
-		INTO MOIM(
-		MM_NO, MM_NAME, MM_CONTENT, MM_IMAGE, MM_MAX_COUNT, MM_CURRENT_COUNT, MM_CONSTRUCTOR, MM_REGDATE,
-		MM_INTEREST, MM_ADDR, MM_STATE, MM_MIN_AGE, MM_MAX_AGE, MM_TYPE 
-		) 
-		#{moim.mmNo}, #{moim.mmName}, #{moim.mmContent}, #{moim.mmFile}, 
-		#{moim.mmMaxCount}, '1', #{moim.mmConstructor}, now(), #{moim.mmInterest}, #{moim.mmAddr}, #{moim.mmState}, #{moim.mmMinAge},               
-		#{moim.mmMaxAge}, #{moim.mmType}
-		)
-	 </insert>
- -->
+
 	<insert id="addMoim"	parameterType="moim" >
 	 	INSERT
 		INTO MOIM(
 		MM_NO, MM_NAME, MM_CONTENT, MM_IMAGE, MM_MAX_COUNT, MM_CURRENT_COUNT, MM_CONSTRUCTOR, MM_REGDATE,
 		MM_INTEREST, MM_ADDR, MM_STATE, MM_MIN_AGE, MM_MAX_AGE, MM_TYPE 
-		) 
+		)
+		VALUES( 
 		#{mmNo}, #{mmName}, #{mmContent}, #{mmFile}, 
 		#{mmMaxCount}, '1', #{mmConstructor}, now(), #{mmInterest}, #{mmAddr}, #{mmState}, #{mmMinAge},               
 		#{mmMaxAge}, #{mmType}
@@ -84,5 +63,38 @@
 	   	WHERE MM_NO = #{mmNo}
 	 </update>
 	  
+	
+	<select  id="getMoimList"  parameterType="search"	resultMap="moimSelectMap">
+		SELECT
+		MM_NO, MM_NAME, MM_CONTENT, MM_IMAGE, MM_MAX_COUNT, MM_CURRENT_COUNT, MM_CONSTRUCTOR, MM_REGDATE,
+		MM_INTEREST, MM_ADDR, MM_STATE, MM_MIN_AGE, MM_MAX_AGE, MM_TYPE 		
+		FROM MOIM 
+		<if test="searchCondition != null">
+		<where>
+		<if test="searchCondition == 1 and searchKeyword !='' ">
+		mm_interest = #{searchKeyword}
+		</if>
+		<if test="searchCondition == 2 and searchKeyword !='' ">
+		mm_addr = #{searchKeyword}
+		</if>
+		</where>
+		</if> 	  	
+	 </select>
+	
+	<select  id="getTotalCount"  parameterType="search"	 resultType="int">
+	  	select count(*)
+			from moim
+			<if test="searchCondition != null">
+			<where>
+			<if test="searchCondition == 1 and searchKeyword !='' ">
+			mm_interest = #{searchKeyword}
+			</if>
+			<if test="searchCondition == 2 and searchKeyword !='' ">
+			mm_addr = #{searchKeyword}
+			</if>
+			</where>
+			</if> 					
+	 </select>
+
 	
 </mapper>
