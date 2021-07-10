@@ -30,22 +30,22 @@ public class FlashServiceImpl {
 	}
 
 	public Flash getFlash(int flashNo) throws Exception {
-
+		System.out.println("플래시 서비스임플 시작");
 		return flashDao.getFlash(flashNo);
 	}
 
 	
-//	public Map<String, Object> getFlashList(Map map) throws Exception {
-//
-//		List<Flash> list = flashDao.getFlashList(map);
-//		int totalCount = flashDao.getTotalCount(search);
-//
-//		Map<String, Object> map = new HashMap<String, Object>();
-//		map.put("list", list);
-//		map.put("totalCount", totalCount);
-//
-//		return map;
-//	}
+	public Map<String, Object> getFlashList(Search search) throws Exception {
+
+		List<Flash> list = flashDao.getFlashList(search);
+		int totalCount = flashDao.getTotalCount(search);
+
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		map.put("totalCount", totalCount);
+
+		return map;
+	}
 
 	
 	public void updateFlash(Flash flash) throws Exception {
