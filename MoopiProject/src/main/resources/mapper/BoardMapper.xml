@@ -104,7 +104,7 @@
                     BD.BD_NO ASC) inner_table,
                     (select @rownum := 0) as R
                     )tables
-				WHERE rnum between 4 and 5
+				WHERE rnum between #{map.search.startRowNum} and #{map.search.endRowNum}
 		
 		
 	</select>
