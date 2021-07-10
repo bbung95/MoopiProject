@@ -66,25 +66,25 @@ public class BoardTest {
 //		Assertions.assertEquals("공지내용1", board.getBoardContent());
 	}
 	
-//	@Test
-//	public void addBoard() {
-//		
-//		
-//		user.setUserId("user03");
-//		
-//		board.setBoardWriter(user);
-//		board.setBoardName("새로운질문!");
-//		board.setBoardContent("질문합니다");
-//		board.setBoardCategory("2");
-//		board.setBoardPassword(null);
+	@Test
+	public void addBoard() {
+		
+		
+		user.setUserId("user03");
+		
+		board.setBoardWriter(user);
+		board.setBoardName("새로운질문!");
+		board.setBoardContent("질문합니다");
+		board.setBoardCategory("2");
+		board.setBoardPassword(null);
 ////		board.setBoardMoimNo(null);
-//		System.out.println(board);
-//		
-//		boardService.addBoard(board);
-//		Assertions.assertEquals("새로운질문!", board.getBoardName());
-//		Assertions.assertEquals("공지내용1", board.getBoardContent());
-//		
-//	}
+		System.out.println(board);
+		
+		boardService.addBoard(board);
+		Assertions.assertEquals("새로운질문!", board.getBoardName());
+		Assertions.assertEquals("공지내용1", board.getBoardContent());
+		
+	}
 	
 	
 	
