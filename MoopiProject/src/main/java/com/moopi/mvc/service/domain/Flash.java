@@ -15,13 +15,14 @@ public class Flash {
 	private int flashNo;			//번개무피 넘버
 	private String flashName;		//번개무피 
 	private String flashContent;	//번개무피 소개글
-	private File flashFile;			//번개무피 이미지
-	private User flashConstructor;	//번개무피 생성자
+	private String flashFile;			//번개무피 이미지
+	private String flashConstructor;	//번개무피 생성자
+//	private User flashConstructor;	//번개무피 생성자
 	private Date flashRegdate;		//번개무피 생성일
 	private Date flashTime;			//번개무피 만남시간
 	private int flashCurrentCount;	//번개무피 현재인원
 	private int flashMaxCount;		//번개무피 최대인원
-	private String addr;			//번개무피 장소
+	private String flashAddr;		//번개무피 장소
 	private int flashState;			//번개무피 상태
 	private int flashInterest;		//번개무피 관심사
 	private int flashMapX;			//번개무피 좌표X
