@@ -21,5 +21,9 @@ public interface MoimDao {
 	
 	public void updateMoim(Moim moim) throws Exception;
 	
+	
+	
+	
+	
 	public int getTotalCount(Search search) throws Exception;
 }
