@@ -18,7 +18,7 @@ public class Meeting {
 	private String mtRegDate; //정모 등록시간
 	private int mtMaxCount; //정모 최대 참가인원
 	private int mtCurrentCount; //정모 현재 참가인원
-	private String mtConstructor; //정모 주최자
+	private User mtConstructor; //정모 주최자
 	private String mtAddr; //정모장소
 	private int mtState; //정모 상태(1.모집중 2.모집마감 3.삭제)
 	private int mtMapX; //지도 X축
