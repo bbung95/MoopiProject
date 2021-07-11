@@ -17,12 +17,12 @@ public class MeetingTest {
 	@Autowired
 	private MeetingServiceImpl meetingService;
 	
-//	@Test
-//	public void getMeeting() throws Exception {
-//		System.out.println("Test GetMeeting:::");
-//		Meeting meeting = meetingService.getMeeting(1004);
-//		System.out.println(meeting);
-//	}
+	@Test
+	public void getMeeting() throws Exception {
+		System.out.println("Test GetMeeting:::");
+		Meeting meeting = meetingService.getMeeting(1001);
+		System.out.println(meeting);
+	}
 	
 //	@Test
 //	public void addMeeting() throws Exception{
@@ -54,10 +54,10 @@ public class MeetingTest {
 //		meetingService.updateMeeting(meeting);
 //	}
 	
-	@Test
-	public void getMeetingList() throws Exception {
-		System.out.println("getMeetingList STart:::");
-		System.out.println(meetingService.getMeetingList(3));
-	}
+//	@Test
+//	public void getMeetingList() throws Exception {
+//		System.out.println("getMeetingList STart:::");
+//		System.out.println(meetingService.getMeetingList(3));
+//	}
 	
 }
