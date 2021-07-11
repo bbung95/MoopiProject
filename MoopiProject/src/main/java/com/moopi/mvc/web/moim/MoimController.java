@@ -25,7 +25,7 @@ public class MoimController {
 	@RequestMapping("getMoim")
 	public String getMoim(@RequestParam("mmNo") int mmNo, Model model) throws Exception{
 		
-		System.out.println("getUser :::");
+		System.out.println("getMoim :::");
 //		System.out.println(userId);
 //		System.out.println(userMapper.getUser(userId));
 		Moim moim = moimService.getMoim(mmNo);
