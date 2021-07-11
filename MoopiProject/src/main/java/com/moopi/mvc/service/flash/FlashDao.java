@@ -15,7 +15,7 @@ public interface FlashDao {
 	public void insertFlash(@Param("flash") Flash flash);
 	//public void insertFlash(Flash flash) throws Exception;
 	
-	public List<Flash> getFlashList(@Param("map") Map map) ;
+	public List<Flash> getFlashList(@Param("search") Search search);
 	//public List<Flash> getFlashList(Map map) throws Exception; 
 	
 	public Flash getFlash(@Param("flashNo") int flashNo);
