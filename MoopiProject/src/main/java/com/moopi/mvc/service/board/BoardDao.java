@@ -1,23 +1,28 @@
 package com.moopi.mvc.service.board;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.moopi.mvc.common.Search;
 import com.moopi.mvc.service.domain.Board;
  
-
+@Mapper
 public interface BoardDao {
 
 	
-	public void insertBoard(Board board) throws Exception;
+	public void addBoard(@Param("board") Board board);
 	
-	public List<Board> getBoardList(Search search) throws Exception ;
+	public List<Board> getBoardList(@Param("map")HashMap map);
 
-	public Board getBoard(int boardNo) throws Exception;
+	public Board getMoopiBoard(@Param("boardNo")int boardNo);
 	
-	public void updateBoard(Board board) throws Exception;
+	public void updateBoard(@Param("board") Board board);
 	
-	public int getTotalCount(Search search) throws Exception ;
+	public int getTotalCount(@Param("map")Map map);
 	 
 		
 		
