@@ -26,8 +26,8 @@ public class MoimTest {
 		Moim moim = moimService.getMoim(1);
 		System.out.println(moim);
 		
-		Assertions.assertEquals("미사리조기축구회", moim.getMmName());
-		Assertions.assertEquals("공찹니다", moim.getMmContent());	
+		Assertions.assertEquals("복실이야구단", moim.getMmName());
+		Assertions.assertEquals("순수혈통 복실이", moim.getMmContent());	
 	}
 	
 //	@Test
@@ -67,23 +67,23 @@ public class MoimTest {
 //   }
 	
 	
-	@Test
-	public void getMoimList() throws Exception{
-		
-		System.out.println("겟모임리스트~~ 테스트~~");
-		Search search = new Search();
-		search.setSearchCondition(1);
-		search.setSearchKeyword("2");
-		Map map = moimService.getMoimList(search);
-		System.out.println("인터레스트가 2인 모임의 리스트 : "+map.get("list"));
-		System.out.println("인터레스트가 2인 모임의 개수"+map.get("totalCount"));	
-		
-//		search.setSearchCondition(2);
-//		search.setSearchKeyword("중구");
+//	@Test
+//	public void getMoimList() throws Exception{
+//		
+//		System.out.println("겟모임리스트~~ 테스트~~");
+//		Search search = new Search();
+//		search.setSearchCondition(1);
+//		search.setSearchKeyword("2");
 //		Map map = moimService.getMoimList(search);
-//		System.out.println("거주지가 중구인 모임의 리스트 : "+map.get("list"));
-//		System.out.println("거주지가 중구인 모임의 개수"+map.get("totalCount"));
-	}
+//		System.out.println("인터레스트가 2인 모임의 리스트 : "+map.get("list"));
+//		System.out.println("인터레스트가 2인 모임의 개수"+map.get("totalCount"));	
+//		
+////		search.setSearchCondition(2);
+////		search.setSearchKeyword("중구");
+////		Map map = moimService.getMoimList(search);
+////		System.out.println("거주지가 중구인 모임의 리스트 : "+map.get("list"));
+////		System.out.println("거주지가 중구인 모임의 개수"+map.get("totalCount"));
+//	}
 
 //	@Test
 //	public void getTotalCount() throws Exception{
