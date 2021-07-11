@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.moopi.mvc.common.Search;
+import com.moopi.mvc.service.domain.Member;
 import com.moopi.mvc.service.domain.Moim;
 import com.moopi.mvc.service.moim.MoimDao;
 
@@ -45,9 +46,33 @@ public class MoimServiceImpl {
 		moimDao.updateMoim(moim);
 	}
 	
-	//테스트만하고 겟리스트로 편입
+	//테스트만하고 겟리스트로 편입 될 것임
 //	public int getTotalCount(Search search) throws Exception{
 //		return moimDao.getTotalCount(search);
 //	}
+	
+	
+	public void applyMoim(String userId, int mmNo) throws Exception {
+		moimDao.applyMoim(userId, mmNo);
+	}
+	
+	public void leaveMoim(String userId, int mmNo) throws Exception {
+		moimDao.leaveMoim(userId, mmNo);
+	}
+	
+	public void updateMemeber(String userId, int mmNo,
+							int status) throws Exception {
+		moimDao.updateMember(userId, mmNo, status);
+	}
+	
+	public Map<String, Object> getMemberList(int mmNo) throws Exception {
+		List<Member> list = moimDao.getMemberList(mmNo);
+		int totalCount = moimDao.getTotalCountMember(mmNo);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("totalCount", totalCount);
+		map.put("list", list);
+		return map;
+	}
+	
 
 }

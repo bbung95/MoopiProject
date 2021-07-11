@@ -18,17 +18,46 @@ public class MoimTest {
 	private MoimServiceImpl moimService;
 
 	
-	@Test
-	public void getMoim() {
-		
-		System.out.println("Test getMoim :::");
-		System.out.println(moimService.getMoim(1));
-		Moim moim = moimService.getMoim(1);
-		System.out.println(moim);
-		
-		Assertions.assertEquals("복실이야구단", moim.getMmName());
-		Assertions.assertEquals("순수혈통 복실이", moim.getMmContent());	
-	}
+	
+//	@Test
+//	public void applyMoim() throws Exception{
+//		System.out.println("Test getApply:::");
+//		moimService.applyMoim("user04", 1);
+//	}
+	
+	
+//	@Test
+//	public void leaveMoim() throws Exception {
+//		System.out.println("Test leaveMoim:::");
+//		moimService.leaveMoim("user04", 1);
+//	}
+	
+//	@Test
+//	public void updateMember() throws Exception {
+//		System.out.println("Test updateMember:::");
+//		moimService.updateMemeber("user03", 1, 1);
+//	}
+	
+//	@Test
+//	public void getMemberList() throws Exception {
+//		System.out.println("Test getMemberList");
+//		Map map = moimService.getMemberList(2);
+//		System.out.println(map.get("list"));
+//		System.out.println("모임가입된총원 : "+map.get("totalCount"));
+//	}
+	
+	
+//	@Test
+//	public void getMoim() {
+//		
+//		System.out.println("Test getMoim :::");
+//		System.out.println(moimService.getMoim(1));
+//		Moim moim = moimService.getMoim(1);
+//		System.out.println(moim);
+//		
+//		Assertions.assertEquals("복실이야구단", moim.getMmName());
+//		Assertions.assertEquals("순수혈통 복실이", moim.getMmContent());	
+//	}
 	
 //	@Test
 //	public void updateMoim() throws Exception{
