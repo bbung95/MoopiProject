@@ -22,7 +22,7 @@ public class BoardServiceImpl {
 	
 	public void addBoard(Board board)  {
 		
-		boardDao.addBoard(board);
+	boardDao.addBoard(board);
 
 	}
 
