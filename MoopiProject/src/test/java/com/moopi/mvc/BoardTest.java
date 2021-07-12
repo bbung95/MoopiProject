@@ -1,5 +1,6 @@
 package com.moopi.mvc;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -69,20 +70,22 @@ public class BoardTest {
 	@Test
 	public void getBoard() {
 	
-		
-		
+			
 		int boardNo = 4;
 		System.out.println("Test getBoard :::");
 		
-		Map map = new HashMap();
 		
 		board = boardService.getBoard(boardNo);
-		map  = replyService.getReplyList(boardNo);
+		
+		
+		
+		Map map = new HashMap<String, Object>(); 
+		map = replyService.getReplyList(boardNo);
 		
 		System.out.println(board);
 		System.out.println("--------------------");
 		System.out.println(map);
-//		boardService.addBoard(board);
+		boardService.addBoard(board);
 //		Assertions.assertEquals("새로운질문!", board.getBoardName());
 //		Assertions.assertEquals("공지내용1", board.getBoardContent());
 		
