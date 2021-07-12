@@ -43,8 +43,14 @@
 	
 	<insert id="addUser"	parameterType="user" >
 		INSERT 
-		INTO users( user_id, pwd, user_name, phone, birth, age, gender, join_path, regdate, user_Role, full_addr, addr, nickname )
-		VALUES ( #{user_id}, #{pwd}, #{user_name}, #{phone}, #{birth}, #{age}, #{gender}, #{join_path}, #{regdate}, #{user_role}, #{full_addr}, #{addr}, #{nickname} );
+		INTO users( USER_ID, PWD, USER_NAME, PHONE, BIRTH, AGE, GENDER, JOIN_PATH, REGDATE, USER_ROLE, FULL_ADDR, ADDR, NICKNAME )
+		VALUES ( #{userId}, #{password}, #{userName}, #{phone}, #{birth}, #{age}, #{gender}, #{joinPath}, #{regDate}, #{userRole}, #{fullAddr}, #{addr}, #{nickname} );
 	</insert>
+	
+	<select id="getUser"	parameterType="String" resultMap="userSelectMap">
+		SELECT USER_ID, PWD, USER_NAME, PHONE, BIRTH, AGE, GENDER, JOIN_PATH, REGDATE, USER_ROLE, FULL_ADDR, ADDR, NICKNAME 
+		FROM users 
+		WHERE USER_ID = #{userId}
+	</select>
 	
 </mapper>
