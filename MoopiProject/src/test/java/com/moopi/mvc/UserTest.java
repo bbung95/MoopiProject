@@ -1,10 +1,13 @@
 package com.moopi.mvc;
 
+import java.util.Map;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.moopi.mvc.common.Search;
 import com.moopi.mvc.service.domain.User;
 import com.moopi.mvc.service.user.impl.UserServiceImpl;
 
@@ -43,7 +46,7 @@ public class UserTest {
 		
 	}
 	
-	@Test
+	//@Test
 	public void getUser() throws Exception{
 	      
 		System.out.println("1. UserTest.java_____getUser Test Start");
@@ -59,28 +62,34 @@ public class UserTest {
 	//@Test
 	public void updateUser() throws Exception{
 		
-		System.out.println("updateUser 시작");
-		System.out.println("수정 전 User : "+userService.getUser("ouneno"));
+		System.out.println("1. updateUser 시작");
 		
 		User user = userService.getUser("ouneno");
-		user.setUserName("박율아");
-		System.out.println(user);
 		
-		Assertions.assertEquals("박율아", user.getUserName());
+		user.setPhone("01086238243");
+		user.setPassword("8243");
+		
+		userService.updateUser(user);
+		System.out.println("여기확인 : "+user);
+		
+		Assertions.assertEquals("01086238243", user.getPhone());
+		Assertions.assertEquals("8243", user.getPassword());
 		
 	}
-//	@Test
-//	public void updateMoim() throws Exception{
-//		
-//		System.out.println("Test updateMoim :::");
-//		System.out.println("수정전 모임 : "+moimService.getMoim(1));
-//		Moim moim = moimService.getMoim(1);
-//		moim.setMmAddr("중랑구");
-//		moim.setMmMaxAge(96);
-//		moimService.updateMoim(moim);
-//		System.out.println(moim);
-//		Assertions.assertEquals("중랑구", moim.getMmAddr());
-//		Assertions.assertEquals(96, moim.getMmMaxAge());
-//	}
+	@Test
+	public void getUserList() throws Exception{
+		
+		System.out.println("UserTest :: getUserList 테스트 시작");
+		
+		Search search = new Search();
+		search.setSearchCondition(1);
+		search.setSearchKeyword("2");
+		
+		Map map = userService.getUserList(search);
+		
+		//System.out.println("유저 리스트 출력 : "+map.get("list"));
+		//System.out.println("유저 수 출력 : "+map.get("totalCount"));
+		
+	}
 
 }
