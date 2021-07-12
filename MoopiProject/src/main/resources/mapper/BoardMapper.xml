@@ -27,25 +27,6 @@
 		</association>		
 	</resultMap>	
 	
-<!-- 	<resultMap id="QnABoardSelectMap" type="board"> -->
-<!-- 		<result property="boardNo" 			column="BD_NO" 			jdbcType="NUMERIC"/> -->
-<!-- 		<result property="boardCategory"	column="BD_CATEGORY" 	jdbcType="CHAR" /> -->
-<!-- 		<result property="boardName" 		column="BD_NAME" 		jdbcType="VARCHAR" />  -->
-<!-- 		<result property="boardContent" 	column="BD_CONTENT" 	jdbcType="VARCHAR" /> -->
-<!-- 		<result property="boardRegDate" 	column="BD_REGDATE" 	jdbcType="DATE" /> -->
-<!-- 		<result property="boardUpdate" 		column="BD_UPDATE" 		jdbcType="DATE"  /> -->
-<!-- 		<result property="boardState" 		column="BD_STATE" 		jdbcType="CHAR" /> -->
-<!-- 		<result property="boardPassword" 	column="BD_PASSWORD" 	jdbcType="VARCHAR"  /> -->
-<!-- 		<result property="boardMoimNo" 		column="BD_MM_NO" 		jdbcType="NUMERIC"  /> -->
-<!-- 		<result property="boardLike" 		column="LIKE" 			jdbcType="NUMERIC"  /> -->
-<!-- 		<association property="boardWriter"  javaType="user"> -->
-<!-- 			<id property="userId" 				column="USER_ID" 			jdbcType="VARCHAR "/> -->
-<!-- 			<result property="profileImage"		column="PROFILE_IMAGE"		jdbcType="VARCHAR"/> -->
-<!-- 			<result property="nickname"			column="NICKNAME"			jdbcType="VARCHAR"/> -->
-<!-- 		</association>		 -->
-		
-<!-- 	</resultMap> -->
-<!-- 	게시글리스트 완료 수정 xxx -->
 	<select id="getBoardList" parameterType="map" resultMap="boardSelectMap">
 	SELECT
 	*
@@ -110,7 +91,7 @@
 	</select>
 	
 <!-- 게시글 조회  -->
-	<select id="getMoopiBoard" parameterType="int" resultMap="boardSelectMap">
+	<select id="getBoard" parameterType="int" resultMap="boardSelectMap">
 		SELECT 
 		  BD.BD_NO
 		, BD.BD_NAME
