@@ -28,6 +28,8 @@
 		  , R.REPLY_FILE
 		  , R.REPLY_REGDATE
 		  , R.REPLY_STATE
+		  , R.REPLY_NO
+		  , U.USER_ID
 		  , U.NICKNAME
 		  , U.PROFILE_IMAGE
 		FROM
@@ -40,4 +42,37 @@
 		AND
 			R.BD_NO = #{boardNo}
 	</select>
+	
+	<select id="getReply" parameterType="int" resultMap="replySelectMap" >
+
+		SELECT 
+			REPLY_NO
+		  , REPLY_CONTENT
+		  , REPLY_FILE
+		  , REPLY_STATE
+		FROM 
+			REPLY
+		WHERE
+			REPLY_NO = #{replyNo}
+	</select>
+	
+	<select id="updateReply" parameterType="reply" >
+
+	UPDATE 
+	REPLY SET 
+	  REPLY_CONTENT = #{reply.replyContent}
+    , REPLY_FILE = #{reply.replyFile}
+    WHERE 
+      REPLY_NO = #{reply.replyNo}
+	</select>
+	
+	<select id="deleteReply" parameterType="reply" >
+
+	UPDATE 
+	REPLY SET 
+	  REPLY_STATE = #{reply.replyState
+	WHERE
+	  REPLY_NO = #{reply.replyNo}
+	</select>
+	
 </mapper>
