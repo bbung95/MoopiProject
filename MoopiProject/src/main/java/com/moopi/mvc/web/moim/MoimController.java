@@ -25,7 +25,7 @@ public class MoimController {
 	@RequestMapping("getMoim")
 	public String getMoim(@RequestParam("mmNo") int mmNo, Model model) throws Exception{
 		
-		System.out.println("getUser :::");
+		System.out.println("getMoim :::");
 //		System.out.println(userId);
 //		System.out.println(userMapper.getUser(userId));
 		Moim moim = moimService.getMoim(mmNo);
@@ -79,4 +79,43 @@ public class MoimController {
 		model.addAttribute("search", search);
 		return "forward:모임리스트페이지로이동";
 	}
+	
+	//모임 가입신청하기
+	@RequestMapping("applyMoim")
+	public String applyMoim(@RequestParam("userId") String userId,
+	@RequestParam("mmNo") int mmNo) throws Exception {
+		System.out.println("모임 가입신청을 합니다.");
+		moimService.applyMoim(userId, mmNo);
+		return "forward:모임상세조회페이지";
+	}
+	
+	//모임 탈퇴하기
+	@RequestMapping("leaveMoim")
+	public String leaveMoim(@RequestParam("userId") String userId,
+	@RequestParam("mmNo") int mmNo) throws Exception {
+		System.out.println("모임 가입탈퇴를 합니다.");
+		moimService.leaveMoim(userId, mmNo);
+		return "forward:모임상세조회페이지";
+	}
+	
+	//멤버 권한변경(가입신청수락, 매니저권한위임및박탈)
+	@RequestMapping("updateMember")
+	public String updateMember(@RequestParam("userId") String userId,
+	@RequestParam("mmNo") int mmNo,
+	@RequestParam("status") int status) throws Exception {
+		System.out.println("멤버 권한변경을 합니다.");
+		moimService.updateMemeber(userId, mmNo, status);
+		return "forward:멤버조회페이지";
+	}
+	
+	//멤버 리스트 조회하기
+	@RequestMapping("listMember")
+	public String getListMember(@RequestParam("mmNo") int mmNo, Model model) throws Exception{
+		
+		System.out.println("멤버리스트를 가져옵니다.");
+		Map<String, Object> map = moimService.getMemberList(mmNo);
+		model.addAttribute("list", map.get("list"));
+		return "forward:멤버리스트페이지로이동";
+	}
+	
 }

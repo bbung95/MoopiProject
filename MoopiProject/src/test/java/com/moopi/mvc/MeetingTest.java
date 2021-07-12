@@ -7,9 +7,12 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.moopi.mvc.service.meeting.MeetingDao;
 import com.moopi.mvc.service.meeting.impl.MeetingServiceImpl;
+import com.moopi.mvc.service.user.impl.UserServiceImpl;
 import com.moopi.mvc.common.Search;
 import com.moopi.mvc.service.domain.Meeting;
+import com.moopi.mvc.service.domain.User;
 
 @SpringBootTest
 public class MeetingTest {
@@ -17,10 +20,33 @@ public class MeetingTest {
 	@Autowired
 	private MeetingServiceImpl meetingService;
 	
+//	@Autowired
+//	private UserServiceImpl userService;
+	
+	
+//	@Test
+//	public void applyMeeting() throws Exception {
+//		System.out.println("apply Meeting");
+//		meetingService.applyMeeting(1001, "user02");
+//	}
+	
+//	@Test
+//	public void leaveMeeting() throws Exception{
+//		System.out.println("::leave Meeting::");
+//		meetingService.leaveMeeting(1001, "user02");
+//	}
+//	
+	@Test
+	public void getMEFLList() throws Exception {
+		System.out.println("::MEFLLIST::");
+		Map map = meetingService.getMEFLList(1001);
+		System.out.println(map.get("list"));		
+	}
+	
 //	@Test
 //	public void getMeeting() throws Exception {
 //		System.out.println("Test GetMeeting:::");
-//		Meeting meeting = meetingService.getMeeting(1004);
+//		Meeting meeting = meetingService.getMeeting(1001);
 //		System.out.println(meeting);
 //	}
 	
@@ -35,7 +61,7 @@ public class MeetingTest {
 //		meeting.setMtEnd("2021-07-21 14:20:00");
 //		meeting.setMtMaxCount(20);
 //		meeting.setMtCurrentCount(1);
-//		meeting.setMtConstructor("user01");
+//		meeting.setMtConstructor.userId("user01");
 //		meeting.setMtAddr("도봉구");
 //		meeting.setMtState(1);
 //		meeting.setMtMapX(123123);
@@ -54,10 +80,11 @@ public class MeetingTest {
 //		meetingService.updateMeeting(meeting);
 //	}
 	
-	@Test
-	public void getMeetingList() throws Exception {
-		System.out.println("getMeetingList STart:::");
-		System.out.println(meetingService.getMeetingList(3));
-	}
+//	@Test
+//	public void getMeetingList() throws Exception {
+//		System.out.println("getMeetingList STart:::");
+//		Map map = (meetingService.getMeetingList(1));
+//		System.out.println(map.get("list"));
+//	}
 	
 }
