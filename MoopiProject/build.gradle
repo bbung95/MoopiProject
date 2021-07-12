@@ -37,8 +37,6 @@ dependencies {
 	implementation 'javax.servlet:jstl'
 	implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.23'
 	implementation 'org.springframework.boot:spring-boot-starter-log4j2'
-	
-	
 }
 
 test {

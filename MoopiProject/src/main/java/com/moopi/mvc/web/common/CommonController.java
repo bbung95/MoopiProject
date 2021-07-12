@@ -9,7 +9,7 @@ public class CommonController {
 	public CommonController() {
 	}
 	
-	@RequestMapping(value="/main")
+	@RequestMapping("main")
 	public String home() {
 		
 		System.out.println("/main");
