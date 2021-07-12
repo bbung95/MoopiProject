@@ -8,8 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.moopi.mvc.service.moim.impl.MoimServiceImpl;
+import com.moopi.mvc.service.user.impl.UserServiceImpl;
 import com.moopi.mvc.common.Search;
 import com.moopi.mvc.service.domain.Moim;
+import com.moopi.mvc.service.domain.User;
 
 @SpringBootTest
 public class MoimTest {
@@ -17,6 +19,8 @@ public class MoimTest {
 	@Autowired
 	private MoimServiceImpl moimService;
 
+	@Autowired
+	private UserServiceImpl userService;
 	
 	
 //	@Test
@@ -79,7 +83,6 @@ public class MoimTest {
 //      System.out.println("Test addMoim :::");
 //      Moim moim = new Moim();
 //      moim.setMmNo(17);
-//      moim.setMmConstructor("user01");
 //      moim.setMmName("식물갤러리");
 //      moim.setMmContent("식물도 하나의 생명입니다.");
 //      moim.setMmFile("난초");
