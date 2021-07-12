@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,18 +19,27 @@ public class UserServiceImpl {
 	@Autowired
 	private UserDao userDao;
 	
+	// 유저정보조회 
 	public User getUser(String userId) {
 		return userDao.getUser(userId);		
 	}
 	
+	// 회원가입 
 	public void addUser(User user) throws Exception {
 		userDao.addUser(user);
 	}
 	
+	// 유저아이디찾기 
+	public User getUserId(String userId) {
+		return userDao.getUserId(userId);
+	}
+	
+	// 유저정보변경 
 	public void updateUser(User user) throws Exception {
 		userDao.updateUser(user);
 	}
 	
+	// 관리자권한 - 유저리스트조회 
 	public Map<String, Object> getUserList(Search search) throws Exception{
 		
 		System.out.println("UserServiceImpl :: getUserList 시작");
@@ -45,6 +55,21 @@ public class UserServiceImpl {
 		System.out.println("완료");
 	
 		return map;
+	}
+	
+	// 회원탈퇴 
+	public void updateLeaveUser(User user) throws Exception {
+		userDao.updateLeaveUser(user);
+	}
+	
+	// 유저비밀번호변경
+	public void updateUserPwd(User user) throws Exception{
+		userDao.updateUserPwd(user);
+	}
+	
+	// 유저프로필수정 
+	public void updateProfile(User user) throws Exception{
+		userDao.updateProfile(user);
 	}
 
 }
