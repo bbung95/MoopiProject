@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,18 +11,17 @@ import org.springframework.boot.test.context.SpringBootTest;
 import com.moopi.mvc.common.Search;
 import com.moopi.mvc.service.board.impl.BoardServiceImpl;
 import com.moopi.mvc.service.domain.Board;
-import com.moopi.mvc.service.domain.Moim;
-import com.moopi.mvc.service.domain.User;
+import com.moopi.mvc.service.domain.Reply;
+import com.moopi.mvc.service.reply.impl.ReplyServiceImpl;
 
 @SpringBootTest
 public class BoardTest {
 	
 	@Autowired
 	private BoardServiceImpl boardService;
+	private ReplyServiceImpl replyService;
 	
 	private Board board;
-	private User user;
-	private Moim moim;
 	
 	// 무피게시판 조회 
 //	@Test
@@ -70,15 +68,20 @@ public class BoardTest {
 
 	@Test
 	public void getBoard() {
+	
 		
 		
-		board.setBoardNo(3);
+		int boardNo = 4;
 		System.out.println("Test getBoard :::");
 		
-		board = boardService.getBoard(board.getBoardNo());
+		Map map = new HashMap();
+		
+		board = boardService.getBoard(boardNo);
+		map  = replyService.getReplyList(boardNo);
 		
 		System.out.println(board);
-		
+		System.out.println("--------------------");
+		System.out.println(map);
 //		boardService.addBoard(board);
 //		Assertions.assertEquals("새로운질문!", board.getBoardName());
 //		Assertions.assertEquals("공지내용1", board.getBoardContent());

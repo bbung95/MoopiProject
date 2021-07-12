@@ -98,18 +98,46 @@
 		, BD.BD_CONTENT
 		, BD.BD_REGDATE
 		, BD.BD_UPDATE
+		, BD.BD_STATE
 		, U.NICKNAME
+		, U.PROFILE_IMAGE
 		FROM 
 		  BOARD BD
 		, USERS U
 		WHERE 
 		BD.BD_WRITER = U.USER_ID
 		AND
-		BD_CATEGORY = 1     
-		AND
 		BD.BD_NO = #{boardNo}  
 		AND 
 		BD_STATE = 1;
 	</select>
 	
+	
+	
+	<select id="getQnABoard" parameterType="map" resultMap="boardSelectMap">
+		SELECT 
+		  B.BD_NO
+		, B.BD_NAME
+		, B.BD_CONTENT
+		, B.BD_REGDATE
+		, B.BD_UPDATE
+		, U.NICKNAME
+		, U.PROFILE_IMAGE
+		, R.REPLY_CONTENT
+		, R.REPLY_REGDATE
+		, U1.NICKNAME
+		, U1.PROFILE_IMAGE
+		, r.reply_file
+		FROM
+		BOARD B
+		, REPLY R 
+		, USERS U
+		, USERS U1
+		WHERE 
+		B.BD_NO = R.BD_NO
+		AND
+		R.BD_NO = 4
+		GROUP BY 
+		B.BD_NAME
+		</select>
 </mapper>
