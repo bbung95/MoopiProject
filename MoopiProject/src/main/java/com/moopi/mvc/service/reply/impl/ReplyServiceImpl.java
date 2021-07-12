@@ -1,5 +1,6 @@
 package com.moopi.mvc.service.reply.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,11 +23,15 @@ public class ReplyServiceImpl {
 	}
 
 
-	public Map getReplyList(int boardNo) {
+	public Map<String, Object> getReplyList(int boardNo) {
 		
-		Map<String, Object> map = new HashMap();
-		map= replyDao.getReplyList(boardNo);
+		Map map = new HashMap<String, Object>();
+		
+		List<Reply> list = new ArrayList<Reply>();
+		list = replyDao.getReplyList(boardNo);
 		System.out.println("----boardNo check :  " +boardNo);
+		map.put("list", list);
+		
 		return map;
 	}
 

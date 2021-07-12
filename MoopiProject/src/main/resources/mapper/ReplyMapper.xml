@@ -38,6 +38,6 @@
 		AND
 			R.REPLY_STATE = 1
 		AND
-			R.BD_NO = # {boardNo}
+			R.BD_NO = #{boardNo}
 	</select>
 </mapper>
