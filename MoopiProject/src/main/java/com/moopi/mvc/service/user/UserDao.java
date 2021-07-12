@@ -18,12 +18,14 @@ public interface UserDao {
 	// 내정보확인 / 로그인
 	public User getUser(@Param("userId") String userId);
 	
-	// 회원정보리스트
+	// 회원정보수정
+	public void updateUser(User user) throws Exception;
+	
+	// 관리자용 - 회원정보리스트
 	public List<User> getUserList(Search search);
 	public int getTotalCount(Search search) throws Exception;
 	
-	// 회원정보수정
-	public void updateUser(@Param("userId") User user);
+
 	
 	
 }

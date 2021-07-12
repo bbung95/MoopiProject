@@ -21,7 +21,7 @@ public class User {
 	private String gender;				// 성별 - 남, 녀
 	private String phone;				// 모바일번호
 	private String nickname;			// 회원 닉네임
-	private int birth;					// 생년월일 - 년
+	private Date birth;					// 생년월일 - 년
 //	private int birth2;					// 생년월일 - 월
 //	private int birth3;					// 생년월일 - 일
 	private int age;					// 나이
