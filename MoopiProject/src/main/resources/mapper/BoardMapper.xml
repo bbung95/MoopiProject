@@ -4,7 +4,6 @@
 		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<!--<mapper namespace="com.moopi.mvc.mapper.MoimMapper">-->
 	<mapper namespace="com.moopi.mvc.service.board.BoardDao">   	
  	
 	<resultMap id="boardSelectMap" type="board">
@@ -109,35 +108,43 @@
 		AND
 		BD.BD_NO = #{boardNo}  
 		AND 
-		BD_STATE = 1;
+		BD_STATE = 1
 	</select>
 	
+	<insert id="addBoard" parameterType="com.moopi.mvc.service.domain.Board">
+		INSERT INTO 
+			BOARD 
+			(
+			  BD_CATEGORY
+			, BD_WRITER
+			, BD_NAME
+			, BD_CONTENT
+			, BD_REGDATE
+			, BD_STATE
+			, BD_PASSWORD
+			, BD_MM_NO
+			) 
+		VALUES 
+			(
+			  #{board.boardCategory}
+			, #{board.boardWriter.userId}
+			, #{board.boardName}
+			, #{board.boardContent}
+			, now()
+			, '1'
+			, #{board.boardPassword}
+			, #{board.boardMoimNo : NUMERIC}
+		)
+	</insert>
 	
+	<update id="updateBoard" parameterType="board">
+	UPDATE 
+	BOARD SET
+	   BD_NAME = #{board.boardName}
+	 , BD_CONTENT = #{board.boardContent}
+	 , BD_UPDATE = now()
+	 WHERE 
+	 BD_NO = #{board.boardNo}
 	
-	<select id="getQnABoard" parameterType="map" resultMap="boardSelectMap">
-		SELECT 
-		  B.BD_NO
-		, B.BD_NAME
-		, B.BD_CONTENT
-		, B.BD_REGDATE
-		, B.BD_UPDATE
-		, U.NICKNAME
-		, U.PROFILE_IMAGE
-		, R.REPLY_CONTENT
-		, R.REPLY_REGDATE
-		, U1.NICKNAME
-		, U1.PROFILE_IMAGE
-		, r.reply_file
-		FROM
-		BOARD B
-		, REPLY R 
-		, USERS U
-		, USERS U1
-		WHERE 
-		B.BD_NO = R.BD_NO
-		AND
-		R.BD_NO = 4
-		GROUP BY 
-		B.BD_NAME
-		</select>
-</mapper>
+	</update>
+</mapper>	

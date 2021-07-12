@@ -1,6 +1,5 @@
 package com.moopi.mvc;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +12,7 @@ import com.moopi.mvc.common.Search;
 import com.moopi.mvc.service.board.impl.BoardServiceImpl;
 import com.moopi.mvc.service.domain.Board;
 import com.moopi.mvc.service.domain.Reply;
+import com.moopi.mvc.service.domain.User;
 import com.moopi.mvc.service.reply.impl.ReplyServiceImpl;
 
 @SpringBootTest
@@ -20,23 +20,11 @@ public class BoardTest {
 	
 	@Autowired
 	private BoardServiceImpl boardService;
+	@Autowired
 	private ReplyServiceImpl replyService;
 	
 	private Board board;
 	
-	// 무피게시판 조회 
-//	@Test
-//	public void getMoopiBoard() {
-//		
-//		System.out.println("Test getMoopiBoard :::");
-//		System.out.println(boardService.getMoopiBoard(1));
-//		Board board = boardService.getMoopiBoard(1);
-//		System.out.println(board);
-//		
-//		Assertions.assertEquals("공지1", board.getBoardName());
-//		Assertions.assertEquals("공지내용1", board.getBoardContent());
-//		
-//	}
 	
 //	@Test
 //	public void getBoardList(){
@@ -62,57 +50,71 @@ public class BoardTest {
 //		Map map = boardService.getBoardList(searchMap);
 //		System.out.println(map.toString());
 //		
-//		Assertions.assertEquals("공지1", board.getBoardName());
-//		Assertions.assertEquals("공지내용1", board.getBoardContent());
+////		Assertions.assertEquals("공지1", board.getBoardName());
+////		Assertions.assertEquals("공지내용1", board.getBoardContent());
 //	}
 	
-
-	@Test
-	public void getBoard() {
-	
-			
-		int boardNo = 4;
-		System.out.println("Test getBoard :::");
-		
-		
-		board = boardService.getBoard(boardNo);
-		
-		
-		
-		Map map = new HashMap<String, Object>(); 
-		map = replyService.getReplyList(boardNo);
-		
-		System.out.println(board);
-		System.out.println("--------------------");
-		System.out.println(map);
-		boardService.addBoard(board);
-//		Assertions.assertEquals("새로운질문!", board.getBoardName());
-//		Assertions.assertEquals("공지내용1", board.getBoardContent());
-		
-	}
-	
+//	// 게시글조회 + 댓글리스트까지 함께 조회	
+//	@Test
+//	public void getBoard() {
+//	
+//			
+//		int boardNo = 18;
+//		System.out.println("Test getBoard :::");
+//		
+//		board = boardService.getBoard(boardNo);
+//		
+//		List<Reply> list = replyService.getReplyList(boardNo);
+//		
+//		System.out.println(board);
+//		System.out.println("--------------------");
+//		System.out.println(list);
+//	}
+//	
 	
 //	@Test
 //	public void addBoard() {
 //		
+//		User user = new User();
+//		user.setUserId("user3");
+//		Board board = new Board();
 //		
-//		user.setUserId("user03");
-//		
+//		board.setBoardCategory("2");		
 //		board.setBoardWriter(user);
 //		board.setBoardName("새로운질문!");
 //		board.setBoardContent("질문합니다");
-//		board.setBoardCategory("2");
-//		board.setBoardPassword(null);
-//		board.setBoardMoimNo(null);
-//		System.out.println(board);
 //		
+//		System.out.println(board.getBoardWriter().getUserId());
+//		
+//		board.setBoardPassword("1231");
+//		System.out.println(board);
 //		boardService.addBoard(board);
-//		Assertions.assertEquals("새로운질문!", board.getBoardName());
-//		Assertions.assertEquals("공지내용1", board.getBoardContent());
 //		
 //	}
 	
-	
+//		
+	@Test
+	public void updateBoard() {
+		
+		System.out.println("Test updateBoard :::");
+		int boardNo = 18; 
+		Board board = boardService.getBoard(boardNo);
+		
+		System.out.println(board);
+		board.setBoardCategory("2");		
+		board.setBoardName("수정된질문!");
+		board.setBoardContent("수정된질문합니다");
+		
+		System.out.println(board.getBoardWriter().getUserId());
+		
+		System.out.println(board);
+		boardService.updateBoard(board);
+		
+	}
+//	
+//		
+//
+//	
 	
 	
 }

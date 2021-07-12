@@ -38,8 +38,6 @@ public class BoardServiceImpl {
 		
 		List<Board> list= boardDao.getBoardList(map);
 //		int totalCount =  boardDao.getTotalCount(map); 
-		
-	
 
 		map.put("list", list);
 //		map.put("totalCount", totalCount);
@@ -49,7 +47,6 @@ public class BoardServiceImpl {
 
 
 	public void updateBoard(Board board){
-		
 		boardDao.updateBoard(board);
 
 	}
