@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.moopi.mvc.service.common.CommonDao">
+ 	
+	<resultMap id="noticeSelectMap" type="notice">
+		<result property="noticeNo" 		column="NOTICE_NO" 			jdbcType="NUMERIC"/>
+		<result property="noticeContent"	column="NOTICE_CONTENT" 	jdbcType="VARCHAR"/>
+		<result property="toUserId" 		column="NOTICE_TO_USER_ID" 	jdbcType="VARCHAR"/>
+		<result property="noticeTarget" 	column="NOTICE_TARGER" 		jdbcType="VARCHAR"/>
+		<result property="noticeType" 		column="CATEGORY" 			jdbcType="VARCHAR"/>
+		<result property="noticeState" 		column="NOTICE_STATE" 		jdbcType="CHAR"/>
+		<result property="noticeRegDate" 	column="NOTICE_REGDATE" 	jdbcType="DATE"/>
+		<result property="noticeNo" 		column="notice_no" 			jdbcType="NUMERIC"/>
+		<result property="noticeContent"	column="notice_content" 	jdbcType="VARCHAR"/>
+		<result property="toUserId" 		column="TO_USER_ID" 		jdbcType="VARCHAR"/>
+		<result property="noticeTarget" 	column="notice_target" 		jdbcType="VARCHAR"/>
+		<result property="noticeType" 		column="category" 			jdbcType="VARCHAR"/>
+		<result property="noticeState" 		column="notice_state" 		jdbcType="CHAR"/>
+		<result property="noticeRegDate" 	column="notice_regdate" 	jdbcType="DATE"/>
+	</resultMap>
+	
+	<insert id="addNotice" parameterType="Notice">
+		INSERT 
+		INTO notice(NOTICE_TO_USER_ID, NOTICE_TARGER, NOTICE_CONTENT, NOTICE_REGDATE, NOTICE_STATE, CATEGORY)
+		VALUES (#{toUserId}, #{noticeTarget}, #{noticeContent}, now(), #{noticeState}, #{noticeType})
+	</insert>
+	
+	<select id="getNotice" parameterType="int" resultMap="noticeSelectMap">
+		SELECT
+		*
+		FROM notice
+		WHERE notice_no in (#{noticeNo})
+	</select>
+	
+	<select id="getListNotice" resultMap="noticeSelectMap">
+		SELECT
+		*
+		FROM ( SELECT
+				inner_table.*  ,@ROWNUM := @ROWNUM +1 AS RNUM
+				FROM (SELECT
+						* 
+						FROM notice
+						WHERE notice_to_user_id in (#{userId})
+						ORDER BY notice_regdate DESC) inner_table , (SELECT @ROWNUM := 0) R) tables
+		WHERE RNUM BETWEEN #{search.startRowNum} AND #{search.endRowNum}
+	</select>
+	
+	<delete id="deleteNotice" parameterType="map">
+		DELETE
+		FROM notice
+		<where>
+			<if test="noticeNo == '' or noticeNo == null">
+				notice_to_user_id in (#{userId})
+			</if>
+			<if test="userId == '' or userId == null">
+				notice_no in (#{noticeNo})
+			</if>
+		</where>
+	</delete>
+	
+	<update id="updateNotice" parameterType="string">
+	UPDATE notice
+	SET notice_state = '2'
+	WHERE notice_to_user_id in (#{userId}) AND notice_state in ('1')
+	</update>
+	
+	
+	<select id="getTotalCount" parameterType="string" resultType="int">
+		SELECT
+		COUNT(*)
+		FROM notice
+		WHERE notice_to_user_id in (#{userId}) AND NOTICE_STATE in ('1')
+				
+	</select> 
+	
+</mapper>
+
