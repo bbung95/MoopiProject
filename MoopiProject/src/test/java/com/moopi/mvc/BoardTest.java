@@ -72,25 +72,26 @@ public class BoardTest {
 //	}
 //	
 	
-//	@Test
-//	public void addBoard() {
-//		
-//		User user = new User();
-//		user.setUserId("user3");
-//		Board board = new Board();
-//		
-//		board.setBoardCategory("2");		
-//		board.setBoardWriter(user);
-//		board.setBoardName("새로운질문!");
-//		board.setBoardContent("질문합니다");
-//		
-//		System.out.println(board.getBoardWriter().getUserId());
-//		
-//		board.setBoardPassword("1231");
-//		System.out.println(board);
-//		boardService.addBoard(board);
-//		
-//	}
+	@Test
+	public void addBoard() {
+		
+		User user = new User();
+		user.setUserId("user3");
+		Board board = new Board();
+		
+		board.setBoardCategory("2");		
+		board.setBoardWriter(user);
+		board.setBoardName("새로운질문!");
+		board.setBoardContent("질문합니다");
+		
+		System.out.println(board.getBoardWriter().getUserId());
+		
+		board.setBoardPassword("1231");
+		System.out.println(board);
+		 boardService.addBoard(board);
+	
+		 System.out.println(board.getBoardNo());
+	}
 	
 //		
 //	@Test
@@ -139,31 +140,31 @@ public class BoardTest {
 	
 	
 	
-	@Test
-	public void updateReply() {
-		
-		System.out.println("Test updateReply :::");
-		int replyNo = 10; 
-		Reply reply = replyService.getReply(replyNo);
-		
-		reply.setReplyContent("수정된리플합니다");
-		replyService.updateReply(reply);
-		
-		System.out.println(reply);
-	}
-	
-	@Test
-	public void deleteReply() {
-		
-		System.out.println("Test deleteReply :::");
-		int replyNo = 10; 
-		Reply reply = replyService.getReply(replyNo);
-		
-		reply.setReplyState("2");
-		replyService.deleteReply(reply);
-		
-		System.out.println(reply);
-	}
+//	@Test
+//	public void updateReply() {
+//		
+//		System.out.println("Test updateReply :::");
+//		int replyNo = 10; 
+//		Reply reply = replyService.getReply(replyNo);
+//		
+//		reply.setReplyContent("수정된리플합니다");
+//		replyService.updateReply(reply);
+//		
+//		System.out.println(reply);
+//	}
+//	
+//	@Test
+//	public void deleteReply() {
+//		
+//		System.out.println("Test deleteReply :::");
+//		int replyNo = 10; 
+//		Reply reply = replyService.getReply(replyNo);
+//		
+//		reply.setReplyState("2");
+//		replyService.deleteReply(reply);
+//		
+//		System.out.println(reply);
+//	}
 	
 	
 	

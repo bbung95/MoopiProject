@@ -109,7 +109,8 @@
 		BD.BD_NO = #{boardNo}  
 	</select>
 	
-	<insert id="addBoard" parameterType="com.moopi.mvc.service.domain.Board">
+	<insert id="addBoard" parameterType="board" 
+			useGeneratedKeys="true"  keyProperty="boardNo">
 		INSERT INTO 
 			BOARD 
 			(
