@@ -28,7 +28,9 @@ function fncAddMoim(){
 
 </head>
 <body>
-
+<!-- ToolBar Start /////////////////////////////////////-->
+	<jsp:include page="../layout/toolbar.jsp" />
+<!-- ToolBar End /////////////////////////////////////-->
 <h3>모임생성페이지입니다...</h3>
 
 <div class="container">

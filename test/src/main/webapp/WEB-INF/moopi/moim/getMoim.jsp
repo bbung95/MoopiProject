@@ -21,12 +21,6 @@ function fncAddMoimView(){
 	self.location ="/moim/addMoimView?userId=user01"
 }
 
-function fncGetMoim(mmNo){
-	alert("모임상세보기");
-	self.location ="/moim/getMoim?mmNo="+mmNo
-}
-
-
 </script>
 
 
@@ -37,13 +31,14 @@ function fncGetMoim(mmNo){
 <body>
 <!-- ToolBar Start /////////////////////////////////////-->
 	<jsp:include page="../layout/toolbar.jsp" />
+	<jsp:include page="../layout/moimToolbar.jsp" />
 <!-- ToolBar End /////////////////////////////////////-->
-<h3>모임메인페이지입니다...</h3>
+<h3>모임상세페이지입니다...</h3>
 
-<c:forEach var="moim" items="${list}">
+
 //////////////////////////
 <p>모임넘버:${moim.mmNo}</p>
-<p>모임명: <div id="getMoim" onClick="fncGetMoim(${moim.mmNo})">${moim.mmName}</div></p>
+<p>모임명:${moim.mmName}</p>
 <p>모임소개글:${moim.mmContent}</p>
 <div class="row">
 	  		<div class="col-xs-4 col-md-2 "><strong>모임대표썸네일</strong></div>
@@ -62,8 +57,8 @@ function fncGetMoim(mmNo){
 <p>모임최소가입연령:${moim.mmMinAge}</p>
 <p>모임최대가입연령:${moim.mmMaxAge}</p>
 <p>모임가입유형(1일반2자유):${moim.mmType}</p>
-</c:forEach>
 
-<button type="button" class="btn btn-default" onClick="fncAddMoimView()">만들기</button>
+
+
 </body>
 </html>

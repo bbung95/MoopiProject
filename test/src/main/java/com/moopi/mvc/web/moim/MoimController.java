@@ -27,7 +27,7 @@ public class MoimController {
 	@Autowired
 	private UserServiceImpl userService;
 	
-	public static final String saveDir = "C:\\Users\\82102\\git\\Test\\test\\src\\main\\webapp\\WEB-INF\\moopi\\images\\uploadFiles";
+	public static final String saveDir = "C:\\Users\\82102\\git\\Test\\test\\src\\main\\resources\\static\\images\\uploadFiles";
 	
 	//모임상세조회
 	@RequestMapping("getMoim")
@@ -40,7 +40,7 @@ public class MoimController {
 		System.out.println(moim);
 		
 		model.addAttribute("moim", moimService.getMoim(mmNo));
-		return "forward:모임상세조회페이지";
+		return "moim/getMoim";
 	}
 	
 	//모임생성페이지창, 단순네비게이션
