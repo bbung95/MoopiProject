@@ -2,23 +2,26 @@ package com.moopi.mvc.web.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.moopi.mvc.service.domain.User;
+import com.moopi.mvc.service.user.impl.UserServiceImpl;
+
 @Controller
-@RequestMapping(value="/user/*")
+@RequestMapping("/user/*")
 public class UserController {
 
 	@Autowired
-	public UserController() {
-	}
+	private UserServiceImpl userService;
 	
 	// 회원가입
 	@RequestMapping(value="addUser")
-	public String addUser() {
+	public String addUser(@ModelAttribute("user") User user) throws Exception {
+		userService.addUser(user);
+		System.out.println("UserController 시작");
 		
-		System.out.println("/addUser");
-		
-		return "addUserInfo";
+		return "forwrd:메인페이지로 이동";
 	}
 }
 	
