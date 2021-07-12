@@ -14,7 +14,7 @@ public interface ReplyDao {
 
 	public void insertReply(@Param("reply")Reply reply);
 	
-	public Map getReplyList(@Param("boardNo")int boardNo);
+	public List<Reply> getReplyList(@Param("boardNo")int boardNo);
 
 	public void updateReply(@Param("reply")Reply reply);
 	
