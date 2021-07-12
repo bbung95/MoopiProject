@@ -43,8 +43,57 @@
 	
 	<insert id="addUser"	parameterType="user" >
 		INSERT 
-		INTO users( user_id, pwd, user_name, phone, birth, age, gender, join_path, regdate, user_Role, full_addr, addr, nickname )
-		VALUES ( #{user_id}, #{pwd}, #{user_name}, #{phone}, #{birth}, #{age}, #{gender}, #{join_path}, #{regdate}, #{user_role}, #{full_addr}, #{addr}, #{nickname} );
+		INTO users( USER_ID, PWD, USER_NAME, PHONE, BIRTH, AGE, GENDER, JOIN_PATH, REGDATE, USER_ROLE, FULL_ADDR, ADDR, NICKNAME )
+		VALUES ( #{userId}, #{password}, #{userName}, #{phone}, #{birth}, #{age}, #{gender}, #{joinPath}, #{regDate}, #{userRole}, #{fullAddr}, #{addr}, #{nickname} );
 	</insert>
+	
+	<select id="getUser"	parameterType="String" resultMap="userSelectMap">
+		SELECT USER_ID, PWD, USER_NAME, PHONE, BIRTH, AGE, GENDER, JOIN_PATH, REGDATE, USER_ROLE, FULL_ADDR, ADDR, NICKNAME 
+		FROM users 
+		WHERE USER_ID = #{userId}
+	</select>
+	
+	<!-- 모바일번호, 비밀번 -->
+	<update id="updateUser"	parameterType="user">
+		UPDATE users
+		<set>
+			PHONE = #{phone},
+			PWD = #{password}
+		</set>
+		WHERE USER_ID = #{userId};
+	</update>
+	
+	<!-- 관리자 전용 회원목록조회 -->
+	<!-- Coin이 있어야  -->
+	<!-- 유저No, 유저아이디, 유저이름, 유저닉네임, 생년월일, 연령, 가입경로, 가입일자, 코인, 현재상태 -->
+	<select id="getUserList"  parameterType="search"	resultMap="userSelectMap">
+		SELECT
+			USER_ID, USER_NAME, NICKNAME, BIRTH, AGE, JOIN_PATH, REGDATE, USER_ROLE
+		FROM USERS		
+		<if test="searchCondition != null">
+			<where>
+				<if test="searchCondition == 1 and searchKeyword !='' ">
+				USER_ROLE = #{searchKeyword}
+				</if>
+				<if test="searchCondition == 2 and searchKeyword !='' ">
+				REGDATE = #{searchKeyword}
+				</if>
+		</where>
+		</if> 	  	
+	 </select>
+	 
+	 <select  id="getTotalCount"  parameterType="search"	 resultType="int">
+	  	SELECT COUNT(*) FROM users	
+			<if test="searchCondition != null">
+			<where>
+			 <if test="searchCondition == 1 and searchKeyword !='' ">
+			USER_ROLE = #{searchKeyword}
+			</if>
+			<if test="searchCondition == 2 and searchKeyword !='' ">
+			REGDATE = #{searchKeyword}
+			</if>
+			</where>
+			</if>			
+	 </select>
 	
 </mapper>

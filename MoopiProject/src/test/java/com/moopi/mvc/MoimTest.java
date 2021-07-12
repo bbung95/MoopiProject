@@ -8,8 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.moopi.mvc.service.moim.impl.MoimServiceImpl;
+import com.moopi.mvc.service.user.impl.UserServiceImpl;
 import com.moopi.mvc.common.Search;
 import com.moopi.mvc.service.domain.Moim;
+import com.moopi.mvc.service.domain.User;
 
 @SpringBootTest
 public class MoimTest {
@@ -17,18 +19,49 @@ public class MoimTest {
 	@Autowired
 	private MoimServiceImpl moimService;
 
+	@Autowired
+	private UserServiceImpl userService;
 	
-	@Test
-	public void getMoim() {
-		
-		System.out.println("Test getMoim :::");
-		System.out.println(moimService.getMoim(1));
-		Moim moim = moimService.getMoim(1);
-		System.out.println(moim);
-		
-		Assertions.assertEquals("복실이야구단", moim.getMmName());
-		Assertions.assertEquals("순수혈통 복실이", moim.getMmContent());	
-	}
+	
+//	@Test
+//	public void applyMoim() throws Exception{
+//		System.out.println("Test getApply:::");
+//		moimService.applyMoim("user04", 1);
+//	}
+	
+	
+//	@Test
+//	public void leaveMoim() throws Exception {
+//		System.out.println("Test leaveMoim:::");
+//		moimService.leaveMoim("user04", 1);
+//	}
+	
+//	@Test
+//	public void updateMember() throws Exception {
+//		System.out.println("Test updateMember:::");
+//		moimService.updateMemeber("user03", 1, 1);
+//	}
+	
+//	@Test
+//	public void getMemberList() throws Exception {
+//		System.out.println("Test getMemberList");
+//		Map map = moimService.getMemberList(2);
+//		System.out.println(map.get("list"));
+//		System.out.println("모임가입된총원 : "+map.get("totalCount"));
+//	}
+	
+	
+//	@Test
+//	public void getMoim() {
+//		
+//		System.out.println("Test getMoim :::");
+//		System.out.println(moimService.getMoim(1));
+//		Moim moim = moimService.getMoim(1);
+//		System.out.println(moim);
+//		
+//		Assertions.assertEquals("복실이야구단", moim.getMmName());
+//		Assertions.assertEquals("순수혈통 복실이", moim.getMmContent());	
+//	}
 	
 //	@Test
 //	public void updateMoim() throws Exception{
@@ -50,7 +83,6 @@ public class MoimTest {
 //      System.out.println("Test addMoim :::");
 //      Moim moim = new Moim();
 //      moim.setMmNo(17);
-//      moim.setMmConstructor("user01");
 //      moim.setMmName("식물갤러리");
 //      moim.setMmContent("식물도 하나의 생명입니다.");
 //      moim.setMmFile("난초");
