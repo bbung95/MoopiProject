@@ -14,7 +14,7 @@
 		<result property="mmFile" 			column="mm_image" 			jdbcType="VARCHAR" /> 
 		<result property="mmMaxCount" 			column="MM_MAX_COUNT" 			jdbcType="NUMERIC" />
 		<result property="mmCurrentCount" 			column="MM_CURRENT_COUNT" 	jdbcType="NUMERIC" />
-		<result property="mmConstructor.userId" 			column="MM_CONSTRUCTOR" 			jdbcType="VARCHAR" />
+		<result property="mmConstructor.userId" 	column="MM_CONSTRUCTOR" 			jdbcType="VARCHAR" />
 		<result property="mmRegDate" 			column="MM_REGDATE" 			jdbcType="DATE"  />
 		<result property="mmInterest" 			column="MM_INTEREST" 		jdbcType="NUMERIC" />
 		<result property="mmAddr" 			column="MM_ADDR" 			jdbcType="VARCHAR"  />

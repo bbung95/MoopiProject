@@ -23,16 +23,14 @@ public class ReplyServiceImpl {
 	}
 
 
-	public Map<String, Object> getReplyList(int boardNo) {
+	public List<Reply> getReplyList(int boardNo) {
 		
-		Map map = new HashMap<String, Object>();
 		
 		List<Reply> list = new ArrayList<Reply>();
 		list = replyDao.getReplyList(boardNo);
 		System.out.println("----boardNo check :  " +boardNo);
-		map.put("list", list);
 		
-		return map;
+		return list;
 	}
 
 	public void updateReply(Reply reply) throws Exception {

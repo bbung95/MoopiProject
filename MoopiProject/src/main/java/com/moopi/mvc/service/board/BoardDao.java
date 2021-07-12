@@ -7,14 +7,13 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import com.moopi.mvc.common.Search;
 import com.moopi.mvc.service.domain.Board;
  
 @Mapper
 public interface BoardDao {
 
 	
-	public void addBoard(@Param("board") Board board);
+	public void addBoard(@Param("board")Board board);
 	
 	public List<Board> getBoardList(@Param("map")HashMap map);
 
