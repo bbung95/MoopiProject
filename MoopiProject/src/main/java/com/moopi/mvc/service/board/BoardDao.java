@@ -18,7 +18,7 @@ public interface BoardDao {
 	
 	public List<Board> getBoardList(@Param("map")HashMap map);
 
-	public Board getMoopiBoard(@Param("boardNo")int boardNo);
+	public Board getBoard(@Param("boardNo")int boardNo);
 	
 	public void updateBoard(@Param("board") Board board);
 	

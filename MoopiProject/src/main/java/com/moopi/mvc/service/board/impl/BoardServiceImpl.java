@@ -27,9 +27,9 @@ public class BoardServiceImpl {
 	}
 
 	
-	public Board getMoopiBoard(int boardNo){
+	public Board getBoard(int boardNo){
 		
-		return boardDao.getMoopiBoard(boardNo);
+		return boardDao.getBoard(boardNo);
 	}
 
 
