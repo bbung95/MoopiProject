@@ -50,5 +50,11 @@ public class BoardServiceImpl {
 		boardDao.updateBoard(board);
 
 	}
+	
 
+	public void deleteBoard(Board board){
+		boardDao.deleteBoard(board);
+
+	}
+	
 }

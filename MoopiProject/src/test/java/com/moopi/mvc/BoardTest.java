@@ -59,7 +59,7 @@ public class BoardTest {
 //	public void getBoard() {
 //	
 //			
-//		int boardNo = 18;
+//		int boardNo = 12;
 //		System.out.println("Test getBoard :::");
 //		
 //		board = boardService.getBoard(boardNo);
@@ -93,28 +93,78 @@ public class BoardTest {
 //	}
 	
 //		
-	@Test
-	public void updateBoard() {
-		
-		System.out.println("Test updateBoard :::");
-		int boardNo = 18; 
-		Board board = boardService.getBoard(boardNo);
-		
-		System.out.println(board);
-		board.setBoardCategory("2");		
-		board.setBoardName("수정된질문!");
-		board.setBoardContent("수정된질문합니다");
-		
-		System.out.println(board.getBoardWriter().getUserId());
-		
-		System.out.println(board);
-		boardService.updateBoard(board);
-		
-	}
-//	
+//	@Test
+//	public void updateBoard() {
 //		
-//
-//	
+//		System.out.println("Test updateBoard :::");
+//		int boardNo = 18; 
+//		Board board = boardService.getBoard(boardNo);
+//		
+//		System.out.println(board);
+//		board.setBoardName("수정된질문!");
+//		board.setBoardContent("수정된질문합니다");
+//		
+//		System.out.println(board.getBoardWriter().getUserId());
+//		
+//		System.out.println(board);
+//		boardService.updateBoard(board);
+//	}
+	
+//	@Test
+//	public void deleteBoard() {
+//		
+//		System.out.println("Test deleteBoard :::");
+//		int boardNo = 18; 
+//		Board board = boardService.getBoard(boardNo);
+//		
+//		System.out.println(board);
+//		board.setBoardState("2");
+//		
+//		System.out.println(board.getBoardWriter().getUserId());
+//		
+//		System.out.println(board);
+//		boardService.deleteBoard(board);
+//		
+//	}
+	
+//	public void getReply() {
+//		
+//		System.out.println("Test getReply :::");
+//		int replyNo = 10;
+//		Reply reply = replyService.getReply(replyNo);
+//		
+//		System.out.println(reply);
+//	}
+	
+	
+	
+	
+	@Test
+	public void updateReply() {
+		
+		System.out.println("Test updateReply :::");
+		int replyNo = 10; 
+		Reply reply = replyService.getReply(replyNo);
+		
+		reply.setReplyContent("수정된리플합니다");
+		replyService.updateReply(reply);
+		
+		System.out.println(reply);
+	}
+	
+	@Test
+	public void deleteReply() {
+		
+		System.out.println("Test deleteReply :::");
+		int replyNo = 10; 
+		Reply reply = replyService.getReply(replyNo);
+		
+		reply.setReplyState("2");
+		replyService.deleteReply(reply);
+		
+		System.out.println(reply);
+	}
+	
 	
 	
 }

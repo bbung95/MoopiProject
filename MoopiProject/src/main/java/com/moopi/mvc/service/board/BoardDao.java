@@ -21,6 +21,8 @@ public interface BoardDao {
 	
 	public void updateBoard(@Param("board") Board board);
 	
+	public void deleteBoard(@Param("board") Board board);
+	
 	public int getTotalCount(@Param("map")Map map);
 	 
 		

@@ -33,7 +33,15 @@ public class ReplyServiceImpl {
 		return list;
 	}
 
-	public void updateReply(Reply reply) throws Exception {
+	public void updateReply(Reply reply){
 		replyDao.updateReply(reply);
+	}
+	
+	public Reply getReply(int replyNo) {
+		return replyDao.getReply(replyNo);
+	}
+	
+	public void deleteReply(Reply reply){
+		replyDao.deleteReply(reply);
 	}
 }

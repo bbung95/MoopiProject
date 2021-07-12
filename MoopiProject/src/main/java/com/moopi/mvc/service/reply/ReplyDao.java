@@ -18,5 +18,8 @@ public interface ReplyDao {
 
 	public void updateReply(@Param("reply")Reply reply);
 	
+	public Reply getReply(@Param("replyNo")int replyNo);
+	
+	public Reply deleteReply(@Param("reply")Reply reply);
 	
 }
