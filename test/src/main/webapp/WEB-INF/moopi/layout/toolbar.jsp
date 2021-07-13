@@ -33,8 +33,8 @@
 
 				<li><a href="/moim/listMoim">모임무피</a></li>
 				<li><a href="#">번개무피</a></li>
-				<li><a href="#">무피게시판</a></li>
-				<li><a href="#">문의게시판</a></li>
+				<li><a href="/board/MoopiBoard/listMoopi">무피게시판</a></li>
+				<li><a href="/board/QnABoard/listQnA">문의게시판</a></li>
 			</ul>
 
 			<div class="collapse navbar-collapse" id="target">
