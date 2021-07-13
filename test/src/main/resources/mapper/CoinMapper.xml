@@ -25,35 +25,36 @@
 		WHERE COIN_NO = #{coinNo}	
 	</select>
 	
- 	<!--<insert id="addPayment" parameterType="payment">
+ 	<insert id="addCoin" parameterType="coin">
 		INSERT
-		INTO PAYMENT(PAYMENT_NO, PAYMENT_REGDATE, PAYMENT_ROLE, PAYMENT_USER_ID, PAYMENT_PRICE,
-			PAYMENT_COIN_COUNT, PAYMENT_UID)
-		VALUES(#{paymentNo}, #{paymentRegdate}, #{paymentRole}, #{paymentUserId.userId}, #{paymentPrice},
-		#{paymentCoinCount}, #{paymentUid})
+			INTO COIN (COIN_NO, COIN_REGDATE, COIN_ROLE, COIN_COUNT, USER_ID, FLASH_NO)
+			VALUES(#{coinNo}, #{coinRegdate}, #{coinRole}, #{coinCount}, #{userId.userId},
+					#{flashNo.flashNo})
 	</insert>
 	
-	<update id="updatePayment" parameterType="Payment">
+	<update id="updateCoin" parameterType="Coin">
 		UPDATE PAYMENT
 		<set>
-			PAYMENT_ROLE = #{paymentRole},
-			PAYMENT_COIN_COUNT = #{paymentCoinCount},
+			COIN_REGDATE = #{coinRegdate},
+			COIN_ROLE = #{coinRole},
+			COIN_COUNT = #{coinCount}
+			FLASH_NO = #{flashNo.flashNo}
 		</set>
-		WHERE PAYMENT_NO = #{paymentNo}
+		WHERE COIN_NO = #{coinNo}
 	</update>
 	
-	<select id="getPaymentList" parameterType="search" resultMap="paymentSelectMap">
+	<select id="getCoinList" parameterType="search" resultMap="coinSelectMap">
 		SELECT
-			PAYMENT_NO, PAYMENT_REGDATE, PAYMENT_ROLE, PAYMENT_USER_ID, PAYMENT_PRICE,
-			PAYMENT_COIN_COUNT, PAYMENT_UID
-			FROM PAYMENT
+			COIN_NO, COIN_REGDATE, COIN_ROLE, COIN_COUNT, USER_ID,
+			FLASH_NO
+			FROM COIN
 			<if test="searchCondition !=null">
 			<where>
 			<if test="searchCondition == 1 and searchKeyword !='' ">
-			PAYMENT_ROLE = #{searchKeyword}
+			USER_ID = #{searchKeyword}
 			</if>
 			<if test="searchCondition == 2 and searchKeyword !='' ">
-			PAYMENT_PRICE = #{searchKeyword}
+			COIN_REGDATE = #{searchKeyword}
 			</if>
 			</where>
 			</if>
@@ -61,7 +62,7 @@
 	
 	<select  id="getTotalCount"  parameterType="search"	 resultType="int">
 	  	SELECT count(*)
-			FROM PAYMENT
+			FROM COIN
 			<if test="searchCondition != null">
 			<where>
 			<if test="searchCondition == 1 and searchKeyword !='' ">
@@ -72,6 +73,6 @@
 			</if>
 			</where>
 			</if> 					
-	 </select> -->
+	 </select>
 	
 </mapper> 

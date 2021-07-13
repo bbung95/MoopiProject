@@ -26,12 +26,12 @@ public class FlashServiceImpl {
 
 	
 	public void addFlash(Flash flash) throws Exception {
-		System.out.println("플래시 에드 서비스임플 시작");
+		System.out.println("addFlash ServiceImpl start::");
 		flashDao.addFlash(flash);
 	}
 
 	public Flash getFlash(int flashNo) throws Exception {
-		System.out.println("플래시 서비스임플 시작");
+		System.out.println("getFlash ServiceImpl start::");
 		return flashDao.getFlash(flashNo);
 	}
 
