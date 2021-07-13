@@ -29,7 +29,11 @@ function fncGetBoard(boardNo){
 
 </script>
   
-
+<style>
+body{
+	padding-top: 50px;
+}
+</style>
 </head>
 <body>
 <!-- ToolBar Start /////////////////////////////////////-->
