@@ -43,7 +43,7 @@
 		WHERE COIN_NO = #{coinNo}
 	</update>
 	
-	<select id="getCoinList" parameterType="search" resultMap="paymentSelectMap">
+	<select id="getCoinList" parameterType="search" resultMap="coinSelectMap">
 		SELECT
 			COIN_NO, COIN_REGDATE, COIN_ROLE, COIN_COUNT, USER_ID,
 			FLASH_NO

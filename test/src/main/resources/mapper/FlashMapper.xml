@@ -8,21 +8,29 @@
  	
 	<resultMap id="flashSelectMap" type="flash">
 		<result property="flashNo" 			column="FLASH_NO" 			jdbcType="NUMERIC"/>
-		<result property="flashName"	column="FLASH_NAME" 		jdbcType="VARCHAR" />
+		<result property="flashName"		column="FLASH_NAME" 		jdbcType="VARCHAR" />
 		<result property="flashConstructor.userId"	column="FLASH_CONSTRUCTOR" 		jdbcType="VARCHAR" />
 		<result property="flashContent" 	column="FLASH_CONTENT" 		jdbcType="VARCHAR" />
-		<result property="flashFile" 				column="FLASH_FILE" 					jdbcType="VARCHAR" />
-		<result property="flashRegdate" 			column="FLASH_REGDATE" 		jdbcType="DATE" />
-		<result property="flashTime" 				column="FLASH_TIME" 					jdbcType="DATE" />
-		<result property="flashCurrentCount" 			column="FLASH_CURRENT_COUNT" 				jdbcType="NUMERIC"  />
-		<result property="flashMaxCount" 		column="FLASH_MAX_COUNT" 			jdbcType="NUMERIC" />
-		<result property="flashAddr" 		column="FLASH_ADDR" 			jdbcType="VARCHAR" />
-		<result property="flashState" 		column="FLASH_STATE" 			jdbcType="CHAR" />
-		<result property="flashInterest" 		column="FLASH_INTEREST" 			jdbcType="NUMERIC" />
-		<result property="flashMapX" 		column="FLASH_MAP_X" 			jdbcType="VARCHAR" />
-		<result property="flashMapY" 		column="FLASH_MAP_Y" 			jdbcType="VARCHAR" />
+		<result property="flashFile" 		column="FLASH_FILE" 		jdbcType="VARCHAR" />
+		<result property="flashRegdate" 	column="FLASH_REGDATE" 		jdbcType="DATE" />
+		<result property="flashTime" 		column="FLASH_TIME" 		jdbcType="DATE" />
+		<result property="flashCurrentCount" column="FLASH_CURRENT_COUNT" 	jdbcType="NUMERIC"  />
+		<result property="flashMaxCount" 	column="FLASH_MAX_COUNT" 	jdbcType="NUMERIC" />
+		<result property="flashAddr" 		column="FLASH_ADDR" 		jdbcType="VARCHAR" />
+		<result property="flashState" 		column="FLASH_STATE" 		jdbcType="CHAR" />
+		<result property="flashInterest" 	column="FLASH_INTEREST" 	jdbcType="NUMERIC" />
+		<result property="flashMapX" 		column="FLASH_MAP_X" 		jdbcType="VARCHAR" />
+		<result property="flashMapY" 		column="FLASH_MAP_Y" 		jdbcType="VARCHAR" />
 	</resultMap>
 	
+	<resultMap id="meetingFlashMemberSelectMap" type="meetingFlashMember">
+		<result property="meflNo" 			column="MEFL_NO" 		jdbcType="NUMERIC"/>
+		<result property="meflId.userId"	column="MEFL_ID" 		jdbcType="VARCHAR" />
+		<result property="targetNo" 		column="TARGET_NO" 		jdbcType="NUMERIC" />
+		<result property="joinRegDate" 		column="JOIN_REGDATE" 			jdbcType="DATE" /> 
+		<result property="joinState" 		column="JOIN_STATE" 			jdbcType="CHAR" />
+		<result property="meflType" 		column="MEFL_TYPE" 			jdbcType="CHAR" />
+	</resultMap>
 	
 
 	<select id="getFlash" parameterType="int" resultMap="flashSelectMap">
@@ -40,7 +48,7 @@
 			FLASH_TIME, FLASH_CURRENT_COUNT, FLASH_MAX_COUNT, FLASH_ADDR, FLASH_STATE, FLASH_INTEREST,
 			FLASH_MAP_X, FLASH_MAP_Y)
 		VALUES(#{flashNo}, #{flashName}, #{flashContent}, #{flashFile}, #{flashConstructor.userId},
-		#{flashRegdate}, #{flashTime}, #{flashCurrentCount}, #{flashMaxCount}, #{flashAddr}, #{flashState}, 
+		now(), #{flashTime}, '1', #{flashMaxCount}, #{flashAddr}, #{flashState}, 
 		#{flashInterest}, #{flashMapX}, #{flashMapY})
 	</insert>
 	
@@ -51,7 +59,9 @@
 			FLASH_FILE = #{flashFile},
 			FLASH_CONTENT = #{flashContent},
 			FLASH_ADDR = #{flashAddr},
+			FLASH_MAX_COUNT = #{flashMaxCount},
 			FLASH_TIME = #{flashTime},
+			FLASH_INTEREST = #{flashInterest}
 		</set>
 		WHERE FLASH_NO = #{flashNo}
 	</update>
