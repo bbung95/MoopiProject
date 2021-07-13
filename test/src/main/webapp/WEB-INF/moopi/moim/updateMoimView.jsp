@@ -15,9 +15,9 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
 
 <script>
-function fncAddMoim(){
-	alert("모임을 생성하겠씁니다.");
-	$("form").attr("method", "POST").attr("action", "/moim/addMoim").submit();
+function fncUptMoim(){
+	alert("모임을 수정하겠씁니다.");
+	$("form").attr("method", "POST").attr("action", "/moim/updateMoim").submit();
 
 }
 </script>
@@ -31,68 +31,69 @@ function fncAddMoim(){
 <!-- ToolBar Start /////////////////////////////////////-->
 	<jsp:include page="../layout/toolbar.jsp" />
 <!-- ToolBar End /////////////////////////////////////-->
-<h3>모임생성페이지입니다...</h3>
+<h3>모임수정페이지입니다...</h3>
 
 <div class="container">
 	
-		<h1 class="bg-primary text-center">모임무피생성</h1>
+		<h1 class="bg-primary text-center">모임무피수정</h1>
 		
 		<!-- form Start /////////////////////////////////////-->
 		<form class="form-horizontal" name="detailForm" enctype="multipart/form-data">
 		  <input type="hidden" id="userId" name="userId" value="${userId}">
+		  <input type="hidden" id="mmNo" name="mmNo" value="${moim.mmNo}">
 		  <div class="form-group">
 		    <label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">모임무피명</label>
 		    <div class="col-sm-4">
-		      <input type="text" class="form-control" id="mmName" name="mmName" placeholder="모임명">
+		      <input type="text" class="form-control" id="mmName" name="mmName" value="${moim.mmName}">
 		    </div>
 		  </div>
 		  
 		  <div class="form-group">
 		    <label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">대표썸네일</label>
 		    <div class="col-sm-4">
-		      <input type="file" class="form-control" id="uploadFile" name="uploadFile" placeholder="대표썸네일">
+		      <input type="file" class="form-control" id="uploadFile" name="uploadFile" value="${moim.mmFile}">
 		    </div>
 		  </div>
 		  
 		  <div class="form-group">
 		    <label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">간단소개글</label>
 		    <div class="col-sm-4">
-		      <input type="text" class="form-control" id="mmContent" name="mmContent" placeholder="50자이내">
+		      <input type="text" class="form-control" id="mmContent" name="mmContent" value="${moim.mmContent}">
 		    </div>
 		  </div>
 		  
 		  <div class="form-group">
 		    <label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">지역구</label>
 		    <div class="col-sm-4">
-		      <input type="text" class="form-control" id="mmAddr" name="mmAddr" placeholder="지역구">
+		      <input type="text" class="form-control" id="mmAddr" name="mmAddr" value="${moim.mmAddr}">
 		    </div>
 		  </div>
 		  
 		  <div class="form-group">
 		    <label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">인원</label>
 		    <div class="col-sm-4">
-		      <input type="text" class="form-control" id="mmMaxCount" name="mmMaxCount" placeholder="가입가능정원">
+		      <input type="text" class="form-control" id="mmMaxCount" name="mmMaxCount" value="${moim.mmMaxCount}">
 		    </div>
 		  </div>
 		  
 		  <div class="form-group">
 		    <label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">관심사선택</label>
 		    <div class="col-sm-4">
-		      <input type="text" class="form-control" id="mmInterest" name="mmInterest" placeholder="아웃도어/여행/축구등등">
+		      <input type="text" class="form-control" id="mmInterest" name="mmInterest" value="${moim.mmInterest}">
 		    </div>
 		  </div>
 		  
 		  <div class="form-group">
 		    <label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">최소연령</label>
 		    <div class="col-sm-4">
-		      <input type="text" class="form-control" id="mmMinAge" name="mmMinAge" placeholder="최소연령">
+		      <input type="text" class="form-control" id="mmMinAge" name="mmMinAge" value="${moim.mmMinAge}">
 		    </div>
 		  </div>
 		  
 		  <div class="form-group">
 		    <label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">최대연령</label>
 		    <div class="col-sm-4">
-		      <input type="text" class="form-control" id="mmMaxAge" name="mmMaxAge" placeholder="최대연령">
+		      <input type="text" class="form-control" id="mmMaxAge" name="mmMaxAge" value="${moim.mmMaxAge}">
 		    </div>
 		  </div>
 		  
@@ -134,7 +135,7 @@ function fncAddMoim(){
 		  
 		  <div class="form-group">
 		    <div class="col-sm-offset-4  col-sm-4 text-center">
-		      <button type="button" class="btn btn-primary" onClick="fncAddMoim()" >등록</button>
+		      <button type="button" class="btn btn-primary" onClick="fncUptMoim()" >수정</button>
 			   <a class="btn btn-default btn" href="#" role="button">취소</a>
 		    </div>
 		  </div>
