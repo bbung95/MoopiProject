@@ -12,7 +12,7 @@ import lombok.ToString;
 public class Payment {
 
 	private int paymentNo;
-	private Date paymentRegdate;
+	private String paymentRegdate;
 	private int paymentRole;
 	private User PaymentUserId;
 	private int paymentPrice;

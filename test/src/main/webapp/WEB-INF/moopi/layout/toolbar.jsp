@@ -10,7 +10,7 @@
 
 	<div class="container">
 
-		<a class="navbar-brand" href="/index.jsp">Moopi</a>
+		<a class="navbar-brand" href="/">Moopi</a>
 
 		<!-- toolBar Button Start //////////////////////// -->
 		<div class="navbar-header">
@@ -32,7 +32,7 @@
 			<ul class="nav navbar-nav">
 
 				<li><a href="/moim/listMoim">모임무피</a></li>
-				<li><a href="#">번개무피</a></li>
+				<li><a href="/flash/listFlash">번개무피</a></li>
 				<li><a href="/board/MoopiBoard/listMoopi">무피게시판</a></li>
 				<li><a href="/board/QnABoard/listQnA">문의게시판</a></li>
 			</ul>
