@@ -57,4 +57,19 @@ public class BoardServiceImpl {
 
 	}
 	
+	public int getLike(Map map) {
+	
+		return boardDao.getLike(map);
+	}
+	
+	public void addLike(Map map) {
+		
+		boardDao.addLike(map);
+	}
+	
+	public void deleteLike(Map map) {
+		
+		boardDao.deleteLike(map);
+	}
+
 }
