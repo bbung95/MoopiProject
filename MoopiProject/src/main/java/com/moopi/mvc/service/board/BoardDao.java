@@ -27,9 +27,5 @@ public interface BoardDao {
 	
 	public int getTotalCount(@Param("map")Map map);
 	 
-	public void addLike(@Param("followLike")FollowLike followLike);
-		
-	public int getLike(@Param("followLike")FollowLike followLike);
 	
-
 }	

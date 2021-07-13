@@ -11,8 +11,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import com.moopi.mvc.common.Search;
 import com.moopi.mvc.service.board.impl.BoardServiceImpl;
 import com.moopi.mvc.service.domain.Board;
+import com.moopi.mvc.service.domain.FollowLike;
 import com.moopi.mvc.service.domain.Reply;
 import com.moopi.mvc.service.domain.User;
+import com.moopi.mvc.service.followLike.impl.FollowLikeServiceImpl;
 import com.moopi.mvc.service.reply.impl.ReplyServiceImpl;
 
 @SpringBootTest
@@ -23,7 +25,7 @@ public class BoardTest {
 	@Autowired
 	private ReplyServiceImpl replyService;
 	@Autowired
-	
+	private FollowLikeServiceImpl followLikeService;
 	
 //	@Test
 //	public void getBoardList(){
@@ -174,16 +176,16 @@ public class BoardTest {
 		FollowLike followLike = new FollowLike();
 		
 		User user = new User();
-		user.setUserId("user4");
+		user.setUserId("user03");
 		
 		followLike.setUser(user);
-		followLike.setFlTarget(13);
+		followLike.setFlTarget(12);
 		followLike.setFlType("1");
 		
+		System.out.println(followLikeService.getLike(followLike));
 		
-		int a = boardService.getLike(followLike);
 		
-		if( a == 1 ) {
+		if( followLikeService.getLike(followLike) == 1 ) {
 			System.out.println("이미 좋아요를 누르셧습니다.");
 		}else {
 			System.out.println("좋아요를 안누르셧습니다.");
