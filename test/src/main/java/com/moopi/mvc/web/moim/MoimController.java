@@ -138,6 +138,7 @@ public class MoimController {
 		return "forward:모임상세조회페이지";
 	}
 	
+	//가입신청 거절하기
 	@RequestMapping("refuseApply")
 	public String refuseApply(@RequestParam("memberNo") int memberNo,
 			@RequestParam("mmNo") int mmNo) throws Exception {
@@ -168,8 +169,9 @@ public class MoimController {
 		model.addAttribute("list", map.get("list"));
 		if(status == 1) {
 			return "moim/listApply";
+		}else {
+			return "moim/listMember";	
 		}
-		return "forward:멤버리스트페이지로이동";
 	}
 	
 }
