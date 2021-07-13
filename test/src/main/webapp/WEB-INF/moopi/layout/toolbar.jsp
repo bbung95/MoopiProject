@@ -30,7 +30,6 @@
 
 			<!-- Tool Bar 를 다양하게 사용하면.... -->
 			<ul class="nav navbar-nav">
-
 				<li><a href="#">모임무피</a></li>
 				<li><a href="#">번개무피</a></li>
 				<li><a href="#">무피게시판</a></li>
@@ -168,6 +167,16 @@
 	$("a:contains('번개무피')").on("click", function(){
 		
 		location.href = "/flash/listFlash";
+	})
+	
+	$("a:contains('무피게시판')").on("click", function(){
+		
+		location.href = "/board/MoopiBoard/listMoopi";
+	})
+	
+	$("a:contains('문의게시판')").on("click", function(){
+		
+		location.href = "/board/QnABoard/listQnA";
 	})
 	
 	$("a:contains('채팅')").on("click", function() {
