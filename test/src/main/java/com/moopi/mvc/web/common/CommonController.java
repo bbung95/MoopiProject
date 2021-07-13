@@ -9,11 +9,18 @@ public class CommonController {
 	public CommonController() {
 	}
 	
-	@RequestMapping("main")
+	@RequestMapping("/")
 	public String home() {
 		
 		System.out.println("/main");
 		return "test";
+	}
+	
+	@RequestMapping("/list")
+	public String userList() {
+		
+		System.out.println("/userList");
+		return "userList";
 	}
 	
 }

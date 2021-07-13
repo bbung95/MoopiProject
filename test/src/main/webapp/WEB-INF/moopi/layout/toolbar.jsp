@@ -102,7 +102,7 @@
 
 			}
 		});
-		$('#notice ' + noticeNo).remove();
+		$('.notice '+noticeNo).remove();
 	}
 
 	//알림 전체삭제
@@ -115,7 +115,7 @@
 
 			}
 		});
-		$('#notice').remove();
+		$('.notice').remove();
 	}
 	// 읽지않은 알림과 알림 리스트
 	$
@@ -126,7 +126,7 @@
 				success : function(data, status) {
 					if (data.length > 0) {
 						for (var i = 0; i < data.length; i++) {
-							let display = "<li style='height: 40px' id='notice "+data[i].noticeNo+"'><span>"
+							let display = "<li style='height: 40px' class='notice "+data[i].noticeNo+"'><span>"
 									+ data[i].noticeContent
 									+ "</span><span><a href='javascript:deleteNotice("
 									+ data[i].noticeNo + ")'>X</a></span></li>";
@@ -152,4 +152,13 @@
 		})
 		$('#test').remove();
 	})
+	
+	$("a:contains('채팅')").on("click", function() {
+
+		popWin = window
+		.open(
+				"http://localhost:3000/?userId=user02",
+				"popWin",
+				"left=460, top=300, width=460, height=600, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");
+	});
 </script>
