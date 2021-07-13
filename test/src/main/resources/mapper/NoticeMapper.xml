@@ -10,23 +10,16 @@
 		<result property="noticeNo" 		column="NOTICE_NO" 			jdbcType="NUMERIC"/>
 		<result property="noticeContent"	column="NOTICE_CONTENT" 	jdbcType="VARCHAR"/>
 		<result property="toUserId" 		column="NOTICE_TO_USER_ID" 	jdbcType="VARCHAR"/>
-		<result property="noticeTarget" 	column="NOTICE_TARGER" 		jdbcType="VARCHAR"/>
+		<result property="noticeTarget" 	column="NOTICE_TARGET" 		jdbcType="VARCHAR"/>
 		<result property="noticeType" 		column="CATEGORY" 			jdbcType="VARCHAR"/>
 		<result property="noticeState" 		column="NOTICE_STATE" 		jdbcType="CHAR"/>
 		<result property="noticeRegDate" 	column="NOTICE_REGDATE" 	jdbcType="DATE"/>
-		<result property="noticeNo" 		column="notice_no" 			jdbcType="NUMERIC"/>
-		<result property="noticeContent"	column="notice_content" 	jdbcType="VARCHAR"/>
-		<result property="toUserId" 		column="TO_USER_ID" 		jdbcType="VARCHAR"/>
-		<result property="noticeTarget" 	column="notice_target" 		jdbcType="VARCHAR"/>
-		<result property="noticeType" 		column="category" 			jdbcType="VARCHAR"/>
-		<result property="noticeState" 		column="notice_state" 		jdbcType="CHAR"/>
-		<result property="noticeRegDate" 	column="notice_regdate" 	jdbcType="DATE"/>
 	</resultMap>
 	
 	<insert id="addNotice" parameterType="Notice">
 		INSERT 
 		INTO notice(NOTICE_TO_USER_ID, NOTICE_TARGER, NOTICE_CONTENT, NOTICE_REGDATE, NOTICE_STATE, CATEGORY)
-		VALUES (#{toUserId}, #{noticeTarget}, #{noticeContent}, now(), #{noticeState}, #{noticeType})
+		VALUES (#{toUserId}, #{noticeTarget}, #{noticeContent}, now(), "1", #{noticeType})
 	</insert>
 	
 	<select id="getNotice" parameterType="int" resultMap="noticeSelectMap">

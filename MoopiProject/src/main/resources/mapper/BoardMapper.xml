@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+	<mapper namespace="com.moopi.mvc.service.board.BoardDao">   	
+ 	
+	<resultMap id="boardSelectMap" type="board">
+		<result property="boardNo" 			column="BD_NO" 			jdbcType="NUMERIC"/>
+		<result property="boardCategory"	column="BD_CATEGORY" 	jdbcType="CHAR" />
+		<result property="boardName" 		column="BD_NAME" 		jdbcType="VARCHAR" /> 
+		<result property="boardContent" 	column="BD_CONTENT" 	jdbcType="VARCHAR" />
+		<result property="boardRegDate" 	column="BD_REGDATE" 	jdbcType="DATE" />
+		<result property="boardUpdate" 		column="BD_UPDATE" 		jdbcType="DATE"  />
+		<result property="boardState" 		column="BD_STATE" 		jdbcType="CHAR" />
+		<result property="boardPassword" 	column="BD_PASSWORD" 	jdbcType="VARCHAR"  />
+		<result property="boardMoimNo" 		column="BD_MM_NO" 		jdbcType="NUMERIC"  />
+		<result property="boardLike" 		column="LIKECOUNT" 			jdbcType="NUMERIC"  />
+		<result property="replyCount" 		column="REPLYCOUNT" 		jdbcType="NUMERIC"  />
+		
+		<association property="boardWriter"  javaType="user">
+			<id property="userId" 				column="USER_ID" 			jdbcType="VARCHAR"/>
+			<result property="profileImage"		column="PROFILE_IMAGE"		jdbcType="VARCHAR"/>
+			<result property="nickname"			column="NICKNAME"			jdbcType="VARCHAR"/>
+		</association>		
+	</resultMap>	
+	
+	<select id="getBoardList" parameterType="map" resultMap="boardSelectMap">
+	SELECT
+	*
+		FROM (SELECT
+				inner_table.* , @ROWNUM := @ROWNUM +1 AS RNUM
+                FROM(
+					SELECT 
+					BD.BD_NO    
+				  , U.NICKNAME
+				  , U.PROFILE_IMAGE
+				  , BD.BD_NAME
+				  , BD.BD_REGDATE
+				  , BD.BD_UPDATE
+				  , BD.BD_MM_NO
+				  , BD.BD_STATE
+				  , BD.BD_CATEGORY 
+				  , LEFT(BD.BD_PASSWORD, 1) AS BD_PASSWORD
+				  , ( SELECT 
+						COUNT(*)
+						FROM
+						follow_like
+						WHERE
+						FL_TYPE = 1
+						AND
+						FL_TARGET = BD.BD_NO
+					) AS LIKECOUNT
+				  , (
+						SELECT 
+						COUNT(*) 
+						FROM 
+						REPLY 
+						WHERE 
+						REPLY_STATE = 1
+						AND
+						REPLY.BD_NO = BD.BD_NO
+					) AS REPLYCOUNT
+					  FROM 
+					  BOARD BD,  REPLY R, USERS U
+					WHERE 
+					BD.BD_WRITER = U.USER_ID
+                    <if test="map.boardCategory != null" >
+					AND
+					bd.bd_category = #{map.boardCategory}
+					</if>
+					<if test="map.boardState == 1 or map.boardState == 2" >
+					AND
+					BD.BD_STATE = #{map.boardState}
+					</if>
+					GROUP BY 
+					BD.BD_NO
+					, BD.BD_NAME
+					, BD.BD_REGDATE
+					, BD.BD_UPDATE
+					, BD.BD_PASSWORD
+                    ORDER BY 
+                    BD.BD_NO ASC) inner_table,
+                    (select @rownum := 0) as R
+                    )tables
+				WHERE rnum between #{map.search.startRowNum} and #{map.search.endRowNum}
+		
+		
+	</select>
+	
+<!-- 게시글 조회  -->
+	<select id="getBoard" parameterType="int" resultMap="boardSelectMap">
+		SELECT 
+		  BD.BD_NO
+		, BD.BD_NAME
+		, BD.BD_CONTENT
+		, BD.BD_REGDATE
+		, BD.BD_UPDATE
+		, BD.BD_STATE
+		, U.NICKNAME
+		, U.PROFILE_IMAGE
+		FROM 
+		  BOARD BD
+		, USERS U
+		WHERE 
+		BD.BD_WRITER = U.USER_ID
+		AND
+		BD.BD_NO = #{boardNo}  
+	</select>
+	
+	<insert id="addBoard" parameterType="board" 
+			useGeneratedKeys="true"  keyProperty="boardNo">
+		INSERT INTO 
+			BOARD 
+			(
+			  BD_CATEGORY
+			, BD_WRITER
+			, BD_NAME
+			, BD_CONTENT
+			, BD_REGDATE
+			, BD_STATE
+			, BD_PASSWORD
+			, BD_MM_NO
+			) 
+		VALUES 
+			(
+			  #{board.boardCategory}
+			, #{board.boardWriter.userId}
+			, #{board.boardName}
+			, #{board.boardContent}
+			, now()
+			, '1'
+			, #{board.boardPassword}
+			, #{board.boardMoimNo : NUMERIC}
+		)
+	</insert>
+	
+	<update id="updateBoard" parameterType="board">
+	UPDATE 
+	BOARD SET
+	   BD_NAME = #{board.boardName}
+	 , BD_CONTENT = #{board.boardContent}
+	 , BD_UPDATE = now()
+	 WHERE 
+	 BD_NO = #{board.boardNo}
+	
+	</update>
+	
+	<update id="deleteBoard" parameterType="board">
+	UPDATE 
+	BOARD SET
+	BD_STATE = #{board.boardState}
+	WHERE 
+	BD_NO = #{board.boardNo}
+	
+	</update>
+	
+	<select id ="getLike" parameterType ="followLike">
+	SELECT
+	  FL_NO
+	, USER_ID
+	, FL_TARGET
+	, FL_TYPE
+	FROM
+	  FOLLOW_LIKE
+	WHERE
+	  USER_ID   = #{followLike.user.userId)
+	AND
+	  FL_TYPE   = #{followLike.flType}
+	AND
+	  FL_TARGET = #{followLike.flTarget}
+	</select>
+	
+<!-- 	<insert id="addLike" parameterType ="followLike"> -->
+	
+<!-- 	</insert> -->
+	
+	
+</mapper>	
