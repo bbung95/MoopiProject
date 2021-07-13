@@ -11,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import com.moopi.mvc.common.Search;
 import com.moopi.mvc.service.board.impl.BoardServiceImpl;
 import com.moopi.mvc.service.domain.Board;
+import com.moopi.mvc.service.domain.FollowLike;
 import com.moopi.mvc.service.domain.Reply;
 import com.moopi.mvc.service.domain.User;
 import com.moopi.mvc.service.reply.impl.ReplyServiceImpl;
@@ -23,7 +24,7 @@ public class BoardTest {
 	@Autowired
 	private ReplyServiceImpl replyService;
 	
-	private Board board;
+	
 	
 	
 //	@Test
@@ -72,26 +73,26 @@ public class BoardTest {
 //	}
 //	
 	
-	@Test
-	public void addBoard() {
-		
-		User user = new User();
-		user.setUserId("user3");
-		Board board = new Board();
-		
-		board.setBoardCategory("2");		
-		board.setBoardWriter(user);
-		board.setBoardName("새로운질문!");
-		board.setBoardContent("질문합니다");
-		
-		System.out.println(board.getBoardWriter().getUserId());
-		
-		board.setBoardPassword("1231");
-		System.out.println(board);
-		 boardService.addBoard(board);
-	
-		 System.out.println(board.getBoardNo());
-	}
+//	@Test
+//	public void addBoard() {
+//		
+//		User user = new User();
+//		user.setUserId("user3");
+//		Board board = new Board();
+//		
+//		board.setBoardCategory("2");		
+//		board.setBoardWriter(user);
+//		board.setBoardName("새로운질문!");
+//		board.setBoardContent("질문합니다");
+//		
+//		System.out.println(board.getBoardWriter().getUserId());
+//		
+//		board.setBoardPassword("1231");
+//		System.out.println(board);
+//		 boardService.addBoard(board);
+//	
+//		 System.out.println(board.getBoardNo());
+//	}
 	
 //		
 //	@Test
@@ -164,6 +165,50 @@ public class BoardTest {
 //		replyService.deleteReply(reply);
 //		
 //		System.out.println(reply);
+//	}
+	
+	// Like 게시글 중복체크
+	@Test
+	public void getLike() {
+		
+		System.out.println("Test getLike ::: ");
+		
+		FollowLike followLike = new FollowLike();
+		
+		User user = new User();
+		user.setUserId("user4");
+		
+		followLike.setUser(user);
+		followLike.setFlTarget(13);
+		followLike.setFlType("1");
+		
+		
+		int a = boardService.getLike(followLike);
+		
+		if( a == 1 ) {
+			System.out.println("이미 좋아요를 누르셧습니다.");
+		}else {
+			System.out.println("좋아요를 안누르셧습니다.");
+		}
+	}
+	
+	
+//	@Test
+//	public void addLike() {
+//		
+//		System.out.println("Test addLike ::: ");
+//		
+//		FollowLike followLike = new FollowLike();
+//		
+//		User user = new User();
+//		user.setUserId("user3");
+//		
+//		followLike.setFlType("1");
+//		followLike.setFlTarget(13);
+//		followLike.setUser(user);
+//		
+//		boardService.addLike(followLike);
+//		
 //	}
 	
 	
