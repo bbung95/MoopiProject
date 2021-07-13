@@ -21,10 +21,6 @@ public class BoardServiceImpl {
 	@Autowired
 	private BoardDao boardDao;
 	
-	@Autowired
-	private FollowLike followLike;
-	
-	
 	public void addBoard(Board board)  {
 		
 	boardDao.addBoard(board);
@@ -60,14 +56,5 @@ public class BoardServiceImpl {
 
 	}
 	
-	public int getLike(FollowLike followLike) {
-		
-		return boardDao.getLike(followLike);
-	}
-	
-	public void addLike(FollowLike followLike) {
-		
-		boardDao.addLike(followLike);
-	}
-	
+
 }
