@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+						"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.moopi.mvc.service.coin.CoinDao">
+ 	
+	<resultMap id="coinSelectMap" type="coin">
+		<result property="coinNo" 		column="COIN_NO" 			jdbcType="NUMERIC"/>
+		<result property="coinRegdate"	column="COIN_REGDATE" 		jdbcType="DATE" />
+		<result property="coinRole"		column="COIN_ROLE" 			jdbcType="VARCHAR" />
+		<result property="coinCount" 	column="COIN_COUNT" 		jdbcType="NUMERIC" />
+		<result property="userId.userId" 		column="USER_ID" 	jdbcType="VARCHAR" />
+		<result property="flashNo.flashNo" 		column="FLASH_NO" 	jdbcType="NUMERIC" />
+	</resultMap>
+	
+	
+
+	<select id="getCoin" parameterType="int" resultMap="coinSelectMap">
+		SELECT
+			COIN_NO, COIN_REGDATE, COIN_ROLE, COIN_COUNT, USER_ID,
+			FLASH_NO
+			FROM COIN
+		WHERE COIN_NO = #{coinNo}	
+	</select>
+	
+ 	<!--<insert id="addPayment" parameterType="payment">
+		INSERT
+		INTO PAYMENT(PAYMENT_NO, PAYMENT_REGDATE, PAYMENT_ROLE, PAYMENT_USER_ID, PAYMENT_PRICE,
+			PAYMENT_COIN_COUNT, PAYMENT_UID)
+		VALUES(#{paymentNo}, #{paymentRegdate}, #{paymentRole}, #{paymentUserId.userId}, #{paymentPrice},
+		#{paymentCoinCount}, #{paymentUid})
+	</insert>
+	
+	<update id="updatePayment" parameterType="Payment">
+		UPDATE PAYMENT
+		<set>
+			PAYMENT_ROLE = #{paymentRole},
+			PAYMENT_COIN_COUNT = #{paymentCoinCount},
+		</set>
+		WHERE PAYMENT_NO = #{paymentNo}
+	</update>
+	
+	<select id="getPaymentList" parameterType="search" resultMap="paymentSelectMap">
+		SELECT
+			PAYMENT_NO, PAYMENT_REGDATE, PAYMENT_ROLE, PAYMENT_USER_ID, PAYMENT_PRICE,
+			PAYMENT_COIN_COUNT, PAYMENT_UID
+			FROM PAYMENT
+			<if test="searchCondition !=null">
+			<where>
+			<if test="searchCondition == 1 and searchKeyword !='' ">
+			PAYMENT_ROLE = #{searchKeyword}
+			</if>
+			<if test="searchCondition == 2 and searchKeyword !='' ">
+			PAYMENT_PRICE = #{searchKeyword}
+			</if>
+			</where>
+			</if>
+	</select>
+	
+	<select  id="getTotalCount"  parameterType="search"	 resultType="int">
+	  	SELECT count(*)
+			FROM PAYMENT
+			<if test="searchCondition != null">
+			<where>
+			<if test="searchCondition == 1 and searchKeyword !='' ">
+			PAYMENT_ROLE = #{searchKeyword}
+			</if>
+			<if test="searchCondition == 2 and searchKeyword !='' ">
+			PAYMENT_PRICE = #{searchKeyword}
+			</if>
+			</where>
+			</if> 					
+	 </select> -->
+	
+</mapper> 

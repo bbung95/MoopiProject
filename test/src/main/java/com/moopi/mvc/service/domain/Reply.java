@@ -23,7 +23,7 @@ public class Reply {
 	// 리플 작성시간
 	private Date replyRegDate;
 	// 리플 첨부파일
-	private File replyFile;
+	private String replyFile;
 	// 리플 상태 1. 정상 2. 삭제
 	private String replyState;
 	
