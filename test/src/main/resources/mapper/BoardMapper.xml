@@ -156,4 +156,21 @@
 	
 	</update>
 	
+	<select id ="getLike" parameterType ="followLike" resultType="int">
+	SELECT
+	 COUNT(*)
+	FROM
+	  FOLLOW_LIKE
+	WHERE
+	  USER_ID   = #{followLike.user.userId)
+	AND
+	  FL_TYPE   = #{followLike.flType}
+	AND
+	  FL_TARGET = #{followLike.flTarget}
+	</select>
+	
+	
+	
+	
+	
 </mapper>	
