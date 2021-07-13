@@ -32,6 +32,18 @@ function fncApplyList(mmNo){
 	self.location ="/moim/listMember?status=1&mmNo="+mmNo
 }
 
+function fncListMember(mmNo){
+	alert("유저목록보기");
+	self.location ="/moim/listMember?status=2&mmNo="+mmNo
+}
+
+function fncListMeeting(mmNo){
+	alert("정모일정보기");
+	self.location ="/meeting/listMeeting?userId=user01&mmNo="+mmNo
+}
+
+
+
 </script>
 
 

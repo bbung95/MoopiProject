@@ -65,12 +65,14 @@ public class MeetingController {
 	
 	//정모 리스트 조회
 	@RequestMapping("listMeeting")
-	public String getListMeeting(@RequestParam("mmNo") int mmNo, Model model) throws Exception{
+	public String getListMeeting(@RequestParam("mmNo") int mmNo, @RequestParam("userId") String userId,
+									Model model) throws Exception{
 		
 		System.out.println("모임리스트를 가져옵니다.");
 		Map<String, Object> map = meetingService.getMeetingList(mmNo);
 		model.addAttribute("list", map.get("list"));
-		return "forward:모임리스트페이지로이동";
+		model.addAttribute("userId", userId);
+		return "meeting/listMeeting";
 	}
 	
 	//정모참가하기
