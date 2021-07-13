@@ -10,7 +10,7 @@
 
 	<div class="container">
 
-		<a class="navbar-brand" href="/index.jsp">Moopi</a>
+		<a class="navbar-brand" href="/">Moopi</a>
 
 		<!-- toolBar Button Start //////////////////////// -->
 		<div class="navbar-header">

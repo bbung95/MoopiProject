@@ -15,15 +15,21 @@
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
 
-<script>
+<script type="text/javascript">
 function fncUptMoimView(mmNo){
 	alert("모임수정");
 	self.location ="/moim/updateMoimView?mmNo="+mmNo
 }
 
+function fncApply(mmNo){
+	alert("가입하기");
+	alert("가입신청이 완료되었습니다.")
+	self.location ="/moim/applyMoim?userId=user11&mmNo="+mmNo
+}
+
 function fncApplyList(mmNo){
 	alert("가입신청목록보기");
-	self.location ="/moim/addMoimView?userId=user01"
+	self.location ="/moim/listMember?status=1&mmNo="+mmNo
 }
 
 </script>
@@ -66,7 +72,7 @@ function fncApplyList(mmNo){
 <p>모임가입유형(1일반2자유):${moim.mmType}</p>
 
 <button type="button" class="btn btn-default" onClick="fncUptMoimView(${moim.mmNo})">소모임정보수정</button>
-<button type="button" class="btn btn-default" onClick="fncAddMoimView(${moim.mmNo})">가입신청목록보기</button>
+<button type="button" class="btn btn-default" onClick="fncApplyList(${moim.mmNo})">가입신청목록보기</button>
 
 </body>
 </html>
