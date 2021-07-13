@@ -1,11 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 
 <!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
@@ -16,8 +16,13 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
 
 <script>
-function fncAddMoimView(){
-	alert("¸ğÀÓ»ı¼º");
+function fncUptMoimView(mmNo){
+	alert("ëª¨ì„ìˆ˜ì •");
+	self.location ="/moim/updateMoimView?mmNo="+mmNo
+}
+
+function fncApplyList(mmNo){
+	alert("ê°€ì…ì‹ ì²­ëª©ë¡ë³´ê¸°");
 	self.location ="/moim/addMoimView?userId=user01"
 }
 
@@ -29,36 +34,39 @@ function fncAddMoimView(){
 
 </head>
 <body>
-<!-- ToolBar Start /////////////////////////////////////-->
-	<jsp:include page="../layout/toolbar.jsp" />
-	<jsp:include page="../layout/moimToolbar.jsp" />
+
+<!-- ToolBar Start ///////////////////////////////////// -->
+<jsp:include page="../layout/toolbar.jsp" flush="false"/>
+<jsp:include page="../layout/moimToolbar.jsp" flush="false"/>
+
 <!-- ToolBar End /////////////////////////////////////-->
-<h3>¸ğÀÓ»ó¼¼ÆäÀÌÁöÀÔ´Ï´Ù...</h3>
+<h3>ëª¨ì„ìƒì„¸í˜ì´ì§€ì…ë‹ˆë‹¤...</h3>
 
 
 //////////////////////////
-<p>¸ğÀÓ³Ñ¹ö:${moim.mmNo}</p>
-<p>¸ğÀÓ¸í:${moim.mmName}</p>
-<p>¸ğÀÓ¼Ò°³±Û:${moim.mmContent}</p>
+<p>ëª¨ì„ë„˜ë²„:${moim.mmNo}</p>
+<p>ëª¨ì„ëª…:${moim.mmName}</p>
+<p>ëª¨ì„ì†Œê°œê¸€:${moim.mmContent}</p>
 <div class="row">
-	  		<div class="col-xs-4 col-md-2 "><strong>¸ğÀÓ´ëÇ¥½æ³×ÀÏ</strong></div>
+	  		<div class="col-xs-4 col-md-2 "><strong>ëª¨ì„ëŒ€í‘œì¸ë„¤ì¼</strong></div>
 			<div class="col-xs-8 col-md-4">
 			<!--<img src="${pageContext.request.contextPath}/images/uploadFiles/${moim.mmFile}" width="200" height="200 "/>  -->
 			<img src="/images/uploadFiles/${moim.mmFile}" width="200" height="200 "/>  
 			</div>
 		</div>
-<p>¸ğÀÓ°¡ÀÔÁ¤¿ø:${moim.mmMaxCount}</p>
-<p>¸ğÀÓÇöÀçÁ¤¿ø:${moim.mmCurrentCount}</p>
-<p>¸ğÀÓ»ı¼ºÀÚ:${moim.mmConstructor.userId}</p>
-<p>¸ğÀÓ»ı¼ºÀÏ:${moim.mmRegDate}</p>
-<p>¸ğÀÓ°ü½É»çNo:${moim.mmInterest}</p>
-<p>¸ğÀÓ°ÅÁÖÁö:${moim.mmAddr}</p>
-<p>¸ğÀÓ¹«ÇÇ»óÅÂ(1°ø°³2ºñ°ø°³):${moim.mmState}</p>
-<p>¸ğÀÓÃÖ¼Ò°¡ÀÔ¿¬·É:${moim.mmMinAge}</p>
-<p>¸ğÀÓÃÖ´ë°¡ÀÔ¿¬·É:${moim.mmMaxAge}</p>
-<p>¸ğÀÓ°¡ÀÔÀ¯Çü(1ÀÏ¹İ2ÀÚÀ¯):${moim.mmType}</p>
+<p>ëª¨ì„ê°€ì…ì •ì›:${moim.mmMaxCount}</p>
+<p>ëª¨ì„í˜„ì¬ì •ì›:${moim.mmCurrentCount}</p>
+<p>ëª¨ì„ìƒì„±ì:${moim.mmConstructor.userId}</p>
+<p>ëª¨ì„ìƒì„±ì¼:${moim.mmRegDate}</p>
+<p>ëª¨ì„ê´€ì‹¬ì‚¬No:${moim.mmInterest}</p>
+<p>ëª¨ì„ê±°ì£¼ì§€:${moim.mmAddr}</p>
+<p>ëª¨ì„ë¬´í”¼ìƒíƒœ(1ê³µê°œ2ë¹„ê³µê°œ):${moim.mmState}</p>
+<p>ëª¨ì„ìµœì†Œê°€ì…ì—°ë ¹:${moim.mmMinAge}</p>
+<p>ëª¨ì„ìµœëŒ€ê°€ì…ì—°ë ¹:${moim.mmMaxAge}</p>
+<p>ëª¨ì„ê°€ì…ìœ í˜•(1ì¼ë°˜2ììœ ):${moim.mmType}</p>
 
-
+<button type="button" class="btn btn-default" onClick="fncUptMoimView(${moim.mmNo})">ì†Œëª¨ì„ì •ë³´ìˆ˜ì •</button>
+<button type="button" class="btn btn-default" onClick="fncAddMoimView(${moim.mmNo})">ê°€ì…ì‹ ì²­ëª©ë¡ë³´ê¸°</button>
 
 </body>
 </html>
