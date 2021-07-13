@@ -25,8 +25,12 @@ public interface BoardDao {
 	
 	public int getTotalCount(@Param("map")Map map);
 	 
+	public int getLike(@Param("map")Map map);
 		
-		
+	public void addLike(@Param("map")Map map);
+	
+	public void deleteLike(@Param("map")Map map);
+	
 	
 
 }	

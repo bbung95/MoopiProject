@@ -6,7 +6,7 @@
 
 
 <!-- ToolBar Start /////////////////////////////////////-->
-<div class="navbar  navbar-inverse navbar-fixed-top">
+<div class="navbar  navbar-inverse">
 
 	<div class="container">
 
@@ -163,6 +163,11 @@
 	$("a:contains('모임무피')").on("click", function(){
 		
 		location.href = "/moim/listMoim";
+	})
+	
+	$("a:contains('번개무피')").on("click", function(){
+		
+		location.href = "/flash/listFlash";
 	})
 	
 	$("a:contains('채팅')").on("click", function() {
