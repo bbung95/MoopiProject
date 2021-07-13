@@ -72,7 +72,7 @@ public class MoimController {
 		moim.setMmConstructor(user);
 		moimService.addMoim(moim);
 		System.out.println("모임생성완료");
-		return "moim/moimMain";
+		return "moim/listMoim";
 	}
 	
 	//모임수정페이지로 이동, 단순네비게이션
@@ -98,13 +98,13 @@ public class MoimController {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
-		moim.setMmFile(currentTime+oriFileName);
 		User user = new User();
 		user.setUserId(userId);
 		moim.setMmConstructor(user);
+		moim.setMmFile(currentTime+oriFileName);
 		moimService.updateMoim(moim);
 		System.out.println("모임수정완료");
-		return "moim/moimMain";
+		return "redirect:/moim/listMoim";
 	}
 	
 	
@@ -126,7 +126,7 @@ public class MoimController {
 	@RequestParam("mmNo") int mmNo) throws Exception {
 		System.out.println("모임 가입신청을 합니다.");
 		moimService.applyMoim(userId, mmNo);
-		return "forward:모임상세조회페이지";
+		return "forward:/moim/getMoim";
 	}
 	
 	//모임 탈퇴하기
@@ -138,6 +138,16 @@ public class MoimController {
 		return "forward:모임상세조회페이지";
 	}
 	
+	@RequestMapping("refuseApply")
+	public String refuseApply(@RequestParam("memberNo") int memberNo,
+			@RequestParam("mmNo") int mmNo) throws Exception {
+		System.out.println("가입신청을 거절 합니다.");
+		moimService.refuseApply(memberNo);
+		return "redirect:/moim/listMember?mmNo="+mmNo+"&status=1";
+	}
+	
+	
+	
 	//멤버 권한변경(가입신청수락, 매니저권한위임및박탈)
 	@RequestMapping("updateMember")
 	public String updateMember(@RequestParam("userId") String userId,
@@ -145,16 +155,20 @@ public class MoimController {
 	@RequestParam("status") int status) throws Exception {
 		System.out.println("멤버 권한변경을 합니다.");
 		moimService.updateMemeber(userId, mmNo, status);
-		return "forward:멤버조회페이지";
+		return "redirect:/moim/listMember?mmNo="+mmNo+"&status="+status;
 	}
 	
 	//멤버 리스트 조회하기
 	@RequestMapping("listMember")
-	public String getListMember(@RequestParam("mmNo") int mmNo, Model model) throws Exception{
+	public String getListMember(@RequestParam("mmNo") int mmNo,
+			@RequestParam("status") int status, Model model) throws Exception{
 		
 		System.out.println("멤버리스트를 가져옵니다.");
-		Map<String, Object> map = moimService.getMemberList(mmNo);
+		Map<String, Object> map = moimService.getMemberList(mmNo, status);
 		model.addAttribute("list", map.get("list"));
+		if(status == 1) {
+			return "moim/listApply";
+		}
 		return "forward:멤버리스트페이지로이동";
 	}
 	
