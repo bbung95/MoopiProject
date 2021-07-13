@@ -32,7 +32,7 @@
 			<ul class="nav navbar-nav">
 
 				<li><a href="/moim/listMoim">모임무피</a></li>
-				<li><a href="#">번개무피</a></li>
+				<li><a href="/flash/listFlash">번개무피</a></li>
 				<li><a href="#">무피게시판</a></li>
 				<li><a href="#">문의게시판</a></li>
 			</ul>
