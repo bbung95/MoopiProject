@@ -4,14 +4,16 @@
 	rel="stylesheet">
 
 <div class="wrapper">
-	<div id="searchList" style="display: none; height: 600px; width: 450px; border: 1px solid black; background: gray;">
-			<div>
+	<div id="searchList" style="display: none; height: 600px; width: 450px; border: 1px solid black; background: gray; overflow:auto;" >
+			<div style="position: absolute; background: gray;">
 				<button>모임무피</button>
 				<button>번개무피</button>
 				<button>포스팅</button>
 				<button>유저</button>
 			</div>
-			<div></div>
+			<div class="searchOut" style="padding-top: 30px">
+				
+			</div>
 	</div>
 	<div class="searchBar" type="1">
 		<input id="searchkeyword" type="text" name="searchkeyword"
@@ -26,22 +28,46 @@
 </div>
 
 <script>
+	
+	/* var loading = false;
+
+	
+	$(window).scroll(
+		function() {
+			console.log(page);
+			if ($(document).height() - $(window).height() == $(window).scrollTop()) {
+				if (!loading) {
+					loading = true;
+					mainProduct();
+				} else {
+					alert("로딩중입니다.");
+				}
+			}
+	}); */
+
 	$('#searchQuerySubmit').on('click', function() {
 		let searchKeyword = $('#searchkeyword').val();
 		let searchType = $('.searchBar').attr('type');
 		if (searchKeyword != "") {
-			/* $.ajax({
+			$.ajax({
 			url: "common/json/searchList/"+searchType,	
 			method: "POST",
 			data: JSON.stringify({searchKeyword : searchKeyword}),
 			contentType : "application/JSON",		
 				type : "JSON",
 				success: function(data, state){
-				console.log(data);
+				console.log(data.list);
 				let display = '';
-				$('.searchList').append(display);
+				for(var i in data.list){
+					display += '<div style="background: white; margin: 5px; height: 100px">'
+								+'<img style="margin: 5px; height:90px; width: 90px;" src="/images/uploadFiles/'+data.list[i].mmFile+'"></img>'
+								+'<span>'+data.list[i].mmName+'</span><span> / '+data.list[i].mmContent+'</span>'
+								+'<span> / '+data.list[i].mmCurrentCount+':'+data.list[i].mmMaxCount+'</span>'
+								+'</div>';
+				}
+				$('.searchOut').append(display);
 			}
-			}) */
+			})
 		}
 	})
 	
