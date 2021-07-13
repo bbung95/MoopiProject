@@ -48,7 +48,7 @@
 						FROM
 						follow_like
 						WHERE
-						FL_TYPE = 1
+						FL_TYPE = '1'
 						AND
 						FL_TARGET = BD.BD_NO
 					) AS LIKECOUNT
@@ -58,7 +58,7 @@
 						FROM 
 						REPLY 
 						WHERE 
-						REPLY_STATE = 1
+						REPLY_STATE = '1'
 						AND
 						REPLY.BD_NO = BD.BD_NO
 					) AS REPLYCOUNT
@@ -156,21 +156,46 @@
 	
 	</update>
 	
-	<select id ="getLike" parameterType ="followLike" resultType="int">
+	<select id ="getLike" parameterType="map"  resultType="int">
 	SELECT
-	 COUNT(*)
+		count(*)
 	FROM
-	  FOLLOW_LIKE
+		FOLLOW_LIKE
 	WHERE
-	  USER_ID   = #{followLike.user.userId)
+		FL_TARGET IN (#{map.likeTarget})
 	AND
-	  FL_TYPE   = #{followLike.flType}
+		USER_ID IN (#{map.userId})
 	AND
-	  FL_TARGET = #{followLike.flTarget}
+		FL_Type IN (1)
 	</select>
+	 
+	<insert id ="addLike" parameterType="map">
 	
+	INSERT INTO
+	FOLLOW_LIKE
+	(  USER_ID
+	, FL_TARGET
+	, FL_TYPE) 
+	VALUES (
+	  #{map.userId}
+	, #{map.likeTarget}
+	, '1')
+		
+	</insert>
 	
+	<delete id ="deleteLike" parameterType="map">
 	
+	DELETE
+	FROM
+	follow_like
+	WHERE 
+	USER_ID = #{map.userId}
+	AND
+	FL_TARGET = #{map.likeTarget}
+	AND
+	FL_TYPE = '1'
+	
+	</delete>
 	
 	
 </mapper>	

@@ -11,10 +11,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import com.moopi.mvc.common.Search;
 import com.moopi.mvc.service.board.impl.BoardServiceImpl;
 import com.moopi.mvc.service.domain.Board;
-import com.moopi.mvc.service.domain.FollowLike;
 import com.moopi.mvc.service.domain.Reply;
 import com.moopi.mvc.service.domain.User;
-import com.moopi.mvc.service.followLike.impl.FollowLikeServiceImpl;
 import com.moopi.mvc.service.reply.impl.ReplyServiceImpl;
 
 @SpringBootTest
@@ -24,8 +22,6 @@ public class BoardTest {
 	private BoardServiceImpl boardService;
 	@Autowired
 	private ReplyServiceImpl replyService;
-	@Autowired
-	private FollowLikeServiceImpl followLikeService;
 	
 //	@Test
 //	public void getBoardList(){
@@ -35,7 +31,7 @@ public class BoardTest {
 //		String boardState = "1";
 //		
 //		// "1"  무피게시판 "2" QnA 게시판 "3" 마이홈 게시판, "4" 모임게시판
-//		String boardCategory = null;
+//		String boardCategory = "2";
 //		
 //		HashMap searchMap = new HashMap();
 //		search.setStartRowNum(1);
@@ -168,48 +164,52 @@ public class BoardTest {
 //	}
 	
 	// Like 게시글 중복체크
-	@Test
-	public void getLike() {
-		
-		System.out.println("Test getLike ::: ");
-		
-		FollowLike followLike = new FollowLike();
-		
-		User user = new User();
-		user.setUserId("user03");
-		
-		followLike.setUser(user);
-		followLike.setFlTarget(12);
-		followLike.setFlType("1");
-		
-		System.out.println(followLikeService.getLike(followLike));
-		
-		
-		if( followLikeService.getLike(followLike) == 1 ) {
-			System.out.println("이미 좋아요를 누르셧습니다.");
-		}else {
-			System.out.println("좋아요를 안누르셧습니다.");
-		}
-	}
-	
-	
 //	@Test
-//	public void addLike() {
+//	public void getLike() {
 //		
-//		System.out.println("Test addLike ::: ");
+//		Map map = new HashMap();
+//		System.out.println("Test getLike ::: ");
 //		
-//		FollowLike followLike = new FollowLike();
+//		String userId = "user03";
+//		String likeTarget = "12";
 //		
-//		User user = new User();
-//		user.setUserId("user3");
+//		map.put("userId", userId);
+//		map.put("likeTarget", likeTarget);
 //		
-//		followLike.setFlType("1");
-//		followLike.setFlTarget(13);
-//		followLike.setUser(user);
+//		System.out.println(map.toString());
 //		
-//		boardService.addLike(followLike);
+//		int a = boardService.getLike(map);
+//		System.out.println(a);
+//		System.out.println(boardService.getLike(map));
 //		
 //	}
+	
+	
+	@Test
+	public void addLike() {
+		
+		System.out.println("Test addLike ::: ");
+		
+		String userId = "user05";
+		String likeTarget = "12";
+		
+		Map map = new HashMap();
+		map.put("userId", userId);
+		map.put("likeTarget", likeTarget);
+		
+		System.out.println(boardService.getLike(map));
+		
+		if(boardService.getLike(map) > 0) {
+			boardService.deleteLike(map);
+			System.out.println("좋아요를 취소하셧습니다.");
+			System.out.println("좋아요 수"+boardService.getLike(map));
+		}else {
+			boardService.addLike(map);
+			System.out.println("좋아요를 하셧습니다.");
+			System.out.println("좋아요 수"+boardService.getLike(map));
+		}
+		
+	}
 	
 	
 	
