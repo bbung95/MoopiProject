@@ -27,7 +27,7 @@ public class MoimController {
 	@Autowired
 	private UserServiceImpl userService;
 	
-	public static final String saveDir = "C:\\Users\\82102\\git\\Test\\test\\src\\main\\resources\\static\\images\\uploadFiles";
+	public static final String saveDir = "C:\\Users\\bit\\git\\Test\\test\\src\\main\\resources\\static\\images\\uploadFiles";
 	
 	//모임상세조회
 	@RequestMapping("getMoim")
@@ -60,12 +60,13 @@ public class MoimController {
 		System.out.println("모임을생성할게");
 		String oriFileName = uploadFile.getOriginalFilename();
 		System.out.println(oriFileName);
+		long currentTime = System.currentTimeMillis();
 		try {
-			uploadFile.transferTo(new File(saveDir+"/"+oriFileName));
+			uploadFile.transferTo(new File(saveDir+"/"+currentTime+oriFileName));
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
-		moim.setMmFile(oriFileName);
+		moim.setMmFile(currentTime+oriFileName);
 		User user = new User();
 		user.setUserId(userId);
 		moim.setMmConstructor(user);
@@ -77,17 +78,33 @@ public class MoimController {
 	//모임수정페이지로 이동, 단순네비게이션
 	@RequestMapping("updateMoimView")
 	public String updateMoimView(@RequestParam("mmNo") int mmNo, Model model) {
-		model.addAttribute("mmNO", mmNo);
-		return "forward:모임수정페이지로이동";
+		Moim moim = moimService.getMoim(mmNo);
+		model.addAttribute("moim", moim);
+		return "moim/updateMoimView";
 	}
 	
 	//모임수정 B/L 실행
 	@RequestMapping("updateMoim")
-	public String updateMoim(@ModelAttribute("moim") Moim moim) throws Exception {
+	public String updateMoim(@ModelAttribute("moim") Moim moim,
+							MultipartFile uploadFile,
+							@RequestParam("userId") String userId) throws Exception {
 		
+		System.out.println("모임을수정할게");
+		String oriFileName = uploadFile.getOriginalFilename();
+		System.out.println(oriFileName);
+		long currentTime = System.currentTimeMillis();
+		try {
+			uploadFile.transferTo(new File(saveDir+"/"+currentTime+oriFileName));
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		moim.setMmFile(currentTime+oriFileName);
+		User user = new User();
+		user.setUserId(userId);
+		moim.setMmConstructor(user);
 		moimService.updateMoim(moim);
-		System.out.println("모임수정이완료되었습니다");
-		return "forward:메인페이지로이동";
+		System.out.println("모임수정완료");
+		return "moim/moimMain";
 	}
 	
 	
