@@ -13,7 +13,7 @@ public class MeetingFlashMember {
 
 	
 	private int meflNo; //mefl no
-	private String meflId; //정모or플래시 회원아이디
+	private User meflId; //정모or플래시 회원아이디
 	private int targetNo; //정모or플래시 No
 	private Date joinRegDate; // 미팅or플래시 등록일자
 	private int joinState; //mefl 상태(1.모집중 2.모집마감 3.삭제)
