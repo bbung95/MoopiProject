@@ -12,7 +12,7 @@ import lombok.ToString;
 public class Coin {
 
 	private int coinNo;
-	private Date coinRegdate;
+	private String coinRegdate;
 	private int coinRole;
 	private int coinCount;
 	private User userId;
