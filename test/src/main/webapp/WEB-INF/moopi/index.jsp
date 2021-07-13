@@ -24,10 +24,15 @@
 
 <!-- Bootstrap Dropdown Hover JS -->
 <script src="/javascript/bootstrap-dropdownhover.min.js"></script>
+<style>
+body{
+	padding-top: 50px;
+}
+</style>
 </head>
 <body>
 <jsp:include page="layout/toolbar.jsp"></jsp:include>
 	test Mainpage
-	
+<jsp:include page="layout/searchbar.jsp"></jsp:include>
 </body>
 </html>
