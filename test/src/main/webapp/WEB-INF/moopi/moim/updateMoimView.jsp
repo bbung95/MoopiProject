@@ -39,7 +39,7 @@ function fncUptMoim(){
 		
 		<!-- form Start /////////////////////////////////////-->
 		<form class="form-horizontal" name="detailForm" enctype="multipart/form-data">
-		  <input type="hidden" id="userId" name="userId" value="${userId}">
+		  <input type="hidden" id="userId" name="userId" value="${moim.mmConstructor.userId}">
 		  <input type="hidden" id="mmNo" name="mmNo" value="${moim.mmNo}">
 		  <div class="form-group">
 		    <label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">모임무피명</label>
