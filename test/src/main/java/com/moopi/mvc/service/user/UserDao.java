@@ -12,18 +12,69 @@ import com.moopi.mvc.service.domain.User;
 @Mapper
 public interface UserDao {
 	
-	// 회원가입
+	// 로그인 
+	public User login(User user) throws Exception;
+	
+	// 로그아웃
+	public User logout(User user) throws Exception;
+	
+	
+
+// 회원가입 CRUD
+	
+	// 회원가입시 [UserRole - 2.정상회원
 	public void addUser(User user) throws Exception;
 	
-	// 내정보확인 / 로그인
+	// 내정보확인
 	public User getUser(@Param("userId") String userId);
 	
-	// 회원정보리스트
-	public List<User> getUserList(Search search);
-	public int getTotalCount(Search search) throws Exception;
-	
 	// 회원정보수정
-	public void updateUser(@Param("userId") User user);
+	public void updateUser(User user) throws Exception;
+	
+	// 회원탈퇴시 [UserRole - 5.탈퇴회원]
+	public void updateLeaveUser(User user) throws Exception;
 	
 	
+// 팔로우 CRUD
+	
+	// 팔로우 추가
+	public void addFollow(@Param("userId") String userId) throws Exception;
+			
+	// 팔로우 리스트조회 (팔로워 수, 팔로잉 수)
+	public List<User> getFollowList(Search search);
+	
+	// 팔로우삭제
+	public void deleteFollow(@Param("userId") String userId) throws Exception;
+	
+
+
+	
+// 관리자용 - 회원리스트
+	public List<User> getUserList(Search search);
+	
+	// 검색관련 - 유저리스트 조회시 회원 수
+	public int getTotalCount(Search search) throws Exception;
+
+	
+	
+	
+
+	
+	// 패스워드수정
+	public void updatePwd(User user) throws Exception;
+	
+	
+	
+	
+
+	// 유저아이디찾기 
+	public User getUserId(@Param("userId") String userId);
+
+	// 유저비밀번호변경
+	public void updateUserPwd(User user) throws Exception;
+	
+	// 유저프로필수정 
+	public void updateProfile(User user) throws Exception;
+	
+	//getAtnCount()
 }
