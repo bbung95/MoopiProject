@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.moopi.mvc.service.domain.User;
+
 @SpringBootTest
 class TestApplicationTests {
 	
@@ -25,6 +27,7 @@ class TestApplicationTests {
 		
 		//Assertions.assertEquals("user04", user.getUserId());
 		//Assertions.assertEquals("박성", user.getUserName());
+		
 	}
 	
 
