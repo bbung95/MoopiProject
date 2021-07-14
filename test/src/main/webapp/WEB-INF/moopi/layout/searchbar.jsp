@@ -5,17 +5,19 @@
 
 <div class="wrapper">
 	<div id="searchList" style="display: none; height: 600px; width: 450px; border: 1px solid black; background: gray; overflow:auto;" >
-			<div style="position: absolute; background: gray;">
+			 <div style="position: absolute; background: gray;">
 				<button>모임무피</button>
 				<button>번개무피</button>
 				<button>포스팅</button>
 				<button>유저</button>
-			</div>
+			</div> 
+			
 			<div class="searchOut" style="padding-top: 30px">
 				
 			</div>
 	</div>
-	<div class="searchBar" type="1">
+	<div class="searchBar" >
+		<input type="hidden" class='type' value="1">
 		<input id="searchkeyword" type="text" name="searchkeyword"
 			placeholder="Search" value="" />
 		<button id="searchQuerySubmit" type="submit" name="searchQuerySubmit">
@@ -44,31 +46,87 @@
 				}
 			}
 	}); */
-
-	$('#searchQuerySubmit').on('click', function() {
-		let searchKeyword = $('#searchkeyword').val();
-		let searchType = $('.searchBar').attr('type');
-		if (searchKeyword != "") {
-			$.ajax({
+	
+	// 통합검색 ajax
+	function searchList(searchKeyword , searchType){
+		$.ajax({
 			url: "common/json/searchList/"+searchType,	
 			method: "POST",
 			data: JSON.stringify({searchKeyword : searchKeyword}),
 			contentType : "application/JSON",		
 				type : "JSON",
 				success: function(data, state){
-				console.log(data.list);
-				let display = '';
-				for(var i in data.list){
-					display += '<div style="background: white; margin: 5px; height: 100px">'
-								+'<img style="margin: 5px; height:90px; width: 90px;" src="/images/uploadFiles/'+data.list[i].mmFile+'"></img>'
-								+'<span>'+data.list[i].mmName+'</span><span> / '+data.list[i].mmContent+'</span>'
-								+'<span> / '+data.list[i].mmCurrentCount+':'+data.list[i].mmMaxCount+'</span>'
-								+'</div>';
+					// type에 따라 리셋
+					$('.searchOut').children().remove();
+					let display = '';
+					
+					// moim
+					if(searchType == 1){
+						for(var i in data.list){
+							display += '<div style="background: white; margin: 5px; height: 100px" onclick="location=\'moim/getMoim?mmNo='+data.list[i].mmNo+'\'">'
+									+'<img style="margin: 5px; height:90px; width: 90px;" src="/images/uploadFiles/'+data.list[i].mmFile+'"></img>'
+									+'<span>'+data.list[i].mmName+'</span><span> / '+data.list[i].mmContent+'</span>'
+									+'<span> / '+data.list[i].mmCurrentCount+':'+data.list[i].mmMaxCount+'</span>'
+									+'</div>';
+						}
+						$('.searchOut').append(display);
+					// flash
+					}else if(searchType == 2){
+						for(var i in data.list){
+							display += '<div style="background: white; margin: 5px; height: 100px" onclick="location=\'flash/getFlash?flashNo='+data.list[i].flashNo+'\'">'
+									+'<img style="margin: 5px; height:90px; width: 90px;" src="/images/uploadFiles/'+data.list[i].flashFile+'"></img>'
+									+'<span>'+data.list[i].flashName+'</span><span> / '+data.list[i].flashContent+'</span>'
+									+'<span> / '+data.list[i].flashCurrentCount+':'+data.list[i].flashMaxCount+'</span>'
+									+'</div>';
+						}
+						$('.searchOut').append(display);
+					// postting
+					}else if(searchType == 3){
+					
+					// user
+					}else{
+						
+					}
 				}
-				$('.searchOut').append(display);
-			}
 			})
-		}
+	}
+	
+	/* let searchKeyword = $('#searchkeyword').val();
+	let searchType = $('.type').val(); 
+	
+	 $('#searchQuerySubmit').on('click', function() {
+		
+		if ($('#searchList').css('display') !== 'block') {
+			searchList(searchKeyword , searchType);
+		 } 
+	}) */
+	
+	$('button:contains("모임무피")').on('click', function(){
+		$('.type').val('1');
+		searchList($('#searchkeyword').val() , $('.type').val());
+	})
+	
+	$('button:contains("번개무피")').on('click', function(){
+		$('.type').val('2');
+		searchList($('#searchkeyword').val() , $('.type').val());
+	})
+	
+	$('button:contains("포스팅")').on('click', function(){
+		$('.type').val('3');
+		searchList($('#searchkeyword').val() , $('.type').val());
+	})
+	
+	$('button:contains("유저")').on('click', function(){
+		$('.type').val('4');
+		searchList($('#searchkeyword').val() , $('.type').val());
+	})
+	
+	// ajax search
+	$('#searchkeyword').on('keypress', function(){
+		searchList($('#searchkeyword').val() , $('.type').val());
+	})
+	$('#searchkeyword').on('keyup', function(){
+		searchList($('#searchkeyword').val() , $('.type').val());
 	})
 	
 	// 요소 밖 클릭시 display none
@@ -88,33 +146,32 @@
 </script>
 <style>
 
-.wrapper {
+ .wrapper {
 	font-family: 'Roboto', Arial, sans-serif;
-	width: 100%;
+ 	/* width: 500px; */
 	max-width: 500px;
-	margin: 6rem auto;
+ 	margin: 5px;
 	position: absolute;
 	bottom: 0px;
 	right: 0px;
-}
+} 
 
-.label {
+ .label {
 	font-size: .625rem;
 	font-weight: 400;
-	text-transform: uppercase;
+ 	text-transform: uppercase;
 	letter-spacing: +1.3px;
 	margin-bottom: 1rem;
-}
+} 
 
-.searchBar {
-	width: 100%;
+ .searchBar {
+ 	width: 100%;
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-}
+} 
 
-#searchQueryInput {
-	width: 100%;
+ #searchQueryInput {
 	height: 2.8rem;
 	background: #f5f5f5;
 	outline: none;
@@ -122,9 +179,9 @@
 	border-radius: 1.625rem;
 	padding: 0 3.5rem 0 1.5rem;
 	font-size: 1rem;
-}
+} 
 
-#searchQuerySubmit {
+ #searchQuerySubmit {
 	width: 3.5rem;
 	height: 2.8rem;
 	margin-left: -3.5rem;
@@ -133,7 +190,11 @@
 	outline: none;
 }
 
+#searchkeyword{
+	width: 450px;
+}
+
 #searchQuerySubmit:hover {
 	cursor: pointer;
-}
+} 
 </style>

@@ -104,15 +104,18 @@ public class CommonRestController {
 		
 		if(searchType == 1) {
 			System.out.println("Moim List");
+			search.setSearchCondition(3);
 			return moimService.getMoimList(search);
 		}else if(searchType == 2) {
 			System.out.println("Flash List");
+			search.setSearchCondition(3);
 			return flashService.getFlashList(search);
 		}else if(searchType == 3) {
 			System.out.println("Posting List");
 			return boardService.getBoardList(null);
 		}else {
 			System.out.println("User List");
+			search.setSearchCondition(2);
 			return userService.getUserList(search);
 		}
 		
