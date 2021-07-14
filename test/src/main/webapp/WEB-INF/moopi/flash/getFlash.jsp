@@ -21,10 +21,54 @@ function fncUpdateFlashView(flashNo){
 	self.location ="/flash/updateFlashView?flashNo="+flashNo
 }
 
-function fncApplyList(flashNo){
-	alert("번개신청목록");
-	self.location ="/flash/addFlashView?userId=user01"
+function fncJoinFlash(flashNo){
+	alert("번개참여");
+	alert("번개참여완료!");
+	self.location ="/flash/joinFlash?userId=user02&flashNo="+flashNo
 }
+
+
+function fncGetJoinFlashList(flashNo){
+	
+		
+	$.ajax(
+			{
+				url : "/flash/json/getJoinFlashList/"+flashNo ,
+				method : "GET" ,
+				type : "text" ,
+				//headers : {
+				//	"Accept" : "application/json",
+				//	"Content-Type" : "application/json"
+				//}
+				success : function(JSONData , status) {
+					//Debug...
+					alert("로딩중..");
+					//Debug...
+					console.log(JSONData.list[0].meflId.userId);
+					
+					var displayValue = "<h3>"
+										+"유저아이디	: "+JSONData.list[0].meflId.userId+"<br/>"
+										+"닉네임 		: "+JSONData.list[0].meflId.nickname+"<br/>"
+										+"주소 		: "+JSONData.list[0].meflId.addr+"<br/>"
+										+"프로필이미지 : "+JSONData.list[0].meflId.profileImage+"<br/>"
+										+"뱃지   	   : "+JSONData.list[0].meflId.badge+"<br/>"
+										+"타겟넘버   : "+JSONData.list[0].targetNo+"<br/>"
+										+"참여일자   : "+JSONData.list[0].joinRegDate+"<br/>"
+										+"조인상태   : "+JSONData.list[0].joinState+"<br/>"
+										+"</h3>";
+										
+					//Debug...	
+					//alert(displayValue);
+					$("h3").remove();
+					$( ".cal" ).append(displayValue);
+					
+				}	
+		
+	  });
+	
+	
+};
+
 
 </script>
 
@@ -35,11 +79,13 @@ function fncApplyList(flashNo){
 
 <!-- ToolBar Start ///////////////////////////////////// -->
 <jsp:include page="../layout/toolbar.jsp" flush="false"/>
-<jsp:include page="../layout/flashToolbar.jsp" flush="false"/>
+<jsp:include page="../layout/flashToolbar.jsp" flush="false"/> 
 
 <!-- ToolBar End /////////////////////////////////////-->
 <h3>번개무피 상세 페이지!</h3>
+<div class="cal">
 
+</div>
 
 //////////////////////////
 <p>번개넘버:${flash.flashNo}</p>
@@ -62,7 +108,8 @@ function fncApplyList(flashNo){
 <p>번개무피 만남시간:${flash.flashTime}</p>
 
 <button type="button" class="btn btn-default" onClick="fncUpdateFlashView(${flash.flashNo})">번개정보수정</button>
-<button type="button" class="btn btn-default" onClick="fncAddFlashView(${flash.flashNo})">번개참여신청목록보기</button>
+<button type="button" class="btn btn-default" onClick="fncGetJoinFlashList(${flash.flashNo})">번개참여신청목록보기</button>
+<button type="button" class="btn btn-default" onClick="fncJoinFlash(${flash.flashNo})">번개참여하기</button>
 
 </body>
 </html>
