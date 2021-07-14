@@ -147,8 +147,6 @@ public class MoimController {
 		return "redirect:/moim/listMember?mmNo="+mmNo+"&status=1";
 	}
 	
-	
-	
 	//멤버 권한변경(가입신청수락, 매니저권한위임및박탈)
 	@RequestMapping("updateMember")
 	public String updateMember(@RequestParam("userId") String userId,

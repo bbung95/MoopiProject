@@ -7,19 +7,33 @@
 <mapper namespace="com.moopi.mvc.service.common.CommonDao">
  	
 	<resultMap id="noticeSelectMap" type="notice">
-		<result property="noticeNo" 		column="NOTICE_NO" 			jdbcType="NUMERIC"/>
-		<result property="noticeContent"	column="NOTICE_CONTENT" 	jdbcType="VARCHAR"/>
-		<result property="toUserId" 		column="NOTICE_TO_USER_ID" 	jdbcType="VARCHAR"/>
-		<result property="noticeTarget" 	column="NOTICE_TARGET" 		jdbcType="VARCHAR"/>
-		<result property="noticeType" 		column="CATEGORY" 			jdbcType="VARCHAR"/>
-		<result property="noticeState" 		column="NOTICE_STATE" 		jdbcType="CHAR"/>
-		<result property="noticeRegDate" 	column="NOTICE_REGDATE" 	jdbcType="DATE"/>
+		<result property="noticeNo" 			column="NOTICE_NO" 			jdbcType="NUMERIC"/>
+		<result property="noticeContent"		column="NOTICE_CONTENT" 	jdbcType="VARCHAR"/>
+		<result property="toUserId" 			column="TO_USER_ID" 		jdbcType="VARCHAR"/>
+		<result property="noticeType" 			column="CATEGORY" 			jdbcType="VARCHAR"/>
+		<result property="noticeState" 			column="NOTICE_STATE" 		jdbcType="CHAR"/>
+		<result property="noticeRegDate" 		column="NOTICE_REGDATE" 	jdbcType="DATE"/>
+		<result property="chatRoomNo" 			column="CHAT_ROOM_NO"		jdbcType="VARCHAR"/>
+		<result property="board.boardNo"		column="NOTICE_BOARD_NO"	jdbcType="NUMERIC"/>
+		<result property="moim.mmNo"			column="NOTICE_MOIM_NO"		jdbcType="NUMERIC"/>
+		<result property="mef.meflNo"			column="NOTICE_MEF_NO"		jdbcType="NUMERIC"/>
+		<result property="meeting.mtNo"			column="NOTICE_MEETING_NO"	jdbcType="NUMERIC"/>
+		<result property="reply.replyNo"		column="REPLY_NO"			jdbcType="NUMERIC"/>
+		<result property="letter.letterNo"		column="LETTER_NO"			jdbcType="NUMERIC"/>
+		<result property="noticeUser.userId"  	column="user_id"			jdbcType="VARCHAR"/>
+		<result property="noticeUser.nickname"	column="userNickname"		jdbcType="VARCHAR"/>
+		<result property="noticeUser.profileImage"	column="userImage"		jdbcType="VARCHAR"/>  
+		<result property="moim.mmName" 			column="MM_NAME" 			jdbcType="VARCHAR"/>
 	</resultMap>
 	
 	<insert id="addNotice" parameterType="notice">
 		INSERT 
-		INTO notice(NOTICE_TO_USER_ID, NOTICE_TARGET, NOTICE_CONTENT, NOTICE_REGDATE, NOTICE_STATE, CATEGORY)
-		VALUES (#{notice.toUserId}, #{notice.noticeTarget}, #{notice.noticeContent}, now(), "1", #{notice.noticeType})
+		INTO notice(TO_USER_ID, NOTICE_CONTENT, NOTICE_REGDATE, NOTICE_STATE, CATEGORY,
+					 NOTICE_USER_ID , NOTICE_BOARD_NO, NOTICE_MOIM_NO, NOTICE_MEF_NO, NOTICE_REPLY_NO,
+					 NOTICE_MEETING_NO, NOTICE_LETTER_NO , CHAT_ROOM_NO)
+		VALUES (#{notice.toUserId}, #{notice.noticeContent}, now(), "1", #{notice.noticeType}, 
+				#{notice.noticeUser.userId}, #{notice.board.boardNo}, #{notice.moim.mmNo}, #{notice.mef.meflNo},
+				#{notice.meeting.mtNo}, #{notice.reply.replyNo}, #{notice.letter.letterNo}, #{notice.chatRoomNo})
 	</insert>
 	
 	<select id="getNotice" parameterType="int" resultMap="noticeSelectMap">
@@ -35,10 +49,23 @@
 		FROM ( SELECT
 				inner_table.*  ,@ROWNUM := @ROWNUM +1 AS RNUM
 				FROM (SELECT
-						* 
-						FROM notice
-						WHERE notice_to_user_id in (#{userId})
-						ORDER BY notice_regdate DESC) inner_table , (SELECT @ROWNUM := 0) R) tables
+						n.* , u.user_id , u.nickname as userNickname , u.profile_image as userImage , b.* , m.MM_NAME , mt.mt_content , rp.reply_content, mef.MEFL_NO , member.nickname as memberNickname , member.profile_image as memberImage
+						FROM notice n LEFT OUTER JOIN users u
+							ON n.notice_user_id = u.user_id
+    						LEFT OUTER JOIN board b
+   							 ON n.notice_board_no = b.bd_no
+   							 LEFT OUTER JOIN moim m
+    						ON n.notice_moim_no = m.mm_no
+   							 LEFT OUTER JOIN MEETING_FLASH_MEMBER mef
+    						ON n.notice_mef_no = mef.target_no
+   							 LEFT OUTER JOIN meeting mt
+    						ON n.notice_meeting_no = mt.mt_no
+   							 LEFT OUTER JOIN reply rp
+   							 ON n.notice_reply_no = rp.reply_no
+   							 LEFT OUTER JOIN users member
+   							 ON mef.MEFL_ID = member.user_id
+						WHERE n.to_user_id in (#{userId})
+						ORDER BY n.notice_regdate DESC) inner_table , (SELECT @ROWNUM := 0) R) tables
 		WHERE RNUM BETWEEN #{search.startRowNum} AND #{search.endRowNum}
 	</select>
 	
@@ -47,7 +74,7 @@
 		FROM notice
 		<where>
 			<if test="noticeNo == '' or noticeNo == null">
-				notice_to_user_id in (#{userId})
+				to_user_id in (#{userId})
 			</if>
 			<if test="userId == '' or userId == null">
 				notice_no in (#{noticeNo})
@@ -58,7 +85,7 @@
 	<update id="updateNotice" parameterType="string">
 	UPDATE notice
 	SET notice_state = '2'
-	WHERE notice_to_user_id in (#{userId}) AND notice_state in ('1')
+	WHERE to_user_id in (#{userId}) AND notice_state in ('1')
 	</update>
 	
 	
@@ -66,7 +93,7 @@
 		SELECT
 		COUNT(*)
 		FROM notice
-		WHERE notice_to_user_id in (#{userId}) AND NOTICE_STATE in ('1')
+		WHERE to_user_id in (#{userId}) AND NOTICE_STATE in ('1')
 				
 	</select> 
 	
