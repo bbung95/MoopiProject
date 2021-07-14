@@ -40,14 +40,14 @@
 	</select>
 	 -->
 	
-	<!--
+	
 	<select id="login"		parameterType="String"		resultMap="userSelectMap">
 		SELECT
 		USER_ID, PWD
 		FROM users
 		WHERE USER_ID = #{userId}
 	</select>
-	 -->
+	
 	
 	<!-- 회원가입 -->
 	<insert id="addUser"		parameterType="user" >
@@ -108,17 +108,29 @@
 	<!-- *수정예정 / 관리자 전용 회원목록조회 / Coin이 있어야함 / 유저No, 유저아이디, 유저이름, 유저닉네임, 생년월일, 연령, 가입경로, 가입일자, 코인, 현재상태 -->
 	<select id="getUserList"  		parameterType="search"		resultMap="userSelectMap">
 		SELECT
-			USER_ID, USER_NAME, NICKNAME, BIRTH, AGE, JOIN_PATH, REGDATE, USER_ROLE
-		FROM USERS		
+			USER_ID, USER_NAME, NICKNAME, BIRTH, AGE, JOIN_PATH, REGDATE, USER_ROLE, 
+			x.INTEREST_NAME, y.INTEREST_NAME ,z.INTEREST_NAME
+		FROM users LEFT OUTER JOIN INTEREST x 
+			ON INTEREST_FIRST = x.INTEREST_NO
+		    LEFT OUTER JOIN INTEREST y
+			ON INTEREST_SECOND = y.INTEREST_NO
+		    LEFT OUTER JOIN INTEREST z
+			ON INTEREST_THIRD = z.INTEREST_NO		
 		<if test="searchCondition != null">
 			<where>
 				<if test="searchCondition == 1 and searchKeyword !='' ">
-				USER_ROLE = #{searchCondition}
+					AND ADDR = #{searchKeyword}
 				</if>
 				<if test="searchCondition == 2 and searchKeyword !='' ">
-				REGDATE = #{searchCondition}
+					AND NICKNAME LIKE (%${searchCondition}%)
 				</if>
-		</where>
+			</where>
+				<if test="searchState == 2">
+					AND USER_ROLE = '2'
+				</if>
+				<if test="searchState == 3">
+					AND USER_ROLE = '3'
+				</if>
 		</if>  	
 	 </select>
 	 

@@ -16,15 +16,35 @@ public class UserController {
 	private UserServiceImpl userService;
 	
 	// 회원가입
-	@RequestMapping(value="addUser")
+	@RequestMapping("addUser")
 	public String addUser(@ModelAttribute("user") User user) throws Exception {
-		userService.addUser(user);
+		
+		System.out.println("addUser 시작");
+		//userService.addUser(user);
 		System.out.println("UserController 시작");
 		
-		return "forwrd:메인페이지로 이동";
+		return "user/addUser";
 	}
-}
 	
+	// 회원가입 추가페이지
+	@RequestMapping("addUserInfo")
+	public String addUserInfo (@ModelAttribute("user") User user) throws Exception {
+		
+		System.out.println("UserController_____addUserInfo 시작");
+		//userService.addUser(user);
+		System.out.println("addUserInfo 끝");
+		
+		return "user/addUserInfo";
+	}
+	
+	// 로그인 (단순 네비게이션)
+	@RequestMapping("login")
+	public String login(@ModelAttribute("user") User user) throws Exception{
+		System.out.println("UserController_____login 시작");
+		return "user/login";
+	}
+	
+}	
 //	// 로그인
 //	@RequestMapping(value = "login", method = RequestMethod.POST)
 //	public String login(@ModelAttribute("user") User user, HttpSession session) throws Exception {
