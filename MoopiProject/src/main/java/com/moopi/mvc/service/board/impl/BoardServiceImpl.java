@@ -10,8 +10,6 @@ import org.springframework.stereotype.Service;
 import com.moopi.mvc.common.Search;
 import com.moopi.mvc.service.board.BoardDao;
 import com.moopi.mvc.service.domain.Board;
-import com.moopi.mvc.service.domain.FollowLike;
-import com.moopi.mvc.service.domain.User;
 
 
 
@@ -20,9 +18,6 @@ public class BoardServiceImpl {
 
 	@Autowired
 	private BoardDao boardDao;
-	
-	@Autowired
-	private FollowLike followLike;
 	
 	
 	public void addBoard(Board board)  {
@@ -42,8 +37,10 @@ public class BoardServiceImpl {
 		
 		
 		List<Board> list= boardDao.getBoardList(map);
+//		int totalCount =  boardDao.getTotalCount(map); 
 
 		map.put("list", list);
+//		map.put("totalCount", totalCount);
 		
 		return map;
 	}
@@ -60,14 +57,19 @@ public class BoardServiceImpl {
 
 	}
 	
-	public int getLike(FollowLike followLike) {
-		
-		return boardDao.getLike(followLike);
+	public int getLike(Map map) {
+	
+		return boardDao.getLike(map);
 	}
 	
-	public void addLike(FollowLike followLike) {
+	public void addLike(Map map) {
 		
-		boardDao.addLike(followLike);
+		boardDao.addLike(map);
 	}
 	
+	public void deleteLike(Map map) {
+		
+		boardDao.deleteLike(map);
+	}
+
 }

@@ -8,8 +8,6 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.moopi.mvc.service.domain.Board;
-import com.moopi.mvc.service.domain.FollowLike;
-import com.moopi.mvc.service.domain.User;
  
 @Mapper
 public interface BoardDao {
@@ -27,9 +25,12 @@ public interface BoardDao {
 	
 	public int getTotalCount(@Param("map")Map map);
 	 
-	public void addLike(@Param("followLike")FollowLike followLike);
+	public int getLike(@Param("map")Map map);
 		
-	public int getLike(@Param("followLike")FollowLike followLike);
+	public void addLike(@Param("map")Map map);
+	
+	public void deleteLike(@Param("map")Map map);
+	
 	
 
 }	

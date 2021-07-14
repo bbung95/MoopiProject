@@ -60,13 +60,17 @@ public class MoimServiceImpl {
 		moimDao.leaveMoim(userId, mmNo);
 	}
 	
+	public void refuseApply(int memberNo) throws Exception {
+		moimDao.refuseApply(memberNo);
+	}
+	
 	public void updateMemeber(String userId, int mmNo,
 							int status) throws Exception {
 		moimDao.updateMember(userId, mmNo, status);
 	}
 	
-	public Map<String, Object> getMemberList(int mmNo) throws Exception {
-		List<Member> list = moimDao.getMemberList(mmNo);
+	public Map<String, Object> getMemberList(int mmNo, int status) throws Exception {
+		List<Member> list = moimDao.getMemberList(mmNo, status);
 		int totalCount = moimDao.getTotalCountMember(mmNo);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("totalCount", totalCount);

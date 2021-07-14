@@ -1,6 +1,5 @@
 package com.moopi.mvc.service.board;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -15,7 +14,7 @@ public interface BoardDao {
 	
 	public void addBoard(@Param("board")Board board);
 	
-	public List<Board> getBoardList(@Param("map")HashMap map);
+	public List<Board> getBoardList(@Param("map")Map map);
 
 	public Board getBoard(@Param("boardNo")int boardNo);
 	
@@ -25,8 +24,12 @@ public interface BoardDao {
 	
 	public int getTotalCount(@Param("map")Map map);
 	 
+	public int getLike(@Param("map")Map map);
 		
-		
+	public void addLike(@Param("map")Map map);
+	
+	public void deleteLike(@Param("map")Map map);
+	
 	
 
 }	
