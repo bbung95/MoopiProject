@@ -32,6 +32,12 @@ public interface MeetingDao {
 	public void leaveMeeting(@Param("mtNo") int mtNo, 
 							@Param("userId") String userId) throws Exception;
 	
+	//정모 참가시 인원증가
+	public void addCurrentCount(@Param("mtNo") int mtNo) throws Exception;
+	
+	//정모 취소시 인원감소
+	public void subCurrentCount(@Param("mtNo") int mtNo) throws Exception;
+	
 	//정모 참여자 명단 조회
 	public List<MeetingFlashMember> getMEFLList(int mtNo) throws Exception;
 	

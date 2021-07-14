@@ -28,8 +28,11 @@ function fncGetMoim(mmNo){
 
 
 </script>
-
-
+<style>
+body {
+	padding-top: 50px;
+}
+</style>
 </head>
 <body>
 <!-- ToolBar Start /////////////////////////////////////-->

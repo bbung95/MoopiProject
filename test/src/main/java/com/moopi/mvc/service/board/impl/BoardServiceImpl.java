@@ -33,7 +33,7 @@ public class BoardServiceImpl {
 	}
 
 
-	public Map<String, Object> getBoardList(HashMap map){
+	public Map<String, Object> getBoardList(Map map){
 		
 		
 		List<Board> list= boardDao.getBoardList(map);

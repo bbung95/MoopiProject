@@ -1,6 +1,6 @@
 package com.moopi.mvc.service.domain;
 
-import java.util.Date;
+//import java.util.Date;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -15,9 +15,9 @@ public class Meeting {
 	private int mmNo; //모임무피 No
 	private String mtName; //정모 제목
 	private String mtContent; // 정모 내용
-	private Date mtStart; //정모 시작시간
-	private Date mtEnd; //정모 종료시간
-	private Date mtRegDate; //정모 등록시간
+	private String mtStart; //정모 시작시간
+	private String mtEnd; //정모 종료시간
+	private String mtRegDate; //정모 등록시간
 	private int mtMaxCount; //정모 최대 참가인원
 	private int mtCurrentCount; //정모 현재 참가인원
 	private User mtConstructor; //정모 주최자

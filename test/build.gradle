@@ -13,9 +13,9 @@ configurations {
 	compileOnly {
 		extendsFrom annotationProcessor
 	}
-	all {
-      exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
-    }
+	//all {
+    //  exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+    //}
 }
 
 repositories {
@@ -35,7 +35,7 @@ dependencies {
 	implementation 'javax.servlet:jstl'
 	implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.23'
 	runtimeOnly 'com.oracle.database.jdbc:ojdbc8'
-	implementation 'org.springframework.boot:spring-boot-starter-log4j2'
+	implementation group: 'org.bgee.log4jdbc-log4j2', name: 'log4jdbc-log4j2-jdbc4.1', version: '1.16'
 	
 }
 

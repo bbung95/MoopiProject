@@ -13,7 +13,7 @@ public class CommonController {
 	public String home() {
 		
 		System.out.println("/main");
-		return "test";
+		return "index";
 	}
 	
 	@RequestMapping("/list")
