@@ -16,10 +16,10 @@
 		<result property="noticeRegDate" 	column="NOTICE_REGDATE" 	jdbcType="DATE"/>
 	</resultMap>
 	
-	<insert id="addNotice" parameterType="Notice">
+	<insert id="addNotice" parameterType="notice">
 		INSERT 
-		INTO notice(NOTICE_TO_USER_ID, NOTICE_TARGER, NOTICE_CONTENT, NOTICE_REGDATE, NOTICE_STATE, CATEGORY)
-		VALUES (#{toUserId}, #{noticeTarget}, #{noticeContent}, now(), "1", #{noticeType})
+		INTO notice(NOTICE_TO_USER_ID, NOTICE_TARGET, NOTICE_CONTENT, NOTICE_REGDATE, NOTICE_STATE, CATEGORY)
+		VALUES (#{notice.toUserId}, #{notice.noticeTarget}, #{notice.noticeContent}, now(), "1", #{notice.noticeType})
 	</insert>
 	
 	<select id="getNotice" parameterType="int" resultMap="noticeSelectMap">
