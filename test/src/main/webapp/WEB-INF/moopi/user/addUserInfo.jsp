@@ -16,19 +16,45 @@
 
 <script>
 
-	$( function(fndAddUserInfo()) {
-	alert("여기 시작");
-	}
+// # 등록 Event--------------------------------------------------------------------------------------------------------------------------
+	$(function() {
+		$( "button.btn.btn-primary" ).on("click" , function() {
+			fncUserRegistration();
+		});
+	});
 
-	function fncAddUserInfo(){ 
-		alert("login.jsp_____회원가입시작");
+// # 값 담아주기 Event --------------------------------------------------------------------------------------------------------------------------		
+	function fncUserRegistration() {
 		
-		var name=$(".userName").val();
-		var birth1=$("select:birth1").val();
-		var birth2=$("select:birth2").val();
-		var birth3=$("select:birth3").val();
+		var id=$("input[name='userId']").val();
+		var password=$("input[name='password']").val();
+		var gender=$("select[name='gender']").val();
+		var userName=$("input[name='userName']").val();		
+		var phone=$("input[name='phone']").val();
+		var nickname=$("input[name='nickname']").val();	
+		var addr=$("input[name='addr']").val();
+		var interest1=$("select[name='interest1']").val();
+		var interest2=$("select[name='interest2']").val();
+		var interest3=$("select[name='interest3']").val();	
+		var birth1=$("input[name=birth1]").val();
+		var birth2=$("select[name='birth2']").val();
+		var birth3=$("input[name='birth3']").val();
+
+		//alert("id : "+id);
+		//alert("password : "+password);
+		//alert("userName : "+userName);
+		//alert("gender : "+gender);
+		//alert("phone : "+phone);
+		//alert("nickname : "+nickname);		
+		//alert("birth1 : "+birth1);
+		//alert("birth2 : "+birth2);
+		//alert("birth3 : "+birth3);		
+		//alert("addr : "+addr);		
+		//alert("interest1 : "+interest1);
+		//alert("interest2 : "+interest2);
+		//alert("interest3 : "+interest3);
 		
-		$("form").attr("method", "POST".attr("action", "/user/addUser").submit();
+		$("form").attr("method" , "POST").attr("action" , "/user/login").submit();	
 	}
 	
 </script>
@@ -56,9 +82,12 @@
 		<div class="form-group">
 			<label for="userId" class="col-sm-offset-1 col-sm-3 control-label">아이디</label>
 			<div class="col-sm-4">
-			<input type="text" class="form-control" id="userId" name="userId" placeholder="여기에 이전 아이디값 가져오기" readonly>
+			<input type="text" class="form-control" id="userId" name="userId" placeholder="여기에 이전 아이디값 가져오기" value="${user.userId}" readonly>
 			</div>
 		</div>
+		
+		<!-- 패스워드 : hidden -->
+		<input type="hidden" class="form-control" id="password" name="password" value="${user.password}">
 		
 		<!-- 이름 및 성별입력 -->
 		<div class="form-group">
@@ -69,17 +98,18 @@
 			<label for="gender" class="col-sm-1 control-label">성별</label>		
 				<span class="col-sm-3" >
 					<select name="gender">
-						<option value="남성">남성</option>
+						<option value="남성" selected="selected">남성</option>
 						<option value="여성">여성</option>
 					</select>
 				</span>	
 		</div>
 		
-		<!-- # 모바일번호인증 - CoolSMS API 구현해야 함 -->
+		<!-- # 모바일번호인증 - CoolSMS API 구현해야 함 / 차후 inputtype에 readonly 기재하기-->
 		<div class="form-group">
 			<label for="phone" class="col-sm-offset-1 col-sm-3 control-label">모바일번호</label>
 			<div class="col-sm-4">
-				<span class="col-sm-3">
+				<span class="col-sm-10">
+					<input type="text" class="form-control" id="phone" name="phone" placeholder="인증마친 후 모바일번호가져오기">
 					<button type="button" class="btn btn-info">인증하기</button>
 				</span>	
 			</div>
@@ -98,32 +128,49 @@
 			<label for="birth" class="col-sm-offset-1 col-sm-3 control-label">생년월일</label>
 			<span class="col-sm-1">
 				
-				<!-- #생년 추가구현예정 -->
-				<select name="birth1"> <!-- #생년 추가구현예정 -->
-						<option value="1992년">1992</option>
-						<option value="1993년">1993</option>
-				</select> 
+				<!-- #생년 : 최대4자리까지 기재가능 -->
+				<div id="birth1">
+					<span class="box">
+						<input type="text" name="birth1" class="int" maxlength="4" placeholder="년(4자)">
+					</span>
+				</div>
 				
-				<!-- #생월 추가구현예정 -->
-				<select name="birth2">
-						<option value="1월">1</option>
-						<option value="2월">2</option>
-				</select>
+				<!-- #생월 : select로 12월까지 기재가능 -->
+				<div id="birth2">
+					<span class="box">
+						<select name="birth2">
+							<option>월</option>
+							<option value="01">1</option>
+							<option value="02">2</option>
+							<option value="03">3</option>
+							<option value="04">4</option>
+							<option value="05">5</option>
+							<option value="06">6</option>
+							<option value="07">7</option>
+							<option value="08">8</option>
+							<option value="09">9</option>                                    
+							<option value="10">10</option>
+							<option value="11">11</option>
+							<option value="12">12</option>
+						</select>
+					</span>
+				</div>
 				
-				<!-- #생일 추가구현예정 -->
-				<select name="birth3">
-						<option value="11">11</option>
-						<option value="12">12</option>
-				</select>
+				<!-- #생일 : 최대 2자리까지 입력가능 -->
+				<div id="birth3">
+					<span class="box">
+						<input type="text" name="birth3" class="int" maxlength="2" placeholder="일">
+					</span>
+				</div>
 				
 			</span>
 		</div>
 		
 		<!-- #전체 거주지입력 / 주소지 API 구현해야 함 -->
 		<div class="form-group">
-			<label for="fullAddr" class="col-sm-offset-1 col-sm-3 control-label">거주지입력</label>
+			<label for="addr" class="col-sm-offset-1 col-sm-3 control-label">거주지입력</label>
 			<div class="col-sm-2">
-			<input type="text" class="form-control" id="fullAddr" name="fullAddr" placeholder="주소를 입력해주세요" readonly>
+			<input type="text" class="form-control" id="addr" name="addr" placeholder="주소를 입력해주세요">
 			</div>
 				<span class="col-sm-3">
 					<button type="button" class="btn btn-info">우편번호입력</button>
@@ -136,32 +183,65 @@
 			<span class="col-sm-1">
 				
 				<!-- #관심사1 추가구현예정 -->
-				<select name="interest1"> 
-						<option value="운동">운동</option>
-						<option value="토익/취업">토익/취업</option>
+				<select name="interest1">
+						<option>관심사1</option>
+						<option value="아웃도어/여행/사진/영상">아웃도어/여행/사진/영상</option>
+						<option value="운동/스포츠">운동/스포츠</option>
+						<option value="인문학/책/글">인문학/책/글</option>
+						<option value="업종/직무">업종/직무</option>
+						<option value="외국/언어">외국/언어</option>
+						<option value="문화/공연/축제/음악/악기">문화/공연/축제/음악/악기</option>
+						<option value="공예/만들기">공예/만들기</option>
+						<option value="댄스/무용">댄스/무용</option>
+						<option value="사교/인맥">사교/인맥</option>                                    
+						<option value="차/오토바이">차/오토바이</option>
+						<option value="게임/오락">게임/오락</option>
+						<option value="맛집/카페">맛집/카페</option>
 				</select> 
 				
 				<!-- #관심사2 추가구현예정 -->
-				<select name="interest2">
-						<option value="공예">공예</option>
-						<option value="드라이브/차">드라이브/차</option>
-				</select>
+				<select name="interest2"> 
+						<option>관심사2</option>
+						<option value="아웃도어/여행/사진/영상">아웃도어/여행/사진/영상</option>
+						<option value="운동/스포츠">운동/스포츠</option>
+						<option value="인문학/책/글">인문학/책/글</option>
+						<option value="업종/직무">업종/직무</option>
+						<option value="외국/언어">외국/언어</option>
+						<option value="문화/공연/축제/음악/악기">문화/공연/축제/음악/악기</option>
+						<option value="공예/만들기">공예/만들기</option>
+						<option value="댄스/무용">댄스/무용</option>
+						<option value="사교/인맥">사교/인맥</option>                                    
+						<option value="차/오토바이">차/오토바이</option>
+						<option value="게임/오락">게임/오락</option>
+						<option value="맛집/카페">맛집/카페</option>
+				</select> 
 				
 				<!-- #관심사3 추가구현예정 -->
-				<select name="interest3">
-						<option value="프로그래밍/컴퓨터">프로그래밍/컴퓨터</option>
+				<select name="interest3"> 
+						<option>관심사3</option>
+						<option value="아웃도어/여행/사진/영상">아웃도어/여행/사진/영상</option>
+						<option value="운동/스포츠">운동/스포츠</option>
+						<option value="인문학/책/글">인문학/책/글</option>
+						<option value="업종/직무">업종/직무</option>
+						<option value="외국/언어">외국/언어</option>
+						<option value="문화/공연/축제/음악/악기">문화/공연/축제/음악/악기</option>
+						<option value="공예/만들기">공예/만들기</option>
+						<option value="댄스/무용">댄스/무용</option>
+						<option value="사교/인맥">사교/인맥</option>                                    
+						<option value="차/오토바이">차/오토바이</option>
 						<option value="게임/오락">게임/오락</option>
-				</select>
+						<option value="맛집/카페">맛집/카페</option>
+				</select> 
 				
 			</span>
 		</div>
-
+		
 <!-- 가입완료 Button ---------------------------------------------------------------------------------------------------------------->											  
 		<div class="form-group">
 			<div class="col-sm-offset-4  col-sm-4 text-center">
-				<button type="button" class="btn btn-primary" onClick="fncAddUserInfo()">등록</button>
+				<button type="button" class="btn btn-primary">등록</button>
 			</div>
-		</div>
+		</div> 
 <!---------------------------------------------------------------------------------------------------------------------------->	
 
 <!-- FORM END ---------------------------------------------------------------------------------------------------------------->
