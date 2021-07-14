@@ -50,7 +50,7 @@ public interface UserDao {
 
 	
 // 관리자용 - 회원리스트
-	public List<User> getUserList(Search search);
+	public List<User> getUserList(@Param("search") Search search, @Param("searchState") int searchState);
 	
 	// 검색관련 - 유저리스트 조회시 회원 수
 	public int getTotalCount(Search search) throws Exception;

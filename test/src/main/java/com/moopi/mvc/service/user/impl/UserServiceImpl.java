@@ -45,11 +45,11 @@ public class UserServiceImpl {
 	}
 	
 	// 관리자권한 - 유저리스트조회 
-	public Map<String, Object> getUserList(Search search) throws Exception{
+	public Map<String, Object> getUserList(Search search, int searchState) throws Exception{
 		
 		System.out.println("UserServiceImpl :: getUserList 시작");
 		
-		List<User> list = userDao.getUserList(search);
+		List<User> list = userDao.getUserList(search, searchState);
 		int totalCount = userDao.getTotalCount(search);		
 		System.out.println("totalCount : "+totalCount);
 		

@@ -15,9 +15,16 @@ public class Notice {
 	private String noticeContent;
 	private String toUserId;
 	private Date noticeRegDate;
-	private String noticeTarget;
-	private String noticeType;
 	private String noticeState;
+	private User noticeUser;
+	private Board board;
+	private Moim moim;
+	private MeetingFlashMember mef;
+	private Meeting meeting;
+	private Reply reply;
+	private Letter letter;
+	private String noticeType;
+	private String chatRoomNo;
 	
 	public Notice() {
 	}

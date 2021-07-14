@@ -85,7 +85,13 @@
 					
 					// user
 					}else{
-						
+						for(var i in data.list){
+							display += '<div style="background: white; margin: 5px; height: 100px" onclick="location=\'flash/getFlash?flashNo='+data.list[i].userId+'\'">'
+									+'<img style="margin: 5px; height:90px; width: 90px;" src="/images/uploadFiles/'+data.list[i].profileImage+'"></img>'
+									+'<span>'+data.list[i].nickname+'</span>'
+									+'</div>';
+						}
+						$('.searchOut').append(display);
 					}
 				}
 			})
