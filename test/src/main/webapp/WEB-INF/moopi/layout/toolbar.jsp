@@ -188,4 +188,29 @@
 				"popWin",
 				"left=460, top=300, width=460, height=600, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");
 	});
+	
+	$("a:contains('마이홈')").on("click", function(){
+		
+		location.href = "/";
+	})
+	
+	$("a:contains('내정보보기')").on("click", function(){
+		
+		location.href = "/";
+	})
+	
+	$("a:contains('쪽지')").on("click", function(){
+		
+		location.href = "/";
+	})
+	
+	$("a:contains('로그아웃')").on("click", function(){
+		
+		location.href = "/";
+	})
+	
+	$("a:contains('관리자')").on("click", function(){
+		
+		location.href = "/common/adminMoopi";
+	})
 </script>

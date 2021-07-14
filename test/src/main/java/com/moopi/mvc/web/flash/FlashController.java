@@ -13,7 +13,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.moopi.mvc.common.Search;
 import com.moopi.mvc.service.domain.Flash;
+import com.moopi.mvc.service.domain.MeetingFlashMember;
 import com.moopi.mvc.service.domain.User;
+import com.moopi.mvc.service.flash.FlashDao;
 import com.moopi.mvc.service.flash.impl.FlashServiceImpl;
 import com.moopi.mvc.service.user.impl.UserServiceImpl;
 
@@ -121,4 +123,30 @@ public class FlashController {
 		System.out.println("getListFlash End");
 		return "flash/flashMain";
 	}
+
+	@RequestMapping("joinFlash")
+	public String joinFlash(@RequestParam("userId") String userId,
+			@RequestParam("flashNo") int flashNo)throws Exception{
+		
+		System.out.println("joinFlash Start::");
+		flashService.joinFlash(userId, flashNo);
+		
+		return "forward:/flash/getFlash";
+	}
+	
+	//번개참여신청목록
+ /*	@RequestMapping("getJoinFlashList")
+	public String getJoinFlashList(@RequestParam("mfm") MeetingFlashMember mfm, Model model) throws Exception{
+		
+		System.out.println("joinFlashList start::");
+		Map<String, Object> map = flashService.getJoinFlashList();
+		model.addAttribute("list",map.get("list"));
+		
+		return null;
+	}
+	*/
+	
+	
+	
+	
 }

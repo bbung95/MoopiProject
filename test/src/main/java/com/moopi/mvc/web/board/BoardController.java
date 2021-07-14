@@ -76,29 +76,49 @@ public class BoardController{
 	
 	
 	@RequestMapping("*/addBoard")
-	public String addBoard(@Param("board")Board board) {
+	public String addBoard(@ModelAttribute("board")Board board, Model model) {
+		
+		
+		System.out.println("board 값 : "+board);
+		System.out.println("model 값 : "+model);
 		
 		boardService.addBoard(board);
+		System.out.println(board.getBoardNo());
 		
-		if(board.getBoardCategory() == "1") {
-			return "/board/MoopiBoard/getMoopiBoard.jsp?boardNo="+board.getBoardNo();
-			
-		}else if(board.getBoardCategory() == "2"){
-			return "/QnABoard/getBoard?boardNo.jsp"+board.getBoardNo();
-			
-		}else if(board.getBoardCategory() == "3") {
-			return "/UserBoard/getBoard.jsp?boardNo"+board.getBoardNo();
-			
-		}else if(board.getBoardCategory() == "4") {
-			return "/MoimBoard/getBoard.jsp?boardNo"+board.getBoardNo();
-			
-		}else {
-			return "boardCategory가 잘못된값입니다";	
-		}
+		return "forward:/board/Moopiboard/getBoard?boardNo="+board.getBoardNo();		
+		
+	
 		
 		
 	}
-	  
+	
+	@RequestMapping("/MoopiBoard/updateView")
+	public String updateBoardView(@ModelAttribute("board")Board board, Model model) {
+		System.out.println("updateBoardView.jsp 실행");
+		System.out.println("1번째 model "+ model);
+		System.out.println("1번째 board "+ board);
+		
+		board=boardService.getBoard(board.getBoardNo());
+//		
+		System.out.println(board);
+		model.addAttribute("board", board);
+
+		return "/board/MoopiBoard/updateMoopiBoardView";
+	}
+	
+	@RequestMapping("/MoopiBoard/updateBoard")
+	public String updateBoard(@ModelAttribute("board")Board board, Model model) {
+		
+		System.out.println("updateBoard실행");
+		
+		System.out.println("board값 체크"+board);
+		System.out.println("model값 체크"+model);
+		
+		boardService.updateBoard(board);
+		
+		
+		return "forward:/board/MoopiBoard/getBoard?boardNo="+board.getBoardNo();
+	}
 	
 	
 	
