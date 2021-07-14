@@ -9,17 +9,23 @@ import lombok.ToString;
 @ToString
 public class Search {
 	
+	private int pageSize;  
+	private int pageUnit;
 	private String SearchKeyword;
 	private int searchCondition;
 	private String searchCategory;
 	private int currentPage;
-	private int pageSize;
-	private int pageUnit;
 	private int endRowNum;
-	private int startRowNum;
+	private int startRowNum ;
+	
+	
 	
 	
 	public Search() {
 	}
+	
+	
+
+	
 
 }
