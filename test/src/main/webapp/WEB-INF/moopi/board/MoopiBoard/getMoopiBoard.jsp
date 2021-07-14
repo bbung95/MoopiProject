@@ -16,26 +16,43 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
 
 <script>
-function fncUpdateBoardView(){
+
+$(function() {
+	//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+	$( "button.btn.btn-primary" ).on("click" , function() {
+		fncUpdateView();
+	});
+});	
+
+function fncUpdateView(){
 	alert("게시글수정");
-	self.location ="/board/MoopiBoard/updateBoard?BoardNo"+boardNo
+	alert(${board.boardNo});
+	var boardNo = ${board.boardNo};
+// 	var boardCategory	=$("input[name='boardCategory']").val();
+// 	var boardWriter		=$("input[name='boardWriter']").val();
+// 	var boardName		=$("input[name='boardName']").val();
+// 	var boardContent	=$("input[name='boardContent']").val();
+	
+	$("form").attr("method" , "GET").attr("action" , "/board/MoopiBoard/updateView").submit();
+	
 }
-
-function fncGetBoard(boardNo){
-	alert("게시글조회");
-	self.location ="/board/MoopiBoard/getBoard?boardNo="+boardNo
-}
-
 
 </script>
   
-
+<style>
+body{
+	padding-top: 50px;
+}
+</style>
 </head>
 <body>
 <!-- ToolBar Start /////////////////////////////////////-->
 	<jsp:include page="../../layout/toolbar.jsp" />
 <!-- ToolBar End /////////////////////////////////////-->
+<form >
 <h3>무피 게시판조회</h3>
+
+<input type="hidden" id="boardNo" name="boardNo" value="${board.boardNo}">
 
 --------------------------------------------
 <p>게시글번호 :${board.boardNo}</p>
@@ -50,7 +67,8 @@ function fncGetBoard(boardNo){
 <p>작 성 자 : ${board.boardWriter.nickname} ${board.boardWriter.profileImage }</p>
 
 
-<button type="button" class="btn btn-default" onClick="fncUpdateBoard()">수정하기</button>
+<button type="button" class="btn btn-primary">수정하기</button>
+</form>
 </body>
 </html>
 
