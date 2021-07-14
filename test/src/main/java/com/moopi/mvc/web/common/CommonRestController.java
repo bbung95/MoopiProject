@@ -16,6 +16,7 @@ import com.moopi.mvc.common.Search;
 import com.moopi.mvc.service.board.impl.BoardServiceImpl;
 import com.moopi.mvc.service.common.impl.CommonServiceImpl;
 import com.moopi.mvc.service.domain.Notice;
+import com.moopi.mvc.service.domain.User;
 import com.moopi.mvc.service.flash.impl.FlashServiceImpl;
 import com.moopi.mvc.service.moim.impl.MoimServiceImpl;
 import com.moopi.mvc.service.user.impl.UserServiceImpl;
@@ -35,16 +36,20 @@ public class CommonRestController {
 	@Autowired
 	private UserServiceImpl userService;
 	
-	@GetMapping(value="json/addNotice/{target}/{content}/{userId}/{type}")
+	@GetMapping(value="json/addNotice/{target}/{content}/{userId}/{roomNo}/{type}")
 	public void addNotice(@PathVariable("target") String target, @PathVariable("content") String content,
-							@PathVariable("userId") String userId,@PathVariable("type")String type) {
+							@PathVariable("userId") String userId,@PathVariable("roomNo")String roomNo,@PathVariable("type")String type) {
 		System.out.println("addNotice : GET");
 		Notice notice = new Notice();
-		notice.setNoticeTarget(target);
-		notice.setNoticeContent(content);
-		notice.setToUserId(userId);
-		notice.setNoticeType(type);
-		System.out.println(notice);
+		User user = new User();
+		if(type.equals("1")) {
+			user.setUserId(target);
+			notice.setNoticeUser(user);
+			notice.setNoticeContent(content);
+			notice.setToUserId(userId);
+			notice.setNoticeType(type);	
+			notice.setChatRoomNo(roomNo);
+		}
 		commonService.addNotice(notice);
 	}
 	
@@ -116,7 +121,7 @@ public class CommonRestController {
 		}else {
 			System.out.println("User List");
 			search.setSearchCondition(2);
-			return userService.getUserList(search);
+			return userService.getUserList(search, 0);
 		}
 		
 	}
