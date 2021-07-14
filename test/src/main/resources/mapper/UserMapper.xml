@@ -48,7 +48,6 @@
 		WHERE USER_ID = #{userId}
 	</select>
 	
-	
 	<!-- 회원가입 -->
 	<insert id="addUser"		parameterType="user" >
 		INSERT 
@@ -58,9 +57,10 @@
 	
 	<!-- 관리자권한 - 회원상세보기 / 아이디, 이름, 닉네임, 모바일번호, 주소지, 생년월일, 연령, 성별, 가입일자, 가입경로, 관심사 / 소모임리스트, 회원로그, 회원블랙사유 -->
 	<select id="getUser"			parameterType="String" 		resultMap="userSelectMap">
-		SELECT USER_ID, USER_NAME, NICKNAME, PHONE, ADDR, BIRTH, AGE, GENDER, REGDATE, JOIN_PATH, INTEREST_FIRST, INTEREST_SECOND, INTEREST_THIRD  
+		SELECT USER_ID, USER_NAME, PWD, NICKNAME, PHONE, ADDR, BIRTH, AGE, GENDER, REGDATE, JOIN_PATH, INTEREST_FIRST, INTEREST_SECOND, INTEREST_THIRD  
 		FROM users 
 		WHERE USER_ID = #{userId}
+		
 	</select>
 	
 	<!-- 아이디찾기 -->

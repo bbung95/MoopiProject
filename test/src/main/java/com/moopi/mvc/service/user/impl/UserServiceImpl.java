@@ -24,7 +24,12 @@ public class UserServiceImpl {
 		return userDao.getUser(userId);		
 	}
 	
-	// 회원가입 
+//	// 회원가입 1
+//	public void addUser(User user) throws Exception {
+//		userDao.addUser(user);
+//	}
+	
+	// 회원가입2
 	public void addUser(User user) throws Exception {
 		userDao.addUser(user);
 	}
