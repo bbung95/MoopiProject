@@ -30,6 +30,8 @@ public interface MoimDao {
 	public void applyMoim(@Param("userId") String userId, 
 						  @Param("mmNo") int mmNo) throws Exception;
 	
+	public void refuseApply(@Param("memberNo") int memberNo) throws Exception;
+	
 	//모임가입탈퇴, 탈퇴시 멤버role은 6
 	public void leaveMoim(@Param("userId") String userId, 
 						  @Param("mmNo") int mmNo) throws Exception;
@@ -40,8 +42,10 @@ public interface MoimDao {
 							 @Param("mmNo") int mmNo,
 							 @Param("status") int status) throws Exception;
 	
-	//해당 mmNo에 가입된 멤버 리스트 조회
-	public List<Member> getMemberList(int mmNo) throws Exception;
+	//해당 mmNo에 가입신청자 조회, 가입된 멤버 리스트 조회 
+	//status(1가입신청리스트, 2가입된멤버리스트)
+	public List<Member> getMemberList(@Param("mmNo") int mmNo,
+			 	@Param("status") int status) throws Exception;
 	
 	
 	//검색조건에 따른 모임 총 갯수
