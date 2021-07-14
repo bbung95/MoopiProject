@@ -58,6 +58,7 @@
 								<li><a href="#">로그아웃</a></li>
 								<li><a href="#">관리자</a></li>
 							</ul></li>
+						<li><a href="/user/login">로그인</a></li>
 					</c:if>
 					<%-- <c:if test="${empty sessionScope.user}">
 						<li><a href="#">Sign in</a></li>

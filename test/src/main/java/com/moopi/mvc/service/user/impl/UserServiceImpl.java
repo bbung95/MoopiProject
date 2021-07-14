@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,29 +19,62 @@ public class UserServiceImpl {
 	@Autowired
 	private UserDao userDao;
 	
+	// 유저정보조회 
 	public User getUser(String userId) {
-		System.out.println("2. UserServiceImpl_____getUser Start");
 		return userDao.getUser(userId);		
 	}
 	
+	// 회원가입 
 	public void addUser(User user) throws Exception {
-		System.out.println("유저 : 에드유저 스타트");
 		userDao.addUser(user);
 	}
 	
+	// 로그인
+	public void login(User user) throws Exception {
+		userDao.login(user);
+	}
+	
+	// 유저아이디찾기 
+	public User getUserId(String userId) {
+		return userDao.getUserId(userId);
+	}
+	
+	// 유저정보변경 
+	public void updateUser(User user) throws Exception {
+		userDao.updateUser(user);
+	}
+	
+	// 관리자권한 - 유저리스트조회 
 	public Map<String, Object> getUserList(Search search) throws Exception{
+		
+		System.out.println("UserServiceImpl :: getUserList 시작");
+		
 		List<User> list = userDao.getUserList(search);
-		int totalCount = userDao.getTotalCount(search);
+		int totalCount = userDao.getTotalCount(search);		
+		System.out.println("totalCount : "+totalCount);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", list);
-		map.put("totalCount", totalCount);
+		map.put("totalCount", totalCount); // 총 유저 수
 		
+		System.out.println("완료");
+	
 		return map;
 	}
 	
-	public void updateUser(User user) throws Exception {
-		userDao.updateUser(user);
+	// 회원탈퇴 
+	public void updateLeaveUser(User user) throws Exception {
+		userDao.updateLeaveUser(user);
+	}
+	
+	// 유저비밀번호변경
+	public void updateUserPwd(User user) throws Exception{
+		userDao.updateUserPwd(user);
+	}
+	
+	// 유저프로필수정 
+	public void updateProfile(User user) throws Exception{
+		userDao.updateProfile(user);
 	}
 
 }
