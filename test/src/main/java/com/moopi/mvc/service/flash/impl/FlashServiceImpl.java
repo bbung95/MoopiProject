@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.moopi.mvc.common.Search;
 import com.moopi.mvc.service.domain.Flash;
+import com.moopi.mvc.service.domain.MeetingFlashMember;
 import com.moopi.mvc.service.flash.FlashDao;
 
 @Service
@@ -24,7 +25,6 @@ public class FlashServiceImpl {
 		System.out.println(this.getClass());
 	}
 
-	
 	public void addFlash(Flash flash) throws Exception {
 		System.out.println("addFlash ServiceImpl start::");
 		flashDao.addFlash(flash);
@@ -35,7 +35,6 @@ public class FlashServiceImpl {
 		return flashDao.getFlash(flashNo);
 	}
 
-	
 	public Map<String, Object> getFlashList(Search search) throws Exception {
 
 		List<Flash> list = flashDao.getFlashList(search);
@@ -48,10 +47,25 @@ public class FlashServiceImpl {
 		return map;
 	}
 
-	
 	public void updateFlash(Flash flash) throws Exception {
 		flashDao.updateFlash(flash);
 
 	}
 
+	public void joinFlash(String userId, int flashNo) throws Exception {
+		flashDao.joinFlash(userId, flashNo);
+
+	}
+
+	public Map<String, Object> getJoinFlashList (int targetNo) throws Exception{
+		List<MeetingFlashMember> list = flashDao.getJoinFlashList(targetNo);
+		//int totalCount = flashDao.getJoinTotalCount(targetNo);
+		System.out.println("getJoinFlashList::"+list);
+		Map<String,Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		//map.put("totalCount", totalCount);
+		return map;
+		
+		
+	}
 }

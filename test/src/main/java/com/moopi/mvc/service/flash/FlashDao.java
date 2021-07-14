@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.moopi.mvc.common.Search;
 import com.moopi.mvc.service.domain.Flash;
+import com.moopi.mvc.service.domain.MeetingFlashMember;
 
 @Mapper
 public interface FlashDao {
@@ -26,4 +27,14 @@ public interface FlashDao {
 	
 	public int getTotalCount(Search search) throws Exception;
 	//public int getTotalCount(Search search) throws Exception;
+	
+	public int getJoinTotalCount(int targetNo) throws Exception;
+	
+	public void joinFlash(@Param("userId") String userId,
+							@Param("flashNo") int flashNo) throws Exception;
+	
+	public List<MeetingFlashMember> getJoinFlashList(int targetNo) throws Exception;
+
+
 }
+

@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Moopi</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 <!--   jQuery , Bootstrap CDN  -->
@@ -27,11 +27,20 @@
 <style>
 body {
 	padding-top: 50px;
+	margin: auto;
+	width: 960px;
 }
 </style>
 </head>
 <body>
 <jsp:include page="layout/toolbar.jsp"></jsp:include>
+		<div class="jumbotron jumbotron-fluid">
+  		<div class="container">
+   		 <h1 class="display-4">Moopi Project</h1>
+   		 <p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
+  		</div>
+		</div>
+	</div>
 	<center>
 	<br> ‘단일로 귀착되지 않는 다수는 혼란이며, 다수에 의존하지 않는 단일은 압제이다’. <br>
 		토론을 통해 나온 합리적 결정에는 토 달지 않고 따라가야 강력한 조직이 된다. <br>
