@@ -21,9 +21,7 @@ public class User {
 	private String gender;				// 성별 - 남, 녀
 	private String phone;				// 모바일번호
 	private String nickname;			// 회원 닉네임
-//	private int birth1;					// 생년월일 - 년
-//	private int birth2;					// 생년월일 - 월
-//	private int birth3;					// 생년월일 - 일
+	private String birth;				// 전체 생년월
 	private int age;					// 나이
 	private String fullAddr;			// 전체 주소지
 	private String addr;				// 일부 주소지 (구)
@@ -31,6 +29,11 @@ public class User {
 	private int interestSecond;			// 관심사2
 	private int interestThird;			// 관심사3
 	private Date regDate;				// 가입일자
+	
+	// 생년, 생월, 생일 
+	private int birth1;					// 생년월일 - 년
+	private int birth2;					// 생년월일 - 월
+	private int birth3;					// 생년월일 - 일
 	
 	// 유저롤
 	private String userRole;			// 유저Role - 관리자, 정상회원, 블랙회원, 탈퇴회원, 탈퇴복구회원
