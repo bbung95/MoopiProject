@@ -51,6 +51,11 @@ function fncListMeeting(mmNo){
 
 
 </head>
+<style>
+	body{
+		padding-top: 50px;
+	}
+</style>
 <body>
 
 <!-- ToolBar Start ///////////////////////////////////// -->

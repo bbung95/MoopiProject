@@ -6,11 +6,11 @@
 
 
 <!-- ToolBar Start /////////////////////////////////////-->
-<div class="navbar  navbar-inverse">
+<div class="navbar  navbar-inverse navbar-fixed-top">
 
 	<div class="container">
 
-		<a class="navbar-brand" href="/">Moopi</a>
+		<a class="navbar-brand" href="#">Moopi</a>
 
 		<!-- toolBar Button Start //////////////////////// -->
 		<div class="navbar-header">
@@ -30,8 +30,7 @@
 
 			<!-- Tool Bar 를 다양하게 사용하면.... -->
 			<ul class="nav navbar-nav">
-
-				<li><a href="/moim/listMoim">모임무피</a></li>
+				<li><a href="#">모임무피</a></li>
 				<li><a href="#">번개무피</a></li>
 				<li><a href="#">무피게시판</a></li>
 				<li><a href="#">문의게시판</a></li>
@@ -59,6 +58,7 @@
 								<li><a href="#">로그아웃</a></li>
 								<li><a href="#">관리자</a></li>
 							</ul></li>
+						<li><a href="/user/loginView">로그인</a></li>
 					</c:if>
 					<%-- <c:if test="${empty sessionScope.user}">
 						<li><a href="#">Sign in</a></li>
@@ -153,6 +153,33 @@
 		$('#test').remove();
 	})
 	
+	////////////////////////////// toolbar navigator
+	
+	$("a:contains('Moopi')").on("click", function(){
+	
+		location.href = "/";
+	})
+	
+	$("a:contains('모임무피')").on("click", function(){
+		
+		location.href = "/moim/listMoim";
+	})
+	
+	$("a:contains('번개무피')").on("click", function(){
+		
+		location.href = "/flash/listFlash";
+	})
+	
+	$("a:contains('무피게시판')").on("click", function(){
+		
+		location.href = "/board/MoopiBoard/listMoopi";
+	})
+	
+	$("a:contains('문의게시판')").on("click", function(){
+		
+		location.href = "/board/QnABoard/listQnA";
+	})
+	
 	$("a:contains('채팅')").on("click", function() {
 
 		popWin = window
@@ -161,4 +188,29 @@
 				"popWin",
 				"left=460, top=300, width=460, height=600, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");
 	});
+	
+	$("a:contains('마이홈')").on("click", function(){
+		
+		location.href = "/";
+	})
+	
+	$("a:contains('내정보보기')").on("click", function(){
+		
+		location.href = "/";
+	})
+	
+	$("a:contains('쪽지')").on("click", function(){
+		
+		location.href = "/";
+	})
+	
+	$("a:contains('로그아웃')").on("click", function(){
+		
+		location.href = "/";
+	})
+	
+	$("a:contains('관리자')").on("click", function(){
+		
+		location.href = "/common/adminMoopi";
+	})
 </script>
