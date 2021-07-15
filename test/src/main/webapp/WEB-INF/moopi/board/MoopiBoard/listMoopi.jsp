@@ -18,12 +18,12 @@
 <script>
 function fncAddBoardView(){
 	alert("게시글작성");
-	self.location ="/board/MoopiBoard/addMoopiBoardView";
+	self.location ="/board/addBoardView";
 }
 
 function fncGetBoard(boardNo){
 	alert("게시글조회");
-	self.location ="/board/MoopiBoard/getBoard?boardNo="+boardNo;
+	self.location ="/board/getBoard?boardNo="+boardNo;
 }
 
 
@@ -39,7 +39,7 @@ body{
 <!-- ToolBar Start /////////////////////////////////////-->
 	<jsp:include page="../../layout/toolbar.jsp" />
 <!-- ToolBar End /////////////////////////////////////-->
-<h3>무피 공지게시판 페이지입니다...</h3>
+<h3>무피 공지게시판</h3>
 
 <c:forEach var="board" items="${list}">
 --------------------------------------------

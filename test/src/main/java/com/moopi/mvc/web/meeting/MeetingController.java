@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.moopi.mvc.common.Search;
 import com.moopi.mvc.service.domain.Meeting;
 import com.moopi.mvc.service.domain.Moim;
+import com.moopi.mvc.service.domain.User;
 import com.moopi.mvc.service.meeting.impl.MeetingServiceImpl;
+import com.moopi.mvc.service.user.impl.UserServiceImpl;
 import com.moopi.mvc.service.moim.impl.MoimServiceImpl;
 
 @Controller
@@ -44,10 +46,13 @@ public class MeetingController {
 		System.out.println("addMeeting :::");
 //		System.out.println(userId);
 //		System.out.println(userMapper.getUser(userId));
+		User user = new User();
+		user.setUserId("user01");
+		meeting.setMtConstructor(user);
 		System.out.println(meeting);
 		meetingService.addMeeting(meeting);
 		model.addAttribute("meeting", meeting);
-		return "forward:정모상세조회페이지";
+		return "redirect:/meeting/listMeeting?mmNo=1&userId=user01";
 	}
 	
 	//정모수정
@@ -65,12 +70,15 @@ public class MeetingController {
 	
 	//정모 리스트 조회
 	@RequestMapping("listMeeting")
-	public String getListMeeting(@RequestParam("mmNo") int mmNo, Model model) throws Exception{
+	public String getListMeeting(@RequestParam("mmNo") int mmNo, @RequestParam("userId") String userId,
+									Model model) throws Exception{
 		
 		System.out.println("모임리스트를 가져옵니다.");
 		Map<String, Object> map = meetingService.getMeetingList(mmNo);
 		model.addAttribute("list", map.get("list"));
-		return "forward:모임리스트페이지로이동";
+		System.out.println(map);
+		model.addAttribute("userId", userId);
+		return "meeting/listMeeting";
 	}
 	
 	//정모참가하기
