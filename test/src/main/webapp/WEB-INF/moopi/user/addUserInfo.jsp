@@ -19,12 +19,12 @@
 // # 등록 Event--------------------------------------------------------------------------------------------------------------------------
 	$(function() {
 		$( "button.btn.btn-primary" ).on("click" , function() {
-			fncUserRegistration();
+			fncAddUser();
 		});
 	});
 
 // # 값 담아주기 Event --------------------------------------------------------------------------------------------------------------------------		
-	function fncUserRegistration() {
+	function fncAddUser() {
 		
 		var id=$("input[name='userId']").val();
 		var password=$("input[name='password']").val();
@@ -36,26 +36,62 @@
 		var interest1=$("select[name='interest1']").val();
 		var interest2=$("select[name='interest2']").val();
 		var interest3=$("select[name='interest3']").val();	
-		var birth1=$("input[name=birth1]").val();
-		var birth2=$("select[name='birth2']").val();
-		var birth3=$("input[name='birth3']").val();
-
-		//alert("id : "+id);
+		
+//		var birth1=$("input[name=birth1]").val();
+//		var birth2=$("select[name='birth2']").val();
+//		var birth3=$("input[name='birth3']").val();
+	
+//		var birth = birth1.concat("-", birth2, "-", birth3);
+//		alert(birth)
+				//alert("id : "+id);
 		//alert("password : "+password);
 		//alert("userName : "+userName);
 		//alert("gender : "+gender);
 		//alert("phone : "+phone);
 		//alert("nickname : "+nickname);		
-		//alert("birth1 : "+birth1);
-		//alert("birth2 : "+birth2);
-		//alert("birth3 : "+birth3);		
+		alert("birth1 : "+birth1);
+		alert("birth2 : "+birth2);
+		alert("birth3 : "+birth3);		
 		//alert("addr : "+addr);		
 		//alert("interest1 : "+interest1);
 		//alert("interest2 : "+interest2);
 		//alert("interest3 : "+interest3);
 		
-		$("form").attr("method" , "POST").attr("action" , "/user/login").submit();	
+		$("form").attr("method" , "POST").attr("action" , "/user/addUser").submit();	
 	}
+	
+	$ (function() {   
+	       
+	    var now = new Date();
+	    var birth1 = now.getFullYear();
+	    var birth2 = (now.getMonth() + 1) > 9 ? ''+(now.getMonth() + 1) : '0'+(now.getMonth() + 1); 
+	    var birth3 = (now.getDate()) > 9 ? ''+(now.getDate()) : '0'+(now.getDate());           
+	   
+	    // 년도 selectbox만들기               
+		    for(var i = 1900 ; i <= year ; i++) {
+		        $('#year').append('<option value="' + i + '">' + i + '년</option>');    
+		    }
+	
+	    // 월별 selectbox 만들기            
+		    for(var i=1; i <= 12; i++) {
+		        var mm = i > 9 ? i : "0"+i ;            
+		        $('#month').append('<option value="' + mm + '">' + mm + '월</option>');    
+		    }
+	    
+	    // 일별 selectbox 만들기
+		    for(var i=1; i <= 31; i++) {
+		        var dd = i > 9 ? i : "0"+i ;            
+		        $('#day').append('<option value="' + dd + '">' + dd+ '일</option>');    
+		    }
+		    
+	    $("#year  > option[value="+year+"]").attr("selected", "true");        
+	    $("#month  > option[value="+mon+"]").attr("selected", "true");    
+	    $("#day  > option[value="+day+"]").attr("selected", "true");   
+	    
+	 	var birth = birth1.concat("-", birth2, "-", birth3);
+		alert(birth);    
+  
+	})
 	
 </script>
 
@@ -126,44 +162,9 @@
 		<!-- 생년월일 -->
 		<div class="form-group">
 			<label for="birth" class="col-sm-offset-1 col-sm-3 control-label">생년월일</label>
-			<span class="col-sm-1">
-				
-				<!-- #생년 : 최대4자리까지 기재가능 -->
-				<div id="birth1">
-					<span class="box">
-						<input type="text" name="birth1" class="int" maxlength="4" placeholder="년(4자)">
-					</span>
-				</div>
-				
-				<!-- #생월 : select로 12월까지 기재가능 -->
-				<div id="birth2">
-					<span class="box">
-						<select name="birth2">
-							<option>월</option>
-							<option value="01">1</option>
-							<option value="02">2</option>
-							<option value="03">3</option>
-							<option value="04">4</option>
-							<option value="05">5</option>
-							<option value="06">6</option>
-							<option value="07">7</option>
-							<option value="08">8</option>
-							<option value="09">9</option>                                    
-							<option value="10">10</option>
-							<option value="11">11</option>
-							<option value="12">12</option>
-						</select>
-					</span>
-				</div>
-				
-				<!-- #생일 : 최대 2자리까지 입력가능 -->
-				<div id="birth3">
-					<span class="box">
-						<input type="text" name="birth3" class="int" maxlength="2" placeholder="일">
-					</span>
-				</div>
-				
-			</span>
+			<select name="yy" id="year"></select>  년
+			<select name="mm" id="month"></select>  월  
+			<select name="dd" id="day"></select>  일
 		</div>
 		
 		<!-- #전체 거주지입력 / 주소지 API 구현해야 함 -->

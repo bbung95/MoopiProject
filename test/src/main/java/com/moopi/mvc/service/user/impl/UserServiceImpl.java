@@ -19,26 +19,26 @@ public class UserServiceImpl {
 	@Autowired
 	private UserDao userDao;
 	
+	// [완료] 로그인
+	public User loginUser(String userId) {
+		return userDao.loginUser(userId);
+	}
+	
+	// [완료] 회원가입
+	public User addUser(User user) throws Exception {
+		System.out.println("\naddUSer쪽으로 진입했습니다");
+		System.out.println("user를 확인해볼까요 : "+user+"\n");
+		return userDao.addUser(user);
+	}
+	
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
 	// 유저정보조회 
 	public User getUser(String userId) {
 		return userDao.getUser(userId);		
 	}
 	
-//	// 회원가입 1
-//	public void addUser(User user) throws Exception {
-//		userDao.addUser(user);
-//	}
-	
-	// 회원가입2
-	public void addUser(User user) throws Exception {
-		userDao.addUser(user);
-	}
-	
-	// 로그인
-	public void login(User user) throws Exception {
-		userDao.login(user);
-	}
-	
+
 	// 유저아이디찾기 
 	public User getUserId(String userId) {
 		return userDao.getUserId(userId);

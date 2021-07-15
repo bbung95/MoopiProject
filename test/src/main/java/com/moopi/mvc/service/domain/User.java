@@ -31,9 +31,9 @@ public class User {
 	private Date regDate;				// 가입일자
 	
 	// 생년, 생월, 생일 
-	private int birth1;					// 생년월일 - 년
-	private int birth2;					// 생년월일 - 월
-	private int birth3;					// 생년월일 - 일
+	///private int birth1;					// 생년월일 - 년
+	//private int birth2;					// 생년월일 - 월
+	//private int birth3;					// 생년월일 - 일
 	
 	// 유저롤
 	private String userRole;			// 유저Role - 관리자, 정상회원, 블랙회원, 탈퇴회원, 탈퇴복구회원

@@ -46,23 +46,27 @@
 							<div align="right"><a href="javascript:deleteNoticeAll('user01')">전체삭제</a></div>
 						</ul></li>
 					<li><a href="#">채팅</a></li>
+					
+					<!-- sessionScope.id가 없으면 : 로그인을 하지 않았을 경우 -->
 					<c:if test="${empty sessionScope.user}">
-						<li class="dropdown"><a href="#" class="dropdown-toggle"
-							data-toggle="dropdown" role="button" aria-expanded="false"> <span>메뉴</span>
-								</span>
-						</a>
-							<ul class="dropdown-menu">
-								<li><a href="#">마이홈</a></li>
-								<li><a href="#">내정보보기</a></li>
-								<li><a href="#">쪽지</a></li>
-								<li><a href="#">로그아웃</a></li>
-								<li><a href="#">관리자</a></li>
-							</ul></li>
 						<li><a href="/user/loginView">로그인</a></li>
 					</c:if>
-					<%-- <c:if test="${empty sessionScope.user}">
-						<li><a href="#">Sign in</a></li>
-					</c:if> --%>
+					
+					<!-- sessionScope.id가 있을시 : 로그인을 했을 경우 -->
+					<c:if test="${not empty sessionScope.user}">
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> 							
+								<span> 메뉴 </span>					
+							</a>
+							<ul class="dropdown-menu">
+								<li> <a href="#">마이홈</a></li>
+								<li> <a href="#">내정보보기</a></li>
+								<li> <a href="#">쪽지	</a></li>
+								<li> <a href="#">로그아웃</a></li>
+								<li> <a href="#">관리자</a></li>
+							</ul></li>
+					</c:if>
+								
 				</ul>
 			</div>
 		</div>
@@ -206,7 +210,7 @@
 	
 	$("a:contains('로그아웃')").on("click", function(){
 		
-		location.href = "/";
+		location.href = "/user/logout";
 	})
 	
 	$("a:contains('관리자')").on("click", function(){
