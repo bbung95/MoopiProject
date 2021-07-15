@@ -23,12 +23,19 @@ public interface MoimDao {
 	//모임 상세보기
 	public Moim getMoim(@Param("mmNo") int mmNo);
 	
+	//모임 상세보기2
+	public Moim getMoim(@Param("mmName") String mmName);
+	
 	//모임 정보 수정
 	public void updateMoim(Moim moim) throws Exception;
 	
 	//모임가입신청, 가입신청시 멤버role은 1
 	public void applyMoim(@Param("userId") String userId, 
 						  @Param("mmNo") int mmNo) throws Exception;
+	
+	//모임생성시, 생성자가 바로 모임장 되는 메서드이다. 멤버role은 4
+	public void newApplyMoim(@Param("userId") String userId, 
+							  @Param("mmNo") int mmNo) throws Exception;
 	
 	//가입신청 거절하기
 	public void refuseApply(@Param("memberNo") int memberNo) throws Exception;

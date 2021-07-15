@@ -52,10 +52,10 @@ public class MoimController {
 		return "moim/addMoimView";
 }
 	
-	//모임생성 B/L 실행
+	//모임생성 B/L 실행 -> 생성자를 바로 모임장으로 넣어주기 위해 newApply 메서드 추가함
 	@RequestMapping("addMoim")
 	public String addMoim(@ModelAttribute("moim") Moim moim
-			,MultipartFile uploadFile,
+			,MultipartFile uploadFile, Model model,
 			@RequestParam("userId") String userId) throws Exception{
 		System.out.println("모임을생성할게");
 		String oriFileName = uploadFile.getOriginalFilename();
@@ -67,11 +67,26 @@ public class MoimController {
 			e.printStackTrace();
 		}
 		moim.setMmFile(currentTime+oriFileName);
-		User user = new User();
-		user.setUserId(userId);
+		User user = userService.getUser(userId);
 		moim.setMmConstructor(user);
 		moimService.addMoim(moim);
+		model.addAttribute("userId", userId);
+		model.addAttribute("mmName", moim.getMmName());
 		System.out.println("모임생성완료");
+		return "redirect:/moim/newApply";
+	}
+	
+	//방금 모임을 생성한 유저를 그 모임의 모임장으로 만드는 메서드...
+	@RequestMapping("newApply")
+	public String newApply(Model model) throws Exception{
+		System.out.println(":::::::뉴어플라이에 도착했을까:::::::");
+		String userId = (String)model.getAttribute("userId");
+		System.out.println("유저아이디값 : "+userId);
+		String mmName = (String)model.getAttribute("mmName");
+		System.out.println("모임명:" +mmName);
+		Moim moim = moimService.getMoim2(mmName);
+		System.out.println("::::::::::::뉴어플라이에서 찾은 모임남바 : "+moim.getMmNo());
+		moimService.newAplyMoim(userId, moim.getMmNo());
 		return "redirect:/moim/listMoim";
 	}
 	

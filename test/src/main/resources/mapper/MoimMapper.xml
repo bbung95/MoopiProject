@@ -49,6 +49,16 @@
 		)
 	 </insert>
 	 
+	 <insert id="newApplyMoim">
+	 	INSERT
+		INTO MEMBER(
+		MM_MEMBER_ID, MM_NO, MM_MEMBER_ROLE, MM_MEMBER_REGDATE 
+		)
+		VALUES( 
+		#{userId}, #{mmNo}, '4', now()
+		)
+	 </insert>
+	 
 	 <update	id="leaveMoim">
 	   	UPDATE MEMBER
 	   	<set>
@@ -124,6 +134,14 @@
 			MM_INTEREST, MM_ADDR, MM_STATE, MM_MIN_AGE, MM_MAX_AGE, MM_TYPE 		
 			FROM MOIM 
 		WHERE MM_NO = #{mmNo}	
+	</select>
+	
+	<select id="getMoim2" parameterType="String" resultMap="moimSelectMap">
+		SELECT
+			MM_NO, MM_NAME, MM_CONTENT, MM_IMAGE, MM_MAX_COUNT, MM_CURRENT_COUNT, MM_CONSTRUCTOR, MM_REGDATE,
+			MM_INTEREST, MM_ADDR, MM_STATE, MM_MIN_AGE, MM_MAX_AGE, MM_TYPE 		
+			FROM MOIM 
+		WHERE MM_NAME = #{mmName}	
 	</select>
 
 	<insert id="addMoim"	parameterType="moim" >
