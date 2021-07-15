@@ -39,7 +39,7 @@ public class CommonController {
 	@GetMapping(value="/chat/chatList")
 	public String chatList() {
 		System.out.println("chatList : GET");
-		return "chat/chatList";
+		return "common/chatList";
 	}
 	
 	@GetMapping(value="/chat/joinRoom")
@@ -48,6 +48,6 @@ public class CommonController {
 		System.out.println("joinRoom : GET");
 		System.out.println(trgt);
 		model.addAttribute("target", trgt);
-		return "chat/chatRoom";
+		return "common/chatRoom";
 	}
 }
