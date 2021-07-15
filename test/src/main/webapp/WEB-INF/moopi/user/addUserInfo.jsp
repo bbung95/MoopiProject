@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title> 로그인 </title>
+<title> 회원가입 추가입력페이지 </title>
 
 <! ------------------------------------------------ Bootstrap, jQuery CDN -------------------------------------------------->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
@@ -16,15 +16,72 @@
 
 <script>
 
-// # 등록 Event--------------------------------------------------------------------------------------------------------------------------
-	$(function() {
+// # 회원가입 Event--------------------------------------------------------------------------------------------------------------------------
+	
+	// 생년월일 관련 function-------------------------------------------------------------------
+	$ (function() {
+		
+		// # 등록 Event--------------------------------------------------------------------------------------------------------------------------
 		$( "button.btn.btn-primary" ).on("click" , function() {
 			fncAddUser();
 		});
-	});
-
-// # 값 담아주기 Event --------------------------------------------------------------------------------------------------------------------------		
+	
+	function Birth() {   	          
+	
+		    var now = new Date();
+		    var year = now.getFullYear();
+		    var month = (now.getMonth() + 1) > 9 ? ''+(now.getMonth() + 1) : '0'+(now.getMonth() + 1); 
+		    var day = (now.getDate()) > 9 ? ''+(now.getDate()) : '0'+(now.getDate());           
+		   
+		    // 생년과 관련된 SelectBox
+		    // [생년 : year]
+			    for(var i = 1900 ; i <= year ; i++) {
+			        $('#year').append('<option value="' + i + '">' + i + '년</option>');        
+			    }
+		
+		    // 생월과 관련된 SelectBox 
+		    // [생월 : mm]       
+			    for(var i=1; i <= 12; i++) {
+			        var mm = i > 9 ? i : "0"+i ;            
+			        $('#month').append('<option value="' + mm + '">' + mm + '월</option>');    
+			    }
+		    
+		    // 생일과 관련된 SelectBox
+		    // [생일 : dd]
+			    for(var i=1; i <= 31; i++) {
+			        var dd = i > 9 ? i : "0"+i ;            
+			        $('#day').append('<option value="' + dd + '">' + dd+ '일</option>');    
+			    }
+				    
+		    $("#year  > option[value="+year+"]").attr("selected", "true");        
+		    $("#month  > option[value="+mm+"]").attr("selected", "true");    
+		    $("#day  > option[value="+day+"]").attr("selected", "true");   
+			
+			// 각 변수 합치기
+			//var birth = (year+'-'+mm+'-'+dd);
+	  		//alert("생년월일 function에서의 birth : "+birth);
+	  		//return birth;
+	  		
+	  		var year = year;
+	  		//alert("얍얍 "+year);
+	  		return year;
+  		
+	}
+	
+	var birthFunction = Birth();
+	
+	// # 값 담아주기 Event --------------------------------------------------------------------------------------------------------------------------		
 	function fncAddUser() {
+	
+		alert("fncAddUser function 시작");
+		
+		var birth1=$("select[name='yy']").val();
+		var birth2=$("select[name='mm']").val();
+		var birth3=$("select[name='dd']").val();
+		
+		<!-- 이 부분을 .val()로 넘겨줘야하는데 변수를 넘기는 방법을 도무지 모르겠음 -->
+		var birthday=(birth1+'-'+birth2+'-'+birth3);
+		alert("진짜된건가 : "+birthday);
 		
 		var id=$("input[name='userId']").val();
 		var password=$("input[name='password']").val();
@@ -37,21 +94,19 @@
 		var interest2=$("select[name='interest2']").val();
 		var interest3=$("select[name='interest3']").val();	
 		
-//		var birth1=$("input[name=birth1]").val();
-//		var birth2=$("select[name='birth2']").val();
-//		var birth3=$("input[name='birth3']").val();
-	
-//		var birth = birth1.concat("-", birth2, "-", birth3);
-//		alert(birth)
-				//alert("id : "+id);
+//		//var birth1=$("input[name=birth1]").val();
+//		//var birth2=$("select[name='birth2']").val();
+//		//var birth3=$("input[name='birth3']").val();
+		
+		//alert("id : "+id);
 		//alert("password : "+password);
 		//alert("userName : "+userName);
 		//alert("gender : "+gender);
 		//alert("phone : "+phone);
 		//alert("nickname : "+nickname);		
-		alert("birth1 : "+birth1);
-		alert("birth2 : "+birth2);
-		alert("birth3 : "+birth3);		
+		//alert("birth1 : "+birth1);
+		//alert("birth2 : "+birth2);
+		//alert("birth3 : "+birth3);		
 		//alert("addr : "+addr);		
 		//alert("interest1 : "+interest1);
 		//alert("interest2 : "+interest2);
@@ -60,39 +115,50 @@
 		$("form").attr("method" , "POST").attr("action" , "/user/addUser").submit();	
 	}
 	
-	$ (function() {   
-	       
-	    var now = new Date();
-	    var birth1 = now.getFullYear();
-	    var birth2 = (now.getMonth() + 1) > 9 ? ''+(now.getMonth() + 1) : '0'+(now.getMonth() + 1); 
-	    var birth3 = (now.getDate()) > 9 ? ''+(now.getDate()) : '0'+(now.getDate());           
-	   
-	    // 년도 selectbox만들기               
-		    for(var i = 1900 ; i <= year ; i++) {
-		        $('#year').append('<option value="' + i + '">' + i + '년</option>');    
-		    }
+
 	
-	    // 월별 selectbox 만들기            
-		    for(var i=1; i <= 12; i++) {
-		        var mm = i > 9 ? i : "0"+i ;            
-		        $('#month').append('<option value="' + mm + '">' + mm + '월</option>');    
-		    }
-	    
-	    // 일별 selectbox 만들기
-		    for(var i=1; i <= 31; i++) {
-		        var dd = i > 9 ? i : "0"+i ;            
-		        $('#day').append('<option value="' + dd + '">' + dd+ '일</option>');    
-		    }
-		    
-	    $("#year  > option[value="+year+"]").attr("selected", "true");        
-	    $("#month  > option[value="+mon+"]").attr("selected", "true");    
-	    $("#day  > option[value="+day+"]").attr("selected", "true");   
-	    
-	 	var birth = birth1.concat("-", birth2, "-", birth3);
-		alert(birth);    
-  
-	})
 	
+	
+//-- 닉네임 중복체크 --------------------------------------------------------------------------------------------------------------------------
+
+	$(function() {	
+		$("#nickname").keyup(function() {
+			var nickname = $('#nickname').val();		
+			$.ajax({				
+				url : '${pageContext.request.contextPath}/user/nicknameCheck?nickname='+nickname,
+				type : 'get',
+				success : function(data) {									
+					if (data == 1) {							
+							// 닉네임이 중복일 경우								
+								$("#NNCheck").text("해당 닉네임은 이미 사용중입니다.");
+								$("#NNCheck").css("color", "red");
+								$("#joinButton").attr("disabled", true);
+						
+					} else if (data == 0) {
+								
+								$("#NNCheck").text("사용가능한 닉네임 입니다.");
+								$("#NNCheck").css("color", "black");
+								$("#joinButton").attr("disabled", false);						
+					
+					} 
+				}, error : function() {
+					console.log("실패");
+				}
+			});
+		});
+	});
+<!-------------------------------------------------------------------------------------------------------------------------->
+
+// # 새 창으로 모바일번호 인증 띄우기 --------------------------------------------------------------------------------------------------------------------------
+		$("#mobileAuth").on("click", function() {
+	
+			popWin = window.open(
+								"getMobileAuth",
+								"popWin",
+								"left=460, top=300, width=460, height=800, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");
+		});
+	
+	});
 </script>
 
 </head>
@@ -123,7 +189,7 @@
 		</div>
 		
 		<!-- 패스워드 : hidden -->
-		<input type="hidden" class="form-control" id="password" name="password" value="${user.password}">
+		<!--<input type="hidden" class="form-control" id="password" name="password" value="${user.password}">-->
 		
 		<!-- 이름 및 성별입력 -->
 		<div class="form-group">
@@ -131,6 +197,7 @@
 				<div class="col-sm-2">
 					<input type="text" class="form-control" id="userName" name="userName" placeholder="이름을 입력해주세요">
 				</div>
+				<div class="check_font" id="name_check"></div>
 			<label for="gender" class="col-sm-1 control-label">성별</label>		
 				<span class="col-sm-3" >
 					<select name="gender">
@@ -145,8 +212,8 @@
 			<label for="phone" class="col-sm-offset-1 col-sm-3 control-label">모바일번호</label>
 			<div class="col-sm-4">
 				<span class="col-sm-10">
-					<input type="text" class="form-control" id="phone" name="phone" placeholder="인증마친 후 모바일번호가져오기">
-					<button type="button" class="btn btn-info">인증하기</button>
+				<!-- <input type="text" class="form-control" id="phone" name="phone" placeholder="인증마친 후 모바일번호가져오기"> -->
+					<button type="button" id="mobileAuth" class="btn btn-info">인증하기</button>
 				</span>	
 			</div>
 		</div>
@@ -157,6 +224,7 @@
 			<div class="col-sm-4">
 				<input type="text" class="form-control" id="nickname" name="nickname" placeholder="닉네임을 입력해주세요">
 			</div>
+			<div class="check_font" id="NNCheck"></div>
 		</div>
 		
 		<!-- 생년월일 -->
@@ -170,13 +238,17 @@
 		<!-- #전체 거주지입력 / 주소지 API 구현해야 함 -->
 		<div class="form-group">
 			<label for="addr" class="col-sm-offset-1 col-sm-3 control-label">거주지입력</label>
+			
 			<div class="col-sm-2">
-			<input type="text" class="form-control" id="addr" name="addr" placeholder="주소를 입력해주세요">
+				<input type="text" class="form-control" id="addr" name="addr" placeholder="전체 주소를 입력해주세요">
 			</div>
-				<span class="col-sm-3">
-					<button type="button" class="btn btn-info">우편번호입력</button>
-				</span>	
+				
+			<span class="col-sm-3">
+				<button type="button" class="btn btn-info">우편번호입력</button>
+			</span>	
 		</div>
+		
+		<input type="hidden" class="form-control" id="password" name="password" value="${user.password}">
 		
 		<!-- 관심사입력 -->
 		<div class="form-group">
@@ -240,7 +312,7 @@
 <!-- 가입완료 Button ---------------------------------------------------------------------------------------------------------------->											  
 		<div class="form-group">
 			<div class="col-sm-offset-4  col-sm-4 text-center">
-				<button type="button" class="btn btn-primary">등록</button>
+				<button type="button" id="joinButton" class="btn btn-primary">등록</button>
 			</div>
 		</div> 
 <!---------------------------------------------------------------------------------------------------------------------------->	
