@@ -1,12 +1,17 @@
 package com.moopi.mvc.web.user;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.context.annotation.SessionScope;
 
 import com.moopi.mvc.service.domain.User;
 import com.moopi.mvc.service.user.impl.UserServiceImpl;
+
+import ch.qos.logback.core.recovery.ResilientSyslogOutputStream;
 
 @Controller
 @RequestMapping("/user/*")
@@ -15,14 +20,33 @@ public class UserController {
 	@Autowired
 	private UserServiceImpl userService;
 	
-	// 회원가입
+//-- [완료] 로그인페이지 (단순 네비게이션) -------------------------------------------------------------------------------------------
+	@RequestMapping("loginView")
+	public String loginView(@ModelAttribute("user") User user) throws Exception{
+		return "user/loginView";
+	}
+//-----------------------------------------------------------------------------------------------------------------
+
+	
+//-- [완료] 로그인 / 세션유지 -------------------------------------------------------------------------------------------
+	@RequestMapping("login")
+	public String login(@ModelAttribute("user") User user, HttpSession session) throws Exception {
+		
+		User dbUser = userService.getUser(user.getUserId());
+		
+		// 로그인 한 유저의 정보가 없거나, 패스워드가 일치하지 않을 경우
+		if( dbUser != null && user.getPassword().equals(dbUser.getPassword())) {
+			session.setAttribute("user", dbUser);
+		}
+		
+		return "redirect:/";
+	}
+//-----------------------------------------------------------------------------------------------------------------
+
+	// 회원가입 단순 네비게이션
 	@RequestMapping("addUser")
-	public String addUser(@ModelAttribute("user") User user) throws Exception {
-		
+	public String main() throws Exception {
 		System.out.println("addUser 시작");
-		//userService.addUser(user);
-		System.out.println("UserController 시작");
-		
 		return "user/addUser";
 	}
 	
@@ -37,27 +61,11 @@ public class UserController {
 		return "user/addUserInfo";
 	}
 	
-	// 로그인 (단순 네비게이션)
-	@RequestMapping("login")
-	public String login(@ModelAttribute("user") User user) throws Exception{
-		System.out.println("UserController_____login 시작");
-		return "user/login";
-	}
+
+	
+
 	
 }	
-//	// 로그인
-//	@RequestMapping(value = "login", method = RequestMethod.POST)
-//	public String login(@ModelAttribute("user") User user, HttpSession session) throws Exception {
-//		// 2021-07-08 12:37 : VO쪽 getter, setter Annotaion지정했으나, 끌고오지 못함 알아봐야함
-//		User dbUser = userService.getUser(user.getUserId());
-//		return "redirect:/index";
-//	}
-
-	// @Value("#{commonProperties['pageUnit']}")
-	// int pageUnit;
-	// @Value("#{commonProperties['pageSize']}")
-	// int pageSize;
-
 
 
 //	// 로그아웃

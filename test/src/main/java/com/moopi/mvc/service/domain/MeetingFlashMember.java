@@ -22,5 +22,5 @@ public class MeetingFlashMember {
 	public MeetingFlashMember() {
 		
 	}
-
+	
 }

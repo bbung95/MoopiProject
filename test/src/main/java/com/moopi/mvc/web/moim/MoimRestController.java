@@ -1,9 +1,11 @@
 package com.moopi.mvc.web.moim;
 
-public class MoimRestController {
 
+
+public class MoimRestController {
+	
 	public MoimRestController() {
-		// TODO Auto-generated constructor stub
+		System.out.println(this.getClass());
 	}
 
 }

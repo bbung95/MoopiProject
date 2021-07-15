@@ -26,12 +26,41 @@
 	<resultMap id="meetingFlashMemberSelectMap" type="meetingFlashMember">
 		<result property="meflNo" 			column="MEFL_NO" 		jdbcType="NUMERIC"/>
 		<result property="meflId.userId"	column="MEFL_ID" 		jdbcType="VARCHAR" />
+		<result property="meflId.nickname"	column="NICKNAME" 		jdbcType="VARCHAR" />
+		<result property="meflId.addr"		column="ADDR" 		jdbcType="VARCHAR" />
 		<result property="targetNo" 		column="TARGET_NO" 		jdbcType="NUMERIC" />
 		<result property="joinRegDate" 		column="JOIN_REGDATE" 			jdbcType="DATE" /> 
 		<result property="joinState" 		column="JOIN_STATE" 			jdbcType="CHAR" />
 		<result property="meflType" 		column="MEFL_TYPE" 			jdbcType="CHAR" />
 	</resultMap>
 	
+	<insert id="joinFlash">
+	 	INSERT
+		INTO MEETING_FLASH_MEMBER(
+		MEFL_ID, TARGET_NO, JOIN_REGDATE , JOIN_STATE, MEFL_TYPE
+		)
+		VALUES( 
+		#{userId}, #{flashNo}, now(), '1','2'
+		)
+	 </insert>
+	 
+	 <update	id="leaveFlash">
+	   	UPDATE MEETING_FLASH_MEMBER
+	   	<set>
+	   		JOIN_STATE 	= '2'
+	   	</set>
+	   	WHERE MEFL_ID = #{userId} 
+	   	AND TARGET_NO = #{flashNo}
+	 </update>
+	
+	<select id="getJoinFlashList" parameterType="int" resultMap="meetingFlashMemberSelectMap">
+		SELECT
+		m.MEFL_ID, u.NICKNAME, u.ADDR, u.PROFILE_IMAGE, u.BADGE , m.TARGET_NO, m.JOIN_REGDATE, m.JOIN_STATE
+		FROM USERS u INNER JOIN MEETING_FLASH_MEMBER m ON u.USER_ID = m.MEFL_ID
+		WHERE m.TARGET_NO = #{targetNo} and m.JOIN_STATE = '1'
+	
+	</select>
+
 
 	<select id="getFlash" parameterType="int" resultMap="flashSelectMap">
 		SELECT
@@ -70,18 +99,22 @@
 		SELECT
 			FLASH_NO, FLASH_NAME, FLASH_CONTENT, FLASH_FILE, FLASH_CONSTRUCTOR, FLASH_REGDATE,
 			FLASH_TIME, FLASH_CURRENT_COUNT, FLASH_MAX_COUNT, FLASH_ADDR, FLASH_STATE, FLASH_INTEREST,
-			FLASH_MAP_X, FLASH_MAP_Y 		
-			FROM FLASH
-			<if test="searchCondition !=null">
+			FLASH_MAP_X, FLASH_MAP_Y , INTEREST_NAME
+			FROM FLASH F , INTEREST I
 			<where>
+			F.FLASH_INTEREST = I.INTEREST_NO
+			<if test="searchCondition !=null">
 			<if test="searchCondition == 1 and searchKeyword !='' ">
 			FLASH_INTEREST = #{searchKeyword}
 			</if>
 			<if test="searchCondition == 2 and searchKeyword !='' ">
 			FLASH_ADDR = #{searchKeyword}
 			</if>
-			</where>
+			<if test="searchCondition == 3 and searchKeyword !='' ">
+			AND FLASH_NAME like '%${searchKeyword}%' <!-- OR I.INTEREST_NAME like '%${searchKeyword}%'  -->
 			</if>
+			</if>
+			</where>
 	</select>
 	
 	<select  id="getTotalCount"  parameterType="search"	 resultType="int">
