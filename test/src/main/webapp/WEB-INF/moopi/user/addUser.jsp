@@ -32,28 +32,33 @@
 	
 // # 반드시 입력 Event --------------------------------------------------------------------------------------------------------------------------
 	function fncAddUserInfo() {
+	
 		var id=$("input[name='userId']").val();
-		var pwd=$("input[name='password']").val();
-		var pwdConfirm=$("input[name='password2']").val();
+		var password=$("input[name='password']").val();
+		var password2=$("input[name='password2']").val();
+		
+		alert("id : "+id);
+		alert("password : "+password);
+		alert("password2 : "+password2);
 		
 		if(id == null || id.length <1){
 			alert("아이디는 필수로 입력하셔야 합니다");
 			return;
 		}
 		
-		if(pwd == null || pwd.length <1){
+		if(password == null || password.length <1){
 			alert("비밀번호는 필수로 입력하셔야 합니다");
 			return;
 		}
 		
-		if(pwdConfirm == null || pwdConfirm.length <1){
+		if(password2 == null || password2.length <1){
 			alert("비밀번호를 한번 더 입력해주세요");
 			return;
 		}
 		
 		$("form").attr("method" , "POST").attr("action" , "/user/addUserInfo").submit();
 	}
-	
+
 </script>		
     
 </head>
@@ -110,8 +115,8 @@
 <!-- 가입, 취소 Button ---------------------------------------------------------------------------------------------------------------->									
 		<div class="form-group">
 			<div class="col-sm-offset-4  col-sm-4 text-center">
-				<button type="button" id="loginButton" class="btn btn-primary" onClick="fncAddUserInfo()">가입</button>
-				<a class="btn btn-default btn" a href="/login" role="button">취소</a>
+				<button type="button" id="loginButton" class="btn btn-primary">가입</button>
+				<a class="btn btn-default btn" a href="/" role="button">취소</a>
 			</div>
 		</div>	  	  
 	  

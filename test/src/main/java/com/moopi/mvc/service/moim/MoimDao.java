@@ -30,6 +30,7 @@ public interface MoimDao {
 	public void applyMoim(@Param("userId") String userId, 
 						  @Param("mmNo") int mmNo) throws Exception;
 	
+	//가입신청 거절하기
 	public void refuseApply(@Param("memberNo") int memberNo) throws Exception;
 	
 	//모임가입탈퇴, 탈퇴시 멤버role은 6

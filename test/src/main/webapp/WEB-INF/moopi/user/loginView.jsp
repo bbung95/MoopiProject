@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title> 로그인 </title>
+<title> 로그인 뷰 / 로그인 화면페이지 </title>
 
 <! ------------------------------------------------ Bootstrap, jQuery CDN -------------------------------------------------->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
@@ -16,47 +16,36 @@
 
 <script>
 
-	// 로그인
-	$( function(fncLogin()) {
+<!-- "login Button" 누를 시 Event 발생 -------------------------------------------------------------------------------------------------------------------------->
+	
+	function fncLogin() {
 		
-		alert("로그인 페이지 정상이동완료");
+		alert("function 진입완료");
 		
-		$("#userId").focus();
-		
-		$("button").on("click", function() {
-			alert("진입2");
-			var id=$("input:text").val();
-			var pwd=$("input:password").val();
+		var id=$('input[name=userId]').val();
+		var password=$('input[name=password]').val();
+			 
+		alert("입력한 아이디 : " +id);
+		alert("입력한 비번 : " +password);
+						
+		if(id == null || id.length < 1) {
+			alert("ID 를 입력하지 않으셨습니다.");
+			$('input[name=userId]').focus();
+			return;
+		}	
 				
-			if(id == null || id.length < 1) {
-				alert("ID 를 입력하지 않으셨습니다.");
-				$("#userId").focus();
-				return;
-			}	
-				
-			if(pwd == null || pwd.length < 1) {
-				alert('패스워드를 입력하지 않으셨습니다.');
-				$("#password").focus();
-				return;
-			}
-	
-		$("form").attr("method","POST").attr("action","/addUser).attr("target","_parent").submit();
-		});	
-	
-	});
-	
-	<!-- fncLogin() -->
-		$(function() {
-			$( "button" ).on("click" , function() {
-				self.location = "addUser"
-			});
-		});
-	
+		if(password == null || password.length < 1) {
+			alert('패스워드를 입력하지 않으셨습니다.');
+			$('input[name=password]').focus();
+			return;
+		}
 		
-	function fncAddUser() { 
-		alert("로그인페이지");
-		self.location = "addUser"
+		alert("성공");
+		
+		$("form").attr("method", "POST").attr("action", "/user/login").submit();
+		
 	}
+<!---------------------------------------------------------------------------------------------------------------------------->	
 	
 	function fncGoogleLogin() { 
 		alert("구글로그인");
@@ -120,7 +109,7 @@
 <!-- ## 회원가입 -->
 		<div class="form-group">
 			<label for="addUser" class="col-sm-offset-1 col-sm-6 control-label"></label>
-			<a href="addUser">회원가입</a>
+			<a href="/user/addUser">회원가입</a>
 		</div>
 
 <!-- 구글 API Login ---------------------------------------------------------------------------------------------------------------->				
@@ -151,7 +140,7 @@
 		<div class="form-group">
 			<div class="col-sm-offset-4  col-sm-4 text-center">
 				<button type="button" class="btn btn-primary" onClick="fncLogin()">로그인</button>
-				<a class="btn btn-default btn" href="/main" role="button">취소</a>
+				<a class="btn btn-default btn" href="/" role="button">취소</a>
 			</div>
 		</div>
 <!---------------------------------------------------------------------------------------------------------------------------->	
