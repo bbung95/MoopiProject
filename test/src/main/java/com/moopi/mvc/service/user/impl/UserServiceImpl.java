@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,21 +18,25 @@ import com.moopi.mvc.service.user.UserDao;
 public class UserServiceImpl {
 	
 	@Autowired
+	private SqlSessionTemplate userSqlSession;
 	private UserDao userDao;
 	
 	// [완료] 로그인
 	public User loginUser(String userId) {
+
+		System.out.println("UserServiceImpl_____loginUser : "+userId);
+		System.out.println("여기 진입완료");
+		
 		return userDao.loginUser(userId);
 	}
 	
 	// [완료] 회원가입
-	public User addUser(User user) throws Exception {
+	public void addUser(User user) throws Exception {
 		System.out.println("\naddUSer쪽으로 진입했습니다");
 		System.out.println("user를 확인해볼까요 : "+user+"\n");
-		return userDao.addUser(user);
+		
+		userDao.addUser(user);
 	}
-	
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	// 유저정보조회 
 	public User getUser(String userId) {
@@ -80,6 +85,23 @@ public class UserServiceImpl {
 	// 유저프로필수정 
 	public void updateProfile(User user) throws Exception{
 		userDao.updateProfile(user);
+	}
+	
+	// [중간완료] 아이디 중복체크 관련 Ajax - RestController에서 받아옴 
+	public int userIdCheck(String user_id) {
+		userDao = userSqlSession.getMapper(UserDao.class);
+		return userDao.userIdCheck(user_id);
+	}
+	
+	// 닉네임 중복체크 관련 Ajax - RestController에서 받아옴 
+	public int nicknameCheck(String nickname) {
+		userDao = userSqlSession.getMapper(UserDao.class);
+		return userDao.nicknameCheck(nickname);
+	}
+
+	//make flash coin count 플래쉬 생성시 코인차감
+	public void makeFlashCoin(User user) throws Exception{
+		userDao.makeFlashCoin(user);
 	}
 
 }
