@@ -176,12 +176,13 @@
 	
 	$("a:contains('무피게시판')").on("click", function(){
 		
-		location.href = "/board/MoopiBoard/listMoopi";
+		
+		location.href = "/board/listBoard?category=1";
 	})
 	
 	$("a:contains('문의게시판')").on("click", function(){
 		
-		location.href = "/board/QnABoard/listQnA";
+		location.href = "/board/listBoard?category=2";
 	})
 	
 	$("a:contains('채팅')").on("click", function() {

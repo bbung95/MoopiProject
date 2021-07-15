@@ -53,8 +53,23 @@
 	   	WHERE TARGET_NO = #{mtNo}
 	   	AND MEFL_ID = #{userId}
 	 </update>
-	
-	
+	 
+	 <update	id="addCurrentCount">
+	   	UPDATE MEETING
+	   	<set>
+	   		mt_current_count = mt_current_count +1
+	   	</set>
+	   	WHERE MT_NO = #{mtNo}
+	 </update>
+	 
+	 <update	id="subCurrentCount">
+	   	UPDATE MEETING
+	   	<set>
+	   		mt_current_count = mt_current_count -1
+	   	</set>
+	   	WHERE MT_NO = #{mtNo}
+	 </update>
+
 	<select  id="getMEFLList"  parameterType="int"	resultMap="meflSelectMap">
 		SELECT
 		MEFL_NO, MEFL_ID, TARGET_NO, JOIN_REGDATE, JOIN_STATE, MEFL_TYPE		
@@ -84,8 +99,8 @@
 		)
 		VALUES( 
 		#{mtNo}, #{mmNo}, #{mtName}, #{mtContent}, 
-		#{mtStart}, #{mtEnd}, now(), #{mtMaxCount}, #{mtCurrentCount}, #{mtConstructor.userId}, #{mtAddr},               
-		#{mtState}, #{mtMapX}, #{mtMapY}
+		#{mtStart}, #{mtEnd}, now(), #{mtMaxCount}, 1, #{mtConstructor.userId}, #{mtAddr},               
+		1, #{mtMapX}, #{mtMapY}
 		)
 	 </insert>
 

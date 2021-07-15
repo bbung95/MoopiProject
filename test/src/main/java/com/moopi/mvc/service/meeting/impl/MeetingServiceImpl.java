@@ -45,11 +45,13 @@ public class MeetingServiceImpl {
 	
 	public void applyMeeting(@Param("mtNo") int mtNo, 
 			@Param("userId") String userId) throws Exception {
+		meetingDao.addCurrentCount(mtNo);
 		meetingDao.applyMeeting(mtNo, userId);
 	}
 	
 	public void leaveMeeting(@Param("mtNo") int mtNo, 
 			@Param("userId") String userId) throws Exception {
+		meetingDao.subCurrentCount(mtNo);
 		meetingDao.leaveMeeting(mtNo, userId);
 	}
 	

@@ -30,10 +30,10 @@
 
 				<li><a href="/moim/listMoim">홈</a></li>
 				<li><a href="#">게시글</a></li>
-				<li><a href="#">정모일정</a></li>
+				<li><a href="javascript:fncListMeeting('${moim.mmNo}')">정모일정</a></li>
 				<li><a href="javascript:fncApply('${moim.mmNo}')">가입하기/탈퇴하기</a></li>
 				<li><a href="#">초대하기</a></li>
-				<li><a href="#">유저목록</a></li>
+				<li><a href="javascript:fncListMember('${moim.mmNo}')">유저목록</a></li>
 			</ul>
 
 			
