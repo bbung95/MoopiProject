@@ -67,14 +67,10 @@ body{
 			        toolbar: [
 			          ['fontname', ['fontname']],
 			          ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
-			          ['font', ['bold', 'underline', 'clear']],
 			          ['fontsize', ['fontsize']],
 			          ['color', ['forecolor','color']],
 			          ['para', ['ul', 'ol', 'paragraph']],
-			          ['height', ['height']],
-			          ['table', ['table']],
 			          ['insert', ['picture', 'video']],
-			          ['view', ['fullscreen']]
 			        ],
 			        fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋움체','바탕체'],
 			        fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72']
@@ -92,14 +88,14 @@ body{
 		  <input type="hidden" id="boardCategory" name="boardCategory" value="1">
 		  <div class="form-group">
 		    <label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">게시글제목</label>
-		    <div class="col-sm-4">
+		    <div class="col-sm-7">
 		      <input type="text" class="form-control" id="boardName" name="boardName" placeholder="게시글제목">
 		    </div>
 		  </div>
 		  
 		  <div class="form-group">
 		    <label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">게시글내용</label>
-		    <div class="col-sm-4">
+		    <div class="col-sm-7">
 		    <textarea id="summernote" name ="boardContent"><p>글을 입력해주세요.</p></textarea>
 		    </div>
 		  </div>
