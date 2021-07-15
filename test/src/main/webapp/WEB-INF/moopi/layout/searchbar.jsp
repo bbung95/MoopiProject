@@ -1,24 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+	
 <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap"
 	rel="stylesheet">
 
 <div class="wrapper">
-	<div id="searchList" style="display: none; height: 600px; width: 450px; border: 1px solid black; background: gray; overflow:auto;" >
-			 <div style="position: absolute; background: gray;">
-				<button>모임무피</button>
-				<button>번개무피</button>
-				<button>포스팅</button>
-				<button>유저</button>
-			</div> 
-			
-			<div class="searchOut" style="padding-top: 30px">
-				
-			</div>
+	<div id="searchList"
+		style="display: none; height: 600px; width: 450px; border: 1px solid black; background: gray; overflow: auto;">
+		<div style="position: absolute; background: gray;">
+			<button>모임무피</button>
+			<button>번개무피</button>
+			<button>포스팅</button>
+			<button>유저</button>
+		</div>
+
+		<div class="searchOut" style="padding-top: 30px"></div>
 	</div>
-	<div class="searchBar" >
-		<input type="hidden" class='type' value="1">
-		<input id="searchkeyword" type="text" name="searchkeyword"
+	<div class="searchBar">
+		<input type="hidden" class='type' value="1"> <input
+			id="searchkeyword" type="text" name="searchkeyword"
 			placeholder="Search" value="" />
 		<button id="searchQuerySubmit" type="submit" name="searchQuerySubmit">
 			<svg style="width: 24px; height: 24px" viewBox="0 0 24 24">
@@ -31,8 +32,8 @@
 
 <script>
 	
+	let userId = '<c:out value="${user.userId}"/>';
 	/* var loading = false;
-
 	
 	$(window).scroll(
 		function() {
@@ -86,17 +87,30 @@
 					// user
 					}else{
 						for(var i in data.list){
-							display += '<div style="background: white; margin: 5px; height: 100px" onclick="location=\'flash/getFlash?flashNo='+data.list[i].userId+'\'">'
+							display += '<div style="background: white; margin: 5px; height: 100px" >'
 									+'<img style="margin: 5px; height:90px; width: 90px;" src="/images/uploadFiles/'+data.list[i].profileImage+'"></img>'
 									+'<span>'+data.list[i].nickname+'</span>'
-									+'</div>';
+									if(userId == '' || userId == data.list[i].userId){
+										display += '</div>';
+									}else{
+										display += '<button target="'+data.list[i].userId+'")">채팅</button></div>';
+									}
 						}
 						$('.searchOut').append(display);
+						
+						// 채팅 버튼
+						$('button:contains("채팅")').on('click', function(){
+							
+							let target = $(this).attr('target');
+							popWin = window.open(
+									"/chat/joinRoom?trgt="+target,
+									"popWin",
+									"left=460, top=300, width=460, height=600, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");
+						})
 					}
 				}
 			})
 	}
-	
 	/* let searchKeyword = $('#searchkeyword').val();
 	let searchType = $('.type').val(); 
 	
@@ -151,33 +165,32 @@
 	
 </script>
 <style>
-
- .wrapper {
+.wrapper {
 	font-family: 'Roboto', Arial, sans-serif;
- 	/* width: 500px; */
+	/* width: 500px; */
 	max-width: 500px;
- 	margin: 5px;
+	margin: 5px;
 	position: absolute;
 	bottom: 0px;
 	right: 0px;
-} 
+}
 
- .label {
+.label {
 	font-size: .625rem;
 	font-weight: 400;
- 	text-transform: uppercase;
+	text-transform: uppercase;
 	letter-spacing: +1.3px;
 	margin-bottom: 1rem;
-} 
+}
 
- .searchBar {
- 	width: 100%;
+.searchBar {
+	width: 100%;
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-} 
+}
 
- #searchQueryInput {
+#searchQueryInput {
 	height: 2.8rem;
 	background: #f5f5f5;
 	outline: none;
@@ -185,9 +198,9 @@
 	border-radius: 1.625rem;
 	padding: 0 3.5rem 0 1.5rem;
 	font-size: 1rem;
-} 
+}
 
- #searchQuerySubmit {
+#searchQuerySubmit {
 	width: 3.5rem;
 	height: 2.8rem;
 	margin-left: -3.5rem;
@@ -196,11 +209,11 @@
 	outline: none;
 }
 
-#searchkeyword{
+#searchkeyword {
 	width: 450px;
 }
 
 #searchQuerySubmit:hover {
 	cursor: pointer;
-} 
+}
 </style>
