@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.moopi.mvc.common.Search;
 import com.moopi.mvc.service.domain.Payment;
 import com.moopi.mvc.service.payment.PaymentDao;
+import com.moopi.mvc.service.user.UserDao;
 
 @Service("paymentServiceImpl")
 public class PaymentServiceImpl {
@@ -18,7 +19,8 @@ public class PaymentServiceImpl {
 	@Autowired
 	// @Qualifier("paymentDaoImpl")
 	private PaymentDao paymentDao;
-
+	private UserDao userdao;
+	
 	// Constructor
 	public PaymentServiceImpl() {
 		System.out.println(this.getClass());

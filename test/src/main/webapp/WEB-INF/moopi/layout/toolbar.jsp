@@ -39,7 +39,6 @@
 			<div class="collapse navbar-collapse" id="target">
 				<ul class="nav navbar-nav navbar-right">
 
-					
 					<!-- sessionScope.id가 없으면 : 로그인을 하지 않았을 경우 -->
 					<c:if test="${empty sessionScope.user}">
 						<li><a href="/user/loginView">로그인</a></li>
@@ -56,6 +55,10 @@
 								</div>
 							</ul></li>
 						<li><a href="#">채팅</a></li>
+						
+						<li class="dropdown-toggle" id="addPayment"><a href="#"
+							data-toggle="dropdown" role="button" aria-expanded="false"> <span>충전</span>
+						</a>
 						
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> 							
@@ -240,5 +243,10 @@
 	$("a:contains('관리자')").on("click", function(){
 		
 		location.href = "/common/adminMoopi";
+	})
+	
+	$("a:contains('충전')").on("click", function(){
+		
+		location.href = "/payment/addPaymentView";
 	})
 </script>

@@ -12,6 +12,7 @@ import com.moopi.mvc.common.Search;
 import com.moopi.mvc.service.domain.Flash;
 import com.moopi.mvc.service.domain.MeetingFlashMember;
 import com.moopi.mvc.service.flash.FlashDao;
+import com.moopi.mvc.service.user.UserDao;
 
 @Service
 public class FlashServiceImpl {
@@ -19,7 +20,8 @@ public class FlashServiceImpl {
 	@Autowired
 	// @Qualifier("flashDaoImpl")
 	private FlashDao flashDao;
-
+	private UserDao userDao;
+	
 	// Constructor
 	public FlashServiceImpl() {
 		System.out.println(this.getClass());
@@ -54,7 +56,7 @@ public class FlashServiceImpl {
 
 	public void joinFlash(String userId, int flashNo) throws Exception {
 		flashDao.joinFlash(userId, flashNo);
-
+		
 	}
 
 	public Map<String, Object> getJoinFlashList (int targetNo) throws Exception{

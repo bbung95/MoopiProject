@@ -69,6 +69,10 @@ public class MoimServiceImpl {
 		moimDao.updateMember(userId, mmNo, status);
 	}
 	
+	public Member checkMember(String userId, int mmNo) throws Exception{
+		return moimDao.checkMember(userId, mmNo);
+	}
+	
 	public Map<String, Object> getMemberList(int mmNo, int status) throws Exception {
 		List<Member> list = moimDao.getMemberList(mmNo, status);
 		int totalCount = moimDao.getTotalCountMember(mmNo);

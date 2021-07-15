@@ -15,16 +15,20 @@
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
 
-<script>
-function fncAddMoimView(){
-	alert("모임생성");
-	self.location ="/moim/addMoimView?userId=user01"
-}
+<script type="text/javascript">
+	
+	function fncAddMoimView(){
+			self.location ="/moim/addMoimView?userId=${user.userId}"		
+	};
 
-function fncGetMoim(mmNo){
-	alert("모임상세보기");
-	self.location ="/moim/getMoim?mmNo="+mmNo
-}
+	function fncGetMoim(mmNo){
+		alert("모임상세보기");
+		self.location ="/moim/getMoim?mmNo="+mmNo
+	};	
+
+
+
+
 
 
 </script>
@@ -38,10 +42,12 @@ body {
 <!-- ToolBar Start /////////////////////////////////////-->
 	<jsp:include page="../layout/toolbar.jsp" />
 <!-- ToolBar End /////////////////////////////////////-->
-<h3>모임메인페이지입니다...</h3>
-
+<h3>모임메인페이지입니다...${user.userId}님 안녕하십니까...</h3>
+<c:if test="${!empty user}">
+<button type="button" class="btn btn-default" onClick="javascript:fncAddMoimView()">모임생성하기</button>
+</c:if>
 <c:forEach var="moim" items="${list}">
-//////////////////////////
+<hr>
 <p>모임넘버:${moim.mmNo}</p>
 <p>모임명: <div id="getMoim" onClick="fncGetMoim(${moim.mmNo})">${moim.mmName}</div></p>
 <p>모임소개글:${moim.mmContent}</p>
@@ -62,8 +68,9 @@ body {
 <p>모임최소가입연령:${moim.mmMinAge}</p>
 <p>모임최대가입연령:${moim.mmMaxAge}</p>
 <p>모임가입유형(1일반2자유):${moim.mmType}</p>
+
 </c:forEach>
 
-<button type="button" class="btn btn-default" onClick="fncAddMoimView()">만들기</button>
+<jsp:include page="../layout/searchbar.jsp"></jsp:include>
 </body>
 </html>

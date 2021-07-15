@@ -29,7 +29,7 @@ public class FlashRestController {
 
 	@GetMapping(value = "json/getJoinFlashList/{targetNo}")
 	public Map<String, Object> getJoinFlashList(@PathVariable("targetNo")int targetNo ) throws Exception{
-		System.out.println("getJoinFlashList : PSOT");
+		System.out.println("getJoinFlashList : GET");
 		//Map<String, Object> map = flashService.getJoinFlashList(targetNo);
 		
 		return flashService.getJoinFlashList(targetNo);

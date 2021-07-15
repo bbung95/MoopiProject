@@ -24,9 +24,6 @@
 		
 		var id=$('input[name=userId]').val();
 		var password=$('input[name=password]').val();
-			 
-		alert("입력한 아이디 : " +id);
-		alert("입력한 비번 : " +password);
 						
 		if(id == null || id.length < 1) {
 			alert("ID 를 입력하지 않으셨습니다.");

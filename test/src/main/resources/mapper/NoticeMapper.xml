@@ -68,7 +68,7 @@
 						ORDER BY n.notice_regdate DESC) inner_table , (SELECT @ROWNUM := 0) R) tables
 		WHERE RNUM BETWEEN #{search.startRowNum} AND #{search.endRowNum}
 	</select>
-	
+	  
 	<delete id="deleteNotice" parameterType="map">
 		DELETE
 		FROM notice
