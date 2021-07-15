@@ -42,7 +42,8 @@
 		
 		alert("성공");
 		
-		$("form").attr("method", "POST").attr("action", "/user/login").submit();
+		<!-- UserController의 loginUser를 따라간다. -->
+		$("form").attr("method", "POST").attr("action", "/user/loginUser").submit();
 		
 	}
 <!---------------------------------------------------------------------------------------------------------------------------->	
@@ -109,7 +110,7 @@
 <!-- ## 회원가입 -->
 		<div class="form-group">
 			<label for="addUser" class="col-sm-offset-1 col-sm-6 control-label"></label>
-			<a href="/user/addUser">회원가입</a>
+			<a href="/user/addUserView">회원가입</a>
 		</div>
 
 <!-- 구글 API Login ---------------------------------------------------------------------------------------------------------------->				

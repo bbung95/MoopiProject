@@ -16,44 +16,14 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
 
 <script>
-
-$(function() {
-	//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-	$( "#updateBoard" ).on("click" , function() {
-		fncUpdateView();
-	});
-});	
-
-
-
-
-function fncUpdateView(){
-	alert("게시글수정");
-	alert(${board.boardNo});
-	var boardNo = ${board.boardNo};
-// 	var boardCategory	=$("input[name='boardCategory']").val();
-// 	var boardWriter		=$("input[name='boardWriter']").val();
-// 	var boardName		=$("input[name='boardName']").val();
-// 	var boardContent	=$("input[name='boardContent']").val();
-	
-	$("form").attr("method" , "GET").attr("action" , "/board/updateView").submit();
-	
+function fncAddBoardView(){
+	alert("게시글작성");
+	self.location ="/board/addBoardView?category=2";
 }
 
-$(function() {
-	//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-	$( "#deleteBoard" ).on("click" , function() {
-		fncDeleteBoard();
-	});
-});	
-
-function fncDeleteBoard(){
-	alert("게시글삭제");
-	alert(${board.boardNo});
-	var boardNo = ${board.boardNo};
-	
-	$("form").attr("method" , "GET").attr("action" , "/board/deleteBoard").submit();
-	
+function fncGetBoard(boardNo){
+	alert("게시글조회");
+	self.location ="/board/getBoard?boardNo="+boardNo;
 }
 
 
@@ -69,15 +39,14 @@ body{
 <!-- ToolBar Start /////////////////////////////////////-->
 	<jsp:include page="../../layout/toolbar.jsp" />
 <!-- ToolBar End /////////////////////////////////////-->
-<form >
-<h3>무피 게시판조회</h3>
+<h3>무피 QnA게시판</h3>
 
-<input type="hidden" id="boardNo" name="boardNo" value="${board.boardNo}">
-
+<c:forEach var="board" items="${list}">
 --------------------------------------------
 <p>게시글번호 :${board.boardNo}</p>
-<p>게시글이름 :${board.boardName}</p>
-<p>게시글내용 :${board.boardContent}</p>
+<p>게시글이름 : <div id="getBoard" onClick="fncGetBoard(${board.boardNo})">${board.boardName} 
+<c:if test="${ empty board.boardPassword}">  공개 </c:if> 
+<c:if test="${ !empty board.boardPassword  }"> 비공개 </c:if> </div></p>
 <c:if test="${empty board.boardUpdate }">
 <p>작 성 일 : ${board.boardRegDate}</p> 
 </c:if>
@@ -86,11 +55,11 @@ body{
 </c:if>
 <p>작 성 자 : ${board.boardWriter.nickname} ${board.boardWriter.profileImage }</p>
 
+<p>답변 여부 : ${ empty board.replyCount ? "미답변" : "답변완료"}
 
-<button type="button" class="btn btn-primary" id="updateBoard">수정하기</button>
-<button type="button" class="btn btn-primary" id="deleteBoard">삭제하기</button>
+</p>
+</c:forEach>
 
-</form>
+<button type="button" class="btn btn-default" onClick="fncAddBoardView()">게시글작성</button>
 </body>
 </html>
-

@@ -34,7 +34,7 @@ function fncUpdateBoard(){
 	var boardName		=$("input[name='boardName']").val();
 	var boardContent	=$("input[name='boardContent']").val();
 	
-	$("form").attr("method" , "POST").attr("action" , "/board/MoopiBoard/updateBoard").submit();
+	$("form").attr("method" , "POST").attr("action" , "/board/updateBoard").submit();
 	
 }
 
@@ -85,7 +85,7 @@ body{
  
  <div class="container">
 	
-		<h1 class="bg-primary text-center">무피공지 수정</h1>
+		<h1 class="bg-primary text-center">공지 수정</h1>
 		
 		<!-- form Start /////////////////////////////////////-->
 		<form class="form-horizontal" name="detailForm" enctype="multipart/form-data">
