@@ -122,5 +122,16 @@ public class UserController {
 		return "user/getMobileAuth";	
 	}
 //-----------------------------------------------------------------------------------------------------------------
+	
+//-- searchUserPwd.jsp로 이동하는 단순네비게이션 ------------------------------------------------------------
+	@RequestMapping("searchUserPwd")
+	public String searchUserPwd() throws Exception {
+			
+		System.out.println("UserController_____searchUserPwd 시작");
+		System.out.println("비밀번호를 찾기위한 아이디확인으로 이동하는 단순 네비게이션입니다.");
+				
+		return "user/searchUserPwd";	
+	}
+//-----------------------------------------------------------------------------------------------------------------
 
 }
