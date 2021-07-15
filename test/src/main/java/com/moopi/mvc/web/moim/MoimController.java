@@ -27,7 +27,7 @@ public class MoimController {
 	@Autowired
 	private UserServiceImpl userService;
 	
-	public static final String saveDir = "C:\\Users\\bit\\git\\Test\\test\\src\\main\\resources\\static\\images\\uploadFiles";
+	public static final String saveDir = "C:\\Users\\82102\\git\\Test\\test\\src\\main\\resources\\static\\images\\uploadFiles";
 	
 	//모임상세조회
 	@RequestMapping("getMoim")
@@ -72,7 +72,7 @@ public class MoimController {
 		moim.setMmConstructor(user);
 		moimService.addMoim(moim);
 		System.out.println("모임생성완료");
-		return "moim/listMoim";
+		return "redirect:/moim/listMoim";
 	}
 	
 	//모임수정페이지로 이동, 단순네비게이션
@@ -119,6 +119,24 @@ public class MoimController {
 		System.out.println("forward:/moim/moimMain 으로 이동합니다.");
 		return "moim/moimMain";
 	}
+	
+	
+	//초대리스트 가져오기 
+		@RequestMapping("listInvite")
+		public String getListInvite(Search search, Model model) throws Exception{
+			
+			System.out.println("초대리스트를 가져옵니다.");
+			//Map<String, Object> map = moimService.getMoimList(search);
+			search.setSearchCondition(1);
+			search.setSearchKeyword("중구");
+			System.out.println(search);
+			Map<String, Object> map = userService.getUserList(search, 1);
+			model.addAttribute("list", map.get("list"));
+			model.addAttribute("search", search);
+			return "moim/listInvite";
+		}
+	
+	
 	
 	//모임 가입신청하기
 	@RequestMapping("applyMoim")
