@@ -29,21 +29,30 @@ public class BoardController{
 	private ReplyServiceImpl ReplyService;
 	
 	public Board board;
+	public String getCategory = null;
 	
-	@RequestMapping("*/list*")
-	public String getBoardList(@ModelAttribute("search")Search search,Model model ) {
+	@RequestMapping("listBoard")
+	public String getBoardList(@ModelAttribute("search")Search search, @ModelAttribute("category")String category ,Model model ) {
+		
+		String boardCategory = null;
 		
 		Map map = new HashMap();
-		
 		System.out.println("getBoardList start;;");
+		System.out.println(category);
+		
 		if(search.getCurrentPage() == 0 ) {
 			search.setCurrentPage(1);
 		}
-		
+				
 		search.setStartRowNum(1);
 		search.setEndRowNum(5);
 		
-		map.put("boardCategory", "1");
+		boardCategory = boardService.getBoardCategory(category);
+		
+		
+		System.out.println("====category 값 체크 : "+category);
+		
+		map.put("boardCategory", category);
 		map.put("boardState", "1");
 		map.put("search", search);
 		
@@ -52,30 +61,40 @@ public class BoardController{
 		System.out.println(map.get("list").toString());
 		model.addAttribute("list", map.get("list"));
 		
-		return "board/MoopiBoard/listMoopi";
+		
+		
+		
+		
+		System.out.println(boardCategory);
+		
+		return "/board/"+boardCategory+"Board/list"+boardCategory;
 	}
 	
-	@RequestMapping("*/getBoard*")
+	@RequestMapping("getBoard")
 	public String getBoard(@ModelAttribute("boardNo") int boardNo, Model model){
 		
 		System.out.println("getBoard ::");
 		board = boardService.getBoard(boardNo);
 		model.addAttribute("board", board);
 		
-		return "board/MoopiBoard/getMoopiBoard";
+		String boardCategory = boardService.getBoardCategory(board.getBoardCategory());
+		
+		return "board/"+boardCategory+"Board/get"+boardCategory+"Board";
 	}
 	
-	@RequestMapping("*/addMoopiBoardView")
-	public String addBoardView() {
+	@RequestMapping("addBoardView")
+	public String addBoardView(@ModelAttribute("category")String category) {
 		
+		String boardCategory = boardService.getBoardCategory(category);
+		System.out.println(boardCategory);
 		
-		return "board/MoopiBoard/addMoopiBoardView";
+		return "board/"+boardCategory+"Board/add"+boardCategory+"BoardView";
 	}
 	
 	
 	
 	
-	@RequestMapping("*/addBoard")
+	@RequestMapping("addBoard")
 	public String addBoard(@ModelAttribute("board")Board board, Model model) {
 		
 		
@@ -84,29 +103,33 @@ public class BoardController{
 		
 		boardService.addBoard(board);
 		System.out.println(board.getBoardNo());
+		String boardCategory =boardService.getBoardCategory(board.getBoardCategory());
 		
-		return "forward:/board/Moopiboard/getBoard?boardNo="+board.getBoardNo();		
+		System.out.println(boardCategory);
+		
+		return "forward:/board/getBoard?boardNo="+board.getBoardNo();		
 		
 	
 		
 		
 	}
 	
-	@RequestMapping("/MoopiBoard/updateView")
+	@RequestMapping("updateView")
 	public String updateBoardView(@ModelAttribute("board")Board board, Model model) {
 		System.out.println("updateBoardView.jsp 실행");
 		System.out.println("1번째 model "+ model);
 		System.out.println("1번째 board "+ board);
 		
 		board=boardService.getBoard(board.getBoardNo());
-//		
 		System.out.println(board);
 		model.addAttribute("board", board);
+		
+		String boardCategory = boardService.getBoardCategory(board.getBoardCategory()); 
 
-		return "/board/MoopiBoard/updateMoopiBoardView";
+		return "/board/"+boardCategory+"Board/update"+boardCategory+"BoardView";
 	}
 	
-	@RequestMapping("/MoopiBoard/updateBoard")
+	@RequestMapping("updateBoard")
 	public String updateBoard(@ModelAttribute("board")Board board, Model model) {
 		
 		System.out.println("updateBoard실행");
@@ -116,10 +139,25 @@ public class BoardController{
 		
 		boardService.updateBoard(board);
 		
-		
-		return "forward:/board/MoopiBoard/getBoard?boardNo="+board.getBoardNo();
+		return "forward:/board/getBoard?boardNo="+board.getBoardNo();	
 	}
 	
-	
+	@RequestMapping("deleteBoard")
+	public String deleteBoard(@ModelAttribute("board")Board board, Model model) {
+		
+		System.out.println("deleteBoard 실행");
+		String boardCategory = null;
+		board = boardService.getBoard(board.getBoardNo());
+		board.setBoardState("2");
+		boardService.deleteBoard(board);
+		
+	    boardCategory = boardService.getBoardCategory(board.getBoardCategory());
+		
+		
+		System.out.println(boardCategory);
+		
+		return "forward:/board/listBoard?category="+board.getBoardCategory();
+		
+	}
 	
 }

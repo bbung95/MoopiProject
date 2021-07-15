@@ -56,7 +56,6 @@ function fncDeleteBoard(){
 	
 }
 
-
 </script>
   
 <style>
@@ -70,7 +69,7 @@ body{
 	<jsp:include page="../../layout/toolbar.jsp" />
 <!-- ToolBar End /////////////////////////////////////-->
 <form >
-<h3>무피 게시판조회</h3>
+<h3>무피 QnA게시판조회</h3>
 
 <input type="hidden" id="boardNo" name="boardNo" value="${board.boardNo}">
 
