@@ -89,4 +89,8 @@ public class UserServiceImpl {
 		userDao.makeFlashCoin(user);
 	}
 	
+	public void joinFlashCoin(User user) throws Exception{
+		userDao.joinFlashCoin(user);
+	}
+	
 }

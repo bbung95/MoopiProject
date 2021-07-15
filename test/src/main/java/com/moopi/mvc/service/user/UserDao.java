@@ -81,8 +81,7 @@ public interface UserDao {
 	//flash Coin ~~
 	public void makeFlashCoin(User user) throws Exception;
 
-
-
+	public void joinFlashCoin(User user) throws Exception;
 
 
 
