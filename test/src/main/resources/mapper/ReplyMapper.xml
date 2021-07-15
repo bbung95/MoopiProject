@@ -75,4 +75,23 @@
 	  REPLY_NO = #{reply.replyNo}
 	</select>
 	
+	<insert id="insertReply" parameterType="reply" 
+	useGeneratedKeys="true"  keyProperty="replyNo">
+		
+		INSERT INTO 
+		REPLY (
+		   BD_NO
+		 , REPLY_WRITER
+		 , REPLY_CONTENT
+		 , REPLY_REGDATE
+		 , REPLY_STATE
+		 ) VALUES (
+		   reply.boardNo
+		 , reply.replyWriter.userId
+		 , reply.replyContent
+		 , NOW()
+		 , '1');
+	
+	</insert>	
+	
 </mapper>

@@ -44,4 +44,5 @@ public class ReplyServiceImpl {
 	public void deleteReply(Reply reply){
 		replyDao.deleteReply(reply);
 	}
+	
 }
