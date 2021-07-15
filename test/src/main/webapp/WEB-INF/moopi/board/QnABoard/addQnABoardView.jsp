@@ -84,12 +84,12 @@ body{
  
  <div class="container">
 
-		<h1 class="bg-primary text-center">무피공지 작성</h1>
+		<h1 class="bg-primary text-center">무피 QnA 작성</h1>
 		
 		<!-- form Start /////////////////////////////////////-->
 		<form class="form-horizontal" name="detailForm" enctype="multipart/form-data">
-		  <input type="hidden" id="boardWriter.userId" name="boardWriter.userId" value="user1">
-		  <input type="hidden" id="boardCategory" name="boardCategory" value="1">
+		  <input type="hidden" id="boardWriter.userId" name="boardWriter.userId" value="user4">
+		  <input type="hidden" id="boardCategory" name="boardCategory" value="2">
 		  <div class="form-group">
 		    <label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">게시글제목</label>
 		    <div class="col-sm-4">
@@ -110,6 +110,15 @@ body{
 			   <a class="btn btn-default btn" href="#" role="button">취소</a>
 		    </div>
 		  </div>
+		  
+		  <div class="form-group">
+		    <label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">비밀번호</label>
+		    <div class="col-sm-4">
+		      <input type="text" class="form-control" id="boardPassword" name="boardPassword">
+		    </div>
+		  </div>
+		  
+		  
 		</form>
 </body>
 </html>

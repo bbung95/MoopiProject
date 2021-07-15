@@ -13,17 +13,16 @@ import com.moopi.mvc.service.domain.User;
 public interface UserDao {
 	
 	// 로그인 
-	public User login(User user) throws Exception;
+	public User loginUser(@Param("userId") String userId);
 	
 	// 로그아웃
 	public User logout(User user) throws Exception;
 	
-	
 
 // 회원가입 CRUD
 	
-	// 회원가입시 [UserRole - 2.정상회원
-	public void addUser(User user) throws Exception;
+	// [완료] 회원가입시 [UserRole - 2.정상회원
+	public User addUser(User user) throws Exception;
 	
 	// 내정보확인
 	public User getUser(@Param("userId") String userId);
