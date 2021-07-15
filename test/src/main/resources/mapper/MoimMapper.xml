@@ -107,6 +107,16 @@
 		and U.user_id = M.mm_member_id
 		</if>	
 	 </select>
+	 
+	 <select id = "checkMember" resultMap="memberSelectMap">
+	 SELECT
+	 MEMBER_NO, MM_MEMBER_ID, MM_NO, MM_MEMBER_ROLE, MM_MEMBER_REGDATE, USER_NAME, BADGE, 
+	 PROFILE_IMAGE, PROFILE_CONTENT, ADDR	
+	 FROM MEMBER M, USERS U
+	 where mm_no = #{mmNo}
+	 and U.user_id = M.mm_member_id
+	 and M.mm_member_id = #{userId} 
+	 </select>
 
 	<select id="getMoim" parameterType="int" resultMap="moimSelectMap">
 		SELECT
