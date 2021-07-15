@@ -128,10 +128,11 @@ public class FlashController {
 	@RequestMapping("joinFlash")
 	public String joinFlash(@RequestParam("userId") String userId,
 			@RequestParam("flashNo") int flashNo)throws Exception{
-		
+		User user = new User();
+		user.setUserId(userId);
 		System.out.println("joinFlash Start::");
 		flashService.joinFlash(userId, flashNo);
-		
+		userService.joinFlashCoin(user);
 		return "forward:/flash/getFlash";
 	}
 	
