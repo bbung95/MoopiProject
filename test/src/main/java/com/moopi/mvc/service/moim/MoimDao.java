@@ -48,6 +48,10 @@ public interface MoimDao {
 	public List<Member> getMemberList(@Param("mmNo") int mmNo,
 			 	@Param("status") int status) throws Exception;
 	
+	//해당 유저의 권한 조회
+	public Member checkMember(@Param("userId") String userId,
+			@Param("mmNo") int mmNo) throws Exception;
+	
 	
 	//검색조건에 따른 모임 총 갯수
 	public int getTotalCount(Search search) throws Exception;
