@@ -32,8 +32,14 @@ function fncRefuse(memberNo, mmNo){
 
 </head>
 <body>
+<style>
+	body{
+		padding-top: 50px;
+	}
+</style>
 <!-- ToolBar Start /////////////////////////////////////-->
 	<jsp:include page="../layout/toolbar.jsp" />
+	<jsp:include page="../layout/moimToolbar.jsp"/>
 <!-- ToolBar End /////////////////////////////////////-->
 <h3>멤버 목록입니다...</h3>
 

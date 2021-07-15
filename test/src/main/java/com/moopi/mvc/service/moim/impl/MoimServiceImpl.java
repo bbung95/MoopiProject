@@ -24,6 +24,10 @@ public class MoimServiceImpl {
 		return moimDao.getMoim(mmNo);
 	}
 	
+	public Moim getMoim2(String mmName) {
+		return moimDao.getMoim(mmName);
+	}
+	
 	
 	public void addMoim(Moim moim) throws Exception {
 		moimDao.addMoim(moim);
@@ -54,6 +58,10 @@ public class MoimServiceImpl {
 	
 	public void applyMoim(String userId, int mmNo) throws Exception {
 		moimDao.applyMoim(userId, mmNo);
+	}
+	
+	public void newAplyMoim(String userId, int mmNo) throws Exception {
+		moimDao.newApplyMoim(userId, mmNo);
 	}
 	
 	public void leaveMoim(String userId, int mmNo) throws Exception {

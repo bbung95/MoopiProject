@@ -36,10 +36,10 @@ function fncAddMtView() {
 	alert("정모를 생성합니다.");
 	var displayValue = "<h6>"
 	+"<form class='form-horizontal' name='detailForm'>"
-	+"<input type='hidden' name='mmNo' value='1'>" +
+	+"<input type='hidden' name='mmNo' value='{mmNo}'>" 
 	+"정모이름 :" +"<input type='text' name='mtName'>" + "<br>"
 	+"정모내용 :"+"<input type='text' name='mtContent'>" + "<br>"
-	+"주최자 :"+ "<input type='text' name='userId' value='user01'>" + "<br>"
+	+"주최자 :"+ "<input type='text' name='userId' value='${user.userId}'>" + "<br>"
 	+"정모시작일 :" +"<input type='datetime-local'  name='mtStart'>"+"<br>"
 	+"정모종료일 :" +"<input type='datetime-local' name='mtEnd'>"+"<br>"
 	+"정모 총 인원 :"+ "<input type='text' name='mtMaxCount'>" + "<br>"
@@ -259,8 +259,8 @@ $(document).ready(function() {
 <body>
 
 <!-- ToolBar Start ///////////////////////////////////// -->
-<jsp:include page="../layout/toolbar.jsp" flush="false"/>
-<jsp:include page="../layout/moimToolbar.jsp" flush="false"/>
+<jsp:include page="../layout/toolbar.jsp" />
+<jsp:include page="../layout/moimToolbar.jsp"/>
 <!-- ToolBar End /////////////////////////////////////-->
 
 <h3>정모일정 확인 캘린다입니다...

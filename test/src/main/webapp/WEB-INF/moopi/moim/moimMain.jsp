@@ -18,7 +18,9 @@
 <script type="text/javascript">
 	
 	function fncAddMoimView(){
-			self.location ="/moim/addMoimView?userId=${user.userId}"		
+		alert("모임생성하기");
+		self.location ="/moim/addMoimView?userId=${user.userId}"	
+
 	};
 
 	function fncGetMoim(mmNo){
@@ -49,7 +51,7 @@ body {
 <c:forEach var="moim" items="${list}">
 <hr>
 <p>모임넘버:${moim.mmNo}</p>
-<p>모임명: <div id="getMoim" onClick="fncGetMoim(${moim.mmNo})">${moim.mmName}</div></p>
+<p>모임명: <div id="getMoim" onClick="fncGetMoim(${moim.mmNo})"><strong>${moim.mmName}</strong></div></p>
 <p>모임소개글:${moim.mmContent}</p>
 <div class="row">
 	  		<div class="col-xs-4 col-md-2 "><strong>모임대표썸네일</strong></div>
