@@ -19,6 +19,7 @@ public class BoardServiceImpl {
 	@Autowired
 	private BoardDao boardDao;
 	
+	public String getCategory = null;
 	
 	public void addBoard(Board board)  {
 		
@@ -70,6 +71,23 @@ public class BoardServiceImpl {
 	public void deleteLike(Map map) {
 		
 		boardDao.deleteLike(map);
+	}
+	
+	public String getBoardCategory(String category) {
+		
+		if(category.equals("1")) {
+			getCategory = "Moopi";
+		}else if(category.equals("2")) {
+			getCategory = "QnA";
+		}else if(category.equals("3")) {
+			getCategory = "Myhome";
+		}else if(category.equals("4")) {
+			getCategory = "Moim";
+		}
+		
+		System.out.println(getCategory);
+		
+		return getCategory;
 	}
 
 }
