@@ -55,7 +55,8 @@
 	
 	<select id="getJoinFlashList" parameterType="int" resultMap="meetingFlashMemberSelectMap">
 		SELECT
-		m.MEFL_ID, u.NICKNAME, u.ADDR, u.PROFILE_IMAGE, u.BADGE , m.TARGET_NO, m.JOIN_REGDATE, m.JOIN_STATE
+		m.MEFL_ID, u.NICKNAME, u.ADDR, u.PROFILE_IMAGE, u.BADGE ,
+		m.TARGET_NO, m.JOIN_REGDATE, m.JOIN_STATE
 		FROM USERS u INNER JOIN MEETING_FLASH_MEMBER m ON u.USER_ID = m.MEFL_ID
 		WHERE m.TARGET_NO = #{targetNo} and m.JOIN_STATE = '1'
 	

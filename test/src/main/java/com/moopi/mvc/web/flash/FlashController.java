@@ -78,6 +78,7 @@ public class FlashController {
 		user.setUserId(userId);
 		flash.setFlashConstructor(user);// userId = flashConstructor
 		flashService.addFlash(flash); // addFlash bl 로직 
+		userService.makeFlashCoin(user);
 		System.out.println("번개생성 완료.");
 		return "flash/flashMain";
 	}
