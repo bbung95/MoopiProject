@@ -43,8 +43,11 @@
 		$("form").attr("method", "POST").attr("action", "/user/loginUser").submit();
 		
 	}
+<!---------------------------------------------------------------------------------------------------------------------------->		
+
+
 <!---------------------------------------------------------------------------------------------------------------------------->	
-	
+
 	function fncGoogleLogin() { 
 		alert("구글로그인");
 	}
@@ -88,7 +91,7 @@
 <!-- ## 아이디찾기 -->
 		<div class="form-group">
 			<label for="searchIdView" class="col-sm-offset-1 col-sm-6 control-label"></label>
-			<a href="아이디찾기View 띄워주기">아이디를 잊으셨나요?</a>
+			<a href="javascript:void(window.open('/user/getMobileAuth', '아이디찾기','width=460, height=800'))">아이디를 잊으셨나요?</a>			
 		</div>
 		  
 		<div class="form-group">
@@ -101,7 +104,7 @@
 <!-- ## 비밀번호찾기 -->
 		<div class="form-group">
 			<label for="searchUserPwd" class="col-sm-offset-1 col-sm-6 control-label"></label>
-			<a href="비밀번호찾기 뷰 띄워주기">비밀번호를 잊으셨나요?</a>
+			<a href="javascript:void(window.open('/user/searchUserPwd', '아이디찾기','width=460, height=800'))">비밀번호를 잊으셨나요?</a>
 		</div>
 		
 <!-- ## 회원가입 -->

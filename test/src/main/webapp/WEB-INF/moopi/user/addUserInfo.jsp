@@ -81,7 +81,7 @@
 		
 		<!-- 이 부분을 .val()로 넘겨줘야하는데 변수를 넘기는 방법을 도무지 모르겠음 -->
 		var birthday=(birth1+'-'+birth2+'-'+birth3);
-		alert("진짜된건가 : "+birthday);
+		//alert("진짜된건가 : "+birthday);
 		
 		var id=$("input[name='userId']").val();
 		var password=$("input[name='password']").val();
@@ -212,7 +212,6 @@
 			<label for="phone" class="col-sm-offset-1 col-sm-3 control-label">모바일번호</label>
 			<div class="col-sm-4">
 				<span class="col-sm-10">
-				<!-- <input type="text" class="form-control" id="phone" name="phone" placeholder="인증마친 후 모바일번호가져오기"> -->
 					<button type="button" id="mobileAuth" class="btn btn-info">인증하기</button>
 				</span>	
 			</div>
