@@ -47,6 +47,14 @@
 		SELECT user_id , user_name , password , role , cell_phone , addr , email 
 		, reg_date FROM users WHERE user_id = #{userId} </select> -->
 
+	
+	<update id="makeFlashCoin" parameterType="user">
+		UPDATE USERS
+		<set>
+			COIN = COIN -2
+		</set>
+		WHERE USER_ID = #{userId}
+	</update>
 
 	<select id="login" parameterType="String"
 		resultMap="userSelectMap">

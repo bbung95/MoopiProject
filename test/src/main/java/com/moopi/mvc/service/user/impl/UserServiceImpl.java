@@ -82,4 +82,11 @@ public class UserServiceImpl {
 		userDao.updateProfile(user);
 	}
 
+	
+	
+	//make flash coin count 플래쉬 생성시 코인차감
+	public void makeFlashCoin(User user) throws Exception{
+		userDao.makeFlashCoin(user);
+	}
+	
 }

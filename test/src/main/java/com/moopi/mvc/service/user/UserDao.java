@@ -77,4 +77,16 @@ public interface UserDao {
 	public void updateProfile(User user) throws Exception;
 	
 	//getAtnCount()
+
+
+	//flash Coin ~~
+	public void makeFlashCoin(User user) throws Exception;
+
+
+
+
+
+
+
+
 }
