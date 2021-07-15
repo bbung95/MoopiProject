@@ -13,9 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.moopi.mvc.common.Search;
 import com.moopi.mvc.service.domain.Flash;
-import com.moopi.mvc.service.domain.MeetingFlashMember;
 import com.moopi.mvc.service.domain.User;
-import com.moopi.mvc.service.flash.FlashDao;
 import com.moopi.mvc.service.flash.impl.FlashServiceImpl;
 import com.moopi.mvc.service.user.impl.UserServiceImpl;
 
