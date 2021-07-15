@@ -16,6 +16,7 @@ import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 import com.moopi.mvc.common.Search;
 import com.moopi.mvc.service.board.impl.BoardServiceImpl;
 import com.moopi.mvc.service.domain.Board;
+import com.moopi.mvc.service.domain.Reply;
 import com.moopi.mvc.service.reply.impl.ReplyServiceImpl;
 
 @Controller
@@ -25,7 +26,7 @@ public class BoardController{
 	@Autowired
 	private BoardServiceImpl boardService;
 	
-	@Autowired
+	@Autowired 
 	private ReplyServiceImpl ReplyService;
 	
 	public Board board;
@@ -43,7 +44,7 @@ public class BoardController{
 		if(search.getCurrentPage() == 0 ) {
 			search.setCurrentPage(1);
 		}
-				
+			
 		search.setStartRowNum(1);
 		search.setEndRowNum(5);
 		
@@ -61,10 +62,6 @@ public class BoardController{
 		System.out.println(map.get("list").toString());
 		model.addAttribute("list", map.get("list"));
 		
-		
-		
-		
-		
 		System.out.println(boardCategory);
 		
 		return "/board/"+boardCategory+"Board/list"+boardCategory;
@@ -75,8 +72,13 @@ public class BoardController{
 		
 		System.out.println("getBoard ::");
 		board = boardService.getBoard(boardNo);
-		model.addAttribute("board", board);
 		
+		if(board.getBoardCategory() !="1") {
+		List<Reply> list = ReplyService.getReplyList(boardNo);	
+		model.addAttribute("list", list);
+		}
+		model.addAttribute("board", board);
+	
 		String boardCategory = boardService.getBoardCategory(board.getBoardCategory());
 		
 		return "board/"+boardCategory+"Board/get"+boardCategory+"Board";

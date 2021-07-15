@@ -30,28 +30,70 @@
 		<result property="coin"				column="COIN"				jdbcType="NUMERIC"/>
 		<result property="badge"			column="BADGE"				jdbcType="CHAR"/>
 	</resultMap>
+
+
+	<!-- <select id="findPayment" parameterType="int" resultMap="userSelectMap"> 
+		SELECT user_id , user_name , password , role , cell_phone , addr , email 
+		, reg_date FROM users WHERE user_id = #{userId} </select> -->
+
+	
+	
+ 	<update id="makeFlashCoin" parameterType="user">
+		UPDATE USERS
+		<set>
+			COIN = COIN -2
+		</set>
+		WHERE USER_ID = #{userId}
+	</update>
+	
+	<update id="joinFlashCoin" parameterType="user">
+		UPDATE USERS
+		<set>
+			COIN = COIN -1
+		</set>
+		WHERE USER_ID = #{userId}
+	</update>
+
+
+	<select id="login" parameterType="String"
+		resultMap="userSelectMap">
+	</select>
 	
 	<!-- 
 	<select id="findPayment" parameterType="int" resultMap="userSelectMap">
+>>>>>>> refs/remotes/origin/master
 		SELECT
 			user_id , user_name , password , role ,  cell_phone ,  addr , email , reg_date 		
 			FROM users 
 		WHERE user_id = #{userId}	
 	</select>
 	 -->
+   
+	<select id="nicknameCheck"		parameterType="String"		resultType="int">
+		SELECT count(*)
+		FROM users
+		WHERE NICKNAME = #{nickname}
+	</select>
 	
-	<select id="loginUser"			parameterType="user"		resultMap="userSelectMap">
+	<select id="userIdCheck" 		parameterType="String"		resultType="int">
+		SELECT count(*) 
+		FROM users 
+		WHERE USER_ID = #{userId}
+	</select>
+	
+	<select id="loginUser"			parameterType="String"		resultMap="userSelectMap">
 		SELECT
 			USER_ID, PWD
 		FROM users
 		WHERE USER_ID = #{userId}
 	</select> 
 	
-	<!-- 회원가입 -->
+	<!-- 회원가입 : JoinPath 가입경로는 차후 추가구현예정 / USER_ROLE은 2 정상회원 -->
+	<!-- Full Address의 경우 전체 주소지 입력 / addr의 경우 00구만 출력되게 -->
 	<insert id="addUser"			parameterType="user" >
 		INSERT 
 		INTO users( USER_ID, PWD, USER_NAME, PHONE, BIRTH, AGE, GENDER, JOIN_PATH, REGDATE, USER_ROLE, FULL_ADDR, ADDR, NICKNAME )
-		VALUES ( #{userId}, #{password}, #{userName}, #{phone}, #{birth}, #{age}, #{gender}, 1, now(), 1, '서울시 성동구', #{addr}, #{nickname} );
+		VALUES ( #{userId}, #{password}, #{userName}, #{phone}, '2021-07-01', #{age}, #{gender}, 1, now(), 1, '서울시 성동구', #{addr}, #{nickname} );
 	</insert>
 	
 	<!-- 관리자권한 - 회원상세보기 / 아이디, 이름, 닉네임, 모바일번호, 주소지, 생년월일, 연령, 성별, 가입일자, 가입경로, 관심사 / 소모임리스트, 회원로그, 회원블랙사유 -->

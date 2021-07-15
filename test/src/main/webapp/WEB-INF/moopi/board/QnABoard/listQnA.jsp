@@ -55,11 +55,12 @@ body{
 </c:if>
 <p>작 성 자 : ${board.boardWriter.nickname} ${board.boardWriter.profileImage }</p>
 
-<p>답변 여부 : ${ empty board.replyCount ? "미답변" : "답변완료"}
+<p>답변 여부 : ${ board.replyCount == 0 ? "미답변" : "답변완료"}
 
 </p>
 </c:forEach>
 
 <button type="button" class="btn btn-default" onClick="fncAddBoardView()">게시글작성</button>
+<jsp:include page="../../layout/searchbar.jsp"></jsp:include>
 </body>
 </html>

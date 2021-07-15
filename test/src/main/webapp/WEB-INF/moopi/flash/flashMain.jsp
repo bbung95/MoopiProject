@@ -63,5 +63,7 @@ function fncGetFlash(flashNo){
 </c:forEach>
 
 <button type="button" class="btn btn-default" onClick="fncAddFlashView()">번개생성</button>
+<jsp:include page="../layout/searchbar.jsp"></jsp:include>
+
 </body>
 </html>

@@ -54,5 +54,6 @@ body{
 <p>작 성 자 : ${board.boardWriter.nickname} ${board.boardWriter.profileImage }</p>
 </c:forEach>
 <button type="button" class="btn btn-default" onClick="fncAddBoardView()">게시글작성</button>
+<jsp:include page="../../layout/searchbar.jsp"></jsp:include>
 </body>
 </html>

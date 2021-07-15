@@ -170,7 +170,7 @@
 	/* width: 500px; */
 	max-width: 500px;
 	margin: 5px;
-	position: absolute;
+	position: fixed;
 	bottom: 0px;
 	right: 0px;
 }

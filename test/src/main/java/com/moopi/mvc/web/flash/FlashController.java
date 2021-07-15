@@ -13,9 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.moopi.mvc.common.Search;
 import com.moopi.mvc.service.domain.Flash;
-import com.moopi.mvc.service.domain.MeetingFlashMember;
 import com.moopi.mvc.service.domain.User;
-import com.moopi.mvc.service.flash.FlashDao;
 import com.moopi.mvc.service.flash.impl.FlashServiceImpl;
 import com.moopi.mvc.service.user.impl.UserServiceImpl;
 
@@ -78,6 +76,7 @@ public class FlashController {
 		user.setUserId(userId);
 		flash.setFlashConstructor(user);// userId = flashConstructor
 		flashService.addFlash(flash); // addFlash bl 로직 
+		userService.makeFlashCoin(user);
 		System.out.println("번개생성 완료.");
 		return "flash/flashMain";
 	}
@@ -127,10 +126,11 @@ public class FlashController {
 	@RequestMapping("joinFlash")
 	public String joinFlash(@RequestParam("userId") String userId,
 			@RequestParam("flashNo") int flashNo)throws Exception{
-		
+		User user = new User();
+		user.setUserId(userId);
 		System.out.println("joinFlash Start::");
 		flashService.joinFlash(userId, flashNo);
-		
+		userService.joinFlashCoin(user);
 		return "forward:/flash/getFlash";
 	}
 	
