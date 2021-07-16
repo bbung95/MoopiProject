@@ -32,7 +32,7 @@
 
 <script>
 	
-	let userId = '<c:out value="${user.userId}"/>';
+	var userId = '<c:out value="${user.userId}"/>';
 	/* var loading = false;
 	
 	$(window).scroll(

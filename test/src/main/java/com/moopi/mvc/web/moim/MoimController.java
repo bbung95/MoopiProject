@@ -106,21 +106,24 @@ public class MoimController {
 							@RequestParam("userId") String userId) throws Exception {
 		
 		System.out.println("모임을수정할게");
-		String oriFileName = uploadFile.getOriginalFilename();
-		System.out.println(oriFileName);
 		long currentTime = System.currentTimeMillis();
-		try {
-			uploadFile.transferTo(new File(saveDir+"/"+currentTime+oriFileName));
-		}catch(Exception e) {
-			e.printStackTrace();
+		if(uploadFile.getSize() > 0) {
+			try {
+				System.out.println("수정할파일이있는경우");
+				String oriFileName = uploadFile.getOriginalFilename();
+				System.out.println("오리지널파일명::::::: "+oriFileName);
+				moim.setMmFile(currentTime+oriFileName);	
+				uploadFile.transferTo(new File(saveDir+"/"+currentTime+oriFileName));
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
 		}
-		User user = new User();
-		user.setUserId(userId);
-		moim.setMmConstructor(user);
-		moim.setMmFile(currentTime+oriFileName);
-		moimService.updateMoim(moim);
-		System.out.println("모임수정완료");
-		return "redirect:/moim/listMoim";
+			User user = new User();
+			user.setUserId(userId);
+			moim.setMmConstructor(user);
+			moimService.updateMoim(moim);
+			System.out.println("모임수정완료");
+			return "redirect:/moim/listMoim";
 	}
 	
 	
