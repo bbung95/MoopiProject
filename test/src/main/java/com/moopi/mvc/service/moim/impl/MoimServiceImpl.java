@@ -60,7 +60,7 @@ public class MoimServiceImpl {
 		moimDao.applyMoim(userId, mmNo);
 	}
 	
-	public void newAplyMoim(String userId, int mmNo) throws Exception {
+	public void newApplyMoim(String userId, int mmNo) throws Exception {
 		moimDao.newApplyMoim(userId, mmNo);
 	}
 	
