@@ -36,29 +36,12 @@ public class CommonRestController {
 	@Autowired
 	private UserServiceImpl userService;
 	
-	@GetMapping(value="json/addNotice/{target}/{content}/{userId}/{roomNo}/{type}")
-	public void addNotice(@PathVariable("target") String target, @PathVariable("content") String content,
-							@PathVariable("userId") String userId,@PathVariable("roomNo")String roomNo,@PathVariable("type")String type) {
-		System.out.println("addNotice : GET");
-		Notice notice = new Notice();
-		User user = new User();
-		if(type.equals("1")) {
-			user.setUserId(target);
-			notice.setNoticeUser(user);
-			notice.setNoticeContent(content);
-			notice.setToUserId(userId);
-			notice.setNoticeType(type);	
-			notice.setChatRoomNo(roomNo);
-		}
+	@PostMapping(value="json/addNotice")
+	public void addNotice(@RequestBody Notice notice) {
+		System.out.println("addNotice : POST");
+		System.out.println(notice);
 		commonService.addNotice(notice);
 	}
-	
-//	@PostMapping(value="json/addNotice")
-//	public void addNotice(@RequestBody Notice notice) {
-//		System.out.println("addNotice : POST");
-//		System.out.println(notice);
-//		commonService.addNotice(notice);
-//	}
 	
 	@GetMapping(value="json/getNoticeCount/{userId}")
 	public int getNoticeCount(@PathVariable("userId") String userId) {

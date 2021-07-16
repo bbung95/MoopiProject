@@ -132,5 +132,7 @@ function fncListMeeting(mmNo){
 <button type="button" class="btn btn-default" onClick="fncUptMoimView(${moim.mmNo})">소모임정보수정</button>
 <button type="button" class="btn btn-default" onClick="fncApplyList(${moim.mmNo})">가입신청목록보기</button>
 </c:if>
+<jsp:include page="../layout/searchbar.jsp"></jsp:include>
+
 </body>
 </html>
