@@ -99,6 +99,7 @@ function fncAddFlash(){
 		<!-- form end /////////////////////////////////////-->
 		
  	</div>
+<jsp:include page="../layout/searchbar.jsp"></jsp:include>
 
 </body>
 </html>

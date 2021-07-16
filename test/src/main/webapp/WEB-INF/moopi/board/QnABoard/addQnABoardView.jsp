@@ -120,5 +120,6 @@ body{
 		  
 		  
 		</form>
+<jsp:include page="../../layout/searchbar.jsp"></jsp:include>
 </body>
 </html>

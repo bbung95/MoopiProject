@@ -120,6 +120,7 @@ function fncGetJoinFlashList(flashNo){
 		onClick="fncGetJoinFlashList(${flash.flashNo})">번개참여신청목록보기</button>
 	<button type="button" class="btn btn-default"
 		onClick="fncJoinFlash(${flash.flashNo})">번개참여하기</button>
+<jsp:include page="../layout/searchbar.jsp"></jsp:include>
 
 </body>
 </html>

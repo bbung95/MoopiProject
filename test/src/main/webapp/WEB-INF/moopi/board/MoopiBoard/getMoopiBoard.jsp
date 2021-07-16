@@ -91,6 +91,8 @@ body{
 <button type="button" class="btn btn-primary" id="deleteBoard">삭제하기</button>
 
 </form>
+<jsp:include page="../../layout/searchbar.jsp"></jsp:include>
+
 </body>
 </html>
 

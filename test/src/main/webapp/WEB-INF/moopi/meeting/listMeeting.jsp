@@ -345,6 +345,7 @@ $(document).ready(function() {
  	</div> <!-- 컨테이너 div종료 --> 
 		
  </div> <!-- getDate div 종료 -->
+<jsp:include page="../layout/searchbar.jsp"></jsp:include>
 
 </body>
 </html>
