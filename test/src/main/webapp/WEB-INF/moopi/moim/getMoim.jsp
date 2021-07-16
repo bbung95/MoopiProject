@@ -18,7 +18,11 @@
 <script>
 
 $(function(){
-	//alert("페이지 로드 완료");
+	//alert('유저아이디:${user.userId}' +  '모임번호:${moim.mmNo}');
+	<c:if test="${empty user}">
+	$("#choose").text('가입하기');
+	</c:if>
+	
 	$.ajax( 
 			{
 				url : "/moim/json/checkMember/${user.userId}/${moim.mmNo}",
@@ -30,6 +34,8 @@ $(function(){
 				},
 				success : function(JSONData , status) {
 					//alert(JSONData.memberRole);
+					alert(status);
+    				alert("JSONData : \n"+JSONData);
 					if(JSONData.memberRole == 1){
 						//alert('일반멤버');
 						$("#choose").text('승인대기중');
@@ -37,7 +43,7 @@ $(function(){
 						$("#choose").text('가입불가(블랙회원)');
 					}else if(JSONData.memberRole >= 2 && JSONData.memberRole <= 4){
 						$("#choose").text('탈퇴하기');
-					}else{
+					}else {
 						$("#choose").text('가입하기');
 					}
 					
@@ -52,9 +58,14 @@ function fncUptMoimView(mmNo){
 }
 
 function fncApply(mmNo){
-	alert("가입하기");
-	alert("가입신청이 완료되었습니다.")
-	self.location ="/moim/applyMoim?userId=${user.userId}&mmNo="+mmNo
+	<c:if test = "${null ne user.userId}">
+		alert("가입하기");
+		alert("가입신청이 완료되었습니다.");
+		self.location ="/moim/applyMoim?userId=${user.userId}&mmNo="+mmNo	
+	</c:if>
+	<c:if test = "${empty user.userId}">
+	alert("회원가입이 필요한 페이지입니다.");
+	</c:if>
 }
 
 function fncApplyList(mmNo){

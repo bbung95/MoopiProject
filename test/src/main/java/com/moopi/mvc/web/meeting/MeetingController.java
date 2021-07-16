@@ -44,15 +44,10 @@ public class MeetingController {
 	public String addMeeting(@ModelAttribute("meeting") Meeting meeting, Model model) throws Exception{
 		
 		System.out.println("addMeeting :::");
-//		System.out.println(userId);
-//		System.out.println(userMapper.getUser(userId));
-		User user = new User();
-		user.setUserId("user01");
-		meeting.setMtConstructor(user);
 		System.out.println(meeting);
 		meetingService.addMeeting(meeting);
 		model.addAttribute("meeting", meeting);
-		return "redirect:/meeting/listMeeting?mmNo=1&userId=user01";
+		return "redirect:/meeting/listMeeting";
 	}
 	
 	//정모수정
@@ -78,6 +73,7 @@ public class MeetingController {
 		model.addAttribute("list", map.get("list"));
 		System.out.println(map);
 		model.addAttribute("userId", userId);
+		model.addAttribute("mmNo", mmNo);
 		return "meeting/listMeeting";
 	}
 	

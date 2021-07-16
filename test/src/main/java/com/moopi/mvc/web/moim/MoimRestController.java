@@ -23,8 +23,14 @@ public class MoimRestController {
 	public Member checkMember(@PathVariable("userId") String userId,
 			@PathVariable("mmNo") int mmNo) throws Exception {
 		System.out.println("::::::::::::::::::::::::::해당 유저 권한 확인중....");
-		
-		return moimService.checkMember(userId, mmNo);
+		System.out.println("//////////맵퍼에서보내준값:"+moimService.checkMember(userId, mmNo));
+		if(moimService.checkMember(userId, mmNo) == null) {
+			Member member = new Member();
+			member.setMemberRole(9);
+			return member;
+		}else {
+			return moimService.checkMember(userId, mmNo);
+		}			
 	}
 	
 	@RequestMapping("json/test")
