@@ -40,11 +40,17 @@ public class UserServiceImpl {
 	}
 	
 	// 유저정보조회 
-	public User getUser(String userId) {
-		return userDao.getUser(userId);		
+	public User getUser(String userId) throws Exception {
+		System.out.println("\n2 : UserServiceImpl의 getUser쪽으로 진입했습니다.");
+		System.out.println("user쪽을 확인해보겠습니다 : "+userId+"\n");
+		return userDao.getUser(userId);
 	}
 	
-
+//	// 유저정보조회 
+//	public User getUser(String userId) {
+//		return userDao.getUser(userId);		
+//	}
+	
 	// 유저아이디찾기 
 	public User getUserId(String userId) {
 		return userDao.getUserId(userId);
