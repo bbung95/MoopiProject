@@ -221,8 +221,10 @@
 	});
 	
 	$("a:contains('마이홈')").on("click", function(){
-		
-		location.href = "/";
+	
+		alert("마이홈스타트");
+	
+		location.href = "/user/getMyHomeBoard?userId="+dbUser;
 	})
 	
 	$("a:contains('내정보보기')").on("click", function(){

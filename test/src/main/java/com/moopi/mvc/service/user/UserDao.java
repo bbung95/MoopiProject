@@ -26,8 +26,8 @@ public interface UserDao {
 	// [완료] 회원가입시 [UserRole - 2.정상회원
 	public void addUser(User user) throws Exception;
 	
-	// 내정보확인
-	public User getUser(String userId);
+	// 유저정보가져오기
+	public User getUser(String userId) ;
 	
 	// 회원정보수정
 	public void updateUser(User user) throws Exception;
@@ -35,6 +35,12 @@ public interface UserDao {
 	// 회원탈퇴시 [UserRole - 5.탈퇴회원]
 	public void updateLeaveUser(User user) throws Exception;
 
+// 마이홈
+	
+	// 마이홈조회 - 마이홈 필요한 값 가져오기
+	public User getMyHome(String userId);
+	
+	
 // 회원가입 Ajax
 	
 	// [중간완료] 아이디중복체크
