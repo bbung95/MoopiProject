@@ -186,7 +186,7 @@ public class BoardTest {
 	
 	
 	@Test
-	public void addLike() {
+	public void addLike() throws Exception {
 		
 		System.out.println("Test addLike ::: ");
 		
