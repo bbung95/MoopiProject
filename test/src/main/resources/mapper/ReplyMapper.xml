@@ -86,9 +86,9 @@
 		 , REPLY_REGDATE
 		 , REPLY_STATE
 		 ) VALUES (
-		   reply.boardNo
-		 , reply.replyWriter.userId
-		 , reply.replyContent
+		   #{reply.boardNo}
+		 , #{reply.replyWriter.userId}
+		 , #{reply.replyContent}
 		 , NOW()
 		 , '1');
 	
