@@ -81,7 +81,9 @@
 			});
 		});	
 		
-		function fncAddReply(){
+		
+		
+		$( "button.addReply" ).on("click" , function() {
 			alert("답글작성");
 			alert($("input[name='replyContent']").val());
 			
@@ -89,23 +91,6 @@
 			var boardNo 		=$("input[name='boardNo']").val();
 			var replyWriter     = "user1";			
 			
-			
-			$("form").attr("method" , "GET").attr("action" , "/reply/json/addReply").submit();
-			
-		}
-		
-		
-		$( "td.prodNo" ).on("click" , function() {
-			
-			//Debug..
-//				alert( $( this ).html().trim() );
-//				alert( $(this).find('input').val());
-			//prodNo 추출
-			var prodNo = $(this).find('input').val();
-//				alert(prodNo);
-//				// tranCode null값에 따른 if문 
-//				if(prodNo !=null){
-//				self.location = "/product/getProduct?prodNo="+prodNo+"&"+"${url}";
 			
 			$.ajax( 
 					{
@@ -133,7 +118,25 @@
 						}
 				});
 				////////////////////////////////////////////////////////////////////////////////////////////
-	});
+	};
+			
+			
+		
+		
+		
+// 		$( "td.prodNo" ).on("click" , function() {
+			
+// 			//Debug..
+// //				alert( $( this ).html().trim() );
+// //				alert( $(this).find('input').val());
+// 			//prodNo 추출
+// 			var prodNo = $(this).find('input').val();
+// //				alert(prodNo);
+// //				// tranCode null값에 따른 if문 
+// //				if(prodNo !=null){
+// //				self.location = "/product/getProduct?prodNo="+prodNo+"&"+"${url}";
+			
+			
 	
 			 
 	
@@ -175,7 +178,7 @@
 	<c:if test="${ empty list}">
 	
 			<div class="col-sm-5">
-		    	<input id="summernote" name ="replyContent">
+		    	<input id="summernote" name ="replyContent"/>
 		    </div>
 	
 	

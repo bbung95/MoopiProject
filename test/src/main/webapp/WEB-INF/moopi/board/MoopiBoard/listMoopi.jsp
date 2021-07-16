@@ -40,19 +40,44 @@ body{
 	<jsp:include page="../../layout/toolbar.jsp" />
 <!-- ToolBar End /////////////////////////////////////-->
 <h3>무피 공지게시판</h3>
+ <table class="table table-hover table-striped" >
+<thead>
+          <tr>
+            <th align="center">No</th>
+            <th align="left" >글 제목</th>
+            <th align="left">작 성 일</th>
+            <th align="left">작 성 자</th>
+          </tr>
+        </thead>
 
-<c:forEach var="board" items="${list}">
---------------------------------------------
-<p>게시글번호 :${board.boardNo}</p>
-<p>게시글이름 : <div id="getBoard" onClick="fncGetBoard(${board.boardNo})">${board.boardName}</div></p>
-<c:if test="${empty board.boardUpdate }">
-<p>작 성 일 : ${board.boardRegDate}</p> 
-</c:if>
-<c:if test="${!empty board.boardUpdate }">
-<p>수 정 일 : ${board.boardUpdate}</p>
-</c:if>
-<p>작 성 자 : ${board.boardWriter.nickname} ${board.boardWriter.profileImage }</p>
-</c:forEach>
+
+
+		<tbody>
+			
+			<c:set var="i" value="0" />
+				<c:forEach var="board" items="${ list }">
+				<c:set var="i" value="${ i+1 }"/>
+				
+				<tr>
+				<td align="center"> ${i}</td>
+		 		<input type="hidden" id="boardNo" name="boardNo" value="${board.boardNo}"/>
+				<td align="left"><div id="getBoard" onClick="fncGetBoard(${board.boardNo})">${board.boardName}</div></td>
+				<td align="left">
+				<c:if test="${empty board.boardUpdate }">
+					${board.boardRegDate}
+					</c:if>
+					<c:if test="${!empty board.boardUpdate }">
+					${board.boardUpdate}
+					</c:if>
+				<td align="left">${board.boardWriter.nickname} ${board.boardWriter.profileImage }</td>
+
+			</tr>
+			</c:forEach>
+		
+		</tbody>		
+	
+	
+</table>
 <button type="button" class="btn btn-default" onClick="fncAddBoardView()">게시글작성</button>
 <jsp:include page="../../layout/searchbar.jsp"></jsp:include>
 </body>
