@@ -144,7 +144,8 @@
 		WHERE MM_NAME = #{mmName}	
 	</select>
 
-	<insert id="addMoim"	parameterType="moim" >
+	<insert id="addMoim"	parameterType="moim" 
+	  useGeneratedKeys="true"  keyProperty="mmNo">
 	 	INSERT
 		INTO MOIM(
 		MM_NO, MM_NAME, MM_CONTENT, MM_IMAGE, MM_MAX_COUNT, MM_CURRENT_COUNT, MM_CONSTRUCTOR, MM_REGDATE,

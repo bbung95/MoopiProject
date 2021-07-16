@@ -27,7 +27,7 @@ public class MoimController {
 	@Autowired
 	private UserServiceImpl userService;
 	
-	public static final String saveDir = "C:\\Users\\82102\\git\\Test\\test\\src\\main\\resources\\static\\images\\uploadFiles";
+	public static final String saveDir = "C:\\Users\\bit\\git\\Test\\test\\src\\main\\resources\\static\\images\\uploadFiles";
 	
 	//모임상세조회
 	@RequestMapping("getMoim")
@@ -70,25 +70,26 @@ public class MoimController {
 		User user = userService.getUser(userId);
 		moim.setMmConstructor(user);
 		moimService.addMoim(moim);
-		model.addAttribute("userId", userId);
-		model.addAttribute("mmName", moim.getMmName());
+		System.out.println("방금생성한 모임의 mmNO::::"+moim.getMmNo());
+		moimService.newApplyMoim(userId, moim.getMmNo());
+		System.out.println("생성자를 해당 모임의 모임장으로 설정 완료");
 		System.out.println("모임생성완료");
-		return "redirect:/moim/newApply";
+		return "forward:/moim/listMoim";
 	}
 	
 	//방금 모임을 생성한 유저를 그 모임의 모임장으로 만드는 메서드...
-	@RequestMapping("newApply")
-	public String newApply(Model model) throws Exception{
-		System.out.println(":::::::뉴어플라이에 도착했을까:::::::");
-		String userId = (String)model.getAttribute("userId");
-		System.out.println("유저아이디값 : "+userId);
-		String mmName = (String)model.getAttribute("mmName");
-		System.out.println("모임명:" +mmName);
-		Moim moim = moimService.getMoim2(mmName);
-		System.out.println("::::::::::::뉴어플라이에서 찾은 모임남바 : "+moim.getMmNo());
-		moimService.newAplyMoim(userId, moim.getMmNo());
-		return "redirect:/moim/listMoim";
-	}
+//	@RequestMapping("newApply")
+//	public String newApply(Model model) throws Exception{
+//		System.out.println(":::::::뉴어플라이에 도착했을까:::::::");
+//		String userId = (String)model.getAttribute("userId");
+//		System.out.println("유저아이디값 : "+userId);
+//		String mmName = (String)model.getAttribute("mmName");
+//		System.out.println("모임명:" +mmName);
+//		Moim moim = moimService.getMoim2(mmName);
+//		System.out.println("::::::::::::뉴어플라이에서 찾은 모임남바 : "+moim.getMmNo());
+//		moimService.newAplyMoim(userId, moim.getMmNo());
+//		return "redirect:/moim/listMoim";
+//	}
 	
 	//모임수정페이지로 이동, 단순네비게이션
 	@RequestMapping("updateMoimView")
