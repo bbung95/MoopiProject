@@ -74,6 +74,14 @@
 					AND
 					BD.BD_STATE = #{map.boardState}
 					</if>
+					<if test="map.userId !=null">
+					AND
+					BD.bd_writer = #{map.userId}
+					</if>
+					<if test="map.mmNo !=null">
+					AND
+					BD.bd_MM_No= #{map.mmNo}
+					</if>
 					GROUP BY 
 					BD.BD_NO
 					, BD.BD_NAME
@@ -81,7 +89,11 @@
 					, BD.BD_UPDATE
 					, BD.BD_PASSWORD
                     ORDER BY 
-                    BD.BD_NO ASC) inner_table,
+                    <if test="map.boardCategory == 3 or map.searchKeyword !=null">
+					LIKECOUNT
+					</if>
+                    BD.BD_NO ASC
+                    ) inner_table,
                     (select @rownum := 0) as R
                     )tables
 				WHERE rnum between #{map.search.startRowNum} and #{map.search.endRowNum}
@@ -197,6 +209,18 @@
 	FL_TYPE = '1'
 	
 	</delete>
+	
+	<select id="checkPassword" parameterType="int" resultMap="boardSelectMap">
+	
+	SELECT
+	  BD_NO
+	, BD_PASSWORD
+	FROM
+	  BOARD
+	WHERE
+	BD_NO = #{boardNo}
+	</select>
+	
 	
 	
 </mapper>	
