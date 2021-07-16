@@ -45,13 +45,16 @@ function fncUptMoim(){
 		    <label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">모임무피명</label>
 		    <div class="col-sm-4">
 		      <input type="text" class="form-control" id="mmName" name="mmName" value="${moim.mmName}">
+		      
 		    </div>
 		  </div>
 		  
 		  <div class="form-group">
 		    <label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">대표썸네일</label>
 		    <div class="col-sm-4">
-		      <input type="file" class="form-control" id="uploadFile" name="uploadFile" value="${moim.mmFile}">
+		      <input type="file" class="form-control" id="uploadFile" name="uploadFile" value="">
+		      <input type="text" class="form-control" id="mmFile" name="mmFile" value="${moim.mmFile}">
+		      <img src="/images/uploadFiles/${moim.mmFile}" width="200" height="200 "/>
 		    </div>
 		  </div>
 		  
@@ -136,7 +139,7 @@ function fncUptMoim(){
 		  <div class="form-group">
 		    <div class="col-sm-offset-4  col-sm-4 text-center">
 		      <button type="button" class="btn btn-primary" onClick="fncUptMoim()" >수정</button>
-			   <a class="btn btn-default btn" href="#" role="button">취소</a>
+			   <a class="btn btn-default btn" role="button" onclick="history.back()">취소</a>
 		    </div>
 		  </div>
 		</form>

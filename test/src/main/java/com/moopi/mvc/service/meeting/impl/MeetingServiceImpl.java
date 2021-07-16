@@ -43,6 +43,10 @@ public class MeetingServiceImpl {
 		meetingDao.updateMeeting(meeting);
 	}
 	
+	public void deleteMeeting(int mtNo) throws Exception {
+		meetingDao.deleteMeeting(mtNo);
+	}
+	
 	public void applyMeeting(@Param("mtNo") int mtNo, 
 			@Param("userId") String userId) throws Exception {
 		meetingDao.addCurrentCount(mtNo);

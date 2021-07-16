@@ -135,7 +135,7 @@ function fncAddMoim(){
 		  <div class="form-group">
 		    <div class="col-sm-offset-4  col-sm-4 text-center">
 		      <button type="button" class="btn btn-primary" onClick="fncAddMoim()" >등록</button>
-			   <a class="btn btn-default btn" href="#" role="button">취소</a>
+			   <a class="btn btn-default btn" role="button"  onclick="history.back()">취소</a>
 		    </div>
 		  </div>
 		</form>
