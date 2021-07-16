@@ -22,7 +22,7 @@
 		<result property="profileImage"		column="PROFILE_IMAGE"		jdbcType="VARCHAR"/>
 		<result property="profileContent"	column="PROFILE_CONTENT"	jdbcType="VARCHAR"/>
 		<result property="interestFirst"	column="INTEREST_FIRST"		jdbcType="NUMERIC"/>
-		<result property="interestSecond"	column="INTEREST_SECONT"		jdbcType="NUMERIC"/>
+		<result property="interestSecond"	column="INTEREST_SECOND"		jdbcType="NUMERIC"/>
 		<result property="interestThird"	column="INTEREST_THIRD"		jdbcType="NUMERIC"/>
 		<result property="myhomeState"		column="MYHOME_STATE"		jdbcType="CHAR"/>
 		<result property="stateReason"		column="STATE_REASON"		jdbcType="VARCHAR"/>
@@ -36,6 +36,25 @@
 		SELECT user_id , user_name , password , role , cell_phone , addr , email 
 		, reg_date FROM users WHERE user_id = #{userId} </select> -->
 
+	<!-- 마이홈조회 -->
+	<!-- 회원아이디(hidden), 프로필이미지, 닉네임, 뱃지, 코인, 팔로잉수, 팔로워수, 프로필소개, 마이홈게시글 첨부파일, 마이홈게시글 내용, 마이홈게시글 좋아요 수, 모임무피 대표썸네일, 모임무피명, 관심사1,2,3 -->	 
+	<select id="getMyHome"			parameterType="user"		resultMap="userSelectMap">
+		SELECT
+			USER_ID, PROFILE_IMAGE, NICKNAME, PROFILE_CONTENT, INTEREST_FIRST, INTEREST_SECOND, INTEREST_THIRD
+		FROM users
+		WHERE USER_ID = #{userId};
+			<!--  팔로잉수, 팔로워 , PROFILE_CONTENT, 마이홈게시글 첨부파일, 마이홈게시글 내용, 마이홈게시글 좋아요 수, 모임무피 대표썸네일, 모임무피명 -->
+	</select>
+	
+	<!-- 관리자권한 - 회원상세보기 / 아이디, 이름, 닉네임, 모바일번호, 주소지, 생년월일, 연령, 성별, 가입일자, 가입경로, 관심사 / 소모임리스트, 회원로그, 회원블랙사유 -->
+	<select id="getUser"			parameterType="String" 		resultMap="userSelectMap">
+		SELECT 
+		USER_ID, USER_NAME, PWD, NICKNAME, PHONE, ADDR, BIRTH, AGE, GENDER, REGDATE, JOIN_PATH, USER_ROLE, PROFILE_IMAGE, PROFILE_CONTENT,
+		INTEREST_FIRST, INTEREST_SECOND, INTEREST_THIRD, 
+		PROFILE_IMAGE, COIN, BADGE, MYHOME_STATE, STATE_REASON, STATE_REGDATE
+		FROM users 
+		WHERE USER_ID = #{userId}
+	</select>
 	
 	<update id="makeFlashCoin" parameterType="user">
 		UPDATE USERS
@@ -81,7 +100,7 @@
 	
 	<select id="loginUser"			parameterType="String"		resultMap="userSelectMap">
 		SELECT
-			USER_ID, PWD
+			USER_ID, PWD, USER_ROLE
 		FROM users
 		WHERE USER_ID = #{userId}
 	</select> 
@@ -90,16 +109,9 @@
 	<!-- Full Address의 경우 전체 주소지 입력 / addr의 경우 00구만 출력되게 -->
 	<insert id="addUser"			parameterType="user" >
 		INSERT 
-		INTO users( USER_ID, PWD, USER_NAME, PHONE, BIRTH, AGE, GENDER, JOIN_PATH, REGDATE, USER_ROLE, FULL_ADDR, ADDR, NICKNAME )
-		VALUES ( #{userId}, #{password}, #{userName}, '01012345678', '2021-07-01', #{age}, #{gender}, 1, now(), 1, '서울시 성동구', #{addr}, #{nickname} );
+		INTO users( USER_ID, PWD, USER_NAME, PHONE, BIRTH, AGE, GENDER, JOIN_PATH, REGDATE, USER_ROLE, FULL_ADDR, ADDR, NICKNAME, INTEREST_FIRST, INTEREST_SECOND, INTEREST_THIRD )
+		VALUES ( #{userId}, #{password}, #{userName}, '01012345678', '2021-07-01', #{age}, #{gender}, 1, now(), 2, '서울시 성동구', #{addr}, #{nickname}, #{interestFirst}, #{interestSecond}, #{interestThird} );
 	</insert>
-	
-	<!-- 관리자권한 - 회원상세보기 / 아이디, 이름, 닉네임, 모바일번호, 주소지, 생년월일, 연령, 성별, 가입일자, 가입경로, 관심사 / 소모임리스트, 회원로그, 회원블랙사유 -->
-	<select id="getUser"			parameterType="String" 		resultMap="userSelectMap">
-		SELECT USER_ID, USER_NAME, PWD, NICKNAME, PHONE, ADDR, BIRTH, AGE, GENDER, REGDATE, JOIN_PATH, INTEREST_FIRST, INTEREST_SECOND, INTEREST_THIRD  
-		FROM users 
-		WHERE USER_ID = #{userId}		
-	</select>
 	
 	<!-- 아이디찾기 -->
 	<select id="getUserId"			parameterType="String" 		resultMap="userSelectMap">
@@ -195,14 +207,8 @@
 		WHERE USER_ID = #{userId}
 	</update>
 	
-	<!-- 마이홈조회 -->
-	<!-- 회원아이디(hidden), 프로필이미지, 닉네임, 뱃지, 코인, 팔로잉수, 팔로워수, 프로필소개, 마이홈게시글 첨부파일, 마이홈게시글 내용, 마이홈게시글 좋아요 수, 모임무피 대표썸네일, 모임무피명, 관심사1,2,3 -->
-	<!--  
-	<select id="getMyHome"			parameterType="search"		resultMap="userSelectMap, MoimSelectMap, FlashSelectMap, BoardSelectMap">
-		SELECT 
-			USER_ID, PROFILE_IMAGE, NICKNAME, BADGE, COIN, 팔로잉수, 팔로워 , PROFILE_CONTENT, 마이홈게시글 첨부파일, 마이홈게시글 내용, 마이홈게시글 좋아요 수, 모임무피 대표썸네일, 모임무피명
-	</select>
-	-->
+
+	
 
 	<!-- 팔로우리스트 -->
 	<select id="getFollowList"		parameterType="search"		resultMap="userSelectMap">

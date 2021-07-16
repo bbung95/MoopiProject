@@ -102,6 +102,7 @@ public class UserController {
 		System.out.println("\n"+"UserController_____addUser 시작"+"\n");
 		System.out.println("추가정보를 입력받아 회원가입을 마무리 짓는 부분입니다.");
 		System.out.println("여기는 password2 :"+password);
+
 		
 		userService.addUser(user);
 		//System.out.println("addUser : "+addUser);
@@ -134,4 +135,40 @@ public class UserController {
 	}
 //-----------------------------------------------------------------------------------------------------------------
 
+//-- getMyHomeBoard.jsp로 이동하는 단순네비게이션 ------------------------------------------------------------
+//	@RequestMapping("getMyHomeBoard")
+//	public String getMyHomeBoard() throws Exception {
+//			
+//		System.out.println("UserController_____searchUserPwd 시작");
+//		System.out.println("비밀번호를 찾기위한 아이디확인으로 이동하는 단순 네비게이션입니다.");
+//				
+//		return "user/getMyHomeBoard";	
+//	}
+//-----------------------------------------------------------------------------------------------------------------
+
+//-- getMyHomeBoard.jsp  ------------------------------------------------------------
+
+	@RequestMapping("getMyHomeBoard")
+	public String getUser(@RequestParam("userId") String userId, Model model) throws Exception {
+		
+		System.out.println(userService.getUser(userId));
+		
+		System.out.println("\n"+"1 : UserController_____getMyHomeBoard 시작"+"\n");
+		System.out.println("마이홈의 메인을 출력하는 페이지입니다. 여러 값들을 가져와야 하는 부분");		
+
+		
+		
+		model.addAttribute("user",userService.getUser(userId));
+		
+		// 코인, 팔로잉, 게시판, 모임에서 사용해야하니 CommonRestController 보고 작성해보
+		
+		System.out.println("여기도 확인해보자 : "+userId);
+		System.out.println("겟마이홈보드에서 model.addAttribute(user)를 불러오면? : "+userId);
+		// 로그인유저 확인해보기 loginUser
+		System.out.println(userService.getUser(userId));
+		return "user/getMyHomeBoard";
+	}	
+////-----------------------------------------------------------------------------------------------------------------
+
+	
 }
