@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
-
+<script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
 
 <!-- 풀캘린더 -->
 <link href='https://use.fontawesome.com/releases/v5.0.6/css/all.css' rel='stylesheet'>
@@ -164,10 +164,31 @@ function fncGetMEFL(mtNo){
 					"Content-Type" : "application/json"
 				},
 				success : function(JSONData , status) {
-					alert("정모참여자명단");
-					//console.log(JSONData);
-					var str = JSONData.stringify(json);
-					alert(str);
+					alert(JSONData.list.length);
+					$( "h5" ).remove();	
+					let displayValue = '';
+					for(var i=0;i < JSONData.list.length;i++){
+					displayValue += "<h5>"
+										+"유저ID	: "+JSONData.list[i].meflId.userId+"<br/>"
+										+"이름  : "+JSONData.list[i].meflId.userName+"<br/>"
+										+"나이  : "+JSONData.list[i].meflId.age+"<br/>"
+										+"성별  : "+JSONData.list[i].meflId.gender+"<br/>"
+										+"FullAddr  : "+JSONData.list[i].meflId.fullAddr+"<br/>"
+										+"addr  : "+JSONData.list[i].meflId.addr+"<br/>"
+										+"닉네임 		: "+JSONData.list[i].meflId.nickname+"<br/>"
+										+"주소 		: "+JSONData.list[i].meflId.addr+"<br/>"
+										+"프로필이미지 : "+JSONData.list[i].meflId.profileImage+"<br/>"
+										+"자기소개 : "+JSONData.list[i].meflId.profileContent+"<br/>"
+										+"뱃지   	   : "+JSONData.list[i].meflId.badge+"<br/>"
+										+"MEFL넘버  : "+JSONData.list[i].meflNo+"<br/>"
+										+"MEFL타입  : "+JSONData.list[i].meflType+"<br/>"
+										+"타겟넘버   : "+JSONData.list[i].targetNo+"<br/>"
+										+"참여일자   : "+JSONData.list[i].joinRegDate+"<br/>"
+										+"</h5>";
+							
+						
+						} //for문끝
+						$( "#getMEFL" ).append(displayValue);
 				}
 		}); //ajax 종료
 	
@@ -181,6 +202,7 @@ $(document).ready(function() {
       init: function(themeSystem) {
         $('#calendar').fullCalendar({
           themeSystem: themeSystem,
+          googleCalendarApiKey: 'AIzaSyAow_exiK7v12TdQlYOv1U-ttFlSpWlU2Q',
           aspectRatio: 2,
           height:700,
           contentHeight:700,
@@ -222,6 +244,7 @@ $(document).ready(function() {
     					success : function(JSONData , status) {
     						//alert(status);
     						//alert("JSONData : \n"+JSONData);
+    						$( "h5" ).remove();	
     						$("#addDate").slideUp('slow');
     						$("#mtName").val(JSONData.mtName);
     						$("#userId").val(JSONData.mtConstructor.userId);
@@ -401,11 +424,11 @@ $(document).ready(function() {
 	<button type="button" class="btn btn-success" onClick="fncLeaveMt(mtNo, '${user.userId}')">참가취소</button>
 	<button type="button" class="btn btn-primary" onClick="fncUptMtView('${user.userId}')">수정</button>
 	<button type="button" class="btn btn-danger" onClick="fncDeleteMt('${user.userId}')">삭제</button>	
-	
+	<a href="https://accounts.google.com/o/oauth2/v2/auth?scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcalendar%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcalendar.readonly&access_type=offline&include_granted_scopes=true&response_type=code&state=state_parameter_passthrough_value&redirect_uri=http%3A%2F%2Flocalhost%3A8080%2Fmeeting%2FreceiveCode&client_id=674136097926-gmjcrr1v85j17s88t3pi2fodfp72hvk9.apps.googleusercontent.com" >★</a>
 
 		
  	</div> <!-- 컨테이너 div종료 --> 
-		
+		<div id="getMEFL" style="padding-top: 30px"></div>
  </div> <!-- getDate div 종료 -->
 <jsp:include page="../layout/searchbar.jsp"></jsp:include>
 
