@@ -92,7 +92,7 @@
 		var addr=$("input[name='addr']").val();
 		var interest1=$("select[name='interestFirst']").val();
 		var interest2=$("select[name='interestSecond']").val();
-		var interest3=$("select[name='interestThird']").val();	
+		var interest3=$("select[name='interestThird']").val();
 		
 		alert(interest1);
 		alert(interest2);

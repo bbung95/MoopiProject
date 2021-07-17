@@ -4,13 +4,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ibatis.annotations.Param;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 import com.moopi.mvc.common.Search;
-import com.moopi.mvc.service.domain.Moim;
 import com.moopi.mvc.service.domain.User;
 import com.moopi.mvc.service.user.UserDao;
 
@@ -115,6 +114,23 @@ public class UserServiceImpl {
 	
 	public void joinFlashCoin(User user) throws Exception{
 		userDao.joinFlashCoin(user);
+	}
+	
+// 프로필수정 - updateProfile
+	
+	// 1. 닉네임수정
+	public void updateNickname(User user) {
+		userDao.updateNickname(user);
+	}
+	
+	// 2. 프로필소개수정
+	public void updateContent(User user) {
+		userDao.updateContent(user);
+	}
+	
+	// 3. 관심사수정
+	public void updateInterest(User user) {
+		userDao.updateInterest(user);
 	}
 	
 }
