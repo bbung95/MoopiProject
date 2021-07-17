@@ -96,6 +96,8 @@
 		});
 	});
 <!-------------------------------------------------------------------------------------------------------------------------->
+
+
 	
 //-- [중간완료] 비밀번호 일치 Ajax 실행  --------------------------------------------------------------------------------------------------------------------------
 		
@@ -143,32 +145,16 @@
 
 		<form class="form-horizontal" name="detailForm" enctype="multipart/form-data">
 		
-<!--####### [아이디 Ajax 구현] ##########################################################################################-->
+		  <!-- 아이디 입력 [Ajax연관] -->
 	
 		<div class="form-group">
-			<label for="userId" class="col-sm-offset-1 col-sm-3 control-label">아이디 Ajax</label>
+			<label for="userId" class="col-sm-offset-1 col-sm-3 control-label">아이디</label>
 			<div class="col-sm-4">
 				<input type="text" class="form-control" id="userId" name="userId" placeholder="사용하실 아이디를 입력해주세요" required>						
 			</div>
 			<div class="check_font" id="id_check"></div>
-		</div>
-		
-<!--#######################################################################################################################-->		
-		
-		<!-- 아이디입력 및 중복확인체크 / 차후 Ajax로 구현해야 함 -->
-<!--		<div class="form-group">
-			<label for="userId" class="col-sm-offset-1 col-sm-3 control-label">아이디</label>
-			<div class="col-sm-4">
-				<input type="text" class="form-control" id="userId" name="userId" placeholder="사용하실 아이디를 입력해주세요">			
-				<span id="helpBlock" class="help-block">
-					<strong class="text-danger">아이디 중복체크를 진행해주세요</strong>
-				</span>
-			</div>
-			<span class="col-sm-3">
-				<button type="button" class="btn btn-info">중복확인</button>
-			</span>	
-		</div>
--->
+		</div>	
+
 		  <!-- 비밀번호 입력 -->
 		<div class="form-group">
 			<label for="password" class="col-sm-offset-1 col-sm-3 control-label">비밀번호</label>

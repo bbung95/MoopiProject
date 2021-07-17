@@ -17,26 +17,6 @@
 		<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 	  	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 	 
-	    <script>  
-	     $(document).ready(function() {
-				      $('#summernote').summernote({
-				        placeholder: '내용을 입력해주세요.',
-				        tabsize: 2,
-				        height: 200,
-				        focus : true,
-				        toolbar: [
-				          ['fontname', ['fontname']],
-				          ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
-				          ['fontsize', ['fontsize']],
-				          ['color', ['forecolor','color']],
-				          ['para', ['paragraph']],
-				          ['insert', ['picture', 'video']],
-				        ],
-				        fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋움체','바탕체'],
-				        fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72']
-				      });
-				  });
-	 			      </script> 
 	<script type="text/javascript">
 	
 		$(function() {
@@ -73,71 +53,79 @@
 			$("form").attr("method" , "GET").attr("action" , "/board/deleteBoard").submit();
 			
 		}
-		
 		$(function() {
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 			$( "#addReply" ).on("click" , function() {
+				alert("addReply");
 				fncAddReply();
 			});
 		});	
-		
+
 		function fncAddReply(){
-			alert("답글작성");
-			alert($("input[name='replyContent']").val());
-			
-			var replyContent	=$("input[name='replyContent']").val();
-			var boardNo 		=$("input[name='boardNo']").val();
-			var replyWriter     = "user1";			
 			
 			
-			$("form").attr("method" , "GET").attr("action" , "/reply/json/addReply").submit();
+			var replyContent=$("#replyContent").val();
+			var replyWriter = $("#replyWriter").val();
+			var boardNo = $("#boardNo").val();
+			
+
+			
+			alert(boardNo);
+			alert(replyWriter);
+			alert(replyContent);
+			
+			$.ajax({
+				url: "/reply/json/addReply",
+				type: "POST",
+				dataType: "json",
+				contentType : "application/json",
+				data :  JSON.stringify ({ "boardNo": boardNo, "replyWriter": {"userId" :replyWriter}, "replyContent":replyContent}),		
+				success: function(data, state){
+				
+					alert(state)
+				
+				
+				}
+		
+
+		});
+		
+		}
+		
+		$(function() {
+			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+			$( "#updateReply" ).on("click" , function() {
+// 				alert("test")
+				fncUpdateReply();
+			});
+		});	
+		
+		function fncUpdateReply(){
+			alert("게시글수정");
+			alert($("#replyNo" ).val() );
+			var replyNo = $("#replyNo" ).val();
+			$.ajax({
+					url: "/reply/json/addReply",
+					type: "POST",
+					dataType: "json",
+					contentType : "application/json",
+					data :  JSON,
+				    success : function(JSONData , status) {
+			               //alert(JSONData.memberRole);	
+			                alert(status);
+			                alert("JSONData : \n"+JSONData.replyContent);
+			                }
+			             
+				
+				               
+		
+				}  	)
+			
 			
 		}
 		
 		
-		$( "td.prodNo" ).on("click" , function() {
-			
-			//Debug..
-//				alert( $( this ).html().trim() );
-//				alert( $(this).find('input').val());
-			//prodNo 추출
-			var prodNo = $(this).find('input').val();
-//				alert(prodNo);
-//				// tranCode null값에 따른 if문 
-//				if(prodNo !=null){
-//				self.location = "/product/getProduct?prodNo="+prodNo+"&"+"${url}";
-			
-			$.ajax( 
-					{
-						url : "/reply/json/addReply" ,
-						method : "GET" ,
-						dataType : "json" ,
-						headers : {
-							"Accept" : "application/json",
-							"Content-Type" : "application/json"
-						},
-						success : function(JSONData , status) {
-
-//								Debug...
-//								alert(status);
-//								Debug...
-//								alert("JSONData : \n"+JSONData);
-							
-							var displayValue = "<h4>"
-														JSONData.replyWriter.nickname+JSONData.replyWriter.profileImage+" : "
-														+JSONData.replyContent+JSONData.replyRegDate
-														+"</h4>"
-							//Debug...									
-							//alert(displayValue);
-// 							$( "#"+prodNo+"" ).html(displayValue);
-						}
-				});
-				////////////////////////////////////////////////////////////////////////////////////////////
-	});
-	
-			 
-	
-	
+		
 	</script>
 	  
 	<style>
@@ -170,18 +158,19 @@
 	
 	<button type="button" class="btn btn-primary" id="updateBoard">수정하기</button>
 	<button type="button" class="btn btn-primary" id="deleteBoard">삭제하기</button>
-	<button type="button" class="btn btn-primary" id="addReply">답글작성</button>
 	<p></p>
+	
 	<c:if test="${ empty list}">
-	
-			<div class="col-sm-5">
-		    	<input id="summernote" name ="replyContent">
-		    </div>
-	
-	
-	<div id="addReply">
-	
-	</div>
+	<form id = "addReplyForm">
+		<td width="550">
+			<div>
+				<textarea rows="4" cols="70" name="replyContent"   id="replyContent"></textarea>			
+			</div>
+		</td>
+		   <input type="hidden" id = "replyWriter" value="${user.userId}"> 
+		   <input type="hidden" id = "boardNo" value="${board.boardNo }"> 
+		   <button type="button" class="btn btn-primary" id="addReply">답글작성</button>
+	</form>
 	</c:if>
 	 
 	
@@ -190,9 +179,9 @@
 	--------------------------------------------
 	<input type="hidden" id="replyNo" name="replyNo" value="${reply.replyNo}">
 	<p>${reply.replyWriter.nickname} ${reply.replyWriter.profileImage } : ${reply.replyContent}    작성시간 ${reply.replyRegDate}</p>
-	<button type="button" class="btn btn-primary" name="updateReply">답변수정</button>
+	<button type="button" class="btn btn-primary" id="updateReply">답변수정</button>
 	</c:forEach>
-	
+		
 	
 	</form>
 	<jsp:include page="../../layout/searchbar.jsp"></jsp:include>

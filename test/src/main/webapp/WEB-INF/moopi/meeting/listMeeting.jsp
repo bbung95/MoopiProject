@@ -9,6 +9,7 @@
 <!-- Toolbar CDN -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
 
 
@@ -30,20 +31,21 @@ var mtStart="";
 var mtEnd="";
 var mtMaxCount="";
 var mtAddr="";
-
+var mtConstructor="";
+var mmNo="";
 
 function fncAddMtView() {
 	alert("정모를 생성합니다.");
 	var displayValue = "<h6>"
 	+"<form class='form-horizontal' name='detailForm'>"
-	+"<input type='hidden' name='mmNo' value='1'>" +
+	+"<input type='hidden' name='mmNo' value='${mmNo}'>" 
 	+"정모이름 :" +"<input type='text' name='mtName'>" + "<br>"
 	+"정모내용 :"+"<input type='text' name='mtContent'>" + "<br>"
-	+"주최자 :"+ "<input type='text' name='userId' value='user01'>" + "<br>"
+	+"주최자 :"+ "<input type='text' name='userId' value='${user.userId}'>" + "<br>"
 	+"정모시작일 :" +"<input type='datetime-local'  name='mtStart'>"+"<br>"
 	+"정모종료일 :" +"<input type='datetime-local' name='mtEnd'>"+"<br>"
 	+"정모 총 인원 :"+ "<input type='text' name='mtMaxCount'>" + "<br>"
-	+"정모 현재 인원 :"+ "<input type='text' name='mtCurrentCount'>" + "<br>"
+	+"<input type='hidden' name='mtCurrentCount' value='1'>" + "<br>"
 	+"정모 장소 :"+"<input type='text' name='mtAddr'>" + "<br>"
 	+"<a onClick='fncAddMt()'>등록하기</a>"+ "<br>"
 	+"</form>"
@@ -55,28 +57,61 @@ function fncAddMtView() {
 
 function fncUptMtView() {
 	alert("정모를 수정합니다.");
-	var displayValue = "<h6>"
-	+"<form class='form-horizontal' name='detailForm'>"
-	+"<input type='hidden' name='mmNo' value='1'>" +
-	+"정모이름 :" +"<input type='text' name='mtName' value='mtName'>" +mtName+ "<br>"
-	+"정모내용 :"+"<input type='text' name='mtContent' value='mtContent'>" +mtContent+ "<br>"
-	+"주최자 :"+ "<input type='text' name='userId' value='user01'>" + "<br>"
-	+"정모시작일 :" +"<input type='datetime-local'  name='mtStart' value='mtStart'>"+"<br>"
-	+"정모종료일 :" +"<input type='datetime-local' name='mtEnd' value='mtEnd'>"+"<br>"
-	+"정모 총 인원 :"+ "<input type='text' name='mtMaxCount' value='mtMaxCount'>" + "<br>"
-	+"정모 현재 인원 :"+ "<input type='text' name='mtCurrentCount'>" + "<br>"
-	+"정모 장소 :"+"<input type='text' name='mtAddr'>" + "<br>"
-	+"<a onClick='fncAddMt()'>수정하기</a>"+ "<br>"
-	+"</form>"
-	+"</h6>";
-	$("#getDate").slideUp('slow');
-	$("#addDate").html(displayValue);
-	$("#addDate").fadeIn('slow');
+	if(mtConstructor == userId){
+		var displayValue = "<h6>"
+			+"<form class='form-horizontal' name='detailForm'>"
+			+"<input type='hidden' name='mtNo' value=''>"
+			+"<input type='hidden' name='mmNo' value=''>"
+			+"정모이름 :" +"<input type='text' name='mtName' value=''>"+"<br>"
+			+"정모내용 :"+"<input type='text' name='mtContent' value=''>"+"<br>"
+			+"주최자 :"+ "<input type='text' name='userId' value=''>" + "<br>"
+			+"정모시작일 :" +"<input type='datetime-local'  name='mtStart' value='' >"+"<br>"
+			+"정모종료일 :" +"<input type='datetime-local' name='mtEnd' value='' >"+"<br>"
+			+"정모 총 인원 :"+ "<input type='text' name='mtMaxCount' value=''>" + "<br>"
+			//+"정모 현재 인원 :"+ "<input type='text' name=''>" + "<br>"
+			+"정모 장소 :"+"<input type='text' name='mtAddr'>" + "<br>"
+			+"<a onClick='fncUptMt()'>수정하기</a>"+ "<br>"
+			+"</form>"
+			+"</h6>";
+			$("#getDate").slideUp('slow');
+			$("#addDate").html(displayValue);
+			$("#addDate").fadeIn('slow');
+			$("input[name=mtNo]").val(mtNo);
+			$("input[name=mmNo]").val(mmNo);
+			$("input[name=mtName]").val(mtName);
+			$("input[name=mtContent]").val(mtContent);
+			$("input[name=userId]").val(mtConstructor);
+			$("input[name=mtStart]").val(mtStart);
+			$("input[name=mtEnd]").val(mtEnd);
+			$("input[name=mtMaxCount]").val(mtMaxCount);
+			$("input[name=mtAddr]").val(mtAddr);	
+	}else{
+		alert("정모 주최자 ID와 동일하지 않습니다.");
+	}
+	
+	
 }
+
+function fncDeleteMt(userId) {
+	if(mtConstructor == userId){
+		self.location ="/meeting/deleteMeeting?mtNo="+mtNo
+	}else{
+		alert("정모 주최자 ID와 동일하지 않습니다.");
+	}
+	
+	
+	//$("form").attr("method", "POST").attr("action", "/meeting/addMeeting").submit();
+}
+
 
 function fncAddMt() {
 	alert("등록완료");
 	$("form").attr("method", "POST").attr("action", "/meeting/addMeeting").submit();
+}
+
+function fncUptMt() {
+	alert("정모를수정합니다");
+	$("form").attr("method", "POST").attr("action", "/meeting/updateMeeting").submit();
 }
 
 function fncApplyMt(mtNo, userId){
@@ -117,6 +152,28 @@ function fncLeaveMt(mtNo, userId){
 }//fncLeavMt 종료
 
 
+function fncGetMEFL(mtNo){
+	alert(mtNo);
+	$.ajax( 
+			{
+				url : "/meeting/json/listMEFL/"+mtNo,
+				method : "GET" ,
+				dataType : "json" ,
+				headers : {
+					"Accept" : "application/json",
+					"Content-Type" : "application/json"
+				},
+				success : function(JSONData , status) {
+					alert("정모참여자명단");
+					//console.log(JSONData);
+					var str = JSONData.stringify(json);
+					alert(str);
+				}
+		}); //ajax 종료
+	
+}
+
+
 $(document).ready(function() {
 
     initThemeChooser({
@@ -141,6 +198,7 @@ $(document).ready(function() {
         	  alert("정모를 생성합니다.")
           },
           eventClick: function(event) {
+        	mmNo = event.no;
         	mtNo = event.id;
         	mtName = event.title;
         	mtStart = event.start;
@@ -150,7 +208,8 @@ $(document).ready(function() {
         	mtConstructor = event.constructor;
         	mtAddr = event.addr;
       	    //alert(mtNo);
-      	    
+      	    console.log(mtConstructor);
+      	   	//userId = ${user.userId};
       	  $.ajax( 
     				{
     					url : "/meeting/json/getMeeting/"+mtNo,
@@ -180,6 +239,7 @@ $(document).ready(function() {
           events: [
         	  <c:forEach items="${list}" var="meeting">
               {
+            	no:"${meeting.mmNo}",
             	id: "${meeting.mtNo}",
                 title: "${meeting.mtName}",
                 start: "${meeting.mtStart}",
@@ -259,11 +319,11 @@ $(document).ready(function() {
 <body>
 
 <!-- ToolBar Start ///////////////////////////////////// -->
-<jsp:include page="../layout/toolbar.jsp" flush="false"/>
-<jsp:include page="../layout/moimToolbar.jsp" flush="false"/>
+<jsp:include page="../layout/toolbar.jsp" />
+<jsp:include page="../layout/moimToolbar.jsp"/>
 <!-- ToolBar End /////////////////////////////////////-->
 
-<h3>정모일정 확인 캘린다입니다...
+<h3>정모일정 확인 캘린다입니다...${user.userId}님 안녕하십니까..
 <button type="button" class="btn btn-success" onClick="fncAddMtView()">정모 생성하기</button>
 </h3>
   <div id='top'>
@@ -309,7 +369,7 @@ $(document).ready(function() {
         </select>
       </div>
 
-      <span id='loading' style='display:none'>loading theme...</span>
+      <span id='loading' style='display:none'>잠시 기다려 주세요...</span>
 
     </div>
 
@@ -332,15 +392,17 @@ $(document).ready(function() {
 	정모종료일 :<input type='text' id='mtEnd'><br>
 	정모 총 인원 :<input type='text' id='mtMaxCount'><br>
 	정모 현재 인원 :<input type='text' id='mtCurrentCount'>
-	<button type="button" class="btn btn-default">참여한사람보기</button>
+	<button type="button" class="btn btn-default" onClick="fncGetMEFL(mtNo)">참여한사람보기</button>
 	<br>
 	정모 장소 :<input type='text' id='mtAddr'><br>
 	
 	
-	<button type="button" class="btn btn-success" onClick="fncApplyMt(2007, 'user02')">참가</button>
-	<button type="button" class="btn btn-success" onClick="fncLeaveMt(2007, 'user02')">참가취소</button>
-	<button type="button" class="btn btn-primary" onClick="fncUptMtView()">수정</button>
-	<button type="button" class="btn btn-danger">삭제</button>
+	<button type="button" class="btn btn-success" onClick="fncApplyMt(mtNo, '${user.userId}')">참가</button>
+	<button type="button" class="btn btn-success" onClick="fncLeaveMt(mtNo, '${user.userId}')">참가취소</button>
+	<button type="button" class="btn btn-primary" onClick="fncUptMtView('${user.userId}')">수정</button>
+	<button type="button" class="btn btn-danger" onClick="fncDeleteMt('${user.userId}')">삭제</button>	
+	
+
 		
  	</div> <!-- 컨테이너 div종료 --> 
 		

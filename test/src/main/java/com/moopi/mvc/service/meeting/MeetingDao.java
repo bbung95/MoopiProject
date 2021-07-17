@@ -24,6 +24,9 @@ public interface MeetingDao {
 	//정모 수정
 	public void updateMeeting(Meeting meeting) throws Exception;
 	
+	//정모 삭제
+	public void deleteMeeting(int mtNo) throws Exception;
+	
 	//정모 참가하기
 	public void applyMeeting(@Param("mtNo") int mtNo, 
 							@Param("userId") String userId) throws Exception;
