@@ -81,7 +81,7 @@
 		
 		<!-- 이 부분을 .val()로 넘겨줘야하는데 변수를 넘기는 방법을 도무지 모르겠음 -->
 		var birthday=(birth1+'-'+birth2+'-'+birth3);
-		alert("진짜된건가 : "+birthday);
+		//alert("진짜된건가 : "+birthday);
 		
 		var id=$("input[name='userId']").val();
 		var password=$("input[name='password']").val();
@@ -90,9 +90,13 @@
 		var phone=$("input[name='phone']").val();
 		var nickname=$("input[name='nickname']").val();	
 		var addr=$("input[name='addr']").val();
-		var interest1=$("select[name='interest1']").val();
-		var interest2=$("select[name='interest2']").val();
-		var interest3=$("select[name='interest3']").val();	
+		var interest1=$("select[name='interestFirst']").val();
+		var interest2=$("select[name='interestSecond']").val();
+		var interest3=$("select[name='interestThird']").val();	
+		
+		alert(interest1);
+		alert(interest2);
+		alert(interest3);
 		
 //		//var birth1=$("input[name=birth1]").val();
 //		//var birth2=$("select[name='birth2']").val();
@@ -212,7 +216,6 @@
 			<label for="phone" class="col-sm-offset-1 col-sm-3 control-label">모바일번호</label>
 			<div class="col-sm-4">
 				<span class="col-sm-10">
-				<!-- <input type="text" class="form-control" id="phone" name="phone" placeholder="인증마친 후 모바일번호가져오기"> -->
 					<button type="button" id="mobileAuth" class="btn btn-info">인증하기</button>
 				</span>	
 			</div>
@@ -256,54 +259,54 @@
 			<span class="col-sm-1">
 				
 				<!-- #관심사1 추가구현예정 -->
-				<select name="interest1">
+				<select name="interestFirst"> <!-- for문-->
 						<option>관심사1</option>
-						<option value="아웃도어/여행/사진/영상">아웃도어/여행/사진/영상</option>
-						<option value="운동/스포츠">운동/스포츠</option>
-						<option value="인문학/책/글">인문학/책/글</option>
-						<option value="업종/직무">업종/직무</option>
-						<option value="외국/언어">외국/언어</option>
-						<option value="문화/공연/축제/음악/악기">문화/공연/축제/음악/악기</option>
-						<option value="공예/만들기">공예/만들기</option>
-						<option value="댄스/무용">댄스/무용</option>
-						<option value="사교/인맥">사교/인맥</option>                                    
-						<option value="차/오토바이">차/오토바이</option>
-						<option value="게임/오락">게임/오락</option>
-						<option value="맛집/카페">맛집/카페</option>
+						<option value="1">아웃도어/여행/사진/영상</option>
+						<option value="2">운동/스포츠</option>
+						<option value="3">인문학/책/글</option>
+						<option value="4">업종/직무</option>
+						<option value="5">외국/언어</option>
+						<option value="6">문화/공연/축제/음악/악기</option>
+						<option value="7">공예/만들기</option>
+						<option value="8">댄스/무용</option>
+						<option value="9">사교/인맥</option>                                    
+						<option value="10">차/오토바이</option>
+						<option value="11">게임/오락</option>
+						<option value="12">맛집/카페</option>
 				</select> 
 				
 				<!-- #관심사2 추가구현예정 -->
-				<select name="interest2"> 
+				<select name="interestSecond">
 						<option>관심사2</option>
-						<option value="아웃도어/여행/사진/영상">아웃도어/여행/사진/영상</option>
-						<option value="운동/스포츠">운동/스포츠</option>
-						<option value="인문학/책/글">인문학/책/글</option>
-						<option value="업종/직무">업종/직무</option>
-						<option value="외국/언어">외국/언어</option>
-						<option value="문화/공연/축제/음악/악기">문화/공연/축제/음악/악기</option>
-						<option value="공예/만들기">공예/만들기</option>
-						<option value="댄스/무용">댄스/무용</option>
-						<option value="사교/인맥">사교/인맥</option>                                    
-						<option value="차/오토바이">차/오토바이</option>
-						<option value="게임/오락">게임/오락</option>
-						<option value="맛집/카페">맛집/카페</option>
+						<option value="1">아웃도어/여행/사진/영상</option>
+						<option value="2">운동/스포츠</option>
+						<option value="3">인문학/책/글</option>
+						<option value="4">업종/직무</option>
+						<option value="5">외국/언어</option>
+						<option value="6">문화/공연/축제/음악/악기</option>
+						<option value="7">공예/만들기</option>
+						<option value="8">댄스/무용</option>
+						<option value="9">사교/인맥</option>                                    
+						<option value="10">차/오토바이</option>
+						<option value="11">게임/오락</option>
+						<option value="12">맛집/카페</option>
 				</select> 
 				
 				<!-- #관심사3 추가구현예정 -->
-				<select name="interest3"> 
+				<select name="interestThird"> 
 						<option>관심사3</option>
-						<option value="아웃도어/여행/사진/영상">아웃도어/여행/사진/영상</option>
-						<option value="운동/스포츠">운동/스포츠</option>
-						<option value="인문학/책/글">인문학/책/글</option>
-						<option value="업종/직무">업종/직무</option>
-						<option value="외국/언어">외국/언어</option>
-						<option value="문화/공연/축제/음악/악기">문화/공연/축제/음악/악기</option>
-						<option value="공예/만들기">공예/만들기</option>
-						<option value="댄스/무용">댄스/무용</option>
-						<option value="사교/인맥">사교/인맥</option>                                    
-						<option value="차/오토바이">차/오토바이</option>
-						<option value="게임/오락">게임/오락</option>
-						<option value="맛집/카페">맛집/카페</option>
+						<option value="1">아웃도어/여행/사진/영상</option>
+						<option value="2">운동/스포츠</option>
+						<option value="3">인문학/책/글</option>
+						<option value="4">업종/직무</option>
+						<option value="5">외국/언어</option>
+						<option value="6">문화/공연/축제/음악/악기</option>
+						<option value="7">공예/만들기</option>
+						<option value="8">댄스/무용</option>
+						<option value="9">사교/인맥</option>                                    
+						<option value="10">차/오토바이</option>
+						<option value="11">게임/오락</option>
+						<option value="12">맛집/카페</option>
 				</select> 
 				
 			</span>

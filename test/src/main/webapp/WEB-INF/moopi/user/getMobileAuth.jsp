@@ -20,11 +20,14 @@
 
 		var key = "";	
 	
-		function fncKey() {
+		function fncAuth() {
 			
-			var keyNum = $("#keyNum").val()
-			alert(keyNum);
-			if(keyNum === key){
+			alert("시작");
+			var AuthNum = $("#AuthNum").val()
+			
+			alert(AuthNum);
+			
+			if(AuthNum === key){
 				alert("본인인증이 완료되었습니다.");
 			}else{
 				alert("인증번호를 다시한번 확인해주세요");
@@ -33,11 +36,15 @@
 		}
 		
 		function fncAuth(){
-			var phone = $("#phone1").val()
-			alert(phone);
+			
+			alert("인증버튼 누를시 활성화되는 alert");
+			
+			var phone = $("#AuthNum").val()
+			alert("입력한번호 : "+phone);
+			
 			$.ajax( 
 					{
-						url : "/user/json/sms/"+phone ,
+						url : "/user/mobileAuth/"+phone ,
 						method : "GET" ,
 						dataType : "json" ,
 						headers : {
@@ -67,16 +74,36 @@
 
 <h3> 모바일번호인증 </h3>
 
-		<!-- # 모바일번호인증 - CoolSMS API 구현해야 함 / 차후 inputtype에 readonly 기재하기-->
+<!-- # 모바일번호인증 - CoolSMS API ---------------------------------------------------------------------------------------------------------------------------------------->
+		
+		
+		<!-- 번호 입력 후 인증하기 버튼 -->
 		<div class="form-group">
-			<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">인증번호</label>
+			<label for="mobileAuth" class="col-sm-offset-1 col-sm-2 control-label">모바일번호 인증을 진행해주세요</label>
+				<div class="col-sm-2">
+					<input type="text" class="form-control" id="AuthNum" name="AuthNum" placeholder="번호를 입력하세요">
+				</div>
+				<div class="col-sm-1">
+					<button type="button" id="mobileAuth" class="btn btn-default" onClick="fncAuth()">인증하기</button>
+				</div>
+		</div>
+		
+		<!-- 인증번호 입력 -->
+		<div class="form-group">		
+			<label for="mobileAuth" class="col-sm-offset-1 col-sm-2 control-label">인증번호 입력 후 확인버튼 눌러주세요</label>
 				<div class="col-sm-4">
 					<input type="text" class="form-control" id="keyNum" name="keyNum" placeholder="04:59">
 				</div>
-				<div class="col-sm-2">
-					<button type="button" class="btn btn-default" onClick="fncKey()">제출</button>
-				</div>
 		</div>
+		
+		<!-- 확인,취소 -->
+		<div class="form-group">
+			<div class="col-sm-offset-4  col-sm-4 text-center">
+				<button type="button" id="joinButton" class="btn btn-primary">확인</button>
+				<a class="btn btn-default btn" href="/" role="button">취소</a>
+			</div>
+		</div> 
+<!---------------------------------------------------------------------------------------------------------------------------------------------------------------------->
 
 </body>
 </html>
