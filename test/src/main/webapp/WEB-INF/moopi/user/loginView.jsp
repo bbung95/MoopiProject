@@ -20,15 +20,16 @@
 
 	// 카카오 API 키
 	Kakao.init('2e00cfe75ad365584acc76b588be8d74');
+	
+	// 구글 metaname 차후 수정해야
+	//<meta name ="google-signin-client_id" content="959630660117-f5d12kulu8hloob7jid8f0jfeenr57sv.apps.googleusercontent.com">
 
 <!---------------------------------------------------------------------------------------------------------------------------->		
 	function fncLogin() {
 		
-		alert("function 진입완료");
-		
 		var id=$('input[name=userId]').val();
 		var password=$('input[name=password]').val();
-						
+								
 		if(id == null || id.length < 1) {
 			alert("ID 를 입력하지 않으셨습니다.");
 			$('input[name=userId]').focus();
@@ -41,12 +42,12 @@
 			return;
 		}
 		
-		alert("성공");
+		alert("로그인 완료");
 		
 		<!-- UserController의 loginUser를 따라간다. -->
 		$("form").attr("method", "POST").attr("action", "/user/loginUser").submit();
-		
-	}
+	}	
+	
 <!---------------------------------------------------------------------------------------------------------------------------->		
 
 <!-- [구현중] 카카오로그인 API -------------------------------------------------------------------------------------------------------------------------->
@@ -59,12 +60,40 @@
 		
 <!---------------------------------------------------------------------------------------------------------------------------->		
 
+<!-- [구현중] 구글로그인 API -------------------------------------------------------------------------------------------------------------------------->
+	function fncGoogleLogin() {
+		var access_token = googleUser.getAuthResponse().access_token
+		
+		$.ajax({
+				// people api를 이용하여 프로필 및 생년월일에 대한 선택동의후 가져온다.
+				url: 'https://people.googleapis.com/v1/people/me'
+				
+				// key에 자신의 API 키를 넣습니다.
+				, data: {personFields:'birthdays', key:'AIzaSyD3N7qWQr_bjwh9Lw-fLaK8bW5GtqbvAV8', 'access_token': access_token}
+				, method:'GET'
+		}) // End GoogleLogin ajax
+		
+		.done(function(e){
+				
+				//프로필을 가져온다.
+				var profile = googleUser.getBasicProfile();
+					console.log(profile)
+				})
+				
+				.fail(function(e){
+					console.log(e);
+				})// END profile
+				
+		} //End function
+			
+		function onSignInFailure(t){		
+			console.log(t);
+		}//End Fail function
+	
+	
 <!---------------------------------------------------------------------------------------------------------------------------->	
 
-	function fncGoogleLogin() { 
-		alert("구글로그인");
-	}
-	
+<!------------------------------------------ ---------------------------------------------------------------------------------->	
 	function fncNaverLogin() { 
 		alert("네이버로그인");
 	}
@@ -75,8 +104,6 @@
 
 		Kakao.Auth.login({
 		
-			scope :'account_email',
-			
 			success : function(authObj) {
 				
 				console.log(authObj);
@@ -86,14 +113,21 @@
 				       url: '/v2/user/me',
 				       
 					success: function(response){
+
+						console.log("아이디 : "+response.id);
 						console.log("카카오계정 : "+response.kakao_account);
 						console.log("이메일주소 : "+response.kakao_account['email']);
-						var userId = response.kakao_account['email'];
+						
+						var email = response.kakao_account['email'];
+						var userId = response.id;
+						
 						alert("카카오 로그인 성공");
-						alert("email 받는지 확인 : "+userId);
-						
-						location.href = "/user/kakaoLogin";
-						
+						alert("email 받는지 확인 : "+email);
+						alert("userId : "+userId);
+							
+						//location.href = "/user/kakaoLogin?userId="+userId
+						$("form").attr("method" , "POST").attr("action" , "/user/kakaoLogin?userId="+userId).submit();
+				
 					} //End response function
 					
 				}); //End API.request
@@ -103,6 +137,7 @@
 		}); //End Auth.login
 		
 	} //End Function
+
 <!---------------------------------------------------------------------------------------------------------------------------->		
 	
 <!--[카카오톡 로그아웃]---------------------------------------------------------------------------------------------------->	
@@ -153,6 +188,7 @@
 			<div class="col-sm-4">
 			<input type="text" class="form-control" id="userId" name="userId" placeholder="아이디를 입력해주세요">
 			</div>
+			<div class="check_font" id="id_check"></div>
 		</div>
 		
 <!-- ## 아이디찾기 -->
@@ -160,18 +196,15 @@
 			<label for="searchIdView" class="col-sm-offset-1 col-sm-6 control-label"></label>
 			<a href="javascript:void(window.open('/user/getMobileAuth', '아이디찾기','width=460, height=800'))">아이디를 잊으셨나요?</a>			
 		</div>
-		  
+
+<!-- 비밀번호입력 -->		  
 		<div class="form-group">
 			<label for="password" class="col-sm-offset-1 col-sm-3 control-label">비밀번호</label>
 			<div class="col-sm-4">
 				<input type="password" class="form-control" name="password" id="password" placeholder="비밀번호를 입력해주세요" >
 			</div>
+			<div class="check_font" id="pwd_check"></div>
 		</div>
-		
-		<form id="userform" method="post">
-			<input type="hidden" name="data[user_id]" id="data_user_id" value=""/>
-		</form>
-
 		
 <!-- ## 비밀번호찾기 -->
 		<div class="form-group">
@@ -184,6 +217,24 @@
 			<label for="addUser" class="col-sm-offset-1 col-sm-6 control-label"></label>
 			<a href="/user/addUserView">회원가입</a>
 		</div>
+		
+<!-- [구현중] 카카오 API Login & Logout ---------------------------------------------------------------------------------------------------------------->						
+	
+		<div class="form-group">
+			<div class="col-sm-offset-4  col-sm-4 text-center">
+				<button type="button" id="kakaoLogin">
+				<img src="../images/API/kakao_login_medium_narrow.png" onClick="KakaoLogin()"></button>
+				<button type="button" class="btn btn-default" onClick="KakaoLogout()">카카오 로그아웃</button>
+			</div>
+		</div>
+		
+		<!-- [7월 17일 17:24] 카카오톡 로그인 관련 이미지 경로 첨부 후 지정완료, 사이트에 뜨는 것 까지 확인 완료 ] -->
+<!--
+			<a id="custom-login-btn" a href="javascript:KakaoLogin()">
+				<img src="../images/API/kakao_login_medium_narrow.png">	
+			</a>
+-->
+<!---------------------------------------------------------------------------------------------------------------------------->
 
 <!-- 구글 API Login ---------------------------------------------------------------------------------------------------------------->				
 		<div class="form-group">
@@ -198,34 +249,6 @@
 			<div class="col-sm-offset-4  col-sm-4 text-center">
 				<button type="button" class="btn btn-default" onClick="fncNaverLogin()">네이버로그인</button>
 			</div>
-		</div>
-<!---------------------------------------------------------------------------------------------------------------------------->
-
-<!-- 카카오 API Login / Logout ---------------------------------------------------------------------------------------------------------------->						
-		<div class="form-group">
-			<div class="col-sm-offset-4  col-sm-4 text-center">
-				<button type="button" class="btn btn-default">카카오로그인</button>
-			</div>
-		</div>
-		
-		 
-		<!--[카카오톡 로그인 관련 이미지 첨부]-->
-		<div class="form-group">
-			<div class="col-sm-offset-4  col-sm-4 text-center">
-				<a id="custom-login-btn" a href="javascript:KakaoLogin()">
-					<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbN40ps%2FbtqETLcjsMw%2FCw2ZN9kFTOGqkYTxw5KBDK%2Fimg.png" style="height:38px;width:auto;"/>	
-				</a>
-				
-				<!--	<form method="get" action="form-action.php">
-						<p><label>Input Color : <input type="text" name="color"></label></p>
-						<p><input type="submit" value="Submit"></p>
-   					 </form> -->
-			</div>
-		</div>
-		
-		<!-- 카카오 로그아웃 -->
-		<div>
-			<a id="custom-logout-btn" href="javascript:KakaoLogout()">로그아웃</a>
 		</div>
 <!---------------------------------------------------------------------------------------------------------------------------->
 
