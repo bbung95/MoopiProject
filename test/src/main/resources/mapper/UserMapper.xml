@@ -159,10 +159,10 @@
 		<if test="search.searchCondition != null">
 			<where>
 				<if test="search.searchCondition == 1 and search.searchKeyword !='' ">
-					AND ADDR = #{searchKeyword}
+					AND ADDR = #{search.searchKeyword}
 				</if>
 				<if test="search.searchCondition == 2 and search.searchKeyword !='' ">
-					AND NICKNAME LIKE (%${searchCondition}%)
+					AND NICKNAME LIKE '%${search.searchKeyword}%'
 				</if>
 			</where>
 				<if test="searchState == 2">

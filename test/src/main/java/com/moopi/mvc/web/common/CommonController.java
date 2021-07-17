@@ -50,4 +50,10 @@ public class CommonController {
 		model.addAttribute("target", trgt);
 		return "common/chatRoom";
 	}
+	
+	@GetMapping(value="/drag")
+	public String dragTest() {
+		
+		return "common/dragTest";
+	}
 }
