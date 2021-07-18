@@ -44,8 +44,9 @@ public class ReplyRestController {
 		System.out.println("/reply/json/getReply : POST");
 		System.out.println(reply);
 		
-		
 		return replyService.addReply(reply);
+		
+		
 	}
 
 	@RequestMapping( value="json/getReplyList/{boardNo}", method=RequestMethod.GET )
@@ -84,5 +85,15 @@ public class ReplyRestController {
 		
 		
 	}
+	
+	@RequestMapping( value="json/deleteReply/{replyNo}")
+	public void dleteReply(@PathVariable int replyNo){ 
+		
+		
+		System.out.println("/reply/json/deleteReply ");
+		System.out.println(replyNo);
+
+		replyService.deleteReply(replyNo);
+	}	
 	
 }

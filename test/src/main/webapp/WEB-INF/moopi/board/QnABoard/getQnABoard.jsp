@@ -26,6 +26,7 @@
 			});
 		});	
 		
+		
 		function fncUpdateView(){
 			alert("게시글수정");
 			alert(${board.boardNo});
@@ -37,6 +38,7 @@
 			
 			$("form").attr("method" , "GET").attr("action" , "/board/updateView").submit();
 		}
+		
 		
 		$(function() {
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
@@ -58,6 +60,8 @@
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 			$( "#addReply" ).on("click" , function() {
 				alert("addReply");
+				
+				
 				fncAddReply();
 			});
 		});	
@@ -68,8 +72,6 @@
 			var replyContent=$("#replyContent").val();
 			var replyWriter = $("#replyWriter").val();
 			var boardNo = $("#boardNo").val();
-			
-
 			
 			alert(boardNo);
 			alert(replyWriter);
@@ -82,10 +84,18 @@
 				contentType : "application/json",
 				data :  JSON.stringify ({ "boardNo": boardNo, "replyWriter": {"userId" :replyWriter}, "replyContent":replyContent}),		
 				success: function(data, state){
-				
 					alert(state)
 				
-				
+					var displayValue = "<h4>"
+						+"작성자 : " +JSONData.replyWriter.nickname+"<br/>"
+						+"프로필 : "+JSONData.replyWriter.profileImage+"<br/>"
+						+"답글내용 : "+JSONData.replyContent+"<br/>"
+						+"작성일 : "+JSONData.replyRegDate+"<br/>"
+						+"</h4>"
+					
+						$("#replyAddContent").val(displayValue);
+						
+						
 				}
 		
 
@@ -130,14 +140,15 @@
 		    			$('#replyNo').val(replyNo);
 		    			$('#replyContent').val(replyContent);
 		                }
-		             
 			
-			               
-	
-			}  	)
+			            }
+         
+			)};
 			
 			
-		}
+		
+		
+		
 		
 		function fncUpdateReply(){
 			alert("리플업데이트");
@@ -153,29 +164,62 @@
 				contentType : "application/json",
 				data : JSON.stringify ({ "replyNo": replyNo , "replyContent":replyContent}),
 			    success : function(JSONData , status) {
-		               //alert(JSONData.memberRole);	
+			    	
 		                alert(status);
 			            alert("JSONData : \n"+JSONData.replyContent);
+			            console.log(JSONData);
 		                var replyContent = JSONData.replyContent;
+		                var replyWriterNickname = JSONData.replyWriter.nickname;
+		                var replyWriterProfileImage = JSONData.replyWriter.profileImage;
+		                alert(replyWriterNickname);
 		                
-		                var displayValue = "<h6>"
-		    			+"<form class='form-horizontal' name='detailForm'>"
-		    			+"<input type='hidden' name='replyNo' value=''>"
-		    			+"<input type='text' id='replyWriter.nickname' value=''>:" +"<input type='text' id='replyContent' value=''>"+"<br>"
-		    			+"<p></p>"
-		    			+"<a onClick='fncUpdateReply()'>수정하기</a>"+ "<br>"
-		    			+"</form>"
-		    			+"</h6>";
-		    			
+		            	var displayValue = "<h4>"
+							+"작성자 : " +JSONData.replyWriter.nickname+"<br/>"
+							+"프로필 : "+JSONData.replyWriter.profileImage+"<br/>"
+							+"답글내용 : "+JSONData.replyContent+"<br/>"
+							+"작성일 : "+JSONData.replyRegDate+"<br/>"
+							+"</h4>"
+							
 						$("#replyContent1").remove();
 		    			$("#replyUpdateContent").html(displayValue);
-		    			$("input[name=replyNo]").val(replyNo);
-		    			$("input[name=replyContent]").val(replyContent);
 		                }
-			  	
-		})
+		            
+			});
+				
+		};
+		
+		$(function() {
+			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+			$( "#deleteReply" ).on("click" , function() {
+				
+				alert("test")
+				fncDelteReply();
+			});
+		});	
+		
+		function fncDelteReply(){
+			alert("리플삭제");
+			alert($("#replyContent").val());
 			
-		}
+			var replyNo = $("#replyNo").val();
+			var replyContent = $("#replyContent").val();
+			
+			$.ajax({
+				url: "/reply/json/deleteReply/"+replyNo,
+				type: "GET",
+				dataType: "json",
+				contentType : "application/json",
+				data : JSON,
+			    success : function(JSONData , status) {
+			    	
+		                alert(status);
+		                
+						$("#replyContent").remove();
+		                }
+		             
+			});
+				
+		};
 		
 		
 	</script>
@@ -225,6 +269,8 @@
 	</form>
 	</c:if>
 	 
+	<div id="replyAddContent" value=''></div>
+	
 	
 	<p></p>
 	<c:forEach var="reply" items="${list}">
@@ -232,6 +278,7 @@
 	<input type="hidden" id="replyNo" name="replyNo" value="${reply.replyNo}">
 	<p id="replyContent">${reply.replyWriter.nickname} ${reply.replyWriter.profileImage } : ${reply.replyContent}    작성시간 ${reply.replyRegDate}</p>
 	<button type="button" class="btn btn-primary" id="updateReply">답변수정</button>
+	<button type="button" class="btn btn-primary" id="deleteReply">답변삭제</button>
 	<div id="replyUpdateContent"></div>
 	</c:forEach>
 		
