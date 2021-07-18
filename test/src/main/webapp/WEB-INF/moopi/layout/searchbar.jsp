@@ -32,7 +32,7 @@
 
 <script>
 	
-	var userId = '<c:out value="${user.userId}"/>';
+	var dbUser = '<c:out value="${user.userId}"/>';
 	/* var loading = false;
 	
 	$(window).scroll(
@@ -51,7 +51,7 @@
 	// 통합검색 ajax
 	function searchList(searchKeyword , searchType){
 		$.ajax({
-			url: "common/json/searchList/"+searchType,	
+			url: "/common/json/searchList/"+searchType,	
 			method: "POST",
 			data: JSON.stringify({searchKeyword : searchKeyword}),
 			contentType : "application/JSON",		
@@ -90,7 +90,7 @@
 							display += '<div style="background: white; margin: 5px; height: 100px" >'
 									+'<img style="margin: 5px; height:90px; width: 90px;" src="/images/uploadFiles/'+data.list[i].profileImage+'"></img>'
 									+'<span>'+data.list[i].nickname+'</span>'
-									if(userId == '' || userId == data.list[i].userId){
+									if(dbUser == '' || dbUser == data.list[i].userId){
 										display += '</div>';
 									}else{
 										display += '<button target="'+data.list[i].userId+'")">채팅</button></div>';

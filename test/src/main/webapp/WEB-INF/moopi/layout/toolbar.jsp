@@ -90,7 +90,7 @@
 <script type="text/javascript">
 	
 	// login session userId
-	let dbUser = '<c:out value="${user.userId}"/>';
+	var dbUser = '<c:out value="${user.userId}"/>';
 	
 	//읽지않은 알림 카운트
 	function noticeCount() {
