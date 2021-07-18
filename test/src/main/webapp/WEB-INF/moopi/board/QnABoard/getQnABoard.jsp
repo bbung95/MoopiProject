@@ -26,6 +26,7 @@
 			});
 		});	
 		
+		
 		function fncUpdateView(){
 			alert("게시글수정");
 			alert(${board.boardNo});
@@ -37,6 +38,7 @@
 			
 			$("form").attr("method" , "GET").attr("action" , "/board/updateView").submit();
 		}
+		
 		
 		$(function() {
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
@@ -53,10 +55,13 @@
 			$("form").attr("method" , "GET").attr("action" , "/board/deleteBoard").submit();
 			
 		}
+		
 		$(function() {
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 			$( "#addReply" ).on("click" , function() {
 				alert("addReply");
+				
+				
 				fncAddReply();
 			});
 		});	
@@ -67,8 +72,6 @@
 			var replyContent=$("#replyContent").val();
 			var replyWriter = $("#replyWriter").val();
 			var boardNo = $("#boardNo").val();
-			
-
 			
 			alert(boardNo);
 			alert(replyWriter);
@@ -81,10 +84,18 @@
 				contentType : "application/json",
 				data :  JSON.stringify ({ "boardNo": boardNo, "replyWriter": {"userId" :replyWriter}, "replyContent":replyContent}),		
 				success: function(data, state){
-				
 					alert(state)
 				
-				
+					var displayValue = "<h4>"
+						+"작성자 : " +JSONData.replyWriter.nickname+"<br/>"
+						+"프로필 : "+JSONData.replyWriter.profileImage+"<br/>"
+						+"답글내용 : "+JSONData.replyContent+"<br/>"
+						+"작성일 : "+JSONData.replyRegDate+"<br/>"
+						+"</h4>"
+					
+						$("#replyAddContent").val(displayValue);
+						
+						
 				}
 		
 
@@ -96,36 +107,141 @@
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 			$( "#updateReply" ).on("click" , function() {
 // 				alert("test")
-				fncUpdateReply();
+				fncGeteReply();
 			});
 		});	
 		
-		function fncUpdateReply(){
+		function fncGeteReply(){
 			alert("게시글수정");
 			alert($("#replyNo" ).val() );
 			var replyNo = $("#replyNo" ).val();
 			$.ajax({
-					url: "/reply/json/addReply",
-					type: "POST",
-					dataType: "json",
-					contentType : "application/json",
-					data :  JSON,
-				    success : function(JSONData , status) {
-			               //alert(JSONData.memberRole);	
-			                alert(status);
-			                alert("JSONData : \n"+JSONData.replyContent);
-			                }
-			             
+				url: "/reply/json/getReply/"+replyNo,
+				type: "GET",
+				dataType: "json",
+				contentType : "application/json",
+				data :  JSON,
+			    success : function(JSONData , status) {
+		               //alert(JSONData.memberRole);	
+		                alert(status);
+			            alert("JSONData : \n"+JSONData.replyContent);
+		                var replyContent = JSONData.replyContent;
+		                var displayValue = "<h6>"
+		    			+"<form class='form-horizontal' name='detailForm'>"
+		    			+"<input type='hidden' id='replyNo' value=''>"
+		    			+"답글 내용 :" +"<input type='text' id='replyContent' value=''>"+"<br>"
+		    			+"<p></p>"
+		    			+"<a onClick='fncUpdateReply()'>수정하기</a>"+ "<br>"
+		    			+"</form>"
+		    			+"</h6>";
+		    			
+						$("#replyContent").remove();
+		    			$("#replyUpdateContent").html(displayValue);
+		    			$('#replyNo').val(replyNo);
+		    			$('#replyContent').val(replyContent);
+		                }
+			
+			            }
+         
+			)};
+			
+			
+		
+		
+		
+		
+		function fncUpdateReply(){
+			alert("리플업데이트");
+			alert($("#replyContent").val());
+			
+			var replyNo = $("#replyNo").val();
+			var replyContent = $("#replyContent").val();
+			
+			$.ajax({
+				url: "/reply/json/updateReply",
+				type: "POST",
+				dataType: "json",
+				contentType : "application/json",
+				data : JSON.stringify ({ "replyNo": replyNo , "replyContent":replyContent}),
+			    success : function(JSONData , status) {
+			    	
+		                alert(status);
+			            alert("JSONData : \n"+JSONData.replyContent);
+			            console.log(JSONData);
+		                var replyContent = JSONData.replyContent;
+		                var replyWriterNickname = JSONData.replyWriter.nickname;
+		                var replyWriterProfileImage = JSONData.replyWriter.profileImage;
+		                alert(replyWriterNickname);
+		                
+		            	var displayValue = "<h4>"
+							+"작성자 : " +JSONData.replyWriter.nickname+"<br/>"
+							+"프로필 : "+JSONData.replyWriter.profileImage+"<br/>"
+							+"답글내용 : "+JSONData.replyContent+"<br/>"
+							+"작성일 : "+JSONData.replyRegDate+"<br/>"
+							+"</h4>"
+							
+						$("#replyContent1").remove();
+		    			$("#replyUpdateContent").html(displayValue);
+		                }
+		            
+			});
 				
-				               
+		};
 		
-				}  	)
+		$(function() {
+			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+			$( "#deleteReply" ).on("click" , function() {
+				
+				alert("test")
+				fncDelteReply();
+			});
+		});	
+		
+		function fncDelteReply(){
+			alert("리플삭제");
+			alert($("#replyContent").val());
 			
+			var replyNo = $("#replyNo").val();
+			var replyContent = $("#replyContent").val();
 			
-		}
+			$.ajax({
+				url: "/reply/json/deleteReply/"+replyNo,
+				type: "GET",
+				dataType: "json",
+				contentType : "application/json",
+				data : JSON,
+			    success : function(JSONData , status) {
+			    	
+		                alert(status);
+		                
+						$("#replyContent").remove();
+		                }
+		             
+			});
+				
+		};
+		
+		$(function() {
+			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+			$( "#addBoardReport" ).on("click" , function() {
+				
+				alert("test")
+				fncAddBoardReport();
+			});
+		});	
 		
 		
-		
+		function fncAddBoardReport(){
+			alert("AddBoardReport 실행");
+
+			var reportTarget = $("#boardNo").val();
+			
+			self.location ="/report/addReportView?reportCategory=1&reportTarget="+reportTarget;
+			
+			}
+			
+						
+				
 	</script>
 	  
 	<style>
@@ -158,6 +274,9 @@
 	
 	<button type="button" class="btn btn-primary" id="updateBoard">수정하기</button>
 	<button type="button" class="btn btn-primary" id="deleteBoard">삭제하기</button>
+<!-- 	<a href="http://127.0.0.1:8080/report/addReportView?reportCategory=1&reportTarget="+$(board.boardNo) target="_blank" width=300, height=400, left=300, top=50> -->
+	<button type="button" class="btn btn-primary" id="addBoardReport">신고하기</button>
+<!-- 	</a> -->
 	<p></p>
 	
 	<c:if test="${ empty list}">
@@ -173,15 +292,19 @@
 	</form>
 	</c:if>
 	 
+	<div id="replyAddContent" value=''></div>
+	
 	
 	<p></p>
 	<c:forEach var="reply" items="${list}">
 	--------------------------------------------
 	<input type="hidden" id="replyNo" name="replyNo" value="${reply.replyNo}">
-	<p>${reply.replyWriter.nickname} ${reply.replyWriter.profileImage } : ${reply.replyContent}    작성시간 ${reply.replyRegDate}</p>
+	<p id="replyContent">${reply.replyWriter.nickname} ${reply.replyWriter.profileImage } : ${reply.replyContent}    작성시간 ${reply.replyRegDate}</p>
 	<button type="button" class="btn btn-primary" id="updateReply">답변수정</button>
+	<button type="button" class="btn btn-primary" id="deleteReply">답변삭제</button>
+	<div id="replyUpdateContent"></div>
 	</c:forEach>
-		
+		 
 	
 	</form>
 	<jsp:include page="../../layout/searchbar.jsp"></jsp:include>
