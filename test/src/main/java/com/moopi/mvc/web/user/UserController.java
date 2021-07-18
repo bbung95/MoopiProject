@@ -23,15 +23,11 @@ public class UserController {
 	private UserServiceImpl userService;
 	
 
-//-- [완료] 로그인페이지 (단순 네비게이션) -------------------------------------------------------------------------------------------
+	// [완료] 로그인페이지 (단순 네비게이션)
 	@RequestMapping("loginView")
-	public String loginView(@ModelAttribute("user") User user, HttpSession session) throws Exception{
-		
-		System.out.println("\n"+"UserController_____loginView 로그인페이지를 띄워주는 단순 네비게이션"+"\n");
-		
+	public String loginView(@ModelAttribute("user") User user, HttpSession session) throws Exception{		
 		return "user/loginView";
 	}
-//-----------------------------------------------------------------------------------------------------------------
 
 	
 //-- 로그아웃 구현 -------------------------------------------------------------------------------------------
@@ -105,8 +101,6 @@ public class UserController {
 		System.out.println("\n"+"UserController_____addUserInfo 시작"+"\n");
 		System.out.println("아이디를 담아 추가입력 페이지로 이동하는 네비게이션 역할을 하는 부분입니다.");
 		
-		
-		System.out.println("여기는 비밀번호 : "+password);
 		model.addAttribute(user);
 		return "user/addUserInfo";
 	}
@@ -120,8 +114,6 @@ public class UserController {
 		
 		System.out.println("\n"+"UserController_____addUser 시작"+"\n");
 		System.out.println("추가정보를 입력받아 회원가입을 마무리 짓는 부분입니다.");
-		System.out.println("여기는 password2 :"+password);
-
 		
 		userService.addUser(user);
 		//System.out.println("addUser : "+addUser);

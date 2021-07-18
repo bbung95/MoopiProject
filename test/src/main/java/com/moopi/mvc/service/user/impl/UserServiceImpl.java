@@ -32,7 +32,7 @@ public class UserServiceImpl {
 	
 	// [완료] 회원가입
 	public void addUser(User user) throws Exception {
-		System.out.println("\naddUSer쪽으로 진입했습니다");
+		System.out.println("\naddUser쪽으로 진입했습니다");
 		System.out.println("user를 확인해볼까요 : "+user+"\n");
 		
 		userDao.addUser(user);

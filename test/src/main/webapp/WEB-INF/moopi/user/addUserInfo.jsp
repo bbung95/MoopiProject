@@ -12,11 +12,52 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
+	
+	<!-- 네이버 로그인 -->
+	<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+		
+	<!-- 다음주소 -->
+	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <!-------------------------------------------------------------------------------------------------------------------------->
 
-<script>
+
+<script>	
 
 // # 회원가입 Event--------------------------------------------------------------------------------------------------------------------------
+
+		// Client Id 값, RedirectURI 지정
+			var naver_id_login = new naver_id_login("MJJpKOvtYqXuhtTnhQtq", "http://localhost:8080/user/loginPostNaver");
+
+		// 접근 토큰 값 출력 [콘솔창 정상출력 확인 완료]
+		/*
+			console.log("네이버 토큰 확인 : "+naver_id_login.oauthParams.access_token);	
+			console.log("state 확인 : "+naver_id_login.oauthParams.state);
+			console.log("토큰 타입 확인 : "+naver_id_login.oauthParams.token_type);
+			console.log("expires_in 확인 : "+naver_id_login.oauthParams.expires_in);
+			
+			alert("URL로 주어지는 기본적인 토큰 값 출력완료");
+			alert("네이버 토큰 확인 : "+naver_id_login.oauthParams.access_token);	
+			alert("state 확인 : "+naver_id_login.oauthParams.state);
+			alert("토큰 타입 확인 : "+naver_id_login.oauthParams.token_type);
+			alert("expires_in 확인 : "+naver_id_login.oauthParams.expires_in);
+		*/
+
+		// 네이버 사용자 프로필 조회 - naverSignInCallback function 호출
+			naver_id_login.get_naver_userprofile("naverSignInCallback()"); 
+			
+			function naverSignInCallback() {		
+				if(naver_id_login.getProfileData('id')){
+					var naverId = naver_id_login.getProfileData('id').val();
+					console.log("아이디 : "+naverId);	
+					alert("아이디 : "+naverId);		
+												
+				} else {
+					alert("ERROR");
+					window.close();
+				}//End if문
+								
+	 		}//End naverSignInCallback
 	
 	// 생년월일 관련 function-------------------------------------------------------------------
 	$ (function() {
@@ -89,39 +130,32 @@
 		var userName=$("input[name='userName']").val();		
 		var phone=$("input[name='phone']").val();
 		var nickname=$("input[name='nickname']").val();	
+		
+		var fullAddr=$("input[name='fullAddr']").val;
 		var addr=$("input[name='addr']").val();
+		
 		var interest1=$("select[name='interestFirst']").val();
 		var interest2=$("select[name='interestSecond']").val();
 		var interest3=$("select[name='interestThird']").val();
-		
-		alert(interest1);
-		alert(interest2);
-		alert(interest3);
 		
 //		//var birth1=$("input[name=birth1]").val();
 //		//var birth2=$("select[name='birth2']").val();
 //		//var birth3=$("input[name='birth3']").val();
 		
-		//alert("id : "+id);
-		//alert("password : "+password);
-		//alert("userName : "+userName);
-		//alert("gender : "+gender);
-		//alert("phone : "+phone);
-		//alert("nickname : "+nickname);		
-		//alert("birth1 : "+birth1);
-		//alert("birth2 : "+birth2);
-		//alert("birth3 : "+birth3);		
-		//alert("addr : "+addr);		
-		//alert("interest1 : "+interest1);
-		//alert("interest2 : "+interest2);
-		//alert("interest3 : "+interest3);
-		
 		$("form").attr("method" , "POST").attr("action" , "/user/addUser").submit();	
 	}
 	
 
-	
-	
+// # 주소 Event--------------------------------------------------------------------------------------------------------------------------	
+
+		$('#adrSearch').on('click', function(){		
+			new daum.Postcode({	
+				oncomplete: function(data) {
+					$('#fullAddr').val(data.address);
+					$('#addr').val(data.bname);
+				}
+			}).open();
+		})
 	
 //-- 닉네임 중복체크 --------------------------------------------------------------------------------------------------------------------------
 
@@ -163,6 +197,13 @@
 		});
 	
 	});
+	
+<!-------------------------------------------------------------------------------------------------------------------------->
+	
+
+	
+	
+	
 </script>
 
 </head>
@@ -237,20 +278,25 @@
 			<select name="mm" id="month"></select>  월  
 			<select name="dd" id="day"></select>  일
 		</div>
-		
-		<!-- #전체 거주지입력 / 주소지 API 구현해야 함 -->
+
+
+		<!-- #전체 거주지입력 / 주소지 API 구현해야 함 -->		
 		<div class="form-group">
-			<label for="addr" class="col-sm-offset-1 col-sm-3 control-label">거주지입력</label>
-			
-			<div class="col-sm-2">
-				<input type="text" class="form-control" id="addr" name="addr" placeholder="전체 주소를 입력해주세요">
+			<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">주소</label>
+			<div class="col-sm-3">
+				<input type="text" class="form-control" id="fullAddr" name="fullAddr" placeholder="주소지 검색을 눌러주세요" readonly>
 			</div>
-				
-			<span class="col-sm-3">
-				<button type="button" class="btn btn-info">우편번호입력</button>
-			</span>	
+			<button type="button" class="btn btn-info" id="adrSearch" name="addr">주소지검색</button>
+		</div>
+		<div class="form-group">
+			<label for="addr" class="col-sm-offset-1 col-sm-3 control-label">동</label>		
+			<div class="col-sm-2">
+				<input type="text" class="form-control" id="addr" name="addr" placeholder="차후 hidden 예정">
+			</div>
 		</div>
 		
+		
+		<!-- #패스워드 hidden 왜한건지 기억안남 -->	
 		<input type="hidden" class="form-control" id="password" name="password" value="${user.password}">
 		
 		<!-- 관심사입력 -->
@@ -302,7 +348,7 @@
 						<option value="5">외국/언어</option>
 						<option value="6">문화/공연/축제/음악/악기</option>
 						<option value="7">공예/만들기</option>
-						<option value="8">댄스/무용</option>
+						<option value="8">댄스/무용</option> 
 						<option value="9">사교/인맥</option>                                    
 						<option value="10">차/오토바이</option>
 						<option value="11">게임/오락</option>
