@@ -88,8 +88,6 @@ function fncUptMtView() {
 	}else{
 		alert("정모 주최자 ID와 동일하지 않습니다.");
 	}
-	
-	
 }
 
 function fncDeleteMt(userId) {
@@ -288,6 +286,26 @@ $(document).ready(function() {
 
   });
 
+
+function fncGCal(mtNo){
+	alert(mtNo);
+	$.ajax( 
+			{
+				url : "/meeting/json/gCal/"+mtNo,
+				method : "GET" ,
+				dataType : "json" ,
+				headers : {
+					"Accept" : "application/json",	
+					"Content-Type" : "application/json"
+				},
+				success : function(JSONData , status) {
+					alert(status);
+					alert("JSONData : \n"+JSONData);
+					
+				}
+		}); //ajax 종료
+	
+};
 </script>
 <style>
 
@@ -424,7 +442,10 @@ $(document).ready(function() {
 	<button type="button" class="btn btn-success" onClick="fncLeaveMt(mtNo, '${user.userId}')">참가취소</button>
 	<button type="button" class="btn btn-primary" onClick="fncUptMtView('${user.userId}')">수정</button>
 	<button type="button" class="btn btn-danger" onClick="fncDeleteMt('${user.userId}')">삭제</button>	
-	<a href="https://accounts.google.com/o/oauth2/v2/auth?scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcalendar%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcalendar.readonly&access_type=offline&include_granted_scopes=true&response_type=code&state=state_parameter_passthrough_value&redirect_uri=http%3A%2F%2Flocalhost%3A8080%2Fmeeting%2FreceiveCode&client_id=674136097926-gmjcrr1v85j17s88t3pi2fodfp72hvk9.apps.googleusercontent.com" >★</a>
+	<a onClick="fncGCal(mtNo)">☆</a>
+		
+	<a href="https://accounts.google.com/o/oauth2/v2/auth?scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcalendar%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcalendar.readonly&access_type=offline&include_granted_scopes=true&response_type=code&state=state_parameter_passthrough_value&redirect_uri=http%3A%2F%2Flocalhost%3A8080%2Fmeeting%2FgetCode&client_id=674136097926-gmjcrr1v85j17s88t3pi2fodfp72hvk9.apps.googleusercontent.com" >★</a>
+	 
 
 		
  	</div> <!-- 컨테이너 div종료 --> 
