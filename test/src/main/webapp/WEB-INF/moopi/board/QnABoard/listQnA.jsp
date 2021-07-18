@@ -49,12 +49,12 @@ function fncGetPassword(boardNo){
 					    success : function(JSONData , status) {
 				               //alert(JSONData.memberRole);	
 				               alert(status);
-				                alert("JSONData : \n"+JSONData.boardPassword);
+// 				                alert("JSONData : \n"+JSONData.boardPassword);
 				                jsonPassword = JSONData.boardPassword
-				                alert(boardPassword+ ": 값비교 : "+ jsonPassword);
-				                alert(JSONData.boardNo);
+// 				                alert(boardPassword+ ": 값비교 : "+ jsonPassword);
+// 				                alert(JSONData.boardNo);
 				                if(boardPassword== jsonPassword){
-				                	alert(JSONData.boardNo);
+// 				                	alert(JSONData.boardNo);
 				                	self.location ="/board/getBoard?boardNo="+JSONData.boardNo;
 				                }
 				               }
