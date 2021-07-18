@@ -166,13 +166,13 @@
 			ON INTEREST_SECOND = y.INTEREST_NO
 		    LEFT OUTER JOIN INTEREST z
 			ON INTEREST_THIRD = z.INTEREST_NO		
-		<if test="searchCondition != null">
+		<if test="search.searchCondition != null">
 			<where>
-				<if test="searchCondition == 1 and searchKeyword !='' ">
-					AND ADDR = #{searchKeyword}
+				<if test="search.searchCondition == 2 and search.searchKeyword !='' ">
+					AND NICKNAME LIKE '%${search.searchKeyword}%'
 				</if>
-				<if test="searchCondition == 2 and searchKeyword !='' ">
-					AND NICKNAME LIKE (%${searchCondition}%)
+				<if test="search.searchCondition == 2 and search.searchKeyword !='' ">
+					AND NICKNAME LIKE '%${searchCondition}%'
 				</if>
 			</where>
 				<if test="searchState == 2">
