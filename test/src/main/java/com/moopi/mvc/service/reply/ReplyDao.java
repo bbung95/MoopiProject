@@ -20,6 +20,6 @@ public interface ReplyDao {
 	
 	public Reply getReply(@Param("replyNo")int replyNo);
 	
-	public Reply deleteReply(@Param("reply")Reply reply);
+	public void deleteReply(@Param("replyNo")int replyNo);
 	
 }
