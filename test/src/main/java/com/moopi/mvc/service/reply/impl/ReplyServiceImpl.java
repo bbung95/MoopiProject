@@ -18,8 +18,11 @@ public class ReplyServiceImpl {
 	@Autowired
 	private ReplyDao replyDao;
 	
-	public void addReply(Reply reply){
+	public Reply addReply(Reply reply){
+		
 		replyDao.insertReply(reply);
+		
+		return replyDao.getReply(reply.getReplyNo());
 	}
 
 
@@ -33,15 +36,19 @@ public class ReplyServiceImpl {
 		return list;
 	}
 
-	public void updateReply(Reply reply){
+	public Reply updateReply(Reply reply){
 		replyDao.updateReply(reply);
+		
+		return replyDao.getReply(reply.getReplyNo());
 	}
 	
 	public Reply getReply(int replyNo) {
+		
 		return replyDao.getReply(replyNo);
 	}
 	
 	public void deleteReply(Reply reply){
+		
 		replyDao.deleteReply(reply);
 	}
 	

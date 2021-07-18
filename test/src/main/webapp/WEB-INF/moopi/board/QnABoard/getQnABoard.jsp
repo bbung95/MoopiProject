@@ -53,6 +53,7 @@
 			$("form").attr("method" , "GET").attr("action" , "/board/deleteBoard").submit();
 			
 		}
+		
 		$(function() {
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 			$( "#addReply" ).on("click" , function() {
@@ -96,34 +97,85 @@
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 			$( "#updateReply" ).on("click" , function() {
 // 				alert("test")
-				fncUpdateReply();
+				fncGeteReply();
 			});
 		});	
 		
-		function fncUpdateReply(){
+		function fncGeteReply(){
 			alert("게시글수정");
 			alert($("#replyNo" ).val() );
 			var replyNo = $("#replyNo" ).val();
 			$.ajax({
-					url: "/reply/json/addReply",
-					type: "POST",
-					dataType: "json",
-					contentType : "application/json",
-					data :  JSON,
-				    success : function(JSONData , status) {
-			               //alert(JSONData.memberRole);	
-			                alert(status);
-			                alert("JSONData : \n"+JSONData.replyContent);
-			                }
-			             
-				
-				               
-		
-				}  	)
+				url: "/reply/json/getReply/"+replyNo,
+				type: "GET",
+				dataType: "json",
+				contentType : "application/json",
+				data :  JSON,
+			    success : function(JSONData , status) {
+		               //alert(JSONData.memberRole);	
+		                alert(status);
+			            alert("JSONData : \n"+JSONData.replyContent);
+		                var replyContent = JSONData.replyContent;
+		                var displayValue = "<h6>"
+		    			+"<form class='form-horizontal' name='detailForm'>"
+		    			+"<input type='hidden' id='replyNo' value=''>"
+		    			+"답글 내용 :" +"<input type='text' id='replyContent' value=''>"+"<br>"
+		    			+"<p></p>"
+		    			+"<a onClick='fncUpdateReply()'>수정하기</a>"+ "<br>"
+		    			+"</form>"
+		    			+"</h6>";
+		    			
+						$("#replyContent").remove();
+		    			$("#replyUpdateContent").html(displayValue);
+		    			$('#replyNo').val(replyNo);
+		    			$('#replyContent').val(replyContent);
+		                }
+		             
+			
+			               
+	
+			}  	)
 			
 			
 		}
 		
+		function fncUpdateReply(){
+			alert("리플업데이트");
+			alert($("#replyContent").val());
+			
+			var replyNo = $("#replyNo").val();
+			var replyContent = $("#replyContent").val();
+			
+			$.ajax({
+				url: "/reply/json/updateReply",
+				type: "POST",
+				dataType: "json",
+				contentType : "application/json",
+				data : JSON.stringify ({ "replyNo": replyNo , "replyContent":replyContent}),
+			    success : function(JSONData , status) {
+		               //alert(JSONData.memberRole);	
+		                alert(status);
+			            alert("JSONData : \n"+JSONData.replyContent);
+		                var replyContent = JSONData.replyContent;
+		                
+		                var displayValue = "<h6>"
+		    			+"<form class='form-horizontal' name='detailForm'>"
+		    			+"<input type='hidden' name='replyNo' value=''>"
+		    			+"<input type='text' id='replyWriter.nickname' value=''>:" +"<input type='text' id='replyContent' value=''>"+"<br>"
+		    			+"<p></p>"
+		    			+"<a onClick='fncUpdateReply()'>수정하기</a>"+ "<br>"
+		    			+"</form>"
+		    			+"</h6>";
+		    			
+						$("#replyContent1").remove();
+		    			$("#replyUpdateContent").html(displayValue);
+		    			$("input[name=replyNo]").val(replyNo);
+		    			$("input[name=replyContent]").val(replyContent);
+		                }
+			  	
+		})
+			
+		}
 		
 		
 	</script>
@@ -178,8 +230,9 @@
 	<c:forEach var="reply" items="${list}">
 	--------------------------------------------
 	<input type="hidden" id="replyNo" name="replyNo" value="${reply.replyNo}">
-	<p>${reply.replyWriter.nickname} ${reply.replyWriter.profileImage } : ${reply.replyContent}    작성시간 ${reply.replyRegDate}</p>
+	<p id="replyContent">${reply.replyWriter.nickname} ${reply.replyWriter.profileImage } : ${reply.replyContent}    작성시간 ${reply.replyRegDate}</p>
 	<button type="button" class="btn btn-primary" id="updateReply">답변수정</button>
+	<div id="replyUpdateContent"></div>
 	</c:forEach>
 		
 	
