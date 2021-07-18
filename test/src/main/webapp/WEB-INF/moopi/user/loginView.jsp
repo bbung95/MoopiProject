@@ -14,15 +14,22 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
 	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 	<script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
+	<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+	
+	<script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js"></script>
+	
+	<meta name="google-signin-scope" content="profile email">
+	<meta name ="google-signin-client_id" content="959630660117-f5d12kulu8hloob7jid8f0jfeenr57sv.apps.googleusercontent.com">
+	<script src="https://apis.google.com/js/platform.js" async defer></script>
 <!-------------------------------------------------------------------------------------------------------------------------->
 
 <script>
-
-	// 카카오 API 키
-	Kakao.init('2e00cfe75ad365584acc76b588be8d74');
 	
-	// 구글 metaname 차후 수정해야
-	//<meta name ="google-signin-client_id" content="959630660117-f5d12kulu8hloob7jid8f0jfeenr57sv.apps.googleusercontent.com">
+		
+	// 카카오 API 키 : 2e00cfe75ad365584acc76b588be8d74
+	// 구글 Client ID : 959630660117-f5d12kulu8hloob7jid8f0jfeenr57sv.apps.googleusercontent.com
+	// 구글 키 : AIzaSyD3N7qWQr_bjwh9Lw-fLaK8bW5GtqbvAV8
 
 <!---------------------------------------------------------------------------------------------------------------------------->		
 	function fncLogin() {
@@ -58,45 +65,144 @@
 		KakaoLogin();
 	});
 		
-<!---------------------------------------------------------------------------------------------------------------------------->		
-
-<!-- [구현중] 구글로그인 API -------------------------------------------------------------------------------------------------------------------------->
-	function fncGoogleLogin() {
-		var access_token = googleUser.getAuthResponse().access_token
-		
-		$.ajax({
-				// people api를 이용하여 프로필 및 생년월일에 대한 선택동의후 가져온다.
-				url: 'https://people.googleapis.com/v1/people/me'
-				
-				// key에 자신의 API 키를 넣습니다.
-				, data: {personFields:'birthdays', key:'AIzaSyD3N7qWQr_bjwh9Lw-fLaK8bW5GtqbvAV8', 'access_token': access_token}
-				, method:'GET'
-		}) // End GoogleLogin ajax
-		
-		.done(function(e){
-				
-				//프로필을 가져온다.
-				var profile = googleUser.getBasicProfile();
-					console.log(profile)
-				})
-				
-				.fail(function(e){
-					console.log(e);
-				})// END profile
-				
-		} //End function
+<!---------------------------------------------------------------------------------------------------------------------------->			
+  
+ <!-- [완] 구글로그인 API -------------------------------------------------------------------------------------------------------------------------->
+        
+        // 첫번째 Function (해당 페이지 시작하자마자 실행된다)
+		function init() {
 			
+			gapi.load('auth2', function() {
+											gapi.auth2.init();
+											options = new gapi.auth2.SigninOptionsBuilder();
+											options.setPrompt('select_account');
+							
+									        // email과 profile을 받아온다.
+											options.setScope('email profile openid https://www.googleapis.com/auth/user.birthday.read');
+											
+									        // 인스턴스의 함수 호출 - element에 로그인 기능 추가
+									        
+									        // googleLogin : Body의 id 값을 따라간다.  
+									        // options : options = new gapi.auth2.SigninOptionsBuilder();
+									        // onSignIn function 
+									        // onSignInFailure function
+											gapi.auth2.getAuthInstance().attachClickHandler('googleLogin', options, googleSign, onSignInFailure);
+			}) //End gapi.load
+		} //End init function
+
+
+		// 두번째 Function - 구글가입, 로그인진행시
+		function googleSign(googleUser) {
+			
+			// access_token
+			var access_token = googleUser.getAuthResponse().access_token
+			
+				$.ajax({		    	
+				    		// 구글 선택동의 창 출력			
+							url : 'https://people.googleapis.com/v1/people/me',
+				       
+				       	 	// key에 자신의 API 키를 넣습니다.
+							data: {personFields:'birthdays', key:'AIzaSyD3N7qWQr_bjwh9Lw-fLaK8bW5GtqbvAV8', 'access_token': access_token},
+							method:'GET'
+						})						
+							.done(function(e){
+								        		// 여기가 제일중요 profile 정보가 다 담겨서 온다. LS가 ID인
+												var profile = googleUser.getBasicProfile();
+												var userId = profile.LS;
+												var userName = profile.Ue;
+												
+												console.log("프로필 총 출력 : "+profile)
+												console.log("고유식별값 : "+profile.LS)
+												console.log("유저이름 : "+profile.Ue)
+												
+												// QueryString 형식으로 userId를 담아보낸다
+												// Profile 전체는 Object로 넘어감 / json 사용해야 할 듯
+												location.href = "/user/googleLogin?userId="+userId												
+											})
+												.fail(function(e){
+												console.log(e);
+											})
+		} //End onSignIn Function
+		
+		// 세번째 Function - 실패시
 		function onSignInFailure(t){		
 			console.log(t);
-		}//End Fail function
-	
-	
+			alert("실패");
+		}     
+        
 <!---------------------------------------------------------------------------------------------------------------------------->	
 
-<!------------------------------------------ ---------------------------------------------------------------------------------->	
-	function fncNaverLogin() { 
-		alert("네이버로그인");
-	}
+<!--- [구현중] 네이버로그인 API --------------------------------------------------------------------------------------------------------->	
+	
+	function NaverLogin() { 
+		
+		alert("실행");
+			
+			var naverLogin = new naver.LoginWithNaverId ({
+				
+				clientId: "MJJpKOvtYqXuhtTnhQtq",
+				callbackUrl: "http://localhost:8080/user/naverlogin",
+				isPopup: true,
+				loginButton: {color: "green", type: 3, height: 45},			
+
+			});
+
+				naverLogin.init(function naverlogin() {
+		
+				// Client Id 값, RedirectURI 지정
+					var naver_id_login = new naver_id_login("MJJpKOvtYqXuhtTnhQtq", "http://localhost:8080/user/loginPostNaver");
+		
+				// 접근 토큰 값 출력 [콘솔창 정상출력 확인 완료]
+					console.log("네이버 토큰 확인 : "+naver_id_login.oauthParams.access_token);	
+					console.log("state 확인 : "+naver_id_login.oauthParams.state);
+					console.log("토큰 타입 확인 : "+naver_id_login.oauthParams.token_type);
+					console.log("expires_in 확인 : "+naver_id_login.oauthParams.expires_in);
+					
+					alert("URL로 주어지는 기본적인 토큰 값 출력완료");
+					alert("네이버 토큰 확인 : "+naver_id_login.oauthParams.access_token);	
+					alert("state 확인 : "+naver_id_login.oauthParams.state);
+					alert("토큰 타입 확인 : "+naver_id_login.oauthParams.token_type);
+					alert("expires_in 확인 : "+naver_id_login.oauthParams.expires_in);
+		
+		
+				// 네이버 사용자 프로필 조회 - naverSignInCallback function 호출
+					naver_id_login.get_naver_userprofile("naverSignInCallback()"); 
+					
+					function naverSignInCallback() {		
+						
+						if(naver_id_login.getProfileData('id')){
+							var naverId = naver_id_login.getProfileData('id');
+							console.log("아이디 : "+naverId);	
+							alert("아이디 : "+naverId);	
+							
+							$.ajax({
+								
+								type : "POST",
+								url : currentHostPath + '/user/loginPostNaver',
+								data : {
+									naverId : 'naverId',	
+								},
+								success : function(data) {
+									console.log("성공");
+								},
+								error : function(data) {
+									console.log("실패");
+								}
+								
+							});
+														
+						} else {
+							alert("ERROR");
+							window.close();
+						}//End if문
+										
+			 		}//End naverSignInCallback
+			
+			});
+		
+
+		//$("form").attr("method" , "POST").attr("action" , "/user/naverlogin").submit();
+	}	
 
 <!--[카카오톡 로그인]---------------------------------------------------------------------------------------------------->	
 	
@@ -107,7 +213,6 @@
 			success : function(authObj) {
 				
 				console.log(authObj);
-				alert("function(authObj) 1차 성공");
 				
 				Kakao.API.request({
 				       url: '/v2/user/me',
@@ -120,10 +225,6 @@
 						
 						var email = response.kakao_account['email'];
 						var userId = response.id;
-						
-						alert("카카오 로그인 성공");
-						alert("email 받는지 확인 : "+email);
-						alert("userId : "+userId);
 							
 						//location.href = "/user/kakaoLogin?userId="+userId
 						$("form").attr("method" , "POST").attr("action" , "/user/kakaoLogin?userId="+userId).submit();
@@ -222,8 +323,7 @@
 	
 		<div class="form-group">
 			<div class="col-sm-offset-4  col-sm-4 text-center">
-				<button type="button" id="kakaoLogin">
-				<img src="../images/API/kakao_login_medium_narrow.png" onClick="KakaoLogin()"></button>
+				<img src="../images/API/kakao_login_medium_narrow.png" id="kakaoLogin" onclick="KakaoLogin()">
 				<button type="button" class="btn btn-default" onClick="KakaoLogout()">카카오 로그아웃</button>
 			</div>
 		</div>
@@ -237,19 +337,27 @@
 <!---------------------------------------------------------------------------------------------------------------------------->
 
 <!-- 구글 API Login ---------------------------------------------------------------------------------------------------------------->				
-		<div class="form-group">
-			<div class="col-sm-offset-4  col-sm-4 text-center">
-				<button type="button" class="btn btn-default" onClick="fncGoogleLogin()">구글로그인</button>
-			</div>
-		</div>
+
+  		<!-- [7월 19일 01:34] 이미지 경로지정 차후 구현시 사용 -->
+  		<!-- <img src="../images/API/google_login.png" height="48" id="googleLogin"/></button> -->
+  		
+		<li id="googleLogin">
+ 			<a href="javascript:void(0)">
+				<span>구글 로그인</span>
+			</a>
+			</li>
+		</ul>
+		
 <!---------------------------------------------------------------------------------------------------------------------------->
 
 <!-- 네이버 API Login ---------------------------------------------------------------------------------------------------------------->					
-		<div class="form-group">
-			<div class="col-sm-offset-4  col-sm-4 text-center">
-				<button type="button" class="btn btn-default" onClick="fncNaverLogin()">네이버로그인</button>
-			</div>
-		</div>
+
+	<div id="naverIdLogin" align="center">
+		<a id="naver-login-btn" href="#" role="button">
+			<img src="https://static.nid.naver.com/oauth/big_g.PNG?version=js-2.0.1" height="45" id="naverIdLogin" onclick="NaverLogin()"/>      
+		</a>
+	</div>
+
 <!---------------------------------------------------------------------------------------------------------------------------->
 
 <!-- 로그인, 취소 Button ---------------------------------------------------------------------------------------------------------------->									

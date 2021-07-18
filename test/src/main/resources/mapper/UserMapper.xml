@@ -41,7 +41,7 @@
 	<insert id="addUser"			parameterType="user" >
 		INSERT 
 		INTO users( USER_ID, PWD, USER_NAME, PHONE, BIRTH, AGE, GENDER, JOIN_PATH, REGDATE, USER_ROLE, FULL_ADDR, ADDR, NICKNAME, INTEREST_FIRST, INTEREST_SECOND, INTEREST_THIRD )
-		VALUES ( #{userId}, #{password}, #{userName}, '01012345678', '2021-07-01', #{age}, #{gender}, 1, now(), 2, '서울시 성동구', #{addr}, #{nickname}, #{interestFirst}, #{interestSecond}, #{interestThird} );
+		VALUES ( #{userId}, #{password}, #{userName}, '01012345678', '2021-07-01', #{age}, #{gender}, 1, now(), 2, #{fullAddr}, #{addr}, #{nickname}, #{interestFirst}, #{interestSecond}, #{interestThird} );
 	</insert>
 	
 	<!-- 마이홈조회 -->

@@ -1,6 +1,7 @@
 package com.moopi.mvc.web.user;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -10,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -75,8 +77,42 @@ public class UserRestController {
 				return "user/addUserInfo";
 			}
 		}
+		
+		// 네이버 회원가입 [400Error발생]
+		/* 
+		 * naver 로 로그인시 개인에게 고유발급되는 아이디를 UserId에 담을 예정
+		 * console과 alert창에서는 토큰과 회원의 고유 아이디가 출력되지만, URL에서도 출력이안되어 담기어려움
+		 * 이 부분과 관련하여 의논필요함
+		 */
+		@RequestMapping("/user/naverlogin")
+		public String naverlogin( 	@RequestParam("naverId") String userId,
+									@ModelAttribute("user") User user,
+									HttpSession session) throws Exception {
+			
+			System.out.println("\n"+"UserRestController_____naverlogin 시작");
+			
+			User dbUser = userService.getUser(user.getUserId());
 
+			// db에 유저값 존재시 추가정보입력, db에 유저값이 없을 경우 메인페이지 출력
+			if( dbUser != null ) {
+				session.setAttribute("user", dbUser);
+				return "redirect:/";
+			} else {
+				return "user/addUserInfo";
+			}
+		}
 		
-		
+		// [완료]구글 로그인, 회원가입
+		@RequestMapping("googleLogin")
+		public String googleLogin (	@ModelAttribute("user") User user, 
+									HttpSession session) throws Exception {			
+			User googleId = userService.getUser(user.getUserId());	
+			if( googleId != null ) {
+				session.setAttribute("user", googleId);
+				return "redirect:/";
+			} else {
+				return "user/addUserInfo";
+			}
+		}		
 }
 
