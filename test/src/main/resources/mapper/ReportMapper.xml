@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+	<mapper namespace="com.moopi.mvc.service.report.ReportDao">   	
+ 	
+	<resultMap id="reportSelectMap" type="report">
+		<result property="reportNo" 			column="RP_NO" 				jdbcType="NUMERIC"/>
+		<result property="reportCategory"		column="RP_CATEGORY" 		jdbcType="CHAR" />
+		<result property="reportTarget" 		column="RP_TARGET" 			jdbcType="VARCHAR" />
+		<result property="reportContent" 		column="RP_CONTENT" 		jdbcType="VARCHAR"  />
+		<result property="reportRegDate" 		column="RP_REGDATE" 		jdbcType="DATE"  />
+		<result property="reportType" 			column="RP_TYPE" 			jdbcType="VARCHAR"  />
+		<result property="reportResultUpdate" 	column="RP_RESULT_UPDATE"	jdbcType="DATE"  />
+		<result property="reportResultState" 	column="RP_RESULT_STATE" 	jdbcType="VARCHAR" />
+		<result property="stateReason" 			column="STATE_REASON" 		jdbcType="VARCHAR" />
+		
+		
+		<association property="reportByUser"  javaType="user">
+			<id property="userId" 				column="USER_ID" 			jdbcType="VARCHAR"/>
+			<result property="profileImage"		column="PROFILE_IMAGE"		jdbcType="VARCHAR"/>
+			<result property="nickname"			column="NICKNAME"			jdbcType="VARCHAR"/>
+		</association>		
+	</resultMap>	
+	
+	
+	<insert id="addReport" parameterType="report"> 
+		
+		INSERT INTO REPORT
+		 (
+		 RP_USER_ID
+	   , RP_TYPE
+	   , RP_CONTENT
+	   , RP_REGDATE
+	   , RP_TARGET
+	   , RP_CATEGORY
+	   ) VALUES 
+	   (
+	     #{report.reportByUser.userId}
+	   , #{report.reportType}
+	   , #{report.reportContent}
+	   , NOW()
+	   , #{report.reportTarget}
+	   , #{report.reportCategory});
+		
+	</insert>	
+	
+</mapper>

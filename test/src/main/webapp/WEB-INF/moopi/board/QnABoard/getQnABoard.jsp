@@ -221,7 +221,27 @@
 				
 		};
 		
+		$(function() {
+			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+			$( "#addBoardReport" ).on("click" , function() {
+				
+				alert("test")
+				fncAddBoardReport();
+			});
+		});	
 		
+		
+		function fncAddBoardReport(){
+			alert("AddBoardReport 실행");
+
+			var reportTarget = $("#boardNo").val();
+			
+			self.location ="/report/addReportView?reportCategory=1&reportTarget="+reportTarget;
+			
+			}
+			
+						
+				
 	</script>
 	  
 	<style>
@@ -254,6 +274,9 @@
 	
 	<button type="button" class="btn btn-primary" id="updateBoard">수정하기</button>
 	<button type="button" class="btn btn-primary" id="deleteBoard">삭제하기</button>
+<!-- 	<a href="http://127.0.0.1:8080/report/addReportView?reportCategory=1&reportTarget="+$(board.boardNo) target="_blank" width=300, height=400, left=300, top=50> -->
+	<button type="button" class="btn btn-primary" id="addBoardReport">신고하기</button>
+<!-- 	</a> -->
 	<p></p>
 	
 	<c:if test="${ empty list}">
@@ -281,7 +304,7 @@
 	<button type="button" class="btn btn-primary" id="deleteReply">답변삭제</button>
 	<div id="replyUpdateContent"></div>
 	</c:forEach>
-		
+		 
 	
 	</form>
 	<jsp:include page="../../layout/searchbar.jsp"></jsp:include>
