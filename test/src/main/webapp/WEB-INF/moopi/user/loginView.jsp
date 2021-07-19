@@ -25,7 +25,6 @@
 <!-------------------------------------------------------------------------------------------------------------------------->
 
 <script>
-	
 		
 	// 카카오 API 키 : 2e00cfe75ad365584acc76b588be8d74
 	// 구글 Client ID : 959630660117-f5d12kulu8hloob7jid8f0jfeenr57sv.apps.googleusercontent.com
@@ -48,8 +47,6 @@
 			$('input[name=password]').focus();
 			return;
 		}
-		
-		alert("로그인 완료");
 		
 		<!-- UserController의 loginUser를 따라간다. -->
 		$("form").attr("method", "POST").attr("action", "/user/loginUser").submit();
