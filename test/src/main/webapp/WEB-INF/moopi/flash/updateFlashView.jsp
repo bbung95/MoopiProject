@@ -39,7 +39,7 @@ function fncUpdateFlash(){
 		
 		<!-- form Start /////////////////////////////////////-->
 		<form class="form-horizontal" name="detailForm" enctype="multipart/form-data">
-		  <input type="hidden" id="userId" name="userId" value="${userId}">
+		  <input type="hidden" id="userId" name="userId" value="${flash.flashConstructor.userId}">
 		  <input type="hidden" id="flashNo" name="flashNo" value="${flash.flashNo}">
 		  <div class="form-group">
 		    <label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">번개무피명</label>
