@@ -22,7 +22,7 @@
 		<result property="profileImage"		column="PROFILE_IMAGE"		jdbcType="VARCHAR"/>
 		<result property="profileContent"	column="PROFILE_CONTENT"	jdbcType="VARCHAR"/>
 		<result property="interestFirst"	column="INTEREST_FIRST"		jdbcType="NUMERIC"/>
-		<result property="interestSecond"	column="INTEREST_SECOND"		jdbcType="NUMERIC"/>
+		<result property="interestSecond"	column="INTEREST_SECOND"	jdbcType="NUMERIC"/>
 		<result property="interestThird"	column="INTEREST_THIRD"		jdbcType="NUMERIC"/>
 		<result property="myhomeState"		column="MYHOME_STATE"		jdbcType="CHAR"/>
 		<result property="stateReason"		column="STATE_REASON"		jdbcType="VARCHAR"/>
@@ -36,6 +36,14 @@
 		SELECT user_id , user_name , password , role , cell_phone , addr , email 
 		, reg_date FROM users WHERE user_id = #{userId} </select> -->
 
+	<!-- 회원가입 : JoinPath 가입경로는 차후 추가구현예정 / USER_ROLE은 2 정상회원 -->
+	<!-- Full Address의 경우 전체 주소지 입력 / addr의 경우 00구만 출력되게 -->
+	<insert id="addUser"			parameterType="user" >
+		INSERT 
+		INTO users( USER_ID, PWD, USER_NAME, PHONE, BIRTH, AGE, GENDER, JOIN_PATH, REGDATE, USER_ROLE, FULL_ADDR, ADDR, NICKNAME, INTEREST_FIRST, INTEREST_SECOND, INTEREST_THIRD )
+		VALUES ( #{userId}, #{password}, #{userName}, '01012345678', '2021-07-01', #{age}, #{gender}, 1, now(), 2, #{fullAddr}, #{addr}, #{nickname}, #{interestFirst}, #{interestSecond}, #{interestThird} );
+	</insert>
+	
 	<!-- 마이홈조회 -->
 	<!-- 회원아이디(hidden), 프로필이미지, 닉네임, 뱃지, 코인, 팔로잉수, 팔로워수, 프로필소개, 마이홈게시글 첨부파일, 마이홈게시글 내용, 마이홈게시글 좋아요 수, 모임무피 대표썸네일, 모임무피명, 관심사1,2,3 -->	 
 	<select id="getMyHome"			parameterType="user"		resultMap="userSelectMap">
@@ -73,6 +81,15 @@
 	</update>
 
 
+	<update id="paymentUpdateCoin" parameterType="user">
+		UPDATE USERS
+		<set>
+			COIN = COIN + #{coin} 
+		</set>
+		WHERE USER_ID = #{userId}
+	</update>
+	
+
 	<select id="login" parameterType="String"
 		resultMap="userSelectMap">
 	</select>
@@ -104,15 +121,7 @@
 		FROM users
 		WHERE USER_ID = #{userId}
 	</select> 
-	
-	<!-- 회원가입 : JoinPath 가입경로는 차후 추가구현예정 / USER_ROLE은 2 정상회원 -->
-	<!-- Full Address의 경우 전체 주소지 입력 / addr의 경우 00구만 출력되게 -->
-	<insert id="addUser"			parameterType="user" >
-		INSERT 
-		INTO users( USER_ID, PWD, USER_NAME, PHONE, BIRTH, AGE, GENDER, JOIN_PATH, REGDATE, USER_ROLE, FULL_ADDR, ADDR, NICKNAME, INTEREST_FIRST, INTEREST_SECOND, INTEREST_THIRD )
-		VALUES ( #{userId}, #{password}, #{userName}, '01012345678', '2021-07-01', #{age}, #{gender}, 1, now(), 2, '서울시 성동구', #{addr}, #{nickname}, #{interestFirst}, #{interestSecond}, #{interestThird} );
-	</insert>
-	
+		
 	<!-- 아이디찾기 -->
 	<select id="getUserId"			parameterType="String" 		resultMap="userSelectMap">
 		SELECT USER_ID
@@ -125,7 +134,8 @@
 		UPDATE users
 		<set>
 			PHONE = #{phone},
-			PWD = #{password}
+			PWD = #{password},
+			NICKNAME = #{nickname}
 		</set>
 		WHERE USER_ID = #{userId};
 	</update>
@@ -207,6 +217,34 @@
 		WHERE USER_ID = #{userId}
 	</update>
 	
+	<!-- 1. 닉네임수정 -->
+	<update id="updateNickname"		parameterType="user">
+		UPDATE users
+		<set>
+			NICKNAME = #{nickname}
+		</set>
+		WHERE USER_ID = #{userId};
+	</update>
+	
+	<!-- 2. 프로필수정 -->
+	<update id="updateContent"		parameterType="user">
+		UPDATE users
+		<set>
+			PROFILE_CONTENT = #{profileContent}
+		</set>
+		WHERE USER_ID = #{userId};
+	</update>
+	
+	<!-- 3. 관심사수정 -->
+	<update id="updateInterest"		parameterType="user">
+		UPDATE users
+		<set>
+			INTEREST_FIRST = #{interestFirst},
+			INTEREST_SECOND= #{interestSecond},
+			INTEREST_THIRD = #{interestThird}
+		</set>
+		WHERE USER_ID = #{userId};
+	</update>
 
 	
 
