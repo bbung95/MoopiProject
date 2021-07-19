@@ -113,6 +113,7 @@ public class BoardServiceImpl {
 	
 	//관리자 제재로 인한 블라인드처리.
 	public void deleteBoard2(Board board) throws Exception{
+		
 		boardDao.deleteBoard2(board);
 
 	}

@@ -37,4 +37,11 @@ public class ReportServiceImpl {
 		
 		return map;
 	}
+	
+	public void processReport(Report report ) throws Exception{
+		
+		reportDao.processReport(report);
+		
+	}
+	
 }
