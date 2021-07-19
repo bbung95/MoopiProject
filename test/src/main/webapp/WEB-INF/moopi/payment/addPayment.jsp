@@ -12,6 +12,7 @@
 </head>
 <body>
 	
+	<input type="hidden" id="userId" name="userId" value="${user.userId}">
 	<div class="card-body bg-white mt-0 shadow">
     <p style="font-weight: bold">무피코인 결제</p>
     <label class="box-radio-input"><input type="radio" name="cp_item" value="1000"><span>1,000원</span></label>
@@ -26,6 +27,9 @@
 
 
 	<script>
+	let userId = $('#userId').val();
+	alert(userId);
+	
 		$("#check_module").click(function() {
 			var IMP = window.IMP; // 생략가능
 			IMP.init('imp18633009');
@@ -57,16 +61,16 @@
 				 */
 				merchant_uid : 'merchant_' + new Date().getTime(),
 				
-				name : '주문명:결제테스트',
+				name : '무피코인 결제',
 				
 				amount : price,
 				
-				buyer_email : 'nava@naver.com',
-				buyer_name : '테스트',
+				//buyer_email : 'nava@naver.com',
+				buyer_name : userId,
 				buyer_tel : '010-1234-5678',
-				buyer_addr : '서울특별시',
-				buyer_postcode : '111-111',
-				m_redirect_url : 'https://www.yourdomain.com/payments/complete'
+				//buyer_addr : '서울특별시',
+				//buyer_postcode : '111-111'
+				//m_redirect_url : 'https://www.yourdomain.com/payments/complete'
 			
 				
 			}, function(rsp) {
@@ -77,11 +81,23 @@
 					msg += '상점 거래ID : ' + rsp.merchant_uid;
 					msg += '결제 금액 : ' + rsp.paid_amount;
 					msg += '카드 승인번호 : ' + rsp.apply_num;
+					$.ajax({ 
+						type: "POST" ,
+						url: "/payment/addPayment",//충전 금액값을 보낼 url
+						data: {
+							"amount" : price,
+							"userId" : userId,
+							
+						},
+					});
+				
 				} else {
 					var msg = '결제에 실패하였습니다.';
 					msg += '사유 : ' + rsp.error_msg;
 				}
 				alert(msg);
+				document.location.href="/flash/listFlash";//아란트창 확인후 이동할 url
+				
 			});
 		});
 	</script>
