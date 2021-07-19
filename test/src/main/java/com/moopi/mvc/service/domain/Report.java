@@ -17,8 +17,12 @@ public class Report {
 	private String	reportCategory;
 	//타겟 닉네임
 	private String	targetName;
-	//신고 타겟
-	private String	reportTarget;
+	//신고 타겟 유저
+	private User	reportTarget;
+	//신고 타겟 게시글
+	private Board	reportTargetBd;
+	//신고 타겟 리플
+	private Reply	reportTargetRe;
 	//신고 내용
 	private String	reportContent;
 	//신고 일자

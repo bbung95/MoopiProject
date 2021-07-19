@@ -221,6 +221,15 @@
 	BD_NO = #{boardNo}
 	</select>
 	
+		<update id="deleteBoard2" parameterType="board">
+	UPDATE 
+	BOARD SET
+	BD_STATE = '3'
+	WHERE 
+	BD_NO = #{board.boardNo}
+	
+	</update>
+	
 	
 	
 </mapper>	

@@ -1,8 +1,14 @@
 package com.moopi.mvc.service.report.impl;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
+import com.moopi.mvc.common.Search;
 import com.moopi.mvc.service.domain.Report;
 import com.moopi.mvc.service.report.ReportDao;
 
@@ -16,5 +22,19 @@ public class ReportServiceImpl {
 				
 		reportDao.addReport(report);
 		
+	}
+	
+	public Map<String, Object> getReportList(Search search, Model model ) throws Exception{
+		
+		Map map = new HashMap();
+		map.put("model", model);
+		map.put("search", search);
+		System.out.println(model);
+		
+		List<Report> list = reportDao.getReportList(map);
+		
+		map.put("list", list);
+		
+		return map;
 	}
 }
