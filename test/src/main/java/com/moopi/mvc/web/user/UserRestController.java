@@ -1,5 +1,6 @@
 package com.moopi.mvc.web.user;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,12 +12,14 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.moopi.mvc.service.domain.User;
@@ -28,6 +31,10 @@ public class UserRestController {
 
 	@Autowired
 	private UserServiceImpl userService;
+	
+	public static final String saveDir = 	ClassLoader.getSystemResource("./static/").getPath().
+											substring(0, ClassLoader.getSystemResource("./static/").getPath().lastIndexOf("bin"))
+											+"src/main/resources/static/images/uploadFiles";
 	
 	// [중간완료] 아이디 중복체크진행
 		@RequestMapping("idCheck")
@@ -84,7 +91,7 @@ public class UserRestController {
 		 * console과 alert창에서는 토큰과 회원의 고유 아이디가 출력되지만, URL에서도 출력이안되어 담기어려움
 		 * 이 부분과 관련하여 의논필요함
 		 */
-		@RequestMapping("/user/naverlogin")
+		@RequestMapping("naverlogin")
 		public String naverlogin( 	@RequestParam("naverId") String userId,
 									@ModelAttribute("user") User user,
 									HttpSession session) throws Exception {
@@ -113,6 +120,35 @@ public class UserRestController {
 			} else {
 				return "user/addUserInfo";
 			}
-		}		
+		}	
+
+// [프로필 업데이트]-----------------------------------------------------------------------------------------------	
+		
+		// ## 미구현 0. [프로필이미지수정] - updateNickname	
+		@RequestMapping(value = "/json/uploadProfileImage")
+		public String uploadProfileImage(@RequestParam("profileImage") MultipartFile uploadFile) {
+
+			System.out.println("RestController - 프로필이미지수정");
+
+			long currentTime = System.currentTimeMillis();
+			String fileName = currentTime + uploadFile.getOriginalFilename();
+			try {
+				uploadFile.transferTo(new File(saveDir + "/" + fileName));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return fileName;
+		}
+		
+		// 2. [프로필소개수정] - updateContent
+		@RequestMapping(value = "/json/updateContent/{userId}")
+		public void updateContent(@PathVariable String userId, @PathVariable String profileContent) {
+			System.out.println("프로필소개수정");		
+			User user = new User();
+			user.setUserId(userId);
+			user.setProfileContent(profileContent);
+			
+			userService.updateContent(user);				
+		}
 }
 

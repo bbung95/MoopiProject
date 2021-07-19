@@ -69,10 +69,10 @@
 								<li> <a href="#">내정보보기</a></li>
 								<li> <a href="#">쪽지	</a></li>
 								<li> <a href="#">로그아웃</a></li>
-								<c:if test="${user.userRole == 'admin'}">
+								<c:if test="${user.userRole == '1'}">
 									<li> <a href="#">관리자</a></li>
 								</c:if>
-							</ul></li>
+							</ul></li>							
 					</c:if>
 								
 				</ul>
@@ -222,15 +222,11 @@
 	
 	$("a:contains('마이홈')").on("click", function(){
 	
-		alert("마이홈스타트");
-	
 		location.href = "/user/getMyHomeBoard?userId="+dbUser;
 	})
 	
 	$("a:contains('내정보보기')").on("click", function(){
 		
-		alert("내정보보기 스타");
-	
 		location.href = "/user/updateProfile?userId="+dbUser;
 	})
 	

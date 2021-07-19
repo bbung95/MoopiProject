@@ -217,6 +217,15 @@
 		WHERE USER_ID = #{userId}
 	</update>
 	
+	<!-- 1. 프로필이미지수정 -->
+	<update id="updateProfileImage"		parameterType="user">
+		UPDATE users
+		<set>
+			PROFILE_IMAGE = #{profileImage}
+		</set>
+		WHERE USER_ID = #{userId};
+	</update>
+	
 	<!-- 1. 닉네임수정 -->
 	<update id="updateNickname"		parameterType="user">
 		UPDATE users
@@ -227,7 +236,7 @@
 	</update>
 	
 	<!-- 2. 프로필수정 -->
-	<update id="updateContent"		parameterType="user">
+	<update id="updateContent"		parameterType="string">
 		UPDATE users
 		<set>
 			PROFILE_CONTENT = #{profileContent}

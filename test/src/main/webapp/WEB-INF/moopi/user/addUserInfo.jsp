@@ -283,18 +283,22 @@
 		<!-- #전체 거주지입력 / 주소지 API 구현해야 함 -->		
 		<div class="form-group">
 			<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">주소</label>
+			
 			<div class="col-sm-3">
 				<input type="text" class="form-control" id="fullAddr" name="fullAddr" placeholder="주소지 검색을 눌러주세요" readonly>
+			
 			</div>
 			<button type="button" class="btn btn-info" id="adrSearch" name="addr">주소지검색</button>
 		</div>
+		
 		<div class="form-group">
 			<label for="addr" class="col-sm-offset-1 col-sm-3 control-label">동</label>		
+			
 			<div class="col-sm-2">
 				<input type="text" class="form-control" id="addr" name="addr" placeholder="차후 hidden 예정">
 			</div>
-		</div>
-		
+			
+		</div>	
 		
 		<!-- #패스워드 hidden 왜한건지 기억안남 -->	
 		<input type="hidden" class="form-control" id="password" name="password" value="${user.password}">
