@@ -69,10 +69,10 @@
 								<li> <a href="#">내정보보기</a></li>
 								<li> <a href="#">쪽지	</a></li>
 								<li> <a href="#">로그아웃</a></li>
-								<c:if test="${user.userRole == 'admin'}">
+								<c:if test="${user.userRole == '1'}">
 									<li> <a href="#">관리자</a></li>
 								</c:if>
-							</ul></li>
+							</ul></li>							
 					</c:if>
 								
 				</ul>
@@ -136,7 +136,7 @@
 	function chatjoin(target){
 			alert("ds");
 			popWin = window.open(
-					"/chat/joinRoom?trgt="+target,
+					"/chat/joinRoom?userId="+dbUser+"&trgt="+target,
 					"popWin",
 					"left=460, top=300, width=460, height=600, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");
 	}
@@ -157,8 +157,8 @@
 							if(data[i].noticeType == '1'){
 							display += "<div style='height: 40px' class='notice "+data[i].noticeNo+"' onclick='javascript:chatjoin(\""+data[i].noticeUser.userId+"\")'><span>"
 									+ data[i].noticeUser.nickname+" : "+data[i].noticeContent
-									+ "</span></div>"
-									+"<span><a href='javascript:deleteNotice("+data[i].noticeNo+")'>X</a></span>";
+									+ "</span>"
+									+"<span><a href='javascript:deleteNotice("+data[i].noticeNo+")'>X</a></span></div>";
 							}
 						}
 						$('#noticeList').append(display);
@@ -222,15 +222,11 @@
 	
 	$("a:contains('마이홈')").on("click", function(){
 	
-		alert("마이홈스타트");
-	
 		location.href = "/user/getMyHomeBoard?userId="+dbUser;
 	})
 	
 	$("a:contains('내정보보기')").on("click", function(){
 		
-		alert("내정보보기 스타");
-	
 		location.href = "/user/updateProfile?userId="+dbUser;
 	})
 	
@@ -254,3 +250,4 @@
 		location.href = "/payment/addPaymentView?userId=${user.userId}";
 	})
 </script>
+
