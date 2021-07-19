@@ -24,6 +24,29 @@
 
 <!-- Bootstrap Dropdown Hover JS -->
 <script src="/javascript/bootstrap-dropdownhover.min.js"></script>
+
+	<script type="text/javascript">
+			
+		$(function() {
+			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+			$( "#listReport" ).on("click" , function() {
+				fncListReport();
+			});
+		});	
+		
+		
+		function fncListReport(){
+			alert("신고관리");
+			
+			self.location ="/report/listReport?searchCategory=1";
+
+		}
+
+	
+	
+	</script>
+
+
 <style>
 body {
 	padding-top: 50px;
@@ -46,6 +69,9 @@ body {
 		토론을 통해 나온 합리적 결정에는 토 달지 않고 따라가야 강력한 조직이 된다. <br>
 			-블라즈 파스칼, 팡세 -
 	</center>
+<%-- 	<c:if test="user.userRole == 1"> --%>
+		<button type="button" class="btn btn-primary" id="listReport">신고관리</button>
+<%-- 	</c:if> --%>
 <jsp:include page="layout/searchbar.jsp"></jsp:include>
 </body>
 </html>
