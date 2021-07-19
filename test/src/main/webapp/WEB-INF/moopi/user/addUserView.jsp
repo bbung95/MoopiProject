@@ -34,10 +34,11 @@
 
 //--#반드시 입력 Event --------------------------------------------------------------------------------------------------------------------------
 	function fncAddUserInfo() {
-	
+
 		var id=$("input[name='userId']").val();
 		var password=$("input[name='password']").val();
 		var password2=$("input[name='password2']").val();
+		var joinPath=$("input[name='joinPath']").val();
 		
 		if(id == null || id.length <1){
 			alert("아이디는 필수로 입력하셔야 합니다");
@@ -171,6 +172,9 @@
 			</div>
 			<div class="check_font" id="pwd_check"></div>
 		</div>
+		
+		<!-- 가입경로 : hidden -->
+		<!--<input type="hidden" class="form-control" id="joinPath" name="joinPath" value="${user.joinPath}">-->
 
 <!---------------------------------------------------------------------------------------------------------------------------->	
 

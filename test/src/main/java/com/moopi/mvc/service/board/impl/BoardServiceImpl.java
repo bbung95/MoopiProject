@@ -21,20 +21,20 @@ public class BoardServiceImpl {
 	
 	public String getCategory = null;
 	
-	public void addBoard(Board board)  {
+	public void addBoard(Board board) throws Exception  {
 		
 	boardDao.addBoard(board);
 
 	}
 
 	
-	public Board getBoard(int boardNo){
+	public Board getBoard(int boardNo) throws Exception{
 		
 		return boardDao.getBoard(boardNo);
 	}
 
 
-	public Map<String, Object> getBoardList(Map map){
+	public Map<String, Object> getBoardList(Map map) throws Exception{
 		
 		
 		List<Board> list= boardDao.getBoardList(map);
@@ -47,28 +47,44 @@ public class BoardServiceImpl {
 	}
 
 
-	public void updateBoard(Board board){
+//	public Map<String, Object> getBoardList(Search search, String boadCategory, int orderType) throws Exception{
+//		
+//		if(orderType=="1") {
+//			
+//		}else if()
+//		
+//		List<Board> list= boardDao.getBoardList(map);
+////		int totalCount =  boardDao.getTotalCount(map); 
+//
+//		map.put("list", list);
+////		map.put("totalCount", totalCount);
+//		
+//		return map;
+//	}
+	
+	
+	public void updateBoard(Board board) throws Exception{
 		boardDao.updateBoard(board);
 
 	}
 	
 
-	public void deleteBoard(Board board){
+	public void deleteBoard(Board board) throws Exception{
 		boardDao.deleteBoard(board);
 
 	}
 	
-	public int getLike(Map map) {
+	public int getLike(Map map) throws Exception {
 	
 		return boardDao.getLike(map);
 	}
 	
-	public void addLike(Map map) {
+	public void addLike(Map map) throws Exception {
 		
 		boardDao.addLike(map);
 	}
 	
-	public void deleteLike(Map map) {
+	public void deleteLike(Map map) throws Exception {
 		
 		boardDao.deleteLike(map);
 	}
@@ -88,6 +104,11 @@ public class BoardServiceImpl {
 		System.out.println(getCategory);
 		
 		return getCategory;
+	}
+	
+	public Board checkPassword(int boardNo) throws Exception {
+		
+		return boardDao.checkPassword(boardNo);
 	}
 
 }

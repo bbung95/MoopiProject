@@ -42,7 +42,7 @@
 		FROM notice
 		WHERE notice_no in (#{noticeNo})
 	</select>
-		
+
 	<select id="getListNotice" resultMap="noticeSelectMap">
 		SELECT
 		*

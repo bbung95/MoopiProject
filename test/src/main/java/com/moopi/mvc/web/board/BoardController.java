@@ -33,7 +33,7 @@ public class BoardController{
 	public String getCategory = null;
 	
 	@RequestMapping("listBoard")
-	public String getBoardList(@ModelAttribute("search")Search search, @ModelAttribute("category")String category ,Model model ) {
+	public String getBoardList(@ModelAttribute("search")Search search, @ModelAttribute("category")String category ,Model model ) throws Exception {
 		
 		String boardCategory = null;
 		
@@ -68,7 +68,7 @@ public class BoardController{
 	}
 	
 	@RequestMapping("getBoard")
-	public String getBoard(@ModelAttribute("boardNo") int boardNo, Model model){
+	public String getBoard(@ModelAttribute("boardNo") int boardNo, Model model) throws Exception{
 		
 		System.out.println("getBoard ::");
 		board = boardService.getBoard(boardNo);
@@ -97,7 +97,7 @@ public class BoardController{
 	
 	
 	@RequestMapping("addBoard")
-	public String addBoard(@ModelAttribute("board")Board board, Model model) {
+	public String addBoard(@ModelAttribute("board")Board board, Model model) throws Exception {
 		
 		
 		System.out.println("board 값 : "+board);
@@ -117,7 +117,7 @@ public class BoardController{
 	}
 	
 	@RequestMapping("updateView")
-	public String updateBoardView(@ModelAttribute("board")Board board, Model model) {
+	public String updateBoardView(@ModelAttribute("board")Board board, Model model) throws Exception {
 		System.out.println("updateBoardView.jsp 실행");
 		System.out.println("1번째 model "+ model);
 		System.out.println("1번째 board "+ board);
@@ -132,7 +132,7 @@ public class BoardController{
 	}
 	
 	@RequestMapping("updateBoard")
-	public String updateBoard(@ModelAttribute("board")Board board, Model model) {
+	public String updateBoard(@ModelAttribute("board")Board board, Model model) throws Exception {
 		
 		System.out.println("updateBoard실행");
 		
@@ -145,7 +145,7 @@ public class BoardController{
 	}
 	
 	@RequestMapping("deleteBoard")
-	public String deleteBoard(@ModelAttribute("board")Board board, Model model) {
+	public String deleteBoard(@ModelAttribute("board")Board board, Model model) throws Exception {
 		
 		System.out.println("deleteBoard 실행");
 		String boardCategory = null;
@@ -161,5 +161,7 @@ public class BoardController{
 		return "forward:/board/listBoard?category="+board.getBoardCategory();
 		
 	}
+	
+	
 	
 }
