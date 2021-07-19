@@ -118,6 +118,11 @@ public class UserServiceImpl {
 	
 // 프로필수정 - updateProfile
 	
+	// 0. 프로필이미지수정
+	public void updateProfileImage(User user) {
+		userDao.updateProfileImage(user);
+	}
+	
 	// 1. 닉네임수정
 	public void updateNickname(User user) {
 		userDao.updateNickname(user);

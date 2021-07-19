@@ -18,6 +18,58 @@
 
 // 수정버튼 --------------------------------------------------------------------------------------------------------------------------
 	
+	// [2021-07-19 400Error 발생 : Required request part 'profileImage' is not present
+	// 0. 프로필이미지수정 버튼 실행시 uploadFile 실행
+/*
+	function updateProfileImage() {
+		
+		console.log("프로필이미지 Ajax 실행");
+	
+		// formData Object 생성 + form 가져오기
+		var formData = new FormData($("upload")[0]);
+		console.log("formData : "+formData);
+	
+    	$.ajax({
+
+                url : "/user/json/uploadProfileImage"
+                    , method : "POST"
+                    , processData : false
+                    , contentType : false
+                    , data : formData
+                    , dataType: 'text'
+                    , success:function(result) {
+                        alert(" ajax success! ");
+                        alert(result);	// 확인              
+                    }           
+		});
+    }
+*/
+/*	
+	// 1. 닉네임수정
+	function updateNickname() {
+	
+	
+		var nickname=$("input[name='nickname'").val();
+		$.ajax({
+					url : "/user/updateNickname"
+					, type : "POST"
+					, dataType : "text"
+					, data : nickname
+					, error : function() {
+						alert("실패");
+					},
+					success : function(data) {
+						$('#Context').html(data);
+					}
+				});
+	}
+		var userId=$("input[name='userId'").val();
+		var nickname=$("input[name='nickname'").val();
+
+		$("form").attr("method" , "POST").attr("action" , "/user/updateNickname").submit();
+	}
+*/	
+
 	// 1. 닉네임수정
 	function updateNickname() {
 		
@@ -28,18 +80,34 @@
 	}
 	
 	// 2. 프로필소개 수정
+	
 	function updateContent() {
+
+		var userId=$("input[name='userId']").val();
+		var profileContent=$("input[name='profileContent']").val();
 		
-		var userId=$("input[name='userId'").val();
-		var ProfileContent=$("input[name='ProfileContent'").val();
+		$.ajax({
+					url : "/user/json/updateContent/"+userId
+					,method : "GET" 	
+					,dataType : "json"
+					,headers : {
+						"Accept" : "application/json"
+						,"Content-Type" : "application/json"
+					},
+				success : function(JSONData, status){
+					alert("성공");				
+				}				
+			});
+		}
 		
-		$("form").attr("method" , "POST").attr("action" , "/user/updateContent").submit();		
-	}
+		$("button[name='ProfileContent']").on("click", function(){
+			alert("asd");
+			updateContent();
+		});
 	
 	// 3. 관심사 수정
-	function updateContent() {
-		alert("수정시작");
-		
+/*	function updateContent() {
+		alert("수정시작");		
 		var userId=$("input[name='userId'").val();
 		var int1=$("select[name='interestFirst'").val();
 		var int2=$("select[name='interestSecond'").val();
@@ -47,6 +115,7 @@
 		
 		$("form").attr("method" , "POST").attr("action" , "/user/updateInterest").submit();		
 	}
+*/
 <!-------------------------------------------------------------------------------------------------------------------------->
 
 //-- 닉네임 중복체크 --------------------------------------------------------------------------------------------------------------------------
@@ -81,7 +150,20 @@
 		});
 	});
 <!-------------------------------------------------------------------------------------------------------------------------->
-	
+
+// # 주소 Event--------------------------------------------------------------------------------------------------------------------------	
+
+		$('#adrSearch').on('click', function(){		
+			new daum.Postcode({	
+				oncomplete: function(data) {
+					$('#fullAddr').val(data.address);
+					$('#addr').val(data.bname);
+				}
+			}).open();
+		})
+		
+
+		
 </script>
 
 </head>
@@ -106,13 +188,18 @@
 	<!-- 아이디[숨김표시] -->
 	<input type="hidden" class="userId" name="userId" value="${user.userId}"/>
 	
-	<!-- 프로필이미지 -->
-	<div class="form-group">
-		<label for="profileImage" class="col-sm-offset-1 col-sm-3 control-label">프로필이미지</label>
-		<div class="col-sm-4">
-		<button type="button" class="btm_image" id="img_btn">${user.profileImage}</button>
+	<!-- 프로필이미지[파일업로드] -->
+	<!-- <form id="upload" method="post" enctype="multipart/form-data"> -->
+		
+		<div class="form-group">
+			<label for="profileImage" class="col-sm-offset-1 col-sm-3 control-label">프로필이미지</label>
+			<div class="col-sm-4">					
+				<input type="file" type="text" value="${user.profileImage}" accept="image/*" />
+				<button class="uploadbtn" type="button" onclick="updateProfileImage()">업로드</button>
+			</div>
 		</div>
-	</div>
+		
+	<!-- </form>-->
 	
 	<!-- 닉네임 -->
 	<div class="form-group">
@@ -134,7 +221,7 @@
 			<input type="text" class="form-control" id="profileContent" name="profileContent" value="${user.profileContent}">
 		</div>
 		<div>
-			<button type="button" class="ProfileContent" onclick="updateContent()">수정</button>
+			<button type="button" name="ProfileContent" class="ProfileContent" >수정</button>
 		</div>
 	</div>
 	
@@ -150,11 +237,12 @@
 	</div>
 	
 	<!-- 관심사 : 마우스 Hover 이벤트구현예정 -->
+<!--
 	<div class="form-group">
 		<label for="interest" class="col-sm-offset-1 col-sm-3 control-label">관심사</label>
-		<div class="col-sm-3">
+		<div class="col-sm-3"> 
 				
-				<select name="interestFirst"> <!-- for문-->
+				<select name="interestFirst">
 						<option>관심사1</option> 
 						<option value="1">아웃도어/여행/사진/영상</option>
 						<option value="2">운동/스포츠</option>
@@ -172,7 +260,7 @@
 				
 				수정 전 : ${user.interestFirst}
 				
-				<select name="interestSecond"> <!-- for문-->
+				<select name="interestSecond">
 						<option>관심사2</option>
 						<option value="1">아웃도어/여행/사진/영상</option>
 						<option value="2">운동/스포츠</option>
@@ -190,7 +278,7 @@
 				
 				수정 전 : ${user.interestSecond}
 				
-				<select name="interestThird"> <!-- for문-->
+				<select name="interestThird">
 						<option>관심사3</option>
 						<option value="1">아웃도어/여행/사진/영상</option>
 						<option value="2">운동/스포츠</option>
@@ -213,20 +301,23 @@
 			<button type="button" class="Int1" id="img_btn" onclick="updateContent()">수정</button>
 		</div>
 	</div>
-
+-->
 	
 	
-	<!-- 거주지 : API 데려와야함 -->
+	<!-- 거주지 : API 데려와야함 -->	
 	<div class="form-group">
-		<label for="address" class="col-sm-offset-1 col-sm-3 control-label">거주지</label>
-		
-		<div class="col-sm-4">
-			<input type="text" class="form-control" id="fulladdr" name="fullAddr" value="${user.fullAddr}">	
-			<input type="text" class="form-control" id="addr" name="addr" value="${user.addr}">
+		<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">주소</label>
+		<div class="col-sm-3">
+			<input type="text" class="form-control" id="fullAddr" name="fullAddr" placeholder="주소지 검색을 눌러주세요" readonly>			
 		</div>
-		<div>
-			<button type="button" class="addr" id="img_btn" >수정</button>
+		<button type="button" class="btn btn-info" id="adrSearch" name="addr">주소지검색</button>
+	</div>
+	<div class="form-group">
+		<label for="addr" class="col-sm-offset-1 col-sm-3 control-label">동</label>					
+		<div class="col-sm-2">
+			<input type="text" class="form-control" id="addr" name="addr" placeholder="차후 hidden 예정">
 		</div>
+		<button type="button" class="Int1" id="img_btn" onclick="updateContent()">수정</button>			
 	</div>
 	
 	<!-- 마이홈 공개, 비공개 설정-->
