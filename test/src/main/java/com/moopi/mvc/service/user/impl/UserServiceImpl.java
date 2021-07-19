@@ -116,6 +116,12 @@ public class UserServiceImpl {
 		userDao.joinFlashCoin(user);
 	}
 	
+
+	//결제후 유저 코인 Up
+	public void paymentUpdateCoin(User user) throws Exception{
+		userDao.paymentUpdateCoin(user);
+
+	}
 // 프로필수정 - updateProfile
 	
 	// 1. 닉네임수정
@@ -131,6 +137,7 @@ public class UserServiceImpl {
 	// 3. 관심사수정
 	public void updateInterest(User user) {
 		userDao.updateInterest(user);
+
 	}
 	
 }

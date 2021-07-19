@@ -251,6 +251,6 @@
 	
 	$("a:contains('충전')").on("click", function(){
 		
-		location.href = "/payment/addPaymentView";
+		location.href = "/payment/addPaymentView?userId=${user.userId}";
 	})
 </script>

@@ -79,6 +79,29 @@
 		</set>
 		WHERE USER_ID = #{userId}
 	</update>
+
+
+	<update id="paymentUpdateCoin" parameterType="user">
+		UPDATE USERS
+		<set>
+			COIN = COIN + #{coin} 
+		</set>
+		WHERE USER_ID = #{userId}
+	</update>
+	
+
+	<select id="login" parameterType="String"
+		resultMap="userSelectMap">
+	</select>
+	
+	<!-- 
+	<select id="findPayment" parameterType="int" resultMap="userSelectMap">
+		SELECT
+			user_id , user_name , password , role ,  cell_phone ,  addr , email , reg_date 		
+			FROM users 
+		WHERE user_id = #{userId}	
+	</select>
+	 -->
    
 	<select id="nicknameCheck"		parameterType="String"		resultType="int">
 		SELECT count(*)
