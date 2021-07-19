@@ -26,19 +26,19 @@ public class PaymentController {
 		System.out.println(this.getClass());
 	}
 	
-	@RequestMapping("addPayment")
-	public String addPayment(@ModelAttribute("payment") 
-				Payment payment, @RequestParam("userId") String userId) throws Exception{
-		
-		System.out.println("addPayment Start::");
-		User user = new User();
-		user.setUserId(userId);
-		payment.setPaymentUserId(user);
-		
-		System.out.println("addPayment End::");
-		
-		return "payment/addPayment";
-	}
+//	@RequestMapping("addPayment")
+//	public String addPayment(@ModelAttribute("payment") 
+//				Payment payment, @RequestParam("userId") String userId) throws Exception{
+//		
+//		System.out.println("addPayment Start::");
+//		User user = new User();
+//		user.setUserId(userId);
+//		payment.setPaymentUserId(user);
+//		
+//		System.out.println("addPayment End::");
+//		
+//		return "payment/addPayment";
+//	}
 	
 	@RequestMapping("addPaymentView")
 	public String addPaymentView(@ModelAttribute("payment") 

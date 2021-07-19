@@ -229,7 +229,9 @@
 	
 	$("a:contains('내정보보기')").on("click", function(){
 		
-		location.href = "/";
+		alert("내정보보기 스타");
+	
+		location.href = "/user/updateProfile?userId="+dbUser;
 	})
 	
 	$("a:contains('쪽지')").on("click", function(){
@@ -249,7 +251,7 @@
 	
 	$("a:contains('충전')").on("click", function(){
 		
-		location.href = "/payment/addPaymentView";
+		location.href = "/payment/addPaymentView?userId=${user.userId}";
 	})
 </script>
 

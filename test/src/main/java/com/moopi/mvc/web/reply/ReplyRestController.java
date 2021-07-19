@@ -43,16 +43,17 @@ public class ReplyRestController {
 		
 		System.out.println("/reply/json/getReply : POST");
 		System.out.println(reply);
-		replyService.addReply(reply);
 		
-		return replyService.getReply(reply.getReplyNo());
+		return replyService.addReply(reply);
+		
+		
 	}
 
 	@RequestMapping( value="json/getReplyList/{boardNo}", method=RequestMethod.GET )
 	public List getReplyList( @PathVariable int boardNo){ 
 		
 		
-		System.out.println("/product/json/getProductList : GET");
+		System.out.println("/reply/json/getReplyList : GET");
 		System.out.println(boardNo);
 
 		List<Reply> list= replyService.getReplyList(boardNo);
@@ -60,8 +61,8 @@ public class ReplyRestController {
 		return list; 
 	}
 	
-	@PostMapping( value="json/getReply")
-	public Reply getReply( @PathVariable int replyNo){ 
+	@RequestMapping( value="json/getReply/{replyNo}")
+	public Reply getReply(@PathVariable int replyNo){ 
 		
 		
 		System.out.println("/reply/json/getReply ");
@@ -73,15 +74,26 @@ public class ReplyRestController {
 	}	
 	
 	
-//	@RequestMapping(value="json/updateProduct/{value}")
-//	public void updateProduct(@ModelAttribute("product") Product product ,Model model) throws Exception{
-//		
-//		System.out.println("product/json/updateProduct ����");
-//		
-//		System.out.println("product check : "+ product);
-//		
-//		productService.updateProduct(product);
-//		
-//	}
-//	
+	@PostMapping(value="json/updateReply")
+	public Reply updateProduct(@RequestBody Reply reply) throws Exception{
+		
+		System.out.println("reply/json/updateReply 실행");
+		
+		System.out.println("reply check : "+ reply);
+		
+		return replyService.updateReply(reply);
+		
+		
+	}
+	
+	@RequestMapping( value="json/deleteReply/{replyNo}")
+	public void dleteReply(@PathVariable int replyNo){ 
+		
+		
+		System.out.println("/reply/json/deleteReply ");
+		System.out.println(replyNo);
+
+		replyService.deleteReply(replyNo);
+	}	
+	
 }

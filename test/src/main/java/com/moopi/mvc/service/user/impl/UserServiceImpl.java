@@ -4,13 +4,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ibatis.annotations.Param;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 import com.moopi.mvc.common.Search;
-import com.moopi.mvc.service.domain.Moim;
 import com.moopi.mvc.service.domain.User;
 import com.moopi.mvc.service.user.UserDao;
 
@@ -33,7 +32,7 @@ public class UserServiceImpl {
 	
 	// [완료] 회원가입
 	public void addUser(User user) throws Exception {
-		System.out.println("\naddUSer쪽으로 진입했습니다");
+		System.out.println("\naddUser쪽으로 진입했습니다");
 		System.out.println("user를 확인해볼까요 : "+user+"\n");
 		
 		userDao.addUser(user);
@@ -115,6 +114,30 @@ public class UserServiceImpl {
 	
 	public void joinFlashCoin(User user) throws Exception{
 		userDao.joinFlashCoin(user);
+	}
+	
+
+	//결제후 유저 코인 Up
+	public void paymentUpdateCoin(User user) throws Exception{
+		userDao.paymentUpdateCoin(user);
+
+	}
+// 프로필수정 - updateProfile
+	
+	// 1. 닉네임수정
+	public void updateNickname(User user) {
+		userDao.updateNickname(user);
+	}
+	
+	// 2. 프로필소개수정
+	public void updateContent(User user) {
+		userDao.updateContent(user);
+	}
+	
+	// 3. 관심사수정
+	public void updateInterest(User user) {
+		userDao.updateInterest(user);
+
 	}
 	
 }
