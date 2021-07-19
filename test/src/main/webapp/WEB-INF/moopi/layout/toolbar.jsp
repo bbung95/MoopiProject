@@ -136,7 +136,7 @@
 	function chatjoin(target){
 			alert("ds");
 			popWin = window.open(
-					"/chat/joinRoom?trgt="+target,
+					"/chat/joinRoom?userId="+dbUser+"&trgt="+target,
 					"popWin",
 					"left=460, top=300, width=460, height=600, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");
 	}
@@ -157,8 +157,8 @@
 							if(data[i].noticeType == '1'){
 							display += "<div style='height: 40px' class='notice "+data[i].noticeNo+"' onclick='javascript:chatjoin(\""+data[i].noticeUser.userId+"\")'><span>"
 									+ data[i].noticeUser.nickname+" : "+data[i].noticeContent
-									+ "</span></div>"
-									+"<span><a href='javascript:deleteNotice("+data[i].noticeNo+")'>X</a></span>";
+									+ "</span>"
+									+"<span><a href='javascript:deleteNotice("+data[i].noticeNo+")'>X</a></span></div>";
 							}
 						}
 						$('#noticeList').append(display);
@@ -252,3 +252,4 @@
 		location.href = "/payment/addPaymentView";
 	})
 </script>
+
