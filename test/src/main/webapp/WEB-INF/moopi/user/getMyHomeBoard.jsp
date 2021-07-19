@@ -11,14 +11,20 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <!-------------------------------------------------------------------------------------------------------------------------->
 
 <script>
 
+	alert("시작");
+	
+<!---[마이홈으로 이동하는 단순 컨트롤러 실행]----------------------------------------------------------------------------------------------------------------------->	
 
+		$("button[name='movePU']".on("click", function(){
+			location.href = "/user/updateProfile"
+		});
+<!-------------------------------------------------------------------------------------------------------------------------->
 
-		
 </script>
 
 </head>
@@ -29,7 +35,6 @@
 <!---------------------------------------------------------------------------------------------------------------------------->
 
 <h3> 마이홈보기 </h3>
-	${user.userId} 님 안녕하세요
 	
 <!-- 화면구성 div Start ---------------------------------------------------------------------------------------------------------------->
 
@@ -40,9 +45,12 @@
 <!-- FORM START ---------------------------------------------------------------------------------------------------------------->
 	
 	<form class="form-horizontal" name="detailForm" enctype="multipart/form-data">
-
+	
 	<!-- 프로필이미지 (버튼누르면 수정되게끔 설정) 차후 추가 수정,보완해야 함 -->	
-	<p>프로필이미지 : ${user.profileImage}<button type="button" class="btm_image" id="img_btn"><img src="이미지경로">${user.profileImage}</button></p>
+	<!-- <p>프로필이미지 : ${user.profileImage}<button type="button" class="btm_image" id="img_btn"><img src="이미지경로">${user.profileImage}</button></p> -->
+	
+	<!-- 프로필수정 -->
+	<button type="button" name="movePU">프로필수정</button>	
 	
 	<!-- 출력만하면 됨 -->
 	<p>닉네임 : ${user.nickname}</p>
@@ -63,12 +71,22 @@
 	<p>관심사1 : ${user.interestFirst}</p>
 	<p>관심사2 : ${user.interestSecond}</p>
 	<p>관심사3 : ${user.interestThird}</p>	
-	
+			  
+	<!-- 아이디 : hidden -->
+	<!--<input type="hidden" class="form-control" id="userId" name="userId" value="${user.userId}">-->
+			  
+	<div class="form-group">
+		<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">대표썸네일</label>
+		<div class="col-sm-4">
+			<input type="file" class="form-control" id="uploadFile" name="uploadFile" placeholder="대표썸네일">
+		</div>
+	</div>
+		  
 	<!-- 프로필이미지 -->
 	<div class="form-group">
 		<label for="profileImage" class="col-sm-offset-1 col-sm-3 control-label">프로필이미지</label>
 		<div class="col-sm-4">
-		<button type="button" class="btm_image" id="img_btn"><img src="이미지경로">${user.profileImage}</button>
+		<button type="file" class="form-control" id="uploadFile" name="uploadFile" placeholder="프로필이미지">${user.profileImage}</button>
 		</div>
 	</div>
 	
@@ -95,6 +113,8 @@
 		<input type="text" class="form-control" id="coin" name="coin" value="${user.coin}" readonly>
 		</div>
 	</div>
+	
+
 	
 
 	

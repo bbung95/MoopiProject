@@ -2,6 +2,8 @@ package com.moopi.mvc.service.domain;
 
 import java.util.Date;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -10,6 +12,8 @@ import lombok.ToString;
 @Setter
 @ToString
 public class User {
+	
+	//private MultipartFile uploadFile;
 	
 	// 회원가입
 	private String userId;				// 화원 아이디
