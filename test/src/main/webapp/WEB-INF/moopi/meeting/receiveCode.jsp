@@ -10,7 +10,9 @@
 <script src="https://apis.google.com/js/api.js"></script>
 
 <script>
-
+$(document).ready(function(){
+	authenticate().then(loadClient);
+});
   /**
    * Sample JavaScript code for calendar.events.insert
    * See instructions for running APIs Explorer code samples locally:
@@ -36,14 +38,16 @@
 	    	"calendarId": "primary",
 	    	"resource": {
 	            "end": {
-	              "dateTime": "2021-07-19T15:00:00",
+	              "dateTime": "2021-07-28T19:00:00",
 	              "timeZone": "Asia/Seoul"
 	            },
 	            "start": {
-	              "dateTime": "2021-07-19T14:00:00",
+	              "dateTime": "2021-07-28T17:00:00",
 	              "timeZone": "Asia/Seoul"
 	            },
-	            "summary": "구글캘린더테스트"
+	            "summary": "구글캘린더프로토타입",
+	            "location": "종로구",
+	            "description": "간단하게한잔만"
 	          }
 	        })
 	        .then(function(response) {
@@ -56,24 +60,8 @@
 	    gapi.auth2.init({client_id: "674136097926-gmjcrr1v85j17s88t3pi2fodfp72hvk9.apps.googleusercontent.com"});
 	  });
 	   
-    
-   
- function test(){
-	 console.log("test");
- } 
-  
-  
-//$(function() {
-	//var uu = window.location.href
-	//var url = new URL(uu);
 
-	//var urlParams = url.searchParams;
-
-	//var code = urlParams.get('code');
-	//document.write(code);
-	//$('#code').val(code);
-	//});
-	
+/*
 $(document).ready(function(){
 	var param = $("form[name=form1]").serialize();
 	$.ajax({
@@ -86,18 +74,22 @@ $(document).ready(function(){
 			alert(JSONData.expires_in);
 			alert(JSONData.scope);
 			alert(JSONData.token_type);
-			
+			authenticate().then(loadClient);
 		},
 		error:function(){  
             alert("에러발생");
+		},
+		complete:function(){
+			execute();
 		}
 	})
 });
-
+*/
 </script>
 </head>
 <body>
-	<a href="login.html">login</a>
+<h3>구글캘린더에 일정을 추가하는 중입니다..</h3>
+
 	<form name="form1" action="https://oauth2.googleapis.com/token" method="post"
 		enctype="application/x-www-form-urlencoded">
 	
@@ -106,10 +98,10 @@ $(document).ready(function(){
 	<input type="hidden" name="client_secret" value="aVM_EIcdkciwTwLtR7TjCQmg"><br>
 	<input type="hidden" name="redirect_uri" value="http://localhost:8080/meeting/receiveCode"><br>
 	<input type="hidden" name="grant_type" value="authorization_code"><br>
-	<input type="submit">
+
 	</form>
 	
 	<button onclick="authenticate().then(loadClient)">authorize and load</button>
-	<button onclick="execute()">execute</button>
+	<button onclick="execute()">추가하기</button>
 </body>
 </html>
