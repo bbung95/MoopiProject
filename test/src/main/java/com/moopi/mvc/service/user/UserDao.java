@@ -85,6 +85,12 @@ public interface UserDao {
 	//flash Coin ~~
 	public void makeFlashCoin(User user) throws Exception;
 	public void joinFlashCoin(User user) throws Exception;
+
+
+	//결제후 유저 코인 Up
+	public void paymentUpdateCoin(User user) throws Exception;
+	
+
 	
 // 프로필수정
 	// 0. 프로필이미지수정
@@ -95,6 +101,7 @@ public interface UserDao {
 	public void updateContent(User user);
 	// 3. 관심사수정
 	public void updateInterest(User user);
+
 
 
 }
