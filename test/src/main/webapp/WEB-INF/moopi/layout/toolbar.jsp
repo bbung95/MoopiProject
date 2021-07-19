@@ -90,7 +90,7 @@
 <script type="text/javascript">
 	
 	// login session userId
-	let dbUser = '<c:out value="${user.userId}"/>';
+	var dbUser = '<c:out value="${user.userId}"/>';
 	
 	//읽지않은 알림 카운트
 	function noticeCount() {
@@ -221,13 +221,17 @@
 	});
 	
 	$("a:contains('마이홈')").on("click", function(){
-		
-		location.href = "/";
+	
+		alert("마이홈스타트");
+	
+		location.href = "/user/getMyHomeBoard?userId="+dbUser;
 	})
 	
 	$("a:contains('내정보보기')").on("click", function(){
 		
-		location.href = "/";
+		alert("내정보보기 스타");
+	
+		location.href = "/user/updateProfile?userId="+dbUser;
 	})
 	
 	$("a:contains('쪽지')").on("click", function(){

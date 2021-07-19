@@ -32,7 +32,15 @@
 		<result property="joinRegDate" 			column="JOIN_REGDATE" 			jdbcType="DATE" /> 
 		<result property="joinState" 			column="JOIN_STATE" 			jdbcType="VARCHAR" />
 		<result property="meflType" 			column="MEFL_TYPE" 	jdbcType="VARCHAR" />
-
+		<result property="meflId.userName"				column="USER_NAME" 		jdbcType="VARCHAR" />
+		<result property="meflId.age"				column="AGE" 		jdbcType="NUMERIC" />
+		<result property="meflId.gender"				column="GENDER" 		jdbcType="VARCHAR" />
+		<result property="meflId.fullAddr"				column="FULL_ADDR" 		jdbcType="VARCHAR" />
+		<result property="meflId.addr"				column="ADDR" 		jdbcType="VARCHAR" />
+		<result property="meflId.nickname"				column="NICKNAME" 		jdbcType="VARCHAR" />
+		<result property="meflId.profileImage"				column="PROFILE_IMAGE" 		jdbcType="VARCHAR" />
+		<result property="meflId.profileContent"				column="PROFILE_CONTENT" 		jdbcType="VARCHAR" />
+		<result property="meflId.badge"				column="BADGE" 		jdbcType="VARCHAR" />
 	</resultMap>
 	
 	<insert id="applyMeeting">
@@ -72,11 +80,14 @@
 
 	<select  id="getMEFLList"  parameterType="int"	resultMap="meflSelectMap">
 		SELECT
-		MEFL_NO, MEFL_ID, TARGET_NO, JOIN_REGDATE, JOIN_STATE, MEFL_TYPE		
-		FROM MEETING_FLASH_MEMBER
+		MEFL_NO, MEFL_ID, TARGET_NO, JOIN_REGDATE, JOIN_STATE, MEFL_TYPE,
+		USER_NAME, AGE, GENDER, FULL_ADDR, ADDR, NICKNAME, PROFILE_IMAGE,
+		PROFILE_CONTENT, BADGE		
+		FROM MEETING_FLASH_MEMBER, USERS
 		<where>
 		TARGET_NO = #{mtNo}
 		AND JOIN_STATE ='1'
+		AND USER_ID = MEFL_ID
 		</where>	
 	 </select>
 	
@@ -91,15 +102,15 @@
 	</select>
 
 
-	<insert id="addMeeting"	parameterType="meeting" >
+	<insert id="addMeeting"	parameterType="meeting" useGeneratedKeys="true"  keyProperty="mtNo">
 	 	INSERT
 		INTO MEETING(
-		MT_NO, MM_NO, MT_NAME, MT_CONTENT, MT_START_DATE, MT_END_DATE, MT_REGDATE, MT_MAX_COUNT, MT_CURRENT_COUNT, 
+		MT_NO, MM_NO, MT_NAME, MT_CONTENT, MT_START_DATE, MT_END_DATE, MT_REGDATE, MT_MAX_COUNT,  
 		MT_CONSTRUCTOR, MT_ADDR, MT_STATE, MT_MAP_X, MT_MAP_Y
 		)
 		VALUES( 
 		#{mtNo}, #{mmNo}, #{mtName}, #{mtContent}, 
-		#{mtStart}, #{mtEnd}, now(), #{mtMaxCount}, 1, #{mtConstructor.userId}, #{mtAddr},               
+		#{mtStart}, #{mtEnd}, now(), #{mtMaxCount}, #{mtConstructor.userId}, #{mtAddr},               
 		1, #{mtMapX}, #{mtMapY}
 		)
 	 </insert>
@@ -107,16 +118,25 @@
 	 <update	id="updateMeeting"	parameterType="meeting" >
 	   	UPDATE MEETING
 	   	<set>
-	   		MT_NAME 	= #{mtName} ,
+	   		MT_NAME 	= #{mtName},
 			MT_CONTENT	= #{mtContent},
 			MT_MAX_COUNT = #{mtMaxCount},
 			MT_ADDR = #{mtAddr},
 			MT_STATE = #{mtState},
+			MT_START_DATE = #{mtStart},
+			MT_END_DATE = #{mtEnd}
 	   	</set>
 	   	WHERE MT_NO = #{mtNo}
 	 </update>
-	  
-  	
+	 
+	 <update id = "deleteMeeting" parameterType="meeting">
+	 update meeting
+	 <set>
+	 mt_state = '3'
+	 </set> 
+	 where mt_no = #{mtNo}
+	 </update>
+
 	<select  id="getMeetingList"  parameterType="int"	resultMap="meetingSelectMap">
 		SELECT
 		MT_NO, MM_NO, MT_NAME, MT_CONTENT, MT_START_DATE, MT_END_DATE, MT_REGDATE, MT_MAX_COUNT, MT_CURRENT_COUNT, 
@@ -124,6 +144,7 @@
 		FROM MEETING
 		<where>
 		mm_no = #{mmNo}
+		AND mt_state != 3
 		</where>	
 	 </select>
 	

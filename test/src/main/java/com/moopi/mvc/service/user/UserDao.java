@@ -26,15 +26,21 @@ public interface UserDao {
 	// [완료] 회원가입시 [UserRole - 2.정상회원
 	public void addUser(User user) throws Exception;
 	
-	// 내정보확인
-	public User getUser(String userId);
+	// 유저정보가져오기
+	public User getUser(String userId) ;
 	
 	// 회원정보수정
-	public void updateUser(User user) throws Exception;
+	public User updateUser(User user) throws Exception;
 	
 	// 회원탈퇴시 [UserRole - 5.탈퇴회원]
 	public void updateLeaveUser(User user) throws Exception;
 
+// 마이홈
+	
+	// 마이홈조회 - 마이홈 필요한 값 가져오기
+	public User getMyHome(String userId);
+	
+	
 // 회원가입 Ajax
 	
 	// [중간완료] 아이디중복체크
@@ -78,13 +84,22 @@ public interface UserDao {
 	
 	//flash Coin ~~
 	public void makeFlashCoin(User user) throws Exception;
-
-
 	public void joinFlashCoin(User user) throws Exception;
+
 
 	//결제후 유저 코인 Up
 	public void paymentUpdateCoin(User user) throws Exception;
 	
+
+	
+// 프로필수정
+	// 1. 닉네임수정
+	public void updateNickname(User user);
+	// 2. 프로필소개수정
+	public void updateContent(User user);
+	// 3. 관심사수정
+	public void updateInterest(User user);
+
 
 
 }

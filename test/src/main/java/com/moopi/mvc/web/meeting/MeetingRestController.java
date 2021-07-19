@@ -1,13 +1,20 @@
 package com.moopi.mvc.web.meeting;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.moopi.mvc.service.domain.Meeting;
+import com.moopi.mvc.service.domain.User;
 import com.moopi.mvc.service.meeting.impl.MeetingServiceImpl;
 import com.moopi.mvc.service.moim.impl.MoimServiceImpl;
+import com.moopi.mvc.service.user.impl.UserServiceImpl;
 
 @RestController
 @RequestMapping("/meeting/*")
@@ -19,6 +26,9 @@ public class MeetingRestController {
 	
 	@Autowired
 	private MoimServiceImpl moimService;
+	
+	@Autowired
+	private UserServiceImpl userService;
 	
 	public MeetingRestController() {
 		System.out.println(this.getClass());
@@ -33,6 +43,21 @@ public class MeetingRestController {
 //			System.out.println(userMapper.getUser(userId));
 			System.out.println(meetingService.getMeeting(mtNo));
 			return meetingService.getMeeting(mtNo);
+		}
+		
+		//정모수정
+		@RequestMapping("json/updateMeeting/")
+		public String updateMeeting(@ModelAttribute("meeting") Meeting meeting,
+				Model model) throws Exception{
+			
+			System.out.println("addMeeting :::");
+			System.out.println(meeting);
+			//User user = userService.getUser(userId);
+			//meeting.setMtConstructor(user);
+			meetingService.updateMeeting(meeting);
+			model.addAttribute("meeting", meeting);
+			int mmNo = meeting.getMmNo();
+			return "redirect:/meeting/listMeeting";
 		}
 		
 		
@@ -52,6 +77,16 @@ public class MeetingRestController {
 			
 			meetingService.leaveMeeting(mtNo, userId);
 			return meetingService.getMeeting(mtNo);
+		}
+	
+		//정모 참가자 명단 조회
+		@RequestMapping("json/listMEFL/{mtNo}")
+		public Map getListMEFL(@PathVariable("mtNo") int mtNo, Model model) throws Exception {
+			
+			System.out.println("정모참가자명단을 보겠습니다.");
+			Map<String, Object> map = meetingService.getMEFLList(mtNo);
+			model.addAttribute("list", map.get("list"));
+			return map;
 		}
 
 }

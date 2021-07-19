@@ -12,24 +12,23 @@ import com.moopi.mvc.service.domain.Board;
 public interface BoardDao {
 
 	
-	public void addBoard(@Param("board")Board board);
+	public void addBoard(@Param("board")Board board) throws Exception;
 	
-	public List<Board> getBoardList(@Param("map")Map map);
+	public List<Board> getBoardList(@Param("map")Map map) throws Exception;
 
-	public Board getBoard(@Param("boardNo")int boardNo);
+	public Board getBoard(@Param("boardNo")int boardNo)throws Exception;
 	
-	public void updateBoard(@Param("board") Board board);
+	public void updateBoard(@Param("board") Board board)throws Exception;
 	
-	public void deleteBoard(@Param("board") Board board);
+	public void deleteBoard(@Param("board") Board board)throws Exception;
 	
-	public int getTotalCount(@Param("map")Map map);
+	public int getTotalCount(@Param("map")Map map)throws Exception;
 	 
-	public int getLike(@Param("map")Map map);
+	public int getLike(@Param("map")Map map)throws Exception;
 		
-	public void addLike(@Param("map")Map map);
+	public void addLike(@Param("map")Map map)throws Exception;
 	
-	public void deleteLike(@Param("map")Map map);
+	public void deleteLike(@Param("map")Map map)throws Exception;
 	
-	
-
+	public Board checkPassword(@Param("boardNo")int boardNo)throws Exception;
 }	
