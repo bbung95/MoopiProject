@@ -87,6 +87,8 @@ public interface UserDao {
 	public void joinFlashCoin(User user) throws Exception;
 	
 // 프로필수정
+	// 0. 프로필이미지수정
+	public void updateProfileImage(User user);
 	// 1. 닉네임수정
 	public void updateNickname(User user);
 	// 2. 프로필소개수정
