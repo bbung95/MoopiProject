@@ -22,4 +22,7 @@ public interface ReplyDao {
 	
 	public void deleteReply(@Param("replyNo")int replyNo);
 	
+	public void deleteReply2(@Param("reply")Reply reply);
+
+	
 }
