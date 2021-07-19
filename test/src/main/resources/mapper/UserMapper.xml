@@ -102,8 +102,6 @@
 		WHERE user_id = #{userId}	
 	</select>
 	 -->
-=======
->>>>>>> refs/heads/master
    
 	<select id="nicknameCheck"		parameterType="String"		resultType="int">
 		SELECT count(*)

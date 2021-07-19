@@ -121,6 +121,7 @@ public class UserServiceImpl {
 	public void paymentUpdateCoin(User user) throws Exception{
 		userDao.paymentUpdateCoin(user);
 
+	}
 // 프로필수정 - updateProfile
 	
 	// 1. 닉네임수정
