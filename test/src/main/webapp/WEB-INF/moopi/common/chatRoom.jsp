@@ -10,11 +10,10 @@
 <title>무피채팅방</title>
 <style>
 #main {
-	margin: 0;
+	margin: 0px;
 	padding-bottom: 3rem;
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
 		Helvetica, Arial, sans-serif;
-	width: 80%;
 }
 
 #form {
@@ -70,9 +69,12 @@
 
 <body>
 	<div id="main">
+		<img id="backbtn" src="/images/back_btn.png"
+			style="height: 40px; margin-left: -5px;">
 		<ul id="messages"></ul>
 		<form id="form" action="">
 			<button class="uploadbtn" type="button">+</button>
+			<button class="videobtn" type="button">call</button>
 			<input id="name" type="hidden" value="" /> <input id="input"
 				type="text" autocomplete="off" />
 			<button>send</button>
@@ -84,18 +86,28 @@
 		</form>
 	</div>
 	<!-- socket io 서버를 설정-->
-	<script src="http://localhost:82/socket.io/socket.io.js"></script>
+	<script src="http://localhost:3030/socket.io/socket.io.js"></script>
+	<!-- <script src="https://bbung95-rtc.herokuapp.com/sosocket.io/socket.io.js"></script> -->
 	<script>
 
-    let roomNo;
     let userId = "<c:out value='${user.userId}'/>";
-    let target = "<c:out value='${target}'/>";
-
-    let form = document.getElementById('form');
+	let nickname = "<c:out value='${user.nickname}'/>"
+	let profile = "<c:out value='${user.profileImage}'/>";
+    let target = "<c:out value='${target}'/>"; // 알림대상 - 대화상대
+    let roomNo;
+    
+	/* ajax({
+		url: "common/json/getUser/"+userId,
+		method: "GET",
+		dataType: "JSON",
+		success: function(data, state){
+			alert(state);
+		}
+	}) */
+    
     let input = document.getElementById('input');
-    let list = document.getElementById('list');
 
-    let socket = io("http://localhost:82");
+    let socket = io("http://localhost:3030");
 
     socket.emit('roomjoin', { userId: userId, target : target });
     socket.on('roomjoin', function(data){
@@ -109,62 +121,51 @@
 
       if (input.value) {
         // user의 메세지를 'chat message'로 서버로 보낸다(?) 
-        socket.emit('chat message', { userId: userId, msg: input.value, img: "0", roomNo: roomNo ,target:target});
+        socket.emit('chat message', { userId: userId, nickname: nickname, profile: profile, msg: input.value, img: "0", roomNo: roomNo ,target:target});
         input.value = '';    
       }
     });
-
-    socket.on('loadchat',(data)=>{
-        for (var i = 0; i < data.length; i++) {
-        	  let output = '';
-          if(data[i].userId == userId){
-              output += "<li align='right'>";
-              if(data[i].img != 0){
-                  output += "<img src='/images/uploadFiles/chat/"+data[i].img+"' width='200' height='200'/>";          
-              }else{
-            	  output += data[i].msg;
-              }
-              output += " : "+data[i].userId;
-          }else{
-         	 output += "<li>";
-         	 output += data[i].userId+" : ";	
-       	   if(data[i].img != 0){
-        	      output += "<img src='/images/uploadFiles/chat/"+data[i].img+"' width='200' height='200'/>";          
-        	  }else{
-        		  output += data[i].msg;
-         	 }
-          }
-          output += "</li>";
-          $(output).appendTo('#messages');
-          window.scrollTo(0, document.body.scrollHeight);
+	
+   // 메시지 출력 함수
+    function message (data){
+    	let output = '';
+        if(data.userId == userId){
+            output += "<li align='right'>";
+          	  output += "<div style='margin-left: 10px; margin-top: 10px;"
+                output += "padding: 10px; border: 0.5px solid black; display: inline-block; border-radius: 5px;'>";
+            if(data.img != 0){
+                output += "<img src='/images/uploadFiles/chat/"+data.img+"' width='200' height='200'/>";          
+            }else{
+          	  output += data.msg;
+            }
+        }else{
+       	 output += "<li>";
+       	 output += "<div style='display:flex; align-items: center'><img src='/images/uploadFiles/"+data.profile+"' style='width:40px; height:40px; border-radius: 50%; margin-right: 5px;' >"
+       	 output += data.nickname+"</div><div style='margin-left: 10px; margin-top: 10px;"
+       	 output += "padding: 10px; border: 0.5px solid black; display: inline-block; border-radius: 5px;'>";	
+     	   if(data.img != 0){
+      	      output += "<img src='/images/uploadFiles/chat/"+data.img+"' width='200'/>";          
+      	  }else{
+      		  output += data.msg;
+       	 }
+        }
+        output += "</div></li>";
+        $(output).appendTo('#messages');
+        window.scrollTo(0, document.body.scrollHeight);
+      }
+   
+    socket.on('loadchat',(datas)=>{
+        for (var i = 0; i < datas.length; i++) {
+        	let data = datas[i];
+        		message(data);
         }
      });
     	
      socket.on('chat message', function (data) {
-    	  let output = '';
-          if(data.userId == userId){
-              output += "<li align='right'>";
-              if(data.img != 0){
-                  output += "<img src='/images/uploadFiles/chat/"+data.img+"' width='200' height='200'/>";          
-              }else{
-            	  output += data.msg;
-              }
-              output += " : "+data.userId;
-          }else{
-         	 output += "<li>";
-         	 output += data.userId+" : ";	
-       	   if(data.img != 0){
-        	      output += "<img src='/images/uploadFiles/chat/"+data.img+"' width='200' height='200'/>";          
-        	  }else{
-        		  output += data.msg;
-         	 }
-          }
-         output += "</li>";
-         $(output).appendTo('#messages');
-      window.scrollTo(0, document.body.scrollHeight);
+    	 message (data)
     });
     
-    
+     // 메세지 보낼시 알림
     socket.on('chat notice', (msg)=>{
       console.log("알림입니다~");
       $.ajax({
@@ -198,7 +199,7 @@
                     , data : formData
                     , dataType: 'text'
                     , success:function(data, state) {
-                        socket.emit('chat message', { userId: userId, msg: "이미지를 보냈습니다", img: data, roomNo: roomNo ,target:target});
+                        socket.emit('chat message', { userId: userId, nickname: nickname, profile: profile, msg: "이미지를 보냈습니다", img: data, roomNo: roomNo ,target:target});
                     }
           });
     }
@@ -246,7 +247,18 @@
 	 });
     ///////
     
+    $('.videobtn').on('click', function(){
+    	popWin = window.open(
+				"https://bbung95-rtc.herokuapp.com/"+roomNo,
+				//"http://localhost:3030/"+roomNo,
+				"videoChat",
+		"left=1000, top=300, width=1000, height=800, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");
+
+    })
     
+    $('#backbtn').on('click', function(){
+    	location.href="/chat/chatList";
+    })
     
     // 이미지 다중 업로드 //////////////////////////////
     /* socket.on('loadchat',(data)=>{
