@@ -53,6 +53,14 @@
 		WHERE USER_ID = #{userId}
 	</update>
 
+	<update id="paymentUpdateCoin" parameterType="user">
+		UPDATE USERS
+		<set>
+			COIN = COIN + #{coin} 
+		</set>
+		WHERE USER_ID = #{userId}
+	</update>
+	
 
 	<select id="login" parameterType="String"
 		resultMap="userSelectMap">

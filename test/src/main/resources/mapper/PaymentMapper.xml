@@ -30,7 +30,7 @@
 		INSERT
 		INTO PAYMENT(PAYMENT_NO, PAYMENT_REGDATE, PAYMENT_ROLE, PAYMENT_USER_ID, PAYMENT_PRICE,
 			PAYMENT_COIN_COUNT, PAYMENT_UID)
-		VALUES(#{paymentNo}, #{paymentRegdate}, #{paymentRole}, #{paymentUserId.userId}, #{paymentPrice},
+		VALUES(#{paymentNo}, now(), '1', #{paymentUserId.userId}, #{paymentPrice},
 		#{paymentCoinCount}, #{paymentUid})
 	</insert>
 	

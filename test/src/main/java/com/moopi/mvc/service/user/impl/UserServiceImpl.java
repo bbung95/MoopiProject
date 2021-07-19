@@ -111,4 +111,9 @@ public class UserServiceImpl {
 		userDao.joinFlashCoin(user);
 	}
 	
+	//결제후 유저 코인 Up
+	public void paymentUpdateCoin(User user) throws Exception{
+		userDao.paymentUpdateCoin(user);
+	}
+	
 }

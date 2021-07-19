@@ -82,8 +82,9 @@ public interface UserDao {
 
 	public void joinFlashCoin(User user) throws Exception;
 
-
-
+	//결제후 유저 코인 Up
+	public void paymentUpdateCoin(User user) throws Exception;
+	
 
 
 }
