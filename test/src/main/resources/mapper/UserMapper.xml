@@ -172,7 +172,7 @@
 					AND NICKNAME LIKE '%${search.searchKeyword}%'
 				</if>
 				<if test="search.searchCondition == 2 and search.searchKeyword !='' ">
-					AND NICKNAME LIKE '%${searchCondition}%'
+					AND NICKNAME LIKE '%${search.searchKeyword}%'
 				</if>
 			</where>
 				<if test="searchState == 2">
