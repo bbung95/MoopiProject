@@ -29,13 +29,12 @@
 		let form = $('#upload');
 		var formData = new FormData(form[0]);
 		console.log("formData : "+formData);
-		 for (var key of formData.keys()) {
-  		  console.log(key);
-  		}
-  		for (var value of formData.values()) {
-  	 		 console.log(value);
-  		} 
-	
+		for (var key of formData.keys()) {
+    	  console.log(key);
+    	}
+    	for (var value of formData.values()) {
+    	  console.log(value);
+    	} 
     	$.ajax({
 
                 url : "/user/json/uploadProfileImage"
@@ -190,22 +189,18 @@
 
 <!-- FORM START ---------------------------------------------------------------------------------------------------------------->
 	
-<!-- 	<form class="form-horizontal" name="detailForm" enctype="multipart/form-data">
- -->	
 	<!-- 아이디[숨김표시] -->
 	<input type="hidden" class="userId" name="userId" value="${user.userId}"/>
 	
 	<!-- 프로필이미지[파일업로드] -->
-	 <form id="upload" method="post" enctype="multipart/form-data"> 
-		
+	<form id="upload" method="post" enctype="multipart/form-data">		
 		<div class="form-group">
 			<label for="profileImage" class="col-sm-offset-1 col-sm-3 control-label">프로필이미지</label>
 			<div class="col-sm-4">					
-				<input type="file" type="text" value="${user.profileImage}" accept="image/*" />
-				<button class="uploadbtn" type="button" onclick="updateProfileImage()">업로드</button>
+				<input type="file" name="profileImage" type="text" value="${user.profileImage}" accept="image/*" />
+				<button class="uploadbtn" type="button" onclick="javascript:updateProfileImage()">업로드</button>
 			</div>
-		</div>
-		
+		</div>		
 	</form>
 	
 	<!-- 닉네임 -->
