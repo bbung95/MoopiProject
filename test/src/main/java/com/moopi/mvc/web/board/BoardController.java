@@ -78,10 +78,12 @@ public class BoardController{
 		System.out.println(boardCategory);
 		
 		
-		if(boardCategory == "4") {
-			return "moim/listMoimBoard";
+		if(category.equals("4")) {
+			return "/moim/listMoimBoard";
 		}else {
+			System.out.println("1111111111111111111111111");
 			return "/board/"+boardCategory+"Board/list"+boardCategory;
+
 		}
 	}
 	
