@@ -26,13 +26,33 @@ function fncGetBoard(boardNo){
 	self.location ="/board/getBoard?boardNo="+boardNo;
 }
 
+function fncGetList(currentPage){
+	
+	alert("페이지이동");
+	alert(currentPage);
+	$("#currentPage").val(currentPage)
+	$("form.inline").attr("method", "GET").attr("action", "/board/listBoard").submit();
+}
+
+// function fncGetProductList(currentPage){
+// 	$("#currentPage").val(currentPage)
+//    	//document.detailForm.submit();
+// 	$("form").attr("method" , "POST").attr("action" , "/product/listProduct?"+"${url}").submit();
+
+// }
+
+
+
+
 $(function(){
 	
 	$("button.btn.btn-default:contains('검색')").on("click", function(){
 		
 		alert("검색")
+		alert($("form.form-inline").html())
+// 		location.href = "/board/listBoard?category=1";
 		
-		$(".form-inline").attr("method", "POST").attr("action", "/board/listBoard?category=1")
+		$("form.inline").attr("method", "GET").attr("action", "/board/listBoard").submit();
 	})
 	
 	})
@@ -59,9 +79,10 @@ body{
 			</div>
 
 			<div class="col-md-6 text-right">
-				<form class="form-inline" name="detailForm">
+				<form class="inline" name="detailForm">
 
 					<div class="form-group">
+					
 						<select name="searchCondition" class="form-control"
 							style="width: 110px">
 							<option value="0"
@@ -81,7 +102,7 @@ body{
 					</div>
 
 					<button type="button" class="btn btn-default">검색</button>
-
+					<input type="hidden" id="category" name="category" value="1"/>
 					<input type="hidden" id="currentPage" name="currentPage" value="1" />
 				</form>
 			</div>
@@ -106,7 +127,7 @@ body{
 				<c:set var="i" value="${ i+1 }"/>
 				
 				<tr>
-				<td align="center"> ${i}</td>
+				<td align="center"> (${i}+${currentPage}*5)</td>
 		 		<input type="hidden" id="boardNo" name="boardNo" value="${board.boardNo}"/>
 				<td align="left"><div id="getBoard" onClick="fncGetBoard(${board.boardNo})">${board.boardName}</div></td>
 				<td align="left">
@@ -120,12 +141,13 @@ body{
 
 			</tr>
 			</c:forEach>
-		
 		</tbody>		
-	
+				
+
 	
 </table>
 <button type="button" class="btn btn-default" onClick="fncAddBoardView()">게시글작성</button>
+<jsp:include page="../../common/pageNavigator.jsp"/>
 <jsp:include page="../../layout/searchbar.jsp"></jsp:include>
 </body>
 </html>
