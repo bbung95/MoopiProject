@@ -99,4 +99,13 @@
 	
 	</insert>	
 	
+	<select id="deleteReply2" parameterType="reply" >
+
+	UPDATE 
+	REPLY SET 
+	  REPLY_STATE = '3'
+	WHERE
+	  REPLY_NO = #{reply.replyNo}
+	</select>
+	
 </mapper>

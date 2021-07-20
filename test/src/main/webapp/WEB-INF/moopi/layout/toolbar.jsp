@@ -70,6 +70,7 @@
 								<li> <a href="#">마이홈</a></li>
 								<li> <a href="#">내정보보기</a></li>
 								<li> <a href="#">쪽지	</a></li>
+								<li> <a href="#">MY무피코인</a></li>
 								<li> <a href="#">로그아웃</a></li>
 								<c:if test="${dbUser.userRole == '1'}">
 									<li> <a href="#">관리자</a></li>
@@ -236,6 +237,11 @@
 	$("a:contains('쪽지')").on("click", function(){
 		
 		location.href = "/";
+	})
+	
+	$("a:contains('MY무피코인')").on("click", function(){
+		
+		location.href = "/payment/paymentList?userId="+dbUser;
 	})
 	
 	$("a:contains('로그아웃')").on("click", function(){
