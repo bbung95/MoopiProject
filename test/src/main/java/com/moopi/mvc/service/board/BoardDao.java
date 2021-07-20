@@ -22,6 +22,9 @@ public interface BoardDao {
 	
 	public void deleteBoard(@Param("board") Board board)throws Exception;
 	
+	//관리자 제재로 인한 블라인드처리
+	public void deleteBoard2(@Param("board") Board board)throws Exception;
+	
 	public int getTotalCount(@Param("map")Map map)throws Exception;
 	 
 	public int getLike(@Param("map")Map map)throws Exception;

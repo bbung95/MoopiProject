@@ -1,16 +1,16 @@
 package com.moopi.mvc.web.user;
 
+import java.io.File;
+
 import javax.servlet.http.HttpSession;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.moopi.mvc.service.domain.User;
 import com.moopi.mvc.service.user.impl.UserServiceImpl;
@@ -22,14 +22,13 @@ public class UserController {
 	@Autowired
 	private UserServiceImpl userService;
 	
-
 	// [완료] 로그인페이지 (단순 네비게이션)
 	@RequestMapping("loginView")
 	public String loginView(@ModelAttribute("user") User user, HttpSession session) throws Exception{		
 		return "user/loginView";
 	}
-
 	
+
 //-- 로그아웃 구현 -------------------------------------------------------------------------------------------
 	@RequestMapping("logout")
 	public String logout(@ModelAttribute("user") User user, HttpSession session) throws Exception {
@@ -62,23 +61,23 @@ public class UserController {
 //-----------------------------------------------------------------------------------------------------------------
 	
 	
-//-- [완료] 로그인 진행 후 메인페이지 이동 : 로그인 세션 유지 -------------------------------------------------------------------------------------------
+//-- [완료] 로그인 -------------------------------------------------------------------------------------------
 	@RequestMapping("loginUser")
-	public String loginUser(@ModelAttribute("user") User user, HttpSession session) throws Exception{
-		
-		System.out.println("\n"+"UserController_____loginUser 리퀘스트매핑");
-		System.out.println("loginUser의 user를 확인해보자 : \n"+user+"\n");
-		
+	public String login(@ModelAttribute("user") User user, 
+						HttpSession session) throws Exception{
 		User dbUser = userService.loginUser(user.getUserId());
-
-		if( dbUser != null && user.getPassword().equals(dbUser.getPassword())) {
-			session.setAttribute("user", dbUser);
-		} 
-	
-		System.out.println("여기는 로그인을 할 수 있으며, 세션을 담아주는 페이지입니다.\n"+user+"\n");
-		
-		return "redirect:/";
-	}
+		System.out.println(dbUser);		
+		String dbId = user.getUserId();
+		String dbPw = user.getPassword();		
+			if (dbId != null && dbPw.equals(dbUser.getPassword())) {
+				System.out.println("아이디 및 비밀번호가 일치합니다.");
+				session.setAttribute("user", dbUser);
+				return "redirect:/";
+			} else {
+				System.out.println("아이디 및 비밀번호가 일치하지 않습니다.");
+				return "user/loginView";
+			}
+		}
 //-----------------------------------------------------------------------------------------------------------------
 
 	
@@ -222,6 +221,7 @@ public class UserController {
 
 // [프로필 업데이트]-----------------------------------------------------------------------------------------------	
 	
+
 	// 1. [닉네임수정] - updateNickname
 	@RequestMapping("updateNickname")
 	public String updateNickname(	@RequestParam("userId") String userId,
@@ -233,14 +233,14 @@ public class UserController {
 	}
 	
 	// 2. [프로필소개수정] - updateContent
-	@RequestMapping("updateContent")
+	/*@RequestMapping("updateContent")
 	public String updateContent(	@RequestParam("userId") String userId,
 									@RequestParam("profileContent") String profileContent,
 									@ModelAttribute("user") User user) {
 		System.out.println("프로필소개수정");		
 		userService.updateContent(user);
 		return "user/updateContent";				
-	}
+	}*/
 		
 	// 3. [관심사수정] - updateInterest
 	@RequestMapping("updateInterest")
