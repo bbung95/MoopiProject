@@ -22,7 +22,7 @@ public class Search {
 	@Setter(AccessLevel.NONE)
 	private int startRowNum;
 	private int pageUnit;
-	   private String searchCategory;
+	private String searchCategory;
 	   
 	///Constructor
 	public Search() {
@@ -74,6 +74,24 @@ public class Search {
 				+ ", startRowNum=" + startRowNum + "]";
 	}
 
+<<<<<<< HEAD
+	public int getPageUnit() {
+		return pageUnit;
+	}
+
+	public void setPageUnit(int pageUnit) {
+		this.pageUnit = pageUnit;
+	}
+
+	public String getSearchCategory() {
+		return searchCategory;
+	}
+
+	public void setSearchCategory(String searchCategory) {
+		this.searchCategory = searchCategory;
+	}
+
+=======
 	
 	public int getPageUnit() {
 	      return pageUnit;
@@ -90,4 +108,5 @@ public class Search {
 	   public void setSearchCategory(String searchCategory) {
 	      this.searchCategory = searchCategory;
 	   }
+>>>>>>> refs/remotes/origin/master
 }
