@@ -188,12 +188,23 @@
 <!-------------------------------------------------------------------------------------------------------------------------->
 
 // # 새 창으로 모바일번호 인증 띄우기 --------------------------------------------------------------------------------------------------------------------------
+		
+		var popWin;
+		
 		$("#mobileAuth").on("click", function() {
-	
+		
+			window.name = "addUserInfo";
+			
 			popWin = window.open(
 								"getMobileAuth",
-								"popWin",
+								"childForm",								
 								"left=460, top=300, width=460, height=800, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");
+			
+
+			function setChildTest() {
+				openWin.document.getElementById("cInput").value = document.getElementById("pnNum").value;
+       		}
+
 		});
 	
 	});
@@ -240,7 +251,7 @@
 		<div class="form-group">
 			<label for="userName" class="col-sm-offset-1 col-sm-3 control-label">이름</label>
 				<div class="col-sm-2">
-					<input type="text" class="form-control" id="userName" name="userName" placeholder="이름을 입력해주세요">
+					<input type="text" class="form-control" id="cInput" name="userName" placeholder="이름을 입력해주세요">
 				</div>
 				<div class="check_font" id="name_check"></div>
 			<label for="gender" class="col-sm-1 control-label">성별</label>		
@@ -255,10 +266,9 @@
 		<!-- # 모바일번호인증 - CoolSMS API 구현해야 함 / 차후 inputtype에 readonly 기재하기-->
 		<div class="form-group">
 			<label for="phone" class="col-sm-offset-1 col-sm-3 control-label">모바일번호</label>
-			<div class="col-sm-4">
-				<span class="col-sm-10">
-					<button type="button" id="mobileAuth" class="btn btn-info">인증하기</button>
-				</span>	
+			<div class="col-sm-4">				
+				<input type="text" class="form-control" id="pInput" name="userId" readonly>
+				<button type="button" id="mobileAuth" class="btn btn-info">인증하기</button>					
 			</div>
 		</div>
 		
