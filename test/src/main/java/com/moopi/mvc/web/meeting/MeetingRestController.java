@@ -1,5 +1,6 @@
 package com.moopi.mvc.web.meeting;
 
+
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,15 +35,44 @@ public class MeetingRestController {
 		System.out.println(this.getClass());
 	}
 	
-	//정모상세조회
+		
+		//정모상세조회
 		@RequestMapping("json/getMeeting/{mtNo}")
 		public Meeting getMeeting(@PathVariable("mtNo") int mtNo) throws Exception{
 			
 			System.out.println("getMeeting :::");
+			Meeting meeting = meetingService.getMeeting(mtNo);
+			String start2 = meeting.getMtStart();
+			String a = start2.substring(0,10);
+			String b = start2.substring(11,19);
+			String start3 = a+"T"+b;
+			meeting.setMtStart2(start3);
+			
+			String end2 = meeting.getMtEnd();
+			String c = end2.substring(0,10);
+			String d = end2.substring(11,19);
+			String end3 = c+"T"+d;
+			meeting.setMtEnd2(end3);
+			
 //			System.out.println(userId);
 //			System.out.println(userMapper.getUser(userId));
-			System.out.println(meetingService.getMeeting(mtNo));
-			return meetingService.getMeeting(mtNo);
+//			System.out.println(meetingService.getMeeting(mtNo));
+//			Meeting meeting = meetingService.getMeeting(mtNo);
+//			String start2 = meeting.getMtStart();
+//			String a = start2.substring(0,10);
+//			String b = start2.substring(11,19);
+//			String start3 = a+"T"+b;
+//			System.out.println("스타트3의값:"+start3);
+//			meeting.setMtStart2(start3);
+//			
+//			String end2 = meeting.getMtEnd();
+//			String c = end2.substring(0,10);
+//			String d = end2.substring(11,19);
+//			String end3 = c+"T"+d;
+//			System.out.println("엔드3의값:"+end3);
+//			meeting.setMtEnd2(end3);
+			System.out.println(meeting);
+			return meeting;
 		}
 		
 		//정모수정

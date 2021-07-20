@@ -17,7 +17,7 @@
 <script>
 function fncUptMoim(){
 	alert("모임을 수정하겠씁니다.");
-	$("form").attr("method", "POST").attr("action", "/moim/updateMoim").submit();
+	$("#updateMoim").attr("method", "POST").attr("action", "/moim/updateMoim").submit();
 
 }
 </script>
@@ -38,7 +38,7 @@ function fncUptMoim(){
 		<h1 class="bg-primary text-center">모임무피수정</h1>
 		
 		<!-- form Start /////////////////////////////////////-->
-		<form class="form-horizontal" name="detailForm" enctype="multipart/form-data">
+		<form id="updateMoim" class="form-horizontal" name="detailForm" enctype="multipart/form-data">
 		  <input type="hidden" id="userId" name="userId" value="${moim.mmConstructor.userId}">
 		  <input type="hidden" id="mmNo" name="mmNo" value="${moim.mmNo}">
 		  <div class="form-group">

@@ -13,27 +13,25 @@
 		<result property="noticeType" 			column="CATEGORY" 			jdbcType="VARCHAR"/>
 		<result property="noticeState" 			column="NOTICE_STATE" 		jdbcType="CHAR"/>
 		<result property="noticeRegDate" 		column="NOTICE_REGDATE" 	jdbcType="DATE"/>
-		<result property="chatRoomNo" 			column="CHAT_ROOM_NO"		jdbcType="VARCHAR"/>
-		<result property="board.boardNo"		column="NOTICE_BOARD_NO"	jdbcType="NUMERIC"/>
-		<result property="moim.mmNo"			column="NOTICE_MOIM_NO"		jdbcType="NUMERIC"/>
-		<result property="mef.meflNo"			column="NOTICE_MEF_NO"		jdbcType="NUMERIC"/>
-		<result property="meeting.mtNo"			column="NOTICE_MEETING_NO"	jdbcType="NUMERIC"/>
-		<result property="reply.replyNo"		column="REPLY_NO"			jdbcType="NUMERIC"/>
-		<result property="letter.letterNo"		column="LETTER_NO"			jdbcType="NUMERIC"/>
 		<result property="noticeUser.userId"  	column="user_id"			jdbcType="VARCHAR"/>
-		<result property="noticeUser.nickname"	column="userNickname"		jdbcType="VARCHAR"/>
-		<result property="noticeUser.profileImage"	column="userImage"		jdbcType="VARCHAR"/>  
+		<result property="noticeUser.nickname"	column="nickname"		jdbcType="VARCHAR"/>
+		<result property="noticeUser.profileImage"	column="profile_image"		jdbcType="VARCHAR"/>  
+		<result property="board.boardNo"		column="NOTICE_BOARD_NO"	jdbcType="NUMERIC"/>
+		<result property="board.boardCategory"  column="bd_category"		jdbcType="CHAR"/>
+		<result property="flash.flashName"		column="flash_name"	jdbcType="VARCHAR"/>
+		<result property="flash.flashlNo"		column="NOTICE_FLASH_NO"	jdbcType="NUMERIC"/>
+		<result property="moim.mmNo"			column="NOTICE_MOIM_NO"		jdbcType="NUMERIC"/>
 		<result property="moim.mmName" 			column="MM_NAME" 			jdbcType="VARCHAR"/>
+		<result property="letter.letterNo"		column="NOTICE_LETTER_NO"			jdbcType="NUMERIC"/>
 	</resultMap>
 	
 	<insert id="addNotice" parameterType="notice">
 		INSERT 
 		INTO notice(TO_USER_ID, NOTICE_CONTENT, NOTICE_REGDATE, NOTICE_STATE, CATEGORY,
-					 NOTICE_USER_ID , NOTICE_BOARD_NO, NOTICE_MOIM_NO, NOTICE_MEF_NO, NOTICE_REPLY_NO,
-					 NOTICE_MEETING_NO, NOTICE_LETTER_NO , CHAT_ROOM_NO)
+					 NOTICE_USER_ID , NOTICE_BOARD_NO, NOTICE_MOIM_NO, NOTICE_LETTER_NO)
 		VALUES (#{notice.toUserId}, #{notice.noticeContent}, now(), "1", #{notice.noticeType}, 
-				#{notice.noticeUser.userId}, #{notice.board.boardNo}, #{notice.moim.mmNo}, #{notice.mef.meflNo},
-				#{notice.meeting.mtNo}, #{notice.reply.replyNo}, #{notice.letter.letterNo}, #{notice.chatRoomNo})
+				#{notice.noticeUser.userId}, #{notice.board.boardNo}, #{notice.moim.mmNo}, #{notice.letter.letterNo},
+				#{notice.flash.flashNo})
 	</insert>
 	
 	<select id="getNotice" parameterType="int" resultMap="noticeSelectMap">
@@ -49,25 +47,23 @@
 		FROM ( SELECT
 				inner_table.*  ,@ROWNUM := @ROWNUM +1 AS RNUM
 				FROM (SELECT
-						n.* , u.user_id , u.nickname as userNickname , u.profile_image as userImage , b.* , m.MM_NAME , mt.mt_content , rp.reply_content, mef.MEFL_NO , member.nickname as memberNickname , member.profile_image as memberImage
+						n.* , u.user_id , u.nickname , u.profile_image ,
+						 b.bd_category , b.bd_mm_no , f.flash_name , m.MM_NAME
 						FROM notice n LEFT OUTER JOIN users u
 							ON n.notice_user_id = u.user_id
     						LEFT OUTER JOIN board b
    							 ON n.notice_board_no = b.bd_no
-   							 LEFT OUTER JOIN moim m
-    						ON n.notice_moim_no = m.mm_no
-   							 LEFT OUTER JOIN MEETING_FLASH_MEMBER mef
-    						ON n.notice_mef_no = mef.target_no
-   							 LEFT OUTER JOIN meeting mt
-    						ON n.notice_meeting_no = mt.mt_no
-   							 LEFT OUTER JOIN reply rp
-   							 ON n.notice_reply_no = rp.reply_no
-   							 LEFT OUTER JOIN users member
-   							 ON mef.MEFL_ID = member.user_id
+   							LEFT OUTER JOIN moim m
+    						 ON n.notice_moim_no = m.mm_no
+   							LEFT OUTER JOIN flash f
+    						 ON n.notice_flash_no = f.flash_no
 						WHERE n.to_user_id in (#{userId})
 						ORDER BY n.notice_regdate DESC) inner_table , (SELECT @ROWNUM := 0) R) tables
 		WHERE RNUM BETWEEN #{search.startRowNum} AND #{search.endRowNum}
 	</select>
+	
+<!-- 	LEFT OUTER JOIN board_file bf
+   							 ON b.bd_no = bf.bd_no -->
 	  
 	<delete id="deleteNotice" parameterType="map">
 		DELETE
