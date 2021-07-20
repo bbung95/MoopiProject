@@ -27,7 +27,9 @@ public class MoimController {
 	@Autowired
 	private UserServiceImpl userService;
 	
-	public static final String saveDir = "C:\\Users\\bit\\git\\Test\\test\\src\\main\\resources\\static\\images\\uploadFiles";
+	public static final String saveDir = ClassLoader.getSystemResource("./static/").getPath().
+			substring(0, ClassLoader.getSystemResource("./static/").getPath().lastIndexOf("bin"))
+			+"src/main/resources/static/images/uploadFiles";
 	
 	//모임상세조회
 	@RequestMapping("getMoim")
@@ -137,6 +139,18 @@ public class MoimController {
 		model.addAttribute("search", search);
 		System.out.println("forward:/moim/moimMain 으로 이동합니다.");
 		return "moim/moimMain";
+	}
+	
+	
+	@RequestMapping("myListMoim")
+	public String getMyListMoim(@RequestParam("userId") String userId, Model model) throws Exception{
+		
+		System.out.println("내가 가입한 모임리스트를 가져옵니다.");
+		Map<String, Object> map = moimService.getMyMoimList(userId);
+		model.addAttribute("list", map.get("list"));
+		
+		System.out.println("forward:/moim/myMoimMain 으로 이동합니다.");
+		return "moim/myMoimMain";
 	}
 	
 	

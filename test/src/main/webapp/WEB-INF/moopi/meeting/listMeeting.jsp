@@ -82,11 +82,11 @@ function authenticate() {
 function fncAddMtView() {
 	alert("정모를 생성합니다.");
 	var displayValue = "<h6>"
-	+"<form class='form-horizontal' name='detailForm'>"
+	+"<form id='addMt' class='form-horizontal' name='detailForm'>"
 	+"<input type='hidden' name='mmNo' value='${mmNo}'>" 
 	+"정모이름 :" +"<input type='text' name='mtName'>" + "<br>"
 	+"정모내용 :"+"<input type='text' name='mtContent'>" + "<br>"
-	+"주최자 :"+ "<input type='text' name='userId' value='${user.userId}'>" + "<br>"
+	+"주최자 :"+ "<input type='text' name='userId' value='${dbUser.userId}'>" + "<br>"
 	+"정모시작일 :" +"<input type='datetime-local'  name='mtStart'>"+"<br>"
 	+"정모종료일 :" +"<input type='datetime-local' name='mtEnd'>"+"<br>"
 	+"정모 총 인원 :"+ "<input type='text' name='mtMaxCount'>" + "<br>"
@@ -104,7 +104,7 @@ function fncUptMtView() {
 	alert("정모를 수정합니다.");
 	if(mtConstructor == userId){
 		var displayValue = "<h6>"
-			+"<form class='form-horizontal' name='detailForm'>"
+			+"<form id='uptMt' class='form-horizontal' name='detailForm'>"
 			+"<input type='hidden' name='mtNo' value=''>"
 			+"<input type='hidden' name='mmNo' value=''>"
 			+"정모이름 :" +"<input type='text' name='mtName' value=''>"+"<br>"
@@ -149,12 +149,12 @@ function fncDeleteMt(userId) {
 
 function fncAddMt() {
 	alert("등록완료");
-	$("form").attr("method", "POST").attr("action", "/meeting/addMeeting").submit();
+	$("#addMt").attr("method", "POST").attr("action", "/meeting/addMeeting").submit();
 }
 
 function fncUptMt() {
 	alert("정모를수정합니다");
-	$("form").attr("method", "POST").attr("action", "/meeting/updateMeeting").submit();
+	$("#uptMt").attr("method", "POST").attr("action", "/meeting/updateMeeting").submit();
 }
 
 function fncApplyMt(mtNo, userId){
@@ -295,7 +295,11 @@ $(document).ready(function() {
     						$("#userId").val(JSONData.mtConstructor.userId);
     						$("#mtContent").val(JSONData.mtContent);
     						$("#mtStart").val(JSONData.mtStart);
+    						$("#mtStart2").val(JSONData.mtStart2);
+    						mtStart2 = JSONData.mtStart2;
+    						mtEnd2 = JSONData.mtEnd2;
     						$("#mtEnd").val(JSONData.mtEnd);
+    						$("#mtEnd2").val(JSONData.mtEnd2);
     						$("#mtMaxCount").val(JSONData.mtMaxCount);
     						$("#mtCurrentCount").val(JSONData.mtCurrentCount);
     						$("#mtAddr").val(JSONData.mtAddr);
@@ -411,7 +415,7 @@ function fncPopUp(){
 <jsp:include page="../layout/moimToolbar.jsp"/>
 <!-- ToolBar End /////////////////////////////////////-->
 
-<h3>정모일정 확인 캘린다입니다...${user.userId}님 안녕하십니까..
+<h3>정모일정 확인 캘린다입니다...${dbUser.userId}님 안녕하십니까..
 <button type="button" class="btn btn-success" onClick="fncAddMtView()">정모 생성하기</button>
 </h3>
   <div id='top'>
@@ -477,7 +481,9 @@ function fncPopUp(){
 	정모내용 :<input type='text' id='mtContent'><br>
 	주최자 : <input type='text' id='userId'><br>
 	정모시작일 :<input type='text'  id='mtStart'><br>
+	<input type='hidden' id='mtStart2'>
 	정모종료일 :<input type='text' id='mtEnd'><br>
+	<input type='hidden' id='mtEnd2'>
 	정모 총 인원 :<input type='text' id='mtMaxCount'><br>
 	정모 현재 인원 :<input type='text' id='mtCurrentCount'>
 	<button type="button" class="btn btn-default" onClick="fncGetMEFL(mtNo)">참여한사람보기</button>
@@ -485,13 +491,13 @@ function fncPopUp(){
 	정모 장소 :<input type='text' id='mtAddr'><br>
 	
 	
-	<button type="button" class="btn btn-success" onClick="fncApplyMt(mtNo, '${user.userId}')">참가</button>
-	<button type="button" class="btn btn-success" onClick="fncLeaveMt(mtNo, '${user.userId}')">참가취소</button>
-	<button type="button" class="btn btn-primary" onClick="fncUptMtView('${user.userId}')">수정</button>
-	<button type="button" class="btn btn-danger" onClick="fncDeleteMt('${user.userId}')">삭제</button>	
+	<button type="button" class="btn btn-success" onClick="fncApplyMt(mtNo, '${dbUser.userId}')">참가</button>
+	<button type="button" class="btn btn-success" onClick="fncLeaveMt(mtNo, '${dbUser.userId}')">참가취소</button>
+	<button type="button" class="btn btn-primary" onClick="fncUptMtView('${dbUser.userId}')">수정</button>
+	<button type="button" class="btn btn-danger" onClick="fncDeleteMt('${dbUser.userId}')">삭제</button>	
 	
-	<a id = "connect"onClick="authenticate().then(loadClient)">구글캘린더와 연동하기</a>
-	<a id = "insert"onClick="execute()">구글캘린더에 등록하기</a>
+	<a id = "connect" onClick="authenticate().then(loadClient)">구글캘린더와 연동하기</a>
+	<a id = "insert" onClick="execute()">구글캘린더에 등록하기</a>
 	
 
  	</div> <!-- 컨테이너 div종료 --> 
