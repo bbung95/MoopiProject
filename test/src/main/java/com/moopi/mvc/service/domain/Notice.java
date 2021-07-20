@@ -19,7 +19,7 @@ public class Notice {
 	private User noticeUser;
 	private Board board;
 	private Moim moim;
-	private MeetingFlashMember mef;
+	private Flash flash;
 	private Meeting meeting;
 	private Reply reply;
 	private Letter letter;
