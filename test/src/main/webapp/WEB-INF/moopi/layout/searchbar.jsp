@@ -1,33 +1,33 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-	
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!--  -->
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+	integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+	crossorigin="anonymous">
+<!--  -->
+
 <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap"
 	rel="stylesheet">
 
-<div class="wrapper">
-	<div id="searchList"
-		style="display: none; height: 600px; width: 450px; border: 1px solid black; background: gray; overflow: auto;">
-		<div style="position: absolute; background: gray;">
+<div class="searchBar">	
+	<div class="searchList" >
+		<div>
+		<div id="searchType">
 			<button>모임무피</button>
 			<button>번개무피</button>
 			<button>포스팅</button>
 			<button>유저</button>
 		</div>
-
-		<div class="searchOut" style="padding-top: 30px"></div>
+		</div>
+		<div class="searchOut" style="padding-top: 50px;"></div>
 	</div>
-	<div class="searchBar">
+	<form class="searchbtn" action="">
 		<input type="hidden" class='type' value="1"> <input
-			id="searchkeyword" type="text" name="searchkeyword"
-			placeholder="Search" value="" />
-		<button id="searchQuerySubmit" type="submit" name="searchQuerySubmit">
-			<svg style="width: 24px; height: 24px" viewBox="0 0 24 24">
-				<path fill="#666666"
-					d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z" />
-      </svg>
-		</button>
-	</div>
+			type="search" id="searchkeyword" name="searchkeyword" autocomplete="off"> 
+			<i class="fa fa-search"></i>
+	</form>
 </div>
 
 <script>
@@ -64,8 +64,8 @@
 					// moim
 					if(searchType == 1){
 						for(var i in data.list){
-							display += '<div style="background: white; margin: 5px; height: 100px" onclick="location=\'moim/getMoim?mmNo='+data.list[i].mmNo+'\'">'
-									+'<img style="margin: 5px; height:90px; width: 90px;" src="/images/uploadFiles/'+data.list[i].mmFile+'"></img>'
+							display += '<div style="background: white; margin: 5px; height: 100px; border-radius: 10px;" onclick="location=\'moim/getMoim?mmNo='+data.list[i].mmNo+'\'">'
+									+'<img style="margin: 5px; height:90px; width: 90px; border-radius: 10px;" src="/images/uploadFiles/'+data.list[i].mmFile+'"></img>'
 									+'<span>'+data.list[i].mmName+'</span><span> / '+data.list[i].mmContent+'</span>'
 									+'<span> / '+data.list[i].mmCurrentCount+':'+data.list[i].mmMaxCount+'</span>'
 									+'</div>';
@@ -103,8 +103,8 @@
 							
 							let target = $(this).attr('target');
 							popWin = window.open(
-									"/chat/joinRoom?trgt="+target,
-									"popWin",
+									"/chat/joinRoom?userId="+dbUser+"&trgt="+target,
+									"popWin"+target,
 									"left=460, top=300, width=460, height=600, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");
 						})
 					}
@@ -141,79 +141,170 @@
 		searchList($('#searchkeyword').val() , $('.type').val());
 	})
 	
+	
+	function unhover(){
+		$('#searchkeyword').css('display', 'none');
+		$('.searchbtn').css('width', '50px');
+		$('.fa').css('background', '#ebecf0').css('color', '#07051a');
+		$('.searchList').css('visibility', 'hidden');
+	}
+	
 	// ajax search
 	$('#searchkeyword').on('keypress', function(){
 		searchList($('#searchkeyword').val() , $('.type').val());
+		$('.searchList').css('visibility', 'visible');
 	})
 	$('#searchkeyword').on('keyup', function(){
 		searchList($('#searchkeyword').val() , $('.type').val());
+		$('.searchList').css('visibility', 'visible');
 	})
 	
-	// 요소 밖 클릭시 display none
-	$(document).on('click', (e)=>{
-			if(!$('.wrapper').has(e.target).length){
-				console.log(e.target.id);
-				$('#searchList').css('display', 'none');
+	// hover 효과
+	$('.searchbtn').hover(function() {
+		if($('#searchkeyword').val().length != 0){
+			$('.searchList').css('visibility', 'visible');
+		}
+		$('#searchkeyword').css('display', 'block');
+		$('.searchbtn').css('width', '400px').css('cursor','pointer');
+		$('.fa').css('background', '#c7cbd4').css('color', 'white');
+	},function(){
+		console.log($('#searchkeyword').val().length);
+		if($('#searchkeyword').val().length == 0){
+			unhover()
+		}
+	})
+
+	//요소 밖 클릭시 display none
+	 $(document).on('click', (e)=>{
+			if(!$('.searchBar').has(e.target).length){
+				//console.log(e.target.id);
+				unhover();
 			}
-	})
-	
-	// 채팅 클릭시 display block
-	$('.wrapper').on('click', function(){
-		console.log('click');
-		$('#searchList').css('display', 'block');
-	})
+	}) 
 	
 </script>
 <style>
-.wrapper {
-	font-family: 'Roboto', Arial, sans-serif;
-	/* width: 500px; */
-	max-width: 500px;
-	margin: 5px;
+:root {
+  --sc-color: #ebecf0; 
+  --sc-color2: #c7cbd4;
+}
+
+.searchBar{
+	bottom: 20px;
+	right: 20px;
 	position: fixed;
-	bottom: 0px;
-	right: 0px;
 }
 
-.label {
-	font-size: .625rem;
-	font-weight: 400;
-	text-transform: uppercase;
-	letter-spacing: +1.3px;
-	margin-bottom: 1rem;
+.searchList{
+	visibility: hidden;
+	height: 600px;
+	width: 400px;
+	border: 1px solid gray;
+	background: gray;
+	margin-bottom: 50px;
+	border-radius: 20px;
+	overflow: auto;
 }
 
-.searchBar {
-	width: 100%;
-	display: flex;
+.searchList{ 
+	-ms-overflow-style: none; 
+} 
+
+.searchList::-webkit-scrollbar{ 
+	display:none; 
+}
+
+#searchType{
+	position: fixed;
+	width: 400px;
+	height : 50px;	
+	padding: 5px;
+	background: gray;
+	display:  flex;
+	margin-left : -1px;
+	margin-top: -1px;
+	border-radius: 20px;
+	flex-wrap: nowrap;
 	flex-direction: row;
-	align-items: center;
+	align-items:center;
+	justify-content: space-evenly;
 }
 
-#searchQueryInput {
-	height: 2.8rem;
-	background: #f5f5f5;
-	outline: none;
-	border: none;
-	border-radius: 1.625rem;
-	padding: 0 3.5rem 0 1.5rem;
-	font-size: 1rem;
+#searchType button{
+	width: 80px;
+	height: 30px;
+	border : 0.5px solid gray;
+	border-radius: 6px;
+	background: white;
 }
 
-#searchQuerySubmit {
-	width: 3.5rem;
-	height: 2.8rem;
-	margin-left: -3.5rem;
-	background: none;
-	border: none;
-	outline: none;
+#searchType button:hover{
+	background: var(--sc-color);
 }
 
-#searchkeyword {
-	width: 450px;
+form {
+	position: fixed;
+	transition: all 0.5s;
+	bottom: 20px;
+	right: 20px;
+	width: 50px;
+	height: 50px;
+	background: var(--sc-color);
+	box-sizing: border-box;
+	border-radius: 25px;
+	border: 4px solid white;
+	padding: 5px;
 }
 
-#searchQuerySubmit:hover {
+input {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;;
+	height: 42.5px;
+	line-height: 30px;
+	outline: 0;
+	border: 1px solid var(--sc-color2);
+	display: none;
+	font-size: 1em;
+	border-radius: 20px;
+	padding: 0 20px;
+}
+
+.fa {
+	box-sizing: border-box;
+	padding: 10px;
+	width: 42.5px;
+	height: 42.5px;
+	position: absolute;
+	top: 0;
+	right: 0;
+	border-radius: 50%;
+	color: #07051a;
+	text-align: center;
+	font-size: 1.2em;
+	transition: all 0.5s;
+}
+
+/* .searchBar:hover form{
+	width: 400px;
 	cursor: pointer;
 }
+
+.searchBar:hover input {
+	display: block;
+}
+
+ .searchBar:hover .searchList{
+	visibility: visible;
+} 
+
+.searchBar:hover .fa {
+	background: var(--sc-color2);
+	color: white;
+}
+
+ */
+
+
 </style>

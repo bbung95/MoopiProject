@@ -52,4 +52,10 @@ public class ReplyServiceImpl {
 		replyDao.deleteReply(replyNo);
 	}
 	
+public void deleteReply2(Reply reply){
+		
+		replyDao.deleteReply2(reply);
+	}
+	
+
 }

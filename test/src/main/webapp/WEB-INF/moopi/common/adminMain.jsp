@@ -24,7 +24,47 @@
 
 <!-- Bootstrap Dropdown Hover JS -->
 <script src="/javascript/bootstrap-dropdownhover.min.js"></script>
+<style>
+	nav{
+		background: gray;
+		display : flex;
+		flex-direction: row;
+	}
+</style>
 <body>
-
+	<nav>
+		<div class="nav">
+			<div>회원목록</div>
+			<div>모임목록</div>
+			<div>번개목록</div>
+			<div>신고목록</div>
+			<div>결제목록</div>
+		</div>
+		<div class="main">
+			안녕하세요
+		</div>
+	</nav>
+<script>
+	$('.nav div:contains("회원목록")').on('click', function(){
+		
+		location.href = "/common/getUserList";
+	})
+	$('.nav div:contains("모임목록")').on('click', function(){
+		
+		location.href = "/common/getMoimList";
+	})
+	$('.nav div:contains("번개목록")').on('click', function(){
+		
+		location.href = "/common/getFlashList";
+	})
+	$('.nav div:contains("신고목록")').on('click', function(){
+		
+		location.href = "/common/getFlashList";
+	})
+	$('.nav div:contains("결제목록")').on('click', function(){
+		
+		location.href = "/common/getFlashList";
+	})
+</script>
 </body>
 </html>

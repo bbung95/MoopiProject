@@ -55,18 +55,18 @@
         <div class="header">무피채팅목록</div>
         <div class="list"></div>
     </div>
-    <script src="http://localhost:82/socket.io/socket.io.js"></script>
+    <script src="http://localhost:3030/socket.io/socket.io.js"></script>
+    <!-- <script src="https://bbung95-rtc.herokuapp.com/sosocket.io/socket.io.js"></script> -->
 	<script>
 		
-		let socket = io("http://localhost:82");
-		let userId = '<c:out value="${user.userId}"/>';
+		let socket = io("http://localhost:3030");
+		let dbUser = '<c:out value="${user.userId}"/>';
 		
-		socket.emit("roomlist", userId);
+		socket.emit("roomlist", dbUser);
 		
 		socket.on("roomlist", function(data){
 			let display = '';
 	        for(var i in data){
-	        	console.log(data[i].target);
 				display += '<div class="room" trgt="'+data[i].target+'" roomNo="'+data[i].roomNo+'">'+data[i].target+'</div>';
 	        	//display += '<div class="room">'+data[i].target+'</div>';
 	        }
@@ -76,8 +76,8 @@
 				let trgt = $(this).attr('trgt');
 				let roomNo = $(this).attr('roomNo');
 				
-	            alert("trgt : "+trgt+" userId : "+userId+" roomNo : "+roomNo); 
- 				location.href = "/chat/joinRoom?trgt="+trgt; 
+	            //alert("trgt : "+trgt+" userId : "+userId+" roomNo : "+roomNo); 
+ 				location.href = "/chat/joinRoom?userId="+dbUser+"&trgt="+trgt; 
 			})
 		})
 		
