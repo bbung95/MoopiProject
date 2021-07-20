@@ -68,6 +68,7 @@ public class BoardController{
 		map.put("boardState", "1");
 		map.put("search", search);
 		
+		
 		map = boardService.getBoardList(map);
 		
 		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
@@ -76,7 +77,12 @@ public class BoardController{
 		model.addAttribute("totalCount", map.get("totalCount"));
 		System.out.println(boardCategory);
 		
-		return "/board/"+boardCategory+"Board/list"+boardCategory;
+		
+		if(boardCategory == "4") {
+			return "moim/listMoimBoard";
+		}else {
+			return "/board/"+boardCategory+"Board/list"+boardCategory;
+		}
 	}
 	
 	

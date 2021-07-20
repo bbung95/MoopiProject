@@ -64,8 +64,8 @@ public class CommonRestController {
 
 		System.out.println("/getListNotice : GET");
 		Search search = new Search();
-		search.setStartRowNum(1);
-		search.setEndRowNum(5);
+//		search.setStartRowNum(1);
+//		search.setEndRowNum(5);
 		return commonService.getListNotice(search, userId);
 	}
 

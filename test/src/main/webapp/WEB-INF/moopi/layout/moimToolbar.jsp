@@ -29,7 +29,7 @@
 			<ul class="nav navbar-nav">
 
 				<li><a href="/moim/listMoim">홈</a></li>
-				<li><a href="/moim/boardTest">게시글</a></li>
+				<li><a href="#">게시글</a></li>
 				<li><a href="javascript:fncListMeeting('${moim.mmNo}')">정모일정</a></li>
 				<li><a id="choose" href="javascript:fncApply('${moim.mmNo}')">가입하기/탈퇴하기</a></li>
 				<li><a href="/moim/listInvite">초대하기</a></li>
@@ -41,8 +41,8 @@
 
 	<script type="text/javascript">
 	$("a:contains('게시글)").on("click", function(){
-		alert("게시글클릭")
-		location.href = "/boardTest";
+		alert("게시글클릭");
+		location.href = "/../board/listBoard?category=1";
 	})
 	
 	
