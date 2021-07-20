@@ -40,18 +40,20 @@
 				<ul class="nav navbar-nav navbar-right">
 
 					<!-- sessionScope.id가 없으면 : 로그인을 하지 않았을 경우 -->
-					<c:if test="${empty sessionScope.user}">
+					<c:if test="${empty sessionScope.dbUser}">
 						<li><a href="/user/loginView">로그인</a></li>
 					</c:if>
 					
 					<!-- sessionScope.id가 있을시 : 로그인을 했을 경우 -->
-					<c:if test="${not empty sessionScope.user}">
+					<c:if test="${not empty sessionScope.dbUser}">
 						<li class="dropdown-toggle" id="noticeCount"><a href="#"
 							data-toggle="dropdown" role="button" aria-expanded="false"> <span>알림</span>
 						</a>
 							<ul id="noticeList" class="dropdown-menu">
 								<div align="right">
 									<a href="javascript:deleteNoticeAll()">전체삭제</a>
+								</div>
+								<div class="noticeOut">
 								</div>
 							</ul></li>
 						<li><a href="#">채팅</a></li>
@@ -68,11 +70,12 @@
 								<li> <a href="#">마이홈</a></li>
 								<li> <a href="#">내정보보기</a></li>
 								<li> <a href="#">쪽지	</a></li>
+								<li> <a href="#">MY무피코인</a></li>
 								<li> <a href="#">로그아웃</a></li>
-								<c:if test="${user.userRole == 'admin'}">
+								<c:if test="${dbUser.userRole == '1'}">
 									<li> <a href="#">관리자</a></li>
 								</c:if>
-							</ul></li>
+							</ul></li>							
 					</c:if>
 								
 				</ul>
@@ -90,7 +93,7 @@
 <script type="text/javascript">
 	
 	// login session userId
-	let dbUser = '<c:out value="${user.userId}"/>';
+	var dbUser = '<c:out value="${dbUser.userId}"/>';
 	
 	//읽지않은 알림 카운트
 	function noticeCount() {
@@ -128,15 +131,16 @@
 			dataType : "text",
 			success : function(data, status) {
 
-				$('.notice').remove();
+				$('.noticeOut').children().remove();
+				let display = "<li style='height: 40px'>알림이 존재하지 않습니다.</li>";
+				$('.noticeOut').append(display);
 			}
 		});
 	}
 	
 	function chatjoin(target){
-			alert("ds");
 			popWin = window.open(
-					"/chat/joinRoom?trgt="+target,
+					"/chat/joinRoom?userId="+dbUser+"&trgt="+target,
 					"popWin",
 					"left=460, top=300, width=460, height=600, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");
 	}
@@ -157,14 +161,14 @@
 							if(data[i].noticeType == '1'){
 							display += "<div style='height: 40px' class='notice "+data[i].noticeNo+"' onclick='javascript:chatjoin(\""+data[i].noticeUser.userId+"\")'><span>"
 									+ data[i].noticeUser.nickname+" : "+data[i].noticeContent
-									+ "</span></div>"
-									+"<span><a href='javascript:deleteNotice("+data[i].noticeNo+")'>X</a></span>";
+									+ "</span>"
+									+"<span><a href='javascript:deleteNotice("+data[i].noticeNo+")'>X</a></span></div>";
 							}
 						}
-						$('#noticeList').append(display);
+						$('.noticeOut').append(display);
 					} else {
 						let display = "<li style='height: 40px'>알림이 존재하지 않습니다.</li>";
-						$('#noticeList').append(display);
+						$('.noticeOut').append(display);
 					}
 					noticeCount();
 				}
@@ -222,19 +226,22 @@
 	
 	$("a:contains('마이홈')").on("click", function(){
 	
-		alert("마이홈스타트");
-	
 		location.href = "/user/getMyHomeBoard?userId="+dbUser;
 	})
 	
 	$("a:contains('내정보보기')").on("click", function(){
 		
-		location.href = "/";
+		location.href = "/user/updateProfile?userId="+dbUser;
 	})
 	
 	$("a:contains('쪽지')").on("click", function(){
 		
 		location.href = "/";
+	})
+	
+	$("a:contains('MY무피코인')").on("click", function(){
+		
+		location.href = "/payment/paymentList?userId="+dbUser;
 	})
 	
 	$("a:contains('로그아웃')").on("click", function(){
@@ -249,6 +256,7 @@
 	
 	$("a:contains('충전')").on("click", function(){
 		
-		location.href = "/payment/addPaymentView";
+		location.href = "/payment/addPaymentView?userId=${dbUser.userId}";
 	})
 </script>
+

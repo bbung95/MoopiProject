@@ -30,7 +30,7 @@
 		INSERT
 		INTO PAYMENT(PAYMENT_NO, PAYMENT_REGDATE, PAYMENT_ROLE, PAYMENT_USER_ID, PAYMENT_PRICE,
 			PAYMENT_COIN_COUNT, PAYMENT_UID)
-		VALUES(#{paymentNo}, #{paymentRegdate}, #{paymentRole}, #{paymentUserId.userId}, #{paymentPrice},
+		VALUES(#{paymentNo}, now(), '1', #{paymentUserId.userId}, #{paymentPrice},
 		#{paymentCoinCount}, #{paymentUid})
 	</insert>
 	
@@ -42,6 +42,13 @@
 		</set>
 		WHERE PAYMENT_NO = #{paymentNo}
 	</update>
+	
+	<select id="paymentList" parameterType="payment" resultMap="paymentSelectMap">
+		SELECT
+			PAYMENT_NO , PAYMENT_USER_ID , PAYMENT_REGDATE , PAYMENT_PRICE , PAYMENT_COIN_COUNT
+			FROM PAYMENT
+			WHERE PAYMENT_USER_ID = #{paymentUserId.userId}
+	</select>
 	
 	<select id="getPaymentList" parameterType="search" resultMap="paymentSelectMap">
 		SELECT

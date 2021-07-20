@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+	<mapper namespace="com.moopi.mvc.service.report.ReportDao">   	
+ 	
+	<resultMap id="reportSelectMap" type="report">
+		<result property="reportNo" 			column="RP_NO" 				jdbcType="NUMERIC"/>
+		<result property="reportCategory"		column="RP_CATEGORY" 		jdbcType="CHAR" />
+		<result property="reportContent" 		column="RP_CONTENT" 		jdbcType="VARCHAR"  />
+		<result property="reportRegDate" 		column="RP_REGDATE" 		jdbcType="DATE"  />
+		<result property="reportType" 			column="RP_TYPE" 			jdbcType="VARCHAR"  />
+		<result property="reportResultUpdate" 	column="RP_RESULT_UPDATE"	jdbcType="DATE"  />
+		<result property="reportResultState" 	column="RP_RESULT_STATE" 	jdbcType="VARCHAR" />
+		<result property="stateReason" 			column="STATE_REASON" 		jdbcType="VARCHAR" />
+		
+		
+		<association property="reportByUser"  column="RP_BY_USERID" javaType="user">
+			<id property="userId" 				column="USER_ID" 			jdbcType="VARCHAR"/>
+			<result property="profileImage"		column="PROFILE_IMAGE"		jdbcType="VARCHAR"/>
+			<result property="nickname"			column="NICKNAME"			jdbcType="VARCHAR"/>
+		</association>	
+		
+		<association property="reportTarget"  javaType="user">
+			<id property="userId" 				column="USER_ID" 			jdbcType="VARCHAR"/>
+			<result property="profileImage"		column="PROFILE_IMAGE"		jdbcType="VARCHAR"/>
+			<result property="nickname"			column="NICKNAME"			jdbcType="VARCHAR"/>
+		</association>	
+		
+		<association property="reportTargetBd"  javaType="board">
+			<id property="boardNo" 				column="BD_NO" 			jdbcType="NUMERIC"/>
+			<result property="boardName"		column="BD_NAME"		jdbcType="VARCHAR"/>
+			<result property="boardWriter.userId"		column="BD_WRITER"		jdbcType="VARCHAR"/>
+		</association>	
+		
+		<association property="reportTargetRe"  		javaType="reply">
+			<id property="replyNo" 					 	column="REPLY_NO" 			jdbcType="NUMERIC"/>
+			<result property="replyContent"				column="REPLY_CONTENT"		jdbcType="VARCHAR"/>
+			<result property="replyWriter.userId"		column="REPLY_WRITER"		jdbcType="VARCHAR"/>
+			<result property="boardNo"					column="BD_NO"				jdbcType="NUMERIC"/>
+			
+		</association>		
+		
+	</resultMap>	
+	
+	
+	<insert id="addReport" parameterType="report"> 
+		
+		INSERT INTO REPORT
+		 (
+		 RP_BY_USERID
+	   , RP_TYPE
+	   , RP_CONTENT
+	   , RP_REGDATE
+	   <if test="report.reportTarget !=null">
+	   , RP_TARGET
+	   </if>
+	   <if test="report.reportTargetRe !=null">
+	   , RP_TARGETRE
+	   </if>
+	   <if test="report.reportTargetBd !=null">
+	   , RP_TARGETBD
+	   </if>
+	   , RP_CATEGORY
+	   ) VALUES 
+	   (
+	     #{report.reportByUser.userId}
+	   , #{report.reportType}
+	   , #{report.reportContent}
+	   , NOW()
+	    <if test="report.reportTarget !=null">
+	   , #{report.reportTarget.userId}
+	   </if>
+	    <if test="report.reportTargetRe !=null">
+	   , #{report.reportTargetRe.replyNo}
+	   </if>
+	   <if test="report.reportTargetBd !=null">
+	   , #{report.reportTargetBd.boardNo}
+	   </if>
+	   , #{report.reportCategory});
+		
+	</insert>	
+	
+	<select id="getReportList" parameterType="map" resultMap="reportSelectMap">
+	
+			SELECT 
+		  R.RP_NO
+		, R.RP_BY_USERID
+		, U.NICKNAME
+		, R.RP_TYPE
+		, R.RP_CONTENT
+		, R.RP_IMAGE
+		, R.RP_REGDATE
+		 <if test=" map.search.searchCategory == 3 ">
+		, U2.USER_ID
+		, U2.NICKNAME
+		</if>
+		<if test=" map.search.searchCategory == 1 ">
+		, B.BD_NO
+		, B.BD_NAME
+		, B.BD_WRITER
+		</if>
+		<if test=" map.search.searchCategory == 2 ">
+		, RE.REPLY_NO
+		, RE.REPLY_CONTENT
+		, RE.REPLY_WRITER
+		, RE.BD_NO
+		</if>
+		, R.RP_CATEGORY
+		, R.RP_RESULT_STATE
+		, R.RP_RESULT_UPDATE
+		, R.STATE_REASON
+		 FROM 
+		 REPORT R, BOARD B, USERS U, USERS U2, REPLY RE
+		 WHERE
+		 R.RP_BY_USERID = U.USER_ID
+		 <if test=" map.search.searchCategory == 3 ">
+		 AND
+		 R.RP_TARGET = U2.USER_ID
+		 </if>
+		 <if test=" map.search.searchCategory == 1 ">
+		 AND
+		 R.RP_TARGETBD = B.BD_NO
+		 </if>
+		 <if test=" map.search.searchCategory == 2 ">
+		 AND
+		 R.RP_TARGETRE = RE.REPLY_NO
+		 </if>		 
+		 GROUP BY
+		 U.USER_ID
+		 <if test=" map.search.searchCategory == 3 ">
+		 , U2.USER_ID
+		 </if>
+		 <if test=" map.search.searchCategory == 1 ">
+		 , B.BD_NO
+		 </if>
+		 <if test=" map.search.searchCategory == 2 ">
+		 , RE.REPLY_NO
+		 </if> 
+		
+		 
+		 
+		 
+	</select>
+	
+	<update id="processReport" parameterType="report" >
+	
+	UPDATE
+		REPORT
+ 	SET 
+ 	RP_RESULT_STATE 	= #{report.reportResultState}
+ 	,  RP_RESULT_UPDATE = now()
+ 	,  STATE_REASON 	= # {report.stateReason}
+    WHERE
+       RP_NO			= # {report.reportNo);
+	
+	</update>
+	
+	
+	
+	
+</mapper>

@@ -99,7 +99,7 @@
 		<!-- 확인,취소 -->
 		<div class="form-group">
 			<div class="col-sm-offset-4  col-sm-4 text-center">
-				<button type="button" id="joinButton" class="btn btn-primary">확인</button>
+				<button type="button" id="checkButton" class="btn btn-primary">확인</button>
 				<a class="btn btn-default btn" href="/" role="button">취소</a>
 			</div>
 		</div> 
