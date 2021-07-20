@@ -17,7 +17,7 @@
 <script>
 function fncAddMoim(){
 	alert("모임을 생성하겠씁니다.");
-	$("form").attr("method", "POST").attr("action", "/moim/addMoim").submit();
+	$("#addMoim").attr("method", "POST").attr("action", "/moim/addMoim").submit();
 
 }
 </script>
@@ -38,8 +38,8 @@ function fncAddMoim(){
 		<h1 class="bg-primary text-center">모임무피생성</h1>
 		
 		<!-- form Start /////////////////////////////////////-->
-		<form class="form-horizontal" name="detailForm" enctype="multipart/form-data">
-		  <input type="hidden" id="userId" name="userId" value="${userId}">
+		<form id = "addMoim" class="form-horizontal" name="detailForm" enctype="multipart/form-data">
+		  <input type="hidden" id="userId" name="userId" value="${dbUser.userId}">
 		  <div class="form-group">
 		    <label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">모임무피명</label>
 		    <div class="col-sm-4">

@@ -22,6 +22,24 @@ public class UserController {
 	@Autowired
 	private UserServiceImpl userService;
 	
+	// 카카오 로그인 및 회원가입
+	@RequestMapping("kakaoLogin")
+	public String kakaoLogin (	@ModelAttribute("user") User user, 
+								HttpSession session) throws Exception {	
+		System.out.println("\n"+"UserRestController_____kakaoLogin 시작");				
+		User dbUser = userService.getUser(user.getUserId());
+
+		// db에 유저값 존재시 addUserInfo로 이동, db에 유저값이 없을 경우 메인페이지 출력		
+		if( dbUser != null ) {
+			session.setAttribute("dbUser", dbUser);
+			return "redirect:/";
+		} else {
+			user.setJoinPath("4"); // 가입경로 [4.카카오] 지정 후 추가입력페이지 전달
+			return "user/addUserInfo";
+		}
+	}	
+	
+	
 	// [완료] 로그인페이지 (단순 네비게이션)
 	@RequestMapping("loginView")
 	public String loginView(@ModelAttribute("user") User user, HttpSession session) throws Exception{		
@@ -166,7 +184,7 @@ public class UserController {
 		System.out.println("\n"+"1 : UserController_____getMyHomeBoard 시작"+"\n");
 		System.out.println("마이홈의 메인을 출력하는 페이지입니다. 여러 값들을 가져와야 하는 부분");		
 		
-		model.addAttribute("user",userService.getUser(userId));
+		model.addAttribute("dbUser",userService.getUser(userId));
 		
 		// 코인, 팔로잉, 게시판, 모임에서 사용해야하니 CommonRestController 보고 작성해보
 		
@@ -185,7 +203,7 @@ public class UserController {
 				
 		System.out.println("\n"+"UserController_____updateProfile 프로필수정 페이지"+"\n");
 		
-		model.addAttribute("user",userService.getUser(userId));
+		model.addAttribute("dbUser",userService.getUser(userId));
 		
 		System.out.println(userService.getUser(userId));
 		return "user/updateProfile";
