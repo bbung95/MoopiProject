@@ -30,7 +30,7 @@
 
 	function fncGetMyMoim() {
 		alert("내가 가입한 모임보기");
-		self.location ="/moim/myListMoim?userId=${dbUser.userId}"
+		
 	}
 
 
@@ -46,8 +46,9 @@ body {
 <body>
 <!-- ToolBar Start /////////////////////////////////////-->
 	<jsp:include page="../layout/toolbar.jsp" />
+	<jsp:include page="../layout/moimToolbar.jsp" flush="false"/>
 <!-- ToolBar End /////////////////////////////////////-->
-<h3>모임메인페이지입니다...${dbUser.userId}님 안녕하십니까...</h3>
+<h3>내가가입한모임리스트입니다...${dbUser.userId}님 안녕하십니까...</h3>
 <c:if test="${!empty dbUser}">
 <button type="button" class="btn btn-default" onClick="javascript:fncAddMoimView()">모임생성하기</button>
 <button type="button" class="btn btn-default" onClick="javascript:fncGetMyMoim()">내가가입한모임보기</button>

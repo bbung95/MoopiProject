@@ -214,6 +214,19 @@
 		</if> 	  	
 		</where>
 	 </select>
+	 
+	 <select  id="getMyMoimList"  parameterType="string"	resultMap="moimSelectMap">
+		SELECT
+		M.MM_NO, MM_NAME, MM_CONTENT, MM_IMAGE, MM_MAX_COUNT, MM_CURRENT_COUNT, MM_CONSTRUCTOR, MM_REGDATE, 
+		MM_INTEREST, MM_ADDR, MM_STATE, MM_MIN_AGE, MM_MAX_AGE, MM_TYPE	
+		FROM MOIM M, MEMBER E
+		<where>
+		MM_MEMBER_ID = #{userId}
+		AND
+		M.MM_NO = E.MM_NO  	
+		</where>
+	 </select>
+	 
 	
 	<select  id="getTotalCount"  parameterType="search"	 resultType="int">
 	  	select count(*)
