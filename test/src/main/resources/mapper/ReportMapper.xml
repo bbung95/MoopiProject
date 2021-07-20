@@ -158,6 +158,19 @@
 	
 	</update>
 	
+	<select id="getReport" parameterType="report" resultMap="reportSelectMap">
+	
+	SELECT
+		RP_RESULT_STATE
+	  , RP_RESULT_UPDATE
+	  , STATE_REASON
+	  , RP_NO
+	FROM
+		REPORT
+	WHERE
+		RP_NO = #{report.reportNo}
+	
+	</select>
 	
 	
 	

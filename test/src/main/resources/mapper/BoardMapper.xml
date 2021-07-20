@@ -82,6 +82,10 @@
 					AND
 					BD.bd_MM_No= #{map.mmNo}
 					</if>
+					<if test="map.searchKeyword != null and map.search.searchCondition == 1">
+					AND
+					BD.BD_NAME LIKE (%#{map.search.searchKeyword}%)
+					</if>
 					GROUP BY 
 					BD.BD_NO
 					, BD.BD_NAME
@@ -89,7 +93,7 @@
 					, BD.BD_UPDATE
 					, BD.BD_PASSWORD
                     ORDER BY 
-                    <if test="map.boardCategory == 3 or map.searchKeyword !=null">
+                    <if test="map.boardCategory == 3 or map.search.searchKeyword !=null">
 					LIKECOUNT
 					</if>
                     BD.BD_NO ASC
@@ -134,7 +138,9 @@
 			, BD_REGDATE
 			, BD_STATE
 			, BD_PASSWORD
+			<if test= "board.boardMoimNo != null">
 			, BD_MM_NO
+			</if>
 			) 
 		VALUES 
 			(
@@ -145,7 +151,9 @@
 			, now()
 			, '1'
 			, #{board.boardPassword}
+			<if test= "board.boardMoimNo != null">
 			, #{board.boardMoimNo : NUMERIC}
+			</if>
 		)
 	</insert>
 	
