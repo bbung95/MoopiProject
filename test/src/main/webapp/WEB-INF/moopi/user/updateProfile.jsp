@@ -20,14 +20,21 @@
 	
 	// [2021-07-19 400Error 발생 : Required request part 'profileImage' is not present
 	// 0. 프로필이미지수정 버튼 실행시 uploadFile 실행
-/*
+
 	function updateProfileImage() {
 		
 		console.log("프로필이미지 Ajax 실행");
 	
 		// formData Object 생성 + form 가져오기
-		var formData = new FormData($("upload")[0]);
+		let form = $('#upload');
+		var formData = new FormData(form[0]);
 		console.log("formData : "+formData);
+		 for (var key of formData.keys()) {
+  		  console.log(key);
+  		}
+  		for (var value of formData.values()) {
+  	 		 console.log(value);
+  		} 
 	
     	$.ajax({
 
@@ -43,7 +50,7 @@
                     }           
 		});
     }
-*/
+
 /*	
 	// 1. 닉네임수정
 	function updateNickname() {
@@ -183,13 +190,13 @@
 
 <!-- FORM START ---------------------------------------------------------------------------------------------------------------->
 	
-	<form class="form-horizontal" name="detailForm" enctype="multipart/form-data">
-	
+<!-- 	<form class="form-horizontal" name="detailForm" enctype="multipart/form-data">
+ -->	
 	<!-- 아이디[숨김표시] -->
 	<input type="hidden" class="userId" name="userId" value="${user.userId}"/>
 	
 	<!-- 프로필이미지[파일업로드] -->
-	<!-- <form id="upload" method="post" enctype="multipart/form-data"> -->
+	 <form id="upload" method="post" enctype="multipart/form-data"> 
 		
 		<div class="form-group">
 			<label for="profileImage" class="col-sm-offset-1 col-sm-3 control-label">프로필이미지</label>
@@ -199,7 +206,7 @@
 			</div>
 		</div>
 		
-	<!-- </form>-->
+	</form>
 	
 	<!-- 닉네임 -->
 	<div class="form-group">
