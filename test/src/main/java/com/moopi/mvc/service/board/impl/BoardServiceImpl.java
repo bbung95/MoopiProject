@@ -38,11 +38,11 @@ public class BoardServiceImpl {
 		
 		
 		List<Board> list= boardDao.getBoardList(map);
-//		int totalCount =  boardDao.getTotalCount(map); 
+		int totalCount =  boardDao.getTotalCount(map); 
 
 		map.put("list", list);
-//		map.put("totalCount", totalCount);
-		
+		map.put("totalCount", totalCount);
+		System.out.println(map);
 		return map;
 	}
 
