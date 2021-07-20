@@ -277,7 +277,7 @@
 	<!-- ToolBar Start /////////////////////////////////////-->
 		<jsp:include page="../../layout/toolbar.jsp" />
 	<!-- ToolBar End /////////////////////////////////////-->
-	<form >
+	<form class="form-horizontal" name="detailForm" enctype="multipart/form-data">
 	<h3>무피 QnA게시판조회</h3>
 	<div >
 	<input class="board" type="hidden" id="boardNo" name="boardNo" value="${board.boardNo}">

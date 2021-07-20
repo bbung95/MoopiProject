@@ -39,6 +39,16 @@
 			
 	<!-- dropdown hover END -->
 
+	<script type="text/javascript">
+	$("a:contains('게시글)").on("click", function(){
+		alert("게시글클릭");
+		location.href = "/../board/listBoard?category=1";
+	})
+	
+	
+	</script>
+
+
 </div>
 </div>
 
