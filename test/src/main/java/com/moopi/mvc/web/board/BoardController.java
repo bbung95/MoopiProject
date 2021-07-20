@@ -44,18 +44,15 @@ public class BoardController{
 	public String getBoardList(@ModelAttribute("search")Search search, @ModelAttribute("category")String category ,Model model ) throws Exception {
 		
 		String boardCategory = null;
-		System.out.println(search);
-		System.out.println(model);
 		Map map = new HashMap();
 		System.out.println("getBoardList start;;");
-		System.out.println(category);
+		
 		
 		if(search.getCurrentPage() == 0 ) {
 			search.setCurrentPage(1);
 		}
 		
 		boardCategory = boardService.getBoardCategory(category);
-		
 		
 		System.out.println("====category 값 체크 : "+category);
 		
@@ -64,11 +61,7 @@ public class BoardController{
 	      }
 	      search.setPageSize(pageSize);
 		
-		map.put("boardCategory", category);
-		map.put("boardState", "1");
-		map.put("search", search);
-		
-		map = boardService.getBoardList(map);
+		map = boardService.getBoardList(search, category, "1");
 		
 		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
 		model.addAttribute("resultPage", resultPage);
