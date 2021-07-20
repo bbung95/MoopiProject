@@ -151,13 +151,26 @@
 		REPORT
  	SET 
  	RP_RESULT_STATE 	= #{report.reportResultState}
- 	,  RP_RESULT_UPDATE = now()
- 	,  STATE_REASON 	= # {report.stateReason}
+ 	,  RP_RESULT_UPDATE = NOW()
+ 	,  STATE_REASON 	= #{report.stateReason}
     WHERE
-       RP_NO			= # {report.reportNo);
+       RP_NO			= #{report.reportNo}
 	
 	</update>
 	
+	<select id="getReport" parameterType="report" resultMap="reportSelectMap">
+	
+	SELECT
+		RP_RESULT_STATE
+	  , RP_RESULT_UPDATE
+	  , STATE_REASON
+	  , RP_NO
+	FROM
+		REPORT
+	WHERE
+		RP_NO = #{report.reportNo}
+	
+	</select>
 	
 	
 	

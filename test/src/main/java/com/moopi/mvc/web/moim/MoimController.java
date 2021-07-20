@@ -12,7 +12,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.moopi.mvc.common.Search;
+import com.moopi.mvc.service.common.impl.CommonServiceImpl;
+import com.moopi.mvc.service.domain.Flash;
 import com.moopi.mvc.service.domain.Moim;
+import com.moopi.mvc.service.domain.Notice;
 import com.moopi.mvc.service.domain.User;
 import com.moopi.mvc.service.moim.impl.MoimServiceImpl;
 import com.moopi.mvc.service.user.impl.UserServiceImpl;
@@ -26,6 +29,9 @@ public class MoimController {
 
 	@Autowired
 	private UserServiceImpl userService;
+	
+	@Autowired
+	private CommonServiceImpl commonService;
 	
 	public static final String saveDir = ClassLoader.getSystemResource("./static/").getPath().
 			substring(0, ClassLoader.getSystemResource("./static/").getPath().lastIndexOf("bin"))
@@ -205,6 +211,19 @@ public class MoimController {
 	@RequestParam("status") int status) throws Exception {
 		System.out.println("멤버 권한변경을 합니다.");
 		moimService.updateMemeber(userId, mmNo, status);
+		
+		// 알림
+		System.out.println("moim Notice");
+		Notice notice = new Notice();
+		Moim moim = new Moim();
+		moim.setMmNo(mmNo);
+		notice.setToUserId(userId); // 알림대상
+		notice.setNoticeContent("가입되었습니다");
+		notice.setMoim(moim);
+		notice.setNoticeType("4");
+		commonService.addNotice(notice);
+		//
+		
 		return "redirect:/moim/listMember?mmNo="+mmNo+"&status="+status;
 	}
 	
