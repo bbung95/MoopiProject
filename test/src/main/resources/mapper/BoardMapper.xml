@@ -146,7 +146,7 @@
 			, BD_REGDATE
 			, BD_STATE
 			, BD_PASSWORD
-			<if test= "board.boardMoimNo != null">
+			<if test= "board.boardMoimNo != 0">
 			, BD_MM_NO
 			</if>
 			) 
@@ -159,7 +159,7 @@
 			, now()
 			, '1'
 			, #{board.boardPassword}
-			<if test= "board.boardMoimNo != null">
+			<if test= "board.boardMoimNo != 0">
 			, #{board.boardMoimNo : NUMERIC}
 			</if>
 		)
