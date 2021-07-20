@@ -17,6 +17,8 @@
 	<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
 	<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 	
+	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+	
 	<script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js"></script>
 	
 	<meta name="google-signin-scope" content="profile email">
@@ -53,16 +55,6 @@
 	}	
 	
 <!---------------------------------------------------------------------------------------------------------------------------->		
-
-<!-- [구현중] 카카오로그인 API -------------------------------------------------------------------------------------------------------------------------->
-
-	<!-- a태그 id인 custom-login-btn을 따라가면 KakaoLogin 메서드가 실행된다 -->
-
-	$("#custom-login-btn").on("click" , function() {
-		KakaoLogin();
-	});
-		
-<!---------------------------------------------------------------------------------------------------------------------------->			
   
  <!-- [완] 구글로그인 API -------------------------------------------------------------------------------------------------------------------------->
         
@@ -136,10 +128,10 @@
 		alert("실행");
 			
 			var naverLogin = new naver.LoginWithNaverId ({
-				
+				alert("2");
 				clientId: "MJJpKOvtYqXuhtTnhQtq",
 				callbackUrl: "http://localhost:8080/user/naverlogin",
-				isPopup: true,
+				isPopup: false,
 				loginButton: {color: "green", type: 3, height: 45},			
 
 			});
@@ -200,10 +192,22 @@
 
 		//$("form").attr("method" , "POST").attr("action" , "/user/naverlogin").submit();
 	}	
+<!-- [구현중] 카카오로그인 API -------------------------------------------------------------------------------------------------------------------------->
+
+	<!-- a태그 id인 custom-login-btn을 따라가면 KakaoLogin 메서드가 실행된다 -->
+
+	$("#custom-login-btn").on("click" , function() {
+		KakaoLogin();
+	});
+		
+<!---------------------------------------------------------------------------------------------------------------------------->			
 
 <!--[카카오톡 로그인]---------------------------------------------------------------------------------------------------->	
-	
+		
 	function KakaoLogin() { 
+		
+		// 카카오 API key
+		Kakao.init('2e00cfe75ad365584acc76b588be8d74');
 
 		Kakao.Auth.login({
 		
@@ -212,6 +216,7 @@
 				console.log(authObj);
 				
 				Kakao.API.request({
+				
 				       url: '/v2/user/me',
 				       
 					success: function(response){
@@ -223,18 +228,21 @@
 						var email = response.kakao_account['email'];
 						var userId = response.id;
 							
-						//location.href = "/user/kakaoLogin?userId="+userId
-						$("form").attr("method" , "POST").attr("action" , "/user/kakaoLogin?userId="+userId).submit();
+						location.href = "/user/kakaoLogin?userId="+userId
+						//$("form").attr("method" , "POST").attr("action" , "/user/kakaoLogin?userId="+userId).submit();
 				
 					} //End response function
 					
-				}); //End API.request
+				}) //End API.request
 				
 			} //End authObj Function
 			
-		}); //End Auth.login
+		}) //End Auth.login
 		
 	} //End Function
+	
+
+
 
 <!---------------------------------------------------------------------------------------------------------------------------->		
 	
@@ -274,12 +282,14 @@
 <!-- 화면구성 div Start ---------------------------------------------------------------------------------------------------------------->
 
 	<div class="container">
-	
+		
+		<div class="row">
+		
 		<h1 class="bg-primary text-center">로그인</h1>
 		
 <!-- FORM START ---------------------------------------------------------------------------------------------------------------->
 
-		<form class="form-horizontal" name="detailForm" enctype="multipart/form-data">
+	<form class="form-horizontal"">
   
 		<div class="form-group">
 			<label for="userId" class="col-sm-offset-1 col-sm-3 control-label">아이디</label>
@@ -320,17 +330,28 @@
 	
 		<div class="form-group">
 			<div class="col-sm-offset-4  col-sm-4 text-center">
-				<img src="../images/API/kakao_login_medium_narrow.png" id="kakaoLogin" onclick="KakaoLogin()">
 				<button type="button" class="btn btn-default" onClick="KakaoLogout()">카카오 로그아웃</button>
 			</div>
 		</div>
 		
-		<!-- [7월 17일 17:24] 카카오톡 로그인 관련 이미지 경로 첨부 후 지정완료, 사이트에 뜨는 것 까지 확인 완료 ] -->
-<!--
-			<a id="custom-login-btn" a href="javascript:KakaoLogin()">
-				<img src="../images/API/kakao_login_medium_narrow.png">	
+		<div class="form-group">
+			<div class="col-sm-offset-4  col-sm-4 text-center">
+				<img src="../images/API/kakao_login_medium_narrow.png" name="kakaoLogin" onclick="javascript:KakaoLogin()">
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<div class="col-sm-offset-4  col-sm-4 text-center">
+				<button type="button" class="btn btn-primary" onclick="KakaoLogin()">카카오로그인</button>
+			</div>
+		</div>
+			
+		<div class="form-group">	
+			<a id="naver-login-btn" href="#" role="button">
+				<img src="https://static.nid.naver.com/oauth/big_g.PNG?version=js-2.0.1" height="45" id="naverIdLogin" onclick="NaverLogin()"/>      
 			</a>
--->
+		</div>
+		
 <!---------------------------------------------------------------------------------------------------------------------------->
 
 <!-- 구글 API Login ---------------------------------------------------------------------------------------------------------------->				
@@ -360,12 +381,14 @@
 <!-- 로그인, 취소 Button ---------------------------------------------------------------------------------------------------------------->									
 		<div class="form-group">
 			<div class="col-sm-offset-4  col-sm-4 text-center">
-				<button type="button" class="btn btn-primary" onClick="fncLogin()">로그인</button>
+				
 				<a class="btn btn-default btn" href="/" role="button">취소</a>
 			</div>
 		</div>
+		
+		<button type="button" class="btn btn-primary" onClick="fncLogin()">로그인</button>
 <!---------------------------------------------------------------------------------------------------------------------------->	
-
+	
 <!-- FORM END ---------------------------------------------------------------------------------------------------------------->
 		  			
  	</div>

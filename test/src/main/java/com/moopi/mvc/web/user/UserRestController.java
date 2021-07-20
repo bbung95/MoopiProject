@@ -37,7 +37,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 
-@Controller
+@RestController
 @RequestMapping("/user/*")
 public class UserRestController {
 
@@ -88,7 +88,7 @@ public class UserRestController {
 		params.put("text", "[Moopi 본인확인] 본인인증 확인번호 ["+key+"]를 입력하세요"); // 문자전송
 		params.put("mode", "test");
 		params.put("key", key);
-		System.out.println("이거확인해봐 : "+key);
+		System.out.println("이거확인해봐 : "+key);	// 인증번호 6자리 숫자가 key가 됨
 		result = message.send(params);
 		System.out.println((result.get("group_id")));;
 		
@@ -141,7 +141,7 @@ public class UserRestController {
 			System.out.println("UserRestController____닉네임 중복확인 컨트롤러실행");
 			return userService.nicknameCheck(nickname);
 		}
-
+/*
 	// 카카오 로그인 및 회원가입
 		@RequestMapping("kakaoLogin")
 		public String kakaoLogin (	@ModelAttribute("user") User user, 
@@ -174,7 +174,7 @@ public class UserRestController {
 				return "user/addUserInfo";
 			}
 		}
-		
+*/		
 		// 네이버 회원가입 [400Error발생]
 		/* 
 		 * naver 로 로그인시 개인에게 고유발급되는 아이디를 UserId에 담을 예정
@@ -215,11 +215,10 @@ public class UserRestController {
 // [프로필 업데이트]-----------------------------------------------------------------------------------------------	
 		
 		// ## 미구현 0. [프로필이미지수정] - updateNickname	
-		@RequestMapping(value = "/json/uploadProfileImage")
+		@RequestMapping(value = "json/uploadProfileImage")
 		public String uploadProfileImage(@RequestParam("profileImage") MultipartFile uploadFile) {
 
 			System.out.println("RestController - 프로필이미지수정");
-
 			long currentTime = System.currentTimeMillis();
 			String fileName = currentTime + uploadFile.getOriginalFilename();
 			try {
@@ -231,7 +230,7 @@ public class UserRestController {
 		}
 		
 		// 2. [프로필소개수정] - updateContent
-		@RequestMapping(value = "/json/updateContent/{userId}")
+		@RequestMapping(value = "json/updateContent/{userId}")
 		public void updateContent(@PathVariable String userId, @PathVariable String profileContent) {
 			System.out.println("프로필소개수정");		
 			User user = new User();

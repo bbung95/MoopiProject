@@ -26,22 +26,8 @@
 
 // # 회원가입 Event--------------------------------------------------------------------------------------------------------------------------
 
-		// Client Id 값, RedirectURI 지정
+		// 네이버아이디 Client Id 값, RedirectURI 지정
 			var naver_id_login = new naver_id_login("MJJpKOvtYqXuhtTnhQtq", "http://localhost:8080/user/loginPostNaver");
-
-		// 접근 토큰 값 출력 [콘솔창 정상출력 확인 완료]
-		/*
-			console.log("네이버 토큰 확인 : "+naver_id_login.oauthParams.access_token);	
-			console.log("state 확인 : "+naver_id_login.oauthParams.state);
-			console.log("토큰 타입 확인 : "+naver_id_login.oauthParams.token_type);
-			console.log("expires_in 확인 : "+naver_id_login.oauthParams.expires_in);
-			
-			alert("URL로 주어지는 기본적인 토큰 값 출력완료");
-			alert("네이버 토큰 확인 : "+naver_id_login.oauthParams.access_token);	
-			alert("state 확인 : "+naver_id_login.oauthParams.state);
-			alert("토큰 타입 확인 : "+naver_id_login.oauthParams.token_type);
-			alert("expires_in 확인 : "+naver_id_login.oauthParams.expires_in);
-		*/
 
 		// 네이버 사용자 프로필 조회 - naverSignInCallback function 호출
 			naver_id_login.get_naver_userprofile("naverSignInCallback()"); 
@@ -77,21 +63,21 @@
 		    // 생년과 관련된 SelectBox
 		    // [생년 : year]
 			    for(var i = 1900 ; i <= year ; i++) {
-			        $('#year').append('<option value="' + i + '">' + i + '년</option>');        
+			        $('#year').append('<option value="' + i + '">' + i + '</option>');        
 			    }
 		
 		    // 생월과 관련된 SelectBox 
 		    // [생월 : mm]       
 			    for(var i=1; i <= 12; i++) {
 			        var mm = i > 9 ? i : "0"+i ;            
-			        $('#month').append('<option value="' + mm + '">' + mm + '월</option>');    
+			        $('#month').append('<option value="' + mm + '">' + mm + '</option>');    
 			    }
 		    
 		    // 생일과 관련된 SelectBox
 		    // [생일 : dd]
 			    for(var i=1; i <= 31; i++) {
 			        var dd = i > 9 ? i : "0"+i ;            
-			        $('#day').append('<option value="' + dd + '">' + dd+ '일</option>');    
+			        $('#day').append('<option value="' + dd + '">' + dd+ '</option>');    
 			    }
 				    
 		    $("#year  > option[value="+year+"]").attr("selected", "true");        
@@ -240,7 +226,7 @@
 		<div class="form-group">
 			<label for="userId" class="col-sm-offset-1 col-sm-3 control-label">아이디</label>
 			<div class="col-sm-4">
-			<input type="text" class="form-control" id="userId" name="userId" placeholder="여기에 이전 아이디값 가져오기" value="${user.userId}" readonly>
+				<input type="text" class="form-control" id="userId" name="userId" placeholder="여기에 이전 아이디값 가져오기" value="${user.userId}" readonly>
 			</div>
 		</div>
 		
