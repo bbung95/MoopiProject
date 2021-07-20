@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.moopi.mvc.common.Search;
+import com.moopi.mvc.service.coin.impl.CoinServiceImpl;
+import com.moopi.mvc.service.domain.Coin;
 import com.moopi.mvc.service.domain.Flash;
 import com.moopi.mvc.service.domain.User;
 import com.moopi.mvc.service.flash.impl.FlashServiceImpl;
@@ -27,6 +29,9 @@ public class FlashController {
 	@Autowired
 	private UserServiceImpl userService;
 
+	@Autowired
+	private CoinServiceImpl coinSerivce;
+	
 	public static final String savePic = "C:\\Users\\guddn\\git\\Test\\test\\src\\main\\resources\\static\\images\\uploadFiles";
 	
 	
@@ -72,11 +77,18 @@ public class FlashController {
 			e.printStackTrace();
 		}
 		flash.setFlashFile(currentTime+flashFileName); //시간+파일이름
+		flash.getFlashNo();
 		User user = new User();
+		Coin coin = new Coin();
 		user.setUserId(userId);
+		coin.setUserId(user);
+		coin.setFlashNo(flash);
+		System.out.println("flashNo::"+flash);
 		flash.setFlashConstructor(user);// userId = flashConstructor
 		flashService.addFlash(flash); // addFlash bl 로직 
 		userService.makeFlashCoin(user);
+		coinSerivce.addCoin(coin);
+		
 		System.out.println("번개생성 완료.");
 		return "flash/flashMain";
 	}
