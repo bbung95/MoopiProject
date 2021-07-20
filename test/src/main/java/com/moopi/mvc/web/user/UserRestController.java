@@ -3,7 +3,9 @@ package com.moopi.mvc.web.user;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,16 @@ import org.springframework.web.servlet.ModelAndView;
 import com.moopi.mvc.service.domain.User;
 import com.moopi.mvc.service.user.impl.UserServiceImpl;
 
+import net.nurigo.java_sdk.api.GroupMessage;
+import net.nurigo.java_sdk.api.Image;
+import net.nurigo.java_sdk.api.Message;
+import net.nurigo.java_sdk.api.SenderID;
+import net.nurigo.java_sdk.exceptions.CoolsmsException;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
+
 @Controller
 @RequestMapping("/user/*")
 public class UserRestController {
@@ -35,6 +47,84 @@ public class UserRestController {
 	public static final String saveDir = 	ClassLoader.getSystemResource("./static/").getPath().
 											substring(0, ClassLoader.getSystemResource("./static/").getPath().lastIndexOf("bin"))
 											+"src/main/resources/static/images/uploadFiles";
+	public UserRestController(){
+		System.out.println(this.getClass());
+	}
+// 모바일 본인인증 구현 [본인번호 입력해서 테스트NO] -----------------------------------------------------------------------------------------------	
+	
+	// Cool SMS API_key 및 API_secret Number
+	String api_key = "NCSFQV50UBMEXKK1";
+	String api_secret = "HCNQNW9BUTL7MLYFDSHQWXVMZJUFXMKI";
+	
+	Message message = new Message(api_key, api_secret);
+	SenderID senderID;
+	JSONObject result;
+	JSONArray result_array;
+	
+	HashMap<String, String> params = new HashMap<String, String>();
+			
+	@RequestMapping( value="json/sms/{phone}", method=RequestMethod.GET )
+	public HashMap MessageTest (@PathVariable String phone) {
+		
+		System.out.println("MassageTest 시작");
+		
+		// 발송시간 시작
+		//long start = System.currentTimeMillis();
+	
+		try {
+	    	String[] array = new String[6];
+			String key = new String();
+			Random rd = new Random(); //랜덤 객체 생성
+			
+			for(int i=0; i<array.length; i++) {
+	            array[i] = Integer.toString(rd.nextInt(10));
+	            key += array[i];
+	        }
+	    
+		// 문자보내기(테스트시 발신, 수신 둘다 내 번호로 하기)
+		params.put("to", phone); // 수신번호
+		params.put("from", "01049670511"); // 발신번호
+		params.put("type", "SMS");
+		params.put("text", "[Moopi 본인확인] 본인인증 확인번호 ["+key+"]를 입력하세요"); // 문자전송
+		params.put("mode", "test");
+		params.put("key", key);
+		System.out.println("이거확인해봐 : "+key);
+		result = message.send(params);
+		System.out.println((result.get("group_id")));;
+		
+		// 발송시간 끝
+		//long end = System.currentTimeMillis();
+		
+	      // balance
+	      // result = message.balance();
+	      // System.out.println((result.get("cash")));
+	      
+	      // sent
+	      //params.clear();
+	      try {
+	        result = message.sent(params);
+	        System.out.println(result.get("data"));
+	      } catch (Exception e) {
+	        result = (JSONObject) JSONValue.parse(e.getMessage());
+	        System.out.println(result.get("code"));
+	        System.out.println("NoSuchMessage");
+	      }
+
+	      // status
+	      //result = message.getStatus(params);
+	      System.out.println(result.get("data"));
+
+	      // cancel
+	      params.put("mid", "MIDTEST");
+	      //result = message.cancel(params);
+	      //assertTrue(!result.isEmpty());
+	    } catch (Exception e) {
+	      //fail(e.toString());
+	    }
+	    System.out.println(result);
+	    System.out.println(params);
+	    return params;
+	  }
 	
 	// [중간완료] 아이디 중복체크진행
 		@RequestMapping("idCheck")
@@ -150,5 +240,6 @@ public class UserRestController {
 			
 			userService.updateContent(user);				
 		}
+		
 }
 

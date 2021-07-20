@@ -23,7 +23,7 @@
 		</div>
 		<div class="searchOut" style="padding-top: 50px;"></div>
 	</div>
-	<form class="searchbtn" action="">
+	<form class="searchbtn" action="" >
 		<input type="hidden" class='type' value="1"> <input
 			type="search" id="searchkeyword" name="searchkeyword" autocomplete="off"> 
 			<i class="fa fa-search"></i>
@@ -168,23 +168,23 @@
 		$('#searchkeyword').css('display', 'none');
 		$('.searchbtn').css('width', '50px');
 		$('.fa').css('background', '#ebecf0').css('color', '#07051a');
-		$('.searchList').css('visibility', 'hidden');
+		$('.searchList').css('display', 'none');
 	}
 	
 	// ajax search
 	$('#searchkeyword').on('keypress', function(){
 		searchList($('#searchkeyword').val() , $('.type').val());
-		$('.searchList').css('visibility', 'visible');
+		$('.searchList').css('display', 'block');
 	})
 	$('#searchkeyword').on('keyup', function(){
 		searchList($('#searchkeyword').val() , $('.type').val());
-		$('.searchList').css('visibility', 'visible');
+		$('.searchList').css('display', 'block');
 	})
 	
 	// hover 효과
 	$('.searchbtn').hover(function() {
 		if($('#searchkeyword').val().length != 0){
-			$('.searchList').css('visibility', 'visible');
+			$('.searchList').css('display', 'block');
 		}
 		$('#searchkeyword').css('display', 'block');
 		$('.searchbtn').css('width', '400px').css('cursor','pointer');
@@ -220,7 +220,7 @@
 }
 
 .searchList{
-	visibility: hidden;
+	display : none;
 	height: 600px;
 	width: 400px;
 	border: 1px solid var(--sc-color3);
@@ -286,7 +286,7 @@
 	padding: 5px;
 }
 
-input {
+#searchkeyword {
 	position: absolute;
 	top: 0;
 	left: 0;
