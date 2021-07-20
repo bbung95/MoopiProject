@@ -91,9 +91,11 @@
 	<script>
 
     let userId = "<c:out value='${user.userId}'/>";
-	let nickname = "<c:out value='${user.nickname}'/>"
+	let name = "<c:out value='${user.nickname}'/>"
 	let profile = "<c:out value='${user.profileImage}'/>";
-    let target = "<c:out value='${target}'/>"; // 알림대상 - 대화상대
+    let target = "<c:out value='${target.userId}'/>"; // 알림대상 - 대화상대
+  	let targetName = "<c:out value='${target.nickname}'/>";
+  	let targetProfile = "<c:out value='${target.profileImage}'/>";
     let roomNo;
     
 	/* ajax({
@@ -106,10 +108,10 @@
 	}) */
     
     let input = document.getElementById('input');
-
+	
     let socket = io("http://localhost:3030");
 
-    socket.emit('roomjoin', { userId: userId, target : target });
+    socket.emit('roomjoin', { userId: userId, target : target, targetName: targetName , targetProfile: targetProfile});
     socket.on('roomjoin', function(data){
     	roomNo = data;
     });
@@ -121,7 +123,9 @@
 
       if (input.value) {
         // user의 메세지를 'chat message'로 서버로 보낸다(?) 
-        socket.emit('chat message', { userId: userId, nickname: nickname, profile: profile, msg: input.value, img: "0", roomNo: roomNo ,target:target});
+        socket.emit('chat message', 
+        		{ userId: userId, name: name, profile: profile, msg: input.value,
+        		img: "0", roomNo: roomNo ,target:target , targetName: targetName, targetProfile: targetProfile});
         input.value = '';    
       }
     });
@@ -199,7 +203,8 @@
                     , data : formData
                     , dataType: 'text'
                     , success:function(data, state) {
-                        socket.emit('chat message', { userId: userId, nickname: nickname, profile: profile, msg: "이미지를 보냈습니다", img: data, roomNo: roomNo ,target:target});
+                        socket.emit('chat message', { userId: userId, name: name, profile: profile, msg: "이미지를 보냈습니다",
+                        	img: data, roomNo: roomNo ,target:target, targetName: targetName, targetProfile: targetProfile});
                     }
           });
     }

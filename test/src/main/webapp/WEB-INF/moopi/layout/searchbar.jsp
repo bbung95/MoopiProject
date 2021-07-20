@@ -15,10 +15,10 @@
 	<div class="searchList" >
 		<div>
 		<div id="searchType">
-			<button>모임무피</button>
-			<button>번개무피</button>
-			<button>포스팅</button>
-			<button>유저</button>
+			<div class="button active">모임무피</div>
+			<div class="button">번개무피</div>
+			<div class="button">포스팅</div>
+			<div class="button">유저</div>
 		</div>
 		</div>
 		<div class="searchOut" style="padding-top: 50px;"></div>
@@ -32,7 +32,7 @@
 
 <script>
 	
-	var dbUser = '<c:out value="${user.userId}"/>';
+	var dbUser = '<c:out value="${dbUser.userId}"/>';
 	/* var loading = false;
 	
 	$(window).scroll(
@@ -74,8 +74,8 @@
 					// flash
 					}else if(searchType == 2){
 						for(var i in data.list){
-							display += '<div style="background: white; margin: 5px; height: 100px" onclick="location=\'flash/getFlash?flashNo='+data.list[i].flashNo+'\'">'
-									+'<img style="margin: 5px; height:90px; width: 90px;" src="/images/uploadFiles/'+data.list[i].flashFile+'"></img>'
+							display += '<div style="background: white; margin: 5px; height: 100px; border-radius: 10px;" onclick="location=\'flash/getFlash?flashNo='+data.list[i].flashNo+'\'">'
+									+'<img style="margin: 5px; height:90px; width: 90px; border-radius: 10px;" src="/images/uploadFiles/'+data.list[i].flashFile+'"></img>'
 									+'<span>'+data.list[i].flashName+'</span><span> / '+data.list[i].flashContent+'</span>'
 									+'<span> / '+data.list[i].flashCurrentCount+':'+data.list[i].flashMaxCount+'</span>'
 									+'</div>';
@@ -83,18 +83,33 @@
 						$('.searchOut').append(display);
 					// postting
 					}else if(searchType == 3){
-					
+						for(var i in data.list){
+							display += '<div style="background: white; margin: 5px; height: 400px; border-radius: 10px;" >'
+								+'<img style="margin: 5px; width: 40px; height: 40px; border-radius: 50%;" src="/images/uploadFiles/poco.jpg"></img>'
+								+'<span>'+data.list[i].nickname+'</span>'
+								+'<div align="center"><img style="margin: 5px; height: 250px;" src="/images/uploadFiles/poco.jpg"></img></div>'
+								+'<div>게시글 내용들 컨텐트르르르</div>'
+								+'</div>';
+						}
+						$('.searchOut').append(display);
 					// user
 					}else{
 						for(var i in data.list){
-							display += '<div style="background: white; margin: 5px; height: 100px" >'
-									+'<img style="margin: 5px; height:90px; width: 90px;" src="/images/uploadFiles/'+data.list[i].profileImage+'"></img>'
+							 display += '<div style="background: white; margin: 5px; height: 80px; border-radius: 10px;" >'
+									+'<img style="margin: 5px; width:70px; height: 60px; border-radius: 50%;" src="/images/uploadFiles/poco.jpg"></img>'
 									+'<span>'+data.list[i].nickname+'</span>'
 									if(dbUser == '' || dbUser == data.list[i].userId){
 										display += '</div>';
 									}else{
 										display += '<button target="'+data.list[i].userId+'")">채팅</button></div>';
-									}
+									} 
+									
+							/* display += '<div style="background: white; margin: 5px; height: 400px; border-radius: 10px;" >'
+								+'<img style="margin: 5px; width: 40px; height: 40px; border-radius: 50%;" src="/images/uploadFiles/poco.jpg"></img>'
+								+'<span>'+data.list[i].nickname+'</span>'
+								+'<div align="center"><img style="margin: 5px; height: 250px;" src="/images/uploadFiles/poco.jpg"></img></div>'
+								+'<div>게시글 내용들 컨텐트르르르</div>'
+								+'</div>'; */
 						}
 						$('.searchOut').append(display);
 						
@@ -121,23 +136,30 @@
 		 } 
 	}) */
 	
-	$('button:contains("모임무피")').on('click', function(){
+	$('.button:contains("모임무피")').on('click', function(){
 		$('.type').val('1');
+		$('.active').attr('class', 'button');
+		$(this).attr('class', 'button active');
 		searchList($('#searchkeyword').val() , $('.type').val());
 	})
 	
-	$('button:contains("번개무피")').on('click', function(){
+	$('.button:contains("번개무피")').on('click', function(){
 		$('.type').val('2');
+		$('.active').attr('class', 'button');
+		$(this).attr('class', 'button active');
 		searchList($('#searchkeyword').val() , $('.type').val());
 	})
 	
-	$('button:contains("포스팅")').on('click', function(){
+	$('.button:contains("포스팅")').on('click', function(){
 		$('.type').val('3');
+		$('.active').attr('class', 'button');
+		$(this).attr('class', 'button active');
 		searchList($('#searchkeyword').val() , $('.type').val());
 	})
 	
-	$('button:contains("유저")').on('click', function(){
-		$('.type').val('4');
+	$('.button:contains("유저")').on('click', function(){
+		$('.type').val('4');$('.active').attr('class', 'button');
+		$(this).attr('class', 'button active');
 		searchList($('#searchkeyword').val() , $('.type').val());
 	})
 	
@@ -185,8 +207,10 @@
 </script>
 <style>
 :root {
-  --sc-color: #ebecf0; 
-  --sc-color2: #c7cbd4;
+  --sc-color: #ebecf0;	/* 검색버튼 색상 */
+  --sc-color2: #c7cbd4; /* 검색키워드입력 창*/
+  --sc-color3: #f2f4fa; /* 검색리스트 border */
+  --sc-color4: #fafbff;	/* 검색리스트 백그라운드 */
 }
 
 .searchBar{
@@ -199,8 +223,8 @@
 	visibility: hidden;
 	height: 600px;
 	width: 400px;
-	border: 1px solid gray;
-	background: gray;
+	border: 1px solid var(--sc-color3);
+	background: var(--sc-color4);
 	margin-bottom: 50px;
 	border-radius: 20px;
 	overflow: auto;
@@ -217,32 +241,38 @@
 #searchType{
 	position: fixed;
 	width: 400px;
-	height : 50px;	
-	padding: 5px;
-	background: gray;
+	height : 40px;	
+	background: var(--sc-color3);
 	display:  flex;
 	margin-left : -1px;
 	margin-top: -1px;
-	border-radius: 20px;
+	border-radius: 20px 20px 0px 0px;
 	flex-wrap: nowrap;
 	flex-direction: row;
 	align-items:center;
 	justify-content: space-evenly;
 }
 
-#searchType button{
-	width: 80px;
-	height: 30px;
-	border : 0.5px solid gray;
-	border-radius: 6px;
-	background: white;
+.button{
+	width: 90px;
+	height: 35px;
+	line-height: 35px;
+	margin-top: 5px;
+	text-align: center;
+	justify-content: center;
+	border-radius: 6px 6px 0px 0px;
+	background: var(--sc-color3);
 }
 
-#searchType button:hover{
-	background: var(--sc-color);
+.button:hover{
+	background: var(--sc-color4);
 }
 
-form {
+.active{
+	background : var(--sc-color4);
+}
+
+.searchbtn {
 	position: fixed;
 	transition: all 0.5s;
 	bottom: 20px;
