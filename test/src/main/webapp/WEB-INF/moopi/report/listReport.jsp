@@ -93,23 +93,39 @@ function fncListReportU(){
 			
 			alert("신고처리");
 			
-			alert("1"+$(this).parent().parent().html());
-			console.log($(this).parent().parent().html());
-			console.log($(this).parent().parent().find("select").val());
+			alert($(this).parent().parent().text().trim());
 			
-			var reportResultState	= $(this).parent().parent().find("select").val();
-			var reportNo			= $(this).parent().parent().find("input.reportNo").val()
-			var stateReason  		= prompt('처리사유를 입력해주세요.', '처리 사유');
+// 			$("form").attr("method" , "POST").attr("action" , "/report/processReport").submit();		
 			
-			alert(reportResultState);
-			alert(reportNo);
-			alert(stateReason);
+			$.ajax( 
+					{
+						url : "/report/json/processReport",
+						method : "POST" ,
+						dataType : "json" ,
+						headers : {
+							"Accept" : "application/json",
+							"Content-Type" : "application/json"
+						},
+					    success : function(JSONData , status) {
+				               alert(status);
+// 				                alert("JSONData : \n"+JSONData.boardPassword);
+
+				                jsonPassword = JSONData.boardPassword
+// 				                alert(boardPassword+ ": 값비교 : "+ jsonPassword);
+// 				                alert(JSONData.boardNo);
+
+				                if(boardPassword== jsonPassword){
+// 				                	alert(JSONData.boardNo);
+				                	self.location ="/board/getBoard?boardNo="+JSONData.boardNo;
+				                }
+				               }
+				               
 			
-			$("form").attr("stateReason", stateReason).attr("report.stateReason", stateReason)
+				            })
 			
 			
-			$("form").attr("method" , "POST").attr("action" , "/report/processReport").submit();		
-// 			self.location ="/report/processReport";
+			
+			
 			
 		});
 	});	
@@ -144,7 +160,7 @@ body{
 <button type="button" class="btn btn-primary" id="listReportRe">리플</button>
 <button type="button" class="btn btn-primary" id="listReportU">유저</button>
 
-<form class="form-horizontal" name="detailForm" >
+
 <div class="container">
  <table class="table table-hover table-striped" >
 		<thead>
@@ -163,7 +179,7 @@ body{
             <th align="left">신고 처리일</th>
             <th align="left">처리 여부</th>
             <th align="left">신고 처리</th>
-            <th align="left"></th>
+            <th align="left">처리 사유</th>
           </tr>
         </thead>
 
@@ -173,7 +189,6 @@ body{
 			<c:set var="i" value="0" />
 				<c:forEach var="report" items="${ list }">
 				<c:set var="i" value="${ i+1 }"/>
-				
 				<tr>
 				<div class="form-group">
 				<td align="center"> ${i}</td>
@@ -199,23 +214,29 @@ body{
 				<td align="left">${report.reportResultUpdate}</td>
 				<td align="left">${report.reportResultState}</td>
 				
-				
+				<form class="report${report.reportNo }" name="detailForm" >
 				<c:if test="${report.reportResultUpdate == null}">
+				
 					<td align="left">
-						<select id="reportProcess${report.reportNo}" name="reportProcess"> 
-							<option>선택하세요</option> 
-							<option value="1">해당없음</option>
-							<option value="2">유저 경고</option>
-							<option value="3">해당글 삭제</option>
+						<select name="reportResultState"> 
+							<option value="해당없음">해당없음</option>
+							<option value="유저경고">유저경고</option>
+							<option value="해당글삭제">해당글삭제</option>
 						</select> 
 					</td>
-				  <td align="left"><button type="button" class="btn btn-primary"}">처리하기</button></td>
-				  
+					<td>
+					<textarea type="text" name="stateReason" value=""></textarea>
+					</td>
 					<input type="hidden" class="stateReason" name="stateReason" value=""/>
 					<input type="hidden" class="reportResultState" name="reportResultState" value=""/>
+					
+				  <td align="left"><button type="button" class="btn btn-primary">처리하기</button></td>
 				  
+					
+				 
 				  
 				  </c:if>
+				   </form>  
 				</div>
 				</tr>
 			</c:forEach>
@@ -223,7 +244,7 @@ body{
 		</tbody>		
 	
 </table>
-
-<jsp:include page="../layout/searchbar.jsp"></jsp:include>
+</div>
+<%-- <jsp:include page="../layout/searchbar.jsp"></jsp:include> --%>
 </body>
 </html>
