@@ -117,7 +117,9 @@ public class ReportController {
 		System.out.println("processReport 실행");
 		System.out.println(model );
 		System.out.println("report 값 체크 ========="+report); 
+		System.out.println(report.getReportNo());
 		reportService.processReport(report);
+		
 		
 		System.out.println("report 값 체크 ========"+report);
 		
