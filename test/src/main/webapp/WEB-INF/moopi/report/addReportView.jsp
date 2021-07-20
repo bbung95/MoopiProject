@@ -50,15 +50,11 @@ function fncAddReport(){
 		
 		<!-- form Start /////////////////////////////////////-->
 		<form class="form-horizontal" name="detailForm" >
-		  
-		  <c:if test="">
-		  
-		  
-		  </c:if>
+		  <c:if test="${reportCategory == 1}">
 		  
 		  
 		  <input type="hidden" id="reportByUser.userId" name="reportByUser.userId" value="${user.userId}">
-		  <input type="hidden" id="reportTarget" name="reportTarget" value="${board.boardNo}">
+		  <input type="hidden" id="reportTargetBd.boardNo" name="reportTargetBd.boardNo" value="${board.boardNo}">
 		  <input type="hidden" id="reportCategory" name="reportCategory" value="${reportCategory}">
 		  <div>
             <div>
@@ -77,6 +73,28 @@ function fncAddReport(){
 					<p>게시글 내용</p>
                     <p>${board.boardContent}</p>
                 </div>
+           </c:if>      
+            <c:if test="${reportCategory == 2}">
+		  
+		  
+		  <input type="hidden" id="reportByUser.userId" name="reportByUser.userId" value="${user.userId}">
+		  <input type="hidden" id="reportTargetRe.replyNo" name="reportTargetRe.replyNo" value="${reply.replyNo}">
+		  <input type="hidden" id="reportCategory" name="reportCategory" value="${reportCategory}">
+		  <div>
+            <div>
+                <div>
+					<p>작성자</p>
+                    <p class="targetName">
+                    <p id="targetName">${reply.replyWriter.nickname}</p>
+                    </p>
+                </div>
+                
+                 <div>
+					<p>리플 내용</p>
+                    <p>${reply.replyContent}</p>
+                </div>
+           </c:if>  
+           
                 <div class="c_rp_dtl">
                     <p>신고유형</p>
                 </div>

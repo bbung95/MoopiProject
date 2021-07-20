@@ -71,7 +71,7 @@ public class UserController {
 		String dbPw = user.getPassword();		
 			if (dbId != null && dbPw.equals(dbUser.getPassword())) {
 				System.out.println("아이디 및 비밀번호가 일치합니다.");
-				session.setAttribute("user", dbUser);
+				session.setAttribute("dbUser", dbUser);
 				return "redirect:/";
 			} else {
 				System.out.println("아이디 및 비밀번호가 일치하지 않습니다.");

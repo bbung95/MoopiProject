@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.moopi.mvc.common.Search;
 import com.moopi.mvc.service.domain.Payment;
+import com.moopi.mvc.service.domain.User;
 import com.moopi.mvc.service.payment.PaymentDao;
 import com.moopi.mvc.service.user.UserDao;
 
@@ -51,6 +52,24 @@ public class PaymentServiceImpl {
 		return map;
 	}
 
+	public Map<String, Object> paymentList(Payment payment) throws Exception{
+		System.out.println("paymentList ServiceImpl start::");
+		
+		User user = new User();
+		user.getCoin();
+		
+		List<Payment> list = paymentDao.paymentList(payment);
+		//int totalCount = paymentDao.getTotalCount(payment);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list",list);
+		map.put("user", user);
+		//map.put("totalCount", totalCount);
+		System.out.println("list::"+list);
+		
+		return map;
+	}
+	
 	public void updatePayment(Payment payment) throws Exception {
 		paymentDao.updatePayment(payment);
 
