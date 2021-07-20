@@ -13,8 +13,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.moopi.mvc.common.Search;
 import com.moopi.mvc.service.coin.impl.CoinServiceImpl;
+import com.moopi.mvc.service.common.impl.CommonServiceImpl;
 import com.moopi.mvc.service.domain.Coin;
 import com.moopi.mvc.service.domain.Flash;
+import com.moopi.mvc.service.domain.MeetingFlashMember;
+import com.moopi.mvc.service.domain.Notice;
 import com.moopi.mvc.service.domain.User;
 import com.moopi.mvc.service.flash.impl.FlashServiceImpl;
 import com.moopi.mvc.service.user.impl.UserServiceImpl;
@@ -31,6 +34,9 @@ public class FlashController {
 
 	@Autowired
 	private CoinServiceImpl coinSerivce;
+	
+	@Autowired
+	private CommonServiceImpl commonService;
 	
 	public static final String savePic = "C:\\Users\\guddn\\git\\Test\\test\\src\\main\\resources\\static\\images\\uploadFiles";
 	
@@ -143,6 +149,20 @@ public class FlashController {
 		System.out.println("joinFlash Start::");
 		flashService.joinFlash(userId, flashNo);
 		userService.joinFlashCoin(user);
+		
+		// 알림
+		System.out.println("flash join Notice");
+		Notice notice = new Notice();
+		Flash flash = new Flash();
+		flash.setFlashNo(flashNo);
+		notice.setToUserId(flashService.getFlash(flashNo).getFlashConstructor().getUserId()); // 알림대상
+		notice.setNoticeContent("참여하셨습니다");
+		notice.setFlash(flash);
+		notice.setNoticeUser(user);
+		notice.setNoticeType("5");
+		commonService.addNotice(notice);
+		//
+		
 		return "forward:/flash/getFlash";
 	}
 	

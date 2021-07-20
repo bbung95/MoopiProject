@@ -41,6 +41,19 @@ public class MeetingRestController {
 		public Meeting getMeeting(@PathVariable("mtNo") int mtNo) throws Exception{
 			
 			System.out.println("getMeeting :::");
+			Meeting meeting = meetingService.getMeeting(mtNo);
+			String start2 = meeting.getMtStart();
+			String a = start2.substring(0,10);
+			String b = start2.substring(11,19);
+			String start3 = a+"T"+b;
+			meeting.setMtStart2(start3);
+			
+			String end2 = meeting.getMtEnd();
+			String c = end2.substring(0,10);
+			String d = end2.substring(11,19);
+			String end3 = c+"T"+d;
+			meeting.setMtEnd2(end3);
+			
 //			System.out.println(userId);
 //			System.out.println(userMapper.getUser(userId));
 //			System.out.println(meetingService.getMeeting(mtNo));
@@ -58,7 +71,8 @@ public class MeetingRestController {
 //			String end3 = c+"T"+d;
 //			System.out.println("엔드3의값:"+end3);
 //			meeting.setMtEnd2(end3);
-			return meetingService.getMeeting(mtNo);
+			System.out.println(meeting);
+			return meeting;
 		}
 		
 		//정모수정
