@@ -30,9 +30,9 @@ $(function() {
 function fncUpdateBoard(){
 	alert("게시글수정");
 	
-	var boardNo			=$("input[name='boardNo']").val();
-	var boardName		=$("input[name='boardName']").val();
-	var boardContent	=$("input[name='boardContent']").val();
+// 	var boardNo			=$("input[name='boardNo']").val();
+// 	var boardName		=$("input[name='boardName']").val();
+// 	var boardContent	=$("input[name='boardContent']").val();
 	
 	$("form").attr("method" , "POST").attr("action" , "/board/updateBoard").submit();
 	
