@@ -1,5 +1,7 @@
 package com.moopi.mvc.web.meeting;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -12,8 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.moopi.mvc.common.Search;
+import com.moopi.mvc.service.common.impl.CommonServiceImpl;
 import com.moopi.mvc.service.domain.Meeting;
+import com.moopi.mvc.service.domain.Member;
 import com.moopi.mvc.service.domain.Moim;
+import com.moopi.mvc.service.domain.Notice;
 import com.moopi.mvc.service.domain.User;
 import com.moopi.mvc.service.meeting.impl.MeetingServiceImpl;
 import com.moopi.mvc.service.user.impl.UserServiceImpl;
@@ -29,6 +34,11 @@ public class MeetingController {
 	@Autowired
 	private UserServiceImpl userService;
 	
+	@Autowired
+	private MoimServiceImpl moimService;
+	
+	@Autowired
+	private CommonServiceImpl commonService;
 	
 	//정모상세조회
 	@RequestMapping("getMeeting")
@@ -57,6 +67,23 @@ public class MeetingController {
 		meetingService.applyMeeting(meeting.getMtNo(), meeting.getMtConstructor().getUserId());
 		model.addAttribute("meeting", meeting);
 		System.out.println("정모No:"+meeting.getMtNo()+"주최자아이디:"+meeting.getMtConstructor().getUserId());
+		
+		// 알림
+		System.out.println("meeting add Notice");
+		Notice notice = new Notice();
+		Moim moim = new Moim();
+		moim.setMmNo(meeting.getMmNo());
+		notice.setNoticeContent("가입되었습니다");
+		notice.setNoticeType("2");
+		notice.setMoim(moim);
+		List<Member> list = (List<Member>) moimService.getMemberList(meeting.getMmNo(), 2).get("list");
+		for(Member member: list) {
+			
+			notice.setToUserId(member.getMmUser().getUserId()); // 알림대상
+			commonService.addNotice(notice);
+		}
+		//
+		
 		return "forward:/meeting/listMeeting";
 	}
 	
