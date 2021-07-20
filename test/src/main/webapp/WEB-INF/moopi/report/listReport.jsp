@@ -210,6 +210,11 @@ body{
 						</select> 
 					</td>
 				  <td align="left"><button type="button" class="btn btn-primary"}">처리하기</button></td>
+				  
+					<input type="hidden" class="stateReason" name="stateReason" value=""/>
+					<input type="hidden" class="reportResultState" name="reportResultState" value=""/>
+				  
+				  
 				  </c:if>
 				</div>
 				</tr>
