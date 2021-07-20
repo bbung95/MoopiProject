@@ -1,5 +1,7 @@
 package com.moopi.mvc.web.common;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.moopi.mvc.common.Search;
+import com.moopi.mvc.service.domain.User;
 import com.moopi.mvc.service.flash.impl.FlashServiceImpl;
 import com.moopi.mvc.service.moim.impl.MoimServiceImpl;
 import com.moopi.mvc.service.user.impl.UserServiceImpl;
@@ -34,11 +37,15 @@ public class CommonController {
 	}
 	
 	@GetMapping("common/adminMoopi")
-	public String adminMoopi() {
+	public String adminMoopi(HttpSession session) {
 		
 		System.out.println("adminMoopi : GET");
-		
-		return "common/adminMain";
+		User user = (User)session.getAttribute("dbUser");
+		if(user != null && user.getUserRole().equals("1")) {
+			
+			return "common/adminMain";
+		}
+		return "redirect:/";
 	}
 	
 	@GetMapping("common/getUserList")
@@ -108,7 +115,7 @@ public class CommonController {
 		
 		System.out.println("joinRoom : GET");
 		model.addAttribute("user", userService.getUser(userId));
-		model.addAttribute("target", trgt);
+		model.addAttribute("target", userService.getUser(trgt));
 		return "common/chatRoom";
 	}
 }

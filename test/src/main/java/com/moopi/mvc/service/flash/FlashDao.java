@@ -19,7 +19,7 @@ public interface FlashDao {
 	public List<Flash> getFlashList(Search search) throws Exception;
 	//public List<Flash> getFlashList(Map map) throws Exception; 
 	
-	public Flash getFlash(@Param("flashNo") int flashNo);
+	public Flash getFlash(@Param("flashNo") int flashNo) throws Exception;
 	//public Flash findFlash(int flashNo) throws Exception;
 	
 	public void updateFlash(Flash flash) throws Exception;
