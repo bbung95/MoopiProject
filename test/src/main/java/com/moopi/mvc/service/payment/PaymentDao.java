@@ -11,6 +11,8 @@ import com.moopi.mvc.service.domain.Payment;
 @Mapper
 public interface PaymentDao {
 	
+	public List<Payment> paymentList(Payment payment) throws Exception;
+	
 	public Payment getPayment(@Param("paymentNo") int paymentNo);
 	
 	public void addPayment(Payment payment) throws Exception;

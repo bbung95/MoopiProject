@@ -30,6 +30,12 @@ public class MeetingController {
 	private UserServiceImpl userService;
 	
 	
+	
+	@RequestMapping("receiveCode")
+	public String receiveCode(Model model) {
+		return "meeting/receiveCode";
+	}
+	
 	//정모상세조회
 	@RequestMapping("getMeeting")
 	public String getMeeting(@RequestParam("mtNo") int mtNo, Model model) throws Exception{

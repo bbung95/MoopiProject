@@ -28,7 +28,7 @@
  	<insert id="addCoin" parameterType="coin">
 		INSERT
 			INTO COIN (COIN_NO, COIN_REGDATE, COIN_ROLE, COIN_COUNT, USER_ID, FLASH_NO)
-			VALUES(#{coinNo}, #{coinRegdate}, #{coinRole}, #{coinCount}, #{userId.userId},
+			VALUES(#{coinNo}, now(), '생성', '2', #{userId.userId},
 					#{flashNo.flashNo})
 	</insert>
 	
