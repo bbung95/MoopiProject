@@ -17,19 +17,15 @@
 <script>
 
 //--# [모바일인증번호] 인증번호 입력 후 본인인증완료 --------------------------------------------------------------------------------------------------------------------------
-		
-		// 실전 	: var key = "";
-		// TEST : var key = "123456";
-		
+				
 		var key = "";
 		
 		function fncKey() {
-		
-	
+			
 			var AuthNum = $("#AuthNum").val()			
 			alert("입력한 인증번호 : "+AuthNum);
 			
-			if(AuthNum === key){				
+			if(AuthNum == key){				
 				$(function() {	
 					alert("본인인증이 완료되었습니다.");
 						opener.document.getElementById("pInput").value = document.getElementById("pnNum").value
