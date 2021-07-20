@@ -11,8 +11,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
-
-
+<script src="https://apis.google.com/js/api.js"></script>
 <!-- 풀캘린더 -->
 <link href='https://use.fontawesome.com/releases/v5.0.6/css/all.css' rel='stylesheet'>
 <link href='/css/fullcalendar.min.css' rel='stylesheet' />
@@ -28,20 +27,66 @@ var mtName="";
 var mtContent="";
 var userId="";
 var mtStart="";
+var mtStart2="";
 var mtEnd="";
+var mtEnd2="";
 var mtMaxCount="";
 var mtAddr="";
 var mtConstructor="";
 var mmNo="";
 
+
+////////////////////////////////////////////구글캘린더 연동부 시작점
+function authenticate() {
+    return gapi.auth2.getAuthInstance()
+        .signIn({scope: "https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/calendar.events"})
+        .then(function() { console.log("Sign-in successful"); },
+              function(err) { console.error("Error signing in", err); });
+  }
+  function loadClient() {
+    gapi.client.setApiKey("AIzaSyAow_exiK7v12TdQlYOv1U-ttFlSpWlU2Q");
+    return gapi.client.load("https://content.googleapis.com/discovery/v1/apis/calendar/v3/rest")
+        .then(function() { console.log("GAPI client loaded for API"); },
+              function(err) { console.error("Error loading GAPI client for API", err); });
+  }
+  // Make sure the client is loaded and sign-in is complete before calling this method.
+  function execute() {
+    return gapi.client.calendar.events.insert({
+    	"calendarId": "primary",
+    	"resource": {
+            "end": {
+              "dateTime": mtEnd2,
+              "timeZone": "Asia/Seoul"
+            },
+            "start": {
+              "dateTime": mtStart2,
+              "timeZone": "Asia/Seoul"
+            },
+            "summary": mtName,
+            "location": mtAddr,
+            "description": mtContent
+          }
+        })
+        .then(function(response) {
+                // Handle the results here (response.result has the parsed body).
+                console.log("Response", response);
+              },
+              function(err) { console.error("Execute error", err); });
+  }
+  gapi.load("client:auth2", function() {
+    gapi.auth2.init({client_id: "674136097926-gmjcrr1v85j17s88t3pi2fodfp72hvk9.apps.googleusercontent.com"});
+  });
+////////////////////////////////////////////구글캘린더 연동부 종료
+  
+  
 function fncAddMtView() {
 	alert("정모를 생성합니다.");
 	var displayValue = "<h6>"
-	+"<form class='form-horizontal' name='detailForm'>"
+	+"<form id='addMt' class='form-horizontal' name='detailForm'>"
 	+"<input type='hidden' name='mmNo' value='${mmNo}'>" 
 	+"정모이름 :" +"<input type='text' name='mtName'>" + "<br>"
 	+"정모내용 :"+"<input type='text' name='mtContent'>" + "<br>"
-	+"주최자 :"+ "<input type='text' name='userId' value='${user.userId}'>" + "<br>"
+	+"주최자 :"+ "<input type='text' name='userId' value='${dbUser.userId}'>" + "<br>"
 	+"정모시작일 :" +"<input type='datetime-local'  name='mtStart'>"+"<br>"
 	+"정모종료일 :" +"<input type='datetime-local' name='mtEnd'>"+"<br>"
 	+"정모 총 인원 :"+ "<input type='text' name='mtMaxCount'>" + "<br>"
@@ -59,7 +104,7 @@ function fncUptMtView() {
 	alert("정모를 수정합니다.");
 	if(mtConstructor == userId){
 		var displayValue = "<h6>"
-			+"<form class='form-horizontal' name='detailForm'>"
+			+"<form id='uptMt' class='form-horizontal' name='detailForm'>"
 			+"<input type='hidden' name='mtNo' value=''>"
 			+"<input type='hidden' name='mmNo' value=''>"
 			+"정모이름 :" +"<input type='text' name='mtName' value=''>"+"<br>"
@@ -88,8 +133,6 @@ function fncUptMtView() {
 	}else{
 		alert("정모 주최자 ID와 동일하지 않습니다.");
 	}
-	
-	
 }
 
 function fncDeleteMt(userId) {
@@ -106,12 +149,12 @@ function fncDeleteMt(userId) {
 
 function fncAddMt() {
 	alert("등록완료");
-	$("form").attr("method", "POST").attr("action", "/meeting/addMeeting").submit();
+	$("#addMt").attr("method", "POST").attr("action", "/meeting/addMeeting").submit();
 }
 
 function fncUptMt() {
 	alert("정모를수정합니다");
-	$("form").attr("method", "POST").attr("action", "/meeting/updateMeeting").submit();
+	$("#uptMt").attr("method", "POST").attr("action", "/meeting/updateMeeting").submit();
 }
 
 function fncApplyMt(mtNo, userId){
@@ -164,10 +207,31 @@ function fncGetMEFL(mtNo){
 					"Content-Type" : "application/json"
 				},
 				success : function(JSONData , status) {
-					alert("정모참여자명단");
-					//console.log(JSONData);
-					var str = JSONData.stringify(json);
-					alert(str);
+					alert(JSONData.list.length);
+					$( "h5" ).remove();	
+					let displayValue = '';
+					for(var i=0;i < JSONData.list.length;i++){
+					displayValue += "<h5>"
+										+"유저ID	: "+JSONData.list[i].meflId.userId+"<br/>"
+										+"이름  : "+JSONData.list[i].meflId.userName+"<br/>"
+										+"나이  : "+JSONData.list[i].meflId.age+"<br/>"
+										+"성별  : "+JSONData.list[i].meflId.gender+"<br/>"
+										+"FullAddr  : "+JSONData.list[i].meflId.fullAddr+"<br/>"
+										+"addr  : "+JSONData.list[i].meflId.addr+"<br/>"
+										+"닉네임 		: "+JSONData.list[i].meflId.nickname+"<br/>"
+										+"주소 		: "+JSONData.list[i].meflId.addr+"<br/>"
+										+"프로필이미지 : "+JSONData.list[i].meflId.profileImage+"<br/>"
+										+"자기소개 : "+JSONData.list[i].meflId.profileContent+"<br/>"
+										+"뱃지   	   : "+JSONData.list[i].meflId.badge+"<br/>"
+										+"MEFL넘버  : "+JSONData.list[i].meflNo+"<br/>"
+										+"MEFL타입  : "+JSONData.list[i].meflType+"<br/>"
+										+"타겟넘버   : "+JSONData.list[i].targetNo+"<br/>"
+										+"참여일자   : "+JSONData.list[i].joinRegDate+"<br/>"
+										+"</h5>";
+							
+						
+						} //for문끝
+						$( "#getMEFL" ).append(displayValue);
 				}
 		}); //ajax 종료
 	
@@ -181,6 +245,7 @@ $(document).ready(function() {
       init: function(themeSystem) {
         $('#calendar').fullCalendar({
           themeSystem: themeSystem,
+          googleCalendarApiKey: 'AIzaSyAow_exiK7v12TdQlYOv1U-ttFlSpWlU2Q',
           aspectRatio: 2,
           height:700,
           contentHeight:700,
@@ -202,14 +267,16 @@ $(document).ready(function() {
         	mtNo = event.id;
         	mtName = event.title;
         	mtStart = event.start;
+        	mtStart2 = event.start2;
         	mtEnd = event.end;
+        	mtEnd2 = event.end2;
         	mtContent = event.description;
         	mtMaxCount = event.maxCount;
         	mtConstructor = event.constructor;
         	mtAddr = event.addr;
-      	    //alert(mtNo);
-      	    console.log(mtConstructor);
-      	   	//userId = ${user.userId};
+        	console.log(mtConstructor);
+			console.log(mtEnd2);
+			console.log(mtStart2);
       	  $.ajax( 
     				{
     					url : "/meeting/json/getMeeting/"+mtNo,
@@ -222,12 +289,17 @@ $(document).ready(function() {
     					success : function(JSONData , status) {
     						//alert(status);
     						//alert("JSONData : \n"+JSONData);
+    						$( "h5" ).remove();	
     						$("#addDate").slideUp('slow');
     						$("#mtName").val(JSONData.mtName);
     						$("#userId").val(JSONData.mtConstructor.userId);
     						$("#mtContent").val(JSONData.mtContent);
     						$("#mtStart").val(JSONData.mtStart);
+    						$("#mtStart2").val(JSONData.mtStart2);
+    						mtStart2 = JSONData.mtStart2;
+    						mtEnd2 = JSONData.mtEnd2;
     						$("#mtEnd").val(JSONData.mtEnd);
+    						$("#mtEnd2").val(JSONData.mtEnd2);
     						$("#mtMaxCount").val(JSONData.mtMaxCount);
     						$("#mtCurrentCount").val(JSONData.mtCurrentCount);
     						$("#mtAddr").val(JSONData.mtAddr);
@@ -243,7 +315,9 @@ $(document).ready(function() {
             	id: "${meeting.mtNo}",
                 title: "${meeting.mtName}",
                 start: "${meeting.mtStart}",
+                start2: "${meeting.mtStart2}",
                 end: "${meeting.mtEnd}",
+                end2: "${meeting.mtEnd2}",
                 description: "${meeting.mtContent}",
                 maxCount : "${meeting.mtMaxCount}",
                 currentCount : "${meeting.mtCurrentCount}",
@@ -265,6 +339,24 @@ $(document).ready(function() {
 
   });
 
+/*
+function fncPopUp(){
+	alert("팝업창생성");
+	var url = "https://accounts.google.com/o/oauth2/v2/auth?scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcalendar%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcalendar.readonly&access_type=offline&include_granted_scopes=true&response_type=code&state=state_parameter_passthrough_value&redirect_uri=http%3A%2F%2Flocalhost%3A8080%2Fmeeting%2FreceiveCode&client_id=674136097926-gmjcrr1v85j17s88t3pi2fodfp72hvk9.apps.googleusercontent.com";
+    var name = "popup test";
+    var option = "width = 500, height = 500, top = 100, left = 200, location = no"
+    window.open(url, name, option);
+	
+};
+*/
+function fncPopUp(){
+	alert("팝업창생성");
+	var url = "receiveCode";
+    var name = "popup test";
+    var option = "width = 500, height = 500, top = 100, left = 200, location = no"
+    window.open(url, name, option);
+	
+}
 </script>
 <style>
 
@@ -290,7 +382,7 @@ $(document).ready(function() {
   }
 
   #top .selector {
-    display: inline-block;
+    display: inline-block;	
     margin-right: 10px;
   }
 
@@ -323,7 +415,7 @@ $(document).ready(function() {
 <jsp:include page="../layout/moimToolbar.jsp"/>
 <!-- ToolBar End /////////////////////////////////////-->
 
-<h3>정모일정 확인 캘린다입니다...${user.userId}님 안녕하십니까..
+<h3>정모일정 확인 캘린다입니다...${dbUser.userId}님 안녕하십니까..
 <button type="button" class="btn btn-success" onClick="fncAddMtView()">정모 생성하기</button>
 </h3>
   <div id='top'>
@@ -389,7 +481,9 @@ $(document).ready(function() {
 	정모내용 :<input type='text' id='mtContent'><br>
 	주최자 : <input type='text' id='userId'><br>
 	정모시작일 :<input type='text'  id='mtStart'><br>
+	<input type='hidden' id='mtStart2'>
 	정모종료일 :<input type='text' id='mtEnd'><br>
+	<input type='hidden' id='mtEnd2'>
 	정모 총 인원 :<input type='text' id='mtMaxCount'><br>
 	정모 현재 인원 :<input type='text' id='mtCurrentCount'>
 	<button type="button" class="btn btn-default" onClick="fncGetMEFL(mtNo)">참여한사람보기</button>
@@ -397,15 +491,17 @@ $(document).ready(function() {
 	정모 장소 :<input type='text' id='mtAddr'><br>
 	
 	
-	<button type="button" class="btn btn-success" onClick="fncApplyMt(mtNo, '${user.userId}')">참가</button>
-	<button type="button" class="btn btn-success" onClick="fncLeaveMt(mtNo, '${user.userId}')">참가취소</button>
-	<button type="button" class="btn btn-primary" onClick="fncUptMtView('${user.userId}')">수정</button>
-	<button type="button" class="btn btn-danger" onClick="fncDeleteMt('${user.userId}')">삭제</button>	
+	<button type="button" class="btn btn-success" onClick="fncApplyMt(mtNo, '${dbUser.userId}')">참가</button>
+	<button type="button" class="btn btn-success" onClick="fncLeaveMt(mtNo, '${dbUser.userId}')">참가취소</button>
+	<button type="button" class="btn btn-primary" onClick="fncUptMtView('${dbUser.userId}')">수정</button>
+	<button type="button" class="btn btn-danger" onClick="fncDeleteMt('${dbUser.userId}')">삭제</button>	
+	
+	<a id = "connect" onClick="authenticate().then(loadClient)">구글캘린더와 연동하기</a>
+	<a id = "insert" onClick="execute()">구글캘린더에 등록하기</a>
 	
 
-		
  	</div> <!-- 컨테이너 div종료 --> 
-		
+		<div id="getMEFL" style="padding-top: 30px"></div>
  </div> <!-- getDate div 종료 -->
 <jsp:include page="../layout/searchbar.jsp"></jsp:include>
 

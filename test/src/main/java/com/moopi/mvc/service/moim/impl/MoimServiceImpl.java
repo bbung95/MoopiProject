@@ -44,6 +44,16 @@ public class MoimServiceImpl {
 		
 		return map;
 	}
+	
+	public Map<String, Object> getMyMoimList(String userId) throws Exception {
+		
+		List<Moim> list = moimDao.getMyMoimList(userId);
+		
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		return map;
+	}
 
 
 	public void updateMoim(Moim moim) throws Exception {
