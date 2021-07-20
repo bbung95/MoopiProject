@@ -123,15 +123,15 @@
 
 <!--- [구현중] 네이버로그인 API --------------------------------------------------------------------------------------------------------->	
 	
-	function NaverLogin() {  
+	function NaverLogin() { 
 		
 		alert("실행");
 			
 			var naverLogin = new naver.LoginWithNaverId ({
-				alert("2");
+				
 				clientId: "MJJpKOvtYqXuhtTnhQtq",
 				callbackUrl: "http://localhost:8080/user/naverlogin",
-				isPopup: false,
+				isPopup: true,
 				loginButton: {color: "green", type: 3, height: 45},			
 
 			});
@@ -327,30 +327,18 @@
 		</div>
 		
 <!-- [구현중] 카카오 API Login & Logout ---------------------------------------------------------------------------------------------------------------->						
-	
+<!--
 		<div class="form-group">
 			<div class="col-sm-offset-4  col-sm-4 text-center">
 				<button type="button" class="btn btn-default" onClick="KakaoLogout()">카카오 로그아웃</button>
 			</div>
 		</div>
-		
+-->		
 		<div class="form-group">
 			<div class="col-sm-offset-4  col-sm-4 text-center">
 				<img src="../images/API/kakao_login_medium_narrow.png" name="kakaoLogin" onclick="javascript:KakaoLogin()">
 			</div>
-		</div>
-		
-		<div class="form-group">
-			<div class="col-sm-offset-4  col-sm-4 text-center">
-				<button type="button" class="btn btn-primary" onclick="KakaoLogin()">카카오로그인</button>
-			</div>
-		</div>
-			
-		<div class="form-group">	
-			<a id="naver-login-btn" href="#" role="button">
-				<img src="https://static.nid.naver.com/oauth/big_g.PNG?version=js-2.0.1" height="45" id="naverIdLogin" onclick="NaverLogin()"/>      
-			</a>
-		</div>
+		</div>		
 		
 <!---------------------------------------------------------------------------------------------------------------------------->
 
@@ -375,6 +363,12 @@
 			<img src="https://static.nid.naver.com/oauth/big_g.PNG?version=js-2.0.1" height="45" id="naverIdLogin" onclick="NaverLogin()"/>      
 		</a>
 	</div>
+	
+	<div class="form-group">
+		<div class="col-sm-offset-4  col-sm-4 text-center">
+			<img src="https://static.nid.naver.com/oauth/big_g.PNG?version=js-2.0.1" height="45" name="naverIdLogin" onclick="javascript:NaverLogin()">
+		</div>
+	</div>	
 
 <!---------------------------------------------------------------------------------------------------------------------------->
 
