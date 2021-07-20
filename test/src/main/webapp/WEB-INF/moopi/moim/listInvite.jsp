@@ -17,8 +17,8 @@
 
 <script>
 function fncAccept(userId, mmNo){
-	alert("가입신청을 수락하겠습니다.");
-	self.location ="/moim/updateMember?userId="+userId+"&mmNo="+mmNo+"&status=1"
+	alert(userId+"님을 초대하겠습니다.");
+	//self.location ="/moim/updateMember?userId="+userId+"&mmNo="+mmNo+"&status=1"
 }
 
 function fncRefuse(memberNo, mmNo){
@@ -47,7 +47,7 @@ function fncRefuse(memberNo, mmNo){
 <p>회원나이:${user.age}</p>
 <p>회원fulladdress:${user.fullAddr}</p>
 <p>회원addr:${user.addr}</p>
-<button type="button" class="btn btn-default" onClick="fncAccept('${member.mmUser.userId}', '${member.mmNo}')">초대</button>
+<button type="button" class="btn btn-default" onClick="fncAccept('${user.userId}', '${member.mmNo}')">초대</button>
 <hr>
 </c:forEach>
 
