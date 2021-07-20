@@ -42,9 +42,9 @@ function fncGetFlash(flashNo){
 
 <c:forEach var="flash" items="${list}">
 //////////////////////////
-<p>모임넘버:${flash.flashNo}</p>
-<p>모임명: <div id="getFlash" onClick="fncGetFlash(${flash.flashNo})">${flash.flashName}</div></p>
-<p>모임소개글:${flash.flashContent}</p>
+<p>번개넘버:${flash.flashNo}</p>
+<p>번개명: <div id="getFlash" onClick="fncGetFlash(${flash.flashNo})">${flash.flashName}</div></p>
+<p>번개소개글:${flash.flashContent}</p>
 <div class="row">
 	  		<div class="col-xs-4 col-md-2 "><strong>번개무피 썸네일</strong></div>
 			<div class="col-xs-8 col-md-4">
@@ -54,9 +54,9 @@ function fncGetFlash(flashNo){
 		</div>
 <p>번개정원:${flash.flashMaxCount}</p>
 <p>번개현재인원:${flash.flashCurrentCount}</p>
-<p>모임생성자:${flash.flashConstructor.userId}</p>
+<p>번개생성자:${flash.flashConstructor.userId}</p>
 <p>번개생성일:${flash.flashRegdate}</p>
-<p>모임관심사No:${flash.flashInterest}</p>
+<p>번개관심사No:${flash.flashInterest}</p>
 <p>번개장소:${flash.flashAddr}</p>
 <p>번개무피상태(1모집중2모집완료):${flash.flashState}</p>
 <p>번개무피 만남시간:${flash.flashTime}</p>
