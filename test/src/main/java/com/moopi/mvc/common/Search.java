@@ -7,11 +7,13 @@ import lombok.ToString;
 public class Search {
 	
 	private int currentPage;
-	private String searchCondition;
+	private int searchCondition;
 	private String searchKeyword;
 	private int pageSize;
 	private int endRowNum;
 	private int startRowNum;
+	private int pageUnit;
+	private String searchCategory;
 	
 	///Constructor
 	public Search() {
@@ -32,10 +34,10 @@ public class Search {
 		this.currentPage = currentPage;
 	}
 
-	public String getSearchCondition() {
+	public int getSearchCondition() {
 		return searchCondition;
 	}
-	public void setSearchCondition(String searchCondition) {
+	public void setSearchCondition(int searchCondition) {
 		this.searchCondition = searchCondition;
 	}
 	
@@ -61,6 +63,22 @@ public class Search {
 				+ searchCondition + ", searchKeyword=" + searchKeyword
 				+ ", pageSize=" + pageSize + ", endRowNum=" + endRowNum
 				+ ", startRowNum=" + startRowNum + "]";
+	}
+
+	public int getPageUnit() {
+		return pageUnit;
+	}
+
+	public void setPageUnit(int pageUnit) {
+		this.pageUnit = pageUnit;
+	}
+
+	public String getSearchCategory() {
+		return searchCategory;
+	}
+
+	public void setSearchCategory(String searchCategory) {
+		this.searchCategory = searchCategory;
 	}
 
 }
