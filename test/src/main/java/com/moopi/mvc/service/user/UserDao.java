@@ -30,7 +30,7 @@ public interface UserDao {
 	public User getUser(String userId) ;
 	
 	// 회원정보수정
-	public void updateUser(User user) throws Exception;
+	public User updateUser(User user) throws Exception;
 	
 	// 회원탈퇴시 [UserRole - 5.탈퇴회원]
 	public void updateLeaveUser(User user) throws Exception;
@@ -84,11 +84,23 @@ public interface UserDao {
 	
 	//flash Coin ~~
 	public void makeFlashCoin(User user) throws Exception;
-
-
 	public void joinFlashCoin(User user) throws Exception;
 
 
+	//결제후 유저 코인 Up
+	public void paymentUpdateCoin(User user) throws Exception;
+	
+
+	
+// 프로필수정
+	// 0. 프로필이미지수정
+	public void updateProfileImage(User user);
+	// 1. 닉네임수정
+	public void updateNickname(User user);
+	// 2. 프로필소개수정
+	public void updateContent(User user);
+	// 3. 관심사수정
+	public void updateInterest(User user);
 
 
 

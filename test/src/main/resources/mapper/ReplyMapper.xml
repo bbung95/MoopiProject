@@ -13,7 +13,7 @@
 		<result property="replyRegDate" 	column="REPLY_REGDATE" 	jdbcType="DATE" />
 		<result property="replyFile" 		column="REPLY_FILE" 		jdbcType="VARCHAR"  />
 		<result property="replyState" 		column="REPLY_STATE" 		jdbcType="CHAR" />
-		
+
 		<association property="replyWriter"  javaType="user">
 			<id property="userId" 				column="USER_ID" 			jdbcType="VARCHAR"/>
 			<result property="profileImage"		column="PROFILE_IMAGE"		jdbcType="VARCHAR"/>
@@ -46,14 +46,19 @@
 	<select id="getReply" parameterType="int" resultMap="replySelectMap" >
 
 		SELECT 
-			REPLY_NO
-		  , REPLY_CONTENT
-		  , REPLY_FILE
-		  , REPLY_STATE
+			R.REPLY_NO
+		  , R.REPLY_CONTENT
+		  , R.REPLY_FILE
+		  , R.REPLY_STATE
+		  , U.NICKNAME
+		  , U.PROFILE_IMAGE
+		  , R.REPLY_REGDATE
 		FROM 
-			REPLY
+			REPLY R, USERS U
 		WHERE
-			REPLY_NO = #{replyNo}
+			R.REPLY_NO = #{replyNo}
+		AND
+			R.REPLY_WRITER = U.USER_ID
 	</select>
 	
 	<select id="updateReply" parameterType="reply" >
@@ -66,13 +71,13 @@
       REPLY_NO = #{reply.replyNo}
 	</select>
 	
-	<select id="deleteReply" parameterType="reply" >
+	<select id="deleteReply" parameterType="int" >
 
 	UPDATE 
 	REPLY SET 
-	  REPLY_STATE = #{reply.replyState
+	  REPLY_STATE = '2'
 	WHERE
-	  REPLY_NO = #{reply.replyNo}
+	  REPLY_NO = #{replyNo}
 	</select>
 	
 	<insert id="insertReply" parameterType="reply" 
@@ -93,5 +98,14 @@
 		 , '1');
 	
 	</insert>	
+	
+	<select id="deleteReply2" parameterType="reply" >
+
+	UPDATE 
+	REPLY SET 
+	  REPLY_STATE = '3'
+	WHERE
+	  REPLY_NO = #{reply.replyNo}
+	</select>
 	
 </mapper>

@@ -12,14 +12,17 @@ import com.moopi.mvc.service.domain.Reply;
 @Mapper
 public interface ReplyDao {
 
-	public void insertReply(@Param("reply")Reply reply);
+	public Reply insertReply(@Param("reply")Reply reply);
 	
 	public List<Reply> getReplyList(@Param("boardNo")int boardNo);
 
-	public void updateReply(@Param("reply")Reply reply);
+	public Reply updateReply(@Param("reply")Reply reply);
 	
 	public Reply getReply(@Param("replyNo")int replyNo);
 	
-	public Reply deleteReply(@Param("reply")Reply reply);
+	public void deleteReply(@Param("replyNo")int replyNo);
+	
+	public void deleteReply2(@Param("reply")Reply reply);
+
 	
 }
