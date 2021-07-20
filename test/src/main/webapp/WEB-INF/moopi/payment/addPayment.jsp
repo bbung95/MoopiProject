@@ -67,7 +67,7 @@
 				
 				//buyer_email : 'nava@naver.com',
 				buyer_name : userId,
-				buyer_tel : '010-1234-5678',
+				//buyer_tel : '010-1234-5678',
 				//buyer_addr : '서울특별시',
 				//buyer_postcode : '111-111'
 				//m_redirect_url : 'https://www.yourdomain.com/payments/complete'
