@@ -310,7 +310,7 @@
 				<textarea rows="4" cols="70" name="replyContent"   id="replyContent"></textarea>			
 			</div>
 		</td>
-		   <input type="hidden" id = "replyWriter" value="${user.userId}"> 
+		   <input type="hidden" id = "replyWriter" value="${dbUser.userId}"> 
 		   <input type="hidden" id = "boardNo" value="${board.boardNo }"> 
 		   <button type="button" class="btn btn-primary" id="addReply">답글작성</button>
 	</form>

@@ -36,7 +36,7 @@ function fncAddBoard(){
 	var boardName		=$("input[name='boardName']").val();	
 	var boardContent	=$("input[name='boardContent']").val();
 	
-	$("form").attr("method" , "POST").attr("action" , "/board/addBoard").submit();
+	$("form.form-horizontal").attr("method" , "POST").attr("action" , "/board/addBoard").submit();
 	
 }
 
