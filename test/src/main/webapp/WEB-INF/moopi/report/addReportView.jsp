@@ -34,6 +34,7 @@ function fncAddReport(){
 	var targetName  		= $("#targetName").val();
 	
 	alert(reportContent);
+	alert(reportByUser);
 	
 	$("form").attr("method" , "POST").attr("action" , "/report/addReport").submit();
 	
@@ -50,10 +51,9 @@ function fncAddReport(){
 		
 		<!-- form Start /////////////////////////////////////-->
 		<form class="form-horizontal" name="detailForm" >
+		<!-- 카테고리 1번에 해당하는 신고글. -->
 		  <c:if test="${reportCategory == 1}">
-		  
-		  
-		  <input type="hidden" id="reportByUser.userId" name="reportByUser.userId" value="${user.userId}">
+		  <input type="hidden" id="reportByUser.userId" name="reportByUser.userId" value="${dbUser.userId}">
 		  <input type="hidden" id="reportTargetBd.boardNo" name="reportTargetBd.boardNo" value="${board.boardNo}">
 		  <input type="hidden" id="reportCategory" name="reportCategory" value="${reportCategory}">
 		  <div>
@@ -74,11 +74,13 @@ function fncAddReport(){
                     <p>${board.boardContent}</p>
                 </div>
            </c:if>      
+           
+           <!-- 카테고리 2번에 해당하는 신고글. -->
             <c:if test="${reportCategory == 2}">
 		  
 		  
-		  <input type="hidden" id="reportByUser.userId" name="reportByUser.userId" value="${user.userId}">
-		  <input type="hidden" id="reportTargetRe.replyNo" name="reportTargetRe.replyNo" value="${reply.replyNo}">
+		  <input type="hidden" id="reportByUser.userId" name="reportByUser.userId" value="${dbUser.userId}">
+		  <input type="hidden" id="reportTargetRe" name="reportTargetRe.replyNo" value="${reply.replyNo}">
 		  <input type="hidden" id="reportCategory" name="reportCategory" value="${reportCategory}">
 		  <div>
             <div>
@@ -102,19 +104,19 @@ function fncAddReport(){
             <div class="c_rp_lst">
                 <ul class="wp">
                     <li class="itm">
-                        <input type="radio" id="reportType" name="reportType" value="1">
+                        <input type="radio" name="reportType" value="1">
                         <label> 음란</label> 
                     </li>
                     <li class="itm">
-                        <input type="radio" id="reportType" name="reportType" value="2">
+                        <input type="radio" name="reportType" value="2">
                         <label> 욕설</label> 
                     </li>
                     <li class="itm">
-                        <input type="radio" id="reportType" name="reportType" value="3">
+                        <input type="radio" name="reportType" value="3">
                        <label>광고</label> 
                     </li>
                     <li class="itm">
-                        <input type="radio" id="reportType" name="reportType" value="4">
+                        <input type="radio" name="reportType" value="4">
                         <label> 불법</label> 
                     </li>
                 </ul>

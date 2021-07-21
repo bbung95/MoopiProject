@@ -70,7 +70,8 @@
 								<li> <a href="#">마이홈</a></li>
 								<li> <a href="#">내정보보기</a></li>
 								<li> <a href="#">쪽지	</a></li>
-								<li> <a href="#">MY무피코인</a></li>
+								<li> <a href="#">My결제내역</a></li>
+								<li> <a href="#">My코인내역</a></li>
 								<li> <a href="#">로그아웃</a></li>
 								<c:if test="${dbUser.userRole == '1'}">
 									<li> <a href="#">관리자</a></li>
@@ -289,9 +290,14 @@
 		location.href = "/";
 	})
 	
-	$("a:contains('MY무피코인')").on("click", function(){
+	$("a:contains('My결제내역')").on("click", function(){
 		
 		location.href = "/payment/paymentList?userId="+dbUser;
+	})
+	
+	$("a:contains('My코인내역')").on("click", function(){
+		
+		location.href = "/coin/coinHistory?userId="+dbUser;
 	})
 	
 	$("a:contains('로그아웃')").on("click", function(){
@@ -306,7 +312,7 @@
 	
 	$("a:contains('충전')").on("click", function(){
 		
-		location.href = "/payment/addPaymentView?userId=${dbUser.userId}";
+		location.href = "/payment/addPaymentView?userId="+dbUser;
 	})
 </script>
 

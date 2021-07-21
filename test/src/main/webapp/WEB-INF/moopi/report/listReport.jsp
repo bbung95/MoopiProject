@@ -93,23 +93,55 @@ function fncListReportU(){
 			
 			alert("신고처리");
 			
-			alert("1"+$(this).parent().parent().html());
-			console.log($(this).parent().parent().html());
-			console.log($(this).parent().parent().find("select").val());
+			alert($(this).parent().parent().html());
 			
 			var reportResultState	= $(this).parent().parent().find("select").val();
 			var reportNo			= $(this).parent().parent().find("input.reportNo").val()
-			var stateReason  		= prompt('처리사유를 입력해주세요.', '처리 사유');
+			var stateReason			= $(this).parent().parent().find("input.stateReason").val()
+			var reportTargetBd		= $(this).parent().parent().find("input.boardNo").val()
+			var reportTargetRe		= $(this).parent().parent().find("input.replyNo").val()
+			
+// 			$("form").attr("method" , "POST").attr("action" , "/report/processReport").submit();		
 			
 			alert(reportResultState);
 			alert(reportNo);
 			alert(stateReason);
+			alert(reportTargetBd);
+			alert(reportTargetRe);
 			
-			$("form").attr("stateReason", stateReason).attr("report.stateReason", stateReason)
+			$.ajax( 
+					{
+						url : "/report/json/processReport",
+						method : "POST" ,
+						dataType : "json" ,
+						data :  JSON.stringify ({ "reportNo": reportNo, "reportResultState": reportResultState, "stateReason": stateReason, "reportTargetBd": {"boardNo" : reportTargetBd}, "reportTargetRe": {"replyNo" : reportTargetRe} }),
+						contentType : "application/json",
+					    success : function(JSONData , status) {
+				               alert(status);
+// 				                alert("JSONData : \n"+JSONData.boardPassword);
+								alert(JSONData)
+								console.log(JSONData)
+				               var displayValue = 
+				            	   "<h4>"
+				            	   +"<td align='left'>"+JSONData.reportResultUpdate+"</td>"
+								   +"<td align='left'>"+JSONData.reportResultState+"</td>"
+								   +"<td align='left'>"+JSONData.stateReason+"</td>"
+								   +"<td align='left'>처리완료</td>"
+									+"</h4>"
+									
+								//Debug...									
+								alert(displayValue);
+								$(".reportUpdate"+JSONData.reportNo+"").remove();
+								$(".reportUpdate"+JSONData.reportNo+"" ).append(displayValue);	
+	
+				               }
+				               
+			
+				            })
 			
 			
-			$("form").attr("method" , "POST").attr("action" , "/report/processReport").submit();		
-// 			self.location ="/report/processReport";
+			
+			
 			
 		});
 	});	
@@ -144,7 +176,7 @@ body{
 <button type="button" class="btn btn-primary" id="listReportRe">리플</button>
 <button type="button" class="btn btn-primary" id="listReportU">유저</button>
 
-<form class="form-horizontal" name="detailForm" >
+
 <div class="container">
  <table class="table table-hover table-striped" >
 		<thead>
@@ -162,8 +194,9 @@ body{
             <th align="left">신고 접수일</th>
             <th align="left">신고 처리일</th>
             <th align="left">처리 여부</th>
+            <th align="left">처리 사유</th>
             <th align="left">신고 처리</th>
-            <th align="left"></th>
+            
           </tr>
         </thead>
 
@@ -173,7 +206,6 @@ body{
 			<c:set var="i" value="0" />
 				<c:forEach var="report" items="${ list }">
 				<c:set var="i" value="${ i+1 }"/>
-				
 				<tr>
 				<div class="form-group">
 				<td align="center"> ${i}</td>
@@ -188,7 +220,7 @@ body{
 					<c:if test="${search.searchCategory == 2}">
 						<input type="hidden" class="reportNo" name="reportNo" value="${report.reportNo}"/>		
 						<input type="hidden" class="boardNo" name="boardNo" value="${report.reportTargetRe.boardNo}"/>
-						<input type="hidden" id="replyNo" name="replyNo" value="${report.reportTargetRe.replyNo}"/>
+						<input type="hidden" class="replyNo" name="replyNo" value="${report.reportTargetRe.replyNo}"/>
 						<td align="left">${report.reportTargetRe.replyWriter.userId }</td>
 						<td class="test" id="getBoard" align="left">${report.reportTargetRe.replyContent}</td>
 					</c:if>
@@ -196,29 +228,41 @@ body{
 				<td align="left">${report.reportType}</td>
 				<td align="left">${report.reportContent}</td>
 				<td align="left">${report.reportRegDate}</td>
+				<c:if test="${report.reportResultUpdate != null}">
 				<td align="left">${report.reportResultUpdate}</td>
 				<td align="left">${report.reportResultState}</td>
-				
+				<td align="left">${report.stateReason}</td>
+				<td align="left">처리완료</td>
+				<td></td>
+				</c:if>
 				
 				<c:if test="${report.reportResultUpdate == null}">
-					<td align="left">
-						<select id="reportProcess${report.reportNo}" name="reportProcess"> 
-							<option>선택하세요</option> 
+				<input type="hidden" >
+				<div class="abc${report.reportNo}">
+				<td class="reportUpdate${report.reportNo}" name ="reportUpdate"></td>
+				<td class="reportUpdate${report.reportNo}" name ="reportUpdate"></td>
+				<td class="reportUpdate${report.reportNo}" name ="reportUpdate">
+				<input type="text" class="stateReason"></input>	</td>
+					<td class="reportUpdate${report.reportNo}" name ="reportUpdate" align="left">
+						<select name="reportResultState"> 
 							<option value="1">해당없음</option>
-							<option value="2">유저 경고</option>
-							<option value="3">해당글 삭제</option>
+							<option value="2">유저경고</option>
+							<option value="3">해당글삭제</option>
 						</select> 
 					</td>
-				  <td align="left"><button type="button" class="btn btn-primary"}">처리하기</button></td>
+					
+					</div>
+				  <td align="left"><button type="button" class="btn btn-primary">처리하기</button></td>
+				  
 				  </c:if>
-				</div>
+				  
 				</tr>
 			</c:forEach>
 		
 		</tbody>		
 	
 </table>
-
-<jsp:include page="../layout/searchbar.jsp"></jsp:include>
+</div>
+<%-- <jsp:include page="../layout/searchbar.jsp"></jsp:include> --%>
 </body>
 </html>

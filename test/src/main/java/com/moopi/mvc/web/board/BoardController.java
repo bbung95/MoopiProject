@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 
+import com.moopi.mvc.common.Page;
 import com.moopi.mvc.common.Search;
 import com.moopi.mvc.service.board.impl.BoardServiceImpl;
 import com.moopi.mvc.service.domain.Board;
@@ -32,40 +34,52 @@ public class BoardController{
 	public Board board;
 	public String getCategory = null;
 	
+	@Value("${page.pageUnit}")
+	int pageUnit;
+	
+	@Value("${page.pageSize}")
+	int pageSize;
+	
 	@RequestMapping("listBoard")
 	public String getBoardList(@ModelAttribute("search")Search search, @ModelAttribute("category")String category ,Model model ) throws Exception {
 		
 		String boardCategory = null;
-		
 		Map map = new HashMap();
 		System.out.println("getBoardList start;;");
-		System.out.println(category);
+		
 		
 		if(search.getCurrentPage() == 0 ) {
 			search.setCurrentPage(1);
 		}
-			
-		search.setStartRowNum(1);
-		search.setEndRowNum(5);
 		
 		boardCategory = boardService.getBoardCategory(category);
 		
-		
 		System.out.println("====category 값 체크 : "+category);
 		
-		map.put("boardCategory", category);
-		map.put("boardState", "1");
-		map.put("search", search);
+		 if( search.getCurrentPage() ==0 ){
+	         search.setCurrentPage(1);
+	      }
+	      search.setPageSize(pageSize);
 		
-		System.out.println("test");
-		map = boardService.getBoardList(map);
-		System.out.println(map.get("list").toString());
+		map = boardService.getBoardList(search, category, "1");
+		
+		
+		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
+		model.addAttribute("resultPage", resultPage);
 		model.addAttribute("list", map.get("list"));
-		
+		model.addAttribute("totalCount", map.get("totalCount"));
 		System.out.println(boardCategory);
 		
-		return "/board/"+boardCategory+"Board/list"+boardCategory;
+		
+		if(category.equals("4")) {
+			return "/moim/listMoimBoard";
+		}else {
+			System.out.println("1111111111111111111111111");
+			return "/board/"+boardCategory+"Board/list"+boardCategory;
+
+		}
 	}
+	
 	
 	@RequestMapping("getBoard")
 	public String getBoard(@ModelAttribute("boardNo") int boardNo, Model model) throws Exception{
@@ -162,6 +176,11 @@ public class BoardController{
 		
 	}
 	
+	@RequestMapping("/map")
+	public String getMap() throws Exception{
+		
+		return "/map/map";
+	}
 	
 	
 }

@@ -100,8 +100,8 @@ function fncListMeeting(mmNo){
 <body>
 
 <!-- ToolBar Start ///////////////////////////////////// -->
-<jsp:include page="../layout/toolbar.jsp" flush="false"/>
-<jsp:include page="../layout/moimToolbar.jsp" flush="false"/>
+<jsp:include page="../layout/toolbar.jsp" />
+<jsp:include page="../layout/moimToolbar.jsp" />
 
 <!-- ToolBar End /////////////////////////////////////-->
 <h3>모임상세페이지입니다...${dbUser.userId}님 오랜만입니다...</h3>

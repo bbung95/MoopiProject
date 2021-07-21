@@ -28,7 +28,7 @@ function fncJoinFlash(flashNo){
 	
 	alert("번개참여");
 	alert("번개참여완료!");
-	self.location ="/flash/joinFlash?userId=${user.userId}&flashNo="+flashNo
+	self.location ="/flash/joinFlash?userId=${dbUser.userId}&flashNo="+flashNo
 }
 
 
