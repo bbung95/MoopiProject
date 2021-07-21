@@ -49,19 +49,8 @@ public interface UserDao {
 	// [중간완료] 닉네임중복체크
 	public int nicknameCheck (String nickname);
 	
-// 팔로우 CRUD
-	
-	// 팔로우 추가
-	public void addFollow(@Param("userId") String userId) throws Exception;
-			
-	// 팔로우 리스트조회 (팔로워 수, 팔로잉 수)
-	public List<User> getFollowList(Search search);
-	
-	// 팔로우삭제
-	public void deleteFollow(@Param("userId") String userId) throws Exception;
-	
-	
-// 관리자용 - 회원리스트
+
+	// 관리자용 - 회원리스트
 	public List<User> getUserList(@Param("search") Search search, @Param("searchState") int searchState);
 	
 	// 검색관련 - 유저리스트 조회시 회원 수
@@ -99,7 +88,22 @@ public interface UserDao {
 	// 3. 관심사수정
 	public void updateInterest(User user);
 
-
+// 팔로우 CRUD 
+	
+	// 팔로우
+	public void addFollow(@Param("userId") String userId, @Param("target") String target);
+	
+	// 겟팔로우
+	public User getFollow(@Param("userId") String userId, @Param("target") String target);
+	
+	// 팔로우리스트
+	public List<User> getFollowList(@Param("userId") String userId,
+			@Param("order") int order);
+	
+	// 언팔로우
+	public void deleteFollow(@Param("userId") String userId, @Param("target") String target);
+	
+	public int getFollowCount(@Param("userId") String userId, @Param("order") int order);
 }
 
 	
