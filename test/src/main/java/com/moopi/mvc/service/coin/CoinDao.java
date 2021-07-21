@@ -12,6 +12,10 @@ public interface CoinDao {
 
 	public void addCoin(Coin coin) throws Exception;
 	
+	public void joinCoin(Coin coin) throws Exception;
+	
+	public List<Coin> coinHistory(Coin coin) throws Exception;
+	
 	public List<Coin> getCoinList(Search search) throws Exception;
 	
 	public Coin getCoin(int coinNo) throws Exception;
