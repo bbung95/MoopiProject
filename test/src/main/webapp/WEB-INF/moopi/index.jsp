@@ -42,7 +42,18 @@
 
 		}
 
-	
+		$(function() {
+			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+			$( "#map" ).on("click" , function() {
+				fncMap();
+			});
+		});	
+		function fncMap(){
+			
+			self.location ="/board/map";
+
+		}
+
 	
 	</script>
 
@@ -71,6 +82,7 @@ body {
 	</center>
 <%-- 	<c:if test="user.userRole == 1"> --%>
 		<button type="button" class="btn btn-primary" id="listReport">신고관리</button>
+		<button type="button" class="btn btn-primary" id="map">지도</button>
 <%-- 	</c:if> --%>
 <jsp:include page="layout/searchbar.jsp"></jsp:include>
 </body>

@@ -74,7 +74,6 @@ public class Search {
 				+ ", startRowNum=" + startRowNum + "]";
 	}
 
-<<<<<<< HEAD
 	public int getPageUnit() {
 		return pageUnit;
 	}
@@ -91,22 +90,4 @@ public class Search {
 		this.searchCategory = searchCategory;
 	}
 
-=======
-	
-	public int getPageUnit() {
-	      return pageUnit;
-	   }
-
-	   public void setPageUnit(int pageUnit) {
-	      this.pageUnit = pageUnit;
-	   }
-	
-	   public String getSearchCategory() {
-	      return searchCategory;
-	   }
-	
-	   public void setSearchCategory(String searchCategory) {
-	      this.searchCategory = searchCategory;
-	   }
->>>>>>> refs/remotes/origin/master
 }
