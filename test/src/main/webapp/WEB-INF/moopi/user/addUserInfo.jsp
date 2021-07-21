@@ -26,22 +26,8 @@
 
 // # 회원가입 Event--------------------------------------------------------------------------------------------------------------------------
 
-		// Client Id 값, RedirectURI 지정
+		// 네이버아이디 Client Id 값, RedirectURI 지정
 			var naver_id_login = new naver_id_login("MJJpKOvtYqXuhtTnhQtq", "http://localhost:8080/user/loginPostNaver");
-
-		// 접근 토큰 값 출력 [콘솔창 정상출력 확인 완료]
-		/*
-			console.log("네이버 토큰 확인 : "+naver_id_login.oauthParams.access_token);	
-			console.log("state 확인 : "+naver_id_login.oauthParams.state);
-			console.log("토큰 타입 확인 : "+naver_id_login.oauthParams.token_type);
-			console.log("expires_in 확인 : "+naver_id_login.oauthParams.expires_in);
-			
-			alert("URL로 주어지는 기본적인 토큰 값 출력완료");
-			alert("네이버 토큰 확인 : "+naver_id_login.oauthParams.access_token);	
-			alert("state 확인 : "+naver_id_login.oauthParams.state);
-			alert("토큰 타입 확인 : "+naver_id_login.oauthParams.token_type);
-			alert("expires_in 확인 : "+naver_id_login.oauthParams.expires_in);
-		*/
 
 		// 네이버 사용자 프로필 조회 - naverSignInCallback function 호출
 			naver_id_login.get_naver_userprofile("naverSignInCallback()"); 
@@ -77,21 +63,21 @@
 		    // 생년과 관련된 SelectBox
 		    // [생년 : year]
 			    for(var i = 1900 ; i <= year ; i++) {
-			        $('#year').append('<option value="' + i + '">' + i + '년</option>');        
+			        $('#year').append('<option value="' + i + '">' + i + '</option>');        
 			    }
 		
 		    // 생월과 관련된 SelectBox 
 		    // [생월 : mm]       
 			    for(var i=1; i <= 12; i++) {
 			        var mm = i > 9 ? i : "0"+i ;            
-			        $('#month').append('<option value="' + mm + '">' + mm + '월</option>');    
+			        $('#month').append('<option value="' + mm + '">' + mm + '</option>');    
 			    }
 		    
 		    // 생일과 관련된 SelectBox
 		    // [생일 : dd]
 			    for(var i=1; i <= 31; i++) {
 			        var dd = i > 9 ? i : "0"+i ;            
-			        $('#day').append('<option value="' + dd + '">' + dd+ '일</option>');    
+			        $('#day').append('<option value="' + dd + '">' + dd+ '</option>');    
 			    }
 				    
 		    $("#year  > option[value="+year+"]").attr("selected", "true");        
@@ -188,12 +174,23 @@
 <!-------------------------------------------------------------------------------------------------------------------------->
 
 // # 새 창으로 모바일번호 인증 띄우기 --------------------------------------------------------------------------------------------------------------------------
+		
+		var popWin;
+		
 		$("#mobileAuth").on("click", function() {
-	
+		
+			window.name = "addUserInfo";
+			
 			popWin = window.open(
 								"getMobileAuth",
-								"popWin",
+								"childForm",								
 								"left=460, top=300, width=460, height=800, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");
+			
+
+			function setChildTest() {
+				openWin.document.getElementById("cInput").value = document.getElementById("pnNum").value;
+       		}
+
 		});
 	
 	});
@@ -229,7 +226,7 @@
 		<div class="form-group">
 			<label for="userId" class="col-sm-offset-1 col-sm-3 control-label">아이디</label>
 			<div class="col-sm-4">
-			<input type="text" class="form-control" id="userId" name="userId" placeholder="여기에 이전 아이디값 가져오기" value="${user.userId}" readonly>
+				<input type="text" class="form-control" id="userId" name="userId" placeholder="여기에 이전 아이디값 가져오기" value="${user.userId}" readonly>
 			</div>
 		</div>
 		
@@ -240,7 +237,7 @@
 		<div class="form-group">
 			<label for="userName" class="col-sm-offset-1 col-sm-3 control-label">이름</label>
 				<div class="col-sm-2">
-					<input type="text" class="form-control" id="userName" name="userName" placeholder="이름을 입력해주세요">
+					<input type="text" class="form-control" id="cInput" name="userName" placeholder="이름을 입력해주세요">
 				</div>
 				<div class="check_font" id="name_check"></div>
 			<label for="gender" class="col-sm-1 control-label">성별</label>		
@@ -255,10 +252,9 @@
 		<!-- # 모바일번호인증 - CoolSMS API 구현해야 함 / 차후 inputtype에 readonly 기재하기-->
 		<div class="form-group">
 			<label for="phone" class="col-sm-offset-1 col-sm-3 control-label">모바일번호</label>
-			<div class="col-sm-4">
-				<span class="col-sm-10">
-					<button type="button" id="mobileAuth" class="btn btn-info">인증하기</button>
-				</span>	
+			<div class="col-sm-4">				
+				<input type="text" class="form-control" id="pInput" name="userId" readonly>
+				<button type="button" id="mobileAuth" class="btn btn-info">인증하기</button>					
 			</div>
 		</div>
 		
