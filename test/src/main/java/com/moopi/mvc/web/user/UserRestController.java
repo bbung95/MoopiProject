@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,7 +25,12 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.moopi.mvc.service.board.impl.BoardServiceImpl;
+import com.moopi.mvc.service.common.impl.CommonServiceImpl;
+import com.moopi.mvc.service.domain.Moim;
+import com.moopi.mvc.service.domain.Notice;
 import com.moopi.mvc.service.domain.User;
+import com.moopi.mvc.service.moim.impl.MoimServiceImpl;
 import com.moopi.mvc.service.user.impl.UserServiceImpl;
 
 import net.nurigo.java_sdk.api.GroupMessage;
@@ -43,6 +49,15 @@ public class UserRestController {
 
 	@Autowired
 	private UserServiceImpl userService;
+	
+	@Autowired
+	private CommonServiceImpl commonService;
+	
+	@Autowired
+	private BoardServiceImpl boardService;
+	
+	@Autowired
+	private MoimServiceImpl moimService;
 	
 	public static final String saveDir = 	ClassLoader.getSystemResource("./static/").getPath().
 											substring(0, ClassLoader.getSystemResource("./static/").getPath().lastIndexOf("bin"))
@@ -239,6 +254,37 @@ public class UserRestController {
 			
 			userService.updateContent(user);				
 		}
+
 		
+// [팔로우 CRUD]
+		@GetMapping(value="json/follow/{target}")
+		public boolean follow(@PathVariable String target, HttpSession session){
+			
+			System.out.println("follow : GET");
+			// session User
+			User user = (User)session.getAttribute("dbUser");
+			// 팔로우 유무 체크
+			User follower = userService.getFollow(user.getUserId(), target);
+			
+			
+			if(follower == null){
+			userService.addFollow(user.getUserId(), target);
+			
+			// 알림
+			System.out.println("follow Notice");
+			Notice notice = new Notice();
+			notice.setToUserId(target); // 알림대상
+			notice.setNoticeContent("님이 팔로우 하셨습니다");
+			notice.setNoticeType("8");
+			notice.setNoticeUser(user);
+			commonService.addNotice(notice);
+			//
+				return false;
+			}
+			
+			userService.deleteFollow(user.getUserId(), target);
+			
+			return true;
+		}
 }
 
