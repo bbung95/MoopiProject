@@ -277,7 +277,7 @@
 	<!-- ToolBar Start /////////////////////////////////////-->
 		<jsp:include page="../../layout/toolbar.jsp" />
 	<!-- ToolBar End /////////////////////////////////////-->
-	<form >
+	<form class="form-horizontal" name="detailForm" enctype="multipart/form-data">
 	<h3>무피 QnA게시판조회</h3>
 	<div >
 	<input class="board" type="hidden" id="boardNo" name="boardNo" value="${board.boardNo}">
@@ -310,7 +310,7 @@
 				<textarea rows="4" cols="70" name="replyContent"   id="replyContent"></textarea>			
 			</div>
 		</td>
-		   <input type="hidden" id = "replyWriter" value="${user.userId}"> 
+		   <input type="hidden" id = "replyWriter" value="${dbUser.userId}"> 
 		   <input type="hidden" id = "boardNo" value="${board.boardNo }"> 
 		   <button type="button" class="btn btn-primary" id="addReply">답글작성</button>
 	</form>
@@ -337,5 +337,6 @@
 	</form>
 	<jsp:include page="../../layout/searchbar.jsp"></jsp:include>
 	</body>
+	
 	</html>
 	
