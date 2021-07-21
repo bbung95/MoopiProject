@@ -18,7 +18,7 @@
 <script>
 function fncAddFlashView(){
 	alert("번개생성");
-	self.location ="/flash/addFlashView?userId=${user.userId}"
+	self.location ="/flash/addFlashView?userId=${dbUser.userId}"
 }
 
 function fncGetFlash(flashNo){

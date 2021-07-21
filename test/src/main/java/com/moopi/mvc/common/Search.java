@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.AccessLevel;
+
 @Getter
 @Setter
 @ToString
@@ -74,6 +75,7 @@ public class Search {
 				+ ", startRowNum=" + startRowNum + "]";
 	}
 
+
 	public int getPageUnit() {
 		return pageUnit;
 	}
@@ -90,4 +92,6 @@ public class Search {
 		this.searchCategory = searchCategory;
 	}
 
+
 }
+
