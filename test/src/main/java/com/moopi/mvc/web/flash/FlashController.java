@@ -30,11 +30,10 @@ public class FlashController {
 	private UserServiceImpl userService;
 
 	@Autowired
-	private CoinServiceImpl coinSerivce;
-	
+	private CoinServiceImpl coinService;
+
 	public static final String savePic = "C:\\Users\\guddn\\git\\Test\\test\\src\\main\\resources\\static\\images\\uploadFiles";
-	
-	
+
 	// Constructor
 	public FlashController() {
 		System.out.println(this.getClass());
@@ -64,101 +63,111 @@ public class FlashController {
 	}
 
 	@RequestMapping("addFlash")
-	public String addFlash(@ModelAttribute("flash") Flash flash,MultipartFile uploadFile,
-			@RequestParam("userId") String userId) throws Exception{
-		
+	public String addFlash(@ModelAttribute("flash") Flash flash, MultipartFile uploadFile,
+			@ModelAttribute("userId") User user) throws Exception {
+
 		System.out.println("addFlash Start::");
+
 		String flashFileName = uploadFile.getOriginalFilename();
-		System.out.println("flashFileName::"+flashFileName);
+		System.out.println("flashFileName::" + flashFileName);
 		long currentTime = System.currentTimeMillis();// 시분초단위
 		try {
-			uploadFile.transferTo(new File(savePic+"/"+currentTime+flashFileName));
+			uploadFile.transferTo(new File(savePic + "/" + currentTime + flashFileName));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		flash.setFlashFile(currentTime+flashFileName); //시간+파일이름
+		flash.setFlashFile(currentTime + flashFileName); // 시간+파일이름
 		flash.getFlashNo();
-		User user = new User();
+		// User user = new User();
 		Coin coin = new Coin();
-		user.setUserId(userId);
-		coin.setUserId(user);
-		coin.setFlashNo(flash);
-		System.out.println("flashNo::"+flash);
+		// user.setUserId(userId);
+		coin.setCoinUser(user);
+		coin.setFlash(flash);
+		System.out.println("flashNo::" + flash);
 		flash.setFlashConstructor(user);// userId = flashConstructor
-		flashService.addFlash(flash); // addFlash bl 로직 
+		flashService.addFlash(flash); // addFlash bl 로직
 		userService.makeFlashCoin(user);
-		coinSerivce.addCoin(coin);
-		
+		coinService.addCoin(coin);
+
 		System.out.println("번개생성 완료.");
 		return "flash/flashMain";
 	}
-	//번개무피 수정 View
+
+	// 번개무피 수정 View
 	@RequestMapping("updateFlashView")
-	public String updateFlashView(@RequestParam("flashNo") int flashNo, Model model) throws Exception{
+	public String updateFlashView(@RequestParam("flashNo") int flashNo, Model model) throws Exception {
 		Flash flash = new Flash();
 		flashService.getFlash(flashNo);
 		flash = flashService.getFlash(flashNo);
-		model.addAttribute("flash",flash);
+		model.addAttribute("flash", flash);
 		return "flash/updateFlashView";
 	}
-	
+
 	@RequestMapping("updateFlash")
 	public String updateFlash(@ModelAttribute("flash") Flash flash, MultipartFile uploadFile,
-			@RequestParam("userId") String userId) throws Exception{
-		
+			@RequestParam("userId") String userId) throws Exception {
+
 		System.out.println("updateFlash Start::");
 		String flashFileName = uploadFile.getOriginalFilename();
 		System.out.println(flashFileName);
 		long currentTime = System.currentTimeMillis();// 시분초단위
 		try {
-			uploadFile.transferTo(new File(savePic+"/"+currentTime+flashFileName));
+			uploadFile.transferTo(new File(savePic + "/" + currentTime + flashFileName));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		flash.setFlashFile(currentTime+flashFileName); //시간+파일이름
+		flash.setFlashFile(currentTime + flashFileName); // 시간+파일이름
 		User user = new User();
 		user.setUserId(userId);
 		flash.setFlashConstructor(user);// userId = flashConstructor
-		flashService.updateFlash(flash); // addFlash bl 로직 
+		flashService.updateFlash(flash); // addFlash bl 로직
 		System.out.println("updateFlash done.");
 		return "flash/flashMain";
 	}
-	
+
 	@RequestMapping("listFlash")
-	public String getListFlash(@ModelAttribute("search") Search search, Model model) throws Exception{
-		
+	public String getListFlash(@ModelAttribute("search") Search search, Model model) throws Exception {
+
 		System.out.println("getListFlash Start::");
 		Map<String, Object> map = flashService.getFlashList(search);
-		model.addAttribute("list",map.get("list"));
+		model.addAttribute("list", map.get("list"));
 		model.addAttribute("search", search);
 		System.out.println("getListFlash End");
 		return "flash/flashMain";
 	}
 
 	@RequestMapping("joinFlash")
-	public String joinFlash(@RequestParam("userId") String userId,
-			@RequestParam("flashNo") int flashNo)throws Exception{
+	public String joinFlash(@RequestParam("userId") String userId, @RequestParam("flashNo") int flashNo)
+			throws Exception {
 		User user = new User();
 		user.setUserId(userId);
+		
 		System.out.println("joinFlash Start::");
+		
+		Flash flash = new Flash();
+		flash.setFlashNo(flashNo);
+		
+		Coin coin = new Coin();
+		coin.setCoinUser(user);
+		coin.setFlash(flash);
+		
 		flashService.joinFlash(userId, flashNo);
 		userService.joinFlashCoin(user);
+		coinService.joinCoin(coin);
+		
 		return "forward:/flash/getFlash";
 	}
-	
-	//번개참여신청목록
- /*	@RequestMapping("getJoinFlashList")
-	public String getJoinFlashList(@RequestParam("mfm") MeetingFlashMember mfm, Model model) throws Exception{
-		
-		System.out.println("joinFlashList start::");
-		Map<String, Object> map = flashService.getJoinFlashList();
-		model.addAttribute("list",map.get("list"));
-		
-		return null;
-	}
-	*/
-	
-	
-	
-	
+
+	// 번개참여신청목록
+	/*
+	 * @RequestMapping("getJoinFlashList") public String
+	 * getJoinFlashList(@RequestParam("mfm") MeetingFlashMember mfm, Model model)
+	 * throws Exception{
+	 * 
+	 * System.out.println("joinFlashList start::"); Map<String, Object> map =
+	 * flashService.getJoinFlashList(); model.addAttribute("list",map.get("list"));
+	 * 
+	 * return null; }
+	 */
+
 }

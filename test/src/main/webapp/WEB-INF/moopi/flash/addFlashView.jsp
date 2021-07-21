@@ -17,9 +17,11 @@
 <script>
 function fncAddFlash(){
 	alert("번개 생성한다.");
-	$("form").attr("method", "POST").attr("action", "/flash/addFlash").submit();
+	$(".form-horizontal").attr("method", "POST").attr("action", "/flash/addFlash").submit();
+	//console.log($('#userId').val());
 
 }
+
 </script>
 
 

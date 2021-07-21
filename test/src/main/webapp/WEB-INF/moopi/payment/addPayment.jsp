@@ -12,7 +12,7 @@
 </head>
 <body>
 	
-	<input type="hidden" id="userId" name="userId" value="${user.userId}">
+	<input type="hidden" id="userId" name="userId" value="${dbUser.userId}">
 	<div class="card-body bg-white mt-0 shadow">
     <p style="font-weight: bold">무피코인 결제</p>
     <label class="box-radio-input"><input type="radio" name="cp_item" value="1000"><span>1,000원</span></label>
