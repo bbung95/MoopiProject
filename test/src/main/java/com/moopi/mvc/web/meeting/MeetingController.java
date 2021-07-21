@@ -79,7 +79,7 @@ public class MeetingController {
 		Notice notice = new Notice();
 		Moim moim = new Moim();
 		moim.setMmNo(meeting.getMmNo());
-		notice.setNoticeContent("가입되었습니다");
+		notice.setNoticeContent("정모가 추가되었습니다");
 		notice.setNoticeType("2");
 		notice.setMoim(moim);
 		List<Member> list = (List<Member>) moimService.getMemberList(meeting.getMmNo(), 2).get("list");
@@ -142,6 +142,7 @@ public class MeetingController {
 			@RequestParam("userId") String userId) throws Exception {
 		System.out.println("정모에 참가합니다.");
 		meetingService.applyMeeting(mtNo, userId);
+		
 		return "forward:정모상세조회페이지로이동";
 	}
 	

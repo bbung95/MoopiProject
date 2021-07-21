@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.moopi.mvc.service.domain.User;
+import com.moopi.mvc.service.moim.impl.MoimServiceImpl;
 import com.moopi.mvc.service.user.impl.UserServiceImpl;
 
 @Controller
@@ -21,6 +22,9 @@ public class UserController {
 
 	@Autowired
 	private UserServiceImpl userService;
+	
+	@Autowired
+	private MoimServiceImpl moimService;
 	
 	// 카카오 로그인 및 회원가입
 	@RequestMapping("kakaoLogin")
@@ -176,15 +180,16 @@ public class UserController {
 
 //-- getMyHomeBoard.jsp  ------------------------------------------------------------
 
-	@RequestMapping("getMyHomeBoard")
-	public String getUser(@RequestParam("userId") String userId, Model model) throws Exception {
+	@RequestMapping("getMyHome")
+	public String getUser(@RequestParam("userId") String userId, HttpSession session, Model model) throws Exception {
 		
 		System.out.println(userService.getUser(userId));
 		
 		System.out.println("\n"+"1 : UserController_____getMyHomeBoard 시작"+"\n");
 		System.out.println("마이홈의 메인을 출력하는 페이지입니다. 여러 값들을 가져와야 하는 부분");		
 		
-		model.addAttribute("dbUser",userService.getUser(userId));
+		// ! 세션이 존재하기에 초기화됨
+		//model.addAttribute("dbUser",userService.getUser(userId));
 		
 		// 코인, 팔로잉, 게시판, 모임에서 사용해야하니 CommonRestController 보고 작성해보
 		
@@ -192,7 +197,26 @@ public class UserController {
 		System.out.println("겟마이홈보드에서 model.addAttribute(user)를 불러오면? : "+userId);
 		// 로그인유저 확인해보기 loginUser
 		System.out.println(userService.getUser(userId));
-		return "user/getMyHomeBoard";
+		
+		
+		/////// 추가부분
+		User user = (User)session.getAttribute("dbUser");
+		
+		// 팔로우 유무체크
+		boolean check = false;
+		if(user != null) {
+			if(userService.getFollow(user.getUserId(), userId) != null) {
+				check = true;
+			}
+		}
+		
+		model.addAttribute("user", userService.getUser(userId));
+		model.addAttribute("followerCount", userService.getFollowCount(userId, 1));
+		model.addAttribute("folloingCount", userService.getFollowCount(userId, 2));
+		model.addAttribute("followCheck", check);
+		model.addAttribute("moimList", moimService.getMyMoimList(userId).get("list"));
+		///////
+		return "user/getMyHome";
 	}	
 ////-----------------------------------------------------------------------------------------------------------------
 
