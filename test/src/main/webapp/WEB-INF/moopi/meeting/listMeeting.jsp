@@ -157,11 +157,11 @@ function fncUptMt() {
 	$("#uptMt").attr("method", "POST").attr("action", "/meeting/updateMeeting").submit();
 }
 
-function fncApplyMt(mtNo, userId){
+function fncApplyMt(mmNo, mtNo, userId){
 	alert("해당 정모에 참가하겠습니다.");
 	$.ajax( 
 			{
-				url : "/meeting/json/applyMeeting/"+mtNo+"/"+userId,
+				url : "/meeting/json/applyMeeting/"+mmNo+"/"+mtNo+"/"+userId,
 				method : "GET" ,
 				dataType : "json" ,
 				headers : {
@@ -491,7 +491,7 @@ function fncPopUp(){
 	정모 장소 :<input type='text' id='mtAddr'><br>
 	
 	
-	<button type="button" class="btn btn-success" onClick="fncApplyMt(mtNo, '${dbUser.userId}')">참가</button>
+	<button type="button" class="btn btn-success" onClick="fncApplyMt(mmNo, mtNo, '${dbUser.userId}')">참가</button>
 	<button type="button" class="btn btn-success" onClick="fncLeaveMt(mtNo, '${dbUser.userId}')">참가취소</button>
 	<button type="button" class="btn btn-primary" onClick="fncUptMtView('${dbUser.userId}')">수정</button>
 	<button type="button" class="btn btn-danger" onClick="fncDeleteMt('${dbUser.userId}')">삭제</button>	

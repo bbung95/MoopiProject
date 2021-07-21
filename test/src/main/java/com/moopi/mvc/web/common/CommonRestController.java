@@ -109,8 +109,9 @@ public class CommonRestController {
 			search.setSearchCondition(3);
 			return flashService.getFlashList(search);
 		} else if (searchType == 3) {
-			System.out.println("Posting List");
-			return boardService.getBoardList(null);
+//			System.out.println("Posting List");
+//			return boardService.getBoardList(search);
+			return null;
 		} else {
 			System.out.println("User List");
 			search.setSearchCondition(2);

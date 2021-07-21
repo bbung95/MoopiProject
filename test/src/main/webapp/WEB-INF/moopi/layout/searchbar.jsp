@@ -95,13 +95,14 @@
 					// user
 					}else{
 						for(var i in data.list){
-							 display += '<div style="background: white; margin: 5px; height: 80px; border-radius: 10px;" >'
+							 display += '<div><span style="background: white; margin: 5px; height: 80px; border-radius: 10px;" onclick="location=\'/user/getMyHome?userId='+data.list[i].userId+'\'">'
 									+'<img style="margin: 5px; width:70px; height: 60px; border-radius: 50%;" src="/images/uploadFiles/poco.jpg"></img>'
-									+'<span>'+data.list[i].nickname+'</span>'
+									+'<span>'+data.list[i].nickname+'</span></span>'
 									if(dbUser == '' || dbUser == data.list[i].userId){
 										display += '</div>';
 									}else{
-										display += '<button target="'+data.list[i].userId+'")">채팅</button></div>';
+										display += '<button target="'+data.list[i].userId+'")">채팅</button>'
+												+'<button target="'+data.list[i].userId+'")">팔로우</button></div>';
 									} 
 									
 							/* display += '<div style="background: white; margin: 5px; height: 400px; border-radius: 10px;" >'
@@ -122,7 +123,26 @@
 									"popWin"+target,
 									"left=460, top=300, width=460, height=600, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");
 						})
-					}
+						
+						// 채팅 버튼
+						$('button:contains("팔로우")').on('click', function(){
+							
+							let button = $(this);
+							let target = $(this).attr('target');
+							$.ajax({
+								url: "/user/json/follow/"+target,
+								method: "GET",
+								dataType: "JSON",
+								success: function(data,state){
+									if(data){
+										button.css('background', 'gray');
+									}else{
+										button.css('background', '');
+									}
+								}
+							});
+						});
+					}	
 				}
 			})
 	}
@@ -158,7 +178,8 @@
 	})
 	
 	$('.button:contains("유저")').on('click', function(){
-		$('.type').val('4');$('.active').attr('class', 'button');
+		$('.type').val('4');
+		$('.active').attr('class', 'button');
 		$(this).attr('class', 'button active');
 		searchList($('#searchkeyword').val() , $('.type').val());
 	})
