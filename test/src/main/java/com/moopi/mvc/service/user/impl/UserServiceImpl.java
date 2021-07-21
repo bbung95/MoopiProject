@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.annotations.Param;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -145,6 +146,32 @@ public class UserServiceImpl {
 	public void updateInterest(User user) {
 		userDao.updateInterest(user);
 
+	}
+
+// 팔로우 CRUD	
+	
+	// 팔로우
+	public void addFollow(String userId, String target) {
+		userDao.addFollow(userId, target);
+	};
+	
+	public User getFollow(String userId, String target) {
+		return userDao.getFollow(userId, target);
+	}
+		
+	// 팔로우리스트
+	public List<User> getFollowList(String userId, int order){
+		return userDao.getFollowList(userId, order);
+	};
+		
+	// 언팔로우
+	public void deleteFollow(String userId, String target) {
+		userDao.deleteFollow(userId, target);
+	};
+	
+	public int getFollowCount(String userId, int order){
+		
+		return userDao.getFollowCount(userId, order);
 	}
 	
 }

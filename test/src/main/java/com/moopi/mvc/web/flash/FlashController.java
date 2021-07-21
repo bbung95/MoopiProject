@@ -173,7 +173,7 @@ public class FlashController {
 		
 		flash.setFlashNo(flashNo);
 		notice.setToUserId(flashService.getFlash(flashNo).getFlashConstructor().getUserId()); // 알림대상
-		notice.setNoticeContent("참여하셨습니다");
+		notice.setNoticeContent("님이 참여하셨습니다");
 		notice.setFlash(flash);
 		notice.setNoticeUser(user);
 		notice.setNoticeType("5");

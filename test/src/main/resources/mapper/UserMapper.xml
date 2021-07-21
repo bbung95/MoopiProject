@@ -256,9 +256,66 @@
 	</update>
 
 	
-
 	<!-- 팔로우리스트 -->
-	<select id="getFollowList"		parameterType="search"		resultMap="userSelectMap">
+	
+	<insert id="addFollow" >
+		INSERT
+		INTO FOLLOW_LIKE
+		(USER_ID , FL_TARGET, FL_TYPE)
+		VALUES 
+		(#{userId} , #{target}, "2")
+	</insert>
+	
+	<select id="getFollow" resultMap="userSelectMap">
+		SELECT
+		u.user_id , u.nickname , u.profile_image
+		FROM FOLLOW_LIKE fl , USERS u
+		WHERE fl.fl_type in ('2')
+			AND fl.user_id  = u.user_id 
+			AND fl.user_id in (#{userId})
+			AND fl.fl_target in (#{target})
+	</select>
+			
+		
+	<select id="getFollowList"	resultMap="userSelectMap">
+		SELECT
+		u.user_id , u.nickname , u.profile_image
+		FROM FOLLOW_LIKE fl , USERS u
+		<where>
+			fl.fl_type in ('2')
+			<if test="order == 1">
+				AND fl.user_id  = u.user_id 
+				AND fl.user_id in (#{userId})
+			</if>
+			<if test="order == 2">
+				AND fl.fl_target = u.user_id 
+				AND fl.fl_target in (#{userId})
+			</if>
+		</where>
+	</select>
+	
+	<delete id="deleteFollow">
+		DELETE
+		FROM FOLLOW_LIKE
+		WHERE user_id in (#{userId})
+			AND fl_target in (#{target})
+	</delete>
+	
+	<select id="getFollowCount" resultType="int">
+		SELECT
+			COUNT(*)				
+			FROM FOLLOW_LIKE fl , USERS u
+				<where>
+					fl.fl_type in ('2') <!-- 팔로잉 -->
+					<if test="order == 1">
+						AND fl.user_id  = u.user_id 
+						AND fl.user_id in (#{userId})
+					</if>
+					<if test="order == 2"> <!-- 팔로워 -->
+						AND fl.fl_target = u.user_id 
+						AND fl.fl_target in (#{userId})
+					</if>
+				</where>
 	</select>
 		
 </mapper>
