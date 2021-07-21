@@ -44,8 +44,9 @@ public class ReplyRestController {
 		System.out.println("/reply/json/getReply : POST");
 		System.out.println(reply);
 		
-		return replyService.addReply(reply);
 		
+		
+		return replyService.addReply(reply);
 		
 	}
 

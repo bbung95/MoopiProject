@@ -82,6 +82,18 @@
 					AND
 					BD.bd_MM_No= #{map.mmNo}
 					</if>
+					<if test="map.search.searchKeyword != null and map.search.searchCondition == 0">
+					AND
+					BD.BD_NAME LIKE CONCAT ('%',#{map.search.searchKeyword},'%')
+					</if>
+					<if test="map.search.searchKeyword != null and map.search.searchCondition == 1">
+					AND
+					BD.BD_CONTENT LIKE CONCAT ('%',#{map.search.searchKeyword},'%')
+					</if>
+					<if test="map.search.searchKeyword != null and map.search.searchCondition == 2">
+					AND
+					U.NICKNAME LIKE CONCAT ('%',#{map.search.searchKeyword},'%')
+					</if>
 					GROUP BY 
 					BD.BD_NO
 					, BD.BD_NAME
@@ -89,8 +101,8 @@
 					, BD.BD_UPDATE
 					, BD.BD_PASSWORD
                     ORDER BY 
-                    <if test="map.boardCategory == 3 or map.searchKeyword !=null">
-					LIKECOUNT
+                    <if test="map.boardCategory == 3 or map.search.searchKeyword !=null">
+					LIKECOUNT, 
 					</if>
                     BD.BD_NO ASC
                     ) inner_table,
@@ -134,7 +146,9 @@
 			, BD_REGDATE
 			, BD_STATE
 			, BD_PASSWORD
+			<if test= "board.boardMoimNo != 0">
 			, BD_MM_NO
+			</if>
 			) 
 		VALUES 
 			(
@@ -145,7 +159,9 @@
 			, now()
 			, '1'
 			, #{board.boardPassword}
+			<if test= "board.boardMoimNo != 0">
 			, #{board.boardMoimNo : NUMERIC}
+			</if>
 		)
 	</insert>
 	
@@ -230,6 +246,43 @@
 	
 	</update>
 	
-	
+	 <select id="getTotalCount" 	parameterType="map"		resultType="int">
+				
+					SELECT 
+					COUNT(*) 
+				  	  FROM 
+					  BOARD BD, USERS U
+					WHERE 
+					BD.BD_WRITER = U.USER_ID
+                    <if test="map.boardCategory != null" >
+					AND
+					bd.bd_category = #{map.boardCategory}
+					</if>
+					<if test="map.boardState == 1 or map.boardState == 2" >
+					AND
+					BD.BD_STATE = #{map.boardState}
+					</if>
+					<if test="map.userId !=null">
+					AND
+					BD.bd_writer = #{map.userId}
+					</if>
+					<if test="map.mmNo !=null">
+					AND
+					BD.bd_MM_No= #{map.mmNo}
+					</if>
+					<if test="map.search.searchKeyword != null and map.search.searchCondition == 0">
+					AND
+					BD.BD_NAME LIKE CONCAT ('%',#{map.search.searchKeyword},'%')
+					</if>
+					<if test="map.search.searchKeyword != null and map.search.searchCondition == 1">
+					AND
+					BD.BD_CONTENT LIKE CONCAT ('%',#{map.search.searchKeyword},'%')
+					</if>
+					<if test="map.search.searchKeyword != null and map.search.searchCondition == 2">
+					AND
+					U.NICKNAME LIKE CONCAT ('%',#{map.search.searchKeyword},'%')
+					</if>
+					
+	</select>
 	
 </mapper>	

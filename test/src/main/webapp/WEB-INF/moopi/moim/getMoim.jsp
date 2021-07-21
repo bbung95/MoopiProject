@@ -19,13 +19,13 @@
 
 $(function(){
 	//alert('유저아이디:${user.userId}' +  '모임번호:${moim.mmNo}');
-	<c:if test="${empty user}">
+	<c:if test="${empty dbUser}">
 	$("#choose").text('가입하기');
 	</c:if>
 	
 	$.ajax( 
 			{
-				url : "/moim/json/checkMember/${user.userId}/${moim.mmNo}",
+				url : "/moim/json/checkMember/${dbUser.userId}/${moim.mmNo}",
 				method : "GET" ,
 				dataType : "json" ,
 				headers : {
@@ -58,12 +58,12 @@ function fncUptMoimView(mmNo){
 }
 
 function fncApply(mmNo){
-	<c:if test = "${null ne user.userId}">
+	<c:if test = "${null ne dbUser.userId}">
 		alert("가입하기");
 		alert("가입신청이 완료되었습니다.");
-		self.location ="/moim/applyMoim?userId=${user.userId}&mmNo="+mmNo	
+		self.location ="/moim/applyMoim?userId=${dbUser.userId}&mmNo="+mmNo	
 	</c:if>
-	<c:if test = "${empty user.userId}">
+	<c:if test = "${empty dbUser.userId}">
 	alert("회원가입이 필요한 페이지입니다.");
 	</c:if>
 }
@@ -80,7 +80,7 @@ function fncListMember(mmNo){
 
 function fncListMeeting(mmNo){
 	alert("정모일정보기");
-	self.location ="/meeting/listMeeting?userId=${user.userId}&mmNo="+mmNo
+	self.location ="/meeting/listMeeting?userId=${dbUser.userId}&mmNo="+mmNo
 }
 
 
@@ -100,11 +100,11 @@ function fncListMeeting(mmNo){
 <body>
 
 <!-- ToolBar Start ///////////////////////////////////// -->
-<jsp:include page="../layout/toolbar.jsp" flush="false"/>
-<jsp:include page="../layout/moimToolbar.jsp" flush="false"/>
+<jsp:include page="../layout/toolbar.jsp" />
+<jsp:include page="../layout/moimToolbar.jsp" />
 
 <!-- ToolBar End /////////////////////////////////////-->
-<h3>모임상세페이지입니다...${user.userId}님 오랜만입니다...</h3>
+<h3>모임상세페이지입니다...${dbUser.userId}님 오랜만입니다...</h3>
 
 
 //////////////////////////
@@ -128,7 +128,7 @@ function fncListMeeting(mmNo){
 <p>모임최소가입연령:${moim.mmMinAge}</p>
 <p>모임최대가입연령:${moim.mmMaxAge}</p>
 <p>모임가입유형(1일반2자유):${moim.mmType}</p>
-<c:if test = "${user.userId eq moim.mmConstructor.userId}">
+<c:if test = "${dbUser.userId eq moim.mmConstructor.userId}">
 <button type="button" class="btn btn-default" onClick="fncUptMoimView(${moim.mmNo})">소모임정보수정</button>
 <button type="button" class="btn btn-default" onClick="fncApplyList(${moim.mmNo})">가입신청목록보기</button>
 </c:if>

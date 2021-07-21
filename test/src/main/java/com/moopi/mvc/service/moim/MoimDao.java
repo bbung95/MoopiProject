@@ -20,6 +20,9 @@ public interface MoimDao {
 	//모임 리스트 조회
 	public List<Moim> getMoimList(Search search) throws Exception;
 	
+	//내가 가입한 모임 리스트 조회
+	public List<Moim> getMyMoimList(@Param("userId")String userId) throws Exception;
+	
 	//모임 상세보기
 	public Moim getMoim(@Param("mmNo") int mmNo);
 	

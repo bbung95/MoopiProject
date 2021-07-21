@@ -145,7 +145,7 @@
         }else{
        	 output += "<li>";
        	 output += "<div style='display:flex; align-items: center'><img src='/images/uploadFiles/"+data.profile+"' style='width:40px; height:40px; border-radius: 50%; margin-right: 5px;' >"
-       	 output += data.nickname+"</div><div style='margin-left: 10px; margin-top: 10px;"
+       	 output += data.name+"</div><div style='margin-left: 10px; margin-top: 10px;"
        	 output += "padding: 10px; border: 0.5px solid black; display: inline-block; border-radius: 5px;'>";	
      	   if(data.img != 0){
       	      output += "<img src='/images/uploadFiles/chat/"+data.img+"' width='200'/>";          

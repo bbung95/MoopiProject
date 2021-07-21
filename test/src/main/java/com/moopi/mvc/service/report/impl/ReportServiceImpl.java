@@ -44,4 +44,9 @@ public class ReportServiceImpl {
 		
 	}
 	
+	public Report getReport(Report report) throws Exception{
+		
+		return reportDao.getReport(report);
+	}
+	
 }

@@ -68,7 +68,7 @@ body{
 </head>
 <body>
 <!-- ToolBar Start /////////////////////////////////////-->
-	<jsp:include page="../../layout/toolbar.jsp" />
+	<jsp:include page="../layout/toolbar.jsp" />
 <!-- ToolBar End /////////////////////////////////////-->
 <h3>무피 공지게시판</h3>
 
@@ -147,7 +147,7 @@ body{
 	
 </table>
 <button type="button" class="btn btn-default" onClick="fncAddBoardView()">게시글작성</button>
-<jsp:include page="../../common/pageNavigator.jsp"/>
-<jsp:include page="../../layout/searchbar.jsp"></jsp:include>
+<jsp:include page="../common/pageNavigator.jsp"/>
+<jsp:include page="../layout/searchbar.jsp"></jsp:include>
 </body>
 </html>
