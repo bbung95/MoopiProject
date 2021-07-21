@@ -176,6 +176,11 @@ public class BoardController{
 		
 	}
 	
+	@RequestMapping("/map")
+	public String getMap() throws Exception{
+		
+		return "/map/map";
+	}
 	
 	
 }
