@@ -56,12 +56,14 @@ public class BoardController{
 	
 	
 	@RequestMapping("listBoard")
-	public String getBoardList(@ModelAttribute("search")Search search, @ModelAttribute("category")String category ,Model model ) throws Exception {
+	public String getBoardList(@ModelAttribute("search")Search search, @ModelAttribute("category")String category,
+			 Model model ) throws Exception {
 		
+		
+		//@RequestParam("mmNo") int mmNo,
 		String boardCategory = null;
 		Map map = new HashMap();
 		System.out.println("getBoardList start;;");
-		
 		
 		if(search.getCurrentPage() == 0 ) {
 			search.setCurrentPage(1);
@@ -109,6 +111,10 @@ public class BoardController{
 		model.addAttribute("board", board);
 	
 		String boardCategory = boardService.getBoardCategory(board.getBoardCategory());
+		System.out.println("보드카테고리값:"+boardCategory);
+		if(boardCategory.equals("Moim")) {
+			return "/moim/getMoimBoard";
+		}
 		
 		return "board/"+boardCategory+"Board/get"+boardCategory+"Board";
 	}
@@ -117,8 +123,10 @@ public class BoardController{
 	public String addBoardView(@ModelAttribute("category")String category) {
 		
 		String boardCategory = boardService.getBoardCategory(category);
-		System.out.println(boardCategory);
-		
+		System.out.println("보드카테고리값:"+boardCategory);
+		if(boardCategory.equals("Moim")) {
+			return "/moim/addMoimBoardView";
+		}
 		return "board/"+boardCategory+"Board/add"+boardCategory+"BoardView";
 	}
 	
@@ -136,8 +144,10 @@ public class BoardController{
 		System.out.println(board.getBoardNo());
 		String boardCategory =boardService.getBoardCategory(board.getBoardCategory());
 		
-		System.out.println(boardCategory);
-		
+		System.out.println("보드카테고리값:"+boardCategory);
+		if(boardCategory.equals("Moim")) {
+			return "forward:/board/getBoard?boardNo="+board.getBoardNo();
+		}
 		return "forward:/board/getBoard?boardNo="+board.getBoardNo();		
 		
 	
@@ -156,7 +166,11 @@ public class BoardController{
 		model.addAttribute("board", board);
 		
 		String boardCategory = boardService.getBoardCategory(board.getBoardCategory()); 
-
+		System.out.println("보드카테고리값:"+boardCategory);
+		if(boardCategory.equals("Moim")) {
+			return "/moim/updateMoimBoardView";
+		}
+		
 		return "/board/"+boardCategory+"Board/update"+boardCategory+"BoardView";
 	}
 	
@@ -239,6 +253,5 @@ public class BoardController{
 		System.out.println(jsonObject);
 		return jsonObject;
 	}
-	
 	
 }

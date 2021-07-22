@@ -69,8 +69,9 @@ body{
 <body>
 <!-- ToolBar Start /////////////////////////////////////-->
 	<jsp:include page="../layout/toolbar.jsp" />
+	<jsp:include page="../layout/moimToolbar.jsp" />
 <!-- ToolBar End /////////////////////////////////////-->
-<h3>무피 공지게시판</h3>
+<h3>모임 게시판</h3>
 
 	<div class="row">
 

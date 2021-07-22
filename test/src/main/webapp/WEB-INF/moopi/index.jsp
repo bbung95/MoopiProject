@@ -45,6 +45,17 @@
 		$(function() {
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 			$( "#map" ).on("click" , function() {
+<<<<<<< HEAD
+				fncMap();
+			});
+		});	
+		function fncMap(){
+			
+			self.location ="/board/map";
+
+		}
+
+=======
 				fncGetMap();
 			});
 		});	
@@ -61,6 +72,7 @@
 				fncMap();
 			});
 		});	
+>>>>>>> refs/remotes/origin/master
 	
 		function fncMap(){
 			
@@ -96,6 +108,7 @@ body {
 		<button type="button" class="btn btn-primary" id="listReport">신고관리</button>
 		<button type="button" class="btn btn-primary" id="map">지도</button>
 		<button type="button" class="btn btn-primary" id="mapView">지도보기</button>
+
 <%-- 	</c:if> --%>
 <jsp:include page="layout/searchbar.jsp"></jsp:include>
 </body>

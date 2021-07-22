@@ -76,9 +76,10 @@ public class Search {
 	}
 
 
+	
 	public int getPageUnit() {
-		return pageUnit;
-	}
+	      return pageUnit;
+	   }
 
 	public void setPageUnit(int pageUnit) {
 		this.pageUnit = pageUnit;
