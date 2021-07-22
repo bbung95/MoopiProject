@@ -34,6 +34,8 @@ var mtMaxCount="";
 var mtAddr="";
 var mtConstructor="";
 var mmNo="";
+var mtMapX="";
+var mtMapY="";
 
 
 ////////////////////////////////////////////구글캘린더 연동부 시작점
@@ -77,7 +79,25 @@ function authenticate() {
     gapi.auth2.init({client_id: "674136097926-gmjcrr1v85j17s88t3pi2fodfp72hvk9.apps.googleusercontent.com"});
   });
 ////////////////////////////////////////////구글캘린더 연동부 종료
-  
+
+
+//맵보기//
+$(function() {
+			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+			$( "#map" ).on("click" , function() {
+				fncMap();
+			});
+		});	
+		
+function fncMap(){
+		
+	var options = 'top=10, left=10, width=500, height=600, status=no, menubar=no, toolbar=no, resizable=no';
+	window.open("/meeting/map", "map", 'option');
+}
+//맵종료//
+
+
+
   
 function fncAddMtView() {
 	alert("정모를 생성합니다.");
@@ -93,6 +113,9 @@ function fncAddMtView() {
 	+"<input type='hidden' name='mtCurrentCount' value='1'>" + "<br>"
 	+"정모 장소 :"+"<input type='text' name='mtAddr'>" + "<br>"
 	+"<a onClick='fncAddMt()'>등록하기</a>"+ "<br>"
+	+"<button type='button' class='btn btn-primary' id='map' onClick='fncMap()'>지도</button>"
+	+"<input type='hidden' id='mtMapX' name='mtMapX'>" + "<br>"
+	+"<input type='hidden' id='mtMapY' name='mtMapY'>"
 	+"</form>"
 	+"</h6>";
 	$("#getDate").slideUp('slow');
@@ -303,6 +326,8 @@ $(document).ready(function() {
     						$("#mtMaxCount").val(JSONData.mtMaxCount);
     						$("#mtCurrentCount").val(JSONData.mtCurrentCount);
     						$("#mtAddr").val(JSONData.mtAddr);
+    						$("#mtMapX").val(JSONData.mtMapX);
+    						$("#mtMapY").val(JSONData.mtMapY);
     						$("#getDate").slideDown('slow');
     					}
     			}); //ajax 종료

@@ -37,6 +37,7 @@ public class MoimController {
 			substring(0, ClassLoader.getSystemResource("./static/").getPath().lastIndexOf("bin"))
 			+"src/main/resources/static/images/uploadFiles";
 	
+	
 	//모임상세조회
 	@RequestMapping("getMoim")
 	public String getMoim(@RequestParam("mmNo") int mmNo, Model model) throws Exception{

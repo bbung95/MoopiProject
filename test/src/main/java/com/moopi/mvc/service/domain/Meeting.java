@@ -35,8 +35,8 @@ public class Meeting {
 	private User mtConstructor; //정모 주최자
 	private String mtAddr; //정모장소
 	private int mtState; //정모 상태(1.모집중 2.모집마감 3.삭제)
-	private int mtMapX; //지도 X축
-	private int mtMapY; //지도 Y축
+	private String mtMapX; //지도 X축
+	private String mtMapY; //지도 Y축
 	
 	public Meeting() {
 	}
