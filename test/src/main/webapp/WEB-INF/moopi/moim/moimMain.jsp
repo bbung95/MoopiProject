@@ -10,50 +10,74 @@
 
 
 
-<!-- BootsWatch CDN -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/sketchy/bootstrap.min.css" integrity="sha384-RxqHG2ilm4r6aFRpGmBbGTjsqwfqHOKy1ArsMhHusnRO47jcGqpIQqlQK/kmGy9R" crossorigin="anonymous">
 
 
-<!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// 
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >-->
-	<!--<link rel="stylesheet" href="/images/uploadFiles" >  -->
+<!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
+<link rel="stylesheet" href="/images/uploadFiles" >  
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <script src="/javascript/owl.carousel.min.js"></script>
 
-
-<!-- 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script> -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script> 
 <link rel="stylesheet" href="/css/owl.carousel.min.css">
 <link rel="stylesheet" href="/css/owl.theme.default.min.css">
 
+<!-- 구글 폰트 -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@300&display=swap" rel="stylesheet">
 
-
+<!-- Sweet Alert -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 
 <script>
 
 $(document).ready(function(){ 
-	$(".owl-carousel").owlCarousel(); 
+	$(".owl-carousel").owlCarousel({
+		  items: 3,
+          margin: 10,
+          loop: true,
+          nav: true,
+          navText: ['◀', '▶'],
+          autoplay: true,
+          autoplayTimeout: 1000,
+          autoplayHoverPause: true
+	}); 
+	
 });
 </script>
 
 
 <script type="text/javascript">
 	
-	function fncAddMoimView(){
-		alert("모임생성하기");
-		self.location ="/moim/addMoimView?userId=${dbUser.userId}"	
+	function fncAddMoimView(){	
+			swal({
+				title : "모임무피를 만들까요?",
+			    icon  : "info",
+			    closeOnClickOutside : false
+			}).then(function(){
+				self.location ="/moim/addMoimView?userId=${dbUser.userId}";
+				}	
+			)		
+		}
 
-	};
 
 	function fncGetMoim(mmNo){
-		alert("모임상세보기");
+		swal("모임상세보기");
 		self.location ="/moim/getMoim?mmNo="+mmNo
 	};	
 
 	function fncGetMyMoim() {
-		alert("내가 가입한 모임보기");
+		swal	("내가 가입한 모임보기");
 		self.location ="/moim/myListMoim?userId=${dbUser.userId}"
+	};
+	
+	function salert() {
+		swal({
+			  text: "Hello world!",
+			});
 	};
 
 	
@@ -61,24 +85,27 @@ $(document).ready(function(){
 <style>
 body {
 	padding-top: 50px;
+	font-family: 'Gaegu', cursive;
+	font-size: 20px;
 }
 </style>
 </head>
 <body>
 <!-- ToolBar Start /////////////////////////////////////-->
-<%-- 	<jsp:include page="../layout/toolbar.jsp" /> --%>
+ <jsp:include page="../layout/toolbar.jsp" /> 
 <!-- ToolBar End /////////////////////////////////////-->
 <h3>모임메인페이지입니다...${dbUser.userId}님 안녕하십니까...</h3>
 <c:if test="${!empty dbUser}">
 <button type="button" class="btn btn-default" onClick="javascript:fncAddMoimView()">모임생성하기</button>
 <button type="button" class="btn btn-default" onClick="javascript:fncGetMyMoim()">내가가입한모임보기</button>
+<button type="button" class="btn btn-default" onClick="javascript:salert()">경고창확인</button>
 </c:if>
 
 <div class="owl-carousel">
  <c:forEach var="moim" items="${list}">
   <div> 
 
-<div id="getMoim" onClick="fncGetMoim(${moim.mmNo})"><strong>${moim.mmName}</strong></div>
+<div id="getMoim" onClick="fncGetMoim(${moim.mmNo})"><strong><left>${moim.mmName}</left></strong></div>
 
 <div class="row">
 	  		<div class="col-xs-4 col-md-2 "></div>
