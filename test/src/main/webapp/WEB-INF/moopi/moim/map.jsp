@@ -288,7 +288,7 @@ function displayPagination(pagination) {
 function displayInfowindow(marker, title) {
     var content =   '<input type=hidden class="mapPositon" value=1"'+marker.getPosition()+'">'+ 
     				'<div style="padding:5px;z-index:1;">' + title + marker.getPosition()+'</div> <p>test</p>' +
-					'<button type="button" class="btn btn-default"  onClick="javascript:selectPlace('+marker.getPosition().getLat()+','+marker.getPosition().getLng()+')">모임생성하기</button>';
+					'<button type="button" class="btn btn-default"  onClick="javascript:selectPlace('+marker.getPosition().getLat()+','+marker.getPosition().getLng()+'); window.close()">모임생성하기</button>';
 					
     infowindow.setContent(content);
     infowindow.open(map, marker);
@@ -296,12 +296,12 @@ function displayInfowindow(marker, title) {
 
 function selectPlace(lat, lng){
 
-	    document.getElementById("lat").value() = lat
-	    document.getElementById("lng").value() = lng
- 	
-	alert("lat의 값 "+ document.getElementById("lat").value(lat));
-	alert("lng의 값 "+ document.getElementById("lng").value(lng));	
-	
+	var lab = lat
+	alert(lab)
+	 opener.document.getElementById("lat").value = lat
+	 opener.document.getElementById("lng").value = lng
+	 alert("상위부모 펑션 실행.")
+	 opener.fncParentsMapView(lat, lng);
 }
 
 

@@ -250,5 +250,13 @@ public class MoimController {
 			return "moim/map";	
 	}
 	
+	@RequestMapping("mapView")
+	public String getMapView() throws Exception{
+		
+		System.out.println("맵을 표시한다.");
+			return "moim/mapView";	
+	}
+	
+	
 	
 }
