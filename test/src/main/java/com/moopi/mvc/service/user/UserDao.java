@@ -17,7 +17,6 @@ public interface UserDao {
 	// 로그인 
 	public User loginUser(String userId);
 	
-
 // 회원가입 CRUD
 	
 	// [완료] 회원가입시 [UserRole - 2.정상회원
@@ -57,13 +56,16 @@ public interface UserDao {
 	public void updatePwd(User user) throws Exception;
 
 	// 유저아이디찾기 
-	public User getUserId(String phone);
+	public User getUserId(String userId);
 
 	// 유저비밀번호변경
 	public void updateUserPwd(User user) throws Exception;
 	
 	// 유저프로필수정 
 	public void updateProfile(User user) throws Exception;
+	
+	// 아이디찾기
+	public User getId(String phone);
 	
 
 // 형우 Flash 관련 추가
