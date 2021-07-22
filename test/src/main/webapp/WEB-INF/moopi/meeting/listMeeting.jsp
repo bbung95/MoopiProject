@@ -114,12 +114,10 @@ function fncAddMtView() {
 	+"정모 장소 :"+"<input type='text' name='mtAddr'>" + "<br>"
 	+"<a onClick='fncAddMap()' >장소등록</a><br>"
 	+"<a onClick='fncAddMt()'>등록하기</a>"+ "<br>"
-	+"<input type='text' id='lat' value=''>"
-	+"<input type='text' id='lng' value=''>"
-	
+	+"<input type='hidden' id='lat' value=''>"
+	+"<input type='hidden' id='lng' value=''>"
+	+"<div class = 'mapView' ></div>"
 	+"<button type='button' class='btn btn-primary' id='map' onClick='fncMap()'>지도</button>"
-	+"<input type='hidden' id='mtMapX' name='mtMapX'>" + "<br>"
-	+"<input type='hidden' id='mtMapY' name='mtMapY'>"
 	+"</form>"
 	+"</h6>";
 	$("#getDate").slideUp('slow');
@@ -171,7 +169,14 @@ function fncAddMap(){
 			"left=460, top=300, width=900, height=600, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");
 }
 
-
+function fncParentsMapView(lat, lng){
+	alert("부모 함수 실행 성공")
+	
+	$("div.mapView").append('<jsp:include page="../moim/mapView" />' )
+	alert(lat)
+	alert(lng)
+	
+}
 
 
 
