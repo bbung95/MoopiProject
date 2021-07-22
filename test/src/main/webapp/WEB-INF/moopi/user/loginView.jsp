@@ -17,8 +17,6 @@
 	<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
 	<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 	
-	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
-	
 	<script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js"></script>
 	
 	<meta name="google-signin-scope" content="profile email">
@@ -50,93 +48,67 @@
 			return;
 		}
 		
-		<!-- UserController의 loginUser를 따라간다. -->
 		$("form").attr("method", "POST").attr("action", "/user/loginUser").submit();
 	}	
 	
 <!---------------------------------------------------------------------------------------------------------------------------->		
   
- <!-- [완] 구글로그인 API -------------------------------------------------------------------------------------------------------------------------->
-        
-        // 첫번째 Function (해당 페이지 시작하자마자 실행된다)
-		function init() {
-			
+// 구글로그인
+		
+		// 1. init function()
+		function init() {			
 			gapi.load('auth2', function() {
-											gapi.auth2.init();
-											options = new gapi.auth2.SigninOptionsBuilder();
-											options.setPrompt('select_account');
-							
-									        // email과 profile을 받아온다.
-											options.setScope('email profile openid https://www.googleapis.com/auth/user.birthday.read');
+						gapi.auth2.init();
+						options = new gapi.auth2.SigninOptionsBuilder();
+						options.setPrompt('select_account');
 											
-									        // 인스턴스의 함수 호출 - element에 로그인 기능 추가
+						 // email과 profile을 받아온다.
+						options.setScope('email profile openid https://www.googleapis.com/auth/user.birthday.read');
+											
+						// 인스턴스의 함수 호출 - element에 로그인 기능 추가
 									        
-									        // googleLogin : Body의 id 값을 따라간다.  
-									        // options : options = new gapi.auth2.SigninOptionsBuilder();
-									        // onSignIn function 
-									        // onSignInFailure function
-											gapi.auth2.getAuthInstance().attachClickHandler('googleLogin', options, googleSign, onSignInFailure);
+						// googleLogin : Body의 id 값을 따라간다.  
+						// options : options = new gapi.auth2.SigninOptionsBuilder();
+						// onSignIn function 
+						// onSignInFailure function
+						gapi.auth2.getAuthInstance().attachClickHandler('googleLogin', options, googleSign, onSignInFailure);
 			}) //End gapi.load
 		} //End init function
 
 
-		// 두번째 Function - 구글가입, 로그인진행시
+		// 2. 구글가입, 로그인진행시 function()
 		function googleSign(googleUser) {
-			
-			// access_token
-			var access_token = googleUser.getAuthResponse().access_token
-			
+		
+			var access_token = googleUser.getAuthResponse().access_token // access_token			
 				$.ajax({		    	
-				    		// 구글 선택동의 창 출력			
-							url : 'https://people.googleapis.com/v1/people/me',
-				       
-				       	 	// key에 자신의 API 키를 넣습니다.
-							data: {personFields:'birthdays', key:'AIzaSyD3N7qWQr_bjwh9Lw-fLaK8bW5GtqbvAV8', 'access_token': access_token},
-							method:'GET'
-						})						
+				    	// 구글 선택동의 창 출력			
+						url : 'https://people.googleapis.com/v1/people/me',				       
+						data: {personFields:'birthdays', key:'AIzaSyD3N7qWQr_bjwh9Lw-fLaK8bW5GtqbvAV8', 'access_token': access_token},
+						method:'GET'
+						})					
 							.done(function(e){
-								        		// 여기가 제일중요 profile 정보가 다 담겨서 온다. LS가 ID인
-												var profile = googleUser.getBasicProfile();
-												var userId = profile.LS;
-												var userName = profile.Ue;
-												
-												console.log("프로필 총 출력 : "+profile)
-												console.log("고유식별값 : "+profile.LS)
-												console.log("유저이름 : "+profile.Ue)
-												
-												// QueryString 형식으로 userId를 담아보낸다
-												// Profile 전체는 Object로 넘어감 / json 사용해야 할 듯
-												location.href = "/user/googleLogin?userId="+userId												
+									        // 여기가 제일중요 profile 정보가 다 담겨서 온다. LS가 ID인듯
+											var profile = googleUser.getBasicProfile(); // 프로필 총 출력
+											var userId = profile.LS;	// 고유식별값
+											var userName = profile.Ue;	// 유저이름										
+													
+											location.href = "/user/googleLogin?userId="+userId	
 											})
 												.fail(function(e){
 												console.log(e);
 											})
 		} //End onSignIn Function
 		
-		// 세번째 Function - 실패시
+		// 3. 실패 function
 		function onSignInFailure(t){		
 			console.log(t);
-			alert("실패");
+			alert("로그인이 실패되었습니다.");
 		}     
         
-<!---------------------------------------------------------------------------------------------------------------------------->	
-
 <!--- [구현중] 네이버로그인 API --------------------------------------------------------------------------------------------------------->	
 	
-	function NaverLogin() { 
 		
-		alert("실행");
-			
-			var naverLogin = new naver.LoginWithNaverId ({
-				
-				clientId: "MJJpKOvtYqXuhtTnhQtq",
-				callbackUrl: "http://localhost:8080/user/naverlogin",
-				isPopup: true,
-				loginButton: {color: "green", type: 3, height: 45},			
-
-			});
-
-				naverLogin.init(function naverlogin() {
+				function NaverLogin() {
 		
 				// Client Id 값, RedirectURI 지정
 					var naver_id_login = new naver_id_login("MJJpKOvtYqXuhtTnhQtq", "http://localhost:8080/user/loginPostNaver");
@@ -167,7 +139,7 @@
 							$.ajax({
 								
 								type : "POST",
-								url : currentHostPath + '/user/loginPostNaver',
+								url : currentHostPath + '/user/naverlogin',
 								data : {
 									naverId : 'naverId',	
 								},
@@ -187,86 +159,78 @@
 										
 			 		}//End naverSignInCallback
 			
-			});
+			}
 		
 
 		//$("form").attr("method" , "POST").attr("action" , "/user/naverlogin").submit();
-	}	
-<!-- [구현중] 카카오로그인 API -------------------------------------------------------------------------------------------------------------------------->
-
-	<!-- a태그 id인 custom-login-btn을 따라가면 KakaoLogin 메서드가 실행된다 -->
-
-	$("#custom-login-btn").on("click" , function() {
-		KakaoLogin();
-	});
+	//}	
+	
+// 카카오톡 로그인
+	
+		$("#custom-login-btn").on("click" , function() {
+			KakaoLogin();
+		});
 		
-<!---------------------------------------------------------------------------------------------------------------------------->			
-
-<!--[카카오톡 로그인]---------------------------------------------------------------------------------------------------->	
-		
-	function KakaoLogin() { 
-		
-		// 카카오 API key
-		Kakao.init('2e00cfe75ad365584acc76b588be8d74');
-
-		Kakao.Auth.login({
-		
-			success : function(authObj) {
-				
-				console.log(authObj);
-				
-				Kakao.API.request({
-				
-				       url: '/v2/user/me',
-				       
-					success: function(response){
-
-						console.log("아이디 : "+response.id);
-						console.log("카카오계정 : "+response.kakao_account);
-						console.log("이메일주소 : "+response.kakao_account['email']);
-						
-						var email = response.kakao_account['email'];
-						var userId = response.id;
-							
-						location.href = "/user/kakaoLogin?userId="+userId
-						//$("form").attr("method" , "POST").attr("action" , "/user/kakaoLogin?userId="+userId).submit();
-				
-					} //End response function
+		function KakaoLogin() { 		
+			// 카카오 API key
+			Kakao.init('2e00cfe75ad365584acc76b588be8d74');
+			Kakao.Auth.login({	
+				success : function(authObj) {				
 					
-				}) //End API.request
-				
-			} //End authObj Function
-			
-		}) //End Auth.login
-		
-	} //End Function
+					Kakao.API.request({				
+					       url: '/v2/user/me',				       
+						success: function(response){
+							console.log("아이디 : "+response.id);
+							console.log("카카오계정 : "+response.kakao_account);
+							console.log("이메일주소 : "+response.kakao_account['email']);						
+							var email = response.kakao_account['email'];
+							var userId = response.id;							
+							location.href = "/user/kakaoLogin?userId="+userId				
+						} //End response function					
+					}) //End API.request				
+				} //End authObj Function			
+			}) //End Auth.login		
+		} //End Function	
 	
-
-
-
-<!---------------------------------------------------------------------------------------------------------------------------->		
-	
-<!--[카카오톡 로그아웃]---------------------------------------------------------------------------------------------------->	
+// 카카오로그아웃(토큰종료) : 현재 미사용 필요시 해당 구현품 사용할 것
 	
 		function KakaoLogout() {
 			
 			if (Kakao.Auth.getAccessToken()) {
-				alert("로그아웃");
 				Kakao.API.request({
-					url : '/v1/user/unlink',
-					
+					url : '/v1/user/unlink',					
 					success : function(response) {
 						alert("로그아웃 성공하였습니다.");
 						console.log(response)
 					}, fail : function(error) {
 						console.log(error)
 					},
-				})
-				
+				})				
 				Kakao.Auth.setAccessToken(undefined)
 			}
 		}
-<!---------------------------------------------------------------------------------------------------------------------------->		
+
+// 아이디찾기 - 다른 방식으로 접근, 차후 수정가능시 수정진행 할 예정
+	function findId() {			
+		var popWin;
+		var findId = $("#findId").val();		
+		popWin = window.open(
+					"getMobileAuth?findId",
+					"childForm",
+					"left=460, top=300, width=460, height=800, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");									
+	}
+
+
+// 비밀번호찾기 - 다른 방식으로 접근, 차후 수정가능시 수정진행 할 예정	
+	function findPwd() {			
+		var popWin;
+		var id=$('input[name=userId]').val();
+		var findPwd = $("#findPwd").val();	
+		popWin = window.open(
+					"searchUserPwd",
+					"childForm",
+					"left=460, top=300, width=460, height=800, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");									
+	}
 		
 </script>
 
@@ -302,7 +266,7 @@
 <!-- ## 아이디찾기 -->
 		<div class="form-group">
 			<label for="searchIdView" class="col-sm-offset-1 col-sm-6 control-label"></label>
-			<a href="javascript:void(window.open('/user/getMobileAuth', '아이디찾기','width=460, height=800'))">아이디를 잊으셨나요?</a>			
+			<a href="javascript:findId();" id="findId">아이디를 잊으셨나요?</a>			
 		</div>
 
 <!-- 비밀번호입력 -->		  
@@ -317,7 +281,7 @@
 <!-- ## 비밀번호찾기 -->
 		<div class="form-group">
 			<label for="searchUserPwd" class="col-sm-offset-1 col-sm-6 control-label"></label>
-			<a href="javascript:void(window.open('/user/searchUserPwd', '아이디찾기','width=460, height=800'))">비밀번호를 잊으셨나요?</a>
+			<a href="javascript:findPwd();" id="findPwd">비밀번호를 잊으셨나요?</a>
 		</div>
 		
 <!-- ## 회원가입 -->
@@ -346,24 +310,25 @@
 
   		<!-- [7월 19일 01:34] 이미지 경로지정 차후 구현시 사용 -->
   		<!-- <img src="../images/API/google_login.png" height="48" id="googleLogin"/></button> -->
-  		
+  		<!--
 		<li id="googleLogin">
  			<a href="javascript:void(0)">
 				<span>구글 로그인</span>
 			</a>
 			</li>
 		</ul>
+		-->
+		<div class="form-group">
+			<div class="col-sm-offset-4  col-sm-4 text-center">
+				<img src="../images/API/google-login.png" height="45" name="googleLogin" id="googleLogin" onclick="javascript:googleSign(googleUser)">
+			</div>
+		</div>		
+		
 		
 <!---------------------------------------------------------------------------------------------------------------------------->
 
 <!-- 네이버 API Login ---------------------------------------------------------------------------------------------------------------->					
 
-	<div id="naverIdLogin" align="center">
-		<a id="naver-login-btn" href="#" role="button">
-			<img src="https://static.nid.naver.com/oauth/big_g.PNG?version=js-2.0.1" height="45" id="naverIdLogin" onclick="NaverLogin()"/>      
-		</a>
-	</div>
-	
 	<div class="form-group">
 		<div class="col-sm-offset-4  col-sm-4 text-center">
 			<img src="https://static.nid.naver.com/oauth/big_g.PNG?version=js-2.0.1" height="45" name="naverIdLogin" onclick="javascript:NaverLogin()">
@@ -375,12 +340,10 @@
 <!-- 로그인, 취소 Button ---------------------------------------------------------------------------------------------------------------->									
 		<div class="form-group">
 			<div class="col-sm-offset-4  col-sm-4 text-center">
-				
+				<button type="button" class="btn btn-primary" onClick="fncLogin()">로그인</button>
 				<a class="btn btn-default btn" href="/" role="button">취소</a>
 			</div>
 		</div>
-		
-		<button type="button" class="btn btn-primary" onClick="fncLogin()">로그인</button>
 <!---------------------------------------------------------------------------------------------------------------------------->	
 	
 <!-- FORM END ---------------------------------------------------------------------------------------------------------------->
