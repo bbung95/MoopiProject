@@ -25,7 +25,7 @@ $(function() {
 });	
 
 function fncListReportBd(){
-	alert("게시글 신고목록");
+	//alert("게시글 신고목록");
 	
 	
 	self.location ="/report/listReport?searchCategory=1";
@@ -41,7 +41,7 @@ $(function() {
 });	
 
 function fncListReportRe(){
-	alert("리플 신고목록");
+	//alert("리플 신고목록");
 	
 	self.location ="/report/listReport?searchCategory=2";	
 }
@@ -55,7 +55,7 @@ $(function() {
 });	
 
 function fncListReportU(){
-	alert("유저 신고목록");
+	//alert("유저 신고목록");
 	
 	self.location ="/report/listReport?searchCategory=3";
 	
@@ -65,35 +65,21 @@ function fncListReportU(){
 	$(function() {
 		//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 		$( "td.test" ).on("click" , function() {
-// 			alert("1"+$(this).parent().html());
-			
-// 			alert($(this).parent().find("input.boardNo").val());
 			
 			var boardNo = $(this).parent().find("input.boardNo").val();
-// 			alert(boardNo);
 			window.location.href ="/board/getBoard?boardNo="+boardNo;
 		});
 	});	
 	
-// 	function fncGetBoard(){
-// 		alert("게시글 조회");
-// 		alert("1"+$(this).parent().html());
-// 		var boardNo = $(this).parent().find("input.boardNo").val();
-		
-// 		alert(boardNo);
-		
-// 		window.location.href ="/board/getBoard?boardNo="+boardNo;
-		
-// 	}
 	
 	$(function() {
 		//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 		
 		$( "button.btn.btn-primary:contains('처리')" ).on("click" , function() {
 			
-			alert("신고처리");
+			//alert("신고처리");
 			
-			alert($(this).parent().parent().html());
+			//alert($(this).parent().parent().html());
 			
 			var reportResultState	= $(this).parent().parent().find("select").val();
 			var reportNo			= $(this).parent().parent().find("input.reportNo").val()
@@ -101,13 +87,11 @@ function fncListReportU(){
 			var reportTargetBd		= $(this).parent().parent().find("input.boardNo").val()
 			var reportTargetRe		= $(this).parent().parent().find("input.replyNo").val()
 			
-// 			$("form").attr("method" , "POST").attr("action" , "/report/processReport").submit();		
-			
-			alert(reportResultState);
-			alert(reportNo);
-			alert(stateReason);
-			alert(reportTargetBd);
-			alert(reportTargetRe);
+// 			//alert(reportResultState);
+// 			//alert(reportNo);
+// 			//alert(stateReason);
+// 			//alert(reportTargetBd);
+// 			//alert(reportTargetRe);
 			
 			$.ajax( 
 					{
@@ -117,9 +101,9 @@ function fncListReportU(){
 						data :  JSON.stringify ({ "reportNo": reportNo, "reportResultState": reportResultState, "stateReason": stateReason, "reportTargetBd": {"boardNo" : reportTargetBd}, "reportTargetRe": {"replyNo" : reportTargetRe} }),
 						contentType : "application/json",
 					    success : function(JSONData , status) {
-				               alert(status);
-// 				                alert("JSONData : \n"+JSONData.boardPassword);
-								alert(JSONData)
+				               //alert(status);
+// 				                //alert("JSONData : \n"+JSONData.boardPassword);
+								//alert(JSONData)
 								console.log(JSONData)
 				               var displayValue = 
 				            	   "<h4>"
@@ -130,18 +114,14 @@ function fncListReportU(){
 									+"</h4>"
 									
 								//Debug...									
-								alert(displayValue);
+								//alert(displayValue);
 								$(".reportUpdate"+JSONData.reportNo+"").remove();
 								$(".reportUpdate"+JSONData.reportNo+"" ).append(displayValue);	
 	
 				               }
 				               
 			
-				            })
-			
-			
-			
-			
+				     })
 			
 		});
 	});	

@@ -103,6 +103,7 @@ public interface UserDao {
 	
 	public int getFollowCount(@Param("userId") String userId, @Param("order") int order);
 
+	public void updateUserRole(@Param("user") User user);
 }
 
 	
