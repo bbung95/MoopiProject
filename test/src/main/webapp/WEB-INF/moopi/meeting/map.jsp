@@ -288,7 +288,7 @@ function displayPagination(pagination) {
 function displayInfowindow(marker, title) {
     var content =   '<input type=hidden class="mapPositon" value=1"'+marker.getPosition()+'">'+ 
     				'<div style="padding:5px;z-index:1;">' + title + marker.getPosition()+'</div> <p>test</p>' +
-					'<button type="button" class="btn btn-default"  onClick="javascript:selectPlace('+marker.getPosition().getLat()+','+marker.getPosition().getLng()+')">모임장소선택</button>';
+					'<button type="button" class="btn btn-default"  onClick="javascript:selectPlace('+marker.getPosition().getLat()+','+marker.getPosition().getLng()+')">모임생성하기</button>';
 					
     infowindow.setContent(content);
     infowindow.open(map, marker);
@@ -298,8 +298,6 @@ function selectPlace(lat, lng){
 	
 	alert(lat);
 	alert(lng);
-	$("#mtMapX", opener.document).val(lat);
-	$("#mtMapY", opener.document).val(lng);
 }
 
 
