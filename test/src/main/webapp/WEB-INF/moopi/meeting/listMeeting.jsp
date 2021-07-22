@@ -112,7 +112,11 @@ function fncAddMtView() {
 	+"정모 총 인원 :"+ "<input type='text' name='mtMaxCount'>" + "<br>"
 	+"<input type='hidden' name='mtCurrentCount' value='1'>" + "<br>"
 	+"정모 장소 :"+"<input type='text' name='mtAddr'>" + "<br>"
+	+"<a onClick='fncAddMap()' >장소등록</a><br>"
 	+"<a onClick='fncAddMt()'>등록하기</a>"+ "<br>"
+	+"<input type='text' id='lat' value=''>"
+	+"<input type='text' id='lng' value=''>"
+	
 	+"<button type='button' class='btn btn-primary' id='map' onClick='fncMap()'>지도</button>"
 	+"<input type='hidden' id='mtMapX' name='mtMapX'>" + "<br>"
 	+"<input type='hidden' id='mtMapY' name='mtMapY'>"
@@ -157,6 +161,19 @@ function fncUptMtView() {
 		alert("정모 주최자 ID와 동일하지 않습니다.");
 	}
 }
+
+function fncAddMap(){
+	
+	alert("click")
+	popWin = window.open(
+			"/moim/map",
+			"popWin",
+			"left=460, top=300, width=900, height=600, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");
+}
+
+
+
+
 
 function fncDeleteMt(userId) {
 	if(mtConstructor == userId){
