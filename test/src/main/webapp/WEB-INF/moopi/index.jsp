@@ -45,20 +45,9 @@
 		$(function() {
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 			$( "#map" ).on("click" , function() {
-
-				fncMap();
+				fncGetMap();
 			});
 		});	
-		function fncMap(){
-			
-			self.location ="/board/map";
-
-		}
-
-
-//				fncGetMap();
-//			});
-//		});	
 	
 		function fncGetMap(){
 			alert("1")
@@ -72,7 +61,6 @@
 				fncMap();
 			});
 		});	
-
 	
 		function fncMap(){
 			
