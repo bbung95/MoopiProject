@@ -3,8 +3,8 @@
 
 <!--  ///////////////////////// JSTL  ////////////////////////// -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<<<<<<< HEAD
 <script defer src="https://use.fontawesome.com/releases/v5.15.2/js/all.js" integrity="sha384-vuFJ2JiSdUpXLKGK+tDteQZBqNlMwAjhZ3TvPaDfN9QmbPb7Q8qUpbSNapQev3YF" crossorigin="anonymous"></script>
+
 
 
 <!-- ToolBar Start /////////////////////////////////////-->
@@ -72,14 +72,9 @@
 								<li> <a href="#">마이홈</a></li>
 								<li> <a href="#">내정보보기</a></li>
 								<li> <a href="#">쪽지	</a></li>
-
 								<li> <a href="#">My결제내역</a></li>
 								<li> <a href="#">My코인내역</a></li>
 								<li> <a href="#">로그아웃</a></li>
-
-								<li> <a href="#">MY무피코인</a></li>
-								<li id="userLogout"> <a href="#" >로그아웃</a></li>
-
 								<c:if test="${dbUser.userRole == '1'}">
 									<li> <a href="#">관리자</a></li>
 								</c:if>
@@ -287,7 +282,7 @@
 		})
 		$('#test').remove();
 	})
-
+	
 	////////////////////////////// toolbar navigator
 	
 	$("a:contains('Moopi')").on("click", function(){
@@ -327,7 +322,8 @@
 	
 	$("a:contains('마이홈')").on("click", function(){
 	
-		location.href = "/user/getMyHomeBoard?userId="+dbUser;
+		location.href = "/user/getMyHome?userId="+dbUser;
+	})
 	
 	$("a:contains('내정보보기')").on("click", function(){
 		
