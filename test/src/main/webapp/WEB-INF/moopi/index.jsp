@@ -56,9 +56,9 @@
 		}
 
 
-				fncGetMap();
-			});
-		});	
+//				fncGetMap();
+//			});
+//		});	
 	
 		function fncGetMap(){
 			alert("1")
