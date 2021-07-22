@@ -1,19 +1,28 @@
 package com.moopi.mvc.web.board;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 
+import com.google.gson.JsonObject;
 import com.moopi.mvc.common.Page;
 import com.moopi.mvc.common.Search;
 import com.moopi.mvc.service.board.impl.BoardServiceImpl;
@@ -39,6 +48,12 @@ public class BoardController{
 	
 	@Value("${page.pageSize}")
 	int pageSize;
+	
+	public static final String saveDir = ClassLoader.getSystemResource("./static/").getPath().
+			substring(0, ClassLoader.getSystemResource("./static/").getPath().lastIndexOf("bin"))
+			+"src/main/resources/static/images/uploadFiles/";
+	
+	
 	
 	@RequestMapping("listBoard")
 	public String getBoardList(@ModelAttribute("search")Search search, @ModelAttribute("category")String category,
@@ -190,12 +205,53 @@ public class BoardController{
 		
 	}
 	
-	 @RequestMapping("/map")
-	   public String getMap() throws Exception{
-	      
-	      return "/map/map";
-	   }
-	   
+	@RequestMapping("/map")
+	public String getMap() throws Exception{
+		
+		return "/map/map";
+	}
+	@RequestMapping("/mapView")
+	public String getMapView() throws Exception{
+		
+		return "/map/mapView";
+	}
 	
+	
+	@PostMapping(value="uploadImage", produces = "application/json")
+	@ResponseBody
+	public JsonObject uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile) {
+		
+		JsonObject jsonObject = new JsonObject();
+//		
+		String fileRoot = "C:\\test\\";	//저장될 외부 파일 경로
+		String originalFileName = multipartFile.getOriginalFilename();	//오리지날 파일명
+		String extension = originalFileName.substring(originalFileName.lastIndexOf("."));	//파일 확장자
+				
+		String savedFileName = UUID.randomUUID() + extension;	//저장될 파일 명
+		
+//		File targetFile = new File(fileRoot + savedFileName);	
+		File targetFile = new File(saveDir + savedFileName);	
+		
+		System.out.println(targetFile.toString());
+		System.out.println("1111");
+		
+		try {System.out.println("222");
+			InputStream fileStream = multipartFile.getInputStream();
+			FileUtils.copyInputStreamToFile(fileStream, targetFile);	//파일 저장
+			jsonObject.addProperty("url", "/board/uploadImage/"+savedFileName);
+			jsonObject.addProperty("responseCode", "success");
+				System.out.println("222");
+				
+		} catch (IOException e) {
+			System.out.println("333");
+			FileUtils.deleteQuietly(targetFile);	//저장된 파일 삭제
+			jsonObject.addProperty("responseCode", "error");
+			e.printStackTrace();
+			System.out.println("333");
+		}
+		
+		System.out.println(jsonObject);
+		return jsonObject;
+	}
 	
 }

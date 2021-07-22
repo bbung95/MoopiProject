@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.moopi.mvc.common.Search;
 import com.moopi.mvc.service.coin.CoinDao;
 import com.moopi.mvc.service.domain.Coin;
+import com.moopi.mvc.service.domain.Flash;
 
 @Service("coinServiceImpl")
 public class CoinServiceImpl {
@@ -29,12 +30,35 @@ public class CoinServiceImpl {
 		coinDao.addCoin(coin);
 	}
 
+	public void joinCoin(Coin coin) throws Exception{
+		System.out.println("joinCoin ServiceImpl start::");
+		coinDao.joinCoin(coin);
+	}
+	
+	public Map<String,Object> coinHistory(Coin coin) throws Exception{
+		System.out.println("coinHistory ServiceImpl start::");
+		
+		//Flash flash = new Flash();
+		//flash.getFlashNo();
+		
+		List<Coin> coinList = coinDao.coinHistory(coin);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("coinList", coinList);
+		
+		coinDao.coinHistory(coin);
+		
+		return map;
+	}
+	
 	public Coin getCoin(int coinNo) throws Exception {
 		System.out.println("getCoin ServiceImpl start::");
 
 		return coinDao.getCoin(coinNo);
 	}
 
+	
+	
 	public Map<String, Object> getCoinList(Search search) throws Exception {
 		System.out.println("getCoinList ServiceImpl start::");
 

@@ -49,7 +49,7 @@ body{
 			
 			<c:set var="i" value="0" />
 				<c:forEach var="payment" items="${ list }">
-				<c:set var="i" value="${ i+1 }"/>
+				<c:set var="i" value="${ i }"/>
 				
 				<tr>
 				<td align="center"> ${payment.paymentNo}</td>

@@ -11,11 +11,20 @@
 		<result property="coinRegdate"	column="COIN_REGDATE" 		jdbcType="DATE" />
 		<result property="coinRole"		column="COIN_ROLE" 			jdbcType="VARCHAR" />
 		<result property="coinCount" 	column="COIN_COUNT" 		jdbcType="NUMERIC" />
-		<result property="userId.userId" 		column="USER_ID" 	jdbcType="VARCHAR" />
-		<result property="flashNo.flashNo" 		column="FLASH_NO" 	jdbcType="NUMERIC" />
+		<result property="coinUser.userId" 		column="USER_ID" 	jdbcType="VARCHAR" />
+		<result property="flash.flashConstructor.userId" 	column="FLASH_CONSTRUCTOR" 	jdbcType="VARCHAR" />
+		<result property="flash.flashName" 		column="FLASH_NAME" 	jdbcType="VARCHAR" />
+		<result property="flash.flashNo" 		column="FLASH_NO" 	jdbcType="NUMERIC" />
+	
 	</resultMap>
 	
 	
+	<select id="coinHistory" parameterType="coin" resultMap="coinSelectMap">
+		SELECT 
+		f.FLASH_NAME, f.FLASH_CONSTRUCTOR, c.USER_ID, c.COIN_REGDATE, c.COIN_ROLE, 
+		c.COIN_COUNT FROM COIN c INNER JOIN FLASH f on c.FLASH_NO = f.FLASH_NO
+		WHERE c.USER_ID = #{coinUser.userId}	
+	</select>
 
 	<select id="getCoin" parameterType="int" resultMap="coinSelectMap">
 		SELECT
@@ -28,8 +37,15 @@
  	<insert id="addCoin" parameterType="coin">
 		INSERT
 			INTO COIN (COIN_NO, COIN_REGDATE, COIN_ROLE, COIN_COUNT, USER_ID, FLASH_NO)
-			VALUES(#{coinNo}, now(), '생성', '2', #{userId.userId},
-					#{flashNo.flashNo})
+			VALUES(#{coinNo}, now(), '생성', '2', #{coinUser.userId},
+					#{flash.flashNo})
+	</insert>
+	
+	<insert id="joinCoin" parameterType="coin">
+		INSERT
+			INTO COIN (COIN_NO, COIN_REGDATE, COIN_ROLE, COIN_COUNT, USER_ID, FLASH_NO)
+			VALUES(#{coinNo}, now(), '참가', '1', #{coinUser.userId},
+					#{flash.flashNo})
 	</insert>
 	
 	<update id="updateCoin" parameterType="Coin">
@@ -38,7 +54,7 @@
 			COIN_REGDATE = #{coinRegdate},
 			COIN_ROLE = #{coinRole},
 			COIN_COUNT = #{coinCount}
-			FLASH_NO = #{flashNo.flashNo}
+			FLASH_NO = #{flash.flashNo}
 		</set>
 		WHERE COIN_NO = #{coinNo}
 	</update>

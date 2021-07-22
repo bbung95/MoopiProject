@@ -18,10 +18,12 @@
 		<result property="noticeUser.profileImage"	column="profile_image"		jdbcType="VARCHAR"/>  
 		<result property="board.boardNo"		column="NOTICE_BOARD_NO"	jdbcType="NUMERIC"/>
 		<result property="board.boardCategory"  column="bd_category"		jdbcType="CHAR"/>
-		<result property="flash.flashName"		column="flash_name"	jdbcType="VARCHAR"/>
+		<result property="flash.flashName"		column="flash_name"			jdbcType="VARCHAR"/>
 		<result property="flash.flashlNo"		column="NOTICE_FLASH_NO"	jdbcType="NUMERIC"/>
+		<result property="flash.flashFile"      column="flash_file"			jdbcType="VARCHAR"/>
 		<result property="moim.mmNo"			column="NOTICE_MOIM_NO"		jdbcType="NUMERIC"/>
 		<result property="moim.mmName" 			column="MM_NAME" 			jdbcType="VARCHAR"/>
+		<result property="moim.mmFile"			column="MM_IMAGE" 			jdbcType="VARCHAR"/>
 		<result property="letter.letterNo"		column="NOTICE_LETTER_NO"			jdbcType="NUMERIC"/>
 	</resultMap>
 	
@@ -48,7 +50,7 @@
 				inner_table.*  ,@ROWNUM := @ROWNUM +1 AS RNUM
 				FROM (SELECT
 						n.* , u.user_id , u.nickname , u.profile_image ,
-						 b.bd_category , b.bd_mm_no , f.flash_name , m.MM_NAME
+						 b.bd_category , b.bd_mm_no , f.flash_name , f.flash_file , m.MM_NAME , m.mm_image
 						FROM notice n LEFT OUTER JOIN users u
 							ON n.notice_user_id = u.user_id
     						LEFT OUTER JOIN board b

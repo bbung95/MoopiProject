@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.AccessLevel;
+
 @Getter
 @Setter
 @ToString
@@ -80,16 +81,18 @@ public class Search {
 	      return pageUnit;
 	   }
 
-	   public void setPageUnit(int pageUnit) {
-	      this.pageUnit = pageUnit;
-	   }
-	
-	   public String getSearchCategory() {
-	      return searchCategory;
-	   }
-	
-	   public void setSearchCategory(String searchCategory) {
-	      this.searchCategory = searchCategory;
-	   }
+	public void setPageUnit(int pageUnit) {
+		this.pageUnit = pageUnit;
+	}
+
+	public String getSearchCategory() {
+		return searchCategory;
+	}
+
+	public void setSearchCategory(String searchCategory) {
+		this.searchCategory = searchCategory;
+	}
+
 
 }
+

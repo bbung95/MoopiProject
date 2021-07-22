@@ -11,7 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.moopi.mvc.service.common.impl.CommonServiceImpl;
 import com.moopi.mvc.service.domain.Meeting;
+import com.moopi.mvc.service.domain.Moim;
+import com.moopi.mvc.service.domain.Notice;
 import com.moopi.mvc.service.domain.User;
 import com.moopi.mvc.service.meeting.impl.MeetingServiceImpl;
 import com.moopi.mvc.service.moim.impl.MoimServiceImpl;
@@ -30,6 +33,9 @@ public class MeetingRestController {
 	
 	@Autowired
 	private UserServiceImpl userService;
+	
+	@Autowired
+	private CommonServiceImpl commonService;
 	
 	public MeetingRestController() {
 		System.out.println(this.getClass());
@@ -91,12 +97,26 @@ public class MeetingRestController {
 		}
 		
 		
-		@RequestMapping("json/applyMeeting/{mtNo}/{userId}")
-		public Meeting applyMeeting(@PathVariable("mtNo") int mtNo,
+		@RequestMapping("json/applyMeeting/{mmNo}/{mtNo}/{userId}")
+		public Meeting applyMeeting(@PathVariable("mmNo") int mmNo, @PathVariable("mtNo") int mtNo,
 				@PathVariable("userId") String userId) throws Exception {
 			System.out.println("정모에 참가합니다.");
 			
 			meetingService.applyMeeting(mtNo, userId);
+			
+			// 알림
+			System.out.println("applyMeeting Notice");
+			Meeting meeting = meetingService.getMeeting(mtNo);
+			Notice notice = new Notice();
+			Moim moim = new Moim();
+			moim.setMmNo(mmNo);
+			notice.setToUserId(meeting.getMtConstructor().getUserId()); // 알림대상
+			notice.setNoticeContent("님이 정모에 참가했습니다");
+			notice.setMoim(moim);
+			notice.setNoticeType("3");
+			commonService.addNotice(notice);
+			//
+			
 			return meetingService.getMeeting(mtNo);
 		}
 		

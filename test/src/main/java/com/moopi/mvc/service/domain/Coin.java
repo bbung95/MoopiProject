@@ -13,10 +13,10 @@ public class Coin {
 
 	private int coinNo;
 	private String coinRegdate;
-	private int coinRole;
+	private String coinRole;
 	private int coinCount;
-	private User userId;
-	private Flash flashNo;
+	private User coinUser;
+	private Flash flash;
 	
 	public Coin() {
 		
