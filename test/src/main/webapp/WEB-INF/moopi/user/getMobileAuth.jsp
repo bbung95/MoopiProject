@@ -66,13 +66,7 @@
 			
 		}		
 <!-------------------------------------------------------------------------------------------------------------------------->
-/*\\					
-		function findId() {
 
-			var phone = $("input[name=phone]").val();
-				$("form").attr("method", "POST").attr("action", "/user/getIdView").submit();
-		}
-*/
 //--# [모바일인증번호] 인증번호 발송하기 --------------------------------------------------------------------------------------------------------------------------
 		
 		function fncAuth(){
@@ -108,8 +102,12 @@
 		
 
 		
-</script>
-
+</script>		
+    <style>
+	body{
+	padding-top: 50px;
+	}
+	</style>
 </head>
 <body>
 
@@ -122,7 +120,7 @@
 		<!-- userId Hidden -->
 		<div class="form-group">
  	  		<div class="col-sm-offset-4  col-sm-4 text-center">
- 	  		<input type="text" class="form-control" id="userId" name="userId" value="${dbUser.userId}" readonly>
+ 	  		<input type="hidden" class="form-control" id="userId" name="userId" value="${dbUser.userId}" readonly>
  	  		</div>
  	  	</div>
  	  	
