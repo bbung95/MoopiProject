@@ -242,4 +242,12 @@ public class MoimController {
 		}
 	}
 	
+	@RequestMapping("map")
+	public String getMap() throws Exception{
+		
+		System.out.println("맵을 연다.");
+			return "moim/map";	
+	}
+	
+	
 }
