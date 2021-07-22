@@ -10,6 +10,7 @@ import java.util.UUID;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.ibatis.annotations.Param;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -219,7 +220,7 @@ public class BoardController{
 	
 	@PostMapping(value="uploadImage", produces = "application/json")
 	@ResponseBody
-	public JsonObject uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile) {
+	public JSONObject uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile) {
 		
 		JsonObject jsonObject = new JsonObject();
 //		
