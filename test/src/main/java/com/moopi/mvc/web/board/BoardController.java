@@ -49,6 +49,12 @@ public class BoardController{
 	@Value("${page.pageSize}")
 	int pageSize;
 	
+	public static final String saveDir = ClassLoader.getSystemResource("./static/").getPath().
+			substring(0, ClassLoader.getSystemResource("./static/").getPath().lastIndexOf("bin"))
+			+"src/main/resources/static/images/uploadFiles/";
+	
+	
+	
 	@RequestMapping("listBoard")
 	public String getBoardList(@ModelAttribute("search")Search search, @ModelAttribute("category")String category ,Model model ) throws Exception {
 		
@@ -202,15 +208,17 @@ public class BoardController{
 	public JsonObject uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile) {
 		
 		JsonObject jsonObject = new JsonObject();
-		
+//		
 		String fileRoot = "C:\\test\\";	//저장될 외부 파일 경로
 		String originalFileName = multipartFile.getOriginalFilename();	//오리지날 파일명
 		String extension = originalFileName.substring(originalFileName.lastIndexOf("."));	//파일 확장자
 				
 		String savedFileName = UUID.randomUUID() + extension;	//저장될 파일 명
 		
-		File targetFile = new File(fileRoot + savedFileName);	
+//		File targetFile = new File(fileRoot + savedFileName);	
+		File targetFile = new File(saveDir + savedFileName);	
 		
+		System.out.println(targetFile.toString());
 		System.out.println("1111");
 		
 		try {System.out.println("222");
