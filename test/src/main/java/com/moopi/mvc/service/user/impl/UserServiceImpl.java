@@ -47,14 +47,11 @@ public class UserServiceImpl {
 		return userDao.getUser(userId);
 	}
 	
-//	// 유저정보조회 
-//	public User getUser(String userId) {
-//		return userDao.getUser(userId);		
-//	}
-	
 	// 유저아이디찾기 
-	public User getUserId(String userId) {
-		return userDao.getUserId(userId);
+	public User getUserId(String phone) {
+		System.out.println("getUserId ServiceImpl 진입완료");
+		System.out.println("UserServiceImpl 폰번호 : "+phone);
+		return userDao.getUserId(phone);
 	}
 	
 	// 유저정보변경 
@@ -82,6 +79,8 @@ public class UserServiceImpl {
 	
 	// 회원탈퇴 
 	public void updateLeaveUser(User user) throws Exception {
+		System.out.println("\nUserServiceImpl _____ updateLeaveUser 진입완료");
+		System.out.println("유저가 탈퇴를 눌렀을시 5번 유저롤로 변경된다");
 		userDao.updateLeaveUser(user);
 	}
 	
@@ -109,7 +108,7 @@ public class UserServiceImpl {
 	
 // 형우 Flash 관련 추가
 	
-	//make flash coin count 플래쉬 생성시 코인차감
+	//make flash coin count 플래쉬 생성)시 코인차감
 	public void makeFlashCoin(User user) throws Exception{
 		userDao.makeFlashCoin(user);
 	}
@@ -127,8 +126,9 @@ public class UserServiceImpl {
 // 프로필수정 - updateProfile
 	
 	// 0. 프로필이미지수정
-	public void updateProfileImage(User user) {
-		userDao.updateProfileImage(user);
+	public void updateProfileImage(String userId) {
+		System.out.println("updateProfileImage ServiceImpl 진입완료");
+		userDao.updateProfileImage(userId);
 	}
 	
 	// 1. 닉네임수정
@@ -144,7 +144,6 @@ public class UserServiceImpl {
 	// 3. 관심사수정
 	public void updateInterest(User user) {
 		userDao.updateInterest(user);
-
 	}
 	
 }
