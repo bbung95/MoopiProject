@@ -8,12 +8,15 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
+<!-- BootsWatch CDN -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/sketchy/bootstrap.min.css" integrity="sha384-RxqHG2ilm4r6aFRpGmBbGTjsqwfqHOKy1ArsMhHusnRO47jcGqpIQqlQK/kmGy9R" crossorigin="anonymous">
+
 <!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
+<!-- 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" > -->
+<!-- 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" > -->
 	<link rel="stylesheet" href="/images/uploadFiles" >
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
+<!-- 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script> -->
 
 <script>
 
@@ -34,8 +37,8 @@ $(function(){
 				},
 				success : function(JSONData , status) {
 					//alert(JSONData.memberRole);
-					alert(status);
-    				alert("JSONData : \n"+JSONData);
+					//alert(status);
+    				//alert("JSONData : \n"+JSONData);
 					if(JSONData.memberRole == 1){
 						//alert('일반멤버');
 						$("#choose").text('승인대기중');
@@ -100,10 +103,10 @@ function fncListMeeting(mmNo){
 <body>
 
 <!-- ToolBar Start ///////////////////////////////////// -->
-<jsp:include page="../layout/toolbar.jsp" />
-<jsp:include page="../layout/moimToolbar.jsp" />
+<%-- <jsp:include page="../layout/toolbar.jsp" /> --%>
+<jsp:include page="../layout/moimToolbar2.jsp" />
 
-<!-- ToolBar End /////////////////////////////////////-->
+<!-- ToolBar End ///////////////////////////////////// -->
 <h3>모임상세페이지입니다...${dbUser.userId}님 오랜만입니다...</h3>
 
 
