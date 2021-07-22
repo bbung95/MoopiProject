@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -21,6 +22,13 @@ public class UserController {
 
 	@Autowired
 	private UserServiceImpl userService;
+	
+	
+	@RequestMapping("updateLeaveUser")
+	public void updateLeaveUser() throws Exception {
+		System.out.println("updateLeaveUser 진입완료");
+		// 회원이 탈퇴진행할시 해당을 거쳐 유저롤 5번으로 변경한다 / 리턴값없음
+	}
 	
 	// 카카오 로그인 및 회원가입
 	@RequestMapping("kakaoLogin")
@@ -39,7 +47,6 @@ public class UserController {
 		}
 	}	
 	
-	
 	// [완료] 로그인페이지 (단순 네비게이션)
 	@RequestMapping("loginView")
 	public String loginView(@ModelAttribute("user") User user, HttpSession session) throws Exception{		
@@ -49,31 +56,33 @@ public class UserController {
 
 //-- 로그아웃 구현 -------------------------------------------------------------------------------------------
 	@RequestMapping("logout")
-	public String logout(@ModelAttribute("user") User user, HttpSession session) throws Exception {
+	public String logout(HttpSession session) throws Exception {
 		
 		System.out.println("\n"+"UserController_____logout 로그아웃페이지를 띄워주는 단순 네비게이션"+"\n");
 		
 		// 가입경로 필요없을시 해당 문만 기재하면됨
-		//session.invalidate();
+		session.invalidate();
+		System.out.println();
+		return "redirect:/";
 			
 		// [경로를 못가져옴] 가입경로에 따른 로그아웃 값을 주기위한 조건 
-		if(user.getJoinPath() == "1") {
-			System.out.println("유저의 조인패스는 1입니다.");
-			session.invalidate();
-			return "redirect:/";
-		} else if(user.getJoinPath() == "2"){
-			System.out.println("유저의 조인패스는 2번입니다");
-			session.invalidate();
-			return "redirect:/";
-		} else if(user.getJoinPath() == "3"){
-			System.out.println("유저의 조인패스는 3번입니다");
-			session.invalidate();
-			return "redirect:/";
-		} else {
-			System.out.println("유저의 조인패스는 4번입니다");
-			session.invalidate();
-			return "redirect:/";
-		}
+//		if(user.getJoinPath() == "1") {
+//			System.out.println("유저의 조인패스는 1입니다.");
+//			session.invalidate();
+//			return "redirect:/";
+//		} else if(user.getJoinPath() == "2"){
+//			System.out.println("유저의 조인패스는 2번입니다");
+//			session.invalidate();
+//			return "redirect:/";
+//		} else if(user.getJoinPath() == "3"){
+//			System.out.println("유저의 조인패스는 3번입니다");
+//			session.invalidate();
+//			return "redirect:/";
+//		} else {
+//			System.out.println("유저의 조인패스는 4번입니다");
+//			session.invalidate();
+//			return "redirect:/";
+//		}
 	
 	}
 //-----------------------------------------------------------------------------------------------------------------
@@ -87,7 +96,8 @@ public class UserController {
 		System.out.println(dbUser);		
 		String dbId = user.getUserId();
 		String dbPw = user.getPassword();		
-			if (dbId != null && dbPw.equals(dbUser.getPassword())) {
+			
+		if (dbId != null && dbPw.equals(dbUser.getPassword())) {
 				System.out.println("아이디 및 비밀번호가 일치합니다.");
 				session.setAttribute("dbUser", dbUser);
 				return "redirect:/";
@@ -141,28 +151,70 @@ public class UserController {
 //-----------------------------------------------------------------------------------------------------------------
 
 	
-//-- addUserInfo.jsp에서 getMobileAuth.jsp로 이동하는 단순네비게이션 ------------------------------------------------------------
+// [완료] 모바일인증 단순네비게이션
 	@RequestMapping("getMobileAuth")
 	public String getMobileAuth() throws Exception {
-		
-		System.out.println("UserController_____getMobileAuth 시작");
-		System.out.println("모바일번호 인증페이지로 이동하기 위한 단순 네비게이션 부분입니다.");
-				
 		return "user/getMobileAuth";	
 	}
-//-----------------------------------------------------------------------------------------------------------------
+
+// [완료] 비밀번호찾기
+	@RequestMapping("getMobileAuthPW")
+	public String getMobileAuthPW(	Model model, @RequestParam("userId") String userId) throws Exception {		
+		User id = userService.getUser(userId);
+		model.addAttribute("dbUser", id);		
+		return "user/getMobileAuth";	
+	}
 	
+//-- [리턴수정필요] 비밀번호찾기 - 아이디, 모바일번호인증 일치 여부 확인
+	@RequestMapping("updatePwdView")
+	public String updatePwdView(	@RequestParam("userId") String userId,
+									@RequestParam("phone") String phone,								
+									@ModelAttribute("user") User user ) throws Exception {
+		User phoneNumber = userService.getUserId(phone);
+		
+		String phoneId = phoneNumber.getUserId();			
+		String getId = user.getUserId();
+		
+		System.out.println("phoneId 확인 : "+phoneId);
+		
+		if (phoneId == getId) {
+			System.out.println("모바일번호와 입력한 아이디가 일치함");
+			return "user/updatePwdView";
+		} else if (phoneId != getId) {
+			System.out.println("모바일번호와 입력한 아이디가 불일치함");
+			return "redirect:/";
+		}
+		
+		return "redirect:/";
+	}
+
 //-- searchUserPwd.jsp로 이동하는 단순네비게이션 ------------------------------------------------------------
 	@RequestMapping("searchUserPwd")
-	public String searchUserPwd() throws Exception {
+	public String searchUserPwd() {
 			
 		System.out.println("UserController_____searchUserPwd 시작");
-		System.out.println("비밀번호를 찾기위한 아이디확인으로 이동하는 단순 네비게이션입니다.");
-				
+		System.out.println("비밀번호를 변경을 위한 아이디확인으로 이동하는 단순 네비게이션입니다.");
+						
 		return "user/searchUserPwd";	
 	}
 //-----------------------------------------------------------------------------------------------------------------
 
+//	//-- searchUserPwd.jsp로 이동하는 단순네비게이션 ------------------------------------------------------------
+//		@RequestMapping("searchUserPwd")
+//		public String searchUserPwd(	@RequestParam("userId") String userId,
+//										Model model ) throws Exception {
+//				
+//			System.out.println("UserController_____updateUserPwd 시작");
+//			System.out.println("비밀번호를 변경을 위한 아이디확인으로 이동하는 단순 네비게이션입니다.");
+//			
+//			User user = userService.getUser(userId);
+//			model.addAttribute("dbUser", user);
+//							
+//			return "user/searchUserPwd";	
+//		}
+//	//-----------------------------------------------------------------------------------------------------------------
+		
+	
 //-- getMyHomeBoard.jsp로 이동하는 단순네비게이션 ------------------------------------------------------------
 //	@RequestMapping("getMyHomeBoard")
 //	public String getMyHomeBoard() throws Exception {
@@ -272,4 +324,60 @@ public class UserController {
 		return "user/updateInterest";				
 	}
 	
+//-- [완료] 회원가입 addUserView.jsp로 단순 네비게이션  -------------------------------------------------------------------------------------------
+	@RequestMapping("getIdView")
+	public String getIdView() throws Exception {
+		
+		System.out.println("UserController_____getIdView 시작");
+		System.out.println("아이디찾기 진행시 아이디를 띄워주는 뷰입니다.");
+				
+		return "user/getIdView";
+	}
+//-----------------------------------------------------------------------------------------------------------------
+	
+//-- 아이디찾기 -------------------------------------------------------------------------------------------
+	@RequestMapping("searchIdView")
+	public String searchIdView(	@RequestParam("phone") String phone,
+								Model model) throws Exception{
+		
+
+		// getUserId
+		System.out.println("phone : "+phone);
+		
+		// 폰번호로 아이디 검색 : [해당 폰번호와 관련된 아이디 : user]
+		User dbUser = userService.getUserId(phone);
+		System.out.println("user 확인하기 : "+dbUser);
+		// dbUser는 admin으로 출력됨
+		
+		// key value
+		model.addAttribute("userId", dbUser);
+
+		//getPhoneUser 새로 다 작성
+		//User dbUser = userService.getUserId(user.getPhone());
+		
+		return "user/searchIdView";
+		}
+//-----------------------------------------------------------------------------------------------------------------
+	@RequestMapping("googleLogin")
+	public String googleLogin (	@ModelAttribute("user") User user, 
+								HttpSession session) throws Exception {			
+		User googleId = userService.getUser(user.getUserId());	
+		if( googleId != null ) {
+			session.setAttribute("user", googleId);
+			return "redirect:/";
+		} else {
+			return "user/addUserInfo";
+		}
+	}	
+	
+//-- [완료] 회원가입 addUserView.jsp로 단순 네비게이션  -------------------------------------------------------------------------------------------
+	@RequestMapping("updateUserView")
+	public String updateUserView() throws Exception {
+			
+		System.out.println("UserController_____getIdView 시작");
+		System.out.println("아이디찾기 진행시 아이디를 띄워주는 뷰입니다.");
+					
+		return "user/updateUserView";
+	}
+//-----------------------------------------------------------------------------------------------------------------
 }
