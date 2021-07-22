@@ -33,7 +33,7 @@ public class PaymentRestController {
 		System.out.println("amount::::" + amount);
 		System.out.println("paymentRest start!!!!!!!!!!!!!!!!!!!!!!!");
 
-		User user = userService.getUserId(userId);
+		User user = userService.getUser(userId);
 		payment.setPaymentPrice(amount);
 
 		System.out.println("paymentCoinCount::" + paymentCoinCount);

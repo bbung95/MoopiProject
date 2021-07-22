@@ -49,10 +49,13 @@ public class UserServiceImpl {
 	}
 	
 	// 유저아이디찾기 
-	public User getUserId(String phone) {
-		System.out.println("getUserId ServiceImpl 진입완료");
-		System.out.println("UserServiceImpl 폰번호 : "+phone);
-		return userDao.getUserId(phone);
+	public User getUserId(String userId) {
+		return userDao.getUserId(userId);
+	}
+	
+	// 아이디 찾기
+	public User getId(String phone) {
+		return userDao.getId(phone);
 	}
 	
 	// 유저정보변경 

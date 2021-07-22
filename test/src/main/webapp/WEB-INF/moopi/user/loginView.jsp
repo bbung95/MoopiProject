@@ -229,10 +229,16 @@
 		popWin = window.open(
 					"searchUserPwd",
 					"childForm",
-					"left=460, top=300, width=460, height=800, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");									
+					"left=460, top=300, width=460, height=600, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");									
 	}
 		
 </script>
+
+<style>
+body{
+	padding-top: 50px;
+}
+</style>
 
 </head>
 <body>
@@ -241,7 +247,6 @@
 	<jsp:include page="../layout/toolbar.jsp" />
 <!---------------------------------------------------------------------------------------------------------------------------->
 
-<h3> user/login : 로그인시작 </h3>
 
 <!-- 화면구성 div Start ---------------------------------------------------------------------------------------------------------------->
 
