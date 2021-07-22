@@ -365,22 +365,7 @@ public class UserController {
 	@RequestMapping("searchIdView")
 	public String searchIdView(	@RequestParam("phone") String phone,
 								Model model) throws Exception{
-		
-
-		// getUserId
-		System.out.println("phone : "+phone);
-		
-		// 폰번호로 아이디 검색 : [해당 폰번호와 관련된 아이디 : user]
-		User dbUser = userService.getUserId(phone);
-		System.out.println("user 확인하기 : "+dbUser);
-		// dbUser는 admin으로 출력됨
-		
-		// key value
-		model.addAttribute("userId", dbUser);
-
-		//getPhoneUser 새로 다 작성
-		//User dbUser = userService.getUserId(user.getPhone());
-		
+		model.addAttribute("dbUser", userService.getId(phone));		
 		return "user/searchIdView";
 		}
 //-----------------------------------------------------------------------------------------------------------------
