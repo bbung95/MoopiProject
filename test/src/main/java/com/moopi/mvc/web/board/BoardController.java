@@ -220,7 +220,7 @@ public class BoardController{
 	
 	@PostMapping(value="uploadImage", produces = "application/json")
 	@ResponseBody
-	public JSONObject uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile) {
+	public JsonObject uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile) {
 		
 		JsonObject jsonObject = new JsonObject();
 //		
