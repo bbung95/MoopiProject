@@ -165,4 +165,11 @@ public class MeetingController {
 	}
 	
 	
+	//카카오 지도...
+	@RequestMapping("/map")
+	   public String getMap() throws Exception{
+	      
+	      return "/meeting/map";
+	   }
+	
 }
