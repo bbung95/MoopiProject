@@ -23,20 +23,24 @@
 
 	function updateProfileImage() {
 		
+		var userId=$('input[name=userId]').val();
+		var profileImage=$('input[name=profileImage]').val();
+		
 		console.log("프로필이미지 Ajax 실행");
 	
 		// formData Object 생성 + form 가져오기
 		let form = $('#upload');
 		var formData = new FormData(form[0]);
+		
 		console.log("formData : "+formData);
+		
 		for (var key of formData.keys()) {
-    	  console.log(key);
+    	  console.log("key : "+key);
     	}
     	for (var value of formData.values()) {
-    	  console.log(value);
+    	  console.log("value : "+value);
     	} 
     	$.ajax({
-
                 url : "/user/json/uploadProfileImage"
                     , method : "POST"
                     , processData : false
@@ -46,7 +50,7 @@
                     , success:function(result) {
                         alert(" ajax success! ");
                         alert(result);	// 확인              
-                    }           
+                    } 
 		});
     }
 
@@ -168,8 +172,6 @@
 			}).open();
 		})
 		
-
-		
 </script>
 
 </head>
@@ -190,24 +192,26 @@
 <!-- FORM START ---------------------------------------------------------------------------------------------------------------->
 	
 	<!-- 아이디[숨김표시] -->
-	<input type="hidden" class="userId" name="userId" value="${user.userId}"/>
-	
+	<input type="hidden" class="userId" name="userId" value="${dbUser.userId}"/>
+
 	<!-- 프로필이미지[파일업로드] -->
-	<form id="upload" method="post" enctype="multipart/form-data">		
+	<form id="upload" class="form-horizontal" method="post" enctype="multipart/form-data">		
 		<div class="form-group">
 			<label for="profileImage" class="col-sm-offset-1 col-sm-3 control-label">프로필이미지</label>
 			<div class="col-sm-4">					
-				<input type="file" name="profileImage" type="text" value="${user.profileImage}" accept="image/*" />
+				<input type="file" name="profileImage" type="text" value="${dbUser.profileImage}" accept="image/*" />
 				<button class="uploadbtn" type="button" onclick="javascript:updateProfileImage()">업로드</button>
 			</div>
 		</div>		
 	</form>
 	
+	
 	<!-- 닉네임 -->
+	<form class="form-horizontal">
 	<div class="form-group">
 		<label for="nickname" class="col-sm-offset-1 col-sm-3 control-label">닉네임</label>
 		<div class="col-sm-3">
-			<input type="text" class="form-control" id="nickname" name="nickname" value="${user.nickname}">
+			<input type="text" class="form-control" id="nickname" name="nickname" value="${dbUser.nickname}">
 			<div class="check_font" id="NNCheck"></div>
 		</div>
 		<div>
@@ -220,7 +224,7 @@
 	<div class="form-group">
 		<label for="profileContent" class="col-sm-offset-1 col-sm-3 control-label">프로필소개</label>
 		<div class="col-sm-4">
-			<input type="text" class="form-control" id="profileContent" name="profileContent" value="${user.profileContent}">
+			<input type="text" class="form-control" id="profileContent" name="profileContent" value="${dbUser.profileContent}">
 		</div>
 		<div>
 			<button type="button" name="ProfileContent" class="ProfileContent" >수정</button>
@@ -231,7 +235,7 @@
 	<div class="form-group">
 		<label for="badge" class="col-sm-offset-1 col-sm-3 control-label">뱃지</label>
 		<div class="col-sm-4">
-			<input type="text" class="form-control" id="badge" name="badge" value="${user.badge}" readonly>
+			<input type="text" class="form-control" id="badge" name="badge" value="${dbUser.badge}" readonly>
 		</div>
 		<div>
 			<button type="button" class="badge" id="img_btn">수정</button>
@@ -260,7 +264,7 @@
 						<option value="12">맛집/카페</option>
 				</select> 
 				
-				수정 전 : ${user.interestFirst}
+				수정 전 : ${dbUser.interestFirst}
 				
 				<select name="interestSecond">
 						<option>관심사2</option>
@@ -278,7 +282,7 @@
 						<option value="12">맛집/카페</option>
 				</select>
 				
-				수정 전 : ${user.interestSecond}
+				수정 전 : ${dbUser.interestSecond}
 				
 				<select name="interestThird">
 						<option>관심사3</option>
@@ -296,7 +300,7 @@
 						<option value="12">맛집/카페</option>
 				</select>
 				
-				수정 전 : ${user.interestThird}
+				수정 전 : ${dbUser.interestThird}
 		</div>
 			<div class="form-group">
 		<div>
@@ -310,12 +314,12 @@
 	<div class="form-group">
 		<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">주소</label>
 		<div class="col-sm-3">
-			<input type="text" class="form-control" id="fullAddr" name="fullAddr" placeholder="주소지 검색을 눌러주세요" readonly>			
+			<input type="text" class="form-control" id="fullAddr" name="fullAddr" value="${dbUser.fullAddr}" readonly>			
 		</div>
 		<button type="button" class="btn btn-info" id="adrSearch" name="addr">주소지검색</button>
 	</div>
 	<div class="form-group">
-		<label for="addr" class="col-sm-offset-1 col-sm-3 control-label">동</label>					
+		<label for="addr" class="col-sm-offset-1 col-sm-3 control-label" value="${dbUser.addr}">동</label>					
 		<div class="col-sm-2">
 			<input type="text" class="form-control" id="addr" name="addr" placeholder="차후 hidden 예정">
 		</div>
@@ -326,23 +330,32 @@
 	<div class="form-group">
 	
 		<label for="MHopen" class="col-sm-offset-1 col-sm-3 control-label">마이홈공개여부</label>	
-			<input type="radio" id="MHopen" name=MHopen" value="${user.myhomeState}">공개<br>
-			<input type="radio" id="MHopen" name=MHopen" value="${user.myhomeState}">비공개
+			<input type="radio" id="MHopen" name=MHopen" value="${dbUser.myhomeState}">공개<br>
+			<input type="radio" id="MHopen" name=MHopen" value="${dbUser.myhomeState}">비공개
 			<button type="button" id="img_btn">수정</button>
 
 	</div>
 	
+	<!-- 회원탈퇴 -->
+	<div class="form-group">
+		<label for="deleteUser" class="col-sm-offset-1 col-sm-3 control-label">주소</label>
+		<div class="col-sm-3">
+			<input type="button" class="form-control" id="fullAddr" name="fullAddr" value="${dbUser.fullAddr}" readonly>			
+		</div>
+		<button type="button" class="btn btn-info" id="adrSearch" name="addr">주소지검색</button>
+	</div>
+	</form>
 
 	<!-- 프로필이미지 (버튼누르면 수정되게끔 설정) 차후 추가 수정,보완해야 함 -->	
-	<p>프로필이미지 : ${user.profileImage}</p>
-	<p>닉네임 : ${user.nickname}</p>
-	<p>프로필소개 : ${user.profileContent}</p>
-	<p>뱃지 : ${user.badge}</p>
-	<p>관심사1 : ${user.interestFirst}</p>
-	<p>관심사2 : ${user.interestSecond}</p>
-	<p>관심사3 : ${user.interestThird}</p>
-	<p>거주지 전체주소 : ${user.fullAddr}</p>	
-	<p>거주지 간략주소 : ${user.addr}</p>	
+	<p>프로필이미지 : ${dbUser.profileImage}</p>
+	<p>닉네임 : ${dbUser.nickname}</p>
+	<p>프로필소개 : ${dbUser.profileContent}</p>
+	<p>뱃지 : ${dbUser.badge}</p>
+	<p>관심사1 : ${dbUser.interestFirst}</p>
+	<p>관심사2 : ${dbUser.interestSecond}</p>
+	<p>관심사3 : ${dbUser.interestThird}</p>
+	<p>거주지 전체주소 : ${dbUser.fullAddr}</p>	
+	<p>거주지 간략주소 : ${dbUser.addr}</p>	
 	
 </body>
 </html>
