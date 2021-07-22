@@ -34,7 +34,7 @@ public class CoinTest {
 		Coin coin = coinService.getCoin(1);
 		System.out.println(coin);
 
-		Assertions.assertEquals("user01", coin.getUserId().getUserId());
+		Assertions.assertEquals("user01", coin.getCoinUser().getUserId());
 	}
 
 	//@Test
@@ -51,10 +51,10 @@ public class CoinTest {
 		
 		coin.setCoinNo(0);
 		coin.setCoinRegdate("2021-07-21 06:30:00");
-		coin.setCoinRole(1);
+		coin.setCoinRole("사용");
 		coin.setCoinCount(1);
-		coin.setUserId(user);
-		coin.setFlashNo(flash);
+		coin.setCoinUser(user);;
+		coin.setFlash(flash);
 		
 		coinService.addCoin(coin);
 		System.out.println("Test addCoin::"+coin);
