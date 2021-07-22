@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +44,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 
+@Controller
 @RestController
 @RequestMapping("/user/*")
 public class UserRestController {
@@ -215,32 +217,44 @@ public class UserRestController {
 		}
 		
 		// [완료]구글 로그인, 회원가입
-		@RequestMapping("googleLogin")
-		public String googleLogin (	@ModelAttribute("user") User user, 
-									HttpSession session) throws Exception {			
-			User googleId = userService.getUser(user.getUserId());	
-			if( googleId != null ) {
-				session.setAttribute("user", googleId);
-				return "redirect:/";
+		//@GetMapping(value="googleLogin?userId={userId}")
+		@RequestMapping("addUserInfo/{userId}")
+		public void googleLogin (	@PathVariable(value="userId") String userId,
+									@ModelAttribute("user") User user, 
+									HttpSession session) throws Exception {		
+			//@RequestMapping("addUserInfo/{userId}")
+			//@PathVariable(value="userId") String userId,
+			//@RequestParam("userId") String userId,
+			User dbUser = userService.getUser(user.getUserId());
+			System.out.println("뭘뜻하지 : "+dbUser);
+			
+			if( dbUser == null) {
+				System.out.println("추가정보입력 페이지로 이동해야함");
 			} else {
-				return "user/addUserInfo";
+				userService.addUser(dbUser);
 			}
 		}	
-
+		
 // [프로필 업데이트]-----------------------------------------------------------------------------------------------	
 		
 		// ## 미구현 0. [프로필이미지수정] - updateNickname	
 		@RequestMapping(value = "json/uploadProfileImage")
-		public String uploadProfileImage(@RequestParam("profileImage") MultipartFile uploadFile) {
+		public String uploadProfileImage(	@RequestParam("profileImage") MultipartFile uploadFile,										
+											@RequestParam("userId") String userId) {
 
 			System.out.println("RestController - 프로필이미지수정");
-			long currentTime = System.currentTimeMillis();
+			
+			
+			long currentTime = System.currentTimeMillis();		
 			String fileName = currentTime + uploadFile.getOriginalFilename();
+			
 			try {
 				uploadFile.transferTo(new File(saveDir + "/" + fileName));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+
+			
 			return fileName;
 		}
 		
