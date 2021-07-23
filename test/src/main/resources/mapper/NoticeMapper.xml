@@ -61,7 +61,7 @@
     						 ON n.notice_flash_no = f.flash_no
 						WHERE n.to_user_id in (#{userId})
 						ORDER BY n.notice_regdate DESC) inner_table , (SELECT @ROWNUM := 0) R) tables
-		WHERE RNUM BETWEEN #{search.startRowNum} AND #{search.endRowNum}
+<!-- 		WHERE RNUM BETWEEN #{search.startRowNum} AND #{search.endRowNum} -->	
 	</select>
 	
 <!-- 	LEFT OUTER JOIN board_file bf

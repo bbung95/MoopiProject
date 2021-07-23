@@ -112,12 +112,6 @@ body{
 		    </div>
 		  </div>
 		  
-		  <div class="form-group">
-		    <label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">비밀번호</label>
-		    <div class="col-sm-4">
-		      <input type="text" class="form-control" id="boardPassword" name="boardPassword">
-		    </div>
-		  </div>
 		  
 		  
 		</form>

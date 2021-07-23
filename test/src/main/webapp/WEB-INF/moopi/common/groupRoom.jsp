@@ -118,23 +118,24 @@
 		</form>
 	</div>
 	<!-- socket io 서버를 설정-->
-<script src="http://localhost:3030/socket.io/socket.io.js"></script>
+	<script src="http://localhost:3030/socket.io/socket.io.js"></script>
+	<!-- <script src="https://bbung95-rtc.herokuapp.com/sosocket.io/socket.io.js"></script> -->
 	<script>
 
     let userId = "<c:out value='${user.userId}'/>";
 	let name = "<c:out value='${user.nickname}'/>"
 	let profile = "<c:out value='${user.profileImage}'/>";
   	let type = "<c:out value='${type}'/>";
-    let target = "<c:out value='${target.userId}'/>"; // 알림대상 - 대화상대
-  	let targetName = "<c:out value='${target.nickname}'/>";
-  	let targetProfile = "<c:out value='${target.profileImage}'/>";
-    let roomNo;
+    let target = "<c:out value='${target.mmNo}'/>"; // 알림대상 - 대화상대
+  	let targetName = "<c:out value='${target.mmName}'/>";
+  	let targetProfile = "<c:out value='${target.mmFile}'/>";
+    let roomNo = "<c:out value='${target.mmNo}'/>";
     
     let input = document.getElementById('input');
-
+	
     let socket = io("http://localhost:3030");
 
-    socket.emit('roomjoin', { userId: userId, target : target, targetName: targetName , targetProfile: targetProfile , type :type});
+    socket.emit('roomjoin', { userId: userId, target : target, targetName: targetName , targetProfile: targetProfile , type :type ,roomNo: roomNo});
     socket.on('roomjoin', function(data){
     	roomNo = data;
     });
@@ -187,7 +188,7 @@
      });
     	
      socket.on('chat message', function (data) {
-    	 message(data)
+    	 message (data)
     });
     
      // 메세지 보낼시 알림

@@ -111,11 +111,25 @@ public class CommonController {
 	}
 	
 	@GetMapping(value="/chat/joinRoom")
-	public String joinRoom(@RequestParam("userId") String userId, @RequestParam("trgt") String trgt, Model model) throws Exception {
+	public String joinRoom(@RequestParam("userId") String userId, @RequestParam("trgt") String trgt,
+				@RequestParam("type")String type, Model model) throws Exception {
 		
 		System.out.println("joinRoom : GET");
+		
 		model.addAttribute("user", userService.getUser(userId));
-		model.addAttribute("target", userService.getUser(trgt));
-		return "common/chatRoom";
+		model.addAttribute("type", type);
+		if(type.equals("1")) {
+			model.addAttribute("target", userService.getUser(trgt));
+			return "common/chatRoom";
+		}else{
+			model.addAttribute("target", moimService.getMoim(Integer.parseInt(trgt)));
+			return "common/groupRoom";
+		}
+	}
+	
+	@GetMapping(value="/tp")
+	public String tp() {
+		
+		return "tp/main";
 	}
 }
