@@ -19,12 +19,12 @@
 function fncAddBoardView(boardMoimNo){
 	alert("게시글작성");
 	
-	self.location ="/board/addBoardView?category=4&boardMoimNo="+boardMoimNo;
+	self.location ="/moim/addBoardView?category=4&boardMoimNo="+boardMoimNo;
 }
 
 function fncGetBoard(boardNo){
 	alert("게시글조회");
-	self.location ="/board/getBoard?boardNo="+boardNo;
+	self.location ="/moim/getBoard?boardNo="+boardNo;
 }
 
 function fncGetList(currentPage){
@@ -53,7 +53,7 @@ $(function(){
 		alert($("form.form-inline").html())
 // 		location.href = "/board/listBoard?category=1";
 		
-		$("form.inline").attr("method", "GET").attr("action", "/board/listMoimBoard").submit();
+		$("form.inline").attr("method", "GET").attr("action", "/moim/listMoimBoard").submit();
 	})
 	
 	})
@@ -130,7 +130,7 @@ body{
 				
 				<tr>
 				<td align="center"> ${i}</td>
-				<input type="hidden" id="mmNo" name = "mmNo" value="${board.boardMoimNo }"/>
+				<input type="hidden" id="boardMoimNo" name = "boardMoimNo" value="${board.boardMoimNo }"/>
 		 		<input type="hidden" id="boardNo" name="boardNo" value="${board.boardNo}"/>
 				<td align="left"><div id="getBoard" onClick="fncGetBoard(${board.boardNo})">${board.boardName}</div></td>
 				<td align="left">
@@ -147,7 +147,7 @@ body{
 		</tbody>		
 				
 
-	<button type="button" class="btn btn-default" onClick="fncAddBoardView(${mmNo})">게시글작성</button>
+	<button type="button" class="btn btn-default" onClick="fncAddBoardView(${boardMoimNo})">게시글작성</button>
 </table>
 
 <jsp:include page="../common/pageNavigator.jsp"/>
