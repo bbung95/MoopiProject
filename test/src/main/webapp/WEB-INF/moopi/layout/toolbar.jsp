@@ -3,6 +3,8 @@
 
 <!--  ///////////////////////// JSTL  ////////////////////////// -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<script defer src="https://use.fontawesome.com/releases/v5.15.2/js/all.js" integrity="sha384-vuFJ2JiSdUpXLKGK+tDteQZBqNlMwAjhZ3TvPaDfN9QmbPb7Q8qUpbSNapQev3YF" crossorigin="anonymous"></script>
+
 
 
 <!-- ToolBar Start /////////////////////////////////////-->
@@ -87,6 +89,15 @@
 
 </div>
 </div>
+
+<div class="weather"> 
+	<div class="CurrIcon"></div>
+	<div class="CurrTemp"></div>
+	<div class="City"></div> 
+</div>
+
+
+
 <!-- ToolBar End /////////////////////////////////////-->
 
 
@@ -95,6 +106,40 @@
 	
 	// login session userId
 	var dbUser = '<c:out value="${dbUser.userId}"/>';
+	
+	
+	$(document).ready(function() { 
+		let weatherIcon = { 
+				'01' : 'fas fa-sun', 
+				'02' : 'fas fa-cloud-sun', 
+				'03' : 'fas fa-cloud', 
+				'04' : 'fas fa-cloud-meatball', 
+				'09' : 'fas fa-cloud-sun-rain', 
+				'10' : 'fas fa-cloud-showers-heavy', 
+				'11' : 'fas fa-poo-storm', 
+				'13' : 'far fa-snowflake', 
+				'50' : 'fas fa-smog' 
+				}; 
+			
+			$.ajax({ 
+				url:'http://api.openweathermap.org/data/2.5/weather?q=seoul&APPID=92b4d06becd22c0b70b3ea777b320f09&units=metric', 
+				
+				dataType:'json',
+				type:'GET',
+				success:function(data){ 
+					var $Icon = (data.weather[0].icon).substr(0,2); 
+					var $Temp = Math.floor(data.main.temp) + 'º'; 
+					var $city = data.name; 
+					console.log($Icon);
+					$('.CurrIcon').append('<i class="' + weatherIcon[$Icon] +'"></i>'); 
+					$('.CurrTemp').prepend($Temp); 
+					$('.City').append($city); 
+					}
+				}) 
+				});
+
+	
+	
 	
 	//읽지않은 알림 카운트
 	function noticeCount() {

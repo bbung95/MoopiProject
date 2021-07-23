@@ -34,14 +34,13 @@ public class BoardServiceImpl {
 	}
 
 	
-	public Map<String, Object> getBoardList(Search search, String boardCategory, String boardState ) throws Exception{
+	public Map<String, Object> getBoardList(Search search, String boardCategory, String boardState) throws Exception{
 		
 		Map map = new HashMap<String, Object>();
 		
 		map.put("boardCategory", boardCategory);
 		map.put("boardState", boardState);
 		map.put("search", search);
-		
 		
 		List<Board> list= boardDao.getBoardList(map);
 		int totalCount =  boardDao.getTotalCount(map); 

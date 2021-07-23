@@ -5,19 +5,26 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title> 계정정보조회(모바일번호,비밀번호수정) </title>
+<title> 아이디찾기 View </title>
 
 <! ------------------------------------------------ Bootstrap, jQuery CDN -------------------------------------------------->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 <!-------------------------------------------------------------------------------------------------------------------------->
 
 <script>
+	
+	var userId=$('input[name=userId]').val();
 
-</script>
-
+</script>		
+    <style>
+	body{
+	padding-top: 50px;
+	}
+	</style>
 </head>
 <body>
 
@@ -25,46 +32,38 @@
 	<jsp:include page="../layout/toolbar.jsp" />
 <!---------------------------------------------------------------------------------------------------------------------------->
 
-<h3> 프로필수정 </h3>
-	
 <!-- 화면구성 div Start ---------------------------------------------------------------------------------------------------------------->
 
 	<div class="container">
-	
-		<h1 class="bg-primary text-center">프로필수정</h1>
-
+		
+		<div class="row">
+		
+		<h1 class="bg-basic text-center">아이디찾기</h1>
+		
 <!-- FORM START ---------------------------------------------------------------------------------------------------------------->
 
-<!--  (버튼누르면 수정되게끔 설정) 차후 추가 수정,보완해야 함 -->	
-	<p>프로필이미지 : ${user.profileImage}</p>
-	<p>닉네임 : ${user.nickname}</p>
-	<p>프로필소개 : ${user.profileContent}</p>
-	<p>뱃지 : ${user.badge}</p>
-	<p>관심사1 : ${user.interestFirst}</p>
-	<p>관심사2 : ${user.interestSecond}</p>
-	<p>관심사3 : ${user.interestThird}</p>
-	<p>거주지 전체주소 : ${user.fullAddr}</p>	
-	<p>거주지 간략주소 : ${user.addr}</p>	
-	
-	
-// 원본	
-// 1. 닉네임수정
-	function updateNickname() {
-		
-		var userId=$("input[name='userId'").val();
-		var nickname=$("input[name='nickname'").val();
+	<form class="form-horizontal"">
+ 	  		
+ 	  	<div class="form-group">
+ 	  		<div class="col-sm-offset-2  col-sm-4 text-center">
+ 	  		<h5>아이디</h5>
+ 	  		</div>
+ 	  	</div>
+ 	  	
+ 	  	 <div class="form-group">
+ 	  		<div class="col-sm-offset-4  col-sm-4 text-center">
+ 	  		<input type="text" class="form-control" id="userId" name="userId" value="${dbUser.userId}" readonly>
+ 	  		</div>
+ 	  	</div>
+ 	  	
+ 	  	
+ 	  	<div class="form-group">
+			<div class="col-sm-offset-4  col-sm-4 text-center">
+				<button type="button" class="btn btn-default" id="checkBtn">확인</button>
+			</div>
+		</div> 
+ 	  			
+ 	</form>
 
-		$("form").attr("method" , "POST").attr("action" , "/user/updateNickname").submit();
-	}
-	
-	// 2. 프로필소개 수정
-	function updateContent() {
-		
-		var userId=$("input[name='userId'").val();
-		var ProfileContent=$("input[name='ProfileContent'").val();
-		
-		$("form").attr("method" , "POST").attr("action" , "/user/updateContent").submit();		
-	}	
-	
 </body>
 </html>

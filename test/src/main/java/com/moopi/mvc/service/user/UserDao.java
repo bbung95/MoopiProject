@@ -17,17 +17,13 @@ public interface UserDao {
 	// 로그인 
 	public User loginUser(String userId);
 	
-	// 로그아웃
-	public User logout(User user) throws Exception;
-	
-
 // 회원가입 CRUD
 	
 	// [완료] 회원가입시 [UserRole - 2.정상회원
 	public void addUser(User user) throws Exception;
 	
 	// 유저정보가져오기
-	public User getUser(String userId) ;
+	public User getUser(String userId);
 	
 	// 회원정보수정
 	public User updateUser(User user) throws Exception;
@@ -60,13 +56,16 @@ public interface UserDao {
 	public void updatePwd(User user) throws Exception;
 
 	// 유저아이디찾기 
-	public User getUserId(@Param("userId") String userId);
+	public User getUserId(String userId);
 
 	// 유저비밀번호변경
 	public void updateUserPwd(User user) throws Exception;
 	
 	// 유저프로필수정 
 	public void updateProfile(User user) throws Exception;
+	
+	// 아이디찾기
+	public User getId(String phone);
 	
 
 // 형우 Flash 관련 추가
@@ -80,13 +79,14 @@ public interface UserDao {
 	
 // 프로필수정
 	// 0. 프로필이미지수정
-	public void updateProfileImage(User user);
+	public void updateProfileImage(String userId);
 	// 1. 닉네임수정
 	public void updateNickname(User user);
 	// 2. 프로필소개수정
 	public void updateContent(User user);
 	// 3. 관심사수정
 	public void updateInterest(User user);
+
 
 // 팔로우 CRUD 
 	
@@ -104,6 +104,7 @@ public interface UserDao {
 	public void deleteFollow(@Param("userId") String userId, @Param("target") String target);
 	
 	public int getFollowCount(@Param("userId") String userId, @Param("order") int order);
+
 }
 
 	
