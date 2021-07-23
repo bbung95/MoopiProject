@@ -27,6 +27,11 @@
 		<result property="letter.letterNo"		column="NOTICE_LETTER_NO"			jdbcType="NUMERIC"/>
 	</resultMap>
 	
+	<resultMap id="interestSelectMap" type="interest">
+		<result property="interestNo" 		column="INTEREST_NO" 			jdbcType="NUMERIC"/>
+		<result property="interestName"		column="INTEREST_NAME"			jdbcType="VARCHAR"/>
+	</resultMap>
+	
 	<insert id="addNotice" parameterType="notice">
 		INSERT 
 		INTO notice(TO_USER_ID, NOTICE_CONTENT, NOTICE_REGDATE, NOTICE_STATE, CATEGORY,
@@ -94,6 +99,12 @@
 		WHERE to_user_id in (#{userId}) AND NOTICE_STATE in ('1')
 				
 	</select> 
+	
+	<select id="getInterest" resultMap="interestSelectMap">
+		SELECT
+		INTEREST_NO, INTEREST_NAME
+		FROM interest
+	</select>
 	
 </mapper>
 

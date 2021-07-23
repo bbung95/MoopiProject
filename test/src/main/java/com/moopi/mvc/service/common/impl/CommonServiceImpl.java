@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.moopi.mvc.common.Search;
 import com.moopi.mvc.service.common.CommonDao;
+import com.moopi.mvc.service.domain.Interest;
 import com.moopi.mvc.service.domain.Notice;
 
 @Service
@@ -46,5 +47,8 @@ public class CommonServiceImpl {
 		commonDao.deleteNotice(map);
 	}
 	
-
+	public List<Interest> getInterest(){
+		
+		return commonDao.getInterest();
+	}
 }

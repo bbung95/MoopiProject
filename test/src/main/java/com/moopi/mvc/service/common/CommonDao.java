@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.moopi.mvc.common.Search;
+import com.moopi.mvc.service.domain.Interest;
 import com.moopi.mvc.service.domain.Notice;
 
 @Mapper
@@ -23,4 +24,6 @@ public interface CommonDao {
 	int getTotalCount(@Param("userId") String userId);
 	
 	void deleteNotice(Map<String, Object> map);
+	
+	List<Interest> getInterest();
 }
