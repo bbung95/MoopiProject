@@ -306,7 +306,6 @@
 	</div>
 	<form id = "addReplyForm">
 		<td width="550">
-		<c:if test="user.userRole =1">
 			<div>
 				<textarea rows="4" cols="70" name="replyContent"   id="replyContent"></textarea>			
 			</div>
@@ -315,7 +314,6 @@
 		   <input type="hidden" id = "boardNo" value="${board.boardNo }"> 
 		    
 		   <button type="button" class="btn btn-primary" id="addReply">답글작성</button>
-		   </c:if>
 	</form>
 	
 	 
@@ -328,10 +326,10 @@
 	<div >
 	<input type="hidden" class="reply" id="replyNo" name="replyNo" value="${reply.replyNo}">
 	<p id="replyContent">${reply.replyWriter.nickname} ${reply.replyWriter.profileImage } : ${reply.replyContent}    작성시간 ${reply.replyRegDate}</p>
-	<c:if test="user.userId == '#replyWriter' ">
+<%-- 	<c:if test="user.userId == '#replyWriter' "> --%>
 	<button type="button" class="btn btn-primary" id="updateReply">답변수정</button>
 	<button type="button" class="btn btn-primary" id="deleteReply">답변삭제</button>
-	</c:if>
+<%-- 	</c:if> --%>
 	
 	<button type="button" class="btn btn-primary" id="addReportReply">답글신고</button>
 	
