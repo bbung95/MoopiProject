@@ -9,13 +9,25 @@
 <title>마이홈보기</title>
 
 <! ------------------------------------------------ Bootstrap, jQuery CDN -------------------------------------------------->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+	href="https://fonts.googleapis.com/css2?family=Gaegu:wght@300&display=swap"
+	rel="stylesheet">
+
+<!-- Bootstrap Dropdown Hover JS -->
+<script src="/javascript/bootstrap-dropdownhover.min.js"></script>
+
+<!-- Favicon-->
+<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+<!-- Bootstrap icons-->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
+	rel="stylesheet" />
+<!-- Core theme CSS (includes Bootstrap)-->
+<link href="/css/styles.css" rel="stylesheet" />
 <!-------------------------------------------------------------------------------------------------------------------------->
 
 <script>
@@ -29,34 +41,16 @@
 
 </script>
 <style>
-body {
-	padding-top: 70px;
-}
-
 #homeContainer {
 	margin: auto;
+	width: 80%;
 }
 
 .profileImg {
 	border-radius: 50%;
-	width: 250px;
-	height: 250px;
-}
-
-.information {
-	display: flex;
-	flex-direction: row;
-	font-size: 22px;
-	margin-top: 40px;
-}
-
-.interest {
-	border: 0.5px solid gray;
-	border-radius: 6px;
-	margin: 3px;
-	font-size : 15px;
-	padding: 3px;
-	
+	width: 300px;
+	height: 300px;
+	border: 5px solid gray;
 }
 
 .moimImg {
@@ -99,17 +93,6 @@ body {
 	border: 0.1px solid gray;
 	padding: 20px;
 }
-
-.dropBox {
-	width: 100%;
-	height: 250px;
-	border: 0.5px solid gray;
-}
-
-.btn{
-	text-align: center;
-	font-size: 20px;
-}
 </style>
 </head>
 <body>
@@ -117,101 +100,143 @@ body {
 	<!-- Tool Bar ---------------------------------------------------------------------------------------------------------------->
 	<jsp:include page="../layout/toolbar.jsp" />
 	<!---------------------------------------------------------------------------------------------------------------------------->
-
-	<div id="homeContainer" class="container">
-		<div class="row">
-			<div class="col-sm-4" align="center">
-				<img class="profileImg" src="/images/uploadFiles/poco.jpg" />
-			</div>
-			<div class="col-sm-8 information">
-				<div style="flex-grow: 1; display: flex; flex-direction: column;">
-					<div style="display: flex; flex-grow: 2;">
-						<div>${user.nickname}</div>
-						<div>뱃지 : ${user.badge}</div>
-					</div>
-					<div>
+	<main class="py-5">
+		<div class="container px-5 my-5">
+			<!-- 헤더 -->
+			<header class="row gx-5">
+				<div class="col-xl-4 text-center">
+					<img class="profileImg" src="/images/uploadFiles/poco.jpg" />
+				</div>
+				<div class="col-xl-4">
+					<span class="fw-normal h4">${user.nickname}</span><span class="h5">
+						뱃지 ${user.badge}</span>
+					<div class="h5">
 						<span>팔로워 ${followerCount} </span><span> 팔로잉
 							${folloingCount}</span>
 					</div>
+					<div class="flex-column">
+						<div style="font-size: 15px;">소개 : ${user.profileContent}</div>
+						<div class="btn">
+							<c:if test="${dbUser.userId == user.userId}">
+								<button class="">프로필수정</button>
+								<button>게시글등록</button>
+							</c:if>
+							<c:if test="${dbUser.userId != user.userId}">
+								<button target="${user.userId}">팔로우</button>
+								<button target="${user.userId}" type="1">채팅</button>
+							</c:if>
+						</div>
+					</div>
 				</div>
-				<div style="flex-grow: 1; text-align: right; margin-right: 100px;">
+				<div class="col-xl-4">
 					<div>코인수 : ${user.coin}</div>
 					<div style="display: flex; flex-direction: row-reverse;">
-					<c:if test="${!empty user.interestFirst}">
-						<div class="interest">${user.interestFirst}</div>
-					</c:if>
-					<c:if test="${!empty user.interestSecond}">
-						<div class="interest">${user.interestSecond}</div>
-					</c:if>
-					<c:if test="${!empty user.interestThird}">
-						<div class="interest">${user.interestThird}</div>
-					</c:if>
+						<c:if test="${!empty user.interestFirst}">
+							<div class="interest">${user.interestFirst}</div>
+						</c:if>
+						<c:if test="${!empty user.interestSecond}">
+							<div class="interest">${user.interestSecond}</div>
+						</c:if>
+						<c:if test="${!empty user.interestThird}">
+							<div class="interest">${user.interestThird}</div>
+						</c:if>
 					</div>
+				</div>
+			</header>
+			<hr />
 
-				</div>
-			</div>
-			<div>
-				<div style="font-size: 15px;">소개 : ${user.profileContent}</div>
-				<div class="btn">
-					<c:if test="${dbUser.userId == user.userId}">
-						<button class="">프로필수정</button>
-						<button>게시글등록</button>
-					</c:if>
-					<c:if test="${dbUser.userId != user.userId}">
-						<button target="${user.userId}">팔로우</button>
-						<button target="${user.userId}" type="1">채팅</button>
-					</c:if>
-				</div>
-			</div>
-		</div>
-		<hr />
-		<div class="row">
-			<div id="boardList" class="col-sm-8">
-				<c:forEach var="moim" items="${moimList}">
-					<div class="board">
-						<img class="boardProfile" src="/images/uploadFiles/${moim.mmFile}"></img>
-						<span>${moim.mmName}</span>
-						<div align="center">
-							<img style="margin: 5px; height: 250px;"
-								src="/images/uploadFiles/poco.jpg"></img>
+			<!-- 바디 -->
+			<div class="row gx-5">
+				<div class="col-xl-8 ">
+					<c:forEach var="moim" items="${moimList}">
+						<div class="board">
+							<img class="boardProfile"
+								src="/images/uploadFiles/${moim.mmFile}"></img> <span>${moim.mmName}</span>
+							<div align="center">
+								<img style="margin: 5px; height: 250px;"
+									src="/images/uploadFiles/poco.jpg"></img>
+							</div>
+							<button>좋아요</button>
+							0
+							<div>게시글 내용들 컨텐트르르르</div>
 						</div>
-						<button>좋아요</button>
-						0
-						<div>게시글 내용들 컨텐트르르르</div>
+					</c:forEach>
+				</div>
+				<div class="col-xl-4">
+					<div class="card border-0 bg-light mt-xl-5">
+						<div class="card-body p-4 py-lg-5">
+							<div class="d-flex align-items-center justify-content-center">
+								<div class="text-center">
+									<div class="h6 fw-bolder">Have more questions?</div>
+									<p class="text-muted mb-4">
+										Contact us at <br /> <a href="#!">support@domain.com</a>
+									</p>
+									<div class="h6 fw-bolder">Follow us</div>
+									<a class="fs-5 px-2 link-dark" href="#!"><i
+										class="bi-twitter"></i></a> <a class="fs-5 px-2 link-dark"
+										href="#!"><i class="bi-facebook"></i></a> <a
+										class="fs-5 px-2 link-dark" href="#!"><i
+										class="bi-linkedin"></i></a> <a class="fs-5 px-2 link-dark"
+										href="#!"><i class="bi-youtube"></i></a>
+								</div>
+							</div>
+						</div>
 					</div>
-				</c:forEach>
-				<a href="#" class="thumbnail"> <img style="width: 200px;"
-					src="/images/uploadFiles/poco.jpg">
-				</a> <a href="#" class="thumbnail"> <img
-					src="/images/uploadFiles/poco.jpg">
-				</a> <a href="#" class="thumbnail"> <img
-					src="/images/uploadFiles/poco.jpg">
-				</a>
-			</div>
-			<div class="col-sm-4">
-				<div>소모임 리스트</div>
-				<c:forEach var="moim" items="${moimList}">
-					<li style="background: gray"
-						onclick="location.href='/moim/getMoim?mmNo=${moim.mmNo}'"><img
-						class="moimImg" src='/images/uploadFiles/${moim.mmFile}' /> <span>${moim.mmName}</span></li>
-				</c:forEach>
+				</div>
 			</div>
 		</div>
-	</div>
-
-	<div class="addView">
-		<button style="margin-bottom: 20px; border-radius: 50%;">X</button>
-		<form enctype="multipart/form-data">
-			<div class="dropBox"></div>
-			<input type="hidden" name="boardWriter" value="${dbUser.userId}" />
-			<input type="file" name="uploadFile">
-			<textarea name="boardContent" style="width: 100%; height: 100px;"></textArea>
-			<button>등록</button>
-		</form>
-	</div>
+	</main>
 
 
-	<%-- 	
+
+
+	<div id="homeContainer" class="container">
+		<div class="row">
+
+			<hr />
+			<div class="row">
+				<div id="boardList" class="col-sm-8">
+					<c:forEach var="moim" items="${moimList}">
+						<div class="board">
+							<img class="boardProfile"
+								src="/images/uploadFiles/${moim.mmFile}"></img> <span>${moim.mmName}</span>
+							<div align="center">
+								<img style="margin: 5px; height: 250px;"
+									src="/images/uploadFiles/poco.jpg"></img>
+							</div>
+							<button>좋아요</button>
+							0
+							<div>게시글 내용들 컨텐트르르르</div>
+						</div>
+					</c:forEach>
+
+				</div>
+				<div class="col-sm-4">
+					<div>소모임 리스트</div>
+					<c:forEach var="moim" items="${moimList}">
+						<li style="background: gray"
+							onclick="location.href='/moim/getMoim?mmNo=${moim.mmNo}'"><img
+							class="moimImg" src='/images/uploadFiles/${moim.mmFile}' /> <span>${moim.mmName}</span></li>
+					</c:forEach>
+				</div>
+			</div>
+		</div>
+
+		<div class="addView">
+			<button style="margin-bottom: 20px; border-radius: 50%;">X</button>
+			<form enctype="multipart/form-data">
+				<div class="dropBox"></div>
+				<input type="hidden" name="boardWriter" value="${dbUser.userId}" />
+				<input type="file" name="uploadFile">
+				<textarea name="boardContent" style="width: 100%; height: 100px;"></textArea>
+				<button>등록</button>
+			</form>
+		</div>
+
+		<jsp:include page="../layout/searchbar.jsp"></jsp:include>
+
+
+		<%-- 	
 <!-- 화면구성 div Start ---------------------------------------------------------------------------------------------------------------->
 
 	<div class="container">
@@ -294,7 +319,14 @@ body {
 	
 
 	 --%>
-	<script>
+
+		<!-- Bootstrap core JS-->
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+		<!-- Core theme JS-->
+		<script src="/js/scripts.js"></script>
+
+		<script>
 $('button:contains("채팅")').on('click', function(){
 	
 	let target = $(this).attr('target');

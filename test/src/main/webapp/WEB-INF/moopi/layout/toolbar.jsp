@@ -8,12 +8,19 @@
 	integrity="sha384-vuFJ2JiSdUpXLKGK+tDteQZBqNlMwAjhZ3TvPaDfN9QmbPb7Q8qUpbSNapQev3YF"
 	crossorigin="anonymous"></script>
 <style>
+.weather{
+	position : fixed;
+	bottom: 0;
+	left: 0;
+	margin-left: 20px;
+	margin-bottom: 20px;
+}
 </style>
 
 
 <!-- ToolBar Start /////////////////////////////////////-->
 <nav
-	class="navbar navbar-expand-lg navbar-dark bg-dark" id="toolbar">
+	class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="toolbar">
 	<div class="container px-5">
 		<a class="navbar-brand" href="/">Moopi</a>
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -54,7 +61,7 @@
 				<li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle" id="navbarDropdownPortfolio"
 						href="#" role="button" data-bs-toggle="dropdown"
-						aria-expanded="false">매뉴</a>
+						aria-expanded="false"><i class="bi bi-list"></i></a>
 					<ul class="dropdown-menu dropdown-menu-end"
 						aria-labelledby="navbarDropdownPortfolio">
 						<li><a class="dropdown-item" >마이홈</a></li>
@@ -84,9 +91,6 @@
 
 
 <!-- ToolBar End /////////////////////////////////////-->
-
-
-
 <script type="text/javascript">
 	// login session userId
 	var dbUser = '<c:out value="${dbUser.userId}"/>';
