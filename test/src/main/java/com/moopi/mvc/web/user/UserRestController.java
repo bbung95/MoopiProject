@@ -199,7 +199,7 @@ public class UserRestController {
 		 * 이 부분과 관련하여 의논필요함
 		 */
 		@RequestMapping("naverlogin")
-		public String naverlogin( 	@RequestParam("naverId") String userId,
+		public String naverlogin( 	@RequestParam("userId") String userId,
 									@ModelAttribute("user") User user,
 									HttpSession session) throws Exception {
 			
@@ -209,7 +209,7 @@ public class UserRestController {
 
 			// db에 유저값 존재시 추가정보입력, db에 유저값이 없을 경우 메인페이지 출력
 			if( dbUser != null ) {
-				session.setAttribute("user", dbUser);
+				session.setAttribute("dbUser", dbUser);
 				return "redirect:/";
 			} else {
 				return "user/addUserInfo";
@@ -253,7 +253,6 @@ public class UserRestController {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-
 			
 			return fileName;
 		}

@@ -43,6 +43,7 @@ public class ReportRestController {
 	
 	public User user;
 	
+	public int userRole;
 	
 	public ReportRestController() {
 		// TODO Auto-generated constructor stub
@@ -68,6 +69,23 @@ public class ReportRestController {
 			
 			replyService.deleteReply2(report.getReportTargetRe());
 			System.out.println("리플 삭제");
+		}else if(report.getReportResultState() != "1" && report.getReportTarget().getUserId() != null ) {
+			
+			user = userService.getUser(report.getReportTarget().getUserId());
+			
+			if(report.getReportResultState() == "2" ) {
+			
+				if(user.getUserRole() != "1") {
+					userRole = Integer.parseInt(user.getUserRole()) +1;
+					
+					user.setUserRole(Integer.toString(userRole));
+					userService.updateUserRole(user);
+				}
+			}else if(report.getReportResultState() == "3") {
+				
+				user.setUserRole("5");
+				userService.updateUserRole(user);
+			}
 		}
 		
 		return	reportService.getReport(report);

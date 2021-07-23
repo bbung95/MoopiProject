@@ -364,8 +364,22 @@ public class UserController {
 //-- 아이디찾기 -------------------------------------------------------------------------------------------
 	@RequestMapping("searchIdView")
 	public String searchIdView(	@RequestParam("phone") String phone,
-								Model model) throws Exception{
-		model.addAttribute("dbUser", userService.getId(phone));		
+								Model model,
+								@ModelAttribute("user") User user,
+								@RequestParam("message") String message) throws Exception{		
+		
+		model.addAttribute("dbUser", userService.getId(phone));			
+		model.addAttribute("message", message);
+		
+		
+		User dbUser = userService.getId(user.getPhone());		
+		
+		if (dbUser == null) {
+			System.out.println("널임");
+		} else if (dbUser != null) {
+			System.out.println("널이아님");
+		}		
+		
 		return "user/searchIdView";
 		}
 //-----------------------------------------------------------------------------------------------------------------
@@ -391,4 +405,8 @@ public class UserController {
 		return "user/updateUserView";
 	}
 //-----------------------------------------------------------------------------------------------------------------
+	
+	
+	
+	
 }

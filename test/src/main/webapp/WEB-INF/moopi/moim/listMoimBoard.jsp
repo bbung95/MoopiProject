@@ -16,9 +16,10 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
 
 <script>
-function fncAddBoardView(){
+function fncAddBoardView(boardMoimNo){
 	alert("게시글작성");
-	self.location ="/board/addBoardView";
+	
+	self.location ="/board/addBoardView?category=4&boardMoimNo="+boardMoimNo;
 }
 
 function fncGetBoard(boardNo){
@@ -52,7 +53,7 @@ $(function(){
 		alert($("form.form-inline").html())
 // 		location.href = "/board/listBoard?category=1";
 		
-		$("form.inline").attr("method", "GET").attr("action", "/board/listBoard").submit();
+		$("form.inline").attr("method", "GET").attr("action", "/board/listMoimBoard").submit();
 	})
 	
 	})
@@ -128,7 +129,8 @@ body{
 				<c:set var="i" value="${ i+1 }"/>
 				
 				<tr>
-				<td align="center"> (${i}+${currentPage}*5)</td>
+				<td align="center"> ${i}</td>
+				<input type="hidden" id="mmNo" name = "mmNo" value="${board.boardMoimNo }"/>
 		 		<input type="hidden" id="boardNo" name="boardNo" value="${board.boardNo}"/>
 				<td align="left"><div id="getBoard" onClick="fncGetBoard(${board.boardNo})">${board.boardName}</div></td>
 				<td align="left">
@@ -145,9 +147,9 @@ body{
 		</tbody>		
 				
 
-	
+	<button type="button" class="btn btn-default" onClick="fncAddBoardView(${mmNo})">게시글작성</button>
 </table>
-<button type="button" class="btn btn-default" onClick="fncAddBoardView()">게시글작성</button>
+
 <jsp:include page="../common/pageNavigator.jsp"/>
 <jsp:include page="../layout/searchbar.jsp"></jsp:include>
 </body>

@@ -86,9 +86,10 @@ body{
 </c:if>
 <p>작 성 자 : ${board.boardWriter.nickname} ${board.boardWriter.profileImage }</p>
 
-
+<%-- <c:if test="${dbUser.userId =admin} "> --%>
 <button type="button" class="btn btn-primary" id="updateBoard">수정하기</button>
 <button type="button" class="btn btn-primary" id="deleteBoard">삭제하기</button>
+<%-- </c:if> --%>
 
 </form>
 <%-- <jsp:include page="../../layout/searchbar.jsp"></jsp:include> --%>
