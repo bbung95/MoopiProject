@@ -32,7 +32,7 @@
 		function fncKey() {
 			
 			var userId=$('input[name=userId]').val();
-			var AuthNum = $("#AuthNum").val()	
+			var AuthNum = $("#AuthNum").val();
 			
 			
 			if(AuthNum == key){				
