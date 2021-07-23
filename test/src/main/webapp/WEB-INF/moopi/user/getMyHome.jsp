@@ -47,10 +47,17 @@
 }
 
 .profileImg {
-	border-radius: 50%;
+	border-radius: 70%;
 	width: 300px;
 	height: 300px;
 	border: 5px solid gray;
+	overflow: hidden;
+}
+
+.profileImg-img {
+	width: 300px;
+	height: 300px;
+	object-fit: cover;
 }
 
 .moimImg {
@@ -104,8 +111,8 @@
 		<div class="container px-5 my-5">
 			<!-- 헤더 -->
 			<header class="row gx-5">
-				<div class="col-xl-4 text-center">
-					<img class="profileImg" src="/images/uploadFiles/poco.jpg" />
+				<div class="col-xl-4 text-center profileImg">
+					<img class="profileImg-img" src="/images/uploadFiles/poco.jpg" />
 				</div>
 				<div class="col-xl-4">
 					<span class="fw-normal h4">${user.nickname}</span><span class="h5">
@@ -116,16 +123,16 @@
 					</div>
 					<div class="flex-column">
 						<div style="font-size: 15px;">소개 : ${user.profileContent}</div>
-						<div class="btn">
-							<c:if test="${dbUser.userId == user.userId}">
-								<button class="">프로필수정</button>
-								<button>게시글등록</button>
-							</c:if>
-							<c:if test="${dbUser.userId != user.userId}">
-								<button target="${user.userId}">팔로우</button>
-								<button target="${user.userId}" type="1">채팅</button>
-							</c:if>
-						</div>
+						<c:if test="${dbUser.userId == user.userId}">
+							<button class="btn btn-light">프로필수정</button>
+							<button class="btn btn-light">게시글등록</button>
+						</c:if>
+						<c:if test="${dbUser.userId != user.userId}">
+							<button class="btn btn-primary" type="button"
+								target="${user.userId}">팔로우</button>
+							<button class="btn btn-light" type="button"
+								target="${user.userId}" type="1">채팅</button>
+						</c:if>
 					</div>
 				</div>
 				<div class="col-xl-4">
@@ -190,37 +197,7 @@
 
 
 
-	<div id="homeContainer" class="container">
-		<div class="row">
-
-			<hr />
-			<div class="row">
-				<div id="boardList" class="col-sm-8">
-					<c:forEach var="moim" items="${moimList}">
-						<div class="board">
-							<img class="boardProfile"
-								src="/images/uploadFiles/${moim.mmFile}"></img> <span>${moim.mmName}</span>
-							<div align="center">
-								<img style="margin: 5px; height: 250px;"
-									src="/images/uploadFiles/poco.jpg"></img>
-							</div>
-							<button>좋아요</button>
-							0
-							<div>게시글 내용들 컨텐트르르르</div>
-						</div>
-					</c:forEach>
-
-				</div>
-				<div class="col-sm-4">
-					<div>소모임 리스트</div>
-					<c:forEach var="moim" items="${moimList}">
-						<li style="background: gray"
-							onclick="location.href='/moim/getMoim?mmNo=${moim.mmNo}'"><img
-							class="moimImg" src='/images/uploadFiles/${moim.mmFile}' /> <span>${moim.mmName}</span></li>
-					</c:forEach>
-				</div>
-			</div>
-		</div>
+	<%-- <div id="homeContainer" class="container">
 
 		<div class="addView">
 			<button style="margin-bottom: 20px; border-radius: 50%;">X</button>
@@ -232,11 +209,11 @@
 				<button>등록</button>
 			</form>
 		</div>
+	</div> --%>
+	<jsp:include page="../layout/searchbar.jsp"></jsp:include>
 
-		<jsp:include page="../layout/searchbar.jsp"></jsp:include>
 
-
-		<%-- 	
+	<%-- 	
 <!-- 화면구성 div Start ---------------------------------------------------------------------------------------------------------------->
 
 	<div class="container">
@@ -320,13 +297,13 @@
 
 	 --%>
 
-		<!-- Bootstrap core JS-->
-		<script
-			src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-		<!-- Core theme JS-->
-		<script src="/js/scripts.js"></script>
+	<!-- Bootstrap core JS-->
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+	<!-- Core theme JS-->
+	<script src="/js/scripts.js"></script>
 
-		<script>
+	<script>
 $('button:contains("채팅")').on('click', function(){
 	
 	let target = $(this).attr('target');
@@ -340,15 +317,15 @@ $('button:contains("채팅")').on('click', function(){
 	
 		popWin = window.open(
 			"https://bbung95-rtc.herokuapp.com/chat?userId="+data.user.userId+"&trgt="+data.target.userId+"&type="+data.type
-			+"&name="+data.user.nickname+"&profile="+data.user.profileImage+"&trgtName="+data.target.nickname,
-			+"&trgtProfile="+data.target.profileImage;			"popWin"+target,
+			+"&name="+data.user.nickname+"&profile="+data.user.profileImage+"&trgtName="+data.target.nickname
+			+"&trgtProfile="+data.target.profileImage,
+			"popWin",
 			"left=460, top=300, width=460, height=600, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");
 		}
 	})
 })
 
 $('button:contains("팔로우")').on('click', function(){
-	
 	let target = $(this).attr('target');
 	$.ajax({
 		url: "/user/json/follow/"+target,
@@ -356,13 +333,18 @@ $('button:contains("팔로우")').on('click', function(){
 		dataType: "JSON",
 		success: function(data,state){
 			if(data){
-				$('button:contains("팔로우")').css('background', 'gray');
+				$('button:contains("팔로우")').attr('class', 'btn btn-light')
 			}else{
-				$('button:contains("팔로우")').css('background', '');
+				$('button:contains("팔로우")').attr('class', 'btn btn-primary')
 			}
 		}
 	});
 });
+
+// 팔로우 유무 체크
+if(${followCheck}){
+	$('button:contains("팔로우")').attr('class', 'btn btn-light')
+}
 
 $('button:contains("게시글등록")').on('click', function(){
 	
@@ -374,10 +356,6 @@ $('button:contains("X")').on('click', function(){
 	$('.addView').css('display', 'none');
 })
 
-// 팔로우 유무 체크
-if(${followCheck}){
-	$('button:contains("팔로우")').css('background', 'gray');
-}
 
 </script>
 </body>
