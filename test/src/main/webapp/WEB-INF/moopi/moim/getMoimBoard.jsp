@@ -36,7 +36,7 @@
 		// 	var boardName		=$("input[name='boardName']").val();
 		// 	var boardContent	=$("input[name='boardContent']").val();
 			
-			$("form").attr("method" , "GET").attr("action" , "/board/updateView").submit();
+			$("form.form-horizontal").attr("method" , "GET").attr("action" , "/moim/updateView").submit();
 		}
 		
 		
@@ -52,7 +52,7 @@
 			alert(${board.boardNo});
 			var boardNo = ${board.boardNo};
 			
-			$("form").attr("method" , "GET").attr("action" , "/board/deleteBoard").submit();
+			$("form.form-horizontal").attr("method" , "GET").attr("action" , "/moim/deleteBoard").submit();
 			
 		}
 		
@@ -301,6 +301,7 @@
 	
 	<button type="button" class="btn btn-primary" id="updateBoard">수정하기</button>
 	<button type="button" class="btn btn-primary" id="deleteBoard">삭제하기</button>
+	</form>
 <!-- 	<a href="http://127.0.0.1:8080/report/addReportView?reportCategory=1&reportTarget="+$(board.boardNo) target="_blank" width=300, height=400, left=300, top=50> -->
 <%-- 	<c:if test="${ dbUser.userId} == ${ board.boardWriter.userId}"> --%>
 	<button type="button" class="btn btn-primary" id="addBoardReport">게시글신고</button>
