@@ -141,7 +141,7 @@
 	
 	function chatjoin(target){
 			popWin = window.open(
-					"/chat/joinRoom?userId="+dbUser+"&trgt="+target,
+					"/chat/joinRoom?userId="+dbUser+"&trgt="+target+"&type=1",
 					"popWin",
 					"left=460, top=300, width=460, height=600, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");
 	}
@@ -270,7 +270,7 @@
 
 		popWin = window
 		.open(
-				"/chat/chatList",
+				"http://localhost:82/chatList?userId="+dbUser,
 				"popWin",
 				"left=460, top=300, width=460, height=600, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");
 	});
