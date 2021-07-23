@@ -3,6 +3,7 @@ package com.moopi.mvc.web.board;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.spi.FileSystemProvider;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -59,8 +60,10 @@ public class BoardController{
 	
 	@RequestMapping("listMoimBoard")
 	public String getMoimBoardList(@ModelAttribute("search")Search search, @ModelAttribute("category")String category,
-			@ModelAttribute("mmNo") int mmNo, Model model ) throws Exception {
+			@ModelAttribute("boardMoimNo") int boardMoimNo, Model model ) throws Exception {
 	
+		System.out.println(search.toString()+boardMoimNo);
+		
 		String boardCategory = null;
 		Map map = new HashMap();
 
@@ -69,14 +72,14 @@ public class BoardController{
 		}
 	      search.setPageSize(pageSize);
 	    
-		map = boardService.getBoardList(search, category, "1" ,  mmNo);
+		map = boardService.getBoardList(search, category, "1" ,  boardMoimNo);
 		
 		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
 		model.addAttribute("resultPage", resultPage);
 		model.addAttribute("list", map.get("list"));
 		model.addAttribute("totalCount", map.get("totalCount"));
 		
-			return "/moim/listMoimBoard";
+			return "forward:/moim/listMoimBoard?category=4&boardMoimNo="+boardMoimNo;
 	}
 	
 	
@@ -141,7 +144,7 @@ public class BoardController{
 		String boardCategory = boardService.getBoardCategory(category);
 		System.out.println("보드카테고리값:"+boardCategory);
 		if(boardCategory.equals("Moim")) {
-			model.addAttribute("mmNo", boardMoimNo);
+			model.addAttribute("boardMoimNo", boardMoimNo);
 			return "/moim/addMoimBoardView";
 		}
 		return "board/"+boardCategory+"Board/add"+boardCategory+"BoardView";
@@ -166,9 +169,6 @@ public class BoardController{
 			return "forward:/board/getBoard?boardNo="+board.getBoardNo();
 		}
 		return "forward:/board/getBoard?boardNo="+board.getBoardNo();		
-		
-	
-		
 		
 	}
 	
@@ -218,8 +218,8 @@ public class BoardController{
 		
 		System.out.println(boardCategory);
 		
-		return "forward:/board/listBoard?category="+board.getBoardCategory();
-		
+			System.out.println("abc");
+			return "forward:/board/listBoard?category="+board.getBoardCategory();
 	}
 	
 	@RequestMapping("/map")
@@ -240,7 +240,7 @@ public class BoardController{
 		
 		JsonObject jsonObject = new JsonObject();
 //		
-		String fileRoot = "C:\\test\\";	//저장될 외부 파일 경로
+//		String fileRoot = "C:\\test\\";	//`저장될 외부 파일 경로
 		String originalFileName = multipartFile.getOriginalFilename();	//오리지날 파일명
 		String extension = originalFileName.substring(originalFileName.lastIndexOf("."));	//파일 확장자
 				
