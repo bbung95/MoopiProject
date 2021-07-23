@@ -1,3 +1,4 @@
+
 package com.moopi.mvc;
 
 import java.util.Map;
@@ -25,7 +26,7 @@ public class CoinTest {
 	public void contextLoads() {
 	}
 
-	//@Test
+	// @Test
 	public void getCoin() throws Exception {
 		// User user = new User();
 		// user.setUserId("user01");
@@ -34,30 +35,31 @@ public class CoinTest {
 		Coin coin = coinService.getCoin(1);
 		System.out.println(coin);
 
-		Assertions.assertEquals("user01", coin.getUserId().getUserId());
+		Assertions.assertEquals("user01", coin.getCoinUser().getUserId());
 	}
 
-	//@Test
+	// @Test
 	public void addPayment() throws Exception {
-		
+
 		User user = new User();
 		user.setUserId("user02");
-		
+
 		Flash flash = new Flash();
 		flash.setFlashNo(3);
-		
+
 		System.out.println("Test addPayment() start ::");
 		Coin coin = new Coin();
-		
+
 		coin.setCoinNo(0);
 		coin.setCoinRegdate("2021-07-21 06:30:00");
-		coin.setCoinRole(1);
+		coin.setCoinRole("사용");
 		coin.setCoinCount(1);
-		coin.setUserId(user);
-		coin.setFlashNo(flash);
-		
+		coin.setCoinUser(user);
+		;
+		coin.setFlash(flash);
+
 		coinService.addCoin(coin);
-		System.out.println("Test addCoin::"+coin);
+		System.out.println("Test addCoin::" + coin);
 
 	}
 
@@ -68,7 +70,7 @@ public class CoinTest {
 		Coin coin = coinService.getCoin(0);
 		coin.setCoinCount(1);
 		coinService.updateCoin(coin);
-		
+
 		System.out.println("Test updateCoin::" + coin);
 
 	}

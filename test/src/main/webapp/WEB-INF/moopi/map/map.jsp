@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <html>
@@ -51,7 +52,7 @@
         <div class="option">
             <div>
                 <form onsubmit="searchPlaces(); return false;">
-                    키워드 : <input type="text" value="이태원 맛집" id="keyword" size="15"> 
+                    키워드 : <input type="text" value="이춘복참치 종로 YMCA점" id="keyword" size="15"> 
                     <button type="submit">검색하기</button> 
                 </form>
             </div>
@@ -287,7 +288,7 @@ function displayPagination(pagination) {
 function displayInfowindow(marker, title) {
     var content =   '<input type=hidden class="mapPositon" value=1"'+marker.getPosition()+'">'+ 
     				'<div style="padding:5px;z-index:1;">' + title + marker.getPosition()+'</div> <p>test</p>' +
-					'<button type="button" class="btn btn-default"  onClick="javascript:selectPlace('+marker.getPosition().getLat()+','+marker.getPosition().getLng()+')">모임생성하기</button>';
+					'<button type="button" class="btn btn-default"  onClick="javascript:selectPlace('+marker.getPosition().getLat()+','+marker.getPosition().getLng()+')">모임장소선택</button>';
 					
     infowindow.setContent(content);
     infowindow.open(map, marker);
@@ -297,6 +298,8 @@ function selectPlace(lat, lng){
 	
 	alert(lat);
 	alert(lng);
+	$("#mtMapX", opener.document).val(lat);
+	$("#mtMapY", opener.document).val(lng);
 }
 
 
@@ -309,4 +312,5 @@ function removeAllChildNods(el) {
 }
 </script>
 </body>
+
 </html>

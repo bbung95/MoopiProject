@@ -127,10 +127,11 @@
 //		//var birth1=$("input[name=birth1]").val();
 //		//var birth2=$("select[name='birth2']").val();
 //		//var birth3=$("input[name='birth3']").val();
+		alert("반갑습니다 "+userName+"님 회원가입을 축하드립니다.");
 		
 		$("form").attr("method" , "POST").attr("action" , "/user/addUser").submit();	
 	}
-	
+});	
 
 // # 주소 Event--------------------------------------------------------------------------------------------------------------------------	
 
@@ -153,7 +154,7 @@
 				type : 'get',
 				success : function(data) {									
 					if (data == 1) {							
-							// 닉네임이 중복일 경우								
+							// 닉네임이 중복일경우							
 								$("#NNCheck").text("해당 닉네임은 이미 사용중입니다.");
 								$("#NNCheck").css("color", "red");
 								$("#joinButton").attr("disabled", true);
@@ -174,26 +175,22 @@
 <!-------------------------------------------------------------------------------------------------------------------------->
 
 // # 새 창으로 모바일번호 인증 띄우기 --------------------------------------------------------------------------------------------------------------------------
+					
 		
-		var popWin;
-		
-		$("#mobileAuth").on("click", function() {
-		
-			window.name = "addUserInfo";
+		function addUser() {
+			
+			var popWin;
+			var addUser = $("#mobildAuth").val();
 			
 			popWin = window.open(
-								"getMobileAuth",
-								"childForm",								
-								"left=460, top=300, width=460, height=800, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");
+									"getMobileAuth?addUser",
+									"childForm",
+									"left=460, top=300, width=460, height=800, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");
 			
-
 			function setChildTest() {
-				openWin.document.getElementById("cInput").value = document.getElementById("pnNum").value;
+				openWin.document.getElementById("cInput").value = document.getElementById("pnNum").value;				
        		}
-
-		});
-	
-	});
+		}
 	
 <!-------------------------------------------------------------------------------------------------------------------------->
 	
@@ -202,15 +199,17 @@
 	
 	
 </script>
-
+<style>
+body{
+	padding-top: 50px;
+}
+</style>
 </head>
 <body>
 
 <!-- Tool Bar ---------------------------------------------------------------------------------------------------------------->
 	<jsp:include page="../layout/toolbar.jsp" />
 <!---------------------------------------------------------------------------------------------------------------------------->
-
-<h3> user/addUserInfo : 추가정보입력시작 </h3>
 
 <!-- 화면구성 div Start ---------------------------------------------------------------------------------------------------------------->
 
@@ -253,8 +252,8 @@
 		<div class="form-group">
 			<label for="phone" class="col-sm-offset-1 col-sm-3 control-label">모바일번호</label>
 			<div class="col-sm-4">				
-				<input type="text" class="form-control" id="pInput" name="userId" readonly>
-				<button type="button" id="mobileAuth" class="btn btn-info">인증하기</button>					
+				<input type="text" class="form-control" id="pInput" name="phone" readonly>
+				<button type="button" id="mobileAuth" class="btn btn-info" onclick="javascript:addUser()">인증하기</button>					
 			</div>
 		</div>
 		
