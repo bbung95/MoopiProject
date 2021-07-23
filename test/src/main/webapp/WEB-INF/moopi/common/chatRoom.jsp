@@ -118,8 +118,7 @@
 		</form>
 	</div>
 	<!-- socket io 서버를 설정-->
-<!-- 	<script src="http://localhost:3030/socket.io/socket.io.js"></script>
- -->	<script src="https://bbung95-rtc.herokuapp.com/socket.io-client/socket.io.js"></script> -->
+<script src="http://localhost:3030/socket.io/socket.io.js"></script>
 	<script>
 
     let userId = "<c:out value='${user.userId}'/>";
