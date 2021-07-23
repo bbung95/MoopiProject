@@ -22,6 +22,12 @@
 <link href="/css/animate.min.css" rel="stylesheet">
 <link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet">
 
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@300&display=swap" rel="stylesheet">
+
+
 <!-- Bootstrap Dropdown Hover JS -->
 <script src="/javascript/bootstrap-dropdownhover.min.js"></script>
 
@@ -75,11 +81,13 @@ body {
 	padding-top: 50px;
 	margin: auto;
 	width: 960px;
+	font-family: 'Gaegu', cursive;
 }
 </style>
 </head>
 <body>
 <jsp:include page="layout/toolbar.jsp"></jsp:include>
+
 		<div class="jumbotron jumbotron-fluid">
   		<div class="container">
    		 <h1 class="display-4">Moopi Project</h1>

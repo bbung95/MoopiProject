@@ -29,9 +29,9 @@ public class User {
 	private int age;					// 나이
 	private String fullAddr;			// 전체 주소지
 	private String addr;				// 일부 주소지 (구)
-	private int interestFirst;			// 관심사1
-	private int interestSecond;			// 관심사2
-	private int interestThird;			// 관심사3
+	private String interestFirst;			// 관심사1
+	private String interestSecond;			// 관심사2
+	private String interestThird;			// 관심사3
 	private Date regDate;				// 가입일자
 	
 	// 생년, 생월, 생일 
