@@ -30,9 +30,6 @@ function fncGetFlash(flashNo){
 </script>
 
 
-
-
-
 </head>
 <body>
 <!-- ToolBar Start /////////////////////////////////////-->

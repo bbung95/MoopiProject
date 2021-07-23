@@ -17,8 +17,8 @@
 	<div class="chatList">
 		<div>
 			<div id="chatType">
-				<div class="button active">유저</div>
-				<div class="button">그룹</div>
+				<div class="button active" type="1">유저</div>
+				<div class="button" type="2">그룹</div>
 			</div>
 		</div>
 		<div class="listOut" style="padding-top: 50px;"></div>
@@ -29,13 +29,13 @@
 		let socket = io("http://localhost:3030");
 		let dbUser = '<c:out value="${dbUser.userId}"/>';
 
-		socket.emit("roomlist", dbUser);
+		socket.emit("roomlist", {userId: dbUser, type: "1"});
 
 		socket.on("roomlist",function(data) {
 				let display = '';
 				for ( var i in data) {
 					console.log(data[i]);
-					display += '<div class="room" trgt="'+data[i].target+'" roomNo="'+data[i].roomNo
+					display += '<div class="room" trgt="'+data[i].target+'" type="'+data[i].type+'" roomNo="'+data[i].roomNo
 						+'"style="background: white; margin: 5px; height: 80px; border-radius: 10px;" >'
 						+'<img style="margin: 5px; width:70px; height: 60px; border-radius: 50%;" src="/images/uploadFiles/poco.jpg"></img>'
 						+'<span>'+data[i].name+'</span>'
@@ -44,27 +44,21 @@
 				$('.room').on('click',function() {
 					let trgt = $(this).attr('trgt');
 					let roomNo = $(this).attr('roomNo');
-
+					let type = $(this).attr('type');
 					//alert("trgt : "+trgt+" userId : "+userId+" roomNo : "+roomNo); 
-					location.href = "/chat/joinRoom?userId="+ dbUser+ "&trgt="+ trgt;
+					location.href = "/chat/joinRoom?userId="+ dbUser+"&trgt="+ trgt+"&type="+type;
 					})
 				})
 				
 				
-		$('.button:contains("모임무피")').on('click', function(){
-			$('.type').val('1');
+		$('.button').on('click', function(){
+			let type = $(this).attr('type');
 			$('.active').attr('class', 'button');
 			$(this).attr('class', 'button active');
-			searchList($('#searchkeyword').val() , $('.type').val());
+			$('.listOut').children().remove();
+			socket.emit("roomlist", {userId: dbUser, type: type});
 		})	
 	
-		$('.button:contains("번개무피")').on('click', function(){
-			$('.type').val('2');
-			$('.active').attr('class', 'button');
-			$(this).attr('class', 'button active');	
-			searchList($('#searchkeyword').val() , $('.type').val());
-		})
-
 		// let list = document.querySelector('.list');
 		// //let room = document.querySelector('.room');
 		// let form = document.getElementById('form');
