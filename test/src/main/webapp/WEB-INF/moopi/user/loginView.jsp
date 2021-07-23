@@ -107,11 +107,22 @@
         
 <!--- [구현중] 네이버로그인 API --------------------------------------------------------------------------------------------------------->	
 	
+	function NaverLogin() { 
 		
-				function NaverLogin() {
+			
+			var naverLogin = new naver.LoginWithNaverId ({
+			
+				clientId: "MJJpKOvtYqXuhtTnhQtq",
+				callbackUrl: "http://localhost:8080/user/addUserInfo?userId="+userId,
+				isPopup: true,
+				loginButton: {color: "green", type: 3, height: 45}
+
+			});
+
+				naverLogin.init(function naverlogin() {
 		
 				// Client Id 값, RedirectURI 지정
-					var naver_id_login = new naver_id_login("MJJpKOvtYqXuhtTnhQtq", "http://localhost:8080/user/loginPostNaver");
+					var naver_id_login = new naver_id_login("MJJpKOvtYqXuhtTnhQtq", "http://localhost:8080/user/addUserInfo?userId="+userId);
 		
 				// 접근 토큰 값 출력 [콘솔창 정상출력 확인 완료]
 					console.log("네이버 토큰 확인 : "+naver_id_login.oauthParams.access_token);	
@@ -132,14 +143,14 @@
 					function naverSignInCallback() {		
 						
 						if(naver_id_login.getProfileData('id')){
-							var naverId = naver_id_login.getProfileData('id');
-							console.log("아이디 : "+naverId);	
-							alert("아이디 : "+naverId);	
+							var userId = naver_id_login.getProfileData('id');
+							console.log("아이디 : "+userId);	
+							alert("아이디 : "+userId);	
 							
 							$.ajax({
 								
-								type : "POST",
-								url : currentHostPath + '/user/naverlogin',
+								type : "GET",
+								url : currentHostPath + '/user/loginPostNaver?userId="+userId',
 								data : {
 									naverId : 'naverId',	
 								},
@@ -159,11 +170,11 @@
 										
 			 		}//End naverSignInCallback
 			
-			}
+			});
 		
 
 		//$("form").attr("method" , "POST").attr("action" , "/user/naverlogin").submit();
-	//}	
+	}
 	
 // 카카오톡 로그인
 	
@@ -229,17 +240,15 @@
 		popWin = window.open(
 					"searchUserPwd",
 					"childForm",
-					"left=460, top=300, width=460, height=600, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");									
+					"left=460, top=300, width=460, height=800, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");									
 	}
 		
-</script>
-
-<style>
-body{
+</script>		
+    <style>
+	body{
 	padding-top: 50px;
-}
-</style>
-
+	}
+	</style>
 </head>
 <body>
 
@@ -334,11 +343,11 @@ body{
 
 <!-- 네이버 API Login ---------------------------------------------------------------------------------------------------------------->					
 
-	<div class="form-group">
-		<div class="col-sm-offset-4  col-sm-4 text-center">
-			<img src="https://static.nid.naver.com/oauth/big_g.PNG?version=js-2.0.1" height="45" name="naverIdLogin" onclick="javascript:NaverLogin()">
-		</div>
-	</div>	
+	<div id="naverIdLogin" align="center">
+		<a id="naver-login-btn" href="#" role="button">
+			<img src="https://static.nid.naver.com/oauth/big_g.PNG?version=js-2.0.1" height="45" id="naverIdLogin" onclick="NaverLogin()"/>      
+		</a>
+	</div>
 
 <!---------------------------------------------------------------------------------------------------------------------------->
 

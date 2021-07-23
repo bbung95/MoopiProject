@@ -42,22 +42,7 @@ function fncAddBoard(){
 
 
 </script>
-  <style>
-body{
-	padding-top: 50px;
-}
-</style>
-
-</head>
-<body> 
-     <jsp:include page="../../layout/toolbar.jsp" />
-<!-- <h3> 게시글 등록</h3> -->
-<!--     <hidden></hidden> -->
-<!--      <input type="hidden" id="boardCategory" name="boardCategory" value="1"/> -->
-<!--      <input type="hidden" id="boardWriter" name="boardWriter" value="user01"/> -->
-<!--     <p>게시글제목 </p> <input id="boardName" name="boardName"></input> -->
-    
-    <script>  
+ <script>  
     $(document).ready(function() {
    	 $('#summernote').summernote({
 				height: 300,                 // 에디터 높이
@@ -106,6 +91,23 @@ body{
        e.preventDefault();
   })
  			      </script> 
+ 			      
+  <style>
+body{
+	padding-top: 50px;
+}
+</style>
+
+</head>
+<body> 
+     <jsp:include page="../../layout/toolbar.jsp" />
+<!-- <h3> 게시글 등록</h3> -->
+<!--     <hidden></hidden> -->
+<!--      <input type="hidden" id="boardCategory" name="boardCategory" value="1"/> -->
+<!--      <input type="hidden" id="boardWriter" name="boardWriter" value="user01"/> -->
+<!--     <p>게시글제목 </p> <input id="boardName" name="boardName"></input> -->
+    
+   
  
  <div class="container">
 
@@ -116,21 +118,21 @@ body{
 		  <input type="hidden" id="boardWriter.userId" name="boardWriter.userId" value=${dbUser.userId }>
 		  <input type="hidden" id="boardCategory" name="boardCategory" value="1">
 		  <div class="form-group">
-		    <label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">게시글제목</label>
-		    <div class="col-sm-7">
+		    <label for="ssn" class="col-sm-offset-1 col-sm-2 control-label">게시글제목</label>
+		    <div class="col-sm-9 ">
 		      <input type="text" class="form-control" id="boardName" name="boardName" placeholder="게시글제목">
 		    </div>
 		  </div>
 		  
 		  <div class="form-group">
-		    <label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">게시글내용</label>
-		    <div class="col-sm-7">
+		    <label for="ssn" class="col-sm-offset-1 col-sm-2 control-label">게시글내용</label>
+		    <div class="col-sm-9">
 		    <textarea id="summernote" name ="boardContent">글을 입력해주세요.</textarea>
 		    </div>
 		  </div>
 		  
 		  <div class="form-group">
-		    <div class="col-sm-offset-4  col-sm-4 text-center">
+		    <div class="col-sm-offset-4 col-sm-6 text-center">
 		      <button type="button" class="btn btn-primary" >등록</button>
 			   <a class="btn btn-default btn" href="#" role="button">취소</a>
 		    </div>

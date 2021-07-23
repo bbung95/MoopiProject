@@ -56,12 +56,37 @@ public class BoardController{
 	
 	
 	
+	
+	@RequestMapping("listMoimBoard")
+	public String getMoimBoardList(@ModelAttribute("search")Search search, @ModelAttribute("category")String category,
+			@ModelAttribute("mmNo") int mmNo, Model model ) throws Exception {
+	
+		String boardCategory = null;
+		Map map = new HashMap();
+
+		if(search.getCurrentPage() == 0 ) {
+			search.setCurrentPage(1);
+		}
+	      search.setPageSize(pageSize);
+	    
+		map = boardService.getBoardList(search, category, "1" ,  mmNo);
+		
+		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
+		model.addAttribute("resultPage", resultPage);
+		model.addAttribute("list", map.get("list"));
+		model.addAttribute("totalCount", map.get("totalCount"));
+		
+			return "/moim/listMoimBoard";
+	}
+	
+	
+	
+	
 	@RequestMapping("listBoard")
 	public String getBoardList(@ModelAttribute("search")Search search, @ModelAttribute("category")String category,
 			 Model model ) throws Exception {
 		
 		
-		//@RequestParam("mmNo") int mmNo,
 		String boardCategory = null;
 		Map map = new HashMap();
 		System.out.println("getBoardList start;;");
@@ -69,18 +94,13 @@ public class BoardController{
 		if(search.getCurrentPage() == 0 ) {
 			search.setCurrentPage(1);
 		}
+		search.setPageSize(pageSize);
 		
 		boardCategory = boardService.getBoardCategory(category);
 		
 		System.out.println("====category 값 체크 : "+category);
-		
-		 if( search.getCurrentPage() ==0 ){
-	         search.setCurrentPage(1);
-	      }
-	      search.setPageSize(pageSize);
-		
+	    
 		map = boardService.getBoardList(search, category, "1");
-		
 		
 		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
 		model.addAttribute("resultPage", resultPage);
@@ -88,14 +108,9 @@ public class BoardController{
 		model.addAttribute("totalCount", map.get("totalCount"));
 		System.out.println(boardCategory);
 		
-		
-		if(category.equals("4")) {
-			return "/moim/listMoimBoard";
-		}else {
 			System.out.println("1111111111111111111111111");
 			return "/board/"+boardCategory+"Board/list"+boardCategory;
 
-		}
 	}
 	
 	
@@ -121,11 +136,12 @@ public class BoardController{
 	}
 	
 	@RequestMapping("addBoardView")
-	public String addBoardView(@ModelAttribute("category")String category) {
+	public String addBoardView(@ModelAttribute("category")String category, @ModelAttribute("boardMoimNo") int boardMoimNo, Model model) {
 		
 		String boardCategory = boardService.getBoardCategory(category);
 		System.out.println("보드카테고리값:"+boardCategory);
 		if(boardCategory.equals("Moim")) {
+			model.addAttribute("mmNo", boardMoimNo);
 			return "/moim/addMoimBoardView";
 		}
 		return "board/"+boardCategory+"Board/add"+boardCategory+"BoardView";
