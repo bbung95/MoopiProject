@@ -159,6 +159,7 @@
 			, now()
 			, '1'
 			, #{board.boardPassword}
+			
 			<if test= "board.boardMoimNo != 0">
 			, #{board.boardMoimNo : NUMERIC}
 			</if>
