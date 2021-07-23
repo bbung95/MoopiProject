@@ -13,11 +13,11 @@
 <meta name="description" content="" />
 <meta name="author" content="" />
 <title>Hello! Moopi!</title>
-<!-- Favicon-->
+<!-- Favicon --> 
 <link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
-<!-- Bootstrap icons-->
+<!-- Bootstrap icons -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
-<!-- Core theme CSS (includes Bootstrap)-->
+<!-- Core theme CSS (includes Bootstrap) -->
 <link href="/css/styles.css" rel="stylesheet" />
 
 <!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
@@ -44,7 +44,7 @@
 
 $(document).ready(function(){ 
 	$(".owl-carousel").owlCarousel({
-		  items: 3,
+		  items: 5,
           margin: 10,
           loop: true,
           nav: true,
@@ -102,9 +102,10 @@ body {
 <!-- ToolBar Start /////////////////////////////////////-->
 <%--  <jsp:include page="../layout/toolbar.jsp" />  --%>
 <!-- ToolBar End /////////////////////////////////////-->
-<span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
 
-<h3>모임메인페이지입니다...${dbUser.userId}님 안녕하십니까...</h3>
+
+<h3>${dbUser.nickname}님의 관심사 ${dbUser.interestFirst},${dbUser.interestSecond},${dbUser.interestThird}에 맞는 모임들입니다.</h3>
+
 <c:if test="${!empty dbUser}">
 <button type="button" class="btn btn-default" onClick="javascript:fncAddMoimView()">모임생성하기</button>
 <button type="button" class="btn btn-default" onClick="javascript:fncGetMyMoim()">내가가입한모임보기</button>
@@ -121,13 +122,13 @@ body {
 	  		<div class="col-xs-4 col-md-2 "></div>
 			<div class="col-xs-8 col-md-4">
 			<!--<img src="${pageContext.request.contextPath}/images/uploadFiles/${moim.mmFile}" width="200" height="200 "/>  -->
-			<img src="/images/uploadFiles/${moim.mmFile}" width="200" height="200 "/>  
+			<img src="/images/uploadFiles/${moim.mmFile}"/>  
 			</div>
 		</div>
+<p>모임장:${moim.mmConstructor.nickname}</p>		
 <p>${moim.mmContent}</p>		
 <%-- <p>모임가입정원:${moim.mmMaxCount}</p> --%>
 <%-- <p>모임현재정원:${moim.mmCurrentCount}</p> --%>
-<%-- <p>모임생성자:${moim.mmConstructor.userId}</p> --%>
 <%-- <p>모임생성일:${moim.mmRegDate}</p> --%>
 <%-- <p>모임관심사No:${moim.mmInterest}</p> --%>
 <%-- <p>모임거주지:${moim.mmAddr}</p> --%>
@@ -137,6 +138,10 @@ body {
 <%-- <p>모임가입유형(1일반2자유):${moim.mmType}</p>  --%>
   </div>
  </c:forEach> 
+</div>
+
+<div>
+<img src="/images/plus.png" width="40" height="40"/>
 </div>
 
 
