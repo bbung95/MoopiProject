@@ -6,11 +6,19 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Hello! Moopi!</title>
 
-
-
-
+<!-- BootStart -->
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<title>Hello! Moopi!</title>
+<!-- Favicon-->
+<link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
+<!-- Bootstrap icons-->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+<!-- Core theme CSS (includes Bootstrap)-->
+<link href="/css/styles.css" rel="stylesheet" />
 
 <!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
@@ -92,8 +100,10 @@ body {
 </head>
 <body>
 <!-- ToolBar Start /////////////////////////////////////-->
- <jsp:include page="../layout/toolbar.jsp" /> 
+<%--  <jsp:include page="../layout/toolbar.jsp" />  --%>
 <!-- ToolBar End /////////////////////////////////////-->
+<span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+
 <h3>모임메인페이지입니다...${dbUser.userId}님 안녕하십니까...</h3>
 <c:if test="${!empty dbUser}">
 <button type="button" class="btn btn-default" onClick="javascript:fncAddMoimView()">모임생성하기</button>
