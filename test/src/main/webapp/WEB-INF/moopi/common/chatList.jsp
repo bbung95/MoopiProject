@@ -27,7 +27,7 @@
 	<!-- <script src="https://bbung95-rtc.herokuapp.com/sosocket.io/socket.io.js"></script> -->
 	<script>
 		let socket = io("http://localhost:3030");
-		let dbUser = '<c:out value="${user.userId}"/>';
+		let dbUser = '<c:out value="${dbUser.userId}"/>';
 
 		socket.emit("roomlist", dbUser);
 
