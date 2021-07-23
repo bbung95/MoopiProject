@@ -100,8 +100,10 @@ body {
 		토론을 통해 나온 합리적 결정에는 토 달지 않고 따라가야 강력한 조직이 된다. <br>
 			-블라즈 파스칼, 팡세 -
 	</center>
-<%-- 	<c:if test="user.userRole == 1"> --%>
+<%-- 	<c:if test="${ dbuser.userRole} = 1"> --%>
+<%-- 		<c:if test="$(dbUser.userId = admin)"> --%>
 		<button type="button" class="btn btn-primary" id="listReport">신고관리</button>
+<%-- 		</c:if> --%>
 		<button type="button" class="btn btn-primary" id="map">지도</button>
 		<button type="button" class="btn btn-primary" id="mapView">지도보기</button>
 
