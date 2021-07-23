@@ -51,14 +51,14 @@ public class BoardServiceImpl {
 		return map;
 	}
 	
-	public Map<String, Object> getBoardList(Search search, String boardCategory, String boardState, int mmNo) throws Exception{
+	public Map<String, Object> getBoardList(Search search, String boardCategory, String boardState, int boardMoimNo) throws Exception{
 		
 		Map map = new HashMap<String, Object>();
 		
 		map.put("boardCategory", boardCategory);
 		map.put("boardState", boardState);
 		map.put("search", search);
-		map.put("mmNo", mmNo);
+		map.put("boardMoimNo", boardMoimNo);
 		
 		List<Board> list= boardDao.getBoardList(map);
 		int totalCount =  boardDao.getTotalCount(map); 
