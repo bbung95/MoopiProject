@@ -8,11 +8,6 @@
 	integrity="sha384-vuFJ2JiSdUpXLKGK+tDteQZBqNlMwAjhZ3TvPaDfN9QmbPb7Q8qUpbSNapQev3YF"
 	crossorigin="anonymous"></script>
 <style>
-#toolbar{
-	top: 0;
-	position: fixed;
-	width: 100%
-}
 </style>
 
 
