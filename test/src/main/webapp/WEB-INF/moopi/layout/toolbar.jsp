@@ -315,8 +315,9 @@
 
 		popWin = window
 		.open(
-				"http://localhost:82/chatList?userId="+dbUser,
-				"popWin",
+/* 				"http://localhost:82/chatList?userId="+dbUser,
+ */				"/chat/chatList",
+ 				"popWin",
 				"left=460, top=300, width=460, height=600, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");
 	});
 	
