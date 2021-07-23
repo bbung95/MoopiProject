@@ -2,106 +2,165 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+<!DOCTYPE html>
 <html>
 <head>
-<title>유저목록</title>
+<meta charset="UTF-8">
+<title>Moopi Admin</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="keywords"
+	content="tailwind,tailwindcss,tailwind css,css,starter template,free template,admin templates, admin template, admin dashboard, free tailwind templates, tailwind example">
 
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-<!-- Bootstrap Dropdown Hover CSS -->
-<link href="/css/animate.min.css" rel="stylesheet">
-<link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet">
-
-<!-- Bootstrap Dropdown Hover JS -->
-<script src="/javascript/bootstrap-dropdownhover.min.js"></script>
-<script type="text/javascript">
-	
-	$(function(){
-			
-			 $("#searchKeyword").keydown(function (key) {
-			 
-		        if(key.keyCode == 13){//키가 13이면 실행 (엔터는 13)
-		        	fncGetList('1');
-		        }
-		    });
-		});
-</script>
-<style>
-body {
-	padding-top: 30px;
-}
-</style>
+<!-- Css -->
+<link rel="stylesheet" href="/css/admin/styles.css">
+<link rel="stylesheet" href="/css/admin/all.css">
+<link
+	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i,700,700i"
+	rel="stylesheet">
 </head>
 
 <body>
-	<div class="container">
+	<!--Container -->
+	<div class="mx-auto bg-grey-lightest">
+		<!--Screen-->
+		<div class="min-h-screen flex flex-col">
+			<!--Header Section Starts Here-->
+			<header class="bg-nav">
+				<div class="flex justify-between">
+					<div class="p-1 mx-3 inline-flex items-center">
+						<i class="fas fa-bars pr-2 text-white" onclick="sidebarToggle()"></i>
+						<h1 class="text-white p-2">Moopi</h1>
+					</div>
+					<div class="p-1 flex flex-row items-center">
+						<a href="https://github.com/tailwindadmin/admin"
+							class="text-white p-2 mr-2 no-underline hidden md:block lg:block">Github</a>
 
-		<div class="page-header text-default">
-			<h3>유저목록</h3>
+
+						<img onclick="profileToggle()"
+							class="inline-block h-8 w-8 rounded-full"
+							src="https://avatars0.githubusercontent.com/u/4323180?s=460&v=4"
+							alt=""> <a href="#" onclick="profileToggle()"
+							class="text-white p-2 no-underline hidden md:block lg:block">Adam
+							Wathan</a>
+						<div id="ProfileDropDown"
+							class="rounded hidden shadow-md bg-white absolute pin-t mt-12 mr-1 pin-r">
+							<ul class="list-reset">
+								<li><a href="#"
+									class="no-underline px-4 py-2 block text-black hover:bg-grey-light">My
+										account</a></li>
+								<li><a href="#"
+									class="no-underline px-4 py-2 block text-black hover:bg-grey-light">Notifications</a></li>
+								<li><hr class="border-t mx-2 border-grey-ligght"></li>
+								<li><a href="#"
+									class="no-underline px-4 py-2 block text-black hover:bg-grey-light">Logout</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</header>
+			<!--/Header-->
+
+			<div class="flex flex-1">
+				<!--Sidebar-->
+				<jsp:include page="../layout/adminToolbar.jsp" />
+				<!--/Sidebar-->
+				<!--Main-->
+				<main class="bg-white-500 flex-1 p-3 overflow-hidden">
+
+					<div class="flex flex-col">
+						<!--Grid Form-->
+
+						<div class="flex flex-1  flex-col md:flex-row lg:flex-row mx-2">
+							<div
+								class="mb-2 border-solid border-gray-300 rounded border shadow-sm w-full">
+								<div
+									class="bg-gray-200 px-2 py-3 border-solid border-gray-200 border-b">
+									유저목록</div>
+								<div class="p-3">
+									<table class="table-responsive w-full rounded">
+										<thead align="center">
+											<tr>
+												<th class="border px-4 py-2" width="20%">아이디</th>
+												<th class="border px-4 py-2" width="10%">이름</th>
+												<th class="border px-4 py-2" width="10%">닉네임</th>
+												<th class="border px-4 py-2" width="20%">생년월일</th>
+												<th class="border px-4 py-2" width="5%">연령</th>
+												<th class="border px-4 py-2" width="5%">가입경로</th>
+												<th class="border px-4 py-2" width="20%">가입일자</th>
+												<th class="border px-4 py-2" width="5%">코인</th>
+												<th class="border px-4 py-2" width="5%">현재상태</th>
+											</tr>
+										</thead>
+										<tbody>
+											<c:forEach var="user" items="${list}">
+												<tr>
+													<td class="border px-4 py-2">${user.userId}</td>
+													<td class="border px-4 py-2">${user.userName}</td>
+													<td class="border px-4 py-2">${user.nickname}</td>
+													<td class="border px-4 py-2">${user.regDate}</td>
+													<td class="border px-4 py-2">${user.age}</td>
+													<td class="border px-4 py-2">${user.joinPath}</td>
+													<td class="border px-4 py-2">${user.regDate}</td>
+													<td class="border px-4 py-2">${user.coin}</td>
+													<td class="border px-4 py-2"><i
+														class="fas fa-check text-green-500 mx-2"></i></td>
+												</tr>
+											</c:forEach>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+						<!--/Grid Form-->
+
+
+						<form class="form-inline" name="detailForm">
+
+							<div class="form-group">
+								<select name="searchCondition" class="form-control"
+									style="width: 110px">
+									<option value="0"
+										${! empty search.searchCondition && search.searchCondition== 0 ? "selected" : ""  }>제목+내용</option>
+									<option value="1"
+										${! empty search.searchCondition && search.searchCondition== 1 ? "selected" : ""  }>제목</option>
+									<option value="2"
+										${! empty search.searchCondition && search.searchCondition== 2 ? "selected" : ""  }>작성자</option>
+								</select>
+							</div>
+
+							<div class="form-group">
+								<label class="sr-only" for="searchKeyword">검색어</label> <input
+									type="text" class="form-control" id="searchKeyword"
+									name="searchKeyword" placeholder="검색어"
+									value="${! empty search.searchKeyword ? search.searchKeyword : '' }">
+							</div>
+
+							<button type="button" class="btn btn-default">검색</button>
+
+							<input type="hidden" id="currentPage" name="currentPage" value="" />
+						</form>
+
+
+
+					</div>
+				</main>
+				<!--/Main-->
+			</div>
+			<!--Footer-->
+			<footer class="bg-grey-darkest text-white p-2">
+				<div class="flex flex-1 mx-auto">&copy; My Design</div>
+			</footer>
+			<!--/footer-->
+
 		</div>
 
-		<!-- table 위쪽 검색 Start /////////////////////////////////////-->
-		<div class="row">
-
-			<div class="col-md-6 text-left">
-				<p class="text-default">전체 ${totalCount} 건수</p>
-			</div>
-
-			<div class="col-md-6 text-right">
-				<form class="form-inline" name="detailForm">
-
-					<div class="form-group">
-						<select name="searchCondition" class="form-control"
-							style="width: 110px">
-							<option value="0"
-								${! empty search.searchCondition && search.searchCondition== 0 ? "selected" : ""  }>제목+내용</option>
-							<option value="1"
-								${! empty search.searchCondition && search.searchCondition== 1 ? "selected" : ""  }>제목</option>
-							<option value="2"
-								${! empty search.searchCondition && search.searchCondition== 2 ? "selected" : ""  }>작성자</option>
-						</select>
-					</div>
-
-					<div class="form-group">
-						<label class="sr-only" for="searchKeyword">검색어</label> <input
-							type="text" class="form-control" id="searchKeyword"
-							name="searchKeyword" placeholder="검색어"
-							value="${! empty search.searchKeyword ? search.searchKeyword : '' }">
-					</div>
-
-					<button type="button" class="btn btn-default">검색</button>
-
-					<input type="hidden" id="currentPage" name="currentPage" value="" />
-				</form>
-			</div>
-		</div>
-
-		<table class="table table-hover table-striped">
-			<thead>
-				<tr>
-					<th align="left">아이디</th>
-					<th align="left">닉네임</th>
-					<th align="left">등록일</th>
-				</tr>
-			</thead>
-			<tbody>
-
-				<c:forEach var="user" items="${list}">
-					<tr>
-						<td align="left">${user.userId}</td>
-						<td align="left">${user.nickname}</td>
-						<td align="left">${user.regDate}</td>
-					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
 	</div>
+
+	<script src="/js/admin/main.js"></script>
+
 </body>
+
 </html>
