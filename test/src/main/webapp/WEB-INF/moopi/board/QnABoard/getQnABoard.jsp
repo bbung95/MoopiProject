@@ -294,28 +294,30 @@
 	</c:if>
 	<p>작 성 자 : ${board.boardWriter.nickname} ${board.boardWriter.profileImage }</p>
 	
-	
+		<c:if test="user.userId == '#replyWriter' ">
 	<button type="button" class="btn btn-primary" id="updateBoard">수정하기</button>
 	<button type="button" class="btn btn-primary" id="deleteBoard">삭제하기</button>
+	</c:if>
 <!-- 	<a href="http://127.0.0.1:8080/report/addReportView?reportCategory=1&reportTarget="+$(board.boardNo) target="_blank" width=300, height=400, left=300, top=50> -->
 	<button type="button" class="btn btn-primary" id="addBoardReport">게시글신고</button>
 <!-- 	</a> -->
 	<p></p>
 	</div>
 	</div>
-	<c:if test="${ empty list}">
 	<form id = "addReplyForm">
 		<td width="550">
+		<c:if test="user.userRole =1">
 			<div>
 				<textarea rows="4" cols="70" name="replyContent"   id="replyContent"></textarea>			
 			</div>
 		</td>
 		   <input type="hidden" id = "replyWriter" value="${dbUser.userId}"> 
 		   <input type="hidden" id = "boardNo" value="${board.boardNo }"> 
+		    
 		   <button type="button" class="btn btn-primary" id="addReply">답글작성</button>
+		   </c:if>
 	</form>
 	
-	</c:if>
 	 
 	<div id="replyAddContent" value=''></div>
 	
@@ -326,9 +328,13 @@
 	<div >
 	<input type="hidden" class="reply" id="replyNo" name="replyNo" value="${reply.replyNo}">
 	<p id="replyContent">${reply.replyWriter.nickname} ${reply.replyWriter.profileImage } : ${reply.replyContent}    작성시간 ${reply.replyRegDate}</p>
+	<c:if test="user.userId == '#replyWriter' ">
 	<button type="button" class="btn btn-primary" id="updateReply">답변수정</button>
 	<button type="button" class="btn btn-primary" id="deleteReply">답변삭제</button>
+	</c:if>
+	
 	<button type="button" class="btn btn-primary" id="addReportReply">답글신고</button>
+	
 	<div id="replyUpdateContent"></div>
 	</div>
 	</c:forEach>
