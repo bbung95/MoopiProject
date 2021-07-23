@@ -34,6 +34,8 @@ var mtMaxCount="";
 var mtAddr="";
 var mtConstructor="";
 var mmNo="";
+var mtMapX="";
+var mtMapY="";
 
 
 ////////////////////////////////////////////구글캘린더 연동부 시작점
@@ -77,7 +79,25 @@ function authenticate() {
     gapi.auth2.init({client_id: "674136097926-gmjcrr1v85j17s88t3pi2fodfp72hvk9.apps.googleusercontent.com"});
   });
 ////////////////////////////////////////////구글캘린더 연동부 종료
-  
+
+
+//맵보기//
+$(function() {
+			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+			$( "#map" ).on("click" , function() {
+				fncMap();
+			});
+		});	
+		
+function fncMap(){
+		
+	var options = 'top=10, left=10, width=500, height=600, status=no, menubar=no, toolbar=no, resizable=no';
+	window.open("/meeting/map", "map", 'option');
+}
+//맵종료//
+
+
+
   
 function fncAddMtView() {
 	alert("정모를 생성합니다.");
@@ -92,7 +112,12 @@ function fncAddMtView() {
 	+"정모 총 인원 :"+ "<input type='text' name='mtMaxCount'>" + "<br>"
 	+"<input type='hidden' name='mtCurrentCount' value='1'>" + "<br>"
 	+"정모 장소 :"+"<input type='text' name='mtAddr'>" + "<br>"
+	+"<a onClick='fncAddMap()' >장소등록</a><br>"
 	+"<a onClick='fncAddMt()'>등록하기</a>"+ "<br>"
+	+"<input type='hidden' id='lat' value=''>"
+	+"<input type='hidden' id='lng' value=''>"
+	+"<div class = 'mapView' ></div>"
+	+"<button type='button' class='btn btn-primary' id='map' onClick='fncMap()'>지도</button>"
 	+"</form>"
 	+"</h6>";
 	$("#getDate").slideUp('slow');
@@ -135,6 +160,26 @@ function fncUptMtView() {
 	}
 }
 
+function fncAddMap(){
+	
+	alert("click")
+	popWin = window.open(
+			"/moim/map",
+			"popWin",
+			"left=460, top=300, width=900, height=600, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");
+}
+
+function fncParentsMapView(lat, lng){
+	alert("부모 함수 실행 성공")
+	
+	$("div.mapView").append('<jsp:include page="../moim/mapView" />' )
+	alert(lat)
+	alert(lng)
+	
+}
+
+
+
 function fncDeleteMt(userId) {
 	if(mtConstructor == userId){
 		self.location ="/meeting/deleteMeeting?mtNo="+mtNo
@@ -157,11 +202,11 @@ function fncUptMt() {
 	$("#uptMt").attr("method", "POST").attr("action", "/meeting/updateMeeting").submit();
 }
 
-function fncApplyMt(mmNo, mtNo, userId){
+function fncApplyMt(mtNo, userId){
 	alert("해당 정모에 참가하겠습니다.");
 	$.ajax( 
 			{
-				url : "/meeting/json/applyMeeting/"+mmNo+"/"+mtNo+"/"+userId,
+				url : "/meeting/json/applyMeeting/"+mtNo+"/"+userId,
 				method : "GET" ,
 				dataType : "json" ,
 				headers : {
@@ -303,6 +348,8 @@ $(document).ready(function() {
     						$("#mtMaxCount").val(JSONData.mtMaxCount);
     						$("#mtCurrentCount").val(JSONData.mtCurrentCount);
     						$("#mtAddr").val(JSONData.mtAddr);
+    						$("#mtMapX").val(JSONData.mtMapX);
+    						$("#mtMapY").val(JSONData.mtMapY);
     						$("#getDate").slideDown('slow');
     					}
     			}); //ajax 종료
@@ -491,7 +538,7 @@ function fncPopUp(){
 	정모 장소 :<input type='text' id='mtAddr'><br>
 	
 	
-	<button type="button" class="btn btn-success" onClick="fncApplyMt(mmNo, mtNo, '${dbUser.userId}')">참가</button>
+	<button type="button" class="btn btn-success" onClick="fncApplyMt(mtNo, '${dbUser.userId}')">참가</button>
 	<button type="button" class="btn btn-success" onClick="fncLeaveMt(mtNo, '${dbUser.userId}')">참가취소</button>
 	<button type="button" class="btn btn-primary" onClick="fncUptMtView('${dbUser.userId}')">수정</button>
 	<button type="button" class="btn btn-danger" onClick="fncDeleteMt('${dbUser.userId}')">삭제</button>	

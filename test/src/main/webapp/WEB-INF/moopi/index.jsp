@@ -45,16 +45,28 @@
 		$(function() {
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 			$( "#map" ).on("click" , function() {
-				fncMap();
+				fncGetMap();
 			});
 		});	
-		function fncMap(){
-			
+	
+		function fncGetMap(){
+			alert("1")
 			self.location ="/board/map";
 
 		}
 
+		$(function() {
+			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+			$( "#mapView" ).on("click" , function() {
+				fncMap();
+			});
+		});	
 	
+		function fncMap(){
+			
+			self.location ="/board/mapView";
+
+		}
 	</script>
 
 
@@ -83,6 +95,8 @@ body {
 <%-- 	<c:if test="user.userRole == 1"> --%>
 		<button type="button" class="btn btn-primary" id="listReport">신고관리</button>
 		<button type="button" class="btn btn-primary" id="map">지도</button>
+		<button type="button" class="btn btn-primary" id="mapView">지도보기</button>
+
 <%-- 	</c:if> --%>
 <jsp:include page="layout/searchbar.jsp"></jsp:include>
 </body>

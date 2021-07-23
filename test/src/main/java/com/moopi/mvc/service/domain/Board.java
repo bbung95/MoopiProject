@@ -34,6 +34,8 @@ public class Board {
 	// 게시글 좋아요 카운트
 	private int boardLike;
 	
+	private String boardFile;
+	
 	//리플수 카운트
 	private int replyCount;
 	
