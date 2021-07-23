@@ -112,7 +112,7 @@ body{
 <thead>
           <tr>
             <th align="center">No</th>
-            <th align="left" >글 제목</th>
+            <th align="left" colspan="5">글 제목</th>
             <th align="left">작 성 일</th>
             <th align="left">작 성 자</th>
           </tr>
@@ -127,9 +127,10 @@ body{
 				<c:set var="i" value="${ i+1 }"/>
 				
 				<tr>
-				<td align="center"> (${i}+${currentPage}*5)</td>
+				<td align="center"> ${i}</td>
 		 		<input type="hidden" id="boardNo" name="boardNo" value="${board.boardNo}"/>
-				<td align="left"><div id="getBoard" onClick="fncGetBoard(${board.boardNo})">${board.boardName}</div></td>
+				<td align="left" colspan="5"><div id="getBoard" onClick="fncGetBoard(${board.boardNo})">${board.boardName}</div></td>
+				<td align="left">${board.boardWriter.nickname} ${board.boardWriter.profileImage }</td>
 				<td align="left">
 				<c:if test="${empty board.boardUpdate }">
 					${board.boardRegDate}
@@ -137,7 +138,7 @@ body{
 					<c:if test="${!empty board.boardUpdate }">
 					${board.boardUpdate}
 					</c:if>
-				<td align="left">${board.boardWriter.nickname} ${board.boardWriter.profileImage }</td>
+				
 
 			</tr>
 			</c:forEach>
@@ -146,7 +147,9 @@ body{
 
 	
 </table>
-<button type="button" class="btn btn-default" onClick="fncAddBoardView()">게시글작성</button>
+		<c:if test="user.userRole =1 ">
+		<button type="button" class="btn btn-default" onClick="fncAddBoardView()">게시글작성</button>
+		</c:if>
 <jsp:include page="../../common/pageNavigator.jsp"/>
 <jsp:include page="../../layout/searchbar.jsp"></jsp:include>
 </body>

@@ -128,7 +128,7 @@ body{
 				<c:set var="i" value="${ i+1 }"/>
 				
 				<tr>
-				<td align="center"> (${i}+${currentPage}*5)</td>
+				<td align="center"> ${i}</td>
 		 		<input type="hidden" id="boardNo" name="boardNo" value="${board.boardNo}"/>
 				<td align="left"><div id="getBoard" onClick="fncGetBoard(${board.boardNo})">${board.boardName}</div></td>
 				<td align="left">

@@ -111,11 +111,12 @@ function fncAddMtView() {
 	+"정모종료일 :" +"<input type='datetime-local' name='mtEnd'>"+"<br>"
 	+"정모 총 인원 :"+ "<input type='text' name='mtMaxCount'>" + "<br>"
 	+"<input type='hidden' name='mtCurrentCount' value='1'>" + "<br>"
-	+"정모 장소 :"+"<input type='text' name='mtAddr'>" + "<br>"
+	+"정모 장소 :"+"<input type='text' id='mtAddr' name='mtAddr'>" + "<br>"
+	+"<input type='text' id='lat'name='mtMapX value=''>"
+	+"<input type='text' id='lng'name='mtMapY' value=''>"
 	+"<a onClick='fncAddMap()' >장소등록</a><br>"
 	+"<a onClick='fncAddMt()'>등록하기</a>"+ "<br>"
-	+"<input type='hidden' id='lat' value=''>"
-	+"<input type='hidden' id='lng' value=''>"
+
 	+"<div class = 'mapView' ></div>"
 	+"<button type='button' class='btn btn-primary' id='map' onClick='fncMap()'>지도</button>"
 	+"</form>"
@@ -194,6 +195,7 @@ function fncDeleteMt(userId) {
 
 function fncAddMt() {
 	alert("등록완료");
+	alert($('#lat').value)
 	$("#addMt").attr("method", "POST").attr("action", "/meeting/addMeeting").submit();
 }
 
