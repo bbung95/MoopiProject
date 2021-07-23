@@ -265,8 +265,8 @@ public class UserController {
 		}
 		
 		model.addAttribute("user", userService.getUser(userId));
-		model.addAttribute("followerCount", userService.getFollowCount(userId, 1));
-		model.addAttribute("folloingCount", userService.getFollowCount(userId, 2));
+		model.addAttribute("folloingCount", userService.getFollowCount(userId, 1));
+		model.addAttribute("followerCount", userService.getFollowCount(userId, 2));
 		model.addAttribute("followCheck", check);
 		model.addAttribute("moimList", moimService.getMyMoimList(userId).get("list"));
 		///////
@@ -406,7 +406,12 @@ public class UserController {
 	}
 //-----------------------------------------------------------------------------------------------------------------
 	
-	
+	@RequestMapping(value="myInformation")
+	public String myInformation() {
+		
+		System.out.println("myInformation 시작");
+		return "user/myInformation";
+	}
 	
 	
 }

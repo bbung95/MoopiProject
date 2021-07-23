@@ -38,12 +38,11 @@
 				
 				<!-- sessionScope.id가 없으면 : 로그인을 하지 않았을 경우 -->
 				<c:if test="${empty sessionScope.dbUser}">
-						<li><a href="/user/loginView">로그인</a></li>
+					<li class="nav-item"><a class="nav-link" >로그인</a></li>
 				</c:if>
 				
 				<!-- sessionScope.id가 있을시 : 로그인을 했을 경우 -->
 				<c:if test="${not empty sessionScope.dbUser}">
-				<li class="nav-item"><a class="nav-link" >충전</a></li>
 				<li class="nav-item dropdown" id="noticeCount">
 					<a class="nav-link dropdown-toggle" id="navbarDropdownBlog"
 						href="#" role="button" data-bs-toggle="dropdown"
@@ -66,9 +65,7 @@
 						aria-labelledby="navbarDropdownPortfolio">
 						<li><a class="dropdown-item" >마이홈</a></li>
 						<li><a class="dropdown-item" >내정보보기</a></li>
-						<li><a class="dropdown-item" >쪽지</a></li>
-						<li><a class="dropdown-item" >My결제내역</a></li>
-						<li><a class="dropdown-item" >My코인내역</a></li>
+						<li><a class="dropdown-item" >충전</a></li>
 						<li><a class="dropdown-item" >로그아웃</a></li>
 						<c:if test="${dbUser.userRole == '1'}">
 						<li><a class="dropdown-item" >관리자</a></li>
@@ -355,7 +352,12 @@
 
 		location.href = "/board/listBoard?category=2";
 	})
-
+	
+	$("a:contains('로그인')").on('click', function(){
+		
+		location.href = "/user/loginView";
+	})
+	
 	$("a:contains('채팅')")
 			.on(
 					"click",
@@ -376,22 +378,12 @@
 
 	$("a:contains('내정보보기')").on("click", function() {
 
-		location.href = "/user/updateProfile?userId=" + dbUser;
+		location.href = "/user/myInformation";
 	})
 
 	$("a:contains('쪽지')").on("click", function() {
 
 		location.href = "/";
-	})
-
-	$("a:contains('My결제내역')").on("click", function() {
-
-		location.href = "/payment/paymentList?userId=" + dbUser;
-	})
-
-	$("a:contains('My코인내역')").on("click", function() {
-
-		location.href = "/coin/coinHistory?userId=" + dbUser;
 	})
 
 	$("a:contains('로그아웃')").on("click", function() {

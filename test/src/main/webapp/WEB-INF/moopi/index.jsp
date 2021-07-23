@@ -88,11 +88,16 @@ body {
 	margin: auto;
 	font-family: 'Gaegu', cursive;
 }
-<body>
 
-#mainlogo{
+body>#mainlogo {
 	height: 200px;
 	width: 200px;
+}
+
+.selectbtn{
+	width: 250px;
+	height: 50px;
+	margin: 5px;
 }
 </style>
 </head>
@@ -109,18 +114,47 @@ body {
 				<div class="col-lg-8 col-xl-7 col-xxl-6">
 					<div class="my-5 text-center text-xl-start">
 						<h1 class="display-5 fw-bolder text-white mb-2">Moopi Project</h1>
-						<p class="lead fw-normal text-white-50 mb-4">무피프로젝트 2021-06-06 ~ 2021-08-06</p>
-						<div
-							class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xl-start text-white">
-							‘단일로 귀착되지 않는 다수는 혼란이며, 다수에 의존하지 않는 단일은 압제이다’. <br> 토론을
-							통해 나온 합리적 결정에는 토 달지 않고 따라가야 강력한 조직이 된다. <br> -블라즈 파스칼, 팡세 -
+						<p class="lead fw-normal text-white-50 mb-4">무피프로젝트 2021-06-06
+							~ 2021-08-06</p>
+						<div>
+						
+							<form id="mainSearch">
+							<input type="hidden" class="interest" name="interestNo" value="">
+							<input type="hidden" class="addr" name="addr" value="">
+							<input type="hidden" class="type" name="type" value="">
+							<div class="dropdown mt-3" style="margin-bottom: 10px;">
+								<button class="btn btn-light dropdown-toggle selectbtn" type="button"
+									 data-bs-toggle="dropdown" id="interestbtn">
+									<span>Category</span></button>
+								<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="interest">
+									<c:forEach var="interest" items="${interest}">
+										<li><a class="dropdown-item" href="#" type="${interest.interestNo}">${interest.interestName}</a></li>
+									</c:forEach>
+								</ul>
+								
+								<button class="btn btn-light dropdown-toggle selectbtn" type="button"
+									 data-bs-toggle="dropdown" id="addrbtn">
+									Addr</button>
+								<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="addr">
+									<li><a class="dropdown-item" href="#">Action</a></li>
+									<li><a class="dropdown-item" href="#">Another action</a></li>
+									<li><a class="dropdown-item" href="#">Something else
+											here</a></li>
+								</ul>
+							</div>
+							<div >
+								<button class="btn btn-secondary srchbtn" type="button" order="1">모임</button>
+								<button class="btn btn-secondary srchbtn" type="button" order="2">번개</button>
+							</div>
+							</form>
+							
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</header>
-	
+
 	<button type="button" class="btn btn-primary" id="listReport">신고관리</button>
 	<%-- 		</c:if> --%>
 	<button type="button" class="btn btn-primary" id="map">지도</button>
@@ -133,5 +167,25 @@ body {
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 	<!-- Core theme JS-->
 	<script src="/js/scripts.js"></script>
+	<script>
+		
+		$('#addr > li > a').on('click', function(){
+			
+			$('#addrbtn').text($(this).text());
+			$('.addr').val($(this).text().trim());
+		})
+		
+		$('#interest > li > a').on('click', function(){
+			
+			$('#interestbtn').text($(this).text());
+			$('.interest').val($(this).attr('type'));
+		})
+		
+		$('.srchbtn').on('click', function(){
+			$('.type').val($(this).attr('order'));
+			$('#mainSearch').attr('method', "Get").attr("action", "/common/mainSearch").submit();
+		})
+	
+	</script>
 </body>
 </html>
