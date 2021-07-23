@@ -91,6 +91,7 @@ body{
 		<form class="form-horizontal" name="detailForm" enctype="multipart/form-data">
 		  <input type="hidden" id="boardWriter.userId" name="boardWriter.userId" value="${dbUser.userId }">
 		  <input type="hidden" id="boardCategory" name="boardCategory" value="4">
+		  <input type="hidden" id="boardMoimNo" name="boardMoimNo" value="${mmNo }">
 		  <div class="form-group">
 		    <label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">게시글제목</label>
 		    <div class="col-sm-4">

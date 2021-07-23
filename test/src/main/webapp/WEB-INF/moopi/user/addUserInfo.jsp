@@ -133,17 +133,17 @@
 	}
 });	
 
-// # 주소 Event--------------------------------------------------------------------------------------------------------------------------	
 
-		$('#adrSearch').on('click', function(){		
+// [주소 API]
+	function searchadr() {			
 			new daum.Postcode({	
 				oncomplete: function(data) {
 					$('#fullAddr').val(data.address);
 					$('#addr').val(data.bname);
 				}
-			}).open();
-		})
-	
+		}).open();				
+	}
+ 
 //-- 닉네임 중복체크 --------------------------------------------------------------------------------------------------------------------------
 
 	$(function() {	
@@ -281,9 +281,8 @@ body{
 			
 			<div class="col-sm-3">
 				<input type="text" class="form-control" id="fullAddr" name="fullAddr" placeholder="주소지 검색을 눌러주세요" readonly>
-			
 			</div>
-			<button type="button" class="btn btn-info" id="adrSearch" name="addr">주소지검색</button>
+			<button type="button" class="btn btn-info" id="adrSearch" name="addr" onclick="javascript:searchadr()">주소지검색</button>
 		</div>
 		
 		<div class="form-group">
@@ -293,7 +292,7 @@ body{
 				<input type="text" class="form-control" id="addr" name="addr" placeholder="차후 hidden 예정">
 			</div>
 			
-		</div>	
+		</div>
 		
 		<!-- #패스워드 hidden 왜한건지 기억안남 -->	
 		<input type="hidden" class="form-control" id="password" name="password" value="${user.password}">
