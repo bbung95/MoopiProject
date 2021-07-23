@@ -36,7 +36,7 @@
 		// 	var boardName		=$("input[name='boardName']").val();
 		// 	var boardContent	=$("input[name='boardContent']").val();
 			
-			$("form").attr("method" , "GET").attr("action" , "/board/updateView").submit();
+			$("form.form-horizontal").attr("method" , "GET").attr("action" , "/board/updateView").submit();
 		}
 		
 		
@@ -52,7 +52,7 @@
 			alert(${board.boardNo});
 			var boardNo = ${board.boardNo};
 			
-			$("form").attr("method" , "GET").attr("action" , "/board/deleteBoard").submit();
+			$("form.form-horizontal").attr("method" , "GET").attr("action" , "/board/deleteBoard").submit();
 			
 		}
 		

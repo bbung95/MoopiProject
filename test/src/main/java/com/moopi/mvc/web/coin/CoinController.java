@@ -45,7 +45,7 @@ public class CoinController {
 		
 		System.out.println("coinHistory Start::");
 		
-		User user = userService.getUserId(userId);
+		User user = userService.getUser(userId);
 		Flash flash = new Flash();
 		flash.getFlashNo();
 		coin.setCoinUser(user);
