@@ -1,9 +1,12 @@
 package com.moopi.mvc.web.moim;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -11,13 +14,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.moopi.mvc.common.Page;
 import com.moopi.mvc.common.Search;
+import com.moopi.mvc.service.board.impl.BoardServiceImpl;
 import com.moopi.mvc.service.common.impl.CommonServiceImpl;
+import com.moopi.mvc.service.domain.Board;
 import com.moopi.mvc.service.domain.Flash;
 import com.moopi.mvc.service.domain.Moim;
 import com.moopi.mvc.service.domain.Notice;
+import com.moopi.mvc.service.domain.Reply;
 import com.moopi.mvc.service.domain.User;
 import com.moopi.mvc.service.moim.impl.MoimServiceImpl;
+import com.moopi.mvc.service.reply.impl.ReplyServiceImpl;
 import com.moopi.mvc.service.user.impl.UserServiceImpl;
 
 @Controller
@@ -32,6 +40,23 @@ public class MoimController {
 	
 	@Autowired
 	private CommonServiceImpl commonService;
+	
+	@Autowired
+	private BoardServiceImpl boardService;
+	
+	@Autowired
+	private ReplyServiceImpl replyService;
+	
+	
+	@Value("${page.pageUnit}")
+	int pageUnit;
+	
+	@Value("${page.pageSize}")
+	int pageSize;
+	
+	private Board board;
+	
+	private Reply reply;
 	
 	public static final String saveDir = ClassLoader.getSystemResource("./static/").getPath().
 			substring(0, ClassLoader.getSystemResource("./static/").getPath().lastIndexOf("bin"))
@@ -257,6 +282,105 @@ public class MoimController {
 			return "moim/mapView";	
 	}
 	
+	@RequestMapping("listMoimBoard")
+	public String getMoimBoardList(@ModelAttribute("search")Search search,	@ModelAttribute("boardMoimNo") int boardMoimNo, Model model ) throws Exception {
 	
+		System.out.println(search.toString()+boardMoimNo);
+		
+		String boardCategory = null;
+		Map map = new HashMap();
+
+		if(search.getCurrentPage() == 0 ) {
+			search.setCurrentPage(1);
+		}
+	      search.setPageSize(pageSize);
+	    
+		map = boardService.getBoardList(search, "4", "1" ,  boardMoimNo);
+		
+		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
+		model.addAttribute("resultPage", resultPage);
+		model.addAttribute("list", map.get("list"));
+		model.addAttribute("totalCount", map.get("totalCount"));
+		model.addAttribute("boardMoimNo", boardMoimNo);
+		
+			return "/moim/listMoimBoard";
+	}
+	
+	@RequestMapping("deleteBoard")
+	public String deleteBoard(@ModelAttribute("board")Board board, Model model) throws Exception {
+		
+		System.out.println("deleteMoimBoard 실행");
+		board = boardService.getBoard(board.getBoardNo());
+		board.setBoardState("2");
+		boardService.deleteBoard(board);
+		
+		
+		model.addAttribute("boardMoimNo", board.getBoardMoimNo());
+		
+		return "moim/listMoimBoard";
+				
+	}
+
+	
+	@RequestMapping("getBoard")
+	public String getBoard(@ModelAttribute("boardNo") int boardNo, Model model) throws Exception{
+		
+		System.out.println("getMoimBoard ::");
+		board = boardService.getBoard(boardNo);
+		
+		if(board.getBoardCategory() !="1") {
+		List<Reply> list = replyService.getReplyList(boardNo);	
+		model.addAttribute("list", list);
+		}
+		model.addAttribute("board", board);
+	
+		String boardCategory = boardService.getBoardCategory(board.getBoardCategory());
+		System.out.println("보드카테고리값:"+boardCategory);
+		
+		return "/moim/getMoimBoard";
+	}
+	
+	
+	@RequestMapping("addBoardView")
+	public String addBoardView(@ModelAttribute("boardMoimNo") int boardMoimNo, Model model) {
+		
+		model.addAttribute("boardMoimNo", boardMoimNo);
+		
+		return "/moim/addMoimBoardView";
+	}
+	
+	
+	
+	
+	@RequestMapping("addBoard")
+	public String addBoard(@ModelAttribute("board")Board board, Model model) throws Exception {
+		
+		
+		System.out.println("board 값 : "+board);
+		System.out.println("model 값 : "+model);
+		
+		boardService.addBoard(board);
+		System.out.println(board.getBoardNo());
+		String boardCategory =boardService.getBoardCategory(board.getBoardCategory());
+		
+		return "forward:/board/getBoard?boardNo="+board.getBoardNo();
+		
+	}
+	
+	@RequestMapping("updateView")
+	public String updateBoardView(@ModelAttribute("board")Board board, Model model) throws Exception {
+		System.out.println("updateBoardView.jsp 실행");
+		System.out.println("1번째 model "+ model);
+		System.out.println("1번째 board "+ board);
+		
+		board=boardService.getBoard(board.getBoardNo());
+		System.out.println(board);
+		model.addAttribute("board", board);
+		
+		String boardCategory = boardService.getBoardCategory(board.getBoardCategory()); 
+		System.out.println("보드카테고리값:"+boardCategory);
+			return "/moim/updateMoimBoardView";
+		
+	}
 	
 }
