@@ -1,28 +1,103 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+	
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
-<!-- CDN(Content Delivery Network) È£½ºÆ® »ç¿ë -->
+<meta charset="UTF-8">
+<title>Moopi</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+ <!-- Favicon-->
+<link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
+<!-- Bootstrap icons-->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+<!-- Core theme CSS (includes Bootstrap)-->
+<link href="/css/styles.css" rel="stylesheet" />
+
+<!-- CDN(Content Delivery Network) í˜¸ìŠ¤íŠ¸ ì‚¬ìš© -->
+
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
 <script type="text/javascript"
 	src="http://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+	<!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
 </head>
 <body>
+	<jsp:include page="../layout/toolbar.jsp"></jsp:include>
+	
+	 <section class="bg-light py-5">
+                <div class="container px-5 my-5">
+                    <div class="text-center mb-5">
+                        <h1 class="fw-bolder">Pay as you grow</h1>
+                        <p class="lead fw-normal text-muted mb-0">With our no hassle pricing plans</p>
+                    </div>
+                    <div class="row gx-5 justify-content-center">
+                        <!-- Pricing card free-->
+                        <div class="col-lg-6 col-xl-4">
+                            <div class="card mb-5 mb-xl-0">
+                                <div class="card-body p-5">
+                                    <div class="small text-uppercase fw-bold text-muted">Free</div>
+                                    <div class="mb-3">
+                                        <span class="display-4 fw-bold">$0</span>
+                                        <span class="text-muted">/ mo.</span>
+                                    </div>
+                                    <ul class="list-unstyled mb-4">
+                                        <li class="mb-2">
+                                            <i class="bi bi-check text-primary"></i>
+                                            <strong>1 users</strong>
+                                        </li>
+                                        <li class="mb-2">
+                                            <i class="bi bi-check text-primary"></i>
+                                            5GB storage
+                                        </li>
+                                        <li class="mb-2">
+                                            <i class="bi bi-check text-primary"></i>
+                                            Unlimited public projects
+                                        </li>
+                                        <li class="mb-2">
+                                            <i class="bi bi-check text-primary"></i>
+                                            Community access
+                                        </li>
+                                        <li class="mb-2 text-muted">
+                                            <i class="bi bi-x"></i>
+                                            Unlimited private projects
+                                        </li>
+                                        <li class="mb-2 text-muted">
+                                            <i class="bi bi-x"></i>
+                                            Dedicated support
+                                        </li>
+                                        <li class="mb-2 text-muted">
+                                            <i class="bi bi-x"></i>
+                                            Free linked domain
+                                        </li>
+                                        <li class="text-muted">
+                                            <i class="bi bi-x"></i>
+                                            Monthly status reports
+                                        </li>
+                                    </ul>
+                                    <div class="d-grid"><a class="btn btn-outline-primary" href="#!">Choose plan</a></div>
+                                </div>
+                            </div>
+                        </div>
+	
+	
 	
 	<input type="hidden" id="userId" name="userId" value="${dbUser.userId}">
 	<div class="card-body bg-white mt-0 shadow">
-    <p style="font-weight: bold">¹«ÇÇÄÚÀÎ °áÁ¦</p>
-    <label class="box-radio-input"><input type="radio" name="cp_item" value="1000"><span>1,000¿ø</span></label>
-    <label class="box-radio-input"><input type="radio" name="cp_item" value="2000"><span>2,000¿ø</span></label>
-    <label class="box-radio-input"><input type="radio" name="cp_item" value="3000"><span>3,000¿ø</span></label>
-    <label class="box-radio-input"><input type="radio" name="cp_item" value="5000"><span>5,000¿ø</span></label>
-    <label class="box-radio-input"><input type="radio" name="cp_item" value="10000"><span>10,000¿ø</span></label>
-    <label class="box-radio-input"><input type="radio" name="cp_item" value="100"><span>100¿ø</span></label>
-    <p  style="color: #ac2925; margin-top: 30px">¹«ÇÇÄÚÀÎ ÃÖ¼Ò ÃæÀü±İ¾×Àº 100¿øÀÌ¸ç <br/>ÃÖ´ë ÃæÀü±İ¾×Àº 10,000¿ø ÀÔ´Ï´Ù.</p>
-    <button type="button" class="btn btn-lg btn-block  btn-custom" id="check_module">Ãæ Àü ÇÏ ±â</button>
+    <p style="font-weight: bold">ë¬´í”¼ì½”ì¸ ê²°ì œ</p>
+    <label class="box-radio-input"><input type="radio" name="cp_item" value="1000"><span>1,000ì›</span></label>
+    <label class="box-radio-input"><input type="radio" name="cp_item" value="2000"><span>2,000ì›</span></label>
+    <label class="box-radio-input"><input type="radio" name="cp_item" value="3000"><span>3,000ì›</span></label>
+    <label class="box-radio-input"><input type="radio" name="cp_item" value="5000"><span>5,000ì›</span></label>
+    <label class="box-radio-input"><input type="radio" name="cp_item" value="10000"><span>10,000ì›</span></label>
+    <label class="box-radio-input"><input type="radio" name="cp_item" value="100"><span>100ì›</span></label>
+    <p  style="color: #ac2925; margin-top: 30px">ë¬´í”¼ì½”ì¸ ìµœì†Œ ì¶©ì „ê¸ˆì•¡ì€ 100ì›ì´ë©° <br/>ìµœëŒ€ ì¶©ì „ê¸ˆì•¡ì€ 10,000ì› ì…ë‹ˆë‹¤.</p>
+    <button type="button" class="btn btn-lg btn-block  btn-custom" id="check_module">ì¶© ì „ í•˜ ê¸°</button>
  </div>
 
 
@@ -31,7 +106,7 @@
 	alert(userId);
 	
 		$("#check_module").click(function() {
-			var IMP = window.IMP; // »ı·«°¡´É
+			var IMP = window.IMP; // ìƒëµê°€ëŠ¥
 			IMP.init('imp18633009');
 			var price = $('input[name="cp_item"]:checked').val();
 		    console.log(price);
@@ -41,34 +116,34 @@
 				pg : 'inicis',
 				//pg : 'kakao',
 				/*
-				'kakao':Ä«Ä«¿ÀÆäÀÌ,
-				html5_inicis':ÀÌ´Ï½Ã½º(À¥Ç¥ÁØ°áÁ¦)
-				'nice':³ªÀÌ½ºÆäÀÌ
-				'jtnet':Á¦ÀÌÆ¼³İ
-				'uplus':LGÀ¯ÇÃ·¯½º
-				'danal':´Ù³¯
-				'payco':ÆäÀÌÄÚ
-				'syrup':½Ã·´ÆäÀÌ
-				'paypal':ÆäÀÌÆÈ
+				'kakao':ì¹´ì¹´ì˜¤í˜ì´,
+				html5_inicis':ì´ë‹ˆì‹œìŠ¤(ì›¹í‘œì¤€ê²°ì œ)
+				'nice':ë‚˜ì´ìŠ¤í˜ì´
+				'jtnet':ì œì´í‹°ë„·
+				'uplus':LGìœ í”ŒëŸ¬ìŠ¤
+				'danal':ë‹¤ë‚ 
+				'payco':í˜ì´ì½”
+				'syrup':ì‹œëŸ½í˜ì´
+				'paypal':í˜ì´íŒ”
 				 */
 				pay_method : 'card',
 				/*
-				'samsung':»ï¼ºÆäÀÌ,
-				'card':½Å¿ëÄ«µå,
-				'trans':½Ç½Ã°£°èÁÂÀÌÃ¼,
-				'vbank':°¡»ó°èÁÂ,
-				'phone':ÈŞ´ëÆù¼Ò¾×°áÁ¦
+				'samsung':ì‚¼ì„±í˜ì´,
+				'card':ì‹ ìš©ì¹´ë“œ,
+				'trans':ì‹¤ì‹œê°„ê³„ì¢Œì´ì²´,
+				'vbank':ê°€ìƒê³„ì¢Œ,
+				'phone':íœ´ëŒ€í°ì†Œì•¡ê²°ì œ
 				 */
 				merchant_uid : 'merchant_' + new Date().getTime(),
 				
-				name : '¹«ÇÇÄÚÀÎ °áÁ¦',
+				name : 'ë¬´í”¼ì½”ì¸ ê²°ì œ',
 				
 				amount : price,
 				
 				//buyer_email : 'nava@naver.com',
 				buyer_name : userId,
 				//buyer_tel : '010-1234-5678',
-				//buyer_addr : '¼­¿ïÆ¯º°½Ã',
+				//buyer_addr : 'ì„œìš¸íŠ¹ë³„ì‹œ',
 				//buyer_postcode : '111-111'
 				//m_redirect_url : 'https://www.yourdomain.com/payments/complete'
 			
@@ -76,14 +151,14 @@
 			}, function(rsp) {
 				console.log(rsp);
 				if (rsp.success) {
-					var msg = '°áÁ¦°¡ ¿Ï·áµÇ¾ú½À´Ï´Ù.';
-					msg += '°íÀ¯ID : ' + rsp.imp_uid;
-					msg += '»óÁ¡ °Å·¡ID : ' + rsp.merchant_uid;
-					msg += '°áÁ¦ ±İ¾× : ' + rsp.paid_amount;
-					msg += 'Ä«µå ½ÂÀÎ¹øÈ£ : ' + rsp.apply_num;
+					var msg = 'ê²°ì œê°€ ì™„ë£Œë˜ì—ˆìŠµë‹ˆë‹¤.';
+					msg += 'ê³ ìœ ID : ' + rsp.imp_uid;
+					msg += 'ìƒì  ê±°ë˜ID : ' + rsp.merchant_uid;
+					msg += 'ê²°ì œ ê¸ˆì•¡ : ' + rsp.paid_amount;
+					msg += 'ì¹´ë“œ ìŠ¹ì¸ë²ˆí˜¸ : ' + rsp.apply_num;
 					$.ajax({ 
 						type: "POST" ,
-						url: "/payment/addPayment",//ÃæÀü ±İ¾×°ªÀ» º¸³¾ url
+						url: "/payment/addPayment",//ì¶©ì „ ê¸ˆì•¡ê°’ì„ ë³´ë‚¼ url
 						data: {
 							"amount" : price,
 							"userId" : userId,
@@ -92,11 +167,11 @@
 					});
 				
 				} else {
-					var msg = '°áÁ¦¿¡ ½ÇÆĞÇÏ¿´½À´Ï´Ù.';
-					msg += '»çÀ¯ : ' + rsp.error_msg;
+					var msg = 'ê²°ì œì— ì‹¤íŒ¨í•˜ì˜€ìŠµë‹ˆë‹¤.';
+					msg += 'ì‚¬ìœ  : ' + rsp.error_msg;
 				}
 				alert(msg);
-				document.location.href="/flash/listFlash";//¾Æ¶õÆ®Ã¢ È®ÀÎÈÄ ÀÌµ¿ÇÒ url
+				document.location.href="/flash/listFlash";//ì•„ë€íŠ¸ì°½ í™•ì¸í›„ ì´ë™í•  url
 				
 			});
 		});
