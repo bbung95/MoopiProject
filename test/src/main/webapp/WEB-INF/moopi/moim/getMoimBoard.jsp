@@ -238,8 +238,11 @@
 			
 			var reportTarget = $("#boardNo").val();
 			
-			
-			self.location ="/report/addReportView?reportCategory=1&reportTargetBd.boardNo="+reportTarget;
+			popWin = window.open(
+				"/report/addReportView?reportCategory=1&reportTargetBd.boardNo="+reportTarget,
+				"popWin",
+				"left=460, top=300, width=900, height=600, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");
+// 			self.location ="/report/addReportView?reportCategory=1&reportTargetBd.boardNo="+reportTarget;
 			
 		}
 			
@@ -299,12 +302,13 @@
 	<button type="button" class="btn btn-primary" id="updateBoard">수정하기</button>
 	<button type="button" class="btn btn-primary" id="deleteBoard">삭제하기</button>
 <!-- 	<a href="http://127.0.0.1:8080/report/addReportView?reportCategory=1&reportTarget="+$(board.boardNo) target="_blank" width=300, height=400, left=300, top=50> -->
+<%-- 	<c:if test="${ dbUser.userId} == ${ board.boardWriter.userId}"> --%>
 	<button type="button" class="btn btn-primary" id="addBoardReport">게시글신고</button>
+<%-- 	</c:if> --%>
 <!-- 	</a> -->
 	<p></p>
 	</div>
 	</div>
-	<c:if test="${ empty list}">
 	<form id = "addReplyForm">
 		<td width="550">
 			<div>
@@ -316,7 +320,6 @@
 		   <button type="button" class="btn btn-primary" id="addReply">답글작성</button>
 	</form>
 	
-	</c:if>
 	 
 	<div id="replyAddContent" value=''></div>
 	

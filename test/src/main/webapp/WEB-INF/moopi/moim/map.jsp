@@ -286,22 +286,27 @@ function displayPagination(pagination) {
 // 검색결과 목록 또는 마커를 클릭했을 때 호출되는 함수입니다
 // 인포윈도우에 장소명을 표시합니다                                   펑션 추가해서 여기에 넣으면됨.
 function displayInfowindow(marker, title) {
+	alert(title)
     var content =   '<input type=hidden class="mapPositon" value=1"'+marker.getPosition()+'">'+ 
     				'<div style="padding:5px;z-index:1;">' + title + marker.getPosition()+'</div> <p>test</p>' +
+// 					'<button type="button" class="btn btn-default"  onClick="javascript:selectPlace('+marker.getPosition().getLat()+','+marker.getPosition().getLng()+','+title+'); window.close() ">모임생성하기</button>';
 					'<button type="button" class="btn btn-default"  onClick="javascript:selectPlace('+marker.getPosition().getLat()+','+marker.getPosition().getLng()+'); window.close()">모임생성하기</button>';
-					
     infowindow.setContent(content);
     infowindow.open(map, marker);
 }
 
+// function selectPlace(lat, lng, title){
 function selectPlace(lat, lng){
 
 	var lab = lat
-	alert(lab)
+	 
+// 		alert(lab)
 	 opener.document.getElementById("lat").value = lat
 	 opener.document.getElementById("lng").value = lng
+// 	 opener.document.getElementById("mtAddr").value = title
 	 alert("상위부모 펑션 실행.")
 	 opener.fncParentsMapView(lat, lng);
+// 	 opener.fncParentsMapView(lat, lng, title);
 }
 
 

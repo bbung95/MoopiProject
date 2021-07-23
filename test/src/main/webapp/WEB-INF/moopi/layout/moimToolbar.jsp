@@ -45,7 +45,6 @@
 
 			<!-- Tool Bar 를 다양하게 사용하면.... -->
 			<ul class="nav navbar-nav">
-
 				<li><a href="/moim/listMoim">홈</a></li>
 				<li><a href="#">게시글</a></li>
 				<li><a href="javascript:fncListMeeting('${moim.mmNo}')">정모일정</a></li>

@@ -22,6 +22,19 @@
 <link href="/css/animate.min.css" rel="stylesheet">
 <link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet">
 
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@300&display=swap" rel="stylesheet">
+
+<!-- Favicon-->
+<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+<!-- Bootstrap icons-->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+<!-- Core theme CSS (includes Bootstrap)-->
+<link href="css/styles.css" rel="stylesheet" />
+
+
 <!-- Bootstrap Dropdown Hover JS -->
 <script src="/javascript/bootstrap-dropdownhover.min.js"></script>
 
@@ -75,11 +88,13 @@ body {
 	padding-top: 50px;
 	margin: auto;
 	width: 960px;
+	font-family: 'Gaegu', cursive;
 }
 </style>
 </head>
 <body>
 <jsp:include page="layout/toolbar.jsp"></jsp:include>
+
 		<div class="jumbotron jumbotron-fluid">
   		<div class="container">
    		 <h1 class="display-4">Moopi Project</h1>
@@ -92,8 +107,10 @@ body {
 		토론을 통해 나온 합리적 결정에는 토 달지 않고 따라가야 강력한 조직이 된다. <br>
 			-블라즈 파스칼, 팡세 -
 	</center>
-<%-- 	<c:if test="user.userRole == 1"> --%>
+<%-- 	<c:if test="${ dbuser.userRole} = 1"> --%>
+<%-- 		<c:if test="$(dbUser.userId = admin)"> --%>
 		<button type="button" class="btn btn-primary" id="listReport">신고관리</button>
+<%-- 		</c:if> --%>
 		<button type="button" class="btn btn-primary" id="map">지도</button>
 		<button type="button" class="btn btn-primary" id="mapView">지도보기</button>
 

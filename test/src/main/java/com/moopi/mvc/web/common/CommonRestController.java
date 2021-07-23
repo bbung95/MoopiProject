@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -118,6 +119,22 @@ public class CommonRestController {
 			return userService.getUserList(search, 0);
 		}
 
+	}
+	
+	@GetMapping(value="/chat/joinRoom/{userId}/{target}/{type}")
+	public Map joinRoom(@PathVariable String userId, @PathVariable String target,
+			@PathVariable String type, Model model) throws Exception {
+		
+		System.out.println("joinRoom : GET");
+		Map <String, Object> map = new HashMap<String, Object>();
+		map.put("user", userService.getUser(userId));
+		map.put("type", type);
+		if(type.equals("1")) {
+			map.put("target", userService.getUser(target));
+		}else{
+			map.put("target", moimService.getMoim(Integer.parseInt(target)));
+		}
+		return map;
 	}
 
 	@PostMapping(value = "json/fileUpload")

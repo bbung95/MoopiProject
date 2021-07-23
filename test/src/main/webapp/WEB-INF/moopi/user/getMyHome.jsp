@@ -43,6 +43,22 @@ body {
 	height: 250px;
 }
 
+.information {
+	display: flex;
+	flex-direction: row;
+	font-size: 22px;
+	margin-top: 40px;
+}
+
+.interest {
+	border: 0.5px solid gray;
+	border-radius: 6px;
+	margin: 3px;
+	font-size : 15px;
+	padding: 3px;
+	
+}
+
 .moimImg {
 	width: 120px;
 	height: 120px;
@@ -69,25 +85,30 @@ body {
 	border-radius: 50%;
 }
 
-.addView{
-	height: 60%;	
+.addView {
+	height: 60%;
 	width: 30%;
 	display: none;
 	background: white;
 	position: fixed;
-	margin: 0 auto;	
-    left: 0;
-    right: 0;
-    top: 20%; 
-    border-radius: 3%;
-    border: 0.1px solid gray;
-    padding: 20px;
+	margin: 0 auto;
+	left: 0;
+	right: 0;
+	top: 20%;
+	border-radius: 3%;
+	border: 0.1px solid gray;
+	padding: 20px;
 }
 
-.dropBox{
+.dropBox {
 	width: 100%;
 	height: 250px;
 	border: 0.5px solid gray;
+}
+
+.btn{
+	text-align: center;
+	font-size: 20px;
 }
 </style>
 </head>
@@ -99,27 +120,48 @@ body {
 
 	<div id="homeContainer" class="container">
 		<div class="row">
-			<div style="background: gray;" class="col-sm-4">
+			<div class="col-sm-4" align="center">
 				<img class="profileImg" src="/images/uploadFiles/poco.jpg" />
 			</div>
-			<div class="col-sm-8">
-				<div>${user.nickname}</div>
-				<div>뱃지 : ${user.badge}</div>
-				<div>코인수 : ${user.coin}</div>
-				<div>관심사1 : ${user.interestFirst}</div>
-				<div>관심사2 : ${user.interestSecond}</div>
-				<div>관심사3 : ${user.interestThird}</div>
-				<div>소개 : ${user.profileContent}</div>
-				<div>팔로워 ${followerCount}</div>
-				<div>팔로잉 ${folloingCount}</div>
-				<c:if test="${dbUser.userId == user.userId}">
-				<button>프로필수정</button>
-				<button>게시글등록</button>
-				</c:if>
-				<c:if test="${dbUser.userId != user.userId}">
-				<button target="${user.userId}">팔로우</button>
-				<button target="${user.userId}">채팅</button>
-				</c:if>
+			<div class="col-sm-8 information">
+				<div style="flex-grow: 1; display: flex; flex-direction: column;">
+					<div style="display: flex; flex-grow: 2;">
+						<div>${user.nickname}</div>
+						<div>뱃지 : ${user.badge}</div>
+					</div>
+					<div>
+						<span>팔로워 ${followerCount} </span><span> 팔로잉
+							${folloingCount}</span>
+					</div>
+				</div>
+				<div style="flex-grow: 1; text-align: right; margin-right: 100px;">
+					<div>코인수 : ${user.coin}</div>
+					<div style="display: flex; flex-direction: row-reverse;">
+					<c:if test="${!empty user.interestFirst}">
+						<div class="interest">${user.interestFirst}</div>
+					</c:if>
+					<c:if test="${!empty user.interestSecond}">
+						<div class="interest">${user.interestSecond}</div>
+					</c:if>
+					<c:if test="${!empty user.interestThird}">
+						<div class="interest">${user.interestThird}</div>
+					</c:if>
+					</div>
+
+				</div>
+			</div>
+			<div>
+				<div style="font-size: 15px;">소개 : ${user.profileContent}</div>
+				<div class="btn">
+					<c:if test="${dbUser.userId == user.userId}">
+						<button class="">프로필수정</button>
+						<button>게시글등록</button>
+					</c:if>
+					<c:if test="${dbUser.userId != user.userId}">
+						<button target="${user.userId}">팔로우</button>
+						<button target="${user.userId}" type="1">채팅</button>
+					</c:if>
+				</div>
 			</div>
 		</div>
 		<hr />
@@ -127,40 +169,41 @@ body {
 			<div id="boardList" class="col-sm-8">
 				<c:forEach var="moim" items="${moimList}">
 					<div class="board">
-						<img class="boardProfile" src="/images/uploadFiles/${moim.mmFile}"></img> <span>${moim.mmName}</span>
+						<img class="boardProfile" src="/images/uploadFiles/${moim.mmFile}"></img>
+						<span>${moim.mmName}</span>
 						<div align="center">
 							<img style="margin: 5px; height: 250px;"
 								src="/images/uploadFiles/poco.jpg"></img>
 						</div>
-						<button>좋아요</button> 0
+						<button>좋아요</button>
+						0
 						<div>게시글 내용들 컨텐트르르르</div>
 					</div>
 				</c:forEach>
-				<a href="#" class="thumbnail">
-     				 <img style="width: 200px;" src="/images/uploadFiles/poco.jpg">
-   				 </a>
-   				 <a href="#" class="thumbnail">
-     				 <img src="/images/uploadFiles/poco.jpg">
-   				 </a>
-   				 <a href="#" class="thumbnail">
-     				 <img src="/images/uploadFiles/poco.jpg">
-   				 </a>
+				<a href="#" class="thumbnail"> <img style="width: 200px;"
+					src="/images/uploadFiles/poco.jpg">
+				</a> <a href="#" class="thumbnail"> <img
+					src="/images/uploadFiles/poco.jpg">
+				</a> <a href="#" class="thumbnail"> <img
+					src="/images/uploadFiles/poco.jpg">
+				</a>
 			</div>
-			<div class="col-sm-4" >
+			<div class="col-sm-4">
 				<div>소모임 리스트</div>
 				<c:forEach var="moim" items="${moimList}">
-					<li style="background: gray" onclick="location.href='/moim/getMoim?mmNo=${moim.mmNo}'" ><img class="moimImg"
-						src='/images/uploadFiles/${moim.mmFile}' /> <span>${moim.mmName}</span></li>
+					<li style="background: gray"
+						onclick="location.href='/moim/getMoim?mmNo=${moim.mmNo}'"><img
+						class="moimImg" src='/images/uploadFiles/${moim.mmFile}' /> <span>${moim.mmName}</span></li>
 				</c:forEach>
 			</div>
 		</div>
 	</div>
-	
+
 	<div class="addView">
 		<button style="margin-bottom: 20px; border-radius: 50%;">X</button>
-		<form  enctype="multipart/form-data">
+		<form enctype="multipart/form-data">
 			<div class="dropBox"></div>
-			<input type="hidden" name="boardWriter" value="${dbUser.userId}"/>
+			<input type="hidden" name="boardWriter" value="${dbUser.userId}" />
 			<input type="file" name="uploadFile">
 			<textarea name="boardContent" style="width: 100%; height: 100px;"></textArea>
 			<button>등록</button>
@@ -251,14 +294,25 @@ body {
 	
 
 	 --%>
-<script>
+	<script>
 $('button:contains("채팅")').on('click', function(){
 	
 	let target = $(this).attr('target');
-	popWin = window.open(
-			"/chat/joinRoom?userId="+dbUser+"&trgt="+target,
-			"popWin"+target,
+	let type = $(this).attr('type');
+	
+	$.ajax({
+		url: "/common/chat/joinRoom/"+dbUser+"/"+target+"/"+type,
+		method: "GET",
+		dataType: "JSON",
+		success: function(data,state){
+	
+		popWin = window.open(
+			"https://bbung95-rtc.herokuapp.com/chat?userId="+data.user.userId+"&trgt="+data.target.userId+"&type="+data.type
+			+"&name="+data.user.nickname+"&profile="+data.user.profileImage+"&trgtName="+data.target.nickname,
+			+"&trgtProfile="+data.target.profileImage;			"popWin"+target,
 			"left=460, top=300, width=460, height=600, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");
+		}
+	})
 })
 
 $('button:contains("팔로우")').on('click', function(){

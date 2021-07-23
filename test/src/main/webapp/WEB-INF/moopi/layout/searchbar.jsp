@@ -64,11 +64,15 @@
 					// moim
 					if(searchType == 1){
 						for(var i in data.list){
-							display += '<div style="background: white; margin: 5px; height: 100px; border-radius: 10px;" onclick="location=\'moim/getMoim?mmNo='+data.list[i].mmNo+'\'">'
+							display += '<div><span style="background: white; margin: 5px; height: 100px; border-radius: 10px;" onclick="location=\'moim/getMoim?mmNo='+data.list[i].mmNo+'\'">'
 									+'<img style="margin: 5px; height:90px; width: 90px; border-radius: 10px;" src="/images/uploadFiles/'+data.list[i].mmFile+'"></img>'
 									+'<span>'+data.list[i].mmName+'</span><span> / '+data.list[i].mmContent+'</span>'
-									+'<span> / '+data.list[i].mmCurrentCount+':'+data.list[i].mmMaxCount+'</span>'
-									+'</div>';
+									+'<span> / '+data.list[i].mmCurrentCount+':'+data.list[i].mmMaxCount+'</span></span>'
+									if(dbUser == '' || dbUser == data.list[i].userId){
+										display += '</div>';
+									}else{
+										display += '<button target="'+data.list[i].mmNo+'" type="2">채팅</button></div>'
+									} 
 						}
 						$('.searchOut').append(display);
 					// flash
@@ -101,48 +105,71 @@
 									if(dbUser == '' || dbUser == data.list[i].userId){
 										display += '</div>';
 									}else{
-										display += '<button target="'+data.list[i].userId+'")">채팅</button>'
-												+'<button target="'+data.list[i].userId+'")">팔로우</button></div>';
+										display += '<button target="'+data.list[i].userId+'" type="1">채팅</button>'
+												+'<button target="'+data.list[i].userId+'">팔로우</button></div>';
 									} 
-									
-							/* display += '<div style="background: white; margin: 5px; height: 400px; border-radius: 10px;" >'
-								+'<img style="margin: 5px; width: 40px; height: 40px; border-radius: 50%;" src="/images/uploadFiles/poco.jpg"></img>'
-								+'<span>'+data.list[i].nickname+'</span>'
-								+'<div align="center"><img style="margin: 5px; height: 250px;" src="/images/uploadFiles/poco.jpg"></img></div>'
-								+'<div>게시글 내용들 컨텐트르르르</div>'
-								+'</div>'; */
 						}
 						$('.searchOut').append(display);
 						
-						// 채팅 버튼
-						$('button:contains("채팅")').on('click', function(){
-							
-							let target = $(this).attr('target');
-							popWin = window.open(
-									"/chat/joinRoom?userId="+dbUser+"&trgt="+target,
-									"popWin"+target,
-									"left=460, top=300, width=460, height=600, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");
-						})
+					}	
+					// 채팅 버튼
+					$('button:contains("채팅")').on('click', function(){
 						
-						// 채팅 버튼
-						$('button:contains("팔로우")').on('click', function(){
-							
-							let button = $(this);
-							let target = $(this).attr('target');
-							$.ajax({
-								url: "/user/json/follow/"+target,
+						let target = $(this).attr('target');
+						let type = $(this).attr('type');
+						
+						$.ajax({
+								url: "/common/chat/joinRoom/"+dbUser+"/"+target+"/"+type,
 								method: "GET",
 								dataType: "JSON",
 								success: function(data,state){
-									if(data){
-										button.css('background', 'gray');
+									let url;
+									if(data.type == 1){
+										/* url = "http://localhost:82/chat?userId="+data.user.userId+"&trgt="+data.target.userId+"&type="+data.type
+												+"&name="+data.user.nickname+"&profile="+data.user.profileImage+"&trgtName="+data.target.nickname
+												+"&trgtProfile="+data.target.profileImage; */
+										
+										url = "https://bbung95-rtc.herokuapp.com/chat?userId="+data.user.userId+"&trgt="+data.target.userId+"&type="+data.type
+										+"&name="+data.user.nickname+"&profile="+data.user.profileImage+"&trgtName="+data.target.nickname
+										+"&trgtProfile="+data.target.profileImage;
 									}else{
-										button.css('background', '');
+										/* url = "http://localhost:82/chat?userId="+data.user.userId+"&trgt="+data.target.mmNo+"&type="+data.type
+										+"&name="+data.user.nickname+"&profile="+data.user.profileImage+"&trgtName="+data.target.mmName
+										+"&trgtProfile="+data.target.mmFile+"&roomNo="+data.target.mmNo; */
+										
+										url = "https://bbung95-rtc.herokuapp.com/chat?userId="+data.user.userId+"&trgt="+data.target.mmNo+"&type="+data.type
+										+"&name="+data.user.nickname+"&profile="+data.user.profileImage+"&trgtName="+data.target.mmName
+										+"&trgtProfile="+data.target.mmFile+"&roomNo="+data.target.mmNo;
 									}
+								popWin = window.open(
+									url,
+ 									"popWin"+target,
+									"left=460, top=300, width=460, height=600, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");
 								}
-							});
+								
+							
+						})
+						
+					})
+					
+					// 채팅 버튼
+					$('button:contains("팔로우")').on('click', function(){
+						
+						let button = $(this);
+						let target = $(this).attr('target');
+						$.ajax({
+							url: "/user/json/follow/"+target,
+							method: "GET",
+							dataType: "JSON",
+							success: function(data,state){
+								if(data){
+									button.css('background', 'gray');
+								}else{
+									button.css('background', '');
+								}
+							}
 						});
-					}	
+					});
 				}
 			})
 	}
