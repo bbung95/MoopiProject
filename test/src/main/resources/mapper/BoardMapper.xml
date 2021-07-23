@@ -78,9 +78,9 @@
 					AND
 					BD.bd_writer = #{map.userId}
 					</if>
-					<if test="map.mmNo !=null">
+					<if test="map.boardMoimNo !=null">
 					AND
-					BD.bd_MM_No= #{map.mmNo}
+					BD.bd_MM_No= #{map.boardMoimNo}
 					</if>
 					<if test="map.search.searchKeyword != null and map.search.searchCondition == 0">
 					AND
@@ -123,6 +123,7 @@
 		, BD.BD_UPDATE
 		, BD.BD_STATE
 		, BD.BD_CATEGORY
+		, BD_MM_NO
 		, U.NICKNAME
 		, U.PROFILE_IMAGE
 		FROM 
@@ -267,9 +268,9 @@
 					AND
 					BD.bd_writer = #{map.userId}
 					</if>
-					<if test="map.mmNo !=null">
+					<if test="map.boardMoimNo !=null">
 					AND
-					BD.bd_MM_No= #{map.mmNo}
+					BD.bd_MM_No= #{map.boardMoimNo}
 					</if>
 					<if test="map.search.searchKeyword != null and map.search.searchCondition == 0">
 					AND
