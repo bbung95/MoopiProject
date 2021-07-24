@@ -58,10 +58,10 @@
 			<if test="searchCondition !=null">
 			<where>
 			<if test="searchCondition == 1 and searchKeyword !='' ">
-			PAYMENT_ROLE = #{searchKeyword}
+			PAYMENT_USER_ID = #{searchKeyword}
 			</if>
 			<if test="searchCondition == 2 and searchKeyword !='' ">
-			PAYMENT_PRICE = #{searchKeyword}
+			PAYMENT_REGDATE = #{searchKeyword}
 			</if>
 			</where>
 			</if>
@@ -73,13 +73,28 @@
 			<if test="searchCondition != null">
 			<where>
 			<if test="searchCondition == 1 and searchKeyword !='' ">
-			PAYMENT_ROLE = #{searchKeyword}
+			PAYMENT_USER_ID LIKE = #{searchKeyword}
 			</if>
 			<if test="searchCondition == 2 and searchKeyword !='' ">
-			PAYMENT_PRICE = #{searchKeyword}
+			PAYMENT_REGDATE LIKE = #{searchKeyword}
 			</if>
 			</where>
 			</if> 					
 	 </select>
+	
+	<!-- 관리자 파트 결제 코인 등 -->
+	<select id="adminPaymentList" parameterType="search" resultMap="paymentSelectMap">
+		SELECT PAYMENT_NO, PAYMENT_REGDATE, PAYMENT_ROLE, PAYMENT_USER_ID PAYMENT_PRICE, 
+		PAYMENT_COIN_COUNT
+		FROM PAYMENT
+		ORDER BY
+		<choose>
+			<when test="paymentAdmin == 'PRICE_ASC'">PAYMENT_PRICE ASC</when>
+			<when test="paymentAdmin == 'PRICE_DESC'">PAYMENT_PRICE DESC</when>
+			<when test="paymentAdmin == 'REGDATE_ASC'">PAYMENT_PRICE ASC</when>
+			<when test="paymentAdmin == 'REGDATE_DESC'">PAYMENT_PRICE DESC</when>
+		</choose>
+	</select>
+	
 	
 </mapper> 

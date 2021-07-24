@@ -3,14 +3,17 @@ package com.moopi.mvc.web.common;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.moopi.mvc.common.Search;
+import com.moopi.mvc.service.common.impl.CommonServiceImpl;
 import com.moopi.mvc.service.domain.User;
 import com.moopi.mvc.service.flash.impl.FlashServiceImpl;
 import com.moopi.mvc.service.moim.impl.MoimServiceImpl;
@@ -25,14 +28,25 @@ public class CommonController {
 	private MoimServiceImpl moimService;
 	@Autowired
 	private FlashServiceImpl flashService;
+	@Autowired
+	private CommonServiceImpl commonService;
+	
+	@Value("${page.pageUnit}")
+	int pageUnit;
+	
+	@Value("${page.pageSize}")
+	int pageSize;
 	
 	public CommonController() {
 	}
 	
 	@RequestMapping("/")
-	public String home() {
+	public String home(Model model) {
 		
 		System.out.println("/main");
+
+		model.addAttribute("interest", commonService.getInterest());
+		
 		return "index";
 	}
 	
@@ -127,9 +141,21 @@ public class CommonController {
 		}
 	}
 	
-	@GetMapping(value="/tp")
-	public String tp() {
+	@RequestMapping(value="/common/mainSearch")
+	public String mainSearch(@RequestParam(defaultValue = "0" ) int interestNo, @RequestParam(required=false) String addr, 
+			@RequestParam("type") int type, Search search, Model model) throws Exception {
 		
-		return "tp/main";
+		if(type == 1) {
+			
+			System.out.println("moimSearch");
+			model.addAttribute("list", moimService.getMoimList(search).get("list"));
+			return "moim/moimMain";
+		}else {
+			
+			System.out.println("flashSearch");
+			model.addAttribute("list", flashService.getFlashList(search).get("list"));
+			return "flash/flashMain";
+		}
+		
 	}
 }
