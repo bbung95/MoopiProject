@@ -163,12 +163,16 @@ public class MoimController {
 	
 	//모임리스트 가져오기 토탈카운트 포함
 	@RequestMapping("listMoim")
-	public String getListMoim(@ModelAttribute("search") Search search, Model model) throws Exception{
+	public String getListMoim(@ModelAttribute("search") Search search, 
+			@RequestParam("userId") String userId, Model model) throws Exception{
 		
 		System.out.println("모임리스트를 가져옵니다.");
 		Map<String, Object> map = moimService.getMoimList(search);
+		Map<String, Object> map2 = moimService.getMyMoimList(userId);
 		model.addAttribute("list", map.get("list"));
+		model.addAttribute("list2", map2.get("list2"));
 		model.addAttribute("search", search);
+		System.out.println("내가 가입한 모임:"+map2);
 		System.out.println("forward:/moim/moimMain 으로 이동합니다.");
 		return "moim/moimMain";
 	}
@@ -179,7 +183,7 @@ public class MoimController {
 		
 		System.out.println("내가 가입한 모임리스트를 가져옵니다.");
 		Map<String, Object> map = moimService.getMyMoimList(userId);
-		model.addAttribute("list", map.get("list"));
+		model.addAttribute("list2", map.get("list2"));
 		
 		System.out.println("forward:/moim/myMoimMain 으로 이동합니다.");
 		return "moim/myMoimMain";

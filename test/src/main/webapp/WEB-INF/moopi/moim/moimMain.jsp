@@ -13,9 +13,12 @@
 <meta name="description" content="" />
 <meta name="author" content="" />
 <title>Hello! Moopi!</title>
+
 <!-- Favicon --> 
 <link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
+
 <!-- Bootstrap icons -->
+
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
 <!-- Core theme CSS (includes Bootstrap) -->
 <link href="/css/styles.css" rel="stylesheet" />
@@ -77,7 +80,6 @@
 	};	
 
 	function fncGetMyMoim() {
-		swal	("내가 가입한 모임보기");
 		self.location ="/moim/myListMoim?userId=${dbUser.userId}"
 	};
 	
@@ -87,8 +89,30 @@
 			});
 	};
 
-	
 </script>
+
+<script>
+
+$(document).ready(function(){ 
+	$(".owl-carousel").owlCarousel({
+		  items: 1,
+          margin: 10,
+          center:true,
+          loop: true,
+          nav: false,
+          autoplay: true,
+          autoplayTimeout: 3000,
+          autoplayHoverPause: true,
+          autoHeight:true,
+          autoWidth:true
+
+	}); 
+	
+});
+
+</script>
+
+
 <style>
 body {
 	padding-top: 50px;
@@ -121,26 +145,63 @@ body {
 	margin-top:11px;
 }
 
+.userProfile {
+	margin: 10px;
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+}
+
+
 </style>
+
 </head>
 <body>
 <!-- ToolBar Start /////////////////////////////////////-->
  <jsp:include page="../layout/toolbar.jsp" /> 
 <!-- ToolBar End /////////////////////////////////////-->
 
+<h3><img class="userProfile" src="/images/uploadFiles/${dbUser.profileImage}"> ${dbUser.nickname}님이 가입하신 모임들입니다.</h3>
 
-<h3>${dbUser.nickname}님의 관심사 ${dbUser.interestFirst}, ${dbUser.interestSecond}, ${dbUser.interestThird}에 맞는 모임들입니다.</h3>
+
+<div class="owl-carousel">
+  <c:forEach items="${list2}" var="myMoim" >
+  <div>
+  <img  onClick="fncGetMoim(${myMoim.mmNo})" class="picture" src="/images/uploadFiles/${myMoim.mmFile}" width="200" height="200 "/>
+  </div> 
+  </c:forEach>
+</div>
+
+
+
+<h3><img class="userProfile" src="/images/uploadFiles/${dbUser.profileImage}"> ${dbUser.nickname}님의 관심사 ${dbUser.interestFirst}, ${dbUser.interestSecond}, ${dbUser.interestThird}에 맞는 모임들입니다.</h3>
+
+<span>
+<img src="/images/plus.png" width="40" height="40"  onClick="javascript:fncAddMoimView()"/>
+</span>
 
 <c:if test="${!empty dbUser}">
+<button type="button" class="btn btn-outline-success" onClick="javascript:fncGetMyMoim()">My Moopi</button>
 
-<button type="button" class="btn btn-default" onClick="javascript:fncGetMyMoim()">내가가입한모임보기</button>
 <button type="button" class="btn btn-default" onClick="javascript:salert()">경고창확인</button>
 </c:if>
-
 <div id="columns">
- <c:forEach var="moim" items="${list}">
-<!--   <div>  --> 
+	<c:forEach items="${list}" var="moim" >
+				<figure>	
+					<span id="mmName" onClick="fncGetMoim(${moim.mmNo})"><strong><left>${moim.mmName}</left></strong></span>
+					<img id="mmFile" src="/images/uploadFiles/${moim.mmFile}" >
+					<figcaption id="mmContent">${moim.mmContent}</figcaption>
+				</figure>
+	</c:forEach>
+</div> 
 
+
+
+<jsp:include page="../layout/searchbar.jsp"></jsp:include>
+</body>
+</html>
+
+<!--   <div>  --> 
 <!-- <div class="row"> -->
 <!--   <div class="col-sm-6 col-md-4"> -->
 <!--     <div class="thumbnail"> -->
@@ -153,13 +214,6 @@ body {
 <!--     </div> -->
 <!--   </div> -->
 <!-- </div> -->
-
-	
-  <figure>
-  <span id="getMoim" onClick="fncGetMoim(${moim.mmNo})"><strong><left>${moim.mmName}</left></strong></span>
-  <img src="/images/uploadFiles/${moim.mmFile}" >
-	<figcaption>${moim.mmContent}</figcaption>
-	</figure>
 <!-- <div class="row"> -->
 <!-- 	  		<div class="col-xs-4 col-md-2 "></div> -->
 <!-- 			<div class="col-xs-8 col-md-4"> -->
@@ -179,15 +233,3 @@ body {
 <%-- <p>모임최대가입연령:${moim.mmMaxAge}</p> --%>
 <%-- <p>모임가입유형(1일반2자유):${moim.mmType}</p>  --%>
 <!--   </div> -->
-
- </c:forEach> 
-</div>
-
-<div>
-<img src="/images/plus.png" width="40" height="40"  onClick="javascript:fncAddMoimView()"/>
-</div>
-
-
-<jsp:include page="../layout/searchbar.jsp"></jsp:include>
-</body>
-</html>
