@@ -108,7 +108,9 @@ function fncListMeeting(mmNo){
 	self.location ="/meeting/listMeeting?userId=${dbUser.userId}&mmNo="+mmNo
 }
 
-
+$('.whale').mouseenter(function(){
+	alert("사이드바");
+});
 
 </script>
 
@@ -121,6 +123,28 @@ function fncListMeeting(mmNo){
 	body{
 		padding-top: 50px;
 	}
+	
+	#side {
+	margin: 10px;
+	width: 120px;
+	height: 120px;
+	border-radius: 50%;
+	border: 4px solid;
+	border-color: #05D4EB;
+	float: right;
+}
+
+img.whale{
+    animation: rotate_image 10s linear infinite;
+    transform-origin: 50% 50%;
+}
+ 
+@keyframes rotate_image{
+	100% {
+    	transform: rotate(360deg);
+    }
+}
+	
 </style>
 <body>
 
@@ -131,7 +155,7 @@ function fncListMeeting(mmNo){
 <!-- ToolBar End ///////////////////////////////////// -->
 <h3>모임상세페이지입니다...${dbUser.userId}님 오랜만입니다...</h3>
 
-
+<img id="side" class="whale" src="/images/moimlogo.png" width="200" height="200 "/>
 //////////////////////////
 <p>모임넘버:${moim.mmNo}</p>
 <p>모임명:${moim.mmName}</p>

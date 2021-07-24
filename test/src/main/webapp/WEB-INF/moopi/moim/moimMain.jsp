@@ -44,19 +44,72 @@
 
 
 <script>
+var k = 9;
+var j = 0;
+var t = 0;
 
-// $(document).ready(function(){ 
-// 	$(".owl-carousel").owlCarousel({
-// 		  items: 5,
-//           margin: 10,
-//           loop: true,
-//           nav: true,
-//           autoplay: true,
-//           autoplayTimeout: 3000,
-//           autoplayHoverPause: true
-// 	}); 
-	
-// });
+$(document).ready(function () {
+	  $(document).scroll(function() {
+	    var maxHeight = $(document).height();
+	    var currentScroll = $(window).scrollTop() + $(window).height();
+
+	    if (maxHeight <= currentScroll + 100) {
+	    	
+	    	 $.ajax({
+   	        url: "/moim/json/listMoim/{dbUser.userId}",
+   	     	method : "GET" ,
+			dataType : "json" ,
+			headers : {
+				"Accept" : "application/json",
+				"Content-Type" : "application/json"
+			},
+   	        success: function (JSONData, status) {
+			 	var index = JSONData.list.length;
+			 	if(k+8 >= index){
+			 		for(var i= k; i < index; i++){
+		   	        	  //k+=1;
+						  $("#columns").append(
+							"<figure>"
+							+'<span onClick=\"fncGetMoim( '+JSONData.list[i].mmNo +')\"><strong><left>'+JSONData.list[i].mmName+'</left></strong></span>'
+							+'<img src=\"/images/uploadFiles/'+JSONData.list[i].mmFile+ '\" >'
+							+'<figcaption>'+JSONData.list[i].mmContent+'</figcaption>'
+							+'</figure>'
+						  );	  
+					  }
+			 		k=0;
+			 		j=1;
+			 	}else if(j==1){
+			 		t = 8;
+			 		for(var i= 0; i < t; i++){
+		   	        	  k+=1;
+						  $("#columns").append(
+							"<figure>"
+							+'<span onClick=\"fncGetMoim( '+JSONData.list[i].mmNo +')\"><strong><left>'+JSONData.list[i].mmName+'</left></strong></span>'
+							+'<img src=\"/images/uploadFiles/'+JSONData.list[i].mmFile+ '\" >'
+							+'<figcaption>'+JSONData.list[i].mmContent+'</figcaption>'
+							+'</figure>'
+						  );	  
+					  }
+			 		j=0;
+			 	}else if(k+8 < index){
+			 		for(var i= k; i < k+8; i++){
+		   	        	  k+=1;
+						  $("#columns").append(
+							"<figure>"
+							+'<span onClick=\"fncGetMoim( '+JSONData.list[i].mmNo +')\"><strong><left>'+JSONData.list[i].mmName+'</left></strong></span>'
+							+'<img src=\"/images/uploadFiles/'+JSONData.list[i].mmFile+ '\" >'
+							+'<figcaption>'+JSONData.list[i].mmContent+'</figcaption>'
+							+'</figure>'
+						  );	  
+					  }
+			 	}
+   	        	
+   	        }//success 종료
+   	      })//ajax종료
+   	      
+	    }//if문 종료
+	  })
+	});
 </script>
 
 
@@ -165,9 +218,9 @@ body {
 
 
 <div class="owl-carousel">
-  <c:forEach items="${list2}" var="myMoim" >
+  <c:forEach items="${list2}" var="moim" >
   <div>
-  <img  onClick="fncGetMoim(${myMoim.mmNo})" class="picture" src="/images/uploadFiles/${myMoim.mmFile}" width="200" height="200 "/>
+  <img  onClick="fncGetMoim(${moim.mmNo})" class="picture" src="/images/uploadFiles/${moim.mmFile}" width="200" height="200 "/>
   </div> 
   </c:forEach>
 </div>
@@ -186,7 +239,7 @@ body {
 <button type="button" class="btn btn-default" onClick="javascript:salert()">경고창확인</button>
 </c:if>
 <div id="columns">
-	<c:forEach items="${list}" var="moim" >
+	<c:forEach items="${list}" var="moim" end="8" >
 				<figure>	
 					<span id="mmName" onClick="fncGetMoim(${moim.mmNo})"><strong><left>${moim.mmName}</left></strong></span>
 					<img id="mmFile" src="/images/uploadFiles/${moim.mmFile}" >
