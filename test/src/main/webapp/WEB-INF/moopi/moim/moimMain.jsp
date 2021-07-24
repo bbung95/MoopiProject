@@ -34,7 +34,7 @@
 <!-- 구글 폰트 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@300&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
 
 <!-- Sweet Alert -->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -42,19 +42,18 @@
 
 <script>
 
-$(document).ready(function(){ 
-	$(".owl-carousel").owlCarousel({
-		  items: 5,
-          margin: 10,
-          loop: true,
-          nav: true,
-          navText: ['◀', '▶'],
-          autoplay: true,
-          autoplayTimeout: 1000,
-          autoplayHoverPause: true
-	}); 
+// $(document).ready(function(){ 
+// 	$(".owl-carousel").owlCarousel({
+// 		  items: 5,
+//           margin: 10,
+//           loop: true,
+//           nav: true,
+//           autoplay: true,
+//           autoplayTimeout: 3000,
+//           autoplayHoverPause: true
+// 	}); 
 	
-});
+// });
 </script>
 
 
@@ -93,40 +92,83 @@ $(document).ready(function(){
 <style>
 body {
 	padding-top: 50px;
-	font-family: 'Gaegu', cursive;
+	font-family: 'Nanum Gothic', sans-serif;
 	font-size: 20px;
 }
+
+#columns{
+	column-width:350px;
+/* 	border:5px solid green; */
+	column-gap: 15px;
+}
+
+#columns figure{
+	display: inline-block;
+	border:1px solid rgba(0,0,0,0.2);
+	margin:0;
+	margin-bottom: 15px;
+	padding:10px;
+	box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+}
+
+#columns figure img{
+	width:100%;
+}
+
+#columns figure figcaption{
+	border-top:1px solid rgba(0,0,0,0.2);
+	padding:10px;
+	margin-top:11px;
+}
+
 </style>
 </head>
 <body>
 <!-- ToolBar Start /////////////////////////////////////-->
-<%--  <jsp:include page="../layout/toolbar.jsp" />  --%>
+ <jsp:include page="../layout/toolbar.jsp" /> 
 <!-- ToolBar End /////////////////////////////////////-->
 
 
-<h3>${dbUser.nickname}님의 관심사 ${dbUser.interestFirst},${dbUser.interestSecond},${dbUser.interestThird}에 맞는 모임들입니다.</h3>
+<h3>${dbUser.nickname}님의 관심사 ${dbUser.interestFirst}, ${dbUser.interestSecond}, ${dbUser.interestThird}에 맞는 모임들입니다.</h3>
 
 <c:if test="${!empty dbUser}">
-<button type="button" class="btn btn-default" onClick="javascript:fncAddMoimView()">모임생성하기</button>
+
 <button type="button" class="btn btn-default" onClick="javascript:fncGetMyMoim()">내가가입한모임보기</button>
 <button type="button" class="btn btn-default" onClick="javascript:salert()">경고창확인</button>
 </c:if>
 
-<div class="owl-carousel">
+<div id="columns">
  <c:forEach var="moim" items="${list}">
-  <div> 
+<!--   <div>  --> 
 
-<div id="getMoim" onClick="fncGetMoim(${moim.mmNo})"><strong><left>${moim.mmName}</left></strong></div>
+<!-- <div class="row"> -->
+<!--   <div class="col-sm-6 col-md-4"> -->
+<!--     <div class="thumbnail"> -->
+<%--       <img src="/images/uploadFiles/${moim.mmFile}" alt="..."> --%>
+<!--       <div class="caption"> -->
+<%--         <h3>${moim.mmName}</h3> --%>
+<%--         <p>${moim.mmContent}</p> --%>
+<!--         <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p> -->
+<!--       </div> -->
+<!--     </div> -->
+<!--   </div> -->
+<!-- </div> -->
 
-<div class="row">
-	  		<div class="col-xs-4 col-md-2 "></div>
-			<div class="col-xs-8 col-md-4">
-			<!--<img src="${pageContext.request.contextPath}/images/uploadFiles/${moim.mmFile}" width="200" height="200 "/>  -->
-			<img src="/images/uploadFiles/${moim.mmFile}"/>  
-			</div>
-		</div>
-<p>모임장:${moim.mmConstructor.nickname}</p>		
-<p>${moim.mmContent}</p>		
+	
+  <figure>
+  <span id="getMoim" onClick="fncGetMoim(${moim.mmNo})"><strong><left>${moim.mmName}</left></strong></span>
+  <img src="/images/uploadFiles/${moim.mmFile}" >
+	<figcaption>${moim.mmContent}</figcaption>
+	</figure>
+<!-- <div class="row"> -->
+<!-- 	  		<div class="col-xs-4 col-md-2 "></div> -->
+<!-- 			<div class="col-xs-8 col-md-4"> -->
+<%-- 			<img src="${pageContext.request.contextPath}/images/uploadFiles/${moim.mmFile}" width="200" height="200 "/>  --%>
+<%-- 			<img src="/images/uploadFiles/${moim.mmFile}" width="400" height="200 "/>   --%>
+<!-- 			</div> -->
+<!-- 		</div> -->
+<%-- <p>모임장:${moim.mmConstructor.nickname}</p>		 --%>
+<%-- <p>${moim.mmContent}</p>		 --%>
 <%-- <p>모임가입정원:${moim.mmMaxCount}</p> --%>
 <%-- <p>모임현재정원:${moim.mmCurrentCount}</p> --%>
 <%-- <p>모임생성일:${moim.mmRegDate}</p> --%>
@@ -136,12 +178,13 @@ body {
 <%-- <p>모임최소가입연령:${moim.mmMinAge}</p> --%>
 <%-- <p>모임최대가입연령:${moim.mmMaxAge}</p> --%>
 <%-- <p>모임가입유형(1일반2자유):${moim.mmType}</p>  --%>
-  </div>
+<!--   </div> -->
+
  </c:forEach> 
 </div>
 
 <div>
-<img src="/images/plus.png" width="40" height="40"/>
+<img src="/images/plus.png" width="40" height="40"  onClick="javascript:fncAddMoimView()"/>
 </div>
 
 
