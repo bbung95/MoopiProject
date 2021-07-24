@@ -129,10 +129,10 @@ function fncListMeeting(mmNo){
 <p>모임최소가입연령:${moim.mmMinAge}</p>
 <p>모임최대가입연령:${moim.mmMaxAge}</p>
 <p>모임가입유형(1일반2자유):${moim.mmType}</p>
-<c:if test = "${dbUser.userId eq moim.mmConstructor.userId}">
+<%-- <c:if test = "${dbUser.userId eq moim.mmConstructor.userId}"> --%>
 <button type="button" class="btn btn-default" onClick="fncUptMoimView(${moim.mmNo})">소모임정보수정</button>
 <button type="button" class="btn btn-default" onClick="fncApplyList(${moim.mmNo})">가입신청목록보기</button>
-</c:if>
+<%-- </c:if> --%>
 <jsp:include page="../layout/searchbar.jsp"></jsp:include>
 
 </body>
