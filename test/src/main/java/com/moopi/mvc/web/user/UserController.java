@@ -1,6 +1,9 @@
 package com.moopi.mvc.web.user;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 import javax.servlet.http.HttpSession;
 
@@ -17,6 +20,8 @@ import com.moopi.mvc.service.domain.User;
 import com.moopi.mvc.service.moim.impl.MoimServiceImpl;
 import com.moopi.mvc.service.user.impl.UserServiceImpl;
 
+import oracle.sql.DATE;
+
 @Controller
 @RequestMapping("/user/*")
 public class UserController {
@@ -24,25 +29,21 @@ public class UserController {
 	@Autowired
 	private UserServiceImpl userService;
 	
-
 	@Autowired
 	private MoimServiceImpl moimService;
-
 	
 	@RequestMapping("updateLeaveUser")
 	public void updateLeaveUser() throws Exception {
 		System.out.println("updateLeaveUser 진입완료");
 		// 회원이 탈퇴진행할시 해당을 거쳐 유저롤 5번으로 변경한다 / 리턴값없음
 	}
-
 	
 	// 카카오 로그인 및 회원가입
 	@RequestMapping("kakaoLogin")
-	public String kakaoLogin (	@ModelAttribute("user") User user, 
+	public String kakaoLogin (	@ModelAttribute("user") User user,
 								HttpSession session) throws Exception {	
 		System.out.println("\n"+"UserRestController_____kakaoLogin 시작");				
-		User dbUser = userService.getUser(user.getUserId());
-
+		User dbUser = userService.getUser(user.getUserId());		
 		// db에 유저값 존재시 addUserInfo로 이동, db에 유저값이 없을 경우 메인페이지 출력		
 		if( dbUser != null ) {
 			session.setAttribute("dbUser", dbUser);
@@ -117,11 +118,7 @@ public class UserController {
 	
 //-- [완료] 회원가입 addUserView.jsp로 단순 네비게이션  -------------------------------------------------------------------------------------------
 	@RequestMapping("addUserView")
-	public String addUserView() throws Exception {
-			
-		System.out.println("UserController_____addUserView 시작");
-		System.out.println("단순하게 회원가입 페이지로 이동하는 네비게이션 역할을 하는 부분입니다.");
-			
+	public String addUserView() throws Exception {			
 		return "user/addUserView";
 	}
 //-----------------------------------------------------------------------------------------------------------------
@@ -142,15 +139,28 @@ public class UserController {
 	
 //-- [완료] ------------------------------------------------------------
 	@RequestMapping("addUser")
-	public String addUser (@ModelAttribute("user") User user,
-						   @RequestParam("password") String password) throws Exception {
+	public String addUser (@ModelAttribute("user") User user) throws Exception {
 		
 		System.out.println("\n"+"UserController_____addUser 시작"+"\n");
 		System.out.println("추가정보를 입력받아 회원가입을 마무리 짓는 부분입니다.");
+
+		// Age
+		Calendar cal = Calendar.getInstance();	
+		int year = cal.get(Calendar.YEAR);
+		
+		// user의 Birth 출력
+		String birth = user.getBirth();
+		
+		// birth 중 생년만 parsing
+		String str = birth;
+		String[] num = str.split("-");
+		String yy = num[0];
+	
+		int birthday = Integer.parseInt(yy);
+		int age = year - birthday;
+		user.setAge(age);
 		
 		userService.addUser(user);
-		//System.out.println("addUser : "+addUser);
-		//System.out.println("user : "+user);
 		
 		return "redirect:/";
 	}
@@ -412,6 +422,15 @@ public class UserController {
 		System.out.println("myInformation 시작");
 		return "user/myInformation";
 	}
+	
+	@RequestMapping("test")
+	public String test() {
+		
+		System.out.println("myInformation 시작");
+		return "user/test";
+	}
+	
+	
 	
 	
 }
