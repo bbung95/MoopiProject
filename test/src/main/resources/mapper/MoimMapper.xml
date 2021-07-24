@@ -25,6 +25,7 @@
 		<result property="mmType" 			column="MM_TYPE" 			jdbcType="VARCHAR"  />
 	</resultMap>
 	
+	
 	  
 	<resultMap id="memberSelectMap" type="member">
 		<result property="memberNo" 			column="MEMBER_NO" 		jdbcType="NUMERIC"/>
