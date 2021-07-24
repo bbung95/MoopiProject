@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.moopi.mvc.service.moim.impl.MoimServiceImpl;
+import com.moopi.mvc.common.Search;
 import com.moopi.mvc.service.domain.Member;
 import com.moopi.mvc.service.domain.Moim;
 
@@ -40,12 +41,13 @@ public class MoimRestController {
 	}
 	
 	 
-	@RequestMapping("json/myListMoim/{userId}")
+	@RequestMapping("json/listMoim/{userId}")
 	public Map getMyListMoim(@PathVariable("userId") String userId, Model model) throws Exception{
 		
-		System.out.println("내가 가입한 모임리스트를 가져옵니다.");
-		Map<String, Object> map = moimService.getMyMoimList(userId);
-		model.addAttribute("list", map.get("list"));
+		System.out.println("Ajax로 모임리스트를 가져옵니다.");
+		Search search = new Search();
+		Map<String, Object> map = moimService.getMoimList(search);
+		model.addAttribute("list3", map.get("list3"));
 		return map;
 	}
 	
