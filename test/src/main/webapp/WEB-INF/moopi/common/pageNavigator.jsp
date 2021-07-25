@@ -46,7 +46,9 @@
 			<c:if test="${ resultPage.endUnitPage < resultPage.maxPage }">
 				<li>
 			</c:if>
+			<c:if test ="${resultPage.maxPage > ${resultPage.endUnitPage+1}">
 		      <a href="javascript:fncGetList('${resultPage.endUnitPage+1}')" aria-label="Next">
+		      </c:if>
 		        <span aria-hidden="true">&raquo;</span>
 		      </a>
 		    </li>
@@ -57,22 +59,22 @@
  
 
 
-<div class="container">
-		<nav>
-		  <ul class="pager">
-		    <li><a href="#">Previous</a></li>
-		    <li><a href="#">Next</a></li>
-		  </ul>
-		</nav>
-</div>
+<!-- <div class="container"> -->
+<!-- 		<nav> -->
+<!-- 		  <ul class="pager"> -->
+<!-- 		    <li><a href="#">Previous</a></li> -->
+<!-- 		    <li><a href="#">Next</a></li> -->
+<!-- 		  </ul> -->
+<!-- 		</nav> -->
+<!-- </div> -->
 
 
-<div class="container">
-		<nav>
-		  <ul class="pager">
-		    <li class="previous disabled"><a href="#"><span aria-hidden="true">&larr;</span> Older</a></li>
-		    <!-- <li class="previous"><a href="#"><span aria-hidden="true">&larr;</span> Older</a></li>  -->
-		    <li class="next"><a href="#">Newer <span aria-hidden="true">&rarr;</span></a></li>
-		  </ul>
-		</nav>
+<!-- <div class="container"> -->
+<!-- 		<nav> -->
+<!-- 		  <ul class="pager"> -->
+<!-- 		    <li class="previous disabled"><a href="#"><span aria-hidden="true">&larr;</span> Older</a></li> -->
+<!-- 		    <li class="previous"><a href="#"><span aria-hidden="true">&larr;</span> Older</a></li>  -->
+<!-- 		    <li class="next"><a href="#">Newer <span aria-hidden="true">&rarr;</span></a></li> -->
+<!-- 		  </ul> -->
+<!-- 		</nav> -->
 </div>
