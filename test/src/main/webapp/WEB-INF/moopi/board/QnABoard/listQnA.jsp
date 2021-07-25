@@ -9,6 +9,7 @@
 <title>Insert title here</title>
 
 <!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
+
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
 	<link rel="stylesheet" href="/images/uploadFiles" >
@@ -38,36 +39,42 @@ function fncGetPassword(boardNo){
 	var jsonPassword;
 	
 	$.ajax( 
-					{
-						url : "/board/json/checkPassword/"+boardNo+"/"+boardPassword,
-						method : "GET" ,
-						dataType : "json" ,
-						headers : {
-							"Accept" : "application/json",
-							"Content-Type" : "application/json"
-						},
-					    success : function(JSONData , status) {
-				               //alert(JSONData.memberRole);	
-				               alert(status);
-// 				                alert("JSONData : \n"+JSONData.boardPassword);
-
-				                jsonPassword = JSONData.boardPassword
-// 				                alert(boardPassword+ ": 값비교 : "+ jsonPassword);
-// 				                alert(JSONData.boardNo);
-
-				                if(boardPassword== jsonPassword){
-// 				                	alert(JSONData.boardNo);
-				                	self.location ="/board/getBoard?boardNo="+JSONData.boardNo;
-				                }
-				               }
-				               
-			
-				            })
-				            
-				            
-				            
+			{
+				url : "/board/json/checkPassword/"+boardNo+"/"+boardPassword,
+				method : "GET" ,
+				dataType : "json" ,
+				headers : {
+					"Accept" : "application/json",
+					"Content-Type" : "application/json"
+					},
+				    success : function(JSONData , status) {
+			             //alert(JSONData.memberRole);	
+			             alert(status);
+// 			              alert("JSONData : \n"+JSONData.boardPassword);
+		                jsonPassword = JSONData.boardPassword
+// 		                alert(boardPassword+ ": 값비교 : "+ jsonPassword);
+// 		                alert(JSONData.boardNo);
+		                if(boardPassword== jsonPassword){
+// 		                	alert(JSONData.boardNo);
+		                	self.location ="/board/getBoard?boardNo="+JSONData.boardNo;
+		                }
+		            }
+		          })
 				};
 	
+		$(function(){
+			
+			$("button.btn.btn-default.search-btn").on("click", function(){
+				
+				alert("검색")
+				alert($("#searchBar").html())
+				
+				$("#searchBar").attr("method", "GET").attr("action", "/board/listBoard").submit();
+			})
+			
+		})			
+		
+				
 </script>
   
 <style>
@@ -332,44 +339,17 @@ function fncGetPassword(boardNo){
 </head>
 <body>
 <!-- ToolBar Start /////////////////////////////////////-->
-	<jsp:include page="../../layout/toolbar.jsp" />
+<jsp:include page="../../layout/toolbar.jsp"></jsp:include>
 <!-- ToolBar End /////////////////////////////////////-->
-<h3>무피 QnA게시판</h3>
 
-<%-- <c:forEach var="board" items="${list}"> --%>
-<!-- -------------------------------------------- -->
-<%-- <p>게시글번호 :${board.boardNo}</p> --%>
-<%-- <p>게시글이름 :${board.boardName}  --%>
-<%-- <c:if test="${  empty board.boardPassword}">  <div id="getBoard" onClick="fncGetBoard(${board.boardNo})"> 공개</c:if>  --%>
-<%-- <c:if test="${ !empty board.boardPassword}"> <div id="checkPassword" name="checkPassword" onClick="fncGetPassword(${board.boardNo})">비공개 </c:if>  --%>
-<!--  </div></p> -->
-<%-- <c:if test="${empty board.boardUpdate }"> --%>
-<%-- <p>작 성 일 : ${board.boardRegDate}</p>  --%>
-<%-- </c:if> --%>
-<%-- <c:if test="${!empty board.boardUpdate }"> --%>
-<%-- <p>수 정 일 : ${board.boardUpdate}</p> --%>
-<%-- </c:if> --%>
-<%-- <p>작 성 자 : ${board.boardWriter.nickname} ${board.boardWriter.profileImage }</p> --%>
-
-<%-- <p>답변 여부 : ${ board.replyCount == 0 ? "미답변" : "답변완료"} --%>
-
-<!-- </p> -->
-<%-- </c:forEach> --%>
-
-<!-- <button type="button" class="btn btn-default" onClick="fncAddBoardView()">게시글작성</button> -->
-<%-- <jsp:include page="../../layout/searchbar.jsp"></jsp:include> --%>
-
-
-
-
-
-
-
-----------------------
 <div class="userEL8991295 colorSet" data-forum-type="thumb" data-fcolor="#191919" >
     <div class="container">
         <div class="row">
-
+			
+			<div class="col-xs-12 col-sm-12 col-md-12">
+			    <h3 class="head_title" data-edit="true" data-selector="h3.head_title" ><span class="fsize20" ><strong>문의 게시판</strong></span></h3>
+		   </div>
+   		<form id="searchBar">
             <div class="col-xs-12 col-sm-12 col-md-12 search-box clearfix">
                 <div class="input-group">
                     <div class="input-group-btn">
@@ -378,19 +358,24 @@ function fncGetPassword(boardNo){
                         </select>
                     </div>
                     <div class="input-group-btn">
-                        <select id="sfl" class="form-control" name="sfl" placeholder="Search">
-                            <option value="all">all</option>
-                            <option value="title">title</option>
-                            <option value="content">content</option>
-                            <option value="name">name</option>
-                        </select>
+                        <select id="sfl" class="form-control" name="searchCondition" placeholder="Search">
+							<option value="0"
+								${! empty search.searchCondition && search.searchCondition== 0 ? "selected" : ""  }>제목</option>
+							<option value="1"
+								${! empty search.searchCondition && search.searchCondition== 1 ? "selected" : ""  }>내용</option>
+							<option value="2"
+								${! empty search.searchCondition && search.searchCondition== 2 ? "selected" : ""  }>작성자</option>
+						</select>
                     </div>
-                    <input type="text" id="stx" class="form-control" name="stx">
+                    <input type="text" id="stx" class="form-control" name="searchKeyword" value="${! empty search.searchKeyword ? search.searchKeyword : '' }">
                     <span class="input-group-btn">
                         <button type="button" class="btn btn-default search-btn"><i class="fa fa-search"></i></button>
                     </span>
+                    <input type="hidden" id="category" name="category" value="2"/>
+					<input type="hidden" id="currentPage" name="currentPage" value="1" />
                 </div>
             </div>
+        </form>
 
             <div class="col-xs-12 col-sm-12 col-md-12 table-wrap clearfix">
 
@@ -447,21 +432,22 @@ function fncGetPassword(boardNo){
 
                 </div>
                 <button type="button" class="btn btn-default btn-sm tpl-forum-write" data-selector=".tpl-forum-write" data-button="true" data-title="button text" onClick="fncAddBoardView()">작성하기</button>
-
-                <nav class="text-center clear">
-                    <ul class="pagination pagination-sm tpl-forum-pagination">
-                        <li><a href="#" aria-label="Previous"><span aria-hidden="true"><i class="fa fa-angle-left"></i></span></a></li>
-                        <li class="active"><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                        <li><a href="#" aria-label="Next"><span aria-hidden="true"><i class="fa fa-angle-right"></i></span></a></li>
-                    </ul>
-                </nav>
+	
+					<jsp:include page="../../common/pageNavigator.jsp"></jsp:include>	
+<!--                 <nav class="text-center clear"> -->
+<!--                     <ul class="pagination pagination-sm tpl-forum-pagination"> -->
+<!--                         <li><a href="#" aria-label="Previous"><span aria-hidden="true"><i class="fa fa-angle-left"></i></span></a></li> -->
+<!--                         <li class="active"><a href="#">1</a></li> -->
+<!--                         <li><a href="#">2</a></li> -->
+<!--                         <li><a href="#">3</a></li> -->
+<!--                         <li><a href="#">4</a></li> -->
+<!--                         <li><a href="#">5</a></li> -->
+<!--                         <li><a href="#" aria-label="Next"><span aria-hidden="true"><i class="fa fa-angle-right"></i></span></a></li> -->
+<!--                     </ul> -->
+<!--                 </nav> -->
 
             </div>
-			<jsp:include page="../../layout/searchbar.jsp"></jsp:include>
+	<jsp:include page="../../layout/searchbar.jsp"></jsp:include>
         </div>
     </div>
 </div>

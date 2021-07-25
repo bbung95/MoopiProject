@@ -23,7 +23,7 @@
 		    </li>
 		    
 		    <!--  중앙  -->
-			<c:forEach var="i"  begin="${resultPage.beginUnitPage}" end="${resultPage.endUnitPage}" step="1">
+		<c:forEach var="i"  begin="${resultPage.beginUnitPage}" end="${resultPage.endUnitPage}" step="1">
 				
 				<c:if test="${ resultPage.currentPage == i }">
 					<!--  현재 page 가르킬경우 : active -->
@@ -46,9 +46,7 @@
 			<c:if test="${ resultPage.endUnitPage < resultPage.maxPage }">
 				<li>
 			</c:if>
-			<c:if test ="${resultPage.maxPage > ${resultPage.endUnitPage+1}">
 		      <a href="javascript:fncGetList('${resultPage.endUnitPage+1}')" aria-label="Next">
-		      </c:if>
 		        <span aria-hidden="true">&raquo;</span>
 		      </a>
 		    </li>

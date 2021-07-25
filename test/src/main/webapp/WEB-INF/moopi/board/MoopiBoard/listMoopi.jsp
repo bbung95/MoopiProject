@@ -50,12 +50,11 @@ $(function(){
 		
 		alert("검색")
 		alert($("form.form-inline").html())
-// 		location.href = "/board/listBoard?category=1";
 		
 		$("form.inline").attr("method", "GET").attr("action", "/board/listBoard").submit();
 	})
 	
-	})
+})
 
 
 </script>
