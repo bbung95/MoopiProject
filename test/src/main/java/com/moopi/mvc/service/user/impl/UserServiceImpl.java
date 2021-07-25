@@ -149,6 +149,16 @@ public class UserServiceImpl {
 	public void updateInterest(User user) {
 		userDao.updateInterest(user);
 	}
+	
+	// 4. 주소지수정
+	public void updateAddress(User user) {
+		userDao.updateAddress(user);
+	}
+	
+	// 5. 마이홈상태수정
+	public void updateMyhomeStat(User user) {
+		userDao.updateMyhomeStat(user);
+	}
 
 // 팔로우 CRUD	
 	
