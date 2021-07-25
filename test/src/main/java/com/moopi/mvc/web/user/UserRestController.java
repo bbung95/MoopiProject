@@ -254,18 +254,75 @@ public class UserRestController {
 
 		return fileName;
 	}
+	
+	// 완료 - [관심사]
+	@GetMapping(value = "json/updateAddress/{userId}/{fullAddr}/{addr}")
+	public void updateAddress(	@PathVariable String userId, 
+								@PathVariable String fullAddr,
+								@PathVariable String addr) {
+		User user = new User();
+		user.setUserId(userId);
+		user.setFullAddr(fullAddr);
+		user.setAddr(addr);
+		userService.updateAddress(user);
+	}
+	
+	// 완료 - [닉네임수정]
+	@GetMapping(value = "json/updateNickname/{userId}/{nickname}")
+	public void updateNickname(	@PathVariable String userId, 
+								@PathVariable String nickname) {	
+		User user = new User();
+		user.setUserId(userId);
+		user.setNickname(nickname);
+		userService.updateNickname(user);
+	}
 
-	// 2. [프로필소개수정] - updateContent
-	@RequestMapping(value = "json/updateContent/{userId}")
-	public void updateContent(@PathVariable String userId, @PathVariable String profileContent) {
-		System.out.println("프로필소개수정");
+	// 완료 - [프로필소개수정]
+	@GetMapping(value = "json/updateContent/{userId}/{profileContent}")
+	public void updateContent(	@PathVariable String userId, 
+								@PathVariable String profileContent) {
 		User user = new User();
 		user.setUserId(userId);
 		user.setProfileContent(profileContent);
-
 		userService.updateContent(user);
 	}
-
+	
+	// 완료 - 관심사수정
+	@GetMapping(value = "json/updateInterest/{userId}/{interestFirst}/{interestSecond}/{interestThird}")
+	public void updateInterest(	@PathVariable String userId, 
+								@PathVariable String interestFirst,
+								@PathVariable String interestSecond,
+								@PathVariable String interestThird) {
+		User user = new User();
+		user.setUserId(userId);
+		user.setInterestFirst(interestFirst);
+		user.setInterestSecond(interestSecond);
+		user.setInterestThird(interestThird);
+		userService.updateInterest(user);
+	}
+	
+	// 마이홈상태수정
+	@GetMapping(value = "json/updateMyhomeStat/{userId}/{myhomeState}")
+	public void updateMyhomeStat(	@PathVariable String userId, 
+									@PathVariable int myhomeState) {	
+		System.out.println("마이홈상태 변경되는 메서드입니다.");		
+		// Int -> String 형변환
+		String mhState = Integer.toString(myhomeState);		
+		User user = new User();
+		user.setUserId(userId);
+		user.setMyhomeState(mhState);
+		userService.updateMyhomeStat(user);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 // [팔로우 CRUD]
 	@GetMapping(value = "json/follow/{target}")
 	public boolean follow(@PathVariable String target, HttpSession session) {
