@@ -8,12 +8,6 @@
 <meta charset="UTF-8">
 <title>Hello! Moopi!</title>
 
-<!-- BootStart -->
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-<meta name="description" content="" />
-<meta name="author" content="" />
-<title>Hello! Moopi!</title>
-
 <!-- Favicon --> 
 <link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
 
@@ -136,11 +130,55 @@ $(document).ready(function () {
 		self.location ="/moim/myListMoim?userId=${dbUser.userId}"
 	};
 	
-	function salert() {
-		swal({
-			  text: "Hello world!",
-			});
-	};
+	function fncAddMoim(){
+		swal("모임을 생성합니다.");
+		$("#addMoim").attr("method", "POST").attr("action", "/moim/addMoim").submit();
+
+	}
+
+	$('.content')
+	.on("dragover", dragOver)
+	.on("dragleave", dragOver)
+	.on("drop", uploadFiles);
+
+	function dragOver(e){
+	e.stopPropagation();
+	e.preventDefault();
+	if (e.type == "dragover") {
+	  $(e.target).css({
+	    "background-color": "black",
+	    "outline-offset": "-20px"
+	  });
+	} else {
+	    $(e.target).css({
+	    "background-color": "gray",
+	    "outline-offset": "-10px"
+	  });
+	  }
+	}
+
+	function uploadFiles(e) {
+	  e.stopPropagation();
+	  e.preventDefault();
+	  dragOver(e);
+
+	  e.dataTransfer = e.originalEvent.dataTransfer;
+	  var files = e.target.files || e.dataTransfer.files;
+	  if (files.length > 1) {
+	      alert('하나만 올려라.');
+	      return;
+	  }
+	  if (files[0].type.match(/image.*/)) {
+	              $(e.target).css({
+	          "background-image": "url(" + window.URL.createObjectURL(files[0]) + ")",
+	          "outline": "none",
+	          "background-size": "100% 100%"
+	      });
+	  }else{
+	    alert('이미지가 아닙니다.');
+	    return;
+	  }
+	}
 
 </script>
 
@@ -205,7 +243,21 @@ body {
 	border-radius: 50%;
 }
 
+.add { cursor: pointer; }
 
+.content{
+    outline: 2px dashed #92b0b3 ;
+    outline-offset:-10px;  
+    text-align: center;
+    transition: all .15s ease-in-out;
+    width: 300px;
+    height: 300px;
+    background-color: gray;
+}
+
+.content{
+	margin-bottom: 20px;
+}
 </style>
 
 </head>
@@ -227,14 +279,157 @@ body {
 
 
 
-<h3><img class="userProfile" src="/images/uploadFiles/${dbUser.profileImage}"> ${dbUser.nickname}님의 관심사 ${dbUser.interestFirst}, ${dbUser.interestSecond}, ${dbUser.interestThird}에 맞는 모임들입니다.</h3>
+<h3>
+<img class="userProfile" src="/images/uploadFiles/${dbUser.profileImage}"> ${dbUser.nickname}님의 관심사 ${dbUser.interestFirst}, ${dbUser.interestSecond}, ${dbUser.interestThird}에 맞는 모임들입니다.
+<!-- <span><img class="add" src="/images/plus.png" width="40" height="40"  onClick="javascript:fncAddMoimView()"/></span> -->
+<span><img class="add" src="/images/plus.png" width="40" height="40" data-toggle="modal" data-target="#myModal"/></span>
+</h3>
 
-<span>
-<img src="/images/plus.png" width="40" height="40"  onClick="javascript:fncAddMoimView()"/>
-</span>
+<!-- Modal 시작-->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel">모임 무피 만들기!</h4>
+      </div>
+      <div class="modal-body">
+        <!-- 폼시작 -->
+        
+        <!-- form Start /////////////////////////////////////-->
+		<form id = "addMoim" class="form-horizontal" name="detailForm" enctype="multipart/form-data">
+		  <input type="hidden" id="userId" name="userId" value="${dbUser.userId}">
+		  <div class="form-group">
+		    <label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">모임무피명</label>
+		    <div class="col-sm-4">
+		      <input type="text" class="form-control" id="mmName" name="mmName" placeholder="모임명">
+		    </div>
+		  </div>
+		  
+		  <div class="form-group">
+		    <label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">대표썸네일</label>
+		    <div class="col-sm-4">
+		      <input type="file" class="form-control" id="uploadFile" name="uploadFile" placeholder="대표썸네일">
+		    </div>
+		  </div>
+		  
+		  <center>
+		  <p>drag and drop your image!</p>
+			<div class="content">
+			</div>
+		  </center>		
+		    
+		  <div class="form-group">
+		    <label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">간단소개글</label>
+		    <div class="col-sm-4">
+		      <input type="text" class="form-control" id="mmContent" name="mmContent" placeholder="50자이내">
+		    </div>
+		  </div>
+		  
+		  <div class="form-group">
+		    <label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">지역구</label>
+		    <div class="col-sm-4">
+		      <select class="form-control" id="mmAddr" name="mmAddr">
+				  <option>종로구</option><option>중구</option><option>용산구</option><option>성동구</option>
+				  <option>광진구</option><option>동대문구</option><option>중랑구</option><option>성북구</option>
+				  <option>강북구</option><option>도봉구</option><option>노원구</option><option>은평구</option><option>서대문구</option>
+				  <option>마포구</option><option>양천구</option><option>강서구</option><option>구로구</option>
+				  <option>금천구</option><option>영등포구</option><option>동작구</option><option>관악구</option>
+				  <option>서초구</option><option>강남구</option><option>송파구</option><option>강동구</option>				  
+			  </select>
+		    </div>
+		  </div>
+		  
+		  <div class="form-group">
+		    <label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">인원</label>
+		    <div class="col-sm-4">
+		      <input type="text" class="form-control" id="mmMaxCount" name="mmMaxCount" placeholder="가입가능정원">
+		    </div>
+		  </div>
+		  
+		  <div class="form-group">
+		    <label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">관심사선택</label>
+		    <div class="col-sm-4">
+		    	<select class="form-control" id="mmInterest" name="mmInterest">
+				  <option value="1">아웃도어/여행/사진/영상</option><option value="2">운동/스포츠</option><option value="3">인문학/책/글</option>
+				  <option value="4">업종/직무</option><option value="5">외국/언어</option><option value="6">문화/공연/축제/음악/악기</option>
+				  <option value="7">공예/만들기</option><option value="8">댄스/무용</option><option value="9">사교/인맥</option>
+				  <option value="10">차/오토바이</option><option value="11">게임/오락</option><option value="12">맛집/카</option>	  
+			  </select>
+		    </div>
+		  </div>
+		  
+		  <div class="form-group">
+		    <label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">최소연령</label>
+		    <div class="col-sm-4">
+		      <input type="text" class="form-control" id="mmMinAge" name="mmMinAge" placeholder="최소연령">
+		    </div>
+		  </div>
+		  
+		  <div class="form-group">
+		    <label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">최대연령</label>
+		    <div class="col-sm-4">
+		      <input type="text" class="form-control" id="mmMaxAge" name="mmMaxAge" placeholder="최대연령">
+		    </div>
+		  </div>
+		  
+		  <div class="form-group">
+		    <label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">상태</label>
+		  <div class="col-sm-4">
+		  <div class="radio">
+			  <label>
+			    <input type="radio" name="mmState" id="mmState1" value="1" checked>
+			    공개
+			  </label>
+			</div>
+			<div class="radio">
+			  <label>
+			    <input type="radio" name="mmState" id="mmState2" value="2">
+			    비공개
+			  </label>
+			</div>
+			</div>
+		  </div>
+		  
+		  <div class="form-group">
+		    <label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">유형</label>
+		  <div class="col-sm-4">
+		  <div class="radio">
+			  <label>
+			    <input type="radio" name="mmType" id="mmType1" value="1" checked>
+			    일반 모임무피
+			  </label>
+			</div>
+			<div class="radio">
+			  <label>
+			    <input type="radio" name="mmType" id="mmType" value="2">
+			    자유 모임무피
+			  </label>
+			</div>
+			</div>
+		  </div>
+		  
+<!-- 		  <div class="form-group"> -->
+<!-- 		    <div class="col-sm-offset-4  col-sm-4 text-center"> -->
+<!-- 		      <button type="button" class="btn btn-primary" onClick="fncAddMoim()" >등록</button> -->
+<!-- 			   <a class="btn btn-default btn" role="button"  onclick="history.back()">취소</a> -->
+<!-- 		    </div> -->
+<!-- 		  </div> -->
+		</form>
+        
+        <!-- 폼끝 -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" onClick="fncAddMoim()">Create</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 모달끝 -->
+
 
 <c:if test="${!empty dbUser}">
-<button type="button" class="btn btn-outline-success" onClick="javascript:fncGetMyMoim()">My Moopi</button>
 
 <button type="button" class="btn btn-default" onClick="javascript:salert()">경고창확인</button>
 </c:if>
