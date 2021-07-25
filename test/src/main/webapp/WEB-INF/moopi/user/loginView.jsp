@@ -7,74 +7,99 @@
 <meta charset="UTF-8">
 <title> 로그인 뷰 / 로그인 화면페이지 </title>
 
-<! ------------------------------------------------ Bootstrap, jQuery CDN -------------------------------------------------->
+<!-- 구 bootstrapcdn -->
+<!--
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
-	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
-	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
-	<script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
-	<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
+-->
+<! -- jQuery CDN -->	
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<!-- 구글폰트api -->	
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@300&display=swap" rel="stylesheet">
 	
-	<script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js"></script>
+<!-- Bootstrap Dropdown Hover JS -->
+	<script src="/javascript/bootstrap-dropdownhover.min.js"></script>	
 	
+<!-- Favicon-->
+	<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+
+<!-- Bootstrap icons-->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+
+<!-- Core theme CSS (includes Bootstrap)-->
+	<link href="/css/styles.css" rel="stylesheet" />
+	
+<!-- 카카오로그인 -->
+	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+
+<!-- 구글로그인 -->
+	<script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
 	<meta name="google-signin-scope" content="profile email">
 	<meta name ="google-signin-client_id" content="959630660117-f5d12kulu8hloob7jid8f0jfeenr57sv.apps.googleusercontent.com">
 	<script src="https://apis.google.com/js/platform.js" async defer></script>
-<!-------------------------------------------------------------------------------------------------------------------------->
 
+<!-- 네이버로그인 -->
+	<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
+	<script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js"></script>
+	
+<!-------------------------------------------------------------------------------------------------------------------------->
 <script>
-		
+	
+	// 로그인시 api 및 key
 	// 카카오 API 키 : 2e00cfe75ad365584acc76b588be8d74
 	// 구글 Client ID : 959630660117-f5d12kulu8hloob7jid8f0jfeenr57sv.apps.googleusercontent.com
 	// 구글 키 : AIzaSyD3N7qWQr_bjwh9Lw-fLaK8bW5GtqbvAV8
+	// 네이버 : MJJpKOvtYqXuhtTnhQtq
 
-<!---------------------------------------------------------------------------------------------------------------------------->		
-	function fncLogin() {
-		
+// [로그인 적합성체크]
+	function fncLogin() {		
 		var id=$('input[name=userId]').val();
-		var password=$('input[name=password]').val();
-								
+		var password=$('input[name=password]').val();								
 		if(id == null || id.length < 1) {
 			alert("ID 를 입력하지 않으셨습니다.");
 			$('input[name=userId]').focus();
 			return;
 		}	
-				
 		if(password == null || password.length < 1) {
 			alert('패스워드를 입력하지 않으셨습니다.');
 			$('input[name=password]').focus();
 			return;
-		}
-		
+		}			
 		$("form").attr("method", "POST").attr("action", "/user/loginUser").submit();
 	}	
 	
-<!---------------------------------------------------------------------------------------------------------------------------->		
-  
+// [회원가입 네비게이션]								
+	$(function() {	
+			$( "input[name='addUser']" ).on("click", function() {
+				location.href="/user/addUserView";
+			});
+	});
+	
 // 구글로그인
-		
 		// 1. init function()
 		function init() {			
 			gapi.load('auth2', function() {
-						gapi.auth2.init();
-						options = new gapi.auth2.SigninOptionsBuilder();
-						options.setPrompt('select_account');
+					gapi.auth2.init();
+					options = new gapi.auth2.SigninOptionsBuilder();
+					options.setPrompt('select_account');
 											
-						 // email과 profile을 받아온다.
-						options.setScope('email profile openid https://www.googleapis.com/auth/user.birthday.read');
-											
-						// 인스턴스의 함수 호출 - element에 로그인 기능 추가
+					 // email과 profile을 받아온다.
+					options.setScope('email profile openid https://www.googleapis.com/auth/user.birthday.read');
+										
+					// 인스턴스의 함수 호출 - element에 로그인 기능 추가
 									        
-						// googleLogin : Body의 id 값을 따라간다.  
-						// options : options = new gapi.auth2.SigninOptionsBuilder();
-						// onSignIn function 
-						// onSignInFailure function
-						gapi.auth2.getAuthInstance().attachClickHandler('googleLogin', options, googleSign, onSignInFailure);
+					// googleLogin : Body의 id 값을 따라간다.  
+					// options : options = new gapi.auth2.SigninOptionsBuilder();
+					// onSignIn function 
+					// onSignInFailure function
+					gapi.auth2.getAuthInstance().attachClickHandler('googleLogin', options, googleSign, onSignInFailure);
 			}) //End gapi.load
 		} //End init function
-
 
 		// 2. 구글가입, 로그인진행시 function()
 		function googleSign(googleUser) {
@@ -108,12 +133,11 @@
 <!--- [구현중] 네이버로그인 API --------------------------------------------------------------------------------------------------------->	
 	
 	function NaverLogin() { 
-		
-			
+				
 			var naverLogin = new naver.LoginWithNaverId ({
 			
 				clientId: "MJJpKOvtYqXuhtTnhQtq",
-				callbackUrl: "http://localhost:8080/user/addUserInfo?userId="+userId,
+				callbackUrl: "http://localhost:8080/user/addUserInfo?userdId="+userId,
 				isPopup: true,
 				loginButton: {color: "green", type: 3, height: 45}
 
@@ -150,7 +174,7 @@
 							$.ajax({
 								
 								type : "GET",
-								url : currentHostPath + '/user/loginPostNaver?userId="+userId',
+								url : currentHostPath + '/user/addUserInfo?userId="+userId',
 								data : {
 									naverId : 'naverId',	
 								},
@@ -186,6 +210,7 @@
 			// 카카오 API key
 			Kakao.init('2e00cfe75ad365584acc76b588be8d74');
 			Kakao.Auth.login({	
+				scope : 'account_email, gender, birthday',
 				success : function(authObj) {				
 					
 					Kakao.API.request({				
@@ -193,10 +218,13 @@
 						success: function(response){
 							console.log("아이디 : "+response.id);
 							console.log("카카오계정 : "+response.kakao_account);
-							console.log("이메일주소 : "+response.kakao_account['email']);						
-							var email = response.kakao_account['email'];
-							var userId = response.id;							
-							location.href = "/user/kakaoLogin?userId="+userId				
+							console.log("이메일주소 : "+response.kakao_account['email']);
+							console.log("성별 : "+response.kakao_account['gender']);	
+							console.log("생일 : "+response.kakao_account['birthday']);				
+							var userId = response.id;	
+							var gender = response.gender;
+							var birth = response.birthday;						
+							location.href = "/user/kakaoLogin?userId="+userId;			
 						} //End response function					
 					}) //End API.request				
 				} //End authObj Function			
@@ -244,125 +272,103 @@
 	}
 		
 </script>		
-    <style>
-	body{
-	padding-top: 50px;
-	}
+   
+	<style>
+		body {
+		background-image : url('../images/background/half_background.jpg');
+			padding-top: 50px;
+		}
 	</style>
+	
+	<style type="text/css">
+		a:link { color: gray; text-decoration: none;}
+		a:visited { color: black; text-decoration: none;}
+		a:hover { color: red; text-decoration: none;}
+	</style>
+
+
+	
 </head>
+
 <body>
 
 <!-- Tool Bar ---------------------------------------------------------------------------------------------------------------->
-	<jsp:include page="../layout/toolbar.jsp" />
 <!---------------------------------------------------------------------------------------------------------------------------->
-
 
 <!-- 화면구성 div Start ---------------------------------------------------------------------------------------------------------------->
+<div>
+	<a href="javascript:history.back()">
+	<img class="img-back" src="../images/icons/icon_back.png" width="25" name="back"></a>
+</div>
 
-	<div class="container">
-		
-		<div class="row">
-		
-		<h1 class="bg-primary text-center">로그인</h1>
-		
-<!-- FORM START ---------------------------------------------------------------------------------------------------------------->
+	<div class="d-lg-flex half" >
+		<div class="bg order-1 order-md-2"></div>
+			<div class="contents order-2 order-md-1"> 
+				<div class="container">
+					<div class="row align-items-center justify-content-center">
+						<div class="col-md-7">
+							<div class="mb-4">
+								<h3 class="row align-items-center justify-content-center">Moopi</h3><br>
+								<h5 class="row align-items-center justify-content-center">수정중</h5><br>
+								<p class="mb-4"> ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ</p>
+							</div>
+					
+							<form action="#" method="post">
+								
+								<!-- 아이디입력 -->
+								<div class="form-group first">
+									<label for="userId">ID</label>
+									<input type="text" class="form-control" id="userId" name="userId">
+								</div>
+								
+								<!-- 패스워드입력 -->
+								<div class="form-group last mb-3">
+									<label for="password">Password</label>
+									<input type="password" class="form-control" id="password" name="password">
+								</div>
+								
+								<!-- 아이디찾기 -->
+								<div class="d-flex mb-2 align-items-center">
+									<a href="javascript:findId();" class="forgot-pass">Forgot Id?</a></span>											
+								</div>
+								
+								<!-- 패스워드찾기 -->
+								<div class="d-flex mb-4 align-items-center">
+									<a href="javascript:findPwd();" id="findPwd" class="forgot-pass">Forgot Password?</a>
+								</div>
 
-	<form class="form-horizontal"">
-  
-		<div class="form-group">
-			<label for="userId" class="col-sm-offset-1 col-sm-3 control-label">아이디</label>
-			<div class="col-sm-4">
-			<input type="text" class="form-control" id="userId" name="userId" placeholder="아이디를 입력해주세요">
-			</div>
-			<div class="check_font" id="id_check"></div>
-		</div>
-		
-<!-- ## 아이디찾기 -->
-		<div class="form-group">
-			<label for="searchIdView" class="col-sm-offset-1 col-sm-6 control-label"></label>
-			<a href="javascript:findId();" id="findId">아이디를 잊으셨나요?</a>			
-		</div>
-
-<!-- 비밀번호입력 -->		  
-		<div class="form-group">
-			<label for="password" class="col-sm-offset-1 col-sm-3 control-label">비밀번호</label>
-			<div class="col-sm-4">
-				<input type="password" class="form-control" name="password" id="password" placeholder="비밀번호를 입력해주세요" >
-			</div>
-			<div class="check_font" id="pwd_check"></div>
-		</div>
-		
-<!-- ## 비밀번호찾기 -->
-		<div class="form-group">
-			<label for="searchUserPwd" class="col-sm-offset-1 col-sm-6 control-label"></label>
-			<a href="javascript:findPwd();" id="findPwd">비밀번호를 잊으셨나요?</a>
-		</div>
-		
-<!-- ## 회원가입 -->
-		<div class="form-group">
-			<label for="addUser" class="col-sm-offset-1 col-sm-6 control-label"></label>
-			<a href="/user/addUserView">회원가입</a>
-		</div>
-		
-<!-- [구현중] 카카오 API Login & Logout ---------------------------------------------------------------------------------------------------------------->						
-<!--
-		<div class="form-group">
-			<div class="col-sm-offset-4  col-sm-4 text-center">
-				<button type="button" class="btn btn-default" onClick="KakaoLogout()">카카오 로그아웃</button>
-			</div>
-		</div>
--->		
-		<div class="form-group">
-			<div class="col-sm-offset-4  col-sm-4 text-center">
-				<img src="../images/API/kakao_login_medium_narrow.png" name="kakaoLogin" onclick="javascript:KakaoLogin()">
-			</div>
-		</div>		
-		
-<!---------------------------------------------------------------------------------------------------------------------------->
-
-<!-- 구글 API Login ---------------------------------------------------------------------------------------------------------------->				
-
-  		<!-- [7월 19일 01:34] 이미지 경로지정 차후 구현시 사용 -->
-  		<!-- <img src="../images/API/google_login.png" height="48" id="googleLogin"/></button> -->
-  		<!--
-		<li id="googleLogin">
- 			<a href="javascript:void(0)">
-				<span>구글 로그인</span>
-			</a>
-			</li>
-		</ul>
-		-->
-		<div class="form-group">
-			<div class="col-sm-offset-4  col-sm-4 text-center">
-				<img src="../images/API/google-login.png" height="45" name="googleLogin" id="googleLogin" onclick="javascript:googleSign(googleUser)">
-			</div>
-		</div>		
-		
-		
-<!---------------------------------------------------------------------------------------------------------------------------->
-
-<!-- 네이버 API Login ---------------------------------------------------------------------------------------------------------------->					
-
-	<div id="naverIdLogin" align="center">
-		<a id="naver-login-btn" href="#" role="button">
-			<img src="https://static.nid.naver.com/oauth/big_g.PNG?version=js-2.0.1" height="45" id="naverIdLogin" onclick="NaverLogin()"/>      
-		</a>
-	</div>
-
-<!---------------------------------------------------------------------------------------------------------------------------->
-
-<!-- 로그인, 취소 Button ---------------------------------------------------------------------------------------------------------------->									
-		<div class="form-group">
-			<div class="col-sm-offset-4  col-sm-4 text-center">
-				<button type="button" class="btn btn-primary" onClick="fncLogin()">로그인</button>
-				<a class="btn btn-default btn" href="/" role="button">취소</a>
+								<!-- 로그인버튼 -->
+								<div style="text-align : center;">
+									<a><input type="submit" value="Login" class="btn btn-block btn-basic" onClick="javascript:fncLogin()"></a>
+								</div>
+								<div style="text-align : center;">	
+									<a href="/user/addUserView" style="color:black;">회원가입</a>
+								</div>
+								
+								<!-- 회색글씨 -->
+								<span class="d-block text-center my-3 text-muted">&mdash; or &mdash;</span>
+					
+								<div class="social-login">
+									<a class="Kakao btn d-flex justify-content-center align-items-center" name="kakaoLogin" onclick="javascript:KakaoLogin()">
+										<img src="../images/API/kakao_btn.png" width="200" name="kakaoLogin">
+										<span class="icon-Kakao mr-3"></span>
+									</a>
+									<a class="kakao btn d-flex justify-content-center align-items-center" id="naverIdLogin" onclick="javascipt:NaverLogin()">
+										<img src="../images/API/naver_btn.png" width="200"name="naverLogin">
+										<span class="icon-Naver mr-3"></span>
+									</a>
+									<a class="google btn d-flex justify-content-center align-items-center" name="googleLogin" id="googleLogin" onclick="javascript:googleSign(googleUser)">
+										<img src="../images/API/google_btn.png" width="200" name="googleLogin">
+										<span class="icon-Google mr-3"></span>
+									</a>	
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
-<!---------------------------------------------------------------------------------------------------------------------------->	
-	
-<!-- FORM END ---------------------------------------------------------------------------------------------------------------->
-		  			
- 	</div>
+
 
 </body>
 </html>
