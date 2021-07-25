@@ -18,11 +18,13 @@
 		<result property="boardMoimNo" 		column="BD_MM_NO" 		jdbcType="NUMERIC"  />
 		<result property="boardLike" 		column="LIKECOUNT" 			jdbcType="NUMERIC"  />
 		<result property="replyCount" 		column="REPLYCOUNT" 		jdbcType="NUMERIC"  />
+		<result property="boardFile"        column="BD_FILE"		jdbcType="VARCHAR"/>
 		
 		<association property="boardWriter"  javaType="user">
 			<id property="userId" 				column="USER_ID" 			jdbcType="VARCHAR"/>
 			<result property="profileImage"		column="PROFILE_IMAGE"		jdbcType="VARCHAR"/>
 			<result property="nickname"			column="NICKNAME"			jdbcType="VARCHAR"/>
+			<result property="userId"			column="USER_ID"			jdbcType="VARCHAR"/>
 		</association>		
 	</resultMap>	
 	
@@ -34,14 +36,17 @@
                 FROM(
 					SELECT 
 					BD.BD_NO    
+				  , U.USER_ID
 				  , U.NICKNAME
 				  , U.PROFILE_IMAGE
 				  , BD.BD_NAME
+				  , BD.BD_CONTENT
 				  , BD.BD_REGDATE
 				  , BD.BD_UPDATE
 				  , BD.BD_MM_NO
 				  , BD.BD_STATE
 				  , BD.BD_CATEGORY 
+				  , BD.BD_FILE
 				  , LEFT(BD.BD_PASSWORD, 1) AS BD_PASSWORD
 				  , ( SELECT 
 						COUNT(*)
@@ -124,6 +129,8 @@
 		, BD.BD_STATE
 		, BD.BD_CATEGORY
 		, BD_MM_NO
+		, BD.BD_FILE
+		, U.USER_ID
 		, U.NICKNAME
 		, U.PROFILE_IMAGE
 		FROM 
@@ -147,6 +154,7 @@
 			, BD_REGDATE
 			, BD_STATE
 			, BD_PASSWORD
+			, BD_FILE
 			<if test= "board.boardMoimNo != 0">
 			, BD_MM_NO
 			</if>
@@ -160,7 +168,7 @@
 			, now()
 			, '1'
 			, #{board.boardPassword}
-			
+			, #{board.boardFile}
 			<if test= "board.boardMoimNo != 0">
 			, #{board.boardMoimNo : NUMERIC}
 			</if>

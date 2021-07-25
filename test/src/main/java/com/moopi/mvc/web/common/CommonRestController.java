@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -40,6 +41,12 @@ public class CommonRestController {
 	private BoardServiceImpl boardService;
 	@Autowired
 	private UserServiceImpl userService;
+	
+	@Value("6")
+	private int pageSize;
+	
+	@Value("10")
+	private int pageUnit;
 
 	//public static final String saveDir = "/Users/bbung_/git/MoopiProject/test/src/main/resources/static/images/uploadFiles/chat";
 	public static final String saveDir = ClassLoader.getSystemResource("./static/").getPath().
@@ -112,6 +119,8 @@ public class CommonRestController {
 		} else if (searchType == 3) {
 			System.out.println("Posting List");
 			search.setSearchCondition(1);
+			search.setPageSize(pageSize);
+			search.setPageUnit(pageUnit);
 			return boardService.getBoardList(search, "3", "1");
 		} else {
 			System.out.println("User List");
@@ -141,7 +150,6 @@ public class CommonRestController {
 	public String fileUpload(@RequestParam("uploadFile") MultipartFile file) {
 
 		System.out.println("fileUpload : POST");
-		System.out.println("제발....."+ClassLoader.getSystemResource("./static/").getPath().substring(0, ClassLoader.getSystemResource("./static/").getPath().lastIndexOf("bin")));
 		long currentTime = System.currentTimeMillis();
 		String fileName = currentTime + file.getOriginalFilename();
 		try {
