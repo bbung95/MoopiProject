@@ -68,6 +68,24 @@ public class BoardServiceImpl {
 		System.out.println(map);
 		return map;
 	}
+	
+public Map<String, Object> getBoardList(Search search, String boardCategory, String boardState, String userId) throws Exception{
+		
+		Map map = new HashMap<String, Object>();
+		
+		map.put("boardCategory", boardCategory);
+		map.put("boardState", boardState);
+		map.put("search", search);
+		map.put("userId", userId);
+		
+		List<Board> list= boardDao.getBoardList(map);
+		int totalCount =  boardDao.getTotalCount(map); 
+
+		map.put("list", list);
+		map.put("totalCount", totalCount);
+		System.out.println(map);
+		return map;
+	}
 		
 	
 //	public Map<String, Object> getBoardList(Map map) throws Exception{
