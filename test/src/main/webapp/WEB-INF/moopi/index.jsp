@@ -94,7 +94,7 @@ body>#mainlogo {
 	width: 200px;
 }
 
-.selectbtn{
+.selectbtn {
 	width: 250px;
 	height: 50px;
 	margin: 5px;
@@ -117,37 +117,43 @@ body>#mainlogo {
 						<p class="lead fw-normal text-white-50 mb-4">무피프로젝트 2021-06-06
 							~ 2021-08-06</p>
 						<div>
-						
+
 							<form id="mainSearch">
-							<input type="hidden" class="interest" name="interestNo" value="">
-							<input type="hidden" class="addr" name="addr" value="">
-							<input type="hidden" class="type" name="type" value="">
-							<div class="dropdown mt-3" style="margin-bottom: 10px;">
-								<button class="btn btn-light dropdown-toggle selectbtn" type="button"
-									 data-bs-toggle="dropdown" id="interestbtn">
-									<span>Category</span></button>
-								<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="interest">
-									<c:forEach var="interest" items="${interest}">
-										<li><a class="dropdown-item" href="#" type="${interest.interestNo}">${interest.interestName}</a></li>
-									</c:forEach>
-								</ul>
-								
-								<button class="btn btn-light dropdown-toggle selectbtn" type="button"
-									 data-bs-toggle="dropdown" id="addrbtn">
-									Addr</button>
-								<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="addr">
-									<li><a class="dropdown-item" href="#">Action</a></li>
-									<li><a class="dropdown-item" href="#">Another action</a></li>
-									<li><a class="dropdown-item" href="#">Something else
-											here</a></li>
-								</ul>
-							</div>
-							<div >
-								<button class="btn btn-secondary srchbtn" type="button" order="1">모임</button>
-								<button class="btn btn-secondary srchbtn" type="button" order="2">번개</button>
-							</div>
+								<input type="hidden" class="interest" name="interestNo" value="">
+								<input type="hidden" class="addr" name="addr" value="">
+								<input type="hidden" class="order" name="type" value="">
+								<div class="dropdown mt-3" style="margin-bottom: 10px;">
+									<button class="btn btn-light dropdown-toggle selectbtn"
+										type="button" data-bs-toggle="dropdown" id="interestbtn">
+										<span>Category</span>
+									</button>
+									<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton"
+										id="interest">
+										<c:forEach var="interest" items="${interest}">
+											<li><a class="dropdown-item" href="#"
+												type="${interest.interestNo}">${interest.interestName}</a></li>
+										</c:forEach>
+									</ul>
+
+									<button class="btn btn-light dropdown-toggle selectbtn"
+										type="button" data-bs-toggle="dropdown" id="addrbtn">
+										Addr</button>
+									<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton"
+										id="addr">
+										<li><a class="dropdown-item" href="#">Action</a></li>
+										<li><a class="dropdown-item" href="#">Another action</a></li>
+										<li><a class="dropdown-item" href="#">Something else
+												here</a></li>
+									</ul>
+								</div>
+								<div>
+									<button class="btn btn-secondary srchbtn" type="button"
+										order="1">모임</button>
+									<button class="btn btn-secondary srchbtn" type="button"
+										order="2">번개</button>
+								</div>
 							</form>
-							
+
 						</div>
 					</div>
 				</div>
@@ -168,24 +174,25 @@ body>#mainlogo {
 	<!-- Core theme JS-->
 	<script src="/js/scripts.js"></script>
 	<script>
-		
-		$('#addr > li > a').on('click', function(){
-			
+		$('#addr > li > a').on('click', function() {
+
 			$('#addrbtn').text($(this).text());
 			$('.addr').val($(this).text().trim());
 		})
-		
-		$('#interest > li > a').on('click', function(){
-			
+
+		$('#interest > li > a').on('click', function() {
+
 			$('#interestbtn').text($(this).text());
 			$('.interest').val($(this).attr('type'));
 		})
-		
-		$('.srchbtn').on('click', function(){
-			$('.type').val($(this).attr('order'));
-			$('#mainSearch').attr('method', "Get").attr("action", "/common/mainSearch").submit();
-		})
-	
+
+		$('.srchbtn').on(
+				'click',
+				function() {
+					$('.order').val($(this).attr('order'));
+					$('#mainSearch').attr('method', "Get").attr("action",
+							"/common/mainSearch").submit();
+				})
 	</script>
 </body>
 </html>
