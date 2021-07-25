@@ -20,6 +20,7 @@ import com.moopi.mvc.service.board.impl.BoardServiceImpl;
 import com.moopi.mvc.service.common.impl.CommonServiceImpl;
 import com.moopi.mvc.service.domain.Board;
 import com.moopi.mvc.service.domain.Flash;
+import com.moopi.mvc.service.domain.Member;
 import com.moopi.mvc.service.domain.Moim;
 import com.moopi.mvc.service.domain.Notice;
 import com.moopi.mvc.service.domain.Reply;
@@ -71,8 +72,10 @@ public class MoimController {
 //		System.out.println(userId);
 //		System.out.println(userMapper.getUser(userId));
 		Moim moim = moimService.getMoim(mmNo);
-		System.out.println(moim);
-		
+		Map map = moimService.getMemberList(mmNo, 2);
+		System.out.println("모임정보:::"+moim);
+		System.out.println("모임의멤버리스트:::"+map);
+		model.addAttribute("list", map.get("list"));
 		model.addAttribute("moim", moimService.getMoim(mmNo));
 		return "moim/getMoim";
 	}

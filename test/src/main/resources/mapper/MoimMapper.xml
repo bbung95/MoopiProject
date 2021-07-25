@@ -35,6 +35,7 @@
 		<result property="mmUser.profileImage"				column="PROFILE_IMAGE" 		jdbcType="VARCHAR" />
 		<result property="mmUser.profileContent"				column="PROFILE_CONTENT" 		jdbcType="VARCHAR" />
 		<result property="mmUser.addr"				column="ADDR" 		jdbcType="VARCHAR" />
+		<result property="mmUser.nickname"				column="NICKNAME" 		jdbcType="VARCHAR" />
 		<result property="mmNo" 			column="MM_NO" 		jdbcType="NUMERIC" />
 		<result property="memberRole" 			column="MM_MEMBER_ROLE" 			jdbcType="VARCHAR" /> 
 		<result property="memberRegDate" 			column="MM_MEMBER_REGDATE" 			jdbcType="DATE" />
@@ -104,7 +105,7 @@
 	 <select  id="getMemberList"  parameterType="int"	resultMap="memberSelectMap">
 		SELECT
 		MEMBER_NO, MM_MEMBER_ID, MM_NO, MM_MEMBER_ROLE, MM_MEMBER_REGDATE, USER_NAME, BADGE, 
-		PROFILE_IMAGE, PROFILE_CONTENT, ADDR	
+		NICKNAME, PROFILE_IMAGE, PROFILE_CONTENT, ADDR	
 		FROM MEMBER M, USERS U
 		<if test="status == 1">
 		where mm_no =#{mmNo}

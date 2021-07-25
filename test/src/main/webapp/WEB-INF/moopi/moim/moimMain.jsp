@@ -209,6 +209,7 @@ body {
 	padding-top: 50px;
 	font-family: 'Nanum Gothic', sans-serif;
 	font-size: 20px;
+	background-color:#f7f6f3;
 }
 
 #columns{
@@ -431,7 +432,6 @@ body {
 
 <c:if test="${!empty dbUser}">
 
-<button type="button" class="btn btn-default" onClick="javascript:salert()">경고창확인</button>
 </c:if>
 <div id="columns">
 	<c:forEach items="${list}" var="moim" end="8" >
