@@ -70,6 +70,20 @@ public class PaymentServiceImpl {
 		return map;
 	}
 	
+	//admin paymentList
+	public Map<String, Object> adminPaymentList(Payment payment,Search search)throws Exception{
+		
+		List<Payment> list = paymentDao.adminPaymentList(payment, search);
+		int totalCount = paymentDao.getTotalCount(search);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		map.put("totalCount", totalCount);
+		
+		return map;
+	}
+	
+	
 	public void updatePayment(Payment payment) throws Exception {
 		paymentDao.updatePayment(payment);
 

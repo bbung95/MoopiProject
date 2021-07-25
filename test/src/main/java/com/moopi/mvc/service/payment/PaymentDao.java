@@ -23,4 +23,6 @@ public interface PaymentDao {
 	
 	public int getTotalCount(Search search) throws Exception;
 	
+	public List<Payment> adminPaymentList(@Param("payment") Payment payment, @Param("search") Search search) throws Exception;
+	
 }

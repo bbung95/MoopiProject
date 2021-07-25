@@ -7,19 +7,9 @@
 <head>
 <meta charset="UTF-8">
 <title>마이홈보기</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 <! ------------------------------------------------ Bootstrap, jQuery CDN -------------------------------------------------->
-<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link
-	href="https://fonts.googleapis.com/css2?family=Gaegu:wght@300&display=swap"
-	rel="stylesheet">
-
-<!-- Bootstrap Dropdown Hover JS -->
-<script src="/javascript/bootstrap-dropdownhover.min.js"></script>
-
 <!-- Favicon-->
 <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
 <!-- Bootstrap icons-->
@@ -29,6 +19,7 @@
 <!-- Core theme CSS (includes Bootstrap)-->
 <link href="/css/styles.css" rel="stylesheet" />
 <!-------------------------------------------------------------------------------------------------------------------------->
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 
 <script>
 
@@ -322,17 +313,16 @@
 	.userEL8990950 .search-box {
 		padding-bottom: 15px;
 	}
-
-tpl-forum-list-thumb{	
-	position: relative;
-	
+	tpl-forum-list-thumb {
+		position: relative;
+	}
+	tpl-forum-list-thumb:after {
+		content: "";
+		display: block;
+		padding-bottom: 100%;
+	}
 }
 
-tpl-forum-list-thumb:after {
-  content: "";
-  display: block;
-  padding-bottom: 100%;
-}
 </style>
 
 <style>
@@ -342,21 +332,10 @@ body {
 
 #homeContainer {
 	margin: auto;
-	border: 1px solie black;
 }
 
 .profileImg {
-	border-radius: 70%;
-	width: 300px;
-	height: 300px;
-	border: 5px solid gray;
-	overflow: hidden;
-}
-
-.profileImg-img {
-	width: 300px;
-	height: 300px;
-	object-fit: cover;
+ 	border-radius: 50%;
 }
 
 .moimImg {
@@ -366,45 +345,38 @@ body {
 	border-radius: 10px;
 }
 
-#boardList {
-	border-right: 0.5px solid gray;
-}
-
-.board {
-	margin: 5px;
-	height: 400px;
-	border-radius: 10px;
-	border: 0.5px solid gray;
-	width: 500px;
-}
-
-.boardProfile {
-	margin: 10px;
-	width: 40px;
-	height: 40px;
-	border-radius: 50%;
-}
-
-.addView {
-	height: 60%;
-	width: 30%;
-	display: none;
-	background: white;
-	position: fixed;
-	margin: 0 auto;
-	left: 0;
-	right: 0;
-	top: 20%;
-	border-radius: 3%;
-	border: 0.1px solid gray;
-	padding: 20px;
-}
-
 .interest {
 	border: 0.5px solid gray;
 	padding: 2px;
 	border-radius: 4px;
 	background: #ebe8e4;
+}
+
+.thumbnail-wrapper {
+	width: 100%;
+	border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* 반응형 이미지 1:1 정렬  */
+.thumbnail {
+	position: relative;
+	padding-top: 100%;
+	overflow: hidden;
+}
+
+.thumbnail-centered {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	transform: translate(50%, 50%);
+}
+
+.thumbnail-img {
+	/*   max-width: 100%; */
+	/*   height: 박스의 height와 같아야 한다. */
+	transform: translate(-50%, -50%);
 }
 </style>
 </head>
@@ -489,55 +461,15 @@ body {
 				</c:if>
 			</div>
 
-
 			<!-- 바디 -->
 			<div class="userEL8990950 colorSet" data-forum-type="thumb"
 				data-fcolor="#191919">
 				<div class="container">
-					<div id="boardView" class="row multi-columns-row">
-
-
-						<div class="col-xs-4 col-sm-4 col-md-4 no-padding item">
-							<div class="border-wrap op_itemline10">
-								<div class="thumb-wrap">
-									<div class="tpl-forum-list-thumb">
-										<img
-											src="//storage.googleapis.com/i.addblock.net/sample/forum_thumb_6_1.jpg"
-											class="img-responsive">
-									</div>
-
-								</div>
-								<div class="cont-wrap">
-									<div class="tpl-forum-list-content">
-										<span class="tpl-forum-list-title"
-											data-selector=".tpl-forum-list-title" data-font="true"
-											data-title="title font">Amazing work one really feels
-											like in a stone age. Impressive!</span>
-									</div>
-									<div
-										class="tpl-forum-list-name tpl-forum-list-etc config-font-etc"
-										data-selector=".tpl-forum-list-etc" data-font="true"
-										data-title="others">Den Kdivinich</div>
-									<ul>
-										<li
-											class="tpl-forum-list-category tpl-forum-list-etc config-font-etc">category</li>
-										<li
-											class="tpl-forum-list-date tpl-forum-list-etc config-font-etc">now</li>
-										<li
-											class="tpl-forum-list-hit tpl-forum-list-etc config-font-etc">1486</li>
-										<li
-											class="tpl-forum-list-comment tpl-forum-list-etc config-font-etc">25</li>
-									</ul>
-									<div class="tpl-forum-list-cont"
-										data-selector=".tpl-forum-list-cont" data-font="true"
-										data-title="content font">Phasellus justo ante, ultrices
-										eget lorem ut, vestibulum ultrices mauris.</div>
-								</div>
-							</div>
-						</div>
-
-					</div>
+					<!-- 게시글 생성박스 -->
+					<div id="boardView" class="row multi-columns-row"></div>
+					<div id="loadbar"></div>
 				</div>
+			</div>
 	</main>
 
 	<!-- Modal -->
@@ -599,13 +531,14 @@ $('button:contains("채팅")').on('click', function(){
 			"https://bbung95-rtc.herokuapp.com/chat?userId="+data.user.userId+"&trgt="+data.target.userId+"&type="+data.type
 			+"&name="+data.user.nickname+"&profile="+data.user.profileImage+"&trgtName="+data.target.nickname
 			+"&trgtProfile="+data.target.profileImage,
-			"popWin",
+			"popWin"+target,
 			"left=460, top=300, width=460, height=600, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");
 		}
 	})
 })
 
 $('button:contains("팔로우")').on('click', function(){
+	
 	let target = $(this).attr('target');
 	$.ajax({
 		url: "/user/json/follow/"+target,
@@ -662,6 +595,10 @@ $('.modal-footer > button:contains("등록")').on('click',function(){
 	upload(formData);
 })
 
+// 팔로우 유무 체크
+if(${followCheck}){
+	$('button:contains("팔로우")').css('background', 'gray');
+}
 
 ////  무한 스크롤  
 		var loading = false;
@@ -675,9 +612,8 @@ $('.modal-footer > button:contains("등록")').on('click',function(){
 
 						if (!loading) {
 							loading = true;
-							myBoard();
+							myBoard()
 						} else {
-							alert("로딩중입니다.");
 						}
 					}
 				});
@@ -699,8 +635,13 @@ $('.modal-footer > button:contains("등록")').on('click',function(){
 								let displayValue = '<div class="col-xs-4 col-sm-4 col-md-4 no-padding item">'
 													+'<div class="border-wrap op_itemline10">'
 													+'<div class="thumb-wrap">'
-													+'<div class="tpl-forum-list-thumb" " >'
-													+'<img src="/images/uploadFiles/'+fileArry[0]+'" class="img-responsive" >'
+													+'<div class="tpl-forum-list-thumb" >'
+													+'<div class="thumbnail-wrapper">'
+													+'<div class="thumbnail">'
+													+'<div class="thumbnail-centered">'
+													+'<img class="thumbnail-img" src="/images/uploadFiles/'+fileArry[0]+'" class="img-responsive" >'
+													+'</div>'
+													+'</div>'
 													+'</div>'
 													+'</div>'
 													+'<div class="cont-wrap">'
