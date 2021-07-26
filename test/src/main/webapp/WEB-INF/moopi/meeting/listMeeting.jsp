@@ -124,7 +124,6 @@ function fncUptMtView() {
 			+"정모시작일 :" +"<input type='datetime-local'  name='mtStart' value='' >"+"<br>"
 			+"정모종료일 :" +"<input type='datetime-local' name='mtEnd' value='' >"+"<br>"
 			+"정모 총 인원 :"+ "<input type='text' name='mtMaxCount' value=''>" + "<br>"
-			//+"정모 현재 인원 :"+ "<input type='text' name=''>" + "<br>"
 			+"정모 장소 :"+"<input type='text' name='mtAddr'>" + "<br>"
 			+"<a onClick='fncUptMt()'>수정하기</a>"+ "<br>"
 			+"</form>"
@@ -156,13 +155,34 @@ function fncAddMap(){
 			"left=460, top=300, width=900, height=600, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");
 }
 
+$(function(){
+	
+	$("#map").on("click", function (){
+		
+// 		alert("맵")
+		console.log($(this).parent().html())	
+		console.log(mtMapX)	
+		var lat = mtMapX
+		var lng = mtMapY
+// 		alert(lat)
+		alert(lng)
+		fncMap(lat, lng)
+	})
+})
+
+
+
+
+
 function fncMap(lat, lng){
-	
 	alert(lat)
-	
+	alert(lng)
 	var options = 'top=10, left=10, width=500, height=600, status=no, menubar=no, toolbar=no, resizable=no';
-	window.open("/meeting/map", "map", 'option');
-}
+// 	window.open("/moim/mapView", "map", 'option');
+	window.open("/moim/mapView?lat="+lat+"&lng="+lng , "map", "option");
+// 	$(".frm").submit();
+	}
+	
 
 function fncParentsMapView(lat, lng){
 	alert("부모 함수 실행 성공")
@@ -315,8 +335,10 @@ $(document).ready(function() {
         	mtMaxCount = event.maxCount;
         	mtConstructor = event.constructor;
         	mtAddr = event.addr;
+        	mtMapX = event.mtMapX;
+        	mtMapY = event.mtMapY;
         	console.log(mtConstructor);
-			console.log(mtEnd2);
+			console.log(mtMapX);
 			console.log(mtStart2);
       	  $.ajax( 
     				{
@@ -347,6 +369,7 @@ $(document).ready(function() {
     						$("#mtMapX").val(JSONData.mtMapX);
     						$("#mtMapY").val(JSONData.mtMapY);
     						$("#getDate").slideDown('slow');
+    						
     					}
     			}); //ajax 종료
       	  },
@@ -365,8 +388,9 @@ $(document).ready(function() {
                 maxCount : "${meeting.mtMaxCount}",
                 currentCount : "${meeting.mtCurrentCount}",
                 constructor : "${meeting.mtConstructor.userId}",
-                addr: "${meeting.mtAddr}"
-                
+                addr: "${meeting.mtAddr}",
+                mtMapX : "${meeting.mtMapX}",
+                mtMapY : "${meeting.mtMapY}"
               },
               </c:forEach>
           ],
@@ -516,7 +540,7 @@ function fncPopUp(){
   
   <div id="addDate">
   </div>
-  
+  <form class="frm">
   <div id="getDate">
 	<!--  상세정보 div Start /////////////////////////////////////-->
 	<div class="container">
@@ -532,7 +556,10 @@ function fncPopUp(){
 	<button type="button" class="btn btn-default" onClick="fncGetMEFL(mtNo)">참여한사람보기</button>
 	<br>
 	정모 장소 :<input type='text' id='mtAddr'><br>
-	
+	<input type='hidden' id="mtMapX">
+	<input type='hidden' id="mtMapY">
+	 
+	<button type='button' class='btn btn-primary' id='map' >지도</button>
 	
 	<button type="button" class="btn btn-success" onClick="fncApplyMt(mtNo, '${dbUser.userId}')">참가</button>
 	<button type="button" class="btn btn-success" onClick="fncLeaveMt(mtNo, '${dbUser.userId}')">참가취소</button>
@@ -541,7 +568,7 @@ function fncPopUp(){
 	
 	<a id = "connect" onClick="authenticate().then(loadClient)">구글캘린더와 연동하기</a>
 	<a id = "insert" onClick="execute()">구글캘린더에 등록하기</a>
-	
+	</form>
 
  	</div> <!-- 컨테이너 div종료 --> 
 		<div id="getMEFL" style="padding-top: 30px"></div>

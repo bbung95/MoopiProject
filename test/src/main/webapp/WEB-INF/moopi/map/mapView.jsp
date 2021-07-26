@@ -26,7 +26,7 @@
 
 var mapContainer = document.getElementById('map'), // 지도의 중심좌표
     mapOption = { 
-        center: new kakao.maps.LatLng(37.57040214411737, 126.9850920890309), // 지도의 중심좌표    lat lng 받아온것 여기에다 넣기.
+        center: new kakao.maps.LatLng( lat, lng), // 지도의 중심좌표    lat lng 받아온것 여기에다 넣기.
         level: 3 // 지도의 확대 레벨
     }; 
 
@@ -35,7 +35,7 @@ var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니
 // 지도에 마커를 표시합니다 
 var marker = new kakao.maps.Marker({
     map: map, 
-    position: new kakao.maps.LatLng(37.57040214411737, 126.9850920890309)  // 
+    position: new kakao.maps.LatLng(lat, lng)  // 
 });
 
 // 커스텀 오버레이에 표시할 컨텐츠 입니다
