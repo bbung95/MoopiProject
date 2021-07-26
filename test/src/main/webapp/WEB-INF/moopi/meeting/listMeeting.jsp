@@ -160,12 +160,12 @@ $(function(){
 	$("#map").on("click", function (){
 		
 // 		alert("맵")
-		console.log($(this).parent().html())	
-		console.log(mtMapX)	
+// 		console.log($(this).parent().html())	
+// 		console.log(mtMapX)	
 		var lat = mtMapX
 		var lng = mtMapY
 // 		alert(lat)
-		alert(lng)
+// 		alert(lng)
 		fncMap(lat, lng)
 	})
 })
@@ -179,7 +179,7 @@ function fncMap(lat, lng){
 	alert(lng)
 	var options = 'top=10, left=10, width=500, height=600, status=no, menubar=no, toolbar=no, resizable=no';
 // 	window.open("/moim/mapView", "map", 'option');
-	window.open("/moim/mapView?lat="+lat+"&lng="+lng , "map", "option");
+	window.open("/moim/mapView?lat="+lat+"&lng="+lng+"&mtAddr="+mtAddr +"&mtContent="+mtContent, "map", "option");
 // 	$(".frm").submit();
 	}
 	

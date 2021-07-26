@@ -43,15 +43,17 @@ var marker = new kakao.maps.Marker({
 var content = '<div class="wrap">' + 
             '    <div class="info">' + 
             '        <div class="title">' + 
-            '            ㅎㅎㅎ' +    // 모임 이름 혹은 장소이름
+            '            ${mtAddr}' +    // 모임 이름 혹은 장소이름
             '            <div class="close" onclick="closeOverlay()" title="닫기"></div>' + 
             '        </div>' + 
             '        <div class="body">' + 
-            '            <div class="img">' +
-            '                <img src="/images/uploadFiles/king.jpg" width="73" height="70">' +  // 모임이나 번개 사진있으면 넣으면 같이나옴.
-            '           </div>' + 
-            '            <div class="desc">' + 
-            '                <div><a href="	https://map.kakao.com/link/map/위도+경도" target="_blank" class="link">정보보기</a></div>' +  // 여기에 정보 더넣으면 더 추가로 넣기가능. 앞에 링크에 위도 + 경도 넣으면 지도이동가능. 
+//             '            <div class="img">' +
+//             '                <img src="/images/uploadFiles/king.jpg" width="73" height="70">' +  // 모임이나 번개 사진있으면 넣으면 같이나옴.
+//             '           </div>' + 
+            '            <div> ${mtContent}' +
+            '            </div>' +
+            '            <div >' + 
+            '                <div><a href="	https://map.kakao.com/link/to/${mtAddr},${lat},${lng}" target="_blank" class="link">길찾기</a></div>' +  // 여기에 정보 더넣으면 더 추가로 넣기가능. 앞에 링크에 위도 + 경도 넣으면 지도이동가능. 
             '            </div>' + 
             '        </div>' + 
             '    </div>' +    
