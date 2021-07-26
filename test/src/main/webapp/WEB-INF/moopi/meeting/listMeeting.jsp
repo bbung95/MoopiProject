@@ -21,6 +21,7 @@
 <script src='/javascript/fullcalendar.js'></script>
 <script src='/javascript/theme-chooser.js'></script>
 <script src='/javascript/locales-all.min.js'></script>
+
 <script>
 var mtNo ="";
 var mtName="";
@@ -81,20 +82,6 @@ function authenticate() {
 ////////////////////////////////////////////구글캘린더 연동부 종료
 
 
-//맵보기//
-$(function() {
-			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-			$( "#map" ).on("click" , function() {
-				fncMap();
-			});
-		});	
-		
-function fncMap(){
-		
-	var options = 'top=10, left=10, width=500, height=600, status=no, menubar=no, toolbar=no, resizable=no';
-	window.open("/meeting/map", "map", 'option');
-}
-//맵종료//
 
 
 
@@ -112,13 +99,11 @@ function fncAddMtView() {
 	+"정모 총 인원 :"+ "<input type='text' name='mtMaxCount'>" + "<br>"
 	+"<input type='hidden' name='mtCurrentCount' value='1'>" + "<br>"
 	+"정모 장소 :"+"<input type='text' id='mtAddr' name='mtAddr'>" + "<br>"
-	+"<input type='text' id='lat'name='mtMapX value=''>"
-	+"<input type='text' id='lng'name='mtMapY' value=''>"
+	+"<input type='hidden' id='lat'name='mtMapX' value=''>"
+	+"<input type='hidden' id='lng'name='mtMapY' value=''>"
 	+"<a onClick='fncAddMap()' >장소등록</a><br>"
 	+"<a onClick='fncAddMt()'>등록하기</a>"+ "<br>"
-
-	+"<div class = 'mapView' ></div>"
-	+"<button type='button' class='btn btn-primary' id='map' onClick='fncMap()'>지도</button>"
+// 	+"<button type='button' class='btn btn-primary' id='map' onClick='fncMap('"+#lat.value()+"', '"+lng.value()+"')'>지도</button>"
 	+"</form>"
 	+"</h6>";
 	$("#getDate").slideUp('slow');
@@ -164,16 +149,25 @@ function fncUptMtView() {
 function fncAddMap(){
 	
 	alert("click")
+	
 	popWin = window.open(
 			"/moim/map",
 			"popWin",
 			"left=460, top=300, width=900, height=600, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");
 }
 
+function fncMap(lat, lng){
+	
+	alert(lat)
+	
+	var options = 'top=10, left=10, width=500, height=600, status=no, menubar=no, toolbar=no, resizable=no';
+	window.open("/meeting/map", "map", 'option');
+}
+
 function fncParentsMapView(lat, lng){
 	alert("부모 함수 실행 성공")
 	
-	$("div.mapView").append('<jsp:include page="../moim/mapView" />' )
+//  	<script type=text/javascript src='/js/mapView.js'><\/script> 
 	alert(lat)
 	alert(lng)
 	
@@ -553,6 +547,5 @@ function fncPopUp(){
 		<div id="getMEFL" style="padding-top: 30px"></div>
  </div> <!-- getDate div 종료 -->
 <jsp:include page="../layout/searchbar.jsp"></jsp:include>
-
 </body>
 </html>
