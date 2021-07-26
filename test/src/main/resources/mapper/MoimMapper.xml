@@ -15,6 +15,7 @@
 		<result property="mmMaxCount" 			column="MM_MAX_COUNT" 			jdbcType="NUMERIC" />
 		<result property="mmCurrentCount" 			column="MM_CURRENT_COUNT" 	jdbcType="NUMERIC" />
 		<result property="mmConstructor.userId" 			column="MM_CONSTRUCTOR" 			jdbcType="VARCHAR" />
+		<result property="mmConstructor.nickname" 			column="NICKNAME" 			jdbcType="VARCHAR" />
 		<result property="mmRegDate" 			column="MM_REGDATE" 			jdbcType="DATE"  />
 		<result property="mmInterest" 			column="MM_INTEREST" 		jdbcType="NUMERIC" />
 		<result property="mmAddr" 			column="MM_ADDR" 			jdbcType="VARCHAR"  />
@@ -23,6 +24,7 @@
 		<result property="mmMaxAge" 			column="MM_MAX_AGE" 			jdbcType="NUMERIC"  />
 		<result property="mmType" 			column="MM_TYPE" 			jdbcType="VARCHAR"  />
 	</resultMap>
+	
 	
 	  
 	<resultMap id="memberSelectMap" type="member">
@@ -33,6 +35,7 @@
 		<result property="mmUser.profileImage"				column="PROFILE_IMAGE" 		jdbcType="VARCHAR" />
 		<result property="mmUser.profileContent"				column="PROFILE_CONTENT" 		jdbcType="VARCHAR" />
 		<result property="mmUser.addr"				column="ADDR" 		jdbcType="VARCHAR" />
+		<result property="mmUser.nickname"				column="NICKNAME" 		jdbcType="VARCHAR" />
 		<result property="mmNo" 			column="MM_NO" 		jdbcType="NUMERIC" />
 		<result property="memberRole" 			column="MM_MEMBER_ROLE" 			jdbcType="VARCHAR" /> 
 		<result property="memberRegDate" 			column="MM_MEMBER_REGDATE" 			jdbcType="DATE" />
@@ -102,7 +105,7 @@
 	 <select  id="getMemberList"  parameterType="int"	resultMap="memberSelectMap">
 		SELECT
 		MEMBER_NO, MM_MEMBER_ID, MM_NO, MM_MEMBER_ROLE, MM_MEMBER_REGDATE, USER_NAME, BADGE, 
-		PROFILE_IMAGE, PROFILE_CONTENT, ADDR	
+		NICKNAME, PROFILE_IMAGE, PROFILE_CONTENT, ADDR	
 		FROM MEMBER M, USERS U
 		<if test="status == 1">
 		where mm_no =#{mmNo}

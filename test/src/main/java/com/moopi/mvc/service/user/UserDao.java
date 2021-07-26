@@ -86,6 +86,10 @@ public interface UserDao {
 	public void updateContent(User user);
 	// 3. 관심사수정
 	public void updateInterest(User user);
+	// 4. 주소지수정
+	public void updateAddress(User user);
+	// 5. 마이홈상태수정
+	public void updateMyhomeStat(User user);
 
 
 // 팔로우 CRUD 
