@@ -46,7 +46,7 @@
 				<li class="nav-item dropdown" id="noticeCount">
 					<a class="nav-link dropdown-toggle" id="navbarDropdownBlog"
 						href="#" role="button" data-bs-toggle="dropdown"
-						aria-expanded="false">알림</a>
+						aria-expanded="false"><i class="bi bi-envelope"></i></a>
 					<ul class="dropdown-menu dropdown-menu-end"
 						aria-labelledby="navbarDropdownPortfolio" id="noticeList">
 						<div align="right">
@@ -56,11 +56,11 @@
 					</ul>
 				</li>
 				
-				<li class="nav-item"><a class="nav-link">채팅</a></li>
+				<li class="nav-item chatbtn"><a class="nav-link"><i class="bi bi-chat"></i></a></li>
 				<li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle" id="navbarDropdownPortfolio"
 						href="#" role="button" data-bs-toggle="dropdown"
-						aria-expanded="false"><i class="bi bi-list"></i></a>
+						aria-expanded="false"><i class="bi bi-list" style="width: 50px; height: 50px;"></i></a>
 					<ul class="dropdown-menu dropdown-menu-end"
 						aria-labelledby="navbarDropdownPortfolio">
 						<li><a class="dropdown-item" >마이홈</a></li>
@@ -68,7 +68,7 @@
 						<li><a class="dropdown-item" >충전</a></li>
 						<li><a class="dropdown-item" >로그아웃</a></li>
 						<c:if test="${dbUser.userRole == '1'}">
-						<li><a class="dropdown-item" >관리자</a></li>
+						<li><a class="dropdown-item" href="/common/adminMoopi" target="_blank">관리자</a></li>
 						</c:if>
 					</ul>
 				</li>
@@ -360,16 +360,16 @@
 		location.href = "/user/loginView";
 	})
 	
-	$("a:contains('채팅')")
+	$(".chatbtn")
 			.on(
 					"click",
 					function() {
 
 						popWin = window
 								.open(	
-										"https://bbung95-rtc.herokuapp.com/chatList?userId="+dbUser+"&profile="+userProfile+"&nickname="+nickname,
-/* 										"http://localhost:82/chatList?userId="+dbUser+"&profile="+userProfile+"&nickname="+nickname,
- */										"popWin",
+/* 										"https://bbung95-rtc.herokuapp.com/chatList?userId="+dbUser+"&profile="+userProfile+"&nickname="+nickname,
+ */ 										"http://localhost:82/chatList?userId="+dbUser+"&profile="+userProfile+"&nickname="+nickname,
+ 									"popWin",
 										"left=460, top=300, width=460, height=600, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");
 					});
 
@@ -393,10 +393,10 @@
 		location.href = "/user/logout";
 	})
 
-	$("a:contains('관리자')").on("click", function() {
+	/* $("a:contains('관리자')").on("click", function() {
 
 		location.href = "/common/adminMoopi";
-	})
+	}) */
 
 	$("a:contains('충전')").on("click", function() {
 

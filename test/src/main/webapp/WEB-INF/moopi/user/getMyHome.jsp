@@ -124,7 +124,6 @@
 	vertical-align: top;
 }
 
-
 .userEL8990950 .item .cont-wrap ul {
 	margin: 5px auto;
 	display: inline-block;
@@ -135,19 +134,80 @@
 	float: left;
 	line-height: 1.4;
 }
-
-
-
 </style>
+<style>
+.userEL9007628 {
+	position: relative;
+	border : 1px solid black;
+	margin: 0 auto;
+	background-color:;
+	background-image: none;
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: cover;
+	color:;
+	font-family: Montserrat, "Nanum Gothic";
+	font-size: 13px;
+}
 
+.userEL9007628 .divider-box {
+	position: relative;
+	margin: 0 auto 0 0;
+	width: 25%;
+}
+
+.userEL9007628 hr {
+	border: 0;
+	border-top: 3px solid #03d663;
+	height: 1px;
+}
+
+.userEL9007628 h2.head_title {
+	font-weight: normal;
+	font-size: inherit;
+	margin-top: 40px;
+	margin-bottom: 30px;
+}
+
+.userEL9007628 p {
+	margin-bottom: 0;
+}
+
+@media only screen and (min-width:992px) {
+	.userEL9007628 .text-wrap {
+		padding-left: 30px;
+	}
+	.userEL9007628 .img-wrap {
+		padding-right: 30px;
+	}
+}
+
+@media only screen and (max-width:991px) {
+	.userEL9007628 h2.head_title {
+		margin-top: 32px;
+		margin-bottom: 24px;
+	}
+	.userEL9007628 .img-wrap {
+		margin-top: 30px;
+	}
+}
+
+@media only screen and (max-width:767px) {
+	.userEL9007628 h2.head_title {
+		margin-top: 20px;
+		margin-bottom: 15px;
+	}
+	.userEL9007628 .img-wrap {
+		margin-top: 20px;
+	}
+}
+</style>
 <style>
 body {
 	margin: 0 auto;
 }
 
-#homeContainer {
-	margin: auto;
-}
+main{}
 
 .profileImg {
 	border-radius: 50%;
@@ -161,10 +221,12 @@ body {
 }
 
 .interest {
-	border: 0.5px solid gray;
-	padding: 2px;
+	padding: 17px 12px 17px 12px;
 	border-radius: 4px;
-	background: #ebe8e4;
+	border: 0.5px solid gray;
+	padding: 17px 12px 17px 12px;
+	border-radius: 4px;
+	background: #ededed;
 }
 
 .thumbnail-wrapper {
@@ -265,7 +327,7 @@ body {
 				</div>
 			</div>
 
-			<hr />
+			<hr / style="margin-bottom: 25px;">
 
 			<div class="text-center">
 				<c:if test="${!empty user.interestFirst}">
@@ -275,7 +337,7 @@ body {
 					<span class="interest">${user.interestSecond}</span>
 				</c:if>
 				<c:if test="${!empty user.interestThird}">
-					<span class="interest">${user.interestThird}</span>
+					<span class="interest"><i class="bi bi-joystick"></i>${user.interestThird}</span>
 				</c:if>
 			</div>
 
@@ -304,11 +366,11 @@ body {
 
 				<div class="modal-body">
 					<form id="upload">
-						<div class="dropBox" style="width: 100%; height: 300px;"></div>
+						<div id="dropBox" style="width: 100%; height: 300px;"></div>
 						<input type="hidden" name="userId" value="${dbUser.userId}" />
 						<button type="button" class="uploadbtn btn btn-light">업로드</button>
 						<input style="display: none" id="uploadFiles" type="file"
-							name="uploadFiles" multiple="multiple">
+							multiple="multiple">
 						<textarea name="boardContent"
 							style="width: 100%; height: 100px; resize: none"></textArea>
 					</form>
@@ -322,6 +384,43 @@ body {
 			</div>
 		</div>
 	</div>
+
+
+	<div class="userEL9007628">
+		<div class="container" >
+			<div class="row">
+				<div
+					class="col-xs-8 col-sm-8 col-md-8">
+					<img
+						src="//storage.googleapis.com/i.addblock.net/sample/content_image_101_1.jpg"
+						class="img-responsive" data-attach="true" style="width: 100%;">
+				</div>
+				<div
+					class="col-xs-4 col-sm-4 col-md-4 text-wrap">
+					<div class="divider-box" data-divider="true"
+						data-selector=".divider-box" data-title="구분선 길이">
+						<hr data-selector="hr" data-border="true" data-title="선 컬러">
+					</div>
+					<h2 class="head_title" data-edit="true"
+						data-selector="h2.head_title">
+						<span class="fsize32"><strong>Donec quis dolor <br>ac
+								diam mollis<br> porttitor.
+						</strong></span>
+					</h2>
+					<p data-edit="true" data-selector="p">
+						<span class="fsize13">Pellentesque habitant morbi tristique
+							senectus et netus et malesuada fames ac turpis egestas. Phasellus
+							in vehicula leo. Proin pulvinar eros quis lorem gravida volutpat.
+							Vestibulum fermentum vel justo pharetra molestie. Vivamus
+							pulvinar id nisl non placerat.</span>
+					</p>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+
 
 	<jsp:include page="../layout/searchbar.jsp"></jsp:include>
 
@@ -442,13 +541,73 @@ function upload(formData){
       });
 }
 
+$('#uploadFiles').on('change', (e)=>{ 
+	preView(e , 1);
+});
+
+function preView(e , type){
+	
+	if(type == 1){
+		
+		for (var image of e.target.files) { 
+			fileList.push(image);
+			var reader = new FileReader();
+			reader.onload = function(e) {
+				var img = '<img src="'+event.target.result+'" style="width : 200px;">'		
+ 				$('#dropBox').append(img) ;
+			}; 
+			reader.readAsDataURL(image); 
+		} 
+	}else if (type == 2 ){
+  		for (var image of e.originalEvent.dataTransfer.files) { 
+  			fileList.push(image);
+  			var reader = new FileReader();
+  			
+  			reader.onload = function(e) {
+  				var img = '<img src="'+event.target.result+'" style="width : 200px;">'		
+  	 			$('#dropBox').append(img) ;
+  			}; 
+  			reader.readAsDataURL(image); 
+  		} 
+	}
+}
+
+
 $('.uploadbtn').on('click', function(){
 	$('#uploadFiles').click();
+	
 });
+
+let fileList = [];
+
+/////// drag & drop event
+$('#dropBox').on("dragenter", function(e){
+ 	 e.preventDefault();
+ 	 e.stopPropagation();
+	}).on("dragover", function(e){
+ 	 e.preventDefault();
+ 	 e.stopPropagation();
+ 	 $(this).css("background-color", "#FFD8D8");
+	}).on("dragleave", function(e){
+ 	 e.preventDefault();
+ 	 e.stopPropagation();
+	  $(this).css("background-color", "#FFF");
+ }).on("drop", function(e){
+	 e.preventDefault();
+ 	 $(this).css("background-color", "#FFF");
+  	
+ 	 preView(e, 2);
+  	
+ });
+///////
+
 
 $('.modal-footer > button:contains("등록")').on('click',function(){
 	let form = $('#upload');
 	let formData = new FormData(form[0]);
+	for(var i in fileList){
+		formData.append("uploadFiles", fileList[i]);
+	}	
 	upload(formData);
 })
 

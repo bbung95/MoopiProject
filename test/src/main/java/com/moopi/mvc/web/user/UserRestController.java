@@ -47,7 +47,6 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 
-@Controller
 @RestController
 @RequestMapping("/user/*")
 public class UserRestController {
@@ -268,13 +267,13 @@ public class UserRestController {
 	}
 	
 	// 완료 - [닉네임수정]
-	@GetMapping(value = "json/updateNickname/{userId}/{nickname}")
-	public void updateNickname(	@PathVariable String userId, 
-								@PathVariable String nickname) {	
-		User user = new User();
-		user.setUserId(userId);
-		user.setNickname(nickname);
+	@PostMapping(value = "json/updateNickname")
+	public User updateNickname(	@RequestBody User user) {	
+		
+		System.out.println("updateNickname : POST");
 		userService.updateNickname(user);
+		
+		return user;
 	}
 
 	// 완료 - [프로필소개수정]
@@ -363,9 +362,20 @@ public class UserRestController {
 		String fileName = "";
 		if (uploadFiles != null) {
 			for (MultipartFile file : uploadFiles) {
+				
+				// 랜덤 키
+				String[] array = new String[6];
+				String key = new String();
+				Random rd = new Random(); 
+
+				for (int i = 0; i < array.length; i++) {
+					array[i] = Integer.toString(rd.nextInt(10));
+					key += array[i];
+				}
+				
 				String uploadFile = "";
 				long currentTime = System.currentTimeMillis();
-				uploadFile = currentTime + file.getOriginalFilename();
+				uploadFile = currentTime + key + file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
 				fileName += uploadFile + "/";
 				try {
 					file.transferTo(new File(saveDir + "/" + uploadFile));
