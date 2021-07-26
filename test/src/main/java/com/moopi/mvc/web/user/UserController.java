@@ -285,12 +285,14 @@ public class UserController {
 ////-----------------------------------------------------------------------------------------------------------------
 
 	
-//-- [완료] 프로필수 (단순 네비게이션) -------------------------------------------------------------------------------------------
+//-- [완료] 프로필수정 (단순 네비게이션) -------------------------------------------------------------------------------------------
 	@RequestMapping("updateProfile")
-	public String updateProfile(@RequestParam("userId") String userId, Model model) throws Exception{
+	public String updateProfile(@RequestParam("userId") String userId,
+								@ModelAttribute("user") User user,
+								Model model) throws Exception{
 				
 		System.out.println("\n"+"UserController_____updateProfile 프로필수정 페이지"+"\n");
-		
+
 		model.addAttribute("dbUser",userService.getUser(userId));
 		
 		System.out.println(userService.getUser(userId));
@@ -339,14 +341,14 @@ public class UserController {
 	}
 	
 	// 2. [프로필소개수정] - updateContent
-	/*@RequestMapping("updateContent")
+	@RequestMapping("updateContent")
 	public String updateContent(	@RequestParam("userId") String userId,
 									@RequestParam("profileContent") String profileContent,
 									@ModelAttribute("user") User user) {
 		System.out.println("프로필소개수정");		
 		userService.updateContent(user);
 		return "user/updateContent";				
-	}*/
+	}
 		
 	// 3. [관심사수정] - updateInterest
 	@RequestMapping("updateInterest")
