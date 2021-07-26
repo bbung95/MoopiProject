@@ -337,7 +337,7 @@
 
 	$("a:contains('모임무피')").on("click", function() {
 
-		location.href = "/moim/listMoim";
+		location.href = "/moim/listMoim?userId=${dbUser.userId}";
 	})
 
 	$("a:contains('번개무피')").on("click", function() {
