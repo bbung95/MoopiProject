@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>hover demo</title>
+  <style>
+  ul {
+    margin-left: 20px;
+    color: blue;
+    list-style:none;
+  	padding-left:0px;
+  }
+  li {
+    cursor: default;
+  }
+  li.active {
+    background: black;
+    color: white;
+  }
+  span {
+    color:red;
+  }
+  </style>
+  <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+</head>
+<body>
+ 
+<ul>
+  <li>Milk</li>
+  <li>White</li>
+  <li>Carrots</li>
+  <li>Orange</li>
+  <li>Broccoli</li>
+  <li>Green</li>
+</ul>
+ 
+<script>
+$( "li" )
+  .odd()
+    .hide()
+  .end()
+  .even()
+    .hover(function() {
+      $( this )
+        .toggleClass( "active" )
+        .next()
+          .stop( true, true )
+          .slideToggle();
+    });
+</script>
+ 
+</body>
+</html>
