@@ -109,7 +109,7 @@
                     <if test="map.boardCategory == 3 or map.search.searchKeyword !=null">
 					LIKECOUNT, 
 					</if>
-                    BD.BD_NO ASC
+                    BD.BD_NO DESC
                     ) inner_table,
                     (select @rownum := 0) as R
                     )tables

@@ -31,7 +31,7 @@
 			alert("게시글수정");
 			alert(${board.boardNo});
 			var boardNo = ${board.boardNo};
-		// 	var boardCategory	=$("input[name='boardCategory']").val();
+		 	var boardCategory	=$("input[name='boardCategory']").val();
 		// 	var boardWriter		=$("input[name='boardWriter']").val();
 		// 	var boardName		=$("input[name='boardName']").val();
 		// 	var boardContent	=$("input[name='boardContent']").val();
@@ -285,7 +285,7 @@
 	<h3>모임 게시글 조회</h3>
 	<div >
 	<input class="board" type="hidden" id="boardNo" name="boardNo" value="${board.boardNo}">
-	
+	<input class="board" type="hidden" id="boardCategory" name="boardCategory" value="${board.boardCategory}">
 	--------------------------------------------
 	<p>게시글번호 :${board.boardNo}</p>
 	<p>게시글이름 :${board.boardName}</p>

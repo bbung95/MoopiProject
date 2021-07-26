@@ -97,7 +97,7 @@
 	
 	<select id="loginUser"			parameterType="String"		resultMap="userSelectMap">
 		SELECT
-			USER_ID, PWD, USER_ROLE
+			USER_ID, PWD, USER_ROLE, NICKNAME
 		FROM users
 		WHERE USER_ID = #{userId}
 	</select> 
