@@ -37,6 +37,17 @@ function fncGetFlash(flashNo){
 <!-- ToolBar End /////////////////////////////////////-->
 <h3>번개무피 메인 페이지야</h3>
 
+
+	<div class="row">
+
+			<div class="col-md-6 text-left">
+				<p class="text-default">전체 ${totalCount} 건수</p>
+			</div>
+	</div>
+
+
+
+
 <c:forEach var="flash" items="${list}">
 //////////////////////////
 <p>번개넘버:${flash.flashNo}</p>

@@ -18,7 +18,7 @@ public class Member {
 	private int writeCount; //작성한 글 수
 	private int replyCount; //작성한 댓글 수
 	private int mtCount; //참여한 정모 횟수
-	private Date memberRegDate;  //해당모임무피에 가입한 날
+	private String memberRegDate;  //해당모임무피에 가입한 날
 	
 
 	public Member() {
