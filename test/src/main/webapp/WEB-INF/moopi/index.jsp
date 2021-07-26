@@ -94,6 +94,7 @@ body>#mainlogo {
 </style>
 </head>
 <body>
+<jsp:include page="layout/moimSidebar.jsp"></jsp:include>
 	<jsp:include page="layout/toolbar.jsp"></jsp:include>
 
 	<header class="bg-dark py-5">

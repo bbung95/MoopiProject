@@ -53,6 +53,12 @@ public interface MoimDao {
 							 @Param("mmNo") int mmNo,
 							 @Param("status") int status) throws Exception;
 	
+	//멤버숫자1증가
+	public void addCount(@Param("mmNo") int mmNo) throws Exception;
+	
+	//멤버숫자1감소
+	public void subCount(@Param("mmNo") int mmNo) throws Exception;
+	
 	//해당 mmNo에 가입신청자 조회, 가입된 멤버 리스트 조회 
 	//status(1가입신청리스트, 2가입된멤버리스트)
 	public List<Member> getMemberList(@Param("mmNo") int mmNo,
