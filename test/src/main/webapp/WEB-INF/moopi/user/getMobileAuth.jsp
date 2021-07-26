@@ -13,6 +13,8 @@
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
 <!-------------------------------------------------------------------------------------------------------------------------->
+<!-- 필수 Core theme CSS (includes Bootstrap)-->
+	<link href="/css/admin/styles.css" rel="stylesheet" />
 
 <script>
 	
@@ -38,9 +40,11 @@
 			if(AuthNum == key){				
 				$(function() {	
 					
-						if (href == "?findId") {		
+						if (href == "?findId") {
+								
+								$("#checkBtn").fadeIn();		
 								var phone = $("#pnNum").val();
-								alert("유저아이디 : "+userId);
+								
 								$("form").attr("method", "POST").attr("action", "/user/searchIdView").submit();					
 						
 						} else if (href == "?addUser") {		
@@ -104,52 +108,120 @@
 		
 </script>		
     <style>
+    @font-face {
+    	src: url("../font/NanumGothic-Regular.ttf")'
+    	font-family : "NanumGothic";
+    }
+    
 	body{
-	padding-top: 50px;
+		font-family : "NanumGothic";
+		padding-top: 30px;
 	}
+	
+	.start {
+		font-family : "NanumGothic";
+		padding: 30px 30px;
+	}
+	
+	.MobileAuth {
+	font-family : "NanumGothic";
+		text-align: center;
+		font-size: 30px;
+		padding : 15px;
+		
+	}
+	
+	.listUserJoin {
+		font-family : "NanumGothic";
+		text-align: center;
+		padding : 10px;
+	}
+	
+	.writeInformation {
+		font-family : "NanumGothic";
+		border: 1px solid gray;
+		width: 100%;
+		padding: 30px 48px;
+		padding-top: 30px;
+	    padding-right: 48px;
+	    padding-bottom: 30px;
+	    padding-left: 48px;
+	}
+	
+	.AuthNumWrite {
+		font-family : "NanumGothic";
+		padding-top : 20px;
+	}
+	
+	#mobileAuth {
+		position: absolute;
+		border: 1px solid gray;
+	    bottom: 7.5px;
+	    right: 19px;
+	    width: 68px;
+	    padding: 0;
+	}
+	
+	.information {
+		font-family : "NanumGothic";
+		font-size : 12px;
+		padding-top : 20px;
+		color : gray;
+	}
+	
 	</style>
 </head>
 <body>
 
 
-<h3> 모바일번호인증 </h3>
+
 
 <!-- # 모바일번호인증 - CoolSMS API ---------------------------------------------------------------------------------------------------------------------------------------->		
-		<form>
+		<form class="start">
+		
+		<h3 class="MobileAuth"> 모바일번호인증 </h3>
+		<hr style="border:solid 0.11px black;">
 		
 		<!-- userId Hidden -->
-		<div class="form-group">
- 	  		<div class="col-sm-offset-4  col-sm-4 text-center">
- 	  		<input type="hidden" class="form-control" id="userId" name="userId" value="${dbUser.userId}" readonly>
- 	  		</div>
- 	  	</div>
+ 	  	<input type="hidden" class="form-control" id="userId" name="userId" value="${dbUser.userId}" readonly>
+ 	  	
+ 	  	<p class="listUserJoin"> 회원가입시 입력하신 정보로 조회하실 수 있습니다 </p>
  	  	
 		<!-- 번호 입력 후 인증하기 버튼 -->
-		<div class="form-group">
-			<label for="mobileAuth" class="col-sm-offset-1 col-sm-2 control-label">모바일번호 인증을 진행해주세요</label>
-				<div class="col-sm-2">
-					<input type="text" class="form-control" id="pnNum" name="phone" placeholder="번호를 입력하세요">
-				</div>
-				<div class="col-sm-1">
-					<button type="button" id="mobileAuth" class="btn btn-default" onClick="fncAuth()">인증하기</button>
-				</div>
-		</div>
-		
-		<!-- 인증번호 입력 -->
-		<div class="form-group">		
-			<label for="mobileAuth" class="col-sm-offset-1 col-sm-2 control-label">인증번호 입력 후 확인버튼 눌러주세요</label>
-				<div class="col-sm-4">
-					<input type="text" class="form-control" id="AuthNum" name="AuthNum" placeholder="04:59">
-				</div>
+		<div class="writeInformation">
+			<div class="form-group">
+					<label for="mobileAuth" class="col-sm-offset-1 col-sm-2 control-label" id="Content1">모바일번호 인증을 진행해주세요</label>
+					<div class="col-sm-2">
+						<input type="text" class="form-control" id="pnNum" name="phone" placeholder="번호를 입력하세요">
+					</div>
+					<div class="col-sm-1">
+						<button type="button" id="mobileAuth" class="micro_btn" onClick="fncAuth()">인증하기</button>
+					</div>
+			</div>
+			
+			<!-- 인증번호 입력 -->
+			<div class="form-class">		
+				<label for="mobileAuth" class="col-sm-offset-1 col-sm-2 control-label">인증번호 입력 후 확인버튼 눌러주세요</label>
+					<div class="col-sm-4">
+						<input type="text" class="form-control" id="AuthNum" name="AuthNum" placeholder="04:59">
+					</div>
+			</div>
+			
 		</div>
 		
 		<!-- 확인,취소 -->
-		<div class="form-group">
-			<div class="col-sm-offset-4  col-sm-4 text-center">
-				<button type="button" class="btn btn-default" id="checkBtn" onClick="fncKey()">확인</button>
-				<a class="btn btn-default btn" id="close" onClick="fncClose()" role="button">취소</a>
+		<div class="AuthNumWrite">
+			<div class="col-sm-offset-4  col-sm-4 text-center">			
+				<button class="px-4 py-4 text-white font-light tracking-wider bg-gray-900 rounded" style="width:500px;" id="checkBtn" name="img_btn" type="button" onclick="javascript:fncKey()">확인</button>	
 			</div>
 		</div> 
+		
+		<div class="information">
+			<p> • 모바일번호 입력시 "-" 없이 입력해주세요. </p>
+			<p> • 이용에 불편함을 느끼실 경우 문의게시판으로 문의 부탁드리겠습니다. </p>
+		</div>
+		
+
 		</form>
 <!---------------------------------------------------------------------------------------------------------------------------------------------------------------------->
 
