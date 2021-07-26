@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -34,12 +35,15 @@ public class FlashController {
 
 	@Autowired
 	private CoinServiceImpl coinService;
-
-
-	private CoinServiceImpl coinSerivce;
 	
 	@Autowired
 	private CommonServiceImpl commonService;
+	
+	@Value("${page.pageUnit}")
+	int pageUnit;
+	
+	@Value("${page.pageSize}")
+	int pageSize;
 	
 
 	public static final String savePic = "C:\\Users\\guddn\\git\\Test\\test\\src\\main\\resources\\static\\images\\uploadFiles";
@@ -139,9 +143,16 @@ public class FlashController {
 	public String getListFlash(@ModelAttribute("search") Search search, Model model) throws Exception {
 
 		System.out.println("getListFlash Start::");
+		
+		if (search.getCurrentPage() == 0 ) {
+			search.setCurrentPage(1);
+		}
+		search.setPageSize(pageSize);
+		
 		Map<String, Object> map = flashService.getFlashList(search);
 		model.addAttribute("list", map.get("list"));
 		model.addAttribute("search", search);
+		model.addAttribute("totalCount",map.get("totalCount"));
 		System.out.println("getListFlash End");
 		return "flash/flashMain";
 	}
