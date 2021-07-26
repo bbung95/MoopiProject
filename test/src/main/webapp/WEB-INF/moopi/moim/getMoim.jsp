@@ -349,7 +349,7 @@
 <body>
 
 <!-- ToolBar Start ///////////////////////////////////// -->
-<%-- <jsp:include page="../layout/toolbar.jsp" />  --%>
+<jsp:include page="../layout/toolbar.jsp" /> 
 <jsp:include page="../layout/moimToolbar.jsp" />
 
 <!-- ToolBar End ///////////////////////////////////// -->
