@@ -194,11 +194,11 @@ return /******/ (function(modules) { // webpackBootstrap
         unordered: '글머리 기호',
         ordered: '번호 매기기'
       },
-      options: {
-        help: '도움말',
-        fullscreen: '전체 화면',
-        codeview: '코드 보기'
-      },
+//      options: {
+//        help: '도움말',
+//        fullscreen: '전체 화면',
+//        codeview: '코드 보기'
+//      },
       paragraph: {
         paragraph: '문단 정렬',
         outdent: '내어쓰기',

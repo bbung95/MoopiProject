@@ -33,8 +33,8 @@
 
 	<insert id="addUser"			parameterType="user" >
 		INSERT 
-		INTO users( USER_ID, PWD, USER_NAME, PHONE, BIRTH, AGE, GENDER, JOIN_PATH, REGDATE, USER_ROLE, FULL_ADDR, ADDR, NICKNAME, INTEREST_FIRST, INTEREST_SECOND, INTEREST_THIRD )
-		VALUES ( #{userId}, #{password}, #{userName}, #{phone}, '2021-07-01', #{age}, #{gender}, 1, now(), 2, #{fullAddr}, #{addr}, #{nickname}, #{interestFirst}, #{interestSecond}, #{interestThird} );
+		INTO users( USER_ID, PWD, USER_NAME, PHONE, BIRTH, AGE, GENDER, JOIN_PATH, REGDATE, USER_ROLE, FULL_ADDR, ADDR, NICKNAME, INTEREST_FIRST, INTEREST_SECOND, INTEREST_THIRD, MYHOME_STATE )
+		VALUES ( #{userId}, #{password}, #{userName}, #{phone}, '2021-07-01', #{age}, #{gender}, 1, now(), 2, #{fullAddr}, #{addr}, #{nickname}, #{interestFirst}, #{interestSecond}, #{interestThird}, 0);
 	</insert>
 	
 	<select id="getMyHome"			parameterType="user"		resultMap="userSelectMap">
@@ -47,7 +47,7 @@
 	
 	<select id="getUser"			parameterType="String" 		resultMap="userSelectMap">
 		SELECT 
-		USER_ID, USER_NAME, PWD, NICKNAME, PHONE, ADDR, BIRTH, AGE, GENDER, REGDATE, JOIN_PATH, USER_ROLE, PROFILE_IMAGE, PROFILE_CONTENT,
+		USER_ID, USER_NAME, PWD, NICKNAME, PHONE, FULL_ADDR, ADDR, BIRTH, AGE, GENDER, REGDATE, JOIN_PATH, USER_ROLE, PROFILE_IMAGE, PROFILE_CONTENT,
 		x.INTEREST_NAME as INTEREST_FIRST, y.INTEREST_NAME as INTEREST_SECOND, z.INTEREST_NAME as INTEREST_THIRD, 
 		PROFILE_IMAGE, COIN, BADGE, MYHOME_STATE, STATE_REASON, STATE_REGDATE
 		FROM users LEFT OUTER JOIN INTEREST x 
@@ -127,17 +127,21 @@
 		WHERE USER_ID = #{userId};
 	</update>
 	
+	
+	
 	<!-- 프로필수정 -->
 	<update id="updateProfile"		parameterType="user">
 		UPDATE users
 		<set>
 			NICKNAME = #{nickname}, 
+			FULL_ADDR = #{fullAddr},
 			ADDR = #{addr}, 
 			PROFILE_IMAGE = #{profileImage}, 
 			INTEREST_FIRST = #{interestFirst},
 			INTEREST_SECOND= #{interestSecond},
 			INTEREST_THIRD = #{interestThird},
-			PROFILE_CONTENT = #{profileContent}
+			PROFILE_CONTENT = #{profileContent},
+			MYHOME_STATE = #{myhomeState}
 		</set>
 		WHERE USER_ID = #{userId};
 	</update>
@@ -233,6 +237,25 @@
 		WHERE USER_ID = #{userId};
 	</update>
 	
+	<!-- 4. 주소지수정 -->
+	<update id="updateAddress"		parameterType="user">
+		UPDATE users
+		<set>
+			FULL_ADDR = #{fullAddr},
+			ADDR= #{addr}
+		</set>
+		WHERE USER_ID = #{userId};
+	</update>
+	
+	<!-- 5. 마이홈상태수정 -->
+	<update id="updateMyhomeStat"		parameterType="user">
+		UPDATE users
+		<set>
+			MYHOME_STATE = #{myhomeState},
+		</set>
+		WHERE USER_ID = #{userId};
+	</update>
+
 	<!-- 팔로우리스트 -->
 	
 	<insert id="addFollow" >
