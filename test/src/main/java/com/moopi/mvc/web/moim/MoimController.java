@@ -32,6 +32,7 @@ import com.moopi.mvc.service.user.impl.UserServiceImpl;
 @Controller
 @RequestMapping("/moim/*")
 public class MoimController {
+	//주석
 	
 	@Autowired
 	private MoimServiceImpl moimService;
