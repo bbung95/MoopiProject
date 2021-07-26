@@ -8,15 +8,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.moopi.mvc.common.Search;
 import com.moopi.mvc.service.common.impl.CommonServiceImpl;
+import com.moopi.mvc.service.domain.Payment;
 import com.moopi.mvc.service.domain.User;
 import com.moopi.mvc.service.flash.impl.FlashServiceImpl;
 import com.moopi.mvc.service.moim.impl.MoimServiceImpl;
+import com.moopi.mvc.service.payment.impl.PaymentServiceImpl;
 import com.moopi.mvc.service.user.impl.UserServiceImpl;
 
 @Controller
@@ -30,6 +33,8 @@ public class CommonController {
 	private FlashServiceImpl flashService;
 	@Autowired
 	private CommonServiceImpl commonService;
+	@Autowired
+	private PaymentServiceImpl paymentService;
 	
 	@Value("${page.pageUnit}")
 	int pageUnit;
@@ -107,39 +112,20 @@ public class CommonController {
 		return "common/adminFlashList";
 	}
 	
-	@GetMapping("common/getPaymentList")
-	public String getPaymentList(Model model) throws Exception {
+	@RequestMapping("common/getPaymentList")
+	public String getPaymentList(@ModelAttribute("payment") Payment payment, @ModelAttribute("search") Search search, Model model) throws Exception {
 		
-		Search search = new Search();
+		System.out.println("common/getPaymentList");
 		
-		System.out.println("common/getPaymentList : GET");
-		model.addAttribute("payment",flashService.getFlashList(search).get("list"));
+//		if(search.getCurrentPage() == null) {
+//			search.setCurrentPage(1);
+//		}
+		
+		model.addAttribute("list",paymentService.adminPaymentList( payment, search).get("list"));
+		model.addAttribute("totalCount",paymentService.adminPaymentList(payment, search).get("totalCount"));
 		return "common/adminFlashList";
 	}
 	
-	//@CrossOrigin(origins = "http://localhost:82")
-	@GetMapping(value="/chat/chatList")
-	public String chatList() {
-		System.out.println("chatList : GET");
-		return "common/chatList";
-	}
-	
-	@GetMapping(value="/chat/joinRoom")
-	public String joinRoom(@RequestParam("userId") String userId, @RequestParam("trgt") String trgt,
-				@RequestParam("type")String type, Model model) throws Exception {
-		
-		System.out.println("joinRoom : GET");
-		
-		model.addAttribute("user", userService.getUser(userId));
-		model.addAttribute("type", type);
-		if(type.equals("1")) {
-			model.addAttribute("target", userService.getUser(trgt));
-			return "common/chatRoom";
-		}else{
-			model.addAttribute("target", moimService.getMoim(Integer.parseInt(trgt)));
-			return "common/groupRoom";
-		}
-	}
 	
 	@RequestMapping(value="/common/mainSearch")
 	public String mainSearch(@RequestParam(defaultValue = "0" ) int interestNo, @RequestParam(required=false) String addr, 
@@ -157,5 +143,28 @@ public class CommonController {
 			return "flash/flashMain";
 		}
 		
+//		@CrossOrigin(origins = "http://localhost:82")
+//		@GetMapping(value="/chat/chatList")
+//		public String chatList() {
+//			System.out.println("chatList : GET");
+//			return "common/chatList";
+//		}
+//		
+//		@GetMapping(value="/chat/joinRoom")
+//		public String joinRoom(@RequestParam("userId") String userId, @RequestParam("trgt") String trgt,
+//				@RequestParam("type")String type, Model model) throws Exception {
+//			
+//			System.out.println("joinRoom : GET");
+//			
+//			model.addAttribute("user", userService.getUser(userId));
+//			model.addAttribute("type", type);
+//			if(type.equals("1")) {
+//				model.addAttribute("target", userService.getUser(trgt));
+//				return "common/chatRoom";
+//			}else{
+//				model.addAttribute("target", moimService.getMoim(Integer.parseInt(trgt)));
+//				return "common/groupRoom";
+//			}
+//		}
 	}
 }

@@ -19,12 +19,6 @@
 
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link
-	href="https://fonts.googleapis.com/css2?family=Gaegu:wght@300&display=swap"
-	rel="stylesheet">
-
 <!-- Bootstrap Dropdown Hover JS -->
 <script src="/javascript/bootstrap-dropdownhover.min.js"></script>
 
@@ -85,7 +79,6 @@
 body {
 	padding-top: 50px;
 	margin: auto;
-	font-family: 'Gaegu', cursive;
 }
 
 body>#mainlogo {
