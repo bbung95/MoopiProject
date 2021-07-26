@@ -84,7 +84,6 @@
 <style>
 body {
 	padding-top: 50px;
-	width: 80%;
 	margin: auto;
 	font-family: 'Gaegu', cursive;
 }
