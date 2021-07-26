@@ -38,7 +38,7 @@ drop table letter;
 DROP TABLE IF EXISTS `NOTICE`;
 drop table reply;
 drop table board_file;
-drop table board;
+DROP TABLE IF EXISTS `BOARD`;
 drop table follow_like;
 drop table badge_list;
 drop table report;
@@ -204,6 +204,7 @@ CREATE TABLE BOARD (
 ,	BD_STATE			CHAR(1)  not null    
 ,	BD_PASSWORD		VARCHAR(4)
 ,	BD_MM_NO		INT(11) 
+,	BD_FILE			 varchar(200)
 );
 
 

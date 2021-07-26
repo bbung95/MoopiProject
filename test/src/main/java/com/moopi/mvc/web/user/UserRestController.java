@@ -355,7 +355,7 @@ public class UserRestController {
 
 // 마이홈 게시글 CRUD		
 	@PostMapping(value = "json/addMyBoard")
-	public void addMyBoard(User user, Board board, MultipartFile[] uploadFiles) throws Exception {
+	public Board addMyBoard(User user, Board board, MultipartFile[] uploadFiles) throws Exception {
 
 		System.out.println("addMyBoard : POST");
 		System.out.println(board);
@@ -378,6 +378,8 @@ public class UserRestController {
 		board.setBoardWriter(user);
 		board.setBoardCategory("3");
 		boardService.addBoard(board);
+		
+		return board;
 
 	}
 	
