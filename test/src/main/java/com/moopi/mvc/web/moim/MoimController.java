@@ -20,6 +20,7 @@ import com.moopi.mvc.service.board.impl.BoardServiceImpl;
 import com.moopi.mvc.service.common.impl.CommonServiceImpl;
 import com.moopi.mvc.service.domain.Board;
 import com.moopi.mvc.service.domain.Flash;
+import com.moopi.mvc.service.domain.Member;
 import com.moopi.mvc.service.domain.Moim;
 import com.moopi.mvc.service.domain.Notice;
 import com.moopi.mvc.service.domain.Reply;
@@ -71,8 +72,10 @@ public class MoimController {
 //		System.out.println(userId);
 //		System.out.println(userMapper.getUser(userId));
 		Moim moim = moimService.getMoim(mmNo);
-		System.out.println(moim);
-		
+		Map map = moimService.getMemberList(mmNo, 2);
+		System.out.println("모임정보:::"+moim);
+		System.out.println("모임의멤버리스트:::"+map);
+		model.addAttribute("list", map.get("list"));
 		model.addAttribute("moim", moimService.getMoim(mmNo));
 		return "moim/getMoim";
 	}
@@ -163,12 +166,16 @@ public class MoimController {
 	
 	//모임리스트 가져오기 토탈카운트 포함
 	@RequestMapping("listMoim")
-	public String getListMoim(@ModelAttribute("search") Search search, Model model) throws Exception{
+	public String getListMoim(@ModelAttribute("search") Search search, 
+			@RequestParam("userId") String userId, Model model) throws Exception{
 		
 		System.out.println("모임리스트를 가져옵니다.");
 		Map<String, Object> map = moimService.getMoimList(search);
+		Map<String, Object> map2 = moimService.getMyMoimList(userId);
 		model.addAttribute("list", map.get("list"));
+		model.addAttribute("list2", map2.get("list2"));
 		model.addAttribute("search", search);
+		System.out.println("내가 가입한 모임:"+map2);
 		System.out.println("forward:/moim/moimMain 으로 이동합니다.");
 		return "moim/moimMain";
 	}
@@ -179,7 +186,7 @@ public class MoimController {
 		
 		System.out.println("내가 가입한 모임리스트를 가져옵니다.");
 		Map<String, Object> map = moimService.getMyMoimList(userId);
-		model.addAttribute("list", map.get("list"));
+		model.addAttribute("list2", map.get("list2"));
 		
 		System.out.println("forward:/moim/myMoimMain 으로 이동합니다.");
 		return "moim/myMoimMain";

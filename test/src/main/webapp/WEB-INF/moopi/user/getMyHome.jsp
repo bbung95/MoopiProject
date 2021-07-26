@@ -33,6 +33,30 @@
 </script>
 
 <style>
+.userEL8993463 {
+	position: relative;
+	padding: 20px 0;
+}
+
+.userEL8993463 .divider-box {
+	position: relative;
+	margin: 0 auto;
+}
+
+.userEL8993463 hr {
+	display: inline-block;
+	float: left;
+	width: 33.333%;
+	border: 0;
+	border-top: 1px solid #e1e1e1;
+	height: 1px;
+}
+
+.userEL8993463 .center {
+	border-width: 3px;
+	margin-top: 19px;
+}
+
 .userEL8990950 {
 	padding: 30px 0;
 	background-color: #ffffff;
@@ -61,20 +85,6 @@
 
 .userEL8990950 .item .thumb-wrap .tpl-forum-list-thumb img {
 	width: 100%;
-}
-
-.userEL8990950 .item .thumb-wrap .tpl-forum-list-num {
-	display: inline-block;
-	position: absolute !important;
-	top: 0;
-	left: 0;
-	padding: 6px 4px;
-	line-height: 1.2;
-	min-width: 22px;
-	text-align: center;
-	background-color: rgba(0, 0, 0, 0.2);
-	font-size: 13px;
-	color: #fff;
 }
 
 .userEL8990950 .tpl-forum-list-title {
@@ -114,9 +124,6 @@
 	vertical-align: top;
 }
 
-.userEL8990950 .tpl-forum-list-name:not(:empty):not(.hidden) {
-	margin-top: 15px;
-}
 
 .userEL8990950 .item .cont-wrap ul {
 	margin: 5px auto;
@@ -129,199 +136,7 @@
 	line-height: 1.4;
 }
 
-.userEL8990950 .item .cont-wrap ul>li:not(:empty):not(.hidden) ~ li:empty+li:not(:empty):not(.hidden):before,
-	.userEL8990950 .item .cont-wrap ul>li:not(:empty):not(.hidden) ~ li.hidden+li:not(:empty):not(.hidden):before,
-	.userEL8990950 .item .cont-wrap ul>li:not(:empty):not(.hidden)+li:not(:empty):not(.hidden):before
-	{
-	content: '|';
-	margin: 0 10px;
-	position: relative;
-	display: inline-block;
-	float: left;
-}
 
-.userEL8990950 .tpl-forum-write {
-	position: relative;
-	display: block;
-	min-width: 102px;
-	margin: 0 3px 0 auto;
-	padding: 6px 15px;
-	font-family: 'Montserrat', 'Nanum Gothic';
-	font-size: 11px;
-	min-height: 36px;
-	letter-spacing: 0.1em;
-	-webkit-box-shadow: none;
-	-moz-box-shadow: none;
-	box-shadow: none;
-	-webkit-border-radius: 0;
-	-moz-border-radius: 0;
-	border-radius: 0;
-	border: 1px solid #a3a3a3;
-	background-color: #a3a3a3;
-	color: #ffffff;
-}
-
-.userEL8990950 .search-box {
-	overflow: hidden;
-	clear: both;
-	padding-right: 3px;
-	padding-bottom: 30px;
-}
-
-.userEL8990950 .search-box .input-group {
-	float: right;
-	max-width: 460px;
-}
-
-.userEL8990950 .search-box .form-control, .userEL8990950 .search-box .form-control:focus,
-	.userEL8990950 .search-box .form-control:hover, .userEL8990950 .search-box .search-btn,
-	.userEL8990950 .search-box .search-btn:hover, .userEL8990950 .search-box .search-btn:focus
-	{
-	background-color: transparent;
-	border: 1px solid #e9e9e9;
-	-webkit-border-radius: 0;
-	-moz-border-radius: 0;
-	border-radius: 0;
-	-webkit-box-shadow: none;
-	-moz-box-shadow: none;
-	box-shadow: none;
-	height: 24px;
-	vertical-align: top;
-}
-
-.userEL8990950 .search-box .form-control {
-	font-family: 'Questrial', 'Nanum Gothic';
-	font-size: 12px;
-	color: #737373;
-	padding: 0 5px;
-}
-
-.userEL8990950 .search-box .form-control#stx {
-	border-right: none;
-}
-
-.userEL8990950 .search-box select.form-control {
-	width: 100px;
-	text-transform: uppercase;
-	margin-right: 5px;
-}
-
-.userEL8990950 .search-box .search-btn {
-	border-left: 0 ! important;
-	color: #191919;
-	padding: 3px 7px;
-	-wekbit-transform: translateX(1px);
-	-moz-transform: translateX(1px);
-	-ms-transform: translateX(1px);
-	-o-transform: translateX(1px);
-	transform: translateX(1px);
-}
-
-.userEL8990950 .pagination>li>a {
-	font-family: 'Roboto', 'Nanum Gothic';
-	font-size: 12px;
-	font-weight: 400;
-	letter-spacing: 0.07em;
-	color: #737373;
-	border: none;
-	background-color: transparent;
-	padding: 5px 10px;
-}
-
-.userEL8990950 .pagination>li>a:hover, .userEL8990950 .pagination>li>span:hover,
-	.userEL8990950 .pagination>li>a:focus, .userEL8990950 .pagination>li>span:focus
-	{
-	background-color: transparent;
-}
-
-.userEL8990950 .pagination>.active>a, .userEL8990950 .pagination>.active>span,
-	.userEL8990950 .pagination>.active>a:hover, .userEL8990950 .pagination>.active>span:hover,
-	.userEL8990950 .pagination>.active>a:focus, .userEL8990950 .pagination>.active>span:focus
-	{
-	z-index: 2;
-	color: #fb4045;
-	background-color: transparent;
-	border: none;
-}
-
-.userEL8990950.colorSet .op_itemline10 {
-	border-color: rgba(25, 25, 25, 0.1);
-}
-
-.userEL8990950.colorSet .search-box .form-control, .userEL8990950.colorSet .search-box .form-control:focus,
-	.userEL8990950.colorSet .search-box .form-control:hover, .userEL8990950.colorSet .search-box .search-btn,
-	.userEL8990950.colorSet .search-box .search-btn:hover, .userEL8990950.colorSet .search-box .search-btn:focus
-	{
-	border-color: rgba(25, 25, 25, 0.15);
-}
-
-.userEL8990950.colorSet .search-box .form-control {
-	color: rgba(25, 25, 25, 0.75);
-}
-
-.userEL8990950.colorSet .search-box .search-btn {
-	color: #191919;
-}
-
-.userEL8990950.colorSet .pagination>.active>a, .userEL8990950.colorSet .pagination>.active>span,
-	.userEL8990950.colorSet .pagination>.active>a:hover, .userEL8990950.colorSet .pagination>.active>span:hover,
-	.userEL8990950.colorSet .pagination>.active>a:focus, .userEL8990950.colorSet .pagination>.active>span:focus
-	{
-	color: #191919;
-}
-
-@media only screen and (max-width:991px) {
-	.userEL8990950 .table {
-		margin-bottom: 16px;
-	}
-	.userEL8990950 .item .cont-wrap {
-		padding: 20px 12px 16px;
-	}
-}
-
-@media only screen and (max-width:768px) {
-	.userEL8990950 .table {
-		padding-left: 12px;
-		padding-right: 12px;
-		margin-bottom: 10px;
-	}
-	.userEL8990950 .item .cont-wrap {
-		padding: 12.5px 5px 10px;
-	}
-	.userEL8990950 .tpl-forum-list-name:not(:empty):not(.hidden) {
-		margin-top: 10px;
-	}
-	.userEL8990950 .item .cont-wrap ul>li:not(:empty):not(.hidden) ~ li:empty+li:not(:empty):not(.hidden):before,
-		.userEL8990950 .item .cont-wrap ul>li:not(:empty):not(.hidden) ~ li.hidden+li:not(:empty):not(.hidden):before,
-		.userEL8990950 .item .cont-wrap ul>li:not(:empty):not(.hidden)+li:not(:empty):not(.hidden):before
-		{
-		margin: 0 7px;
-	}
-	.userEL8990950 .tpl-forum-list-cont {
-		line-height: 1.2;
-	}
-	.userEL8990950 .tpl-forum-write {
-		margin-right: 15px;
-	}
-	.userEL8990950 .search-box {
-		padding-right: 15px;
-		padding-bottom: 24px;
-	}
-}
-
-@media only screen and (max-width:480px) {
-	.userEL8990950 .search-box {
-		padding-bottom: 15px;
-	}
-	tpl-forum-list-thumb {
-		position: relative;
-	}
-	tpl-forum-list-thumb:after {
-		content: "";
-		display: block;
-		padding-bottom: 100%;
-	}
-}
 
 </style>
 
@@ -335,7 +150,7 @@ body {
 }
 
 .profileImg {
- 	border-radius: 50%;
+	border-radius: 50%;
 }
 
 .moimImg {
@@ -385,6 +200,7 @@ body {
 	<!-- Tool Bar ---------------------------------------------------------------------------------------------------------------->
 	<jsp:include page="../layout/toolbar.jsp" />
 	<!---------------------------------------------------------------------------------------------------------------------------->
+
 	<main class="py-5">
 		<div class="container px-5 my-5 ">
 
@@ -448,7 +264,9 @@ body {
 					</div>
 				</div>
 			</div>
+
 			<hr />
+
 			<div class="text-center">
 				<c:if test="${!empty user.interestFirst}">
 					<span class="interest">${user.interestFirst}</span>
@@ -578,9 +396,48 @@ function upload(formData){
                 , processData : false
                 , contentType : false
                 , data : formData
-                , dataType: 'text'
+                , dataType: 'JSON'
                 , success:function(data, state) {
-                    $('#close').click();
+                    
+                        
+                        let fileArry = data.boardFile.split("/");
+    					
+    					let displayValue = '<div class="col-xs-4 col-sm-4 col-md-4 no-padding item">'
+    										+'<div class="border-wrap op_itemline10">'
+    										+'<div class="thumb-wrap">'
+    										+'<div class="tpl-forum-list-thumb" >'
+    										+'<div class="thumbnail-wrapper">'
+    										+'<div class="thumbnail">'
+    										+'<div class="thumbnail-centered">'
+    										+'<img class="thumbnail-img" src="/images/uploadFiles/'+fileArry[0]+'" class="img-responsive" >'
+    										+'</div>'
+    										+'</div>'
+    										+'</div>'
+    										+'</div>'
+    										+'<div class="cont-wrap">'
+    										+'<div class="tpl-forum-list-content">'
+    										+'<span class="tpl-forum-list-title" data-selector=".tpl-forum-list-title" data-font="true"'
+    										+'data-title="title font">Amazing work one really feelslike in a stone age. Impressive!</span>'
+    										+'</div>'
+    										+'<div class="tpl-forum-list-name tpl-forum-list-etc config-font-etc" data-selector=".tpl-forum-list-etc" data-font="true"'
+    										+'data-title="others">Den Kdivinich</div>'
+    										+'<ul>'
+    										+'<li class="tpl-forum-list-category tpl-forum-list-etc config-font-etc">category</li>'
+    										+'<li class="tpl-forum-list-date tpl-forum-list-etc config-font-etc">now</li>'
+    										+'<li class="tpl-forum-list-hit tpl-forum-list-etc config-font-etc">1486</li>'
+    										+'<li class="tpl-forum-list-comment tpl-forum-list-etc config-font-etc">25</li>'
+    										+'</ul>'
+    										+'<div class="tpl-forum-list-cont" data-selector=".tpl-forum-list-cont" data-font="true"'
+    										+'data-title="content font">Phasellus justo ante, ultrices eget lorem ut, vestibulum ultrices mauris.</div>'
+    										+'</div>'
+    										+'</div>'
+    										+'</div>'
+    					
+                	setTimeout(function() {
+                		$('#close').click();
+    					$('#boardView').prepend(displayValue);
+                	}, 3000, displayValue)
+                    
                 }
       });
 }
