@@ -53,7 +53,10 @@ body {
 			<div class="col-xl-10"></div>
 		</div>
 	</div>
-
+	
+	
+	
+	
 	<jsp:include page="../layout/searchbar.jsp"></jsp:include>
 
 	<!-- Bootstrap core JS-->
@@ -66,6 +69,11 @@ body {
 		$("li:contains('내 정보수정')").on("click", function() {
 
 			location.href = "/user/updateProfile?userId=" + dbUser;
+		})
+		
+		$("li:contains('My모임무피')").on("click", function() {
+
+			location.href = "/moim/myListMoim?userId=" + dbUser;
 		})
 		
 		$("li:contains('My결제내역')").on("click", function() {
