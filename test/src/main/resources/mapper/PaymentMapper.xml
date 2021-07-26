@@ -89,10 +89,10 @@
 		FROM PAYMENT
 		ORDER BY
 		<choose>
-			<when test="paymentAdmin == 'PRICE_ASC'">PAYMENT_PRICE ASC</when>
-			<when test="paymentAdmin == 'PRICE_DESC'">PAYMENT_PRICE DESC</when>
-			<when test="paymentAdmin == 'REGDATE_ASC'">PAYMENT_PRICE ASC</when>
-			<when test="paymentAdmin == 'REGDATE_DESC'">PAYMENT_PRICE DESC</when>
+			<when test="option == 'PRICE_ASC'">PAYMENT_PRICE ASC</when>
+			<when test="option == 'PRICE_DESC'">PAYMENT_PRICE DESC</when>
+			<when test="option == 'REGDATE_ASC'">PAYMENT_PRICE ASC</when>
+			<when test="option == 'REGDATE_DESC'">PAYMENT_PRICE DESC</when>
 		</choose>
 	</select>
 	
