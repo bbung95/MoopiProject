@@ -249,25 +249,27 @@
 		}
 
 // 아이디찾기 - 다른 방식으로 접근, 차후 수정가능시 수정진행 할 예정
-	function findId() {			
+	function findId() {	
+		$(".forgot-Id").fadeIn();
 		var popWin;
 		var findId = $("#findId").val();		
 		popWin = window.open(
 					"getMobileAuth?findId",
 					"childForm",
-					"left=460, top=300, width=460, height=800, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");									
+					"left=460, top=300, width=580, height=550, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");									
 	}
 
 
 // 비밀번호찾기 - 다른 방식으로 접근, 차후 수정가능시 수정진행 할 예정	
-	function findPwd() {			
+	function findPwd() {
+		$(".forgot-pass").fadeIn();			
 		var popWin;
 		var id=$('input[name=userId]').val();
 		var findPwd = $("#findPwd").val();	
 		popWin = window.open(
 					"searchUserPwd",
 					"childForm",
-					"left=460, top=300, width=460, height=800, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");									
+					"left=460, top=300, width=580, height=640, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");									
 	}
 		
 </script>		
@@ -276,7 +278,8 @@
 		body {
 		background-image : url('../images/background/half_background.jpg');
 			padding-top: 50px;
-		}
+		}	
+
 	</style>
 	
 	<style type="text/css">
@@ -284,6 +287,8 @@
 		a:visited { color: black; text-decoration: none;}
 		a:hover { color: red; text-decoration: none;}
 	</style>
+	
+	
 	
 </head>
 
@@ -326,9 +331,9 @@
 								
 								<!-- 아이디찾기 -->
 								<div class="d-flex mb-2 align-items-center">
-									<a href="javascript:findId();" class="forgot-pass">Forgot Id?</a></span>											
+									<a href="javascript:findId();" class="forgot-Id">Forgot Id?</a></span>											
 								</div>
-								
+						
 								<!-- 패스워드찾기 -->
 								<div class="d-flex mb-4 align-items-center">
 									<a href="javascript:findPwd();" id="findPwd" class="forgot-pass">Forgot Password?</a>
@@ -365,7 +370,6 @@
 				</div>
 			</div>
 		</div>
-
-
+			
 </body>
 </html>

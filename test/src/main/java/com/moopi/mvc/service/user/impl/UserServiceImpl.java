@@ -82,7 +82,7 @@ public class UserServiceImpl {
 	}
 	
 	// 회원탈퇴 
-	public void updateLeaveUser(User user) throws Exception {
+	public void updateLeaveUser (User user) throws Exception {
 		System.out.println("\nUserServiceImpl _____ updateLeaveUser 진입완료");
 		System.out.println("유저가 탈퇴를 눌렀을시 5번 유저롤로 변경된다");
 		userDao.updateLeaveUser(user);
@@ -136,8 +136,10 @@ public class UserServiceImpl {
 	}
 	
 	// 1. 닉네임수정
-	public void updateNickname(User user) {
-		userDao.updateNickname(user);
+//	public void updateNickname(User user) {
+//		userDao.updateNickname(user);
+//	}
+	public void updateNickname(Map<String, Object> map) {
 	}
 	
 	// 2. 프로필소개수정
@@ -190,4 +192,5 @@ public class UserServiceImpl {
 		
 		userDao.updateUserRole(user);
 	}
+
 }
