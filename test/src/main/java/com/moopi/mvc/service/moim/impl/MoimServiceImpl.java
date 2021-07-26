@@ -24,7 +24,7 @@ public class MoimServiceImpl {
 		return moimDao.getMoim(mmNo);
 	}
 	
-	public Moim getMoim2(String mmName) {
+	public Moim getMoim(String mmName) {
 		return moimDao.getMoim(mmName);
 	}
 	
@@ -47,11 +47,11 @@ public class MoimServiceImpl {
 	
 	public Map<String, Object> getMyMoimList(String userId) throws Exception {
 		
-		List<Moim> list = moimDao.getMyMoimList(userId);
+		List<Moim> list2 = moimDao.getMyMoimList(userId);
 		
 		
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("list", list);
+		map.put("list2", list2);
 		return map;
 	}
 
@@ -100,5 +100,12 @@ public class MoimServiceImpl {
 		return map;
 	}
 	
+	public void addCount(int mmNo) throws Exception {
+		moimDao.addCount(mmNo);
+	}
+	
+	public void subCount(int mmNo) throws Exception {
+		moimDao.subCount(mmNo);
+	}
 
 }

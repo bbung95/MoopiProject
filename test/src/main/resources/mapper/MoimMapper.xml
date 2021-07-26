@@ -15,6 +15,7 @@
 		<result property="mmMaxCount" 			column="MM_MAX_COUNT" 			jdbcType="NUMERIC" />
 		<result property="mmCurrentCount" 			column="MM_CURRENT_COUNT" 	jdbcType="NUMERIC" />
 		<result property="mmConstructor.userId" 			column="MM_CONSTRUCTOR" 			jdbcType="VARCHAR" />
+		<result property="mmConstructor.nickname" 			column="NICKNAME" 			jdbcType="VARCHAR" />
 		<result property="mmRegDate" 			column="MM_REGDATE" 			jdbcType="DATE"  />
 		<result property="mmInterest" 			column="MM_INTEREST" 		jdbcType="NUMERIC" />
 		<result property="mmAddr" 			column="MM_ADDR" 			jdbcType="VARCHAR"  />
@@ -23,6 +24,7 @@
 		<result property="mmMaxAge" 			column="MM_MAX_AGE" 			jdbcType="NUMERIC"  />
 		<result property="mmType" 			column="MM_TYPE" 			jdbcType="VARCHAR"  />
 	</resultMap>
+	
 	
 	  
 	<resultMap id="memberSelectMap" type="member">
@@ -33,6 +35,10 @@
 		<result property="mmUser.profileImage"				column="PROFILE_IMAGE" 		jdbcType="VARCHAR" />
 		<result property="mmUser.profileContent"				column="PROFILE_CONTENT" 		jdbcType="VARCHAR" />
 		<result property="mmUser.addr"				column="ADDR" 		jdbcType="VARCHAR" />
+		<result property="mmUser.nickname"				column="NICKNAME" 		jdbcType="VARCHAR" />
+		<result property="mmUser.interestFirst"				column="INTEREST_FIRST" 		jdbcType="VARCHAR" />
+		<result property="mmUser.interestSecond"				column="INTEREST_SECOND" 		jdbcType="VARCHAR" />
+		<result property="mmUser.interestThird"				column="INTEREST_THIRD" 		jdbcType="VARCHAR" />
 		<result property="mmNo" 			column="MM_NO" 		jdbcType="NUMERIC" />
 		<result property="memberRole" 			column="MM_MEMBER_ROLE" 			jdbcType="VARCHAR" /> 
 		<result property="memberRegDate" 			column="MM_MEMBER_REGDATE" 			jdbcType="DATE" />
@@ -99,16 +105,41 @@
 	   	AND MM_NO = #{mmNo}
 	 </update>
 	 
+	 
+	 <update	id = "addCount">
+	 UPDATE moim
+	 <set>
+	 mm_current_count = mm_current_count +1
+	 </set>
+	 WHERE mm_no = #{mmNo}
+	 </update>
+	 
+	 
+	 <update	id = "subCount">
+	 UPDATE moim
+	 <set>
+	 mm_current_count = mm_current_count -1
+	 </set>
+	 WHERE mm_no = #{mmNo}
+	 </update>
+	 
+	 
 	 <select  id="getMemberList"  parameterType="int"	resultMap="memberSelectMap">
 		SELECT
 		MEMBER_NO, MM_MEMBER_ID, MM_NO, MM_MEMBER_ROLE, MM_MEMBER_REGDATE, USER_NAME, BADGE, 
-		PROFILE_IMAGE, PROFILE_CONTENT, ADDR	
-		FROM MEMBER M, USERS U
+		NICKNAME, PROFILE_IMAGE, PROFILE_CONTENT, ADDR, x.INTEREST_NAME AS INTEREST_FIRST, y.INTEREST_NAME AS INTEREST_SECOND, z.INTEREST_NAME AS INTEREST_THIRD	
+		FROM MEMBER LEFT JOIN USERS u
+			ON MM_MEMBER_ID = U.USER_ID
+			LEFT OUTER JOIN INTEREST x 
+			ON INTEREST_FIRST = x.INTEREST_NO
+		    LEFT OUTER JOIN INTEREST y
+			ON INTEREST_SECOND = y.INTEREST_NO
+		    LEFT OUTER JOIN INTEREST z
+			ON INTEREST_THIRD = z.INTEREST_NO
 		<if test="status == 1">
 		where mm_no =#{mmNo}
 		and mm_member_role ='1'
-		and U.user_id = M.mm_member_id
-		</if>
+				</if>
 		<if test="status == 2">
 		where mm_no = #{mmNo}
 		and NOT mm_member_role ='1'
