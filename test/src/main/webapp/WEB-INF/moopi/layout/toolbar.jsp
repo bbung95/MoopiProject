@@ -91,6 +91,8 @@
 <script type="text/javascript">
 	// login session userId
 	var dbUser = '<c:out value="${dbUser.userId}"/>';
+	var userProfile = '<c:out value="${dbUser.profileImage}"/>';
+	var nickname = '<c:out value="${dbUser.nickname}"/>';
 
 	$(document)
 			.ready(
@@ -364,10 +366,10 @@
 					function() {
 
 						popWin = window
-								.open(
-										/* 				"http://localhost:82/chatList?userId="+dbUser,
-										 */"/chat/chatList",
-										"popWin",
+								.open(	
+										"https://bbung95-rtc.herokuapp.com/chatList?userId="+dbUser+"&profile="+userProfile+"&nickname="+nickname,
+/* 										"http://localhost:82/chatList?userId="+dbUser+"&profile="+userProfile+"&nickname="+nickname,
+ */										"popWin",
 										"left=460, top=300, width=460, height=600, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");
 					});
 
