@@ -283,7 +283,9 @@ public class MoimController {
 	}
 	
 	@RequestMapping("mapView")
-	public String getMapView() throws Exception{
+	public String getMapView(@RequestParam("lat") String lat, @RequestParam("lng")String lng, Model model) throws Exception{
+		model.addAttribute("lat", lat);
+		model.addAttribute("lng", lng);
 		
 		System.out.println("맵을 표시한다.");
 			return "moim/mapView";	
