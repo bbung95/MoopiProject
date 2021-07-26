@@ -10,7 +10,10 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,13 +34,7 @@ public class UserController {
 	
 	@Autowired
 	private MoimServiceImpl moimService;
-	
-	@RequestMapping("updateLeaveUser")
-	public void updateLeaveUser() throws Exception {
-		System.out.println("updateLeaveUser 진입완료");
-		// 회원이 탈퇴진행할시 해당을 거쳐 유저롤 5번으로 변경한다 / 리턴값없음
-	}
-	
+		
 	// 카카오 로그인 및 회원가입
 	@RequestMapping("kakaoLogin")
 	public String kakaoLogin (	@ModelAttribute("user") User user,
@@ -360,6 +357,42 @@ public class UserController {
 		System.out.println("관심사수정");		
 		userService.updateInterest(user);
 		return "user/updateInterest";				
+	}
+	
+	// 4. 회원탈퇴
+	@RequestMapping("updateLeaveUser")
+	public String updateLeaveUser( 	@RequestParam String userId,
+									@RequestParam String userRole,
+									@RequestParam String stateReason,
+									Model model) throws Exception {
+		System.out.println("updateLeaveUser 진입완료");
+		
+		User user = new User();
+		user.getUserId();
+		user.getUserRole();
+		user.getStateReason();
+		System.out.println(user.getUserId());
+		System.out.println(user.getUserRole());
+		System.out.println(user.getStateReason());
+		
+		model.addAttribute("userRole", user.getUserRole());
+		model.addAttribute("userId", user.getUserId());
+		model.addAttribute("stateReason", user.getStateReason());
+		
+		userService.updateLeaveUser(user);
+		
+		return "user/updateLeaveUser";
+		
+	}
+	
+	// 회원탈퇴 단순네비게이션
+	@RequestMapping("updateLeaveUserView")
+	public String updateLeaveUserView(	@RequestParam("userId") String userId,
+										@ModelAttribute("user") User user, Model model) throws Exception {		
+		user.getUserId();
+		user.getUserRole();
+		
+		return "user/updateLeaveUserView";
 	}
 	
 //-- [완료] 회원가입 addUserView.jsp로 단순 네비게이션  -------------------------------------------------------------------------------------------

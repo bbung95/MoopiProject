@@ -173,43 +173,24 @@
 			alert("마이홈상태가 변경완료되었습니다.");		
 		})	 
 	});
-
-<!-- 모달 -->	
-	function fncupdateUserSuspend(email){
-		$("form[name='updateSuspendUser']").attr("method", "POST").attr("action", "/admin/updateSuspendUser").submit();
-	}
 	
-$(function(){
-		// 검색
-		$("button[name='search']").on("click", function(){
-			fncGetList(1);
-		});	
+<!-- 회원탈퇴 -->
+	function deleteUser() {
+	
+		alert("탈퇴를 누름");
 		
-		// 정지 
- 		$( "#btn1" ).on("click" , function() {
-			var email = $('#email2').val()
-			/* alert(email); */			
-			fncupdateUserSuspend(email)
-		}); 
+		var userId = $("#userId").val();
+		alert("유저아이디 : "+userId);
 		
-		// 기억해_
-	    $('tr td:nth-child(6)').on("click", function(){
-	    	$('#email').val($(this).find('input').val());	    	
-	    })
-		
-		
- 		$('#modal').modal("hide"); //닫기 
-		 
-		$('#modal').modal("show"); //열기 
-		
-		
-	})
+		$("form").attr("method" , "POST").attr("action" , "/user/updateLeaveUserView").submit();
+	}
 		
 </script>
 	<style>
 		body {
 			padding-top: 70px;
 		}		
+		
 		.profileImg {
 			max-width : 100%;
  			border-radius: 100%;
@@ -219,10 +200,15 @@ $(function(){
     		max-width: 32rem;
 		}
 		
-
 		a:link { color: gray; text-decoration: none;}
 		a:visited { color: black; text-decoration: none;}
-		a:hover { color: red; text-decoration: none;}
+		a:hover { color: red; text-decoration: none;}  
+		
+		.deleteUserRight {
+			text-align: right;
+		}
+
+
 
 		
 	</style>
@@ -378,78 +364,24 @@ $(function(){
 				</div>
 				
 				<!-- 회원탈퇴 -->
-				<div class="orm-group px-4 px-1" style="float: right;">
-					<a href="javascript:findId();" class="forgot-pass">회원탈퇴</a></span>					
+				<div>					
+					<div class="form-group px-4 px-1" style="text-align:right;">
+						<button class="deleteUserRight" onclick="javascript:deleteUser()">회원탈퇴</a></span>											
+					</div>
 				</div>
-				
-				
-		             
-            </form>
-        
-            	<div>					
-					<button class="px-4 py-0 text-white font-light tracking-wider bg-gray-900 rounded" data-toggle="modal" data-target="#myModal">
-						<input type="hidden" name="deleteUser" id="deleteUser"/>회원탈퇴(모달)
-					</button>
-				</div>
-				<div>
-					<button class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-					<input type="hidden" name="email2" id="email2" value="${report.receiveReporter.email}"/>
-					정지
-					</button>
-				</div>
-				
-				<button class="btn btn-toggle" data-toggle="modal" data-target="#myModal">Show / Hide<button>
 			
+			</form>					
         </div>
-    </div>
+    </div>   
 </div>
-									  			
-<!-- =================================================사용자 정지 모달 시작================================================================== -->            
-		<div class="modal fade" id="myModal" tabindex="-1" role="modal" aria-labelledby="myModalLabel">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					
-					<div class="modal-header">
-						<button type="button" class="madal fade" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-						<h4 class="modal-title" id="myModalLabel">회원탈퇴</h4>
-					</div>
-						
-						<div class="modal-body">
-							<form class="form-horizontal" method="post" name="updateSuspendUser">
-								<input type="hidden" id="email" name="email" value="${report.receiveReporter.email}"/>   
-									<div class = "form-group">
-										  <fieldset>
-								   				 <legend> 정말로 탈퇴하시겠어요? </legend>
-								   				 <label for="radio-1 ">7일</label>
-								    			 <input type="radio" class="radio-value" name="suspendType" id="suspendType" value="1">
-								   				 <label for="radio-2">30일</label>
-								   				 <input type="radio" class="radio-value" name="suspendType" id="suspendType" value="2">
-								   				 <label for="radio-3">영구정지</label>
-								    			 <input type="radio" class="radio-value" name="suspendType" id="suspendType" value="3">
-								  			</fieldset>
-							        </div>
-		        			</form>
-		     			 </div>
-		     			 
-					<div class="modal-footer">
-				      	<button id="btn1" class="btn btn-default" >정 지</button>
-				        <button type="button" class="btn btn-default" data-dismiss="modal">닫 기</button>
-					</div>
-					
-				</div>
-			</div>
-		</div>
-		        
-<!-- =================================================사용자 정지 모달 끝================================================================== -->        
-
+		        			  			
+	<form>			
         <!--Footer-->
         <footer class="bg-grey-darkest text-white p-2">
             <div class="flex flex-1 mx-auto">&copy; Moopi (Move People)</div>
         </footer>
         <!--/footer-->
-
     </div>
-
 </div>
 
 
