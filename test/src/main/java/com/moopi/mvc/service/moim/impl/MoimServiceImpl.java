@@ -47,11 +47,11 @@ public class MoimServiceImpl {
 	
 	public Map<String, Object> getMyMoimList(String userId) throws Exception {
 		
-		List<Moim> list = moimDao.getMyMoimList(userId);
+		List<Moim> list2 = moimDao.getMyMoimList(userId);
 		
 		
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("list", list);
+		map.put("list2", list2);
 		return map;
 	}
 

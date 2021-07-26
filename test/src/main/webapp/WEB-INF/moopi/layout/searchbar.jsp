@@ -50,10 +50,14 @@
 	
 	// 통합검색 ajax
 	function searchList(searchKeyword , searchType){
+		
+		let currentPage = 1;
+		
 		$.ajax({
 			url: "/common/json/searchList/"+searchType,	
 			method: "POST",
-			data: JSON.stringify({searchKeyword : searchKeyword}),
+			data: JSON.stringify({searchKeyword : searchKeyword,
+							  	currentPage : currentPage}),
 			contentType : "application/JSON",		
 				type : "JSON",
 				success: function(data, state){
@@ -88,11 +92,13 @@
 					// postting
 					}else if(searchType == 3){
 						for(var i in data.list){
+							let fileArry = data.list[i].boardFile.split("/");
+							
 							display += '<div style="background: white; margin: 5px; height: 400px; border-radius: 10px;" >'
-								+'<img style="margin: 5px; width: 40px; height: 40px; border-radius: 50%;" src="/images/uploadFiles/poco.jpg"></img>'
-								+'<span>'+data.list[i].nickname+'</span>'
-								+'<div align="center"><img style="margin: 5px; height: 250px;" src="/images/uploadFiles/poco.jpg"></img></div>'
-								+'<div>게시글 내용들 컨텐트르르르</div>'
+								+'<img style="margin: 5px; width: 40px; height: 40px; border-radius: 50%;" src="/images/uploadFiles/'+data.list[i].boardWriter.profileImage+'"></img>'
+								+'<span>'+data.list[i].boardWriter.nickname+'</span>'
+								+'<div align="center"><img style="margin: 5px; height: 250px;" src="/images/uploadFiles/'+fileArry[0]+'"></img></div>'
+								+'<div>'+data.list[i].boardContent+'</div>'
 								+'</div>';
 						}
 						$('.searchOut').append(display);
@@ -123,11 +129,12 @@
 								method: "GET",
 								dataType: "JSON",
 								success: function(data,state){
+									console.log(JSON.stringify(data));
 									let url;
 									if(data.type == 1){
 										/* url = "http://localhost:82/chat?userId="+data.user.userId+"&trgt="+data.target.userId+"&type="+data.type
 												+"&name="+data.user.nickname+"&profile="+data.user.profileImage+"&trgtName="+data.target.nickname
-												+"&trgtProfile="+data.target.profileImage; */
+												+"&trgtProfile="+data.target.profileImage;  */
 										
 										url = "https://bbung95-rtc.herokuapp.com/chat?userId="+data.user.userId+"&trgt="+data.target.userId+"&type="+data.type
 										+"&name="+data.user.nickname+"&profile="+data.user.profileImage+"&trgtName="+data.target.nickname
@@ -135,7 +142,7 @@
 									}else{
 										/* url = "http://localhost:82/chat?userId="+data.user.userId+"&trgt="+data.target.mmNo+"&type="+data.type
 										+"&name="+data.user.nickname+"&profile="+data.user.profileImage+"&trgtName="+data.target.mmName
-										+"&trgtProfile="+data.target.mmFile+"&roomNo="+data.target.mmNo; */
+										+"&trgtProfile="+data.target.mmFile+"&roomNo="+data.target.mmNo; */ 
 										
 										url = "https://bbung95-rtc.herokuapp.com/chat?userId="+data.user.userId+"&trgt="+data.target.mmNo+"&type="+data.type
 										+"&name="+data.user.nickname+"&profile="+data.user.profileImage+"&trgtName="+data.target.mmName
@@ -269,18 +276,15 @@
 
 .searchList{
 	display : none;
-	height: 600px;
+	height: 400px;
 	width: 400px;
 	border: 1px solid var(--sc-color3);
 	background: var(--sc-color4);
 	margin-bottom: 50px;
 	border-radius: 20px;
 	overflow: auto;
-}
-
-.searchList{ 
 	-ms-overflow-style: none; 
-} 
+}
 
 .searchList::-webkit-scrollbar{ 
 	display:none; 

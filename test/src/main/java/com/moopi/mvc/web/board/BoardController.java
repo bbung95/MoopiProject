@@ -55,36 +55,6 @@ public class BoardController{
 			substring(0, ClassLoader.getSystemResource("./static/").getPath().lastIndexOf("bin"))
 			+"src/main/resources/static/images/uploadFiles/";
 	
-	
-	
-	
-	@RequestMapping("listMoimBoard")
-	public String getMoimBoardList(@ModelAttribute("search")Search search, @ModelAttribute("category")String category,
-			@ModelAttribute("boardMoimNo") int boardMoimNo, Model model ) throws Exception {
-	
-		System.out.println(search.toString()+boardMoimNo);
-		
-		String boardCategory = null;
-		Map map = new HashMap();
-
-		if(search.getCurrentPage() == 0 ) {
-			search.setCurrentPage(1);
-		}
-	      search.setPageSize(pageSize);
-	    
-		map = boardService.getBoardList(search, category, "1" ,  boardMoimNo);
-		
-		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
-		model.addAttribute("resultPage", resultPage);
-		model.addAttribute("list", map.get("list"));
-		model.addAttribute("totalCount", map.get("totalCount"));
-		
-			return "forward:/moim/listMoimBoard?category=4&boardMoimNo="+boardMoimNo;
-	}
-	
-	
-	
-	
 	@RequestMapping("listBoard")
 	public String getBoardList(@ModelAttribute("search")Search search, @ModelAttribute("category")String category,
 			 Model model ) throws Exception {
@@ -138,20 +108,15 @@ public class BoardController{
 		return "board/"+boardCategory+"Board/get"+boardCategory+"Board";
 	}
 	
+	
 	@RequestMapping("addBoardView")
-	public String addBoardView(@ModelAttribute("category")String category, @ModelAttribute("boardMoimNo") int boardMoimNo, Model model) {
+	public String addBoardView(@ModelAttribute("category")String category, Model model) {
 		
 		String boardCategory = boardService.getBoardCategory(category);
 		System.out.println("보드카테고리값:"+boardCategory);
-		if(boardCategory.equals("Moim")) {
-			model.addAttribute("boardMoimNo", boardMoimNo);
-			return "/moim/addMoimBoardView";
-		}
+		
 		return "board/"+boardCategory+"Board/add"+boardCategory+"BoardView";
 	}
-	
-	
-	
 	
 	@RequestMapping("addBoard")
 	public String addBoard(@ModelAttribute("board")Board board, Model model) throws Exception {
@@ -165,9 +130,7 @@ public class BoardController{
 		String boardCategory =boardService.getBoardCategory(board.getBoardCategory());
 		
 		System.out.println("보드카테고리값:"+boardCategory);
-		if(boardCategory.equals("Moim")) {
-			return "forward:/board/getBoard?boardNo="+board.getBoardNo();
-		}
+		
 		return "forward:/board/getBoard?boardNo="+board.getBoardNo();		
 		
 	}
