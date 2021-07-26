@@ -44,94 +44,99 @@
 
 <script>
 
-$(function(){
-	//alert('유저아이디:${user.userId}' +  '모임번호:${moim.mmNo}');
-	<c:if test="${empty dbUser}">
-	$("#choose").text('가입하기');
-	</c:if>
+// $(function(){
+// 	//alert('유저아이디:${user.userId}' +  '모임번호:${moim.mmNo}');
+// 	<c:if test="${empty dbUser}">
+// 	$("#choose").text('가입하기');
+// 	</c:if>
 	
-	$.ajax( 
-			{
-				url : "/moim/json/checkMember/${dbUser.userId}/${moim.mmNo}",
-				method : "GET" ,
-				dataType : "json" ,
-				headers : {
-					"Accept" : "application/json",
-					"Content-Type" : "application/json"
-				},
-				success : function(JSONData , status) {
-// 					alert(JSONData.memberRole);
-// 					alert(status);
-//     				alert("JSONData : \n"+JSONData);
-					if(JSONData.memberRole == 1){
-						//alert('일반멤버');
-						$("#choose").text('Plz Wait..');
-					}else if(JSONData.memberRole == 5){
-						$("#choose").text('Disapprove');
-					}else if(JSONData.memberRole >= 2 && JSONData.memberRole <= 4){
-						$("#choose").text('Withdraw');
-					}else {
-						$("#choose").text('Join Us');
-					}
+// 	$.ajax( 
+// 			{
+// 				url : "/moim/json/checkMember/${dbUser.userId}/${moim.mmNo}",
+// 				method : "GET" ,
+// 				dataType : "json" ,
+// 				headers : {
+// 					"Accept" : "application/json",
+// 					"Content-Type" : "application/json"
+// 				},
+// 				success : function(JSONData , status) {
+// // 					alert(JSONData.memberRole);
+// // 					alert(status);
+// //     				alert("JSONData : \n"+JSONData);
+// 					if(JSONData.memberRole == 1){
+// 						//alert('일반멤버');
+// 						$("#choose").text('Plz Wait..');
+// 					}else if(JSONData.memberRole == 5){
+// 						$("#choose").text('Disapprove');
+// 					}else if(JSONData.memberRole >= 2 && JSONData.memberRole <= 4){
+// 						$("#choose").text('Withdraw');
+// 					}else {
+// 						$("#choose").text('Join Us');
+// 					}
 					
-				}
-		}); //ajax 종료
-});
+// 				}
+// 		}); //ajax 종료
+// });
 
 
-function fncUptMoimView(mmNo){
-	alert("모임수정");
-	self.location ="/moim/updateMoimView?mmNo="+mmNo
-}
+// function fncUptMoimView(mmNo){
+// 	alert("모임수정");
+// 	self.location ="/moim/updateMoimView?mmNo="+mmNo
+// }
 
-function fncApply(mmNo){
-	<c:if test = "${null ne dbUser.userId}">
-		alert("가입하기");
-		alert("가입신청이 완료되었습니다.");
-		self.location ="/moim/applyMoim?userId=${dbUser.userId}&mmNo="+mmNo	
-	</c:if>
-	<c:if test = "${empty dbUser.userId}">
-	alert("회원가입이 필요한 페이지입니다.");
-	</c:if>
-}
+// function fncApply(mmNo){
+// 	<c:if test = "${null ne dbUser.userId}">
+// 		alert("가입하기");
+// 		alert("가입신청이 완료되었습니다.");
+// 		self.location ="/moim/applyMoim?userId=${dbUser.userId}&mmNo="+mmNo	
+// 	</c:if>
+// 	<c:if test = "${empty dbUser.userId}">
+// 	alert("회원가입이 필요한 페이지입니다.");
+// 	</c:if>
+// }
 
-function fncApplyList(mmNo){
-	alert("가입신청목록보기");
-	self.location ="/moim/listMember?status=1&mmNo="+mmNo
-}
+// function fncApplyList(mmNo){
+// 	alert("가입신청목록보기");
+// 	self.location ="/moim/listMember?status=1&mmNo="+mmNo
+// }
 
-function fncListMember(mmNo){
-	alert("유저목록보기");
-	self.location ="/moim/listMember?status=2&mmNo="+mmNo
-}
+// function fncListMember(mmNo){
+// 	alert("유저목록보기");
+// 	self.location ="/moim/listMember?status=2&mmNo="+mmNo
+// }
 
-function fncListMeeting(mmNo){
-	alert("정모일정보기");
-	self.location ="/meeting/listMeeting?userId=${dbUser.userId}&mmNo="+mmNo
-}
+// function fncListMeeting(mmNo){
+// 	alert("정모일정보기");
+// 	self.location ="/meeting/listMeeting?userId=${dbUser.userId}&mmNo="+mmNo
+// }
+
+// function fncGetMoim(mmNo){
+// 	swal("모임상세보기");
+// 	self.location ="/moim/getMoim?mmNo="+mmNo
+// };	
 
 
 </script>
 
 
  <script>
-        $(document).ready(function(){
-            var target = $("#sidebar");
+//         $(document).ready(function(){
+//             var target = $("#sidebar");
  
-            // 버튼을 클릭하면 사이드바 열림
-            $(document).on("click", "#side", function (e){
-                target.show();
-                target.addClass('emphasized');
-            });
+//             // 버튼을 클릭하면 사이드바 열림
+//             $(document).on("click", "#side", function (e){
+//                 target.show();
+//                 target.addClass('emphasized');
+//             });
  
-            // 사이드바 외부를 클릭하면 사이드바 닫힘
-            $(document).mouseup(function (e){
-                if(target.has(e.target).length==0) {
-                    target.hide();
-                    target.removeClass('emphasized');
-                } 
-            });
-        });
+//             // 사이드바 외부를 클릭하면 사이드바 닫힘
+//             $(document).mouseup(function (e){
+//                 if(target.has(e.target).length==0) {
+//                     target.hide();
+//                     target.removeClass('emphasized');
+//                 } 
+//             });
+//         });
     </script>
 
 
@@ -142,48 +147,48 @@ function fncListMeeting(mmNo){
 		background-color:#f7f6f3;
 	}
 	
-	#side {
-	margin: 10px;
-	width: 120px;
-	height: 120px;
-	border-radius: 50%;
-/* 	border: 4px solid #fff;; */
-/* 	border-color: #05D4EB; */
-	float: right;
-}
+/* 	#side { */
+/* 	margin: 10px; */
+/* 	width: 120px; */
+/* 	height: 120px; */
+/* 	border-radius: 50%; */
+/* 	border: 4px solid #fff;;  */
+/*  	border-color: #05D4EB;  */
+/* 	float: right; */
+/* } */
 
-img.whale{
-    animation: rotate_image 10s linear infinite;
-    transform-origin: 50% 50%;
-    vertical-align:middle;
-}
+/* img.whale{ */
+/*     animation: rotate_image 10s linear infinite; */
+/*     transform-origin: 50% 50%; */
+/*     vertical-align:middle; */
+/* } */
  
-@keyframes rotate_image{
-	100% {
-    	transform: rotate(360deg);
-    }
-}
+/* @keyframes rotate_image{ */
+/* 	100% { */
+/*     	transform: rotate(360deg); */
+/*     } */
+/* } */
 
-.emphasized {
-    box-shadow : rgba(0,0,0,0.5) 0 0 0 9999px;
-}	
+/* .emphasized { */
+/*     box-shadow : rgba(0,0,0,0.5) 0 0 0 9999px; */
+/* }	 */
 
-#sidebar {
-    display: none;
-    position: fixed;
-    top: 0;      
-    right: 0;
-    background-color: #63B3F8;
-    color: #fff;
- 	text-shadow: 0 0 7px #fff, 0 0 10px #fff, 0 0 21px #fff, 0 0 42px #0fa,
-    0 0 82px #0fa, 0 0 92px #0fa, 0 0 102px #0fa, 0 0 151px #0fa;
-    width: 300px;
-    height: 100vh;
-    text-align: center;
-    padding-top : 150px;
-    z-index:1;
-    background-image:url("/images/uploadFiles/${moim.mmFile}");
-}
+/* #sidebar { */
+/*     display: none; */
+/*     position: fixed; */
+/*     top: 0;       */
+/*     right: 0; */
+/*     background-color: #63B3F8; */
+/*     color: #fff; */
+/*  	text-shadow: 0 0 7px #fff, 0 0 10px #fff, 0 0 21px #fff, 0 0 42px #0fa, */
+/*     0 0 82px #0fa, 0 0 92px #0fa, 0 0 102px #0fa, 0 0 151px #0fa; */
+/*     width: 300px; */
+/*     height: 100vh; */
+/*     text-align: center; */
+/*     padding-top : 150px; */
+/*     z-index:1; */
+/*     background-image:url("/images/uploadFiles/${moim.mmFile}"); */
+/* } */
 
 #moimThumbnail{
 	border:3px solid rgba(0,0,0,0.2);
@@ -213,7 +218,7 @@ img.whale{
 
 #moimContent{
 	font-family: 'Nanum Brush Script', cursive;
-	font-size : 25px;
+	font-size : 20px;
 	padding-left : 28px;
 }
 
@@ -279,7 +284,7 @@ img.whale{
 
 .our-team .picture img {
   width: 100%;
-  height: auto;
+  height: auto; 
   border-radius: 50%;
   transform: scale(1);
   transition: all 0.9s ease 0s;
@@ -292,7 +297,7 @@ img.whale{
 
 .our-team .title {
   display: block;
-  font-size: 15px;
+  font-size: 14px;
   color: #4e5052;
   text-transform: capitalize;
 }
@@ -316,10 +321,10 @@ img.whale{
   display: inline-block;
 }
 
-.our-team .social li a {
+.our-team .social li span {
   display: block;
   padding: 10px;
-  font-size: 17px;
+  font-size: 16px;
   color: white;
   transition: all 0.3s ease 0s;
   text-decoration: none;
@@ -329,10 +334,16 @@ img.whale{
   color: #1369ce;
   background-color: #f7f5ec;
 }
+
 /*멤버프로필끝*/
 
 #information{
 	padding-top:20px;
+}
+
+.name{
+	font-size:18px;
+	font-weight: bold;
 }
 </style>
 <body>
@@ -343,20 +354,20 @@ img.whale{
 
 <!-- ToolBar End ///////////////////////////////////// -->
 
-	
-		<div id="sidebar">
-        <h1>Home</h1>
-        <h1>Board</h1>
-        <h1 id="choose">Register</h1>
-        <h1>Meeting</h1>
-        <h1>Invite</h1>
-        <h1>Member</h1>
-        <c:if test = "${dbUser.userId eq moim.mmConstructor.userId}">
-		<button type="button" class="btn btn-default" onClick="fncUptMoimView(${moim.mmNo})">Update</button>
-		<button type="button" class="btn btn-default" onClick="fncApplyList(${moim.mmNo})">List Apply</button>
-		</c:if>
-		</div>
-
+<!-- SideBar Start-->	
+<!-- 		<div id="sidebar"> -->
+<%--         <h1><a href="javascript:fncGetMoim(${moim.mmNo})">Home</a></h1> --%>
+<!--         <h1>Board</h1> -->
+<%--         <h1><a id="choose" href="javascript:fncApply('${moim.mmNo}')">Register</a></h1> --%>
+<!--         <h1>Meeting</h1> -->
+<!--         <h1>Invite</h1> -->
+<!--         <h1>Member</h1> -->
+<%--         <c:if test = "${dbUser.userId eq moim.mmConstructor.userId}"> --%>
+<%-- 		<button type="button" class="btn btn-default" onClick="fncUptMoimView(${moim.mmNo})">Update</button> --%>
+<%-- 		<button type="button" class="btn btn-default" onClick="fncApplyList(${moim.mmNo})">List Apply</button> --%>
+<%-- 		</c:if> --%>
+<!-- 		</div> -->
+<!-- SideBar End -->
 
 <div class="row">
     <div id="left" class="col-xs-3 col-md-3">
@@ -382,7 +393,7 @@ img.whale{
 	<div  id="right" class="col-xs-8 col-md-8">
 	<!-- 점보트론 시작 -->
 	<div class="jumbotron">
-		<img id="side" class="whale" src="/images/air2.png" width="400" height="300 "/>
+<!-- 		<img id="side" class="whale" src="/images/air2.png" width="400" height="300 "/> -->
 		<div id="moimName">${moim.mmName}</div>
 		<div id="moimContent">${moim.mmContent}</div>
   		
@@ -391,19 +402,30 @@ img.whale{
 	
 	<!-- 멤버썸네일 시작-->
 	<div class="container">
-	<c:forEach items="${list}" var="member">
+	
 	 <div class="row">
-    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+	 <c:forEach items="${list}" var="member">
+    <div class="col-12 col-sm-6 col-md-4 col-lg-2">
       <div class="our-team">
         <div class="picture">
+        <a href="/user/getMyHome?userId=${member.mmUser.userId}">
           <img class="img-fluid" src="/images/uploadFiles/${member.mmUser.profileImage}">
+         </a>
         </div>
         <div class="team-content">
           <h3 class="name">${member.mmUser.nickname}</h3>
           <h4 class="title">${member.mmUser.profileContent}</h4>
         </div>
         <ul class="social">
-          <li><a href="https://codepen.io/collection/XdWJOQ/" class="fa fa-facebook" aria-hidden="true"></a></li>
+          <c:if test = "${member.memberRole eq '4'}">	
+          <li><span>모임장</span></li>
+          </c:if>
+          <c:if test = "${member.memberRole eq '3'}">
+          <li><span>운영진</span></li>
+          </c:if>
+          <c:if test = "${member.memberRole eq '2'}">
+          <li><span>멤버</span></li>
+          </c:if>
         </ul>
       </div>
     </div>
@@ -507,13 +529,7 @@ img.whale{
 
 </div>
 
-
-
-
-
-
-
-
+<jsp:include page="../layout/moimSidebar.jsp"></jsp:include>
 <jsp:include page="../layout/searchbar.jsp"></jsp:include>
 
 </body>

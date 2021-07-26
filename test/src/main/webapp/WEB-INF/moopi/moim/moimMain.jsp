@@ -186,7 +186,7 @@ $(document).ready(function () {
 
 $(document).ready(function(){ 
 	$(".owl-carousel").owlCarousel({
-		  items: 1,
+		  items: 3,
           margin: 10,
           center:true,
           loop: true,
@@ -259,6 +259,13 @@ body {
 .content{
 	margin-bottom: 20px;
 }
+
+.picture{
+/*     width: auto;  */
+    height: 200px; 
+    max-width: 200px;
+    max-height: 200px;
+}
 </style>
 
 </head>
@@ -273,7 +280,9 @@ body {
 <div class="owl-carousel">
   <c:forEach items="${list2}" var="moim" >
   <div>
-  <img  onClick="fncGetMoim(${moim.mmNo})" class="picture" src="/images/uploadFiles/${moim.mmFile}" width="200" height="200 "/>
+<%--   <img  onClick="fncGetMoim(${moim.mmNo})" class="picture" src="/images/uploadFiles/${moim.mmFile}" width="200" height="200 "/> --%>
+    <img  onClick="fncGetMoim(${moim.mmNo})" class="picture" src="/images/uploadFiles/${moim.mmFile}"/>
+  
   </div> 
   </c:forEach>
 </div>
@@ -444,7 +453,7 @@ body {
 </div> 
 
 
-
+<%-- <jsp:include page="../layout/moimSidebar.jsp"></jsp:include> --%>
 <jsp:include page="../layout/searchbar.jsp"></jsp:include>
 </body>
 </html>
