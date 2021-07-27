@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.moopi.mvc.common.Search;
 import com.moopi.mvc.service.domain.Member;
 import com.moopi.mvc.service.domain.Moim;
+import com.moopi.mvc.service.domain.User;
 import com.moopi.mvc.service.moim.MoimDao;
 
 
@@ -32,6 +33,17 @@ public class MoimServiceImpl {
 	public void addMoim(Moim moim) throws Exception {
 		moimDao.addMoim(moim);
 	}
+	
+	public Map<String, Object> getInviteList(int mmInterest, String mmAddr) throws Exception {
+		
+		List<User> list = moimDao.getInviteList(mmInterest, mmAddr);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		
+		return map;
+	}
+	
 
 	public Map<String, Object> getMoimList(Search search) throws Exception {
 		
