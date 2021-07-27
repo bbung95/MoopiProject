@@ -25,8 +25,6 @@
 <!-- Core theme CSS (includes Bootstrap)-->
 <link href="/css/styles.css" rel="stylesheet" />
 <!-------------------------------------------------------------------------------------------------------------------------->
-
-
 	
 <!-- 구글폰트api -->	
 	<link rel="preconnect" href="https://fonts.googleapis.com">
@@ -44,8 +42,7 @@
 <script src="/js/scripts.js"></script>
 
 <!-- 다음주소 -->
-	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-	
+	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>	
 
 <!-------------------------------------------------------------------------------------------------------------------------->   
   
@@ -273,7 +270,7 @@
 </head>
 
 <body>
-`
+
 	<!-- [툴바] ----------------------------------------------------------->
 		<jsp:include page="../layout/toolbar.jsp"/>
 	<!-- [left toolbar] -------------------------------------------------------->

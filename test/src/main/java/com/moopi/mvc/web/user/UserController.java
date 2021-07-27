@@ -153,28 +153,51 @@ public class UserController {
 		model.addAttribute("dbUser", id);		
 		return "user/getMobileAuth";	
 	}
-	
+	@RequestMapping("updatePwdViewMobile")
+	public String updatePwdViewMobile( @RequestParam("userId") String userId) throws Exception {
+		System.out.println("여기로 진입완료");
+		return "user/updatePwdViewMobile";
+	}
 //-- [리턴수정필요] 비밀번호찾기 - 아이디, 모바일번호인증 일치 여부 확인
 	@RequestMapping("updatePwdView")
 	public String updatePwdView(	@RequestParam("userId") String userId,
 									@RequestParam("phone") String phone,								
-									@ModelAttribute("user") User user ) throws Exception {
-		User phoneNumber = userService.getUserId(phone);
+									User user) throws Exception {
+		System.out.println("진입");
 		
-		String phoneId = phoneNumber.getUserId();			
-		String getId = user.getUserId();
+		System.out.println("회원이 직접 입력한 아이디 : "+userId);
+		System.out.println("회원이 직접 입력한 모바일번호 : "+phone);
 		
-		System.out.println("phoneId 확인 : "+phoneId);
+		// 입력한 주소 아이디를 가져옴
+		User dbUser = userService.getUser(userId);
 		
-		if (phoneId == getId) {
-			System.out.println("모바일번호와 입력한 아이디가 일치함");
+		System.out.println("dbUser : "+dbUser);
+		
+		dbUser.getUserId();
+		dbUser.getPhone();
+		System.out.println("해당 아이디인지 확인 : "+dbUser.getUserId());
+		System.out.println("해당 폰넘버인지 확인 : "+dbUser.getPhone());
+		
+		String getId = dbUser.getUserId();			
+		String getPhone = dbUser.getPhone();
+		
+		System.out.println("db의 Id 확인 : "+getId);
+		System.out.println("db의 phone 확인 : "+getPhone);
+		
+		// 입력한아이디와 입력한 모바일인증번호가 db에 저장되어있는 아이디와 모바일번호가 같다면,
+		// 입력한아이디와 db의 아이디
+		
+		if( dbUser != null) {
+			System.out.println("널이아님");
 			return "user/updatePwdView";
-		} else if (phoneId != getId) {
-			System.out.println("모바일번호와 입력한 아이디가 불일치함");
-			return "redirect:/";
-		}
-		
-		return "redirect:/";
+		} else if (dbUser == null) {
+			System.out.println("널");
+			return "user/loginView";
+		} 
+
+	
+		System.out.println("그외");
+		return "user/updatePwdView";
 	}
 
 //-- searchUserPwd.jsp로 이동하는 단순네비게이션 ------------------------------------------------------------
@@ -273,7 +296,24 @@ public class UserController {
 		
 	}
 //-----------------------------------------------------------------------------------------------------------------	
-		
+
+//// 계정정보수정
+//	@RequestMapping("updateUserViewupdateUserView")
+//	public void updateUserView( 	@RequestParam("userId") String userId,
+//									@RequestParam("phone") String phone,
+//									@RequestParam("password") String password,
+//									User user) throws Exception {
+//		user.getUserId();
+//		user.getPhone();
+//		user.getPassword();
+//		
+//		userService.updateUserView(user);
+//		
+//		user.setPhone(phone);
+//		user.setPassword(password);
+//	
+//	}
+	
 //	@RequestMapping("updateNickname")
 //	public String updateUser(	@RequestParam("userId") String userId,
 //								@RequestParam("nickname") String nickname,
@@ -399,7 +439,9 @@ public class UserController {
 	
 //-- [완료] 회원가입 addUserView.jsp로 단순 네비게이션  -------------------------------------------------------------------------------------------
 	@RequestMapping("updateUserView")
-	public String updateUserView() throws Exception {
+	public String updateUserView( @RequestParam("userId") String userId, Model model ) throws Exception {
+		
+		model.addAttribute("dbUser", userService.getUser(userId));
 			
 		System.out.println("UserController_____getIdView 시작");
 		System.out.println("아이디찾기 진행시 아이디를 띄워주는 뷰입니다.");
@@ -407,6 +449,17 @@ public class UserController {
 		return "user/updateUserView";
 	}
 //-----------------------------------------------------------------------------------------------------------------
+	@RequestMapping("updateUser")
+	public void updateUser ( 	@RequestParam("userId") String userId, 
+								@RequestParam("password") String password,
+								@RequestParam("phone") String phone,
+								Model model, User user) throws Exception {
+		
+		user.setPassword(password);
+		user.setPhone(phone);
+		
+		userService.updateUser(user);
+	}
 	
 	@RequestMapping(value="myInformation")
 	public String myInformation() {
