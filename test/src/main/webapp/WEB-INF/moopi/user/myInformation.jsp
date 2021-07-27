@@ -39,20 +39,10 @@ body {
 	<jsp:include page="../layout/toolbar.jsp" />
 	<!---------------------------------------------------------------------------------------------------------------------------->
 
-	<div class="container main">
-		<div class="row">
-			<div class="col-xl-2 ">
-				<ul class="list-group list-group-flush">
-					<li class="list-group-item">내 정보수정</li>
-					<li class="list-group-item">My모임무피</li>
-					<li class="list-group-item">My번개무피</li>
-					<li class="list-group-item">My결제내역</li>
-					<li class="list-group-item">My코인내역</li>
-				</ul>
-			</div>
-			<div class="col-xl-10"></div>
-		</div>
-	</div>
+	<!-- [left toolbar] -------------------------------------------------------->
+	<jsp:include page="../layout/userToolbar.jsp"/>
+	
+<!----------------------------------------------------------------->
 	
 	
 	
@@ -64,27 +54,6 @@ body {
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 	<!-- Core theme JS-->
 	<script src="/js/scripts.js"></script>
-	<script>
 	
-		$("li:contains('내 정보수정')").on("click", function() {
-
-			location.href = "/user/updateProfile?userId=" + dbUser;
-		})
-		
-		$("li:contains('My모임무피')").on("click", function() {
-
-			location.href = "/moim/myListMoim?userId=" + dbUser;
-		})
-		
-		$("li:contains('My결제내역')").on("click", function() {
-
-			location.href = "/payment/paymentList?userId=" + dbUser;
-		})
-
-		$("li:contains('My코인내역')").on("click", function() {
-
-			location.href = "/coin/coinHistory?userId=" + dbUser;
-		})
-	</script>
 </body>
 </html>

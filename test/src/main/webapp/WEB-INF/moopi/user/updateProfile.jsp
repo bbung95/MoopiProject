@@ -14,31 +14,39 @@
 
 <! -- jQuery CDN -->	
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-	<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<! ------------------------------------------------ Bootstrap, jQuery CDN -------------------------------------------------->
+<!-- Favicon-->
+<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+<!-- Bootstrap icons-->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
+	rel="stylesheet" />
+<!-- Core theme CSS (includes Bootstrap)-->
+<link href="/css/styles.css" rel="stylesheet" />
+<!-------------------------------------------------------------------------------------------------------------------------->
+
+
 	
 <!-- 구글폰트api -->	
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@300&display=swap" rel="stylesheet">
 	
-<!-- Bootstrap Dropdown Hover JS -->
-	<script src="/javascript/bootstrap-dropdownhover.min.js"></script>	
 
 <!-- 필수 Core theme CSS (includes Bootstrap)-->
 	<link href="/css/admin/styles.css" rel="stylesheet" />
+	
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Core theme JS-->
+<script src="/js/scripts.js"></script>
 
 <!-- 다음주소 -->
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	
-<!-- 필수 css템플릿 관련 CDN -->
-    <link rel="stylesheet" href="../css/styles.css">
-    <link rel="stylesheet" href="../css/admin/all.css">
-    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i,700,700i" rel="stylesheet">
 
-<!-- 모달 왜 안돼 -->
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-	<script src="/js/scripts.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
 <!-------------------------------------------------------------------------------------------------------------------------->   
   
 <script>
@@ -86,9 +94,21 @@
 		$.ajax ({
 			url : "/user/json/updateNickname",
 			type : "POST",
-			data : JSON.stringify({
-					"userId" : userId,
-					"nickname" : nickname}),
+			dataType : "json",
+			data : {
+					userId : "userId",
+					nickname : "nickname",
+			},
+			success : function(data) {
+					console.log("성공");
+			}
+		
+		});	
+	}
+		
+	/*	$.ajax ({
+			url : "/user/json/updateNickname/"+userId+"/"+nickname,
+			type : "GET",
 			dataType : "json",
 			contentType : "application/json",
 			success : function(data, state) {	
@@ -97,8 +117,8 @@
 				
 				$('.mainNickname').text(nickname);
 			}
-		}); 
-	}
+		});
+	} */
 	
 <!-- [완료] profileContent 수정 -->
 	function updatePC(){		
@@ -178,43 +198,28 @@
 			alert("마이홈상태가 변경완료되었습니다.");		
 		})	 
 	});
-
-<!-- 모달 -->	
-	function fncupdateUserSuspend(email){
-		$("form[name='updateSuspendUser']").attr("method", "POST").attr("action", "/admin/updateSuspendUser").submit();
-	}
-	
-$(function(){
-		// 검색
-		$("button[name='search']").on("click", function(){
-			fncGetList(1);
-		});	
-		
-		// 정지 
- 		$( "#btn1" ).on("click" , function() {
-			var email = $('#email2').val()
-			/* alert(email); */			
-			fncupdateUserSuspend(email)
-		}); 
-		
-		// 기억해_
-	    $('tr td:nth-child(6)').on("click", function(){
-	    	$('#email').val($(this).find('input').val());	    	
-	    })
-		
-		
- 		$('#modal').modal("hide"); //닫기 
-		 
-		$('#modal').modal("show"); //열기 
-		
-		
-	})
-		
+	<!-- 모달 회원탈퇴 -->
+	 function fncLeave() {
+     
+     	alert("진짜탈퇴");
+     	var userId = $("#userId").val();
+     	var userRole = $("#userRole").val();
+     	var stateReason = $("input[name='leaveReason']").val();
+   	
+     	alert("유저아이디 : "+userId);
+     	alert("유저롤 : "+userRole);
+     	alert("탈퇴사유 : "+stateReason);
+     	
+     	location.href = "/user/updateLeaveUser?userId="+userId+"&userRole="+userRole+"&stateReason="+stateReason;
+     	//$("form").attr("method" , "POST").attr("action" , "/user/updateLeaveUser").submit();
+     	
+     }  
 </script>
 	<style>
 		body {
 			padding-top: 70px;
 		}		
+		
 		.profileImg {
 			max-width : 100%;
  			border-radius: 100%;
@@ -224,39 +229,58 @@ $(function(){
     		max-width: 32rem;
 		}
 		
-
 		a:link { color: gray; text-decoration: none;}
 		a:visited { color: black; text-decoration: none;}
-		a:hover { color: red; text-decoration: none;}
+		a:hover { color: red; text-decoration: none;}  
 		
-		.button{
+		.deleteUserRight {
+			text-align: right;
+		}
+
+		#staticBackdrop {
+		  top: 50%;
+		  margin-top: -100%;
+		}
 		
-			margin: 10px;
-		}	
+		.modal-title {
+			 font-weight: 700;
+			 font-size : 24px;
+		}
 		
+		.h4 {
+			font-size : 18px;
+		}
+		
+		.delete_p {
+			font-weight: 340;
+			color : gray;
+		}
+		
+		.container px-5 my-5{
+			background-color : #d6d5d5;
+		}
+		
+		#leaveReason {
+			width: 430px;
+			height : 100px;
+		}
+		
+		
+		
+		
+	
+				
 	</style>
 
 </head>
 
 <body>
-<!-- [툴바] ----------------------------------------------------------->
-<jsp:include page="../layout/toolbar.jsp"/>
-<!-- [left toolbar] -------------------------------------------------------->
-	<div class="container main">
-		<div class="row">
-			<div class="col-xl-2 ">
-				<ul class="list-group list-group-flush">
-					<li class="list-group-item">내 정보수정</li>
-					<li class="list-group-item">My모임무피</li>
-					<li class="list-group-item">My번개무피</li>
-					<li class="list-group-item">My결제내역</li>
-					<li class="list-group-item">My코인내역</li>
-				</ul>
-			</div>
-			<div class="col-xl-10"></div>
-		</div>
-	</div>
-<!----------------------------------------------------------------->
+`
+	<!-- [툴바] ----------------------------------------------------------->
+		<jsp:include page="../layout/toolbar.jsp"/>
+	<!-- [left toolbar] -------------------------------------------------------->
+		<jsp:include page="../layout/userToolbar.jsp"/>
+	<!----------------------------------------------------------------->
 
 
 <div class="container px-5 my-5 ">
@@ -386,79 +410,78 @@ $(function(){
 					</div>				
 				</div>
 				
+				
+				
+				
+				
+				
 				<!-- 회원탈퇴 -->
-				<div class="orm-group px-4 px-1" style="float: right;">
-					<a href="javascript:findId();" class="forgot-pass">회원탈퇴</a></span>					
-				</div>
-				
-				
-		             
-            </form>
-        
-            	<div>					
-					<button class="px-4 py-0 text-white font-light tracking-wider bg-gray-900 rounded" data-toggle="modal" data-target="#myModal">
-						<input type="hidden" name="deleteUser" id="deleteUser"/>회원탈퇴(모달)
-					</button>
-				</div>
-				<div>
-					<button class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-					<input type="hidden" name="email2" id="email2" value="${report.receiveReporter.email}"/>
-					정지
-					</button>
-				</div>
-				
-				<button class="btn btn-toggle" data-toggle="modal" data-target="#myModal">Show / Hide<button>
-			
-        </div>
-    </div>
-</div>
-									  			
-<!-- =================================================사용자 정지 모달 시작================================================================== -->            
-		<div class="modal fade" id="myModal" tabindex="-1" role="modal" aria-labelledby="myModalLabel">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					
-					<div class="modal-header">
-						<button type="button" class="madal fade" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-						<h4 class="modal-title" id="myModalLabel">회원탈퇴</h4>
+				<div>					
+					<div class="form-group px-4 px-1" style="text-align:right;">
+						<button class="deleteUserRight" onclick="javascript:deleteUser()">회원탈퇴</a></span>											
 					</div>
-						
-						<div class="modal-body">
-							<form class="form-horizontal" method="post" name="updateSuspendUser">
-								<input type="hidden" id="email" name="email" value="${report.receiveReporter.email}"/>   
-									<div class = "form-group">
-										  <fieldset>
-								   				 <legend> 정말로 탈퇴하시겠어요? </legend>
-								   				 <label for="radio-1 ">7일</label>
-								    			 <input type="radio" class="radio-value" name="suspendType" id="suspendType" value="1">
-								   				 <label for="radio-2">30일</label>
-								   				 <input type="radio" class="radio-value" name="suspendType" id="suspendType" value="2">
-								   				 <label for="radio-3">영구정지</label>
-								    			 <input type="radio" class="radio-value" name="suspendType" id="suspendType" value="3">
-								  			</fieldset>
-							        </div>
-		        			</form>
-		     			 </div>
-		     			 
-					<div class="modal-footer">
-				      	<button id="btn1" class="btn btn-default" >정 지</button>
-				        <button type="button" class="btn btn-default" data-dismiss="modal">닫 기</button>
-					</div>
+				</div>
+
+
+	<button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#staticBackdrop">회원탈퇴</button>
 					
+<!-- Modal -->
+	<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h2 class="modal-title" id="staticBackdropLabel">정말 무피를 떠나실건가요?</h2>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+
+				<div class="modal-body">
+					<form id="deleteUser">
+				
+							<input type="hidden" id="userId" name="userId" value="${dbUser.userId}" />
+							<input type="hidden" id="userRole" name="userRole" value="${dbUser.userRole}" />
+							<input type="hidden" id="stateReason" name="stateReason" value="${dbUser.stateReason}" />
+								<h4 class="h4"> 회원탈퇴 신청 전 아래 사항을 확인 부탁드립니다 😊 </h4>
+								
+								<div class="delete_p" style="margin-top: 10px;">
+									<p>1. 신청일부터 30일 후 회원탈퇴가 처리되며, 회원탈퇴 처리 전까지 저희 무피사이트를 찾아주셔서 로그인 진행을 해주신다면 그 신청을 철회할 수 있습니다.</p>
+									<p>2. 회원탈퇴 후 기존 계정으로 회원가입을 신청할 수 없습니다.</p>
+									<p>3. 회원탈퇴 시 가입한 모임, 코인 등 회원이 가진 권리는 모두 소멸합니다. 회원탈퇴 후 잔여코인과 관련한 환불이 불가하므로 필요한 경우 탈퇴 전에 환불을 신청해주세요.</p>
+									<p>4. 회원탈퇴 시 회사가 보관하고 있는 회원 데이터는 모두 영구적으로 삭제됩니다. 다만, 관련 법령에 따라 회사가 보관할 의무가 있는 정보 또는 자료는 일정기간 동안 보관됩니다.</p>
+									<p>5. 회원탈퇴 후 저희 무피사이트에 게시한 게시물을 편집하거나 삭제할 수 없습니다. 필요한 경우 신청 전 게시물을 편집하거나 삭제해주세요.</p>			          
+								</div>		
+							
+								<div class="container mx-auto h-full flex flex-1 justify-center items-center" margin: 10px;>
+					               	<div class="pwd" style="margin-top: 20px;">
+					               	 <h4> 사유를 입력해주세요 </h4>
+					                    <label class="block text-sm text-gray-00" style="margin-top: 10px;"></label>
+					                    <input type="text" class="w-full px-30 py-1 text-gray-700 bg-gray-200 rounded" id="leaveReason" max-width: 500px; name="leaveReason">
+					                </div>
+				                </div> 
+					</form>
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-light text-black font-light bg-gray-300" style="width:500px;" data-bs-dismiss="modal">뒤로가기</button>
+					<button type="button" class="btn btn-secondary text-white font-light bg-gray-900" style="width:500px;" onclick="javascript:fncLeave()">탈퇴하기</button>
 				</div>
 			</div>
 		</div>
-		        
-<!-- =================================================사용자 정지 모달 끝================================================================== -->        
-
+	</div>
+			
+			
+			
+			</form>					
+        </div>
+    </div>   
+</div>
+		        			  			
+	<form>			
         <!--Footer-->
         <footer class="bg-grey-darkest text-white p-2">
             <div class="flex flex-1 mx-auto">&copy; Moopi (Move People)</div>
         </footer>
         <!--/footer-->
-
     </div>
-
 </div>
 
 
