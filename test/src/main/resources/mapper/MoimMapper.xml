@@ -145,7 +145,7 @@
 		and NOT mm_member_role ='1'
 		and NOT mm_member_role = '6'
 		and NOT mm_member_role = '5'
-		and U.user_id = M.mm_member_id
+		and U.user_id = mm_member_id
 		</if>	
 	 </select>
 	 

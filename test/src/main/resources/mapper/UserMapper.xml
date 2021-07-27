@@ -322,7 +322,8 @@
 	 <select id="updateLeaveUser"	parameterType="user">
 	 	UPDATE users
 		<set>
-			USER_ROLE = '5'
+			USER_ROLE = '5',
+			STATE_REASON = #{stateReason}
 		</set>
 		WHERE USER_ID = #{userId}
 	</select>

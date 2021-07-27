@@ -13,7 +13,9 @@
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
 <!-------------------------------------------------------------------------------------------------------------------------->
-
+<!-- 필수 Core theme CSS (includes Bootstrap)-->
+	<link href="/css/admin/styles.css" rel="stylesheet" />
+	
 <script>
 
 //-- 아이디 유효성체크 --------------------------------------------------------------------------------------------------------------------------
@@ -27,29 +29,33 @@
 				
 				url : '${pageContext.request.contextPath}/user/idCheck?userId='+userId,
 				type : 'get',
-				success : function(data) {					
+				success : function(data) {
+				
+					$(function() {
+						$("#joinButton").attr("disabled", false);
+						$("#joinButton").css("color", "gray");	
 					
-					if (data == 1) {
-							
-							// data에 아이디가 존재 할 경우								
+						if ( $("#id_check").text == "" ) {
+								$("#joinButton").css("color", "gray");
+								$("#joinButton").attr("disabled", false);								
+							} else if (data == 1 || $("#id_check").text == null ) {
 								$("#id_check").text("존재하는 아이디입니다.");
 								$("#id_check").css("color", "red");
-								$("#joinButton").attr("disabled", false);				
-						
-						} else if (data == 0) {
-								
+								$("#joinButton").attr("disabled", false);
+								$("#joinButton").css("color", "white");	
+							} else if (data == 0) {	
 								$("#id_check").text("존재하지 않는 아이디입니다.");
 								$("#id_check").css("color", "black");
 								$("#joinButton").attr("disabled", true);
-						
-						} 
-																		
-					}, error : function() {
-							console.log("실패");
-					}
-			});
-		});
-	});
+								$("#joinButton").css("color", "gray");
+							}
+						 // End if Function	
+					}) //End $(function)				
+				} //End success
+			}) //End $.ajax
+		}) //End keyup
+	}) //End $(Function()				
+
 <!-------------------------------------------------------------------------------------------------------------------------->
 
 <!--[비밀번호찾]----------------------------------------------------------------------------------------------------------------->	
@@ -67,34 +73,112 @@
 	
 </script>
 
+    <style>
+    @font-face {
+    	src: url("../font/NanumGothic-Regular.ttf")'
+    	font-family : "NanumGothic";
+    }
+    
+	body{
+		font-family : "NanumGothic";
+		padding-top: 30px;
+	}
+	
+	.start {
+		font-family : "NanumGothic";
+		padding: 30px 30px;
+	}
+	
+	.MobileAuth {
+	font-family : "NanumGothic";
+		text-align: center;
+		font-size: 30px;
+		padding : 15px;
+		
+	}
+	
+	.listUserJoin {
+		font-family : "NanumGothic";
+		text-align: center;
+		padding : 10px;
+	}
+	
+	.writeInformation {
+		font-family : "NanumGothic";
+		border: 1px solid gray;
+		width: 100%;
+		padding: 30px 48px;
+		padding-top: 30px;
+	    padding-right: 48px;
+	    padding-bottom: 30px;
+	    padding-left: 48px;
+	}
+	
+	.AuthNumWrite {
+		font-family : "NanumGothic";
+		padding-top : 20px;
+	}
+	
+	#mobileAuth {
+		position: absolute;
+		border: 1px solid gray;
+	    bottom: 7.5px;
+	    right: 19px;
+	    width: 68px;
+	    padding: 0;
+	}
+	
+	.information {
+		font-family : "NanumGothic";
+		font-size : 12px;
+		padding-top : 20px;
+		color : gray;
+	}
+	
+	</style>
+
 </head>
 <body>
 
-
-<h3> 새로운 비밀번호를 설정하시겠습니까? </h3>
-
-<!-- # 아이디 먼저 유효성체크 ---------------------------------------------------------------------------------------------------------------------------------------->
+<!-- # 모바일번호인증 - CoolSMS API ---------------------------------------------------------------------------------------------------------------------------------------->		
+		<form class="start">
 		
-		<form>
+		<h3 class="MobileAuth"> 비밀번호재설정 </h3>
+		<hr style="border:solid 0.11px black;">
+		
+		<!-- userId Hidden -->
+ 	  	<input type="hidden" class="form-control" id="userId" name="userId" value="${dbUser.userId}" readonly>
+ 	  	
+ 	  	<p class="listUserJoin"> 회원가입시 입력하신 아이디와 모바일인증으로 비밀번호 재설정이 가능합니다. </p>
+ 	  	
 		<!-- 번호 입력 후 인증하기 버튼 -->
-		<div class="form-group">
-			<label for="mobileAuth" class="col-sm-offset-1 col-sm-9 control-label">아이디를 먼저 입력해주세요</label>
-				<div class="col-sm-2">
-					<input type="text" class="form-control" id="findId" name="userId" placeholder="아이디를 입력해주세요">
-					<div class="check_font" id="id_check"></div>
-				</div>
+		<div class="writeInformation">
+			<div class="form-group">
+				<label for="mobileAuth" class="col-sm-offset-1 col-sm-9 control-label">아이디를 먼저 입력해주세요</label>
+					<div class="col-sm-2">
+						<input type="text" class="form-control" id="findId" name="userId" placeholder="아이디를 입력해주세요">
+						<div class="check_font" id="id_check"></div>
+					</div>
+			</div>			
 		</div>
 		
 		<!-- 확인,취소 -->
-		<div class="form-group">
-			<div class="col-sm-offset-4  col-sm-4 text-center">
-				<button type="button" id="changePwd" class="btn btn-default" onclick="javascript:setPwd();">확인</button>	
-				<a class="btn btn-default btn" href="/" role="button">취소</a>
+		<div class="AuthNumWrite">
+			<div class="col-sm-offset-4  col-sm-4 text-center">			
+				<button class="px-4 py-4 text-white font-light tracking-wider bg-gray-900 rounded" style="width:500px;" id="joinButton" name="img_btn" type="button" onclick="javascript:setPwd()">확인</button>
 			</div>
 		</div> 
-		</form>
 		
+		<div class="information">
+			<p> • 존재하지 않는 아이디일 경우 <a href="http://localhost:8080/user/getMobileAuth?findId">ID찾기</a> 를 눌러주세요 </p>
+			<p> • 이용에 불편함을 느끼실 경우 문의게시판으로 문의 부탁드리겠습니다. </p>
+		</div>
+		
+
+		</form>
 <!---------------------------------------------------------------------------------------------------------------------------------------------------------------------->
+
+
 
 </body>
 </html>
