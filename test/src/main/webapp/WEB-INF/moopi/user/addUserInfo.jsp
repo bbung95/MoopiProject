@@ -9,6 +9,8 @@
 
 <! -- jQuery CDN -->	
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+	
+	<!-- 이게있으면 모달이 안된다 -->
 	<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 	
 <!-- 구글폰트api -->	

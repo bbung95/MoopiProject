@@ -7,12 +7,9 @@
 <meta charset="UTF-8">
 <title> 로그인 뷰 / 로그인 화면페이지 </title>
 
-<!-- 구 bootstrapcdn -->
-<!--
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
--->
+<!-- Core theme CSS (includes Bootstrap)-->
+	<link href="/css/styles.css" rel="stylesheet" />
+	
 <! -- jQuery CDN -->	
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
@@ -30,9 +27,6 @@
 
 <!-- Bootstrap icons-->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
-
-<!-- Core theme CSS (includes Bootstrap)-->
-	<link href="/css/styles.css" rel="stylesheet" />
 	
 <!-- 카카오로그인 -->
 	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
@@ -46,6 +40,11 @@
 <!-- 네이버로그인 -->
 	<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
 	<script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js"></script>
+
+<!-- 모달 -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+	<script src="/js/scripts.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
 	
 <!-------------------------------------------------------------------------------------------------------------------------->
 <script>
@@ -250,25 +249,27 @@
 		}
 
 // 아이디찾기 - 다른 방식으로 접근, 차후 수정가능시 수정진행 할 예정
-	function findId() {			
+	function findId() {	
+		$(".forgot-Id").fadeIn();
 		var popWin;
 		var findId = $("#findId").val();		
 		popWin = window.open(
 					"getMobileAuth?findId",
 					"childForm",
-					"left=460, top=300, width=460, height=800, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");									
+					"left=460, top=300, width=580, height=550, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");									
 	}
 
 
 // 비밀번호찾기 - 다른 방식으로 접근, 차후 수정가능시 수정진행 할 예정	
-	function findPwd() {			
+	function findPwd() {
+		$(".forgot-pass").fadeIn();			
 		var popWin;
 		var id=$('input[name=userId]').val();
 		var findPwd = $("#findPwd").val();	
 		popWin = window.open(
 					"searchUserPwd",
 					"childForm",
-					"left=460, top=300, width=460, height=800, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");									
+					"left=460, top=300, width=580, height=640, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");									
 	}
 		
 </script>		
@@ -277,7 +278,8 @@
 		body {
 		background-image : url('../images/background/half_background.jpg');
 			padding-top: 50px;
-		}
+		}	
+
 	</style>
 	
 	<style type="text/css">
@@ -285,8 +287,8 @@
 		a:visited { color: black; text-decoration: none;}
 		a:hover { color: red; text-decoration: none;}
 	</style>
-
-
+	
+	
 	
 </head>
 
@@ -329,9 +331,9 @@
 								
 								<!-- 아이디찾기 -->
 								<div class="d-flex mb-2 align-items-center">
-									<a href="javascript:findId();" class="forgot-pass">Forgot Id?</a></span>											
+									<a href="javascript:findId();" class="forgot-Id">Forgot Id?</a></span>											
 								</div>
-								
+						
 								<!-- 패스워드찾기 -->
 								<div class="d-flex mb-4 align-items-center">
 									<a href="javascript:findPwd();" id="findPwd" class="forgot-pass">Forgot Password?</a>
@@ -368,7 +370,6 @@
 				</div>
 			</div>
 		</div>
-
-
+			
 </body>
 </html>
