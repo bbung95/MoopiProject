@@ -6,33 +6,30 @@
 //
 //import org.slf4j.Logger;
 //import org.slf4j.LoggerFactory;
+//import org.springframework.util.ObjectUtils;
+//import org.springframework.web.servlet.HandlerInterceptor;
 //import org.springframework.web.servlet.ModelAndView;
-//import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 //
 //import com.moopi.mvc.service.domain.User;
 //
-//public class LoggerInterceptor extends HandlerInterceptorAdapter {
+//public class LoggerInterceptor implements HandlerInterceptor{
 //	
 //	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 //
 //	@Override
 //	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 //			throws Exception {
-//		
+//	
 //		logger.debug("========================================================");
 //		logger.debug("======================= BEGIN ==========================");
 //		logger.debug("Request URI ===> " + request.getRequestURI());
 //		
 //		HttpSession session = request.getSession();
-//		User loginUser = (User) session.getAttribute("user");
-//		System.out.println("Interceptor실행 : "+loginUser);
+//		User user = (User)session.getAttribute("loginUser");
 //		
-//		if(loginUser == null) {
-//			response.sendRedirect(request.getContextPath()+"/user/loginView");
-//			return false;
+//		if(ObjectUtils.isEmpty(user)) {
+//			
 //		}
-//		
-//		return true;
 //	}
 //
 //	@Override

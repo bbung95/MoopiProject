@@ -63,6 +63,11 @@ public class UserServiceImpl {
 		userDao.updateUser(user);
 	}
 	
+//	// 계정정보수정
+//	public void updateUserView(User user) throws Exception {
+//		userDao.updateUserView(user);
+//	}
+	
 	// 관리자권한 - 유저리스트조회 
 	public Map<String, Object> getUserList(Search search, int searchState) throws Exception{
 		
