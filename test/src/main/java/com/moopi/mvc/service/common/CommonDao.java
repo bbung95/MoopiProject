@@ -26,4 +26,5 @@ public interface CommonDao {
 	void deleteNotice(Map<String, Object> map);
 	
 	List<Interest> getInterest();
+	
 }

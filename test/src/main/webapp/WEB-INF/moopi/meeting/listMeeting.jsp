@@ -6,11 +6,52 @@
 <html>
 <head>
 <meta charset='utf-8' />
-<!-- Toolbar CDN -->
+
+<meta charset="UTF-8">
+<!-- BootStart -->
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<title>Hello! Moopi!</title>
+
+<!-- Favicon --> 
+<link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
+
+<!-- Bootstrap icons -->
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+<!-- Core theme CSS (includes Bootstrap) -->
+<link href="/css/styles.css" rel="stylesheet" />
+
+<!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
+<link rel="stylesheet" href="/images/uploadFiles" >  
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
+<script src="/javascript/owl.carousel.min.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script> 
+<link rel="stylesheet" href="/css/owl.carousel.min.css">
+<link rel="stylesheet" href="/css/owl.theme.default.min.css">
+
+<!-- 구글 폰트 -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Brush+Script&display=swap" rel="stylesheet">
+
+<!-- Sweet Alert -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> 
+<!-- (구) Toolbar CDN -->
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" > -->
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" > -->
+<!-- <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script> -->
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script> -->
+
+
+
+<!-- 구글 API -->
 <script src="https://apis.google.com/js/api.js"></script>
 <!-- 풀캘린더 -->
 <link href='https://use.fontawesome.com/releases/v5.0.6/css/all.css' rel='stylesheet'>
@@ -21,6 +62,7 @@
 <script src='/javascript/fullcalendar.js'></script>
 <script src='/javascript/theme-chooser.js'></script>
 <script src='/javascript/locales-all.min.js'></script>
+
 
 <script>
 var mtNo ="";
@@ -37,7 +79,8 @@ var mtConstructor="";
 var mmNo="";
 var mtMapX="";
 var mtMapY="";
-
+var lat = "";
+var lng = "";
 
 ////////////////////////////////////////////구글캘린더 연동부 시작점
 function authenticate() {
@@ -83,20 +126,18 @@ function authenticate() {
 
 
 
-
-
   
 function fncAddMtView() {
-	alert("정모를 생성합니다.");
+	swal("정모를 생성합니다.");
 	var displayValue = "<h6>"
 	+"<form id='addMt' class='form-horizontal' name='detailForm'>"
-	+"<input type='hidden' name='mmNo' value='${mmNo}'>" 
-	+"정모이름 :" +"<input type='text' name='mtName'>" + "<br>"
+	+"<input type='hidden' name='mmNo' value='${moim.mmNo}'>" 
+	+"정모이름 :" +"<input type='text'  name='mtName'>" + "<br>"
 	+"정모내용 :"+"<input type='text' name='mtContent'>" + "<br>"
-	+"주최자 :"+ "<input type='text' name='userId' value='${dbUser.userId}'>" + "<br>"
-	+"정모시작일 :" +"<input type='datetime-local'  name='mtStart'>"+"<br>"
-	+"정모종료일 :" +"<input type='datetime-local' name='mtEnd'>"+"<br>"
-	+"정모 총 인원 :"+ "<input type='text' name='mtMaxCount'>" + "<br>"
+	+"<input type='hidden' name='userId' value='${dbUser.userId}'>" 
+	+"정모시작일 :" +"<input type='text'  class='mtTime'  name='mtStart'>"+"<br>"
+	+"정모종료일 :" +"<input type='text' class='mtTime' name='mtEnd'>"+"<br>"
+	+"정모 총 인원 :"+ "<input type='text' name='mtMaxCount'>" 
 	+"<input type='hidden' name='mtCurrentCount' value='1'>" + "<br>"
 	+"정모 장소 :"+"<input type='text' id='mtAddr' name='mtAddr'>" + "<br>"
 	+"<input type='hidden' id='lat'name='mtMapX' value=''>"
@@ -113,7 +154,7 @@ function fncAddMtView() {
 
 function fncUptMtView() {
 	alert("정모를 수정합니다.");
-	if(mtConstructor == userId){
+	if(mtConstructor == ${dbUser.userId}){
 		var displayValue = "<h6>"
 			+"<form id='uptMt' class='form-horizontal' name='detailForm'>"
 			+"<input type='hidden' name='mtNo' value=''>"
@@ -147,7 +188,7 @@ function fncUptMtView() {
 
 function fncAddMap(){
 	
-	alert("click")
+// 	alert("click")
 	
 	popWin = window.open(
 			"/moim/map",
@@ -162,8 +203,8 @@ $(function(){
 // 		alert("맵")
 // 		console.log($(this).parent().html())	
 // 		console.log(mtMapX)	
-		var lat = mtMapX
-		var lng = mtMapY
+// 		var lat = mtMapX 주석풀기
+// 		var lng = mtMapY 주석풀기
 // 		alert(lat)
 // 		alert(lng)
 		fncMap(lat, lng)
@@ -175,21 +216,35 @@ $(function(){
 
 
 function fncMap(lat, lng){
-	alert(lat)
-	alert(lng)
+// 	alert(lat)
+// 	alert(lng)
 	var options = 'top=10, left=10, width=500, height=600, status=no, menubar=no, toolbar=no, resizable=no';
 // 	window.open("/moim/mapView", "map", 'option');
 	window.open("/moim/mapView?lat="+lat+"&lng="+lng+"&mtAddr="+mtAddr +"&mtContent="+mtContent, "map", "option");
+	
+	$.ajax( 
+			{
+				url : "meeting/json/mapView?lat="+lat+"&lng="+lng+"&mtAddr="+mtAddr +"&mtContent="+mtContent,
+				method : "GET" ,
+				dataType : "json" ,
+				headers : {
+					"Accept" : "application/json",
+					"Content-Type" : "application/json"
+				},
+				success : function(JSONData , status) {
+					alert(status);
+				}
+		}); //ajax 종료
 // 	$(".frm").submit();
 	}
 	
 
 function fncParentsMapView(lat, lng){
-	alert("부모 함수 실행 성공")
+// 	alert("부모 함수 실행 성공")
 	
 //  	<script type=text/javascript src='/js/mapView.js'><\/script> 
-	alert(lat)
-	alert(lng)
+// 	alert(lat)
+// 	alert(lng)
 	
 }
 
@@ -208,8 +263,8 @@ function fncDeleteMt(userId) {
 
 
 function fncAddMt() {
-	alert("등록완료");
-	alert($('#lat').value)
+// 	alert("등록완료");
+// 	alert($('#lat').value)
 	$("#addMt").attr("method", "POST").attr("action", "/meeting/addMeeting").submit();
 }
 
@@ -222,7 +277,7 @@ function fncApplyMt(mtNo, userId){
 	alert("해당 정모에 참가하겠습니다.");
 	$.ajax( 
 			{
-				url : "/meeting/json/applyMeeting/"+mtNo+"/"+userId,
+				url : "/meeting/json/applyMeeting/"+mmNo+"/"+mtNo+"/"+userId,
 				method : "GET" ,
 				dataType : "json" ,
 				headers : {
@@ -230,8 +285,9 @@ function fncApplyMt(mtNo, userId){
 					"Content-Type" : "application/json"
 				},
 				success : function(JSONData , status) {
+					alert(status);
 					alert("정모참여완료");
-					$("#mtCurrentCount").val(JSONData.mtCurrentCount);
+					$("#mtCurrentCount").text(JSONData.mtCurrentCount);
 				}
 		}); //ajax 종료
 }//fncApplyMt 종료
@@ -250,7 +306,7 @@ function fncLeaveMt(mtNo, userId){
 				},
 				success : function(JSONData , status) {
 					alert("정모참여 취소완료");
-					$("#mtCurrentCount").val(JSONData.mtCurrentCount);
+					$("#mtCurrentCount").text(JSONData.mtCurrentCount);
 				}
 		}); //ajax 종료
 }//fncLeavMt 종료
@@ -269,26 +325,29 @@ function fncGetMEFL(mtNo){
 				},
 				success : function(JSONData , status) {
 					alert(JSONData.list.length);
-					$( "h5" ).remove();	
+					$( "#mfllist" ).remove();	
 					let displayValue = '';
 					for(var i=0;i < JSONData.list.length;i++){
-					displayValue += "<h5>"
-										+"유저ID	: "+JSONData.list[i].meflId.userId+"<br/>"
-										+"이름  : "+JSONData.list[i].meflId.userName+"<br/>"
-										+"나이  : "+JSONData.list[i].meflId.age+"<br/>"
-										+"성별  : "+JSONData.list[i].meflId.gender+"<br/>"
-										+"FullAddr  : "+JSONData.list[i].meflId.fullAddr+"<br/>"
-										+"addr  : "+JSONData.list[i].meflId.addr+"<br/>"
-										+"닉네임 		: "+JSONData.list[i].meflId.nickname+"<br/>"
-										+"주소 		: "+JSONData.list[i].meflId.addr+"<br/>"
-										+"프로필이미지 : "+JSONData.list[i].meflId.profileImage+"<br/>"
-										+"자기소개 : "+JSONData.list[i].meflId.profileContent+"<br/>"
-										+"뱃지   	   : "+JSONData.list[i].meflId.badge+"<br/>"
-										+"MEFL넘버  : "+JSONData.list[i].meflNo+"<br/>"
-										+"MEFL타입  : "+JSONData.list[i].meflType+"<br/>"
-										+"타겟넘버   : "+JSONData.list[i].targetNo+"<br/>"
-										+"참여일자   : "+JSONData.list[i].joinRegDate+"<br/>"
-										+"</h5>";
+					displayValue += "<div id=\"mfllist\">"
+										+ "<h3>" + "참여자 목록" + "</h3>"
+// 										+"유저ID	: "+JSONData.list[i].meflId.userId+"<br/>"
+// 										+"이름  : "+JSONData.list[i].meflId.userName+"<br/>"
+// 										+"나이  : "+JSONData.list[i].meflId.age+"<br/>"
+// 										+"성별  : "+JSONData.list[i].meflId.gender+"<br/>"
+// 										+"FullAddr  : "+JSONData.list[i].meflId.fullAddr+"<br/>"
+// 										+"addr  : "+JSONData.list[i].meflId.addr+"<br/>"
+										+ '<img class=\"userProfile\" src=\"/images/uploadFiles/'+JSONData.list[i].meflId.profileImage+'\">'
+										+JSONData.list[i].meflId.nickname
+// 										+"주소 		: "+JSONData.list[i].meflId.addr+"<br/>"
+// 										+"프로필이미지 : "+JSONData.list[i].meflId.profileImage+"<br/>"
+										
+// 										+"자기소개 : "+JSONData.list[i].meflId.profileContent+"<br/>"
+// 										+"뱃지   	   : "+JSONData.list[i].meflId.badge+"<br/>"
+// 										+"MEFL넘버  : "+JSONData.list[i].meflNo+"<br/>"
+// 										+"MEFL타입  : "+JSONData.list[i].meflType+"<br/>"
+// 										+"타겟넘버   : "+JSONData.list[i].targetNo+"<br/>"
+// 										+"참여일자   : "+JSONData.list[i].joinRegDate+"<br/>"
+										+"</div>";
 							
 						
 						} //for문끝
@@ -300,6 +359,7 @@ function fncGetMEFL(mtNo){
 
 
 $(document).ready(function() {
+	
 
     initThemeChooser({
 
@@ -337,9 +397,14 @@ $(document).ready(function() {
         	mtAddr = event.addr;
         	mtMapX = event.mtMapX;
         	mtMapY = event.mtMapY;
+		 	lat = mtMapX;
+		 	lng = mtMapY;
+		 	fncMap(lat, lng)
+        	
         	console.log(mtConstructor);
 			console.log(mtMapX);
 			console.log(mtStart2);
+			$("#getDate").slideUp('slow');
       	  $.ajax( 
     				{
     					url : "/meeting/json/getMeeting/"+mtNo,
@@ -354,18 +419,18 @@ $(document).ready(function() {
     						//alert("JSONData : \n"+JSONData);
     						$( "h5" ).remove();	
     						$("#addDate").slideUp('slow');
-    						$("#mtName").val(JSONData.mtName);
-    						$("#userId").val(JSONData.mtConstructor.userId);
-    						$("#mtContent").val(JSONData.mtContent);
-    						$("#mtStart").val(JSONData.mtStart);
+    						$("#mtName").text(JSONData.mtName);
+    						$("#userId").text(JSONData.mtConstructor.userId);
+    						$("#mtContent").text(JSONData.mtContent);
+    						$("#mtStart").text(JSONData.mtStart);
     						$("#mtStart2").val(JSONData.mtStart2);
     						mtStart2 = JSONData.mtStart2;
     						mtEnd2 = JSONData.mtEnd2;
-    						$("#mtEnd").val(JSONData.mtEnd);
+    						$("#mtEnd").text(JSONData.mtEnd);
     						$("#mtEnd2").val(JSONData.mtEnd2);
-    						$("#mtMaxCount").val(JSONData.mtMaxCount);
-    						$("#mtCurrentCount").val(JSONData.mtCurrentCount);
-    						$("#mtAddr").val(JSONData.mtAddr);
+    						$("#mtMaxCount").text(JSONData.mtMaxCount);
+    						$("#mtCurrentCount").text(JSONData.mtCurrentCount);
+    						$("#mtAddr").text(JSONData.mtAddr);
     						$("#mtMapX").val(JSONData.mtMapX);
     						$("#mtMapY").val(JSONData.mtMapY);
     						$("#getDate").slideDown('slow');
@@ -379,6 +444,9 @@ $(document).ready(function() {
               {
             	no:"${meeting.mmNo}",
             	id: "${meeting.mtNo}",
+            	backgroundColor : "#1CD803",
+                borderColor : "#FCF64A",
+                textColor : "#FFFFFF",
                 title: "${meeting.mtName}",
                 start: "${meeting.mtStart}",
                 start2: "${meeting.mtStart2}",
@@ -416,14 +484,14 @@ function fncPopUp(){
 	
 };
 */
-function fncPopUp(){
-	alert("팝업창생성");
-	var url = "receiveCode";
-    var name = "popup test";
-    var option = "width = 500, height = 500, top = 100, left = 200, location = no"
-    window.open(url, name, option);
+// function fncPopUp(){
+// 	alert("팝업창생성");
+// 	var url = "receiveCode";
+//     var name = "popup test";
+//     var option = "width = 500, height = 500, top = 100, left = 200, location = no"
+//     window.open(url, name, option);
 	
-}
+// }
 </script>
 <style>
 
@@ -432,6 +500,7 @@ function fncPopUp(){
     padding: 0;
     font-size: 14px;
     padding-top: 50px;
+	background-color:#f7f6f3;
   }
 
   #top,
@@ -464,14 +533,37 @@ function fncPopUp(){
   #calendar {
     max-width: 1000px;
     margin: 40px auto;
+    margin-left : 100px;
     padding: 0 10px;
     float: left;
   }
   
   #getDate {
-  	float: left;
-  	width: 500px;
+  	display: none;
+   	float: left;
+  	width: 400px;
+  	border:1.5px solid rgba(0,0,0,0.2);
+  	font-family: 'Nanum Brush Script', cursive;	
+  	font-size:20px;
   }
+  
+  #addMt{
+  	border:1.5px solid rgba(0,0,0,0.2);
+  	font-family: 'Nanum Brush Script', cursive;	
+  	font-size:20px;
+  }
+  
+  #locate{
+  	float:left;
+  }
+
+.userProfile {
+	margin: 10px;
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+}
+
 
 </style>
 </head>
@@ -479,12 +571,12 @@ function fncPopUp(){
 
 <!-- ToolBar Start ///////////////////////////////////// -->
 <jsp:include page="../layout/toolbar.jsp" />
-<jsp:include page="../layout/moimToolbar.jsp"/>
+<%-- <jsp:include page="../layout/moimToolbar.jsp"/> --%>
 <!-- ToolBar End /////////////////////////////////////-->
 
-<h3>정모일정 확인 캘린다입니다...${dbUser.userId}님 안녕하십니까..
+<center><h3>Your Meeting Calendar
 <button type="button" class="btn btn-success" onClick="fncAddMtView()">정모 생성하기</button>
-</h3>
+</h3></center>
   <div id='top'>
 
     <div class='left'>
@@ -493,7 +585,7 @@ function fncPopUp(){
         Theme System:
 
         <select>
-          <option value='jquery-ui'>테마 변경 하기</option>
+          <option value='jquery-ui'>choose theme</option>
         </select>
       </div>
 
@@ -503,7 +595,7 @@ function fncPopUp(){
         <select>
           <option value='black-tie'>Black Tie</option>
           <option value='blitzer'>Blitzer</option>
-          <option value='cupertino' selected>Cupertino</option>
+          <option value='cupertino' >Cupertino</option>
           <option value='dark-hive'>Dark Hive</option>
           <option value='dot-luv'>Dot Luv</option>
           <option value='eggplant'>Eggplant</option>
@@ -517,7 +609,7 @@ function fncPopUp(){
           <option value='pepper-grinder'>Pepper Grinder</option>
           <option value='redmond'>Redmond</option>
           <option value='smoothness'>Smoothness</option>
-          <option value='south-street'>South Street</option>
+          <option value='south-street' selected>South Street</option>
           <option value='start'>Start</option>
           <option value='sunny'>Sunny</option>
           <option value='swanky-purse'>Swanky Purse</option>
@@ -544,35 +636,48 @@ function fncPopUp(){
   <div id="getDate">
 	<!--  상세정보 div Start /////////////////////////////////////-->
 	<div class="container">
-	정모이름 : <input type='text' id='mtName'><br>
-	정모내용 :<input type='text' id='mtContent'><br>
-	주최자 : <input type='text' id='userId'><br>
-	정모시작일 :<input type='text'  id='mtStart'><br>
+	ㆍtitle : <span id='mtName'></span><br>
+	ㆍcontent :<span id='mtContent'></span><br>
+	ㆍconstructor : <span id='userId'></span><br>
+	ㆍstart :<span id='mtStart'></span><br>
 	<input type='hidden' id='mtStart2'>
-	정모종료일 :<input type='text' id='mtEnd'><br>
+	ㆍend :<span id='mtEnd'></span><br>
 	<input type='hidden' id='mtEnd2'>
-	정모 총 인원 :<input type='text' id='mtMaxCount'><br>
-	정모 현재 인원 :<input type='text' id='mtCurrentCount'>
+	ㆍmax :<span id='mtMaxCount'></span><br>
+	ㆍcurrent :<span id='mtCurrentCount'></span>
 	<button type="button" class="btn btn-default" onClick="fncGetMEFL(mtNo)">참여한사람보기</button>
 	<br>
-	정모 장소 :<input type='text' id='mtAddr'><br>
+	
 	<input type='hidden' id="mtMapX">
 	<input type='hidden' id="mtMapY">
 	 
+	<div>
 	<button type='button' class='btn btn-primary' id='map' >지도</button>
-	
 	<button type="button" class="btn btn-success" onClick="fncApplyMt(mtNo, '${dbUser.userId}')">참가</button>
 	<button type="button" class="btn btn-success" onClick="fncLeaveMt(mtNo, '${dbUser.userId}')">참가취소</button>
 	<button type="button" class="btn btn-primary" onClick="fncUptMtView('${dbUser.userId}')">수정</button>
 	<button type="button" class="btn btn-danger" onClick="fncDeleteMt('${dbUser.userId}')">삭제</button>	
-	
+	</div>
+	<div>
 	<a id = "connect" onClick="authenticate().then(loadClient)">구글캘린더와 연동하기</a>
+	</div>
+	<div>
 	<a id = "insert" onClick="execute()">구글캘린더에 등록하기</a>
+	</div>
+	ㆍlocation :<span id='mtAddr'></span>
+	<div>
+	<iframe id="locate" src="../moim/mapView.jsp" width="350" height="350"></iframe>
+	</div>
+		
+	<br>
+	
+	
 	</form>
 
  	</div> <!-- 컨테이너 div종료 --> 
 		<div id="getMEFL" style="padding-top: 30px"></div>
  </div> <!-- getDate div 종료 -->
+ <jsp:include page="../layout/moimSidebar.jsp"></jsp:include>
 <jsp:include page="../layout/searchbar.jsp"></jsp:include>
 </body>
 </html>
