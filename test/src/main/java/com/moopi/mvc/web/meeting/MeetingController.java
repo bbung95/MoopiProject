@@ -132,7 +132,7 @@ public class MeetingController {
 		model.addAttribute("list", map.get("list"));
 		System.out.println(map);
 		model.addAttribute("userId", userId);
-		model.addAttribute("mmNo", mmNo);
+		model.addAttribute("moim", moimService.getMoim(mmNo));
 		return "meeting/listMeeting";
 	}
 	

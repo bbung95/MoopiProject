@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Param;
 import com.moopi.mvc.common.Search;
 //import com.moopi.mvc.service.domain.User;
 import com.moopi.mvc.service.domain.Moim;
+import com.moopi.mvc.service.domain.User;
 import com.moopi.mvc.service.domain.Member;
 
 @Mapper
@@ -63,6 +64,11 @@ public interface MoimDao {
 	//status(1가입신청리스트, 2가입된멤버리스트)
 	public List<Member> getMemberList(@Param("mmNo") int mmNo,
 			 	@Param("status") int status) throws Exception;
+	
+	//초대목록 리스트
+	public List<User> getInviteList(@Param("mmInterest") int mmInterest,
+			@Param("mmAddr") String mmAddr) throws Exception;
+	
 	
 	//해당 유저의 권한 조회
 	public Member checkMember(@Param("userId") String userId,
