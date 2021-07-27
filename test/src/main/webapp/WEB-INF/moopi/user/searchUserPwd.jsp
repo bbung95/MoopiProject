@@ -23,7 +23,7 @@
 		
 		$("#findId").keyup(function() {
 	
-			var userId = $('#findId').val();		
+			var userId=$('input[name=userId]').val();
 			
 			$.ajax({
 				
@@ -145,10 +145,7 @@
 		
 		<h3 class="MobileAuth"> 비밀번호재설정 </h3>
 		<hr style="border:solid 0.11px black;">
-		
-		<!-- userId Hidden -->
- 	  	<input type="hidden" class="form-control" id="userId" name="userId" value="${dbUser.userId}" readonly>
- 	  	
+			  	
  	  	<p class="listUserJoin"> 회원가입시 입력하신 아이디와 모바일인증으로 비밀번호 재설정이 가능합니다. </p>
  	  	
 		<!-- 번호 입력 후 인증하기 버튼 -->
