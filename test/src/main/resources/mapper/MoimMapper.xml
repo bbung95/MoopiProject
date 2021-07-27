@@ -45,6 +45,32 @@
 	</resultMap>
 	
 	
+	<resultMap id="userSelectMap" type="user">
+		<result property="userId"			column="USER_ID"			jdbcType="VARCHAR"/>
+		<result property="password"			column="PWD"				jdbcType="VARCHAR"/>
+		<result property="userName"			column="USER_NAME"			jdbcType="VARCHAR"/>
+		<result property="phone"			column="PHONE"				jdbcType="VARCHAR"/>
+		<result property="birth"			column="BIRTH"				jdbcType="DATE"/>
+		<result property="age"				column="AGE"				jdbcType="NUMERIC"/>
+		<result property="gender"			column="GENDER"				jdbcType="VARCHAR"/>
+		<result property="joinPath"			column="JOIN_PATH"			jdbcType="CHAR"/>
+		<result property="regDate"			column="REGDATE"			jdbcType="DATE"/>
+		<result property="userRole"			column="USER_ROLE"			jdbcType="VARCHAR"/>
+		<result property="fullAddr"			column="FULL_ADDR"			jdbcType="VARCHAR"/>
+		<result property="addr"				column="ADDR"				jdbcType="VARCHAR"/>
+		<result property="nickname"			column="NICKNAME"			jdbcType="VARCHAR"/>
+		<result property="profileImage"		column="PROFILE_IMAGE"		jdbcType="VARCHAR"/>
+		<result property="profileContent"	column="PROFILE_CONTENT"	jdbcType="VARCHAR"/>
+		<result property="interestFirst"	column="INTEREST_FIRST"		jdbcType="NUMERIC"/>
+		<result property="interestSecond"	column="INTEREST_SECOND"	jdbcType="NUMERIC"/>
+		<result property="interestThird"	column="INTEREST_THIRD"		jdbcType="NUMERIC"/>
+		<result property="myhomeState"		column="MYHOME_STATE"		jdbcType="CHAR"/>
+		<result property="stateReason"		column="STATE_REASON"		jdbcType="VARCHAR"/>
+		<result property="stateRegdate"		column="STATE_REGDATE"		jdbcType="DATE"/>
+		<result property="coin"				column="COIN"				jdbcType="NUMERIC"/>
+		<result property="badge"			column="BADGE"				jdbcType="CHAR"/>
+	</resultMap>
+	
 	<insert id="applyMoim">
 	 	INSERT
 		INTO MEMBER(
@@ -145,9 +171,29 @@
 		and NOT mm_member_role ='1'
 		and NOT mm_member_role = '6'
 		and NOT mm_member_role = '5'
-		and U.user_id = M.mm_member_id
+		and U.user_id = mm_member_id
 		</if>	
 	 </select>
+	 
+	 
+	 <select id = "getInviteList" parameterType="int" resultMap = "userSelectMap">
+	 SELECT
+			USER_ID, USER_NAME, PROFILE_IMAGE, PROFILE_CONTENT, NICKNAME, BIRTH, AGE, JOIN_PATH, REGDATE, USER_ROLE, ADDR, GENDER, 
+			x.INTEREST_NAME, y.INTEREST_NAME ,z.INTEREST_NAME
+		FROM users LEFT OUTER JOIN INTEREST x 
+			ON INTEREST_FIRST = x.INTEREST_NO
+		    LEFT OUTER JOIN INTEREST y
+			ON INTEREST_SECOND = y.INTEREST_NO
+		    LEFT OUTER JOIN INTEREST z
+			ON INTEREST_THIRD = z.INTEREST_NO		
+	 <where>
+	 ( x.INTEREST_NO = #{mmInterest} OR
+	 y.INTEREST_NO = #{mmInterest} OR
+	 z.INTEREST_NO = #{mmInterest} ) AND
+	 ADDR = #{mmAddr}
+	 </where>
+	 </select>
+	 
 	 
 	 <select id = "checkMember" resultMap="memberSelectMap">
 	 SELECT

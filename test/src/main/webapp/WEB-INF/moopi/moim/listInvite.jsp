@@ -6,26 +6,48 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<!-- BootStart -->
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<title>Hello! Moopi!</title>
+
+<!-- Favicon --> 
+<link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
+
+<!-- Bootstrap icons -->
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+<!-- Core theme CSS (includes Bootstrap) -->
+<link href="/css/styles.css" rel="stylesheet" />
 
 <!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
-	<!--<link rel="stylesheet" href="/images/uploadFiles" >  -->
-	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
+<link rel="stylesheet" href="/images/uploadFiles" >  
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="/javascript/owl.carousel.min.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script> 
+<link rel="stylesheet" href="/css/owl.carousel.min.css">
+<link rel="stylesheet" href="/css/owl.theme.default.min.css">
+
+<!-- 구글 폰트 -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Brush+Script&display=swap" rel="stylesheet">
+
+<!-- Sweet Alert -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> 
 
 <script>
 function fncAccept(userId, mmNo){
-	alert(userId+"님을 초대하겠습니다.");
+	swal(userId+"님을 초대합니다.");
 	//self.location ="/moim/updateMember?userId="+userId+"&mmNo="+mmNo+"&status=1"
 }
-
-function fncRefuse(memberNo, mmNo){
-	alert("가입신청을 거절하겠습니다.");
-	self.location ="/moim/refuseApply?memberNo="+memberNo+"&mmNo="+mmNo
-}
-
 
 </script>
 
@@ -136,22 +158,80 @@ table.dataTable td {
 <!-- ToolBar Start /////////////////////////////////////-->
 	<jsp:include page="../layout/toolbar.jsp" />
 <!-- ToolBar End /////////////////////////////////////-->
-<h3>인근 초대가능한 사람들입니다... 목록입니다...</h3>
-
-<c:forEach var="user" items="${list}">
-//////////////////////////
-<p>회원ID:${user.userId}</p>
-<p>회원이름: <div id="getMoim" onClick="fncGetMoim(${user.userId})">${user.userName}</div></p>
-<p>회원성별:${user.gender}</p>
-<p>회원폰:${user.phone}</p>
-<p>회원닉네임:${user.nickname}</p>
-<p>회원나이:${user.age}</p>
-<p>회원fulladdress:${user.fullAddr}</p>
-<p>회원addr:${user.addr}</p>
-<button type="button" class="btn btn-default" onClick="fncAccept('${user.userId}', '${member.mmNo}')">초대</button>
-<hr>
-</c:forEach>
 
 
+
+
+<h2>Invite List</h2>
+
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <table summary="This table shows how to create responsive tables using Datatables' extended functionality" class="table table-bordered table-hover dt-responsive">
+        <caption class="text-center">An example of a responsive table based on <a href="https://datatables.net/extensions/responsive/" target="_blank">DataTables</a>:</caption>
+        <thead>
+          <tr>
+            <th id="th1">profile</th>
+            <th id="th2">nickName</th>
+            <th id="th3">gender</th>
+            <th id="th4">addr</th>
+            <th id="th5">introduce</th>
+            <th id="th6">invite</th>
+          </tr>
+        </thead>
+        <tbody>
+        <c:forEach items="${list}" var="user">
+          <tr>
+            <td id="td1">
+            <a href="/user/getMyHome?userId=${user.userId}">
+            <img class="userProfile" src="/images/uploadFiles/${user.profileImage}">
+            </a>
+            </td>
+            <td id="td2">${user.nickname}</td>
+            <td id="td3">
+			<c:if test = "${user.gender eq '1'}">
+			남자
+			</c:if>
+			<c:if test = "${user.gender eq '2'}">
+			여자
+			</c:if>
+			</td>
+            <td id="td4">${user.addr}</td>
+            <td id="td5">${user.profileContent}</td>
+			<td id="td6">
+			<button type="button" class="btn btn-default" onClick="fncAccept('${user.userId}', '${member.mmNo}')">초대</button>
+			</td>
+          </tr>
+        </c:forEach>  
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="5" class="text-center">Data retrieved from <a href="http://www.infoplease.com/ipa/A0855611.html" target="_blank">infoplease</a> and <a href="http://www.worldometers.info/world-population/population-by-country/" target="_blank">worldometers</a>.</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</div>
+<%-- <c:forEach var="user" items="${list}"> --%>
+<%-- <img class="userProfile" src="/images/uploadFiles/${user.profileImage}"></td> --%>
+<%-- <p>회원ID:${user.userId}</p> --%>
+<%-- <p>회원이름: <div id="getMoim" onClick="fncGetMoim(${user.userId})">${user.userName}</div></p> --%>
+<%-- <c:if test = "${user.gender eq '2'}"> --%>
+<!-- <p>회원성별:여자</p> -->
+<%-- </c:if> --%>
+<%-- <c:if test = "${user.gender eq '1'}"> --%>
+<!-- <p>회원성별:남자</p> -->
+<%-- </c:if> --%>
+<%-- <p>회원폰:${user.phone}</p> --%>
+<%-- <p>회원닉네임:${user.nickname}</p> --%>
+<%-- <p>회원나이:${user.age}</p> --%>
+<%-- <p>회원fulladdress:${user.fullAddr}</p> --%>
+<%-- <p>회원addr:${user.addr}</p> --%>
+<%-- <p>회원소개:${user.profileContent}</p> --%>
+<%-- <button type="button" class="btn btn-default" onClick="fncAccept('${user.userId}', '${member.mmNo}')">초대</button> --%>
+<%-- </c:forEach> --%>
+
+<jsp:include page="../layout/moimSidebar.jsp"></jsp:include>
 </body>
 </html>

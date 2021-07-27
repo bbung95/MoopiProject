@@ -292,7 +292,7 @@ body {
 <h3>
 <img class="userProfile" src="/images/uploadFiles/${dbUser.profileImage}"> ${dbUser.nickname}님의 관심사 ${dbUser.interestFirst}, ${dbUser.interestSecond}, ${dbUser.interestThird}에 맞는 모임들입니다.
 <!-- <span><img class="add" src="/images/plus.png" width="40" height="40"  onClick="javascript:fncAddMoimView()"/></span> -->
-<span><img class="add" src="/images/plus.png" width="40" height="40" data-toggle="modal" data-target="#myModal"/></span>
+<span><img class="add" src="/images/plus2.png" width="40" height="40" data-toggle="modal" data-target="#myModal"/></span>
 </h3>
 
 <!-- Modal 시작-->
