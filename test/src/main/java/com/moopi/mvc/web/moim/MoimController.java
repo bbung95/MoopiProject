@@ -32,6 +32,7 @@ import com.moopi.mvc.service.user.impl.UserServiceImpl;
 @Controller
 @RequestMapping("/moim/*")
 public class MoimController {
+	//주석
 	
 	@Autowired
 	private MoimServiceImpl moimService;
@@ -225,6 +226,7 @@ public class MoimController {
 	@RequestParam("mmNo") int mmNo) throws Exception {
 		System.out.println("모임 가입탈퇴를 합니다.");
 		moimService.leaveMoim(userId, mmNo);
+		moimService.subCount(mmNo);
 		return "forward:모임상세조회페이지";
 	}
 	
@@ -244,6 +246,9 @@ public class MoimController {
 	@RequestParam("status") int status) throws Exception {
 		System.out.println("멤버 권한변경을 합니다.");
 		moimService.updateMemeber(userId, mmNo, status);
+		if(status == 1) {
+			moimService.addCount(mmNo);
+		}
 		
 		// 알림
 		System.out.println("moim Notice");
@@ -266,6 +271,8 @@ public class MoimController {
 			@RequestParam("status") int status, Model model) throws Exception{
 		
 		System.out.println("멤버리스트를 가져옵니다.");
+		Moim moim  = moimService.getMoim(mmNo);
+		model.addAttribute("moim", moim);
 		Map<String, Object> map = moimService.getMemberList(mmNo, status);
 		model.addAttribute("list", map.get("list"));
 		if(status == 1) {

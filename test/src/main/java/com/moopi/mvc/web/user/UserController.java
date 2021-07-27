@@ -10,7 +10,10 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,13 +34,7 @@ public class UserController {
 	
 	@Autowired
 	private MoimServiceImpl moimService;
-	
-	@RequestMapping("updateLeaveUser")
-	public void updateLeaveUser() throws Exception {
-		System.out.println("updateLeaveUser 진입완료");
-		// 회원이 탈퇴진행할시 해당을 거쳐 유저롤 5번으로 변경한다 / 리턴값없음
-	}
-	
+		
 	// 카카오 로그인 및 회원가입
 	@RequestMapping("kakaoLogin")
 	public String kakaoLogin (	@ModelAttribute("user") User user,
@@ -56,9 +53,28 @@ public class UserController {
 	
 	// [완료] 로그인페이지 (단순 네비게이션)
 	@RequestMapping("loginView")
-	public String loginView(@ModelAttribute("user") User user, HttpSession session) throws Exception{		
+	public String loginView(@ModelAttribute("user") User user) throws Exception{		
 		return "user/loginView";
 	}
+
+	// [완료] 로그인 
+	@RequestMapping("loginUser")
+	public String login(@ModelAttribute("user") User user, 
+						HttpSession session) throws Exception{
+		User dbUser = userService.loginUser(user.getUserId());
+		System.out.println(dbUser);		
+		String dbId = user.getUserId();
+		String dbPw = user.getPassword();		
+			
+		if (dbId != null && dbPw.equals(dbUser.getPassword())) {
+				System.out.println("아이디 및 비밀번호가 일치합니다.");
+				session.setAttribute("dbUser", dbUser);
+				return "redirect:/";
+			} else {
+				System.out.println("아이디 및 비밀번호가 일치하지 않습니다.");
+				return "user/loginView";
+			}
+		}
 	
 
 //-- 로그아웃 구현 -------------------------------------------------------------------------------------------
@@ -70,51 +86,8 @@ public class UserController {
 		// 가입경로 필요없을시 해당 문만 기재하면됨
 		session.invalidate();
 		System.out.println();
-		return "redirect:/";
-			
-		// [경로를 못가져옴] 가입경로에 따른 로그아웃 값을 주기위한 조건 
-//		if(user.getJoinPath() == "1") {
-//			System.out.println("유저의 조인패스는 1입니다.");
-//			session.invalidate();
-//			return "redirect:/";
-//		} else if(user.getJoinPath() == "2"){
-//			System.out.println("유저의 조인패스는 2번입니다");
-//			session.invalidate();
-//			return "redirect:/";
-//		} else if(user.getJoinPath() == "3"){
-//			System.out.println("유저의 조인패스는 3번입니다");
-//			session.invalidate();
-//			return "redirect:/";
-//		} else {
-//			System.out.println("유저의 조인패스는 4번입니다");
-//			session.invalidate();
-//			return "redirect:/";
-//		}
-	
-	}
-//-----------------------------------------------------------------------------------------------------------------
-	
-	
-//-- [완료] 로그인 -------------------------------------------------------------------------------------------
-	@RequestMapping("loginUser")
-	public String login(@ModelAttribute("user") User user, 
-						HttpSession session) throws Exception{
-		User dbUser = userService.loginUser(user.getUserId());
-		System.out.println(dbUser);		
-		String dbId = user.getUserId();
-		String dbPw = user.getPassword();		
-		dbUser = userService.getUser(dbId);	
-		if (dbId != null && dbPw.equals(dbUser.getPassword())) {
-				System.out.println("아이디 및 비밀번호가 일치합니다.");
-				session.setAttribute("dbUser", dbUser);
-				return "redirect:/";
-			} else {
-				System.out.println("아이디 및 비밀번호가 일치하지 않습니다.");
-				return "user/loginView";
-			}
-		}
-//-----------------------------------------------------------------------------------------------------------------
-
+		return "redirect:/";		
+	}	
 	
 //-- [완료] 회원가입 addUserView.jsp로 단순 네비게이션  -------------------------------------------------------------------------------------------
 	@RequestMapping("addUserView")
@@ -297,6 +270,7 @@ public class UserController {
 		
 		System.out.println(userService.getUser(userId));
 		return "user/updateProfile";
+		
 	}
 //-----------------------------------------------------------------------------------------------------------------	
 		
@@ -331,14 +305,14 @@ public class UserController {
 	
 
 	// 1. [닉네임수정] - updateNickname
-	@RequestMapping("updateNickname")
-	public String updateNickname(	@RequestParam("userId") String userId,
-									@RequestParam("nickname") String nickname,
-									@ModelAttribute("user") User user) {
-		System.out.println("닉네임수정");		
-		userService.updateNickname(user);
-		return "user/updateUser";				
-	}
+//	@RequestMapping("updateNickname")
+//	public String updateNickname(	@RequestParam("userId") String userId,
+//									@RequestParam("nickname") String nickname,
+//									@ModelAttribute("user") User user) {
+//		System.out.println("닉네임수정");		
+//		userService.updateNickname(user);
+//		return "user/updateUser";				
+//	}
 	
 	// 2. [프로필소개수정] - updateContent
 	@RequestMapping("updateContent")
@@ -362,6 +336,24 @@ public class UserController {
 		return "user/updateInterest";				
 	}
 	
+	// 회원탈퇴
+	@RequestMapping("updateLeaveUser")
+	public String updateLeaveUser (	@RequestParam("userId") String userId,
+									@RequestParam("userRole") String userRole,
+									@RequestParam("stateReason") String stateReason,
+									HttpSession session,
+									Model model) throws Exception {		
+		User user = new User();
+		user.setUserId(userId);
+		user.setStateReason(stateReason);		
+		model.addAttribute("dbUser", userId);
+		model.addAttribute("dbUser", stateReason);		
+		userService.updateLeaveUser(user);	
+		session.invalidate();
+		return "redirect:/";
+	}
+
+
 //-- [완료] 회원가입 addUserView.jsp로 단순 네비게이션  -------------------------------------------------------------------------------------------
 	@RequestMapping("getIdView")
 	public String getIdView() throws Exception {
@@ -377,11 +369,9 @@ public class UserController {
 	@RequestMapping("searchIdView")
 	public String searchIdView(	@RequestParam("phone") String phone,
 								Model model,
-								@ModelAttribute("user") User user,
-								@RequestParam("message") String message) throws Exception{		
+								@ModelAttribute("user") User user) throws Exception{		
 		
 		model.addAttribute("dbUser", userService.getId(phone));			
-		model.addAttribute("message", message);
 		
 		
 		User dbUser = userService.getId(user.getPhone());		

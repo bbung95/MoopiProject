@@ -24,7 +24,7 @@ public class MoimServiceImpl {
 		return moimDao.getMoim(mmNo);
 	}
 	
-	public Moim getMoim2(String mmName) {
+	public Moim getMoim(String mmName) {
 		return moimDao.getMoim(mmName);
 	}
 	
@@ -100,5 +100,12 @@ public class MoimServiceImpl {
 		return map;
 	}
 	
+	public void addCount(int mmNo) throws Exception {
+		moimDao.addCount(mmNo);
+	}
+	
+	public void subCount(int mmNo) throws Exception {
+		moimDao.subCount(mmNo);
+	}
 
 }
