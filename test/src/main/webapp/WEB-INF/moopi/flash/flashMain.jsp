@@ -38,6 +38,13 @@ function fncGetFlash(flashNo){
 	self.location ="/flash/getFlash?flashNo="+flashNo
 }
 
+function fncAddFlash(){
+	alert("번개 생성한다.");
+	$(".form-horizontal").attr("method", "POST").attr("action", "/flash/addFlash").submit();
+	//console.log($('#userId').val());
+
+}
+
 </script>
 
 <style>
@@ -390,10 +397,20 @@ margin-bottom:20px;
 
 <!-- 번개메인 -->
 
-<button type="button" class="btn btn-default"
-		onClick="fncAddFlashView()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-file-plus-fill" viewBox="0 0 16 16">
+<!-- <button type="button" class="btn btn-default" id="myModal" data-target="#myModal" -->
+<!-- 		onClick="fncAddFlashView()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-file-plus-fill" viewBox="0 0 16 16"> -->
+<!--   <path d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM8.5 6v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 1 0z"/> -->
+<!-- </svg> </button> -->
+
+<!-- <h3>
+<span><img class="add" src="/images/plus.png" width="40" height="40" data-toggle="modal" data-target="#myModal"/></span>
+</h3>id="myModal" 
+-->
+
+<button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#staticBackdrop">번개!<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-file-plus-fill" viewBox="0 0 16 16">
   <path d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM8.5 6v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 1 0z"/>
-</svg> </button>
+</svg></button>
+
 
 <div class="userEL9001404 colorSet" data-forum-type="thumb" data-fcolor="#191919" >
     <div class="container">
@@ -461,6 +478,101 @@ margin-bottom:20px;
         </div>
     </div>
 </div>
+
+
+
+					
+<!-- Modal -->
+	<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h2 class="modal-title" id="staticBackdropLabel">번개를 번개처럼생성!</h2>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+
+				<div class="modal-body">
+        <!-- 폼시작 -->
+        
+        <!-- form Start /////////////////////////////////////-->
+		<form class="form-horizontal" name="detailForm" enctype="multipart/form-data">
+		  <input type="hidden" id="userId" name="userId" value="${dbUser.userId}">
+		  <div class="form-group">
+		    <label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">번개무피명</label>
+		    <div class="col-sm-20">
+		      <input type="text" class="form-control" id="flashName" name="flashName" placeholder="번개명">
+		    </div>
+		  </div>
+		  
+		  <div class="form-group">
+		    <label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">번개썸네일</label>
+		    <div class="col-sm-40">
+		      <input type="file" class="form-control" id="uploadFile" name="uploadFile" placeholder="대표썸네일">
+		    </div>
+		  </div>
+		  
+		  <div class="form-group">
+		    <label for="ssn" class="col-sm-offset-3 col-sm-3 control-label">번개소개</label>
+		    <div class="col-sm-40">
+		      <textarea  style="resize:none" class="form-control" id="flashContent" name="flashContent" placeholder="50자이내"></textarea>
+		    </div>
+		  </div>
+		  
+		  <div class="form-group">
+		    <label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">번개장소</label>
+		    <div class="col-sm-5">
+		      <input type="text" class="form-control" id="flashAddr" name="flashAddr" placeholder="지역구">
+		    </div>
+		  </div>
+		  
+		  <div class="form-group">
+		    <label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">번개모임인원</label>
+		    <div class="col-sm-5">
+		      <input type="text" class="form-control" id="flashMaxCount" name="flashMaxCount" placeholder="최대참가인원">
+		    </div>
+		  </div>
+		  
+		  <div class="form-group">
+		    <label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">번개만남시간</label>
+		    <div class="col-sm-20">
+		      <input type="text" class="form-control" id="flashTime" name="flashTime" placeholder="만남시간">
+		    </div>
+		  </div>
+		  
+		  <div class="form-group">
+		    <label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">관심사선택</label>
+		    <div class="col-sm-20">
+		      <select class="form-control" id="flashInterest" name="flashInterest" >
+		      	 <option value="1">아웃도어/여행/사진/영상</option><option value="2">운동/스포츠</option><option value="3">인문학/책/글</option>
+				  <option value="4">업종/직무</option><option value="5">외국/언어</option><option value="6">문화/공연/축제/음악/악기</option>
+				  <option value="7">공예/만들기</option><option value="8">댄스/무용</option><option value="9">사교/인맥</option>
+				  <option value="10">차/오토바이</option><option value="11">게임/오락</option><option value="12">맛집/카</option>
+		      </select>
+		    </div>
+		  </div>
+		  
+		  
+<!-- 		  <div class="form-group"> -->
+<!-- 		    <div class="col-sm-offset-4  col-sm-4 text-center"> -->
+<!-- 		      <button type="button" class="btn btn-primary" onClick="fncAddMoim()" >등록</button> -->
+<!-- 			   <a class="btn btn-default btn" role="button"  onclick="history.back()">취소</a> -->
+<!-- 		    </div> -->
+<!-- 		  </div> -->
+		</form>
+        
+        <!-- 폼끝 -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-bs-dismiss="modal" aria-label="Close">Close</button>
+       <!--  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">Close</button> -->
+        <button type="button" class="btn btn-primary" onClick="fncAddFlash()">Create</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
 
 
 
