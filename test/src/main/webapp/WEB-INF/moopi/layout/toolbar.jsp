@@ -8,27 +8,28 @@
 	integrity="sha384-vuFJ2JiSdUpXLKGK+tDteQZBqNlMwAjhZ3TvPaDfN9QmbPb7Q8qUpbSNapQev3YF"
 	crossorigin="anonymous"></script>
 <style>
-.weather{
-	position : fixed;
+.weather {
+	position: fixed;
 	bottom: 0;
 	left: 0;
 	margin-left: 20px;
 	margin-bottom: 20px;
 }
 
-#toolbar{
+#toolbar {
 	background: white;
+	height: 62px;
 }
 
-.toolbar_i{
-	font-size : 20px;
+.toolbar_i {
+	font-size: 20px;
 }
 </style>
 
 
 <!-- ToolBar Start /////////////////////////////////////-->
-<nav
-	class="navbar navbar-expand-lg navbar-light  fixed-top" id="toolbar">
+<nav class="navbar navbar-expand-lg navbar-light  fixed-top"
+	id="toolbar">
 	<div class="container px-5">
 		<a class="navbar-brand" href="/">Moopi</a>
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -39,49 +40,46 @@
 		</button>
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-				<li class="nav-item"><a class="nav-link" >모임무피</a></li>
-				<li class="nav-item"><a class="nav-link" >번개무피</a></li>
-				<li class="nav-item"><a class="nav-link" >무피게시판</a></li>
-				<li class="nav-item"><a class="nav-link" >문의게시판</a></li>
-				
+				<li class="nav-item"><a class="nav-link">모임무피</a></li>
+				<li class="nav-item"><a class="nav-link">번개무피</a></li>
+				<li class="nav-item"><a class="nav-link">무피게시판</a></li>
+				<li class="nav-item"><a class="nav-link">문의게시판</a></li>
+
 				<!-- sessionScope.id가 없으면 : 로그인을 하지 않았을 경우 -->
 				<c:if test="${empty sessionScope.dbUser}">
-					<li class="nav-item"><a class="nav-link" >로그인</a></li>
+					<li class="nav-item"><a class="nav-link">로그인</a></li>
 				</c:if>
-				
+
 				<!-- sessionScope.id가 있을시 : 로그인을 했을 경우 -->
 				<c:if test="${not empty sessionScope.dbUser}">
-				<li class="nav-item dropdown" id="noticeCount">
-					<a class="nav-link dropdown-toggle" id="navbarDropdownBlog"
+					
+					<li class="nav-item noticebtn" data-bs-toggle="offcanvas"
+						data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"
+						id="noticeCount"><a class="nav-link"><i
+							class="bi bi-envelope toolbar_i"></i></a></li>
+					
+					<li class="nav-item chatbtn"><a class="nav-link"><i
+							class="bi bi-chat toolbar_i"></i></a></li>
+					
+					<li class="nav-item dropdown"><a
+						class="nav-link dropdown-toggle" id="navbarDropdownPortfolio"
 						href="#" role="button" data-bs-toggle="dropdown"
-						aria-expanded="false"><i class="bi bi-envelope toolbar_i"></i></a>
-					<ul class="dropdown-menu dropdown-menu-end"
-						aria-labelledby="navbarDropdownPortfolio" id="noticeList">
-						<div align="right">
-									<a href="javascript:deleteNoticeAll()">전체삭제</a>
-								</div>
-								<div class="noticeOut"></div>
-					</ul>
-				</li>
-				
-				<li class="nav-item chatbtn"><a class="nav-link"><i class="bi bi-chat toolbar_i"></i></a></li>
-				<li class="nav-item dropdown">
-					<a class="nav-link dropdown-toggle" id="navbarDropdownPortfolio"
-						href="#" role="button" data-bs-toggle="dropdown"
-						aria-expanded="false"><img src="/images/uploadFiles/${dbUser.profileImage}" style="width: 30px; height: 30px; border-radius: 50%;"/></a>
-					<ul class="dropdown-menu dropdown-menu-end"
-						aria-labelledby="navbarDropdownPortfolio">
-						<li><a class="dropdown-item" >마이홈</a></li>
-						<li><a class="dropdown-item" >내정보보기</a></li>
-						<li><a class="dropdown-item" >충전</a></li>
-						<li><a class="dropdown-item" >로그아웃</a></li>
-						<c:if test="${dbUser.userRole == '1'}">
-						<li><a class="dropdown-item" href="/common/adminMoopi" target="_blank">관리자</a></li>
-						</c:if>
-					</ul>
-				</li>
+						aria-expanded="false"><img
+							src="/images/uploadFiles/${dbUser.profileImage}"
+							style="width: 30px; height: 30px; border-radius: 50%;" /></a>
+						<ul class="dropdown-menu dropdown-menu-end"
+							aria-labelledby="navbarDropdownPortfolio">
+							<li><a class="dropdown-item">마이홈</a></li>
+							<li><a class="dropdown-item">내정보보기</a></li>
+							<li><a class="dropdown-item">충전</a></li>
+							<li><a class="dropdown-item">로그아웃</a></li>
+							<c:if test="${dbUser.userRole == '1'}">
+								<li><a class="dropdown-item" href="/common/adminMoopi"
+									target="_blank">관리자</a></li>
+							</c:if>
+						</ul></li>
 				</c:if>
-				
+
 			</ul>
 		</div>
 	</div>
@@ -93,6 +91,20 @@
 	<div class="City"></div>
 </div>
 
+
+
+<!-- offcanvas  -->
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight"
+	aria-labelledby="offcanvasRightLabel">
+	<div class="offcanvas-header">
+		<h5 id="offcanvasRightLabel">Moopi 알림</h5>
+		<button type="button" class="btn-close text-reset"
+			data-bs-dismiss="offcanvas" aria-label="Close"></button>
+	</div>
+	<div class="offcanvas-body noticeOut" >
+	
+	</div>
+</div>
 
 
 <!-- ToolBar End /////////////////////////////////////-->
@@ -316,7 +328,7 @@
 							}
 							$('.noticeOut').append(display);
 						} else {
-							let display = "<li style='height: 40px'>알림이 존재하지 않습니다.</li>";
+							let display = "<div style='height: 40px'>알림이 존재하지 않습니다.</div>";
 							$('.noticeOut').append(display);
 						}
 						noticeCount();
@@ -362,9 +374,9 @@
 
 		location.href = "/board/listBoard?category=2";
 	})
-	
-	$("a:contains('로그인')").on('click', function(){
-		
+
+	$("a:contains('로그인')").on('click', function() {
+
 		location.href = "/user/loginView";
 	})
 	
@@ -374,10 +386,15 @@
 					function() {
 
 						popWin = window
-								.open(	
-/* 										"https://bbung95-rtc.herokuapp.com/chatList?userId="+dbUser+"&profile="+userProfile+"&nickname="+nickname,
- */ 										"http://localhost:82/chatList?userId="+dbUser+"&profile="+userProfile+"&nickname="+nickname,
- 									"popWin",
+								.open(
+										/* 										"https://bbung95-rtc.herokuapp.com/chatList?userId="+dbUser+"&profile="+userProfile+"&nickname="+nickname,
+										 */"http://localhost:82/chatList?userId="
+												+ dbUser
+												+ "&profile="
+												+ userProfile
+												+ "&nickname="
+												+ nickname,
+										"popWin",
 										"left=460, top=300, width=460, height=600, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");
 					});
 
@@ -391,24 +408,20 @@
 		location.href = "/user/myInformation";
 	})
 
-	$("a:contains('쪽지')").on("click", function() {
-
-		location.href = "/";
-	})
-
 	$("a:contains('로그아웃')").on("click", function() {
 
 		location.href = "/user/logout";
 	})
 
-	/* $("a:contains('관리자')").on("click", function() {
-
-		location.href = "/common/adminMoopi";
-	}) */
 
 	$("a:contains('충전')").on("click", function() {
 
 		location.href = "/payment/addPaymentView?userId=" + dbUser;
 	})
+	
+	/* $("a:contains('관리자')").on("click", function() {
+
+		location.href = "/common/adminMoopi";
+	}) */
 </script>
 

@@ -536,12 +536,12 @@ if(${followCheck}){
 //////// 게시글 등록
 function upload(formData){
 	// formData key &value 확인
-	 for (var key of formData.keys()) {
+	/*  for (var key of formData.keys()) {
 	  console.log(key);
 	}
 	for (var value of formData.values()) {
 	  console.log(value);
-	} 
+	}  */
 	$.ajax({
             url : "/user/json/addMyBoard"
                 , method : "POST"
@@ -751,7 +751,7 @@ if(${followCheck}){
 					let display = '';
 					for(var i= 0; i < fileArry.length-1; i++){
 						displayslide += '<div class="swiper-slide">'
-								    + '<img src="/images/uploadFiles/'+fileArry[i]+'" class="img-responsive" data-attach="true" style="width: 100%; "></div>';
+								    + '<img src="/images/uploadFiles/'+fileArry[i]+'" class="img-responsive" data-attach="true" style="width: 80%; height: auto; max-height: 603px;"></div>';
 					}			
 					
 					display += '<div style="display: inline-block;"><img class="boardProfile" src="/images/uploadFiles/'+board.boardWriter.profileImage+'" /><span style="vertical-align: middle;">'+board.boardWriter.nickname+'</span></div>'
