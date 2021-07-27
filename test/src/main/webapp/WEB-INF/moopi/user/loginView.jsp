@@ -8,14 +8,12 @@
 <meta charset="UTF-8">
 <title>로그인 뷰 / 로그인 화면페이지</title>
 
-<!-- 구 bootstrapcdn -->
-<!--
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
--->
-<! -- jQuery CDN -->
-<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<!-- Core theme CSS (includes Bootstrap)-->
+	<link href="/css/styles.css" rel="stylesheet" />
+	
+<! -- jQuery CDN -->	
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 
 <!-- 구글폰트api -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -31,19 +29,8 @@
 <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
 
 <!-- Bootstrap icons-->
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
-	rel="stylesheet" />
-
-<!-- Core theme CSS (includes Bootstrap)-->
-<link href="/css/styles.css" rel="stylesheet" />
-
-<!-- Bootstrap core JS-->
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-<!-- Core theme JS-->
-<script src="/js/scripts.js"></script>
-
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+	
 <!-- 카카오로그인 -->
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 
@@ -56,12 +43,14 @@
 <script src="https://apis.google.com/js/platform.js" async defer></script>
 
 <!-- 네이버로그인 -->
-<script type="text/javascript"
-	src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js"
-	charset="utf-8"></script>
-<script
-	src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js"></script>
+	<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
+	<script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js"></script>
 
+<!-- 모달 -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+	<script src="/js/scripts.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+	
 <!-------------------------------------------------------------------------------------------------------------------------->
 <script>
 	
@@ -265,55 +254,47 @@
 		}
 
 // 아이디찾기 - 다른 방식으로 접근, 차후 수정가능시 수정진행 할 예정
-	function findId() {			
+	function findId() {	
+		$(".forgot-Id").fadeIn();
 		var popWin;
 		var findId = $("#findId").val();		
 		popWin = window.open(
 					"getMobileAuth?findId",
 					"childForm",
-					"left=460, top=300, width=460, height=800, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");									
+					"left=460, top=300, width=580, height=550, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");									
 	}
 
 
 // 비밀번호찾기 - 다른 방식으로 접근, 차후 수정가능시 수정진행 할 예정	
-	function findPwd() {			
+	function findPwd() {
+		$(".forgot-pass").fadeIn();			
 		var popWin;
 		var id=$('input[name=userId]').val();
 		var findPwd = $("#findPwd").val();	
 		popWin = window.open(
 					"searchUserPwd",
 					"childForm",
-					"left=460, top=300, width=460, height=800, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");									
+					"left=460, top=300, width=580, height=640, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");									
 	}
 		
-</script>
+</script>		
+   
+	<style>
+		body {
+		background-image : url('../images/background/half_background.jpg');
+			padding-top: 50px;
+		}	
 
-<style>
-body {
-	background-image: url('../images/background/half_background.jpg');
-	padding-top: 50px;
-}
-</style>
-
-<style type="text/css">
-a:link {
-	color: gray;
-	text-decoration: none;
-}
-
-a:visited {
-	color: black;
-	text-decoration: none;
-}
-
-a:hover {
-	color: red;
-	text-decoration: none;
-}
-</style>
-
-
-
+	</style>
+	
+	<style type="text/css">
+		a:link { color: gray; text-decoration: none;}
+		a:visited { color: black; text-decoration: none;}
+		a:hover { color: red; text-decoration: none;}
+	</style>
+	
+	
+	
 </head>
 
 <body>
@@ -329,17 +310,66 @@ a:hover {
 
 	<div class="d-lg-flex half">
 		<div class="bg order-1 order-md-2"></div>
-		<div class="contents order-2 order-md-1">
-			<div class="container">
-				<div class="row align-items-center justify-content-center">
-					<div class="col-md-7">
-						<div class="mb-4">
-							<h3 class="row align-items-center justify-content-center">Moopi</h3>
-							<br>
-							<h5 class="row align-items-center justify-content-center">수정중</h5>
-							<br>
-							<p class="mb-4">ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ
-								ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ</p>
+			<div class="contents order-2 order-md-1"> 
+				<div class="container">
+					<div class="row align-items-center justify-content-center">
+						<div class="col-md-7">
+							<div class="mb-4">
+								<h3 class="row align-items-center justify-content-center">Moopi</h3><br>
+								<h5 class="row align-items-center justify-content-center">수정중</h5><br>
+								<p class="mb-4"> ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ</p>
+							</div>
+					
+							<form action="#" method="post">
+								
+								<!-- 아이디입력 -->
+								<div class="form-group first">
+									<label for="userId">ID</label>
+									<input type="text" class="form-control" id="userId" name="userId">
+								</div>
+								
+								<!-- 패스워드입력 -->
+								<div class="form-group last mb-3">
+									<label for="password">Password</label>
+									<input type="password" class="form-control" id="password" name="password">
+								</div>
+								
+								<!-- 아이디찾기 -->
+								<div class="d-flex mb-2 align-items-center">
+									<a href="javascript:findId();" class="forgot-Id">Forgot Id?</a></span>											
+								</div>
+						
+								<!-- 패스워드찾기 -->
+								<div class="d-flex mb-4 align-items-center">
+									<a href="javascript:findPwd();" id="findPwd" class="forgot-pass">Forgot Password?</a>
+								</div>
+
+								<!-- 로그인버튼 -->
+								<div style="text-align : center;">
+									<a><input type="submit" value="Login" class="btn btn-block btn-basic" onClick="javascript:fncLogin()"></a>
+								</div>
+								<div style="text-align : center;">	
+									<a href="/user/addUserView" style="color:black;">회원가입</a>
+								</div>
+								
+								<!-- 회색글씨 -->
+								<span class="d-block text-center my-3 text-muted">&mdash; or &mdash;</span>
+					
+								<div class="social-login">
+									<a class="Kakao btn d-flex justify-content-center align-items-center" name="kakaoLogin" onclick="javascript:KakaoLogin()">
+										<img src="../images/API/kakao_btn.png" width="200" name="kakaoLogin">
+										<span class="icon-Kakao mr-3"></span>
+									</a>
+									<a class="kakao btn d-flex justify-content-center align-items-center" id="naverIdLogin" onclick="javascipt:NaverLogin()">
+										<img src="../images/API/naver_btn.png" width="200"name="naverLogin">
+										<span class="icon-Naver mr-3"></span>
+									</a>
+									<a class="google btn d-flex justify-content-center align-items-center" name="googleLogin" id="googleLogin" onclick="javascript:googleSign(googleUser)">
+										<img src="../images/API/google_btn.png" width="200" name="googleLogin">
+										<span class="icon-Google mr-3"></span>
+									</a>	
+								</div>
+							</form>
 						</div>
 
 						<form action="#" method="post">
@@ -405,44 +435,5 @@ a:hover {
 				</div>
 			</div>
 		</div>
-	</div>
-
-	<button type="button" class="btn btn-light" data-bs-toggle="modal"
-		data-bs-target="#staticBackdrop">게시글등록</button>
-
-	<!-- Modal -->
-	<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
-		data-bs-keyboard="false" tabindex="-1"
-		aria-labelledby="staticBackdropLabel" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="staticBackdropLabel">게시글등록</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal"
-						aria-label="Close"></button>
-				</div>
-
-				<div class="modal-body">
-					<form id="upload">
-						<div class="dropBox" style="width: 100%; height: 300px;"></div>
-						<input type="hidden" name="userId" value="${dbUser.userId}" />
-						<button type="button" class="uploadbtn btn btn-light">업로드</button>
-						<input style="display: none" id="uploadFiles" type="file"
-							name="uploadFiles" multiple="multiple">
-						<textarea name="boardContent"
-							style="width: 100%; height: 100px; resize: none"></textArea>
-					</form>
-				</div>
-
-				<div class="modal-footer">
-					<button type="button" class="btn btn-light">등록</button>
-					<button type="button" id="close" class="btn btn-secondary"
-						data-bs-dismiss="modal">Close</button>
-				</div>
-			</div>
-		</div>
-	</div>
-
-
 </body>
 </html>

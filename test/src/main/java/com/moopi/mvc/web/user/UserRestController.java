@@ -266,15 +266,15 @@ public class UserRestController {
 		userService.updateAddress(user);
 	}
 	
-	// 완료 - [닉네임수정]
-	@PostMapping(value = "json/updateNickname")
-	public User updateNickname(	@RequestBody User user) {	
-		
-		System.out.println("updateNickname : POST");
-		userService.updateNickname(user);
-		
-		return user;
-	}
+//	// 완료 - [닉네임수정]
+//	@GetMapping(value = "json/updateNickname/{userId}/{nickname}")
+//	public void updateNickname(	@PathVariable String userId, 
+//								@PathVariable String nickname) {	
+//		User user = new User();
+//		user.setUserId(userId);
+//		user.setNickname(nickname);
+//		userService.updateNickname(user);
+//	}
 
 	// 완료 - [프로필소개수정]
 	@GetMapping(value = "json/updateContent/{userId}/{profileContent}")
