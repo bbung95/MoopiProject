@@ -123,16 +123,16 @@ public class CommonController {
 		
 		model.addAttribute("list",paymentService.adminPaymentList( payment, search).get("list"));
 		model.addAttribute("totalCount",paymentService.adminPaymentList(payment, search).get("totalCount"));
-		return "common/adminFlashList";
+		return "common/adminPaymentList";
 	}
 	
 	
 	@RequestMapping(value="/common/mainSearch")
-	public String mainSearch(@RequestParam(defaultValue = "0" ) int interestNo, @RequestParam(required=false) String addr, 
+	public String mainSearch( 
 			@RequestParam("type") int type, Search search, Model model) throws Exception {
 		
+		System.out.println(search);
 		if(type == 1) {
-			
 			System.out.println("moimSearch");
 			model.addAttribute("list", moimService.getMoimList(search).get("list"));
 			return "moim/moimMain";
@@ -144,12 +144,6 @@ public class CommonController {
 		}
 	}
 	
-	
-	@RequestMapping(value="arrow")
-	public String arrow () {
-		
-		return "arrows";
-	}
 		
 //		@CrossOrigin(origins = "http://localhost:82")
 //		@GetMapping(value="/chat/chatList")

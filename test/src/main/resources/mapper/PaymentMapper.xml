@@ -83,16 +83,17 @@
 	 </select>
 	
 	<!-- 관리자 파트 결제 코인 등 -->
-	<select id="adminPaymentList" parameterType="search" resultMap="paymentSelectMap">
-		SELECT PAYMENT_NO, PAYMENT_REGDATE, PAYMENT_ROLE, PAYMENT_USER_ID PAYMENT_PRICE, 
+	<select id="adminPaymentList" resultMap="paymentSelectMap">
+		SELECT PAYMENT_NO, PAYMENT_REGDATE, PAYMENT_ROLE, PAYMENT_USER_ID , PAYMENT_PRICE, 
 		PAYMENT_COIN_COUNT
 		FROM PAYMENT
 		ORDER BY
 		<choose>
-			<when test="option == 'PRICE_ASC'">PAYMENT_PRICE ASC</when>
-			<when test="option == 'PRICE_DESC'">PAYMENT_PRICE DESC</when>
-			<when test="option == 'REGDATE_ASC'">PAYMENT_PRICE ASC</when>
-			<when test="option == 'REGDATE_DESC'">PAYMENT_PRICE DESC</when>
+			<when test="payment.option == 'PRICE_ASC'">PAYMENT_PRICE ASC</when>
+			<when test="payment.option == 'PRICE_DESC'">PAYMENT_PRICE DESC</when>
+			<when test="payment.option == 'REGDATE_ASC'">PAYMENT_PRICE ASC</when>
+			<when test="payment.option == 'REGDATE_DESC'">PAYMENT_PRICE DESC</when>
+			<otherwise>PAYMENT_REGDATE DESC</otherwise>
 		</choose>
 	</select>
 	
