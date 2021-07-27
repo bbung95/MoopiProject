@@ -1,11 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title> 로그인 뷰 / 로그인 화면페이지 </title>
+<title>로그인 뷰 / 로그인 화면페이지</title>
 
 <!-- Core theme CSS (includes Bootstrap)-->
 	<link href="/css/styles.css" rel="stylesheet" />
@@ -14,28 +15,32 @@
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 
-<!-- 구글폰트api -->	
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@300&display=swap" rel="stylesheet">
-	
+<!-- 구글폰트api -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+	href="https://fonts.googleapis.com/css2?family=Gaegu:wght@300&display=swap"
+	rel="stylesheet">
+
 <!-- Bootstrap Dropdown Hover JS -->
-	<script src="/javascript/bootstrap-dropdownhover.min.js"></script>	
-	
+<script src="/javascript/bootstrap-dropdownhover.min.js"></script>
+
 <!-- Favicon-->
-	<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
 
 <!-- Bootstrap icons-->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
 	
 <!-- 카카오로그인 -->
-	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 
 <!-- 구글로그인 -->
-	<script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
-	<meta name="google-signin-scope" content="profile email">
-	<meta name ="google-signin-client_id" content="959630660117-f5d12kulu8hloob7jid8f0jfeenr57sv.apps.googleusercontent.com">
-	<script src="https://apis.google.com/js/platform.js" async defer></script>
+<script src="https://apis.google.com/js/platform.js?onload=init" async
+	defer></script>
+<meta name="google-signin-scope" content="profile email">
+<meta name="google-signin-client_id"
+	content="959630660117-f5d12kulu8hloob7jid8f0jfeenr57sv.apps.googleusercontent.com">
+<script src="https://apis.google.com/js/platform.js" async defer></script>
 
 <!-- 네이버로그인 -->
 	<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
@@ -294,16 +299,16 @@
 
 <body>
 
-<!-- Tool Bar ---------------------------------------------------------------------------------------------------------------->
-<!---------------------------------------------------------------------------------------------------------------------------->
+	<!-- Tool Bar ---------------------------------------------------------------------------------------------------------------->
+	<!---------------------------------------------------------------------------------------------------------------------------->
 
-<!-- 화면구성 div Start ---------------------------------------------------------------------------------------------------------------->
-<div>
-	<a href="javascript:history.back()">
-	<img class="img-back" src="../images/icons/icon_back.png" width="25" name="back"></a>
-</div>
+	<!-- 화면구성 div Start ---------------------------------------------------------------------------------------------------------------->
+	<div>
+		<a href="javascript:history.back()"> <img class="img-back"
+			src="../images/icons/icon_back.png" width="25" name="back"></a>
+	</div>
 
-	<div class="d-lg-flex half" >
+	<div class="d-lg-flex half">
 		<div class="bg order-1 order-md-2"></div>
 			<div class="contents order-2 order-md-1"> 
 				<div class="container">
@@ -366,10 +371,69 @@
 								</div>
 							</form>
 						</div>
+
+						<form action="#" method="post">
+
+							<!-- 아이디입력 -->
+							<div class="form-group first">
+								<label for="userId">ID</label> <input type="text"
+									class="form-control" id="userId" name="userId">
+							</div>
+
+							<!-- 패스워드입력 -->
+							<div class="form-group last mb-3">
+								<label for="password">Password</label> <input type="password"
+									class="form-control" id="password" name="password">
+							</div>
+
+							<!-- 아이디찾기 -->
+							<div class="d-flex mb-2 align-items-center">
+								<a href="javascript:findId();" class="forgot-pass">Forgot
+									Id?</a></span>
+							</div>
+
+							<!-- 패스워드찾기 -->
+							<div class="d-flex mb-4 align-items-center">
+								<a href="javascript:findPwd();" id="findPwd" class="forgot-pass">Forgot
+									Password?</a>
+							</div>
+
+							<!-- 로그인버튼 -->
+							<div style="text-align: center;">
+								<a><input type="submit" value="Login"
+									class="btn btn-block btn-basic" onClick="javascript:fncLogin()"></a>
+							</div>
+							<div style="text-align: center;">
+								<a href="/user/addUserView" style="color: black;">회원가입</a>
+							</div>
+
+							<!-- 회색글씨 -->
+							<span class="d-block text-center my-3 text-muted">&mdash;
+								or &mdash;</span>
+
+							<div class="social-login">
+								<a
+									class="Kakao btn d-flex justify-content-center align-items-center"
+									name="kakaoLogin" onclick="javascript:KakaoLogin()"> <img
+									src="../images/API/kakao_btn.png" width="200" name="kakaoLogin">
+									<span class="icon-Kakao mr-3"></span>
+								</a> <a
+									class="kakao btn d-flex justify-content-center align-items-center"
+									id="naverIdLogin" onclick="javascipt:NaverLogin()"> <img
+									src="../images/API/naver_btn.png" width="200" name="naverLogin">
+									<span class="icon-Naver mr-3"></span>
+								</a> <a
+									class="google btn d-flex justify-content-center align-items-center"
+									name="googleLogin" id="googleLogin"
+									onclick="javascript:googleSign(googleUser)"> <img
+									src="../images/API/google_btn.png" width="200"
+									name="googleLogin"> <span class="icon-Google mr-3"></span>
+								</a>
+							</div>
+						</form>
 					</div>
 				</div>
 			</div>
 		</div>
-			
 </body>
 </html>
