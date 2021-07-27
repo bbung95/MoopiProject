@@ -405,4 +405,15 @@ public class UserRestController {
 		
 		return boardService.getBoardList(search, "3", "1", userId);
 	}
+	
+	@GetMapping(value="json/getMyBoard/{boardNo}")
+	public Map<String, Object> getMyBoard(@PathVariable int boardNo ) throws Exception{
+		
+		System.out.println("getMyBoard : GET");
+		
+		Map <String, Object> map = new HashMap<String, Object>();
+		map.put("board", boardService.getBoard(boardNo));
+		
+		return map;
+	}
 }

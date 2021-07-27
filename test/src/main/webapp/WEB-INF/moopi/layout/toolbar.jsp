@@ -15,12 +15,20 @@
 	margin-left: 20px;
 	margin-bottom: 20px;
 }
+
+#toolbar{
+	background: white;
+}
+
+.toolbar_i{
+	font-size : 20px;
+}
 </style>
 
 
 <!-- ToolBar Start /////////////////////////////////////-->
 <nav
-	class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="toolbar">
+	class="navbar navbar-expand-lg navbar-light  fixed-top" id="toolbar">
 	<div class="container px-5">
 		<a class="navbar-brand" href="/">Moopi</a>
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -46,7 +54,7 @@
 				<li class="nav-item dropdown" id="noticeCount">
 					<a class="nav-link dropdown-toggle" id="navbarDropdownBlog"
 						href="#" role="button" data-bs-toggle="dropdown"
-						aria-expanded="false"><i class="bi bi-envelope"></i></a>
+						aria-expanded="false"><i class="bi bi-envelope toolbar_i"></i></a>
 					<ul class="dropdown-menu dropdown-menu-end"
 						aria-labelledby="navbarDropdownPortfolio" id="noticeList">
 						<div align="right">
@@ -56,11 +64,11 @@
 					</ul>
 				</li>
 				
-				<li class="nav-item chatbtn"><a class="nav-link"><i class="bi bi-chat"></i></a></li>
+				<li class="nav-item chatbtn"><a class="nav-link"><i class="bi bi-chat toolbar_i"></i></a></li>
 				<li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle" id="navbarDropdownPortfolio"
 						href="#" role="button" data-bs-toggle="dropdown"
-						aria-expanded="false"><i class="bi bi-list" style="width: 50px; height: 50px;"></i></a>
+						aria-expanded="false"><img src="/images/uploadFiles/${dbUser.profileImage}" style="width: 30px; height: 30px; border-radius: 50%;"/></a>
 					<ul class="dropdown-menu dropdown-menu-end"
 						aria-labelledby="navbarDropdownPortfolio">
 						<li><a class="dropdown-item" >마이홈</a></li>
