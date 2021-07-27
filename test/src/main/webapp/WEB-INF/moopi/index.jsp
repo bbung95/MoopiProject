@@ -120,9 +120,10 @@ body>#mainlogo {
 						<div>
 
 							<form id="mainSearch">
-								<input type="hidden" class="interest" name="interestNo" value="">
+								<input type="hidden" class="interest" name="interestNo" value="0">
 								<input type="hidden" class="addr" name="addr" value="">
 								<input type="hidden" class="order" name="type" value="">
+								<input type="hidden" class="searchCondition" name="searchCondition" value="">
 								<div class="dropdown mt-3" style="margin-bottom: 10px;">
 									<button class="btn btn-light dropdown-toggle selectbtn"
 										type="button" data-bs-toggle="dropdown" id="interestbtn">
@@ -141,7 +142,7 @@ body>#mainlogo {
 										Addr</button>
 									<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton"
 										id="addr">
-										
+
 									</ul>
 								</div>
 								<div>
@@ -168,10 +169,11 @@ body>#mainlogo {
 		let addrs = [ "종로구", "중구", "용산", "성동구", "광진구", "동대문구", "중랑구", "성북구",
 				"강북구", "도봉구", "노원구", "은평구", "마포구", "양천구", "강서구", "구로구", "금천구",
 				"영등포구", "동작구", "관악구", "서초구", "강남구", "송파구", "강동구" ];
-		
-		for(var i= 0; i < addrs.length; i++){
-			
-			let display = '<li><a class="dropdown-item" href="#">'+addrs[i]+'</a></li>';
+
+		for (var i = 0; i < addrs.length; i++) {
+
+			let display = '<li><a class="dropdown-item" href="#">' + addrs[i]
+					+ '</a></li>';
 			$('#addr').append(display);
 		}
 
@@ -187,13 +189,24 @@ body>#mainlogo {
 			$('.interest').val($(this).attr('type'));
 		})
 
-		$('.srchbtn').on(
-				'click',
-				function() {
-					$('.order').val($(this).attr('order'));
-					$('#mainSearch').attr('method', "Get").attr("action",
-							"/common/mainSearch").submit();
-				})
+		$('.srchbtn').on('click', function() {
+			
+			let addr = $('.addr').val();
+			let interest = $('.interest').val();
+			
+			if(interest != 0 && addr != ''){
+				$('.searchCondition').val("4");
+			}else if(interest != 0){
+				$('.searchCondition').val("1");
+			}else if(addr != ''){
+				$('.searchCondition').val("2");
+			}else{
+				$('.searchCondition').val("0");
+			}
+			
+			$('.order').val($(this).attr('order'));
+			$('#mainSearch').attr('method', "Get").attr("action", "/common/mainSearch").submit();
+		})
 	</script>
 </body>
 </html>

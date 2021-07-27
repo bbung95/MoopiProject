@@ -248,11 +248,13 @@ public class UserController {
 			}
 		}
 		
+		System.out.println("ddddddd"+moimService.getMyMoimList(userId).get("list"));
+		
 		model.addAttribute("user", userService.getUser(userId));
+		model.addAttribute("moim", moimService.getMyMoimList(userId).get("list"));
 		model.addAttribute("folloingCount", userService.getFollowCount(userId, 1));
 		model.addAttribute("followerCount", userService.getFollowCount(userId, 2));
 		model.addAttribute("followCheck", check);
-		model.addAttribute("moimList", moimService.getMyMoimList(userId).get("list"));
 		///////
 		return "user/getMyHome";
 	}	
