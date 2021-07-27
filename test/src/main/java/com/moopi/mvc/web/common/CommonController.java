@@ -142,6 +142,14 @@ public class CommonController {
 			model.addAttribute("list", flashService.getFlashList(search).get("list"));
 			return "flash/flashMain";
 		}
+	}
+	
+	
+	@RequestMapping(value="arrow")
+	public String arrow () {
+		
+		return "arrows";
+	}
 		
 //		@CrossOrigin(origins = "http://localhost:82")
 //		@GetMapping(value="/chat/chatList")
@@ -166,5 +174,4 @@ public class CommonController {
 //				return "common/groupRoom";
 //			}
 //		}
-	}
 }
