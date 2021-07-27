@@ -27,8 +27,18 @@
 	src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script src="/javascript/jquery.bpopup-0.1.1.min.js"></script>
 
+
+<!---[마이홈으로 이동하는 단순 컨트롤러 실행]----------------------------------------------------------------------------------------------------------------------->	
+		$("button[name='movePU']").on("click", function(){
+			location.href = "/user/updateProfile"
+		});
+<!-------------------------------------------------------------------------------------------------------------------------->
+
+</script>
+
 <!-- Link Swiper's CSS -->
 <link rel="stylesheet" href="/css/swiper.min.css">
+
 
 <style>
 .userEL8993463 {

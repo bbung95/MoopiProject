@@ -26,7 +26,10 @@ public interface UserDao {
 	public User getUser(String userId);
 	
 	// 회원정보수정
-	public User updateUser(User user) throws Exception;
+	public void updateUser(User user) throws Exception;
+	
+//	// 계정정보수정
+//	public User updateUserView(User user) throws Exception;
 	
 	// 회원탈퇴시 [UserRole - 5.탈퇴회원]
 	public void updateLeaveUser(User user) throws Exception;
