@@ -62,7 +62,7 @@
 
 
         function fncUptMoimView(mmNo){
-        	alert("모임수정");
+        	swal("모임수정");
         	self.location ="/moim/updateMoimView?mmNo="+mmNo
         }
 
@@ -73,22 +73,22 @@
         		self.location ="/moim/applyMoim?userId=${dbUser.userId}&mmNo="+mmNo	
         	</c:if>
         	<c:if test = "${empty dbUser.userId}">
-        	alert("회원가입이 필요한 페이지입니다.");
+        	swal("회원가입이 필요한 페이지입니다.");
         	</c:if>
         }
 
         function fncApplyList(mmNo){
-        	alert("가입신청목록보기");
+        	swal("가입신청목록보기");
         	self.location ="/moim/listMember?status=1&mmNo="+mmNo
         }
 
         function fncListMember(mmNo){
-        	alert("유저목록보기");
+        	swal("유저목록보기");
         	self.location ="/moim/listMember?status=2&mmNo="+mmNo
         }
 
         function fncListMeeting(mmNo){
-        	alert("정모일정보기");
+        	swal("정모일정보기");
         	self.location ="/meeting/listMeeting?userId=${dbUser.userId}&mmNo="+mmNo
         }
 
@@ -99,12 +99,13 @@
         
         function fncGetBoard(){
         	swal("게시글보기");
-        	self.location ="/moim/listMoimBoard?category=4&boardMoimNo=${moim.mmNo}";
+        	self.location ="/moim/listMoimBoard?category=4&boardMoimNo=${moim.mmNo}"
         }
         
-        function fncInvite(){
+        function fncInvite(mmNo){
         	swal("초대목록보기");
-        	self.location= "/moim/listInvite";
+        	console.log(mmNo);
+        	self.location= "/moim/listInvite?mmNo="+mmNo
         }
 </script>
 
@@ -189,7 +190,7 @@ img.whale{
         <h1 onClick="fncGetBoard()">Board</h1>
         <h1 id="choose">Join Us</h1>
         <h1 onClick="fncListMeeting(${moim.mmNo})">Meeting</h1>
-        <h1 onClick="fncInvite()">Invite</h1>
+        <h1 onClick="fncInvite(${moim.mmNo})">Invite</h1>
         <h1 onClick="fncListMember(${moim.mmNo})">Member</h1>
         <c:if test = "${dbUser.userId eq moim.mmConstructor.userId}">
 		<button type="button" class="btn btn-default" onClick="fncUptMoimView(${moim.mmNo})">Update</button>
@@ -216,31 +217,30 @@ img.whale{
 	});
 
 	$("h1:contains('Home')").on("click", function(){
-		alert("홈클릭");
+// 		alert("홈클릭");
 		location.href = "/moim/getMoim?mmNo=${moim.mmNo}";
 	})
 	
 	$("h1:contains('Board')").on("click", function(){
-		alert("게시글클릭");
+// 		alert("게시글클릭");
 		location.href = "/moim/listMoimBoard?category=4&boardMoimNo=${moim.mmNo}";
 	})
 		
 	
 	$("h1:contains('Meeting')").on("click", function(){
-		alert("정모클릭");
+// 		alert("정모클릭");
 		location.href = "/meeting/listMeeting?userId=${dbUser.userId}&mmNo=${moim.mmNo}";
 		
 	})
 	
-	$("h1:contains('Invite')").on("click", function(){
-		alert("초대하기클릭");
-		location.href = "/moim/listInvite"
-		
-	})
+// 	$("h1:contains('Invite')").on("click", function(){
+// 		alert("초대하기클릭");
+// 		location.href = "/moim/listInvite"
+// 	})
 	
 	$("h1:contains('Member')").on("click", function(){
-		alert("멤버목록클릭");
-		self.location = "/meeting/listMeeting?userId=${dbUser.userId}&mmNo=${moim.mmNo}";
+// 		alert("멤버목록클릭");
+// 		self.location = "/meeting/listMeeting?userId=${dbUser.userId}&mmNo=${moim.mmNo}";
 		
 	})
 	

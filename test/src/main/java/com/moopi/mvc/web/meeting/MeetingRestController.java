@@ -138,5 +138,18 @@ public class MeetingRestController {
 			model.addAttribute("list", map.get("list"));
 			return map;
 		}
+		
+		
+		//정모 지도 Ajax 통신
+		@RequestMapping("/json/mapView")
+		public String getMapView(@RequestParam("mtContent")String mtContent, @RequestParam("mtAddr")String mtAddr, @RequestParam("lat") String lat, @RequestParam("lng")String lng, Model model) throws Exception{
+			model.addAttribute("lat", lat);
+			model.addAttribute("lng", lng);
+			model.addAttribute("mtAddr", mtAddr);
+			model.addAttribute("mtContent", mtContent);
+			System.out.println("맵을 표시한다.");
+				return "moim/mapView";	
+		}
+		
 
 }

@@ -47,7 +47,6 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 
-@Controller
 @RestController
 @RequestMapping("/user/*")
 public class UserRestController {
@@ -363,9 +362,20 @@ public class UserRestController {
 		String fileName = "";
 		if (uploadFiles != null) {
 			for (MultipartFile file : uploadFiles) {
+				
+				// 랜덤 키
+				String[] array = new String[6];
+				String key = new String();
+				Random rd = new Random(); 
+
+				for (int i = 0; i < array.length; i++) {
+					array[i] = Integer.toString(rd.nextInt(10));
+					key += array[i];
+				}
+				
 				String uploadFile = "";
 				long currentTime = System.currentTimeMillis();
-				uploadFile = currentTime + file.getOriginalFilename();
+				uploadFile = currentTime + key + file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
 				fileName += uploadFile + "/";
 				try {
 					file.transferTo(new File(saveDir + "/" + uploadFile));
@@ -394,5 +404,16 @@ public class UserRestController {
 		search.setCurrentPage(currentPage);
 		
 		return boardService.getBoardList(search, "3", "1", userId);
+	}
+	
+	@GetMapping(value="json/getMyBoard/{boardNo}")
+	public Map<String, Object> getMyBoard(@PathVariable int boardNo ) throws Exception{
+		
+		System.out.println("getMyBoard : GET");
+		
+		Map <String, Object> map = new HashMap<String, Object>();
+		map.put("board", boardService.getBoard(boardNo));
+		
+		return map;
 	}
 }
