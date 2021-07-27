@@ -111,9 +111,11 @@
 			type : "GET",
 			dataType : "json",
 			contentType : "application/json",
-			success : function(data, state) {				
-				var nickname = "jsonData.nickname";				
-				$("#nickname").val();
+			success : function(data, state) {	
+				var nickname = data.nickname;	
+				alert(nickname);
+				
+				$('.mainNickname').text(nickname);
 			}
 		});
 	} */
@@ -301,7 +303,7 @@
 							<div class="text-box" style="margin-top: 20px;">
 								<h5 class="head_title" data-edit="true" data-selector="h5.head_title">
 									<!-- 닉네임 -->
-									<span class="fsize15"><strong>${dbUser.nickname}</strong></span>																													
+									<span class="fsize15"><strong class="mainNickname">${dbUser.nickname}</strong></span>																													
 								</h5>
 							</div>
 						</div>
@@ -311,17 +313,17 @@
 				<!-- 닉네임수정 -->
                 <div class="profileContent px-4 px-1">
                     <label class="block text-sm text-gray-00" for="userId">닉네임</label>
-					<input class="w-full px-4 py-1 text-gray-700 bg-gray-200 rounded" type="text" style="color:gray;" type="text" name="nickname" id="userNickname" value="${dbUser.nickname}" aria-label="nn" placeholder="닉네임 입력해주세요">						
-					<div class="check_font" id="NNCheck" style="font-size : 12px" ></div>	
-					<button class="px-4 py-0 text-white font-light tracking-wider bg-gray-900 rounded" id="updatebtn" name="updatebtn" type="submit" onclick="javascript:updateNN()">수정</button>							
+					<input class="w-full px-4 py-1 text-gray-700 bg-gray-200 rounded" type="text" style="color:gray;" name="nickname" id="userNickname" value="${dbUser.nickname}" aria-label="nn" placeholder="닉네임 입력해주세요">						
+					<div class="check_font" id="NNCheck" style="height: 20px; font-size : 12px" ></div>	
+					<button class="px-4 py-0 text-white font-light tracking-wider bg-gray-900 rounded button" id="updatebtn" name="updatebtn" type="button" onclick="javascript:updateNN()" style="margin-top: 0px;">수정</button>							
 					<div></div> 
                 </div>         	     
          	      
          	    <!-- 프로필소개 -->
                 <div class="profileContent px-4 px-1">
-                    <label class="block text-sm text-gray-00" for="userId">프로필소개</label>
+                    <label class="block text-sm text-gray-00" for="userId" >프로필소개</label>
 					<input class="w-full px-4 py-5 text-gray-700 bg-gray-200 rounded" style="color:gray;" id="profileContent" name="profileContent" type="text" required="" value="${dbUser.profileContent}" aria-label="profileContent" placeholder="프로필소개를 입력해주세요">						
-					<button class="px-4 py-0 text-white font-light tracking-wider bg-gray-900 rounded" id="updateContent" name="updateContent" type="submit" onclick="javascript:updatePC()">수정</button>		
+					<button class="px-4 py-0 text-white font-light tracking-wider bg-gray-900 rounded button" id="updateContent" name="updateContent" type="button" onclick="javascript:updatePC()" >수정</button>		
 					<div></div> 
                 </div>                               
                 
@@ -331,7 +333,7 @@
 	                    <label class="block text-sm text-gray-00" for="address">주소</label>
 	                   
 	                    <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" type="text"  id="fullAddr" name="fullAddr" value="${dbUser.fullAddr}" placeholder="주소지 검색을 눌러주세요" readonly >
-						<button class="px-4 py-0 text-white font-light tracking-wider bg-gray-900 rounded" id="adrSearch" name="addr" type="submit" onclick="javascript:searchAdr()">검색</button>		
+						<button class="px-4 py-0 text-white font-light tracking-wider bg-gray-900 rounded button" id="adrSearch" name="addr" type="button" onclick="javascript:searchAdr()">검색</button>		
 	                </div>
 				</div>
 
@@ -393,7 +395,7 @@
 
 					</div>
 					<div>				
-						<button class="px-4 py-0 text-white font-light tracking-wider bg-gray-900 rounded" id="img_btn" name="img_btn" type="submit" onclick="javascript:updateInterest()">수정</button>	
+						<button class="px-4 py-0 text-white font-light tracking-wider bg-gray-900 rounded" id="img_btn" name="img_btn" type="button" onclick="javascript:updateInterest()">수정</button>	
 					</div>
 				</div>
 				

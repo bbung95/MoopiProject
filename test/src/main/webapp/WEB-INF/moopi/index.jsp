@@ -19,12 +19,6 @@
 
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link
-	href="https://fonts.googleapis.com/css2?family=Gaegu:wght@300&display=swap"
-	rel="stylesheet">
-
 <!-- Bootstrap Dropdown Hover JS -->
 <script src="/javascript/bootstrap-dropdownhover.min.js"></script>
 
@@ -85,7 +79,6 @@
 body {
 	padding-top: 50px;
 	margin: auto;
-	font-family: 'Gaegu', cursive;
 }
 
 body>#mainlogo {
@@ -97,6 +90,14 @@ body>#mainlogo {
 	width: 250px;
 	height: 50px;
 	margin: 5px;
+	background: #ebf2f7;
+}
+
+.srchbtn {
+	width: 80px;
+	height: 50px;
+	background: #d1e0e3;
+	color: black;
 }
 </style>
 </head>
@@ -104,7 +105,7 @@ body>#mainlogo {
 
 	<jsp:include page="layout/toolbar.jsp"></jsp:include>
 
-	<header class="bg-dark py-5">
+	<header class="bg-primary py-5">
 		<div class="container px-5">
 			<div class="row gx-5 align-items-center justify-content-center">
 				<div class="col-xl-5 col-xxl-6 d-none d-xl-block text-center">
@@ -140,17 +141,12 @@ body>#mainlogo {
 										Addr</button>
 									<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton"
 										id="addr">
-										<li><a class="dropdown-item" href="#">Action</a></li>
-										<li><a class="dropdown-item" href="#">Another action</a></li>
-										<li><a class="dropdown-item" href="#">Something else
-												here</a></li>
+										
 									</ul>
 								</div>
 								<div>
-									<button class="btn btn-secondary srchbtn" type="button"
-										order="1">모임</button>
-									<button class="btn btn-secondary srchbtn" type="button"
-										order="2">번개</button>
+									<button class="btn btn-light srchbtn" type="button" order="1">모임</button>
+									<button class="btn btn-light srchbtn" type="button" order="2">번개</button>
 								</div>
 							</form>
 
@@ -160,20 +156,25 @@ body>#mainlogo {
 			</div>
 		</div>
 	</header>
-
-	<button type="button" class="btn btn-primary" id="listReport">신고관리</button>
-	<%-- 		</c:if> --%>
-	<button type="button" class="btn btn-primary" id="map">지도</button>
-	<button type="button" class="btn btn-primary" id="mapView">지도보기</button>
-
-	<%-- 	</c:if> --%>
+	<jsp:include page="layout/footer.jsp"></jsp:include>
 	<jsp:include page="layout/searchbar.jsp"></jsp:include>
+
 	<!-- Bootstrap core JS-->
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 	<!-- Core theme JS-->
 	<script src="/js/scripts.js"></script>
 	<script>
+		let addrs = [ "종로구", "중구", "용산", "성동구", "광진구", "동대문구", "중랑구", "성북구",
+				"강북구", "도봉구", "노원구", "은평구", "마포구", "양천구", "강서구", "구로구", "금천구",
+				"영등포구", "동작구", "관악구", "서초구", "강남구", "송파구", "강동구" ];
+		
+		for(var i= 0; i < addrs.length; i++){
+			
+			let display = '<li><a class="dropdown-item" href="#">'+addrs[i]+'</a></li>';
+			$('#addr').append(display);
+		}
+
 		$('#addr > li > a').on('click', function() {
 
 			$('#addrbtn').text($(this).text());

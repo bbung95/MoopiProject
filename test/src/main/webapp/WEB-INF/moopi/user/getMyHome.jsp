@@ -19,18 +19,16 @@
 <!-- Core theme CSS (includes Bootstrap)-->
 <link href="/css/styles.css" rel="stylesheet" />
 <!-------------------------------------------------------------------------------------------------------------------------->
+
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 
-<script>
+<!-- jquery bpop -->
+<script
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="/javascript/jquery.bpopup-0.1.1.min.js"></script>
 
-<!---[마이홈으로 이동하는 단순 컨트롤러 실행]----------------------------------------------------------------------------------------------------------------------->	
-
-		$("button[name='movePU']").on("click", function(){
-			location.href = "/user/updateProfile"
-		});
-<!-------------------------------------------------------------------------------------------------------------------------->
-
-</script>
+<!-- Link Swiper's CSS -->
+<link rel="stylesheet" href="/css/swiper.min.css">
 
 <style>
 .userEL8993463 {
@@ -124,7 +122,6 @@
 	vertical-align: top;
 }
 
-
 .userEL8990950 .item .cont-wrap ul {
 	margin: 5px auto;
 	display: inline-block;
@@ -135,22 +132,89 @@
 	float: left;
 	line-height: 1.4;
 }
-
-
-
 </style>
+<style>
+.userEL9007628 {
+	position: relative;
+	border: 1px solid black;
+	margin: 0 auto;
+	background-color:;
+	background-image: none;
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: cover;
+	color:;
+	font-family: Montserrat, "Nanum Gothic";
+	font-size: 13px;
+}
 
+.userEL9007628 .divider-box {
+	position: relative;
+	margin: 0 auto 0 0;
+	width: 25%;
+}
+
+.userEL9007628 hr {
+	border: 0;
+	border-top: 3px solid #03d663;
+	height: 1px;
+}
+
+.userEL9007628 h2.head_title {
+	font-weight: normal;
+	font-size: inherit;
+	margin-top: 40px;
+	margin-bottom: 30px;
+}
+
+.userEL9007628 p {
+	margin-bottom: 0;
+}
+
+@media only screen and (min-width:992px) {
+	.userEL9007628 .text-wrap {
+		padding-left: 30px;
+	}
+	.userEL9007628 .img-wrap {
+		padding-right: 30px;
+	}
+}
+
+@media only screen and (max-width:991px) {
+	.userEL9007628 h2.head_title {
+		margin-top: 32px;
+		margin-bottom: 24px;
+	}
+	.userEL9007628 .img-wrap {
+		margin-top: 30px;
+	}
+}
+
+@media only screen and (max-width:767px) {
+	.userEL9007628 h2.head_title {
+		margin-top: 20px;
+		margin-bottom: 15px;
+	}
+	.userEL9007628 .img-wrap {
+		margin-top: 20px;
+	}
+}
+</style>
 <style>
 body {
 	margin: 0 auto;
 }
 
-#homeContainer {
-	margin: auto;
-}
-
 .profileImg {
 	border-radius: 50%;
+}
+
+.boardProfile{
+	border-radius: 50%;
+	width : 40px;
+	height: 40px;
+	margin-top: 10px;
+	margin-bottom : -10px;
 }
 
 .moimImg {
@@ -161,10 +225,12 @@ body {
 }
 
 .interest {
-	border: 0.5px solid gray;
-	padding: 2px;
+	padding: 17px 12px 17px 12px;
 	border-radius: 4px;
-	background: #ebe8e4;
+	border: 0.5px solid gray;
+	padding: 17px 12px 17px 12px;
+	border-radius: 4px;
+	background: #ededed;
 }
 
 .thumbnail-wrapper {
@@ -188,10 +254,64 @@ body {
 	transform: translate(50%, 50%);
 }
 
+/* bpopup */
+#element_to_pop_up {
+	display: none;
+}
+
+/* Swiper sliber */
+.swiper-container {
+	width: 100%;
+	height: 100%;
+}
+
+.swiper-slide {
+	text-align: center;
+	font-size: 18px;
+	background: #fff;
+	/* Center slide text vertically */
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-pack: center;
+	-ms-flex-pack: center;
+	-webkit-justify-content: center;
+	justify-content: center;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	-webkit-align-items: center;
+	align-items: center;
+}
+
+.board_i > i{
+	font-size: 20px;
+	margin-left: 10px; 
+}
+
 .thumbnail-img {
 	/*   max-width: 100%; */
 	/*   height: 박스의 height와 같아야 한다. */
 	transform: translate(-50%, -50%);
+}
+
+@media ( min-width : 768px) {
+	.container {
+		width: 750px;
+	}
+}
+
+@media ( min-width : 992px) {
+	.container {
+		width: 940px;
+	}
+}
+
+/*사실 이 블럭은 없어도 된다*/
+@media ( min-width : 1200px) {
+	.container {
+		width: 940px;
+	}
 }
 </style>
 </head>
@@ -212,7 +332,7 @@ body {
 					<img
 						src="//storage.googleapis.com/i.addblock.net/sample/content_image_46_1.jpg"
 						class="img-responsive profileImg" data-attach="true"
-						data-fixedsize="true" data-fixed-width="300" style="width: 300px;">
+						data-fixedsize="true" data-fixed-width="250" style="width: 250px;">
 					<div class="text-box" style="margin-top: 20px;">
 						<p class="desc" data-edit="true" data-selector="p">
 							<span class="fsize14">"${user.profileContent}"</span>
@@ -265,7 +385,7 @@ body {
 				</div>
 			</div>
 
-			<hr />
+			<hr / style="margin-bottom: 25px;">
 
 			<div class="text-center">
 				<c:if test="${!empty user.interestFirst}">
@@ -275,20 +395,36 @@ body {
 					<span class="interest">${user.interestSecond}</span>
 				</c:if>
 				<c:if test="${!empty user.interestThird}">
-					<span class="interest">${user.interestThird}</span>
+					<span class="interest"><i class="bi bi-joystick"></i>${user.interestThird}</span>
 				</c:if>
 			</div>
 
 			<!-- 바디 -->
 			<div class="userEL8990950 colorSet" data-forum-type="thumb"
 				data-fcolor="#191919">
-				<div class="container">
-					<!-- 게시글 생성박스 -->
-					<div id="boardView" class="row multi-columns-row"></div>
-					<div id="loadbar"></div>
+				<!-- 게시글 생성박스 -->
+				<div id="boardView" class="row multi-columns-row"></div>
+				<div id="loadbar"></div>
+			</div>
+		</div>
+	</main>
+
+	<!-- get board view -->
+	<div class="container" id="element_to_pop_up">
+		<div class="row" >
+			<div class="col-xs-8 col-sm-8 col-md-8">
+				<div class="swiper-container">
+					<div class="swiper-wrapper">
+					</div>
+					<div class="swiper-pagination"></div>
+					<div class="swiper-button-next"></div>
+					<div class="swiper-button-prev"></div>
 				</div>
 			</div>
-	</main>
+			<div class="col-xs-4 col-sm-4 col-md-4 text-wrap" style="background: white;" id="element_content">
+			</div>
+		</div>
+	</div>
 
 	<!-- Modal -->
 	<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
@@ -304,11 +440,11 @@ body {
 
 				<div class="modal-body">
 					<form id="upload">
-						<div class="dropBox" style="width: 100%; height: 300px;"></div>
+						<div id="dropBox" style="width: 100%; height: 300px;"></div>
 						<input type="hidden" name="userId" value="${dbUser.userId}" />
 						<button type="button" class="uploadbtn btn btn-light">업로드</button>
 						<input style="display: none" id="uploadFiles" type="file"
-							name="uploadFiles" multiple="multiple">
+							multiple="multiple">
 						<textarea name="boardContent"
 							style="width: 100%; height: 100px; resize: none"></textArea>
 					</form>
@@ -323,6 +459,7 @@ body {
 		</div>
 	</div>
 
+
 	<jsp:include page="../layout/searchbar.jsp"></jsp:include>
 
 
@@ -332,8 +469,22 @@ body {
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 	<!-- Core theme JS-->
 	<script src="/js/scripts.js"></script>
+	<!-- Swiper JS -->
+	<script src="/javascript/swiper.min.js"></script>
 
+	<!-- Initialize Swiper -->
 	<script>
+    var swiper = new Swiper('.swiper-container', {
+        pagination: '.swiper-pagination',
+        paginationClickable: false,
+        nextButton: '.swiper-button-next',
+        prevButton: '.swiper-button-prev',
+        spaceBetween: 30,
+        // display none시 슬라이드 적용 오류
+        observeParents: true,
+        observer: true,
+    });
+    
 $('button:contains("채팅")').on('click', function(){
 	
 	let target = $(this).attr('target');
@@ -381,6 +532,7 @@ if(${followCheck}){
 	$('button:contains("팔로우")').attr('class', 'col-xl-6 btn btn-light mybtn')
 }
 
+
 //////// 게시글 등록
 function upload(formData){
 	// formData key &value 확인
@@ -398,11 +550,12 @@ function upload(formData){
                 , data : formData
                 , dataType: 'JSON'
                 , success:function(data, state) {
-                    
+                    	
+                		console.log(data);
                         
                         let fileArry = data.boardFile.split("/");
     					
-    					let displayValue = '<div class="col-xs-4 col-sm-4 col-md-4 no-padding item">'
+    					let displayValue = '<div class="col-xs-4 col-sm-4 col-md-4 no-padding item" onclik="getMyBoard('+data.boardNo+')">'
     										+'<div class="border-wrap op_itemline10">'
     										+'<div class="thumb-wrap">'
     										+'<div class="tpl-forum-list-thumb" >'
@@ -439,16 +592,80 @@ function upload(formData){
                 	}, 3000, displayValue)
                     
                 }
+				
       });
 }
 
+$('#uploadFiles').on('change', (e)=>{ 
+	preView(e , 1);
+});
+
+// 이미지 업로드 미리보기
+function preView(e , type){
+	
+	// 업로드방식
+	if(type == 1){
+		
+		for (var image of e.target.files) { 
+			fileList.push(image);
+			var reader = new FileReader();
+			reader.onload = function(e) {
+				var img = '<img src="'+event.target.result+'" style="width : 200px;">'		
+ 				$('#dropBox').append(img) ;
+			}; 
+			reader.readAsDataURL(image); 
+		} 
+	// 드래그앤 드롭
+	}else if (type == 2 ){
+  		for (var image of e.originalEvent.dataTransfer.files) { 
+  			fileList.push(image);
+  			var reader = new FileReader();
+  			
+  			reader.onload = function(e) {
+  				var img = '<img src="'+event.target.result+'" style="width : 200px;">'		
+  	 			$('#dropBox').append(img) ;
+  			}; 
+  			reader.readAsDataURL(image); 
+  		} 
+	}
+}
+
+
 $('.uploadbtn').on('click', function(){
 	$('#uploadFiles').click();
+	
 });
+
+let fileList = [];
+
+/////// drag & drop event
+$('#dropBox').on("dragenter", function(e){
+ 	 e.preventDefault();
+ 	 e.stopPropagation();
+	}).on("dragover", function(e){
+ 	 e.preventDefault();
+ 	 e.stopPropagation();
+ 	 $(this).css("background-color", "#FFD8D8");
+	}).on("dragleave", function(e){
+ 	 e.preventDefault();
+ 	 e.stopPropagation();
+	  $(this).css("background-color", "#FFF");
+ }).on("drop", function(e){
+	 e.preventDefault();
+ 	 $(this).css("background-color", "#FFF");
+  	
+ 	 preView(e, 2);
+  	
+ });
+///////
+
 
 $('.modal-footer > button:contains("등록")').on('click',function(){
 	let form = $('#upload');
 	let formData = new FormData(form[0]);
+	for(var i in fileList){
+		formData.append("uploadFiles", fileList[i]);
+	}	
 	upload(formData);
 })
 
@@ -482,14 +699,13 @@ if(${followCheck}){
 						method : "GET",
 						dataType : "JSON",
 						success : function(data, status) {
-							console.log(data);
 							let list = data.list;
 							if(list.length > 0){
 							for (var i = 0; i < data.list.length; i++) {
 								
 								let fileArry = list[i].boardFile.split("/");
 								
-								let displayValue = '<div class="col-xs-4 col-sm-4 col-md-4 no-padding item">'
+								let displayValue = '<div class="col-xs-4 col-sm-4 col-md-4 no-padding item" onclick="getMyBoard('+list[i].boardNo+')">'
 													+'<div class="border-wrap op_itemline10">'
 													+'<div class="thumb-wrap">'
 													+'<div class="tpl-forum-list-thumb" >'
@@ -501,21 +717,10 @@ if(${followCheck}){
 													+'</div>'
 													+'</div>'
 													+'</div>'
+													+'<div class="board_i"><i class="bi bi-heart"></i><i class="bi bi-heart-fill"></i>'+list[i].boardLike+'</div>'
 													+'<div class="cont-wrap">'
-													+'<div class="tpl-forum-list-content">'
-													+'<span class="tpl-forum-list-title" data-selector=".tpl-forum-list-title" data-font="true"'
-													+'data-title="title font">Amazing work one really feelslike in a stone age. Impressive!</span>'
-													+'</div>'
-													+'<div class="tpl-forum-list-name tpl-forum-list-etc config-font-etc" data-selector=".tpl-forum-list-etc" data-font="true"'
-													+'data-title="others">Den Kdivinich</div>'
-													+'<ul>'
-													+'<li class="tpl-forum-list-category tpl-forum-list-etc config-font-etc">category</li>'
-													+'<li class="tpl-forum-list-date tpl-forum-list-etc config-font-etc">now</li>'
-													+'<li class="tpl-forum-list-hit tpl-forum-list-etc config-font-etc">1486</li>'
-													+'<li class="tpl-forum-list-comment tpl-forum-list-etc config-font-etc">25</li>'
-													+'</ul>'
 													+'<div class="tpl-forum-list-cont" data-selector=".tpl-forum-list-cont" data-font="true"'
-													+'data-title="content font">Phasellus justo ante, ultrices eget lorem ut, vestibulum ultrices mauris.</div>'
+													+'data-title="content font" style="overflow:hidden; height: 20px;">'+list[i].boardContent+'</div>'
 													+'</div>'
 													+'</div>'
 													+'</div>'
@@ -528,6 +733,48 @@ if(${followCheck}){
 					});
 		}
 		myBoard();
+		
+		
+		function getMyBoard(boardNo){
+			
+			
+			$.ajax({
+				url: "/user/json/getMyBoard/"+boardNo,
+				method : "GET",
+				dataType : "JSON",
+				success: function(data, state){
+					let board = data.board;
+					let reply = data;
+					let fileArry = board.boardFile.split("/");
+					
+					let displayslide = '';
+					let display = '';
+					for(var i= 0; i < fileArry.length-1; i++){
+						displayslide += '<div class="swiper-slide">'
+								    + '<img src="/images/uploadFiles/'+fileArry[i]+'" class="img-responsive" data-attach="true" style="width: 100%; "></div>';
+					}			
+					
+					display += '<div style="display: inline-block;"><img class="boardProfile" src="/images/uploadFiles/'+board.boardWriter.profileImage+'" /><span style="vertical-align: middle;">'+board.boardWriter.nickname+'</span></div>'
+							+ '<hr/>'
+							+ '<p data-edit="true" data-selector="p">'
+							+ '<span class="fsize13">'+board.boardContent+'</span>'
+							+ '</p>'
+							+ '<hr/ style="margin: 0;">'
+							+ '<div class="board_i"><i class="bi bi-heart"></i><i class="bi bi-heart-fill"></i>'+board.boardLike+'</div>'
+									
+					$('.swiper-wrapper').children().remove();
+					$('.swiper-wrapper').append(displayslide);
+					$('#element_content').children().remove();
+					$('#element_content').append(display);
+				}
+			})
+			
+ 			$('#element_to_pop_up').bPopup({
+ 				fadeSpeed: 'slow', //can be a string ('slow'/'fast') or int
+ 				positionStyle: 'fixed',
+	        });
+		}
+		
 </script>
 </body>
 </html>
