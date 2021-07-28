@@ -570,8 +570,8 @@ function fncPopUp(){
 <body>
 
 <!-- ToolBar Start ///////////////////////////////////// -->
-<jsp:include page="../layout/toolbar.jsp" />
-<%-- <jsp:include page="../layout/moimToolbar.jsp"/> --%>
+<%-- <jsp:include page="../layout/toolbar.jsp" /> --%>
+<jsp:include page="../layout/moimToolbar.jsp"/>
 <!-- ToolBar End /////////////////////////////////////-->
 
 <center><h3>Your Meeting Calendar
