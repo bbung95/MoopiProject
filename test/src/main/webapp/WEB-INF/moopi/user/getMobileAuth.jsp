@@ -36,7 +36,6 @@
 			var userId=$('input[name=userId]').val();
 			var AuthNum = $("#AuthNum").val();
 			
-			
 			if(AuthNum == key){				
 				$(function() {	
 					
@@ -44,6 +43,7 @@
 								
 								$("#checkBtn").fadeIn();		
 								var phone = $("#pnNum").val();
+								
 								
 								$("form").attr("method", "POST").attr("action", "/user/searchIdView").submit();					
 						
@@ -53,13 +53,14 @@
 
 						} else {
 						
-								var phone = $("#pnNum").val();
-								
+								var phone=$('input[name=phone]').val();
+								var userId=$('input[name=userId]').val();
 								alert("?setPwd 진입완료");
 								alert("userId : "+userId);
 								alert("phone : "+phone);
 						
-								$("form").attr("method", "POST").attr("action", "/user/updatePwdView").submit();	
+								opener.document.getElementById("pInput").value = document.getElementById("pnNum").value
+								window.close();
 						}					
 					
 						
@@ -184,7 +185,6 @@
 		
 		<!-- userId Hidden -->
  	  	<input type="hidden" class="form-control" id="userId" name="userId" value="${dbUser.userId}" readonly>
- 	  	
  	  	<p class="listUserJoin"> 회원가입시 입력하신 정보로 조회하실 수 있습니다 </p>
  	  	
 		<!-- 번호 입력 후 인증하기 버튼 -->
@@ -203,7 +203,7 @@
 			<div class="form-class">		
 				<label for="mobileAuth" class="col-sm-offset-1 col-sm-2 control-label">인증번호 입력 후 확인버튼 눌러주세요</label>
 					<div class="col-sm-4">
-						<input type="text" class="form-control" id="AuthNum" name="AuthNum" placeholder="04:59">
+						<input type="text" class="form-control" id="AuthNum" name="AuthNum" placeholder="인증번호를 입력해주세요">
 					</div>
 			</div>
 			

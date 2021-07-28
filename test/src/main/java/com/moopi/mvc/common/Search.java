@@ -24,6 +24,8 @@ public class Search {
 	private int startRowNum;
 	private int pageUnit;
 	private String searchCategory;
+	private int interestNo;
+	private String addr;
 	   
 	///Constructor
 	public Search() {
