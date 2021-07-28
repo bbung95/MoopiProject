@@ -78,8 +78,8 @@ public class MoimServiceImpl {
 //	}
 	
 	
-	public void applyMoim(String userId, int mmNo) throws Exception {
-		moimDao.applyMoim(userId, mmNo);
+	public void applyMoim(Member member) throws Exception {
+		moimDao.applyMoim(member);
 	}
 	
 	public void newApplyMoim(String userId, int mmNo) throws Exception {

@@ -19,12 +19,12 @@
 		<result property="board.boardNo"		column="NOTICE_BOARD_NO"	jdbcType="NUMERIC"/>
 		<result property="board.boardCategory"  column="bd_category"		jdbcType="CHAR"/>
 		<result property="flash.flashName"		column="flash_name"			jdbcType="VARCHAR"/>
-		<result property="flash.flashlNo"		column="NOTICE_FLASH_NO"	jdbcType="NUMERIC"/>
+		<result property="flash.flashNo"		column="NOTICE_FLASH_NO"	jdbcType="NUMERIC"/>
 		<result property="flash.flashFile"      column="flash_file"			jdbcType="VARCHAR"/>
 		<result property="moim.mmNo"			column="NOTICE_MOIM_NO"		jdbcType="NUMERIC"/>
 		<result property="moim.mmName" 			column="MM_NAME" 			jdbcType="VARCHAR"/>
 		<result property="moim.mmFile"			column="MM_IMAGE" 			jdbcType="VARCHAR"/>
-		<result property="letter.letterNo"		column="NOTICE_LETTER_NO"			jdbcType="NUMERIC"/>
+		<result property="member.memberNo"		column="NOTICE_MEMBER_NO"	jdbcType="NUMERIC"/>
 	</resultMap>
 	
 	<resultMap id="interestSelectMap" type="interest">
@@ -35,9 +35,9 @@
 	<insert id="addNotice" parameterType="notice">
 		INSERT 
 		INTO notice(TO_USER_ID, NOTICE_CONTENT, NOTICE_REGDATE, NOTICE_STATE, CATEGORY,
-					 NOTICE_USER_ID , NOTICE_BOARD_NO, NOTICE_MOIM_NO, NOTICE_LETTER_NO , NOTICE_FLASH_NO)
+					 NOTICE_USER_ID , NOTICE_BOARD_NO, NOTICE_MOIM_NO, NOTICE_MEMBER_NO , NOTICE_FLASH_NO)
 		VALUES (#{notice.toUserId}, #{notice.noticeContent}, now(), "1", #{notice.noticeType}, 
-				#{notice.noticeUser.userId}, #{notice.board.boardNo}, #{notice.moim.mmNo}, #{notice.letter.letterNo},
+				#{notice.noticeUser.userId}, #{notice.board.boardNo}, #{notice.moim.mmNo}, #{notice.member.memberNo},
 				#{notice.flash.flashNo})
 	</insert>
 	

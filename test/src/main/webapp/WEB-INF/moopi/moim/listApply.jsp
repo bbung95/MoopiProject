@@ -18,47 +18,83 @@
 <link href="/css/styles.css" rel="stylesheet" />
 
 <!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
-<link rel="stylesheet" href="/images/uploadFiles" >  
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" > -->
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" > -->
+<!-- <link rel="stylesheet" href="/images/uploadFiles" >   -->
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-<script src="/javascript/owl.carousel.min.js"></script>
+<!-- <script src="/javascript/owl.carousel.min.js"></script> -->
 
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script> 
-<link rel="stylesheet" href="/css/owl.carousel.min.css">
-<link rel="stylesheet" href="/css/owl.theme.default.min.css">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/js/scripts.js"></script>
+<!-- <link rel="stylesheet" href="/css/owl.carousel.min.css"> -->
+<!-- <link rel="stylesheet" href="/css/owl.theme.default.min.css"> -->
 
 <!-- 구글 폰트 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Brush+Script&display=swap" rel="stylesheet">
 
 <!-- Sweet Alert -->
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> 
 
 <script>
-function fncAccept(userId, mmNo){
-	alert("가입신청을 수락하겠습니다.");
+/* function fncAccept(userId, mmNo){
+	swal("가입신청을 수락하겠습니다.");
 	self.location ="/moim/updateMember?userId="+userId+"&mmNo="+mmNo+"&status=1"
 }
 
 function fncRefuse(memberNo, mmNo){
-	alert("가입신청을 거절하겠습니다.");
+	swal("가입신청을 거절하겠습니다.");
 	self.location ="/moim/refuseApply?memberNo="+memberNo+"&mmNo="+mmNo
-}
+} */
+
+$(function(){
+	
+	$('.apply').on('click', function(){
+		
+		let mmNo = $(this).attr("mmNo");
+		let userId = $(this).attr("userId");
+		
+		$.ajax({
+			url: "/moim/json/applyMoim",
+			method: "POST",
+			contentType : "application/JSON",
+			data: JSON.stringify({"mmUser" : {"userId" : userId},
+					"mmNo" : mmNo}),
+			dataType : "text",
+			success: function(data, state){
+				
+			}
+		})
+	})
+	
+	$('.refuseApply').on('click', function(){
+		
+		let memberNo = $(this).attr("memberNO");
+		
+		$.ajax({
+			url: "/moim/json/refuseApply",
+			method: "POST",
+			contentType : "application/JSON",
+			data: JSON.stringify({"memberNo" : memberNo}),
+			dataType : "text",
+			success: function(data, state){
+				
+			}
+		})
+	})
+})
 
 
 </script>
-
-
-</head>
-<body>
 <style>
 	body{
-		padding-top: 50px;
+		padding-top: 100px;
 		background-color:#f7f6f3;
 		font-family: 'Nanum Gothic', sans-serif;
-		font-size : 20px;
+		font-size : 16px;
 	}
 	
 	.userProfile {
@@ -74,7 +110,7 @@ function fncRefuse(memberNo, mmNo){
 	
 /* 코드펜 */
 body { 
-  font-size: 140%; 
+
 }
 
 h2 {
@@ -156,6 +192,9 @@ table.dataTable td {
 	 text-align: center;
 }
 </style>
+
+</head>
+
 <!-- ToolBar Start /////////////////////////////////////-->
 	<jsp:include page="../layout/toolbar.jsp" />
 	
@@ -192,8 +231,12 @@ table.dataTable td {
             <td id="td6">${member.mmUser.interestSecond}</td>
             <td id="td7">${member.mmUser.interestThird}</td>
             <td id="td8">
-            <button type="button" class="btn btn-default" onClick="fncAccept('${member.mmUser.userId}', '${member.mmNo}')">Accept</button>
-			<button type="button" class="btn btn-default" onClick="fncRefuse('${member.memberNo}', '${member.mmNo}')">reject</button>
+
+            <button type="button" class="btn btn-default apply" mmNo="${member.mmNo}" userId="${member.mmUser.userId}">Accept</button>
+			<button type="button" class="btn btn-default refuseApply" memberNo="${member.memberNo}">reject</button>
+<%--             <button type="button" class="btn btn-default" onClick="fncAccept('${member.mmUser.userId}', '${member.mmNo}')">Accept</button>
+			<button type="button" class="btn btn-default" onClick="fncRefuse('${member.memberNo}', '${member.mmNo}')">reject</button> --%>
+
             </td>
           </tr>
         </c:forEach>  
@@ -210,7 +253,8 @@ table.dataTable td {
 
 
 
-
+<jsp:include page="../layout/moimSidebar.jsp"></jsp:include>
+</body>
 
 
 
@@ -229,6 +273,5 @@ table.dataTable td {
 <!-- <hr> -->
 <%-- </c:forEach> --%>
 
-<jsp:include page="../layout/moimSidebar.jsp"></jsp:include>
-</body>
+
 </html>

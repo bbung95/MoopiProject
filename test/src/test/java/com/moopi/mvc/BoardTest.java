@@ -193,20 +193,16 @@ public class BoardTest {
 		String userId = "user05";
 		String likeTarget = "12";
 		
-		Map map = new HashMap();
-		map.put("userId", userId);
-		map.put("likeTarget", likeTarget);
+		System.out.println(boardService.getLike(userId,likeTarget));
 		
-		System.out.println(boardService.getLike(map));
-		
-		if(boardService.getLike(map) > 0) {
-			boardService.deleteLike(map);
+		if(boardService.getLike(userId,likeTarget) > 0) {
+			boardService.deleteLike(userId,likeTarget);
 			System.out.println("좋아요를 취소하셧습니다.");
-			System.out.println("좋아요 수"+boardService.getLike(map));
+			System.out.println("좋아요 수"+boardService.getLike(userId,likeTarget));
 		}else {
-			boardService.addLike(map);
+			boardService.addLike(userId,likeTarget);
 			System.out.println("좋아요를 하셧습니다.");
-			System.out.println("좋아요 수"+boardService.getLike(map));
+			System.out.println("좋아요 수"+boardService.getLike(userId,likeTarget));
 		}
 		
 	}

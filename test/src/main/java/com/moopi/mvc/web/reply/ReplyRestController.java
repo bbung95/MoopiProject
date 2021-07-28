@@ -17,6 +17,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.moopi.mvc.service.board.impl.BoardServiceImpl;
+import com.moopi.mvc.service.common.impl.CommonServiceImpl;
+import com.moopi.mvc.service.domain.Board;
+import com.moopi.mvc.service.domain.Notice;
 import com.moopi.mvc.service.domain.Reply;
 import com.moopi.mvc.service.domain.User;
 import com.moopi.mvc.service.reply.impl.ReplyServiceImpl;
@@ -32,6 +35,12 @@ public class ReplyRestController {
 	@Qualifier("replyServiceImpl")
 	private ReplyServiceImpl replyService;
 	
+	@Autowired
+	private CommonServiceImpl commomService;
+	
+	@Autowired
+	private BoardServiceImpl boardService;
+	
 	public ReplyRestController(){
 		System.out.println(this.getClass());
 	}	
@@ -39,14 +48,24 @@ public class ReplyRestController {
 	public User user;
 	
 	@PostMapping( value="json/addReply")
-	public Reply addReply(@RequestBody Reply reply) throws Exception{
+	public Reply addReply(@RequestBody Reply reply ) throws Exception{
 		
 		System.out.println("/reply/json/getReply : POST");
 		System.out.println(reply);
 		
+		// 댓글 알림
+		Notice notice = new Notice();
+		Board board = boardService.getBoard(reply.getBoardNo());
+		notice.setNoticeType("6");
+		notice.setBoard(board);
+		notice.setToUserId(board.getBoardWriter().getUserId());
+		notice.setNoticeUser(reply.getReplyWriter());
+//		notice.setNoticeContent(reply.getReplyContent());
+//		commomService.addNotice(notice);
 		
-		
-		return replyService.addReply(reply);
+		reply = replyService.addReply(reply);
+		System.out.println("111111"+reply.getReplyNo());
+		return reply;
 		
 	}
 
@@ -88,13 +107,15 @@ public class ReplyRestController {
 	}
 	
 	@RequestMapping( value="json/deleteReply/{replyNo}")
-	public void dleteReply(@PathVariable int replyNo){ 
+	public int dleteReply(@PathVariable int replyNo){ 
 		
 		
 		System.out.println("/reply/json/deleteReply ");
 		System.out.println(replyNo);
 
 		replyService.deleteReply(replyNo);
+		
+		return 1;
 	}	
 	
 }
