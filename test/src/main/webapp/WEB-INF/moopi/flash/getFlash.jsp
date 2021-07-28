@@ -1,22 +1,39 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Insert title here</title>
 
-<!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
-<link rel="stylesheet" href="/images/uploadFiles">
+<!-- Favicon-->
+<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+	href="https://fonts.googleapis.com/css2?family=Gaegu:wght@300&display=swap"
+	rel="stylesheet">
+
+<!-- Bootstrap Dropdown Hover JS -->
+<script src="/javascript/bootstrap-dropdownhover.min.js"></script>
+
+<!-- Favicon-->
+<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+<!-- Bootstrap icons-->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
+	rel="stylesheet" />
+<!-- Core theme CSS (includes Bootstrap)-->
+<link href="/css/styles.css" rel="stylesheet" />
+
+<!-- Bootstrap core JS-->
 <script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
+<script src="/js/scripts.js"></script>
 
 <script>
 function fncUpdateFlashView(flashNo){
@@ -31,97 +48,161 @@ function fncJoinFlash(flashNo){
 	self.location ="/flash/joinFlash?userId=${dbUser.userId}&flashNo="+flashNo
 }
 
-
-
-function fncGetJoinFlashList(flashNo){
-		
-	$.ajax(
-			{
-				url : "/flash/json/getJoinFlashList/"+flashNo ,
-				method : "GET" ,
-				type : "JSON" ,
-				success : function(JSONData , status) {
-					//Debug...
-					alert("로딩중..");
-					alert(JSONData.list.length);
-					//$( ".cal" ).remove(displayValue);	
-					//let displayValue = '';
-					//Debug...
-						//console.log(JSONData.list[i].meflId.userId);
-						$( "h3" ).remove();	
-						let displayValue = '';
-						for(var i=0;i < JSONData.list.length;i++){
-						displayValue += "<h3>"
-										+"유저아이디	: "+JSONData.list[i].meflId.userId+"<br/>"
-										+"닉네임 		: "+JSONData.list[i].meflId.nickname+"<br/>"
-										+"주소 		: "+JSONData.list[i].meflId.addr+"<br/>"
-										+"프로필이미지 : "+JSONData.list[i].meflId.profileImage+"<br/>"
-										+"뱃지   	   : "+JSONData.list[i].meflId.badge+"<br/>"
-										+"타겟넘버   : "+JSONData.list[i].targetNo+"<br/>"
-										+"참여일자   : "+JSONData.list[i].joinRegDate+"<br/>"
-										+"조인상태   : "+JSONData.list[i].joinState+"<br/>"
-										+"================================================<br/>"
-										+"</h3>";
-							
-						
-						} //for문끝
-						$( ".cal" ).append(displayValue);	
-							
-						
-				
-				}	
-		
-	  });
-	
-	
-};
-
-
 </script>
+
+<style>
+</style>
 
 
 
 </head>
 <body>
 
-	<!-- ToolBar Start ///////////////////////////////////// -->
-	<jsp:include page="../layout/toolbar.jsp" flush="false" />
-	<jsp:include page="../layout/flashToolbar.jsp" flush="false" />
+	<jsp:include page="../layout/toolbar.jsp" />
 
-	<!-- ToolBar End /////////////////////////////////////-->
-	<h3>번개무피 상세 페이지!</h3>
-	<div class="cal" style="padding-top: 30px"></div>
+	<main class="flex-shrink-0">
+		<!-- Navigation-->
 
-	//////////////////////////
-	<p>번개넘버:${flash.flashNo}</p>
-	<p>번개무피명:${flash.flashName}</p>
-	<p>번개소개글:${flash.flashContent}</p>
-	<div class="row">
-		<div class="col-xs-4 col-md-2 ">
-			<strong>번개무피 썸네일</strong>
-		</div>
-		<div class="col-xs-8 col-md-4">
-			<!--<img src="${pageContext.request.contextPath}/images/uploadFiles/${moim.mmFile}" width="200" height="200 "/>  -->
-			<img src="/images/uploadFiles/${flash.flashFile}" width="200"
-				height="200 " />
-		</div>
-	</div>
-	<p>번개정원:${flash.flashMaxCount}</p>
-	<p>번개현재인원:${flash.flashCurrentCount}</p>
-	<p>모임생성자:${flash.flashConstructor.userId}</p>
-	<p>번개생성일:${flash.flashRegdate}</p>
-	<p>모임관심사No:${flash.flashInterest}</p>
-	<p>번개장소:${flash.flashAddr}</p>
-	<p>번개무피상태(1모집중2모집완료):${flash.flashState}</p>
-	<p>번개무피 만남시간:${flash.flashTime}</p>
+		<!-- Page Content-->
+		<section class="py-5">
+			<div class="container px-5 my-5">
+				<div class="row gx-5">
+					<div class="col-lg-3">
+						<div class="d-flex align-items-center mt-lg-5 mb-4">
+							<img class="img-fluid rounded-circle"
+								src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." />
+							<div class="ms-3">
+								<div class="fw-bold">${flash.flashConstructor.userId}</div>
+								<div class="text-muted">번개무피 방장</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-9">
+						<!-- Post content-->
+						<article>
+							<!-- Post header-->
+							<header class="mb-4">
+								<!-- Post title-->
+								<h1 class="fw-bolder mb-1">Welcome to Blog Post!</h1>
+								<!-- Post meta content-->
+								<div class="text-muted fst-italic mb-2">January 1, 2021</div>
+								<!-- Post categories-->
+								<a class="badge bg-secondary text-decoration-none link-light"
+									href="#!">Web Design</a> <a
+									class="badge bg-secondary text-decoration-none link-light"
+									href="#!">Freebies</a>
+							</header>
+							<!-- Preview image figure-->
+							<figure class="mb-4">
+								<img class="img-fluid rounded"
+									src="https://dummyimage.com/900x400/ced4da/6c757d.jpg"
+									alt="..." />
+							</figure>
+							<!-- Post content-->
+							<section class="mb-5">
+								<p class="fs-5 mb-4">Science is an enterprise that should be
+									cherished as an activity of the free human mind. Because it
+									transforms who we are, how we live, and it gives us an
+									understanding of our place in the universe.</p>
+								<p class="fs-5 mb-4">The universe is large and old, and the
+									ingredients for life as we know it are everywhere, so there's
+									no reason to think that Earth would be unique in that regard.
+									Whether of not the life became intelligent is a different
+									question, and we'll see if we find that.</p>
+								<p class="fs-5 mb-4">If you get asteroids about a kilometer
+									in size, those are large enough and carry enough energy into
+									our system to disrupt transportation, communication, the food
+									chains, and that can be a really bad day on Earth.</p>
+								<h2 class="fw-bolder mb-4 mt-5">I have odd cosmic thoughts
+									every day</h2>
+								<p class="fs-5 mb-4">For me, the most fascinating interface
+									is Twitter. I have odd cosmic thoughts every day and I realized
+									I could hold them to myself or share them with people who might
+									be interested.</p>
+								<p class="fs-5 mb-4">Venus has a runaway greenhouse effect.
+									I kind of want to know what happened there because we're
+									twirling knobs here on Earth without knowing the consequences
+									of it. Mars once had running water. It's bone dry today.
+									Something bad happened there as well.</p>
+							</section>
+						</article>
+						<!-- Comments section-->
+						<section>
+							<div class="card bg-light">
+								<div class="card-body">
+									<!-- Comment form-->
+									<form class="mb-4">
+										<textarea class="form-control" rows="3"
+											placeholder="Join the discussion and leave a comment!"></textarea>
+									</form>
+									<!-- Comment with nested comments-->
+									<div class="d-flex mb-4">
+										<!-- Parent comment-->
+										<div class="flex-shrink-0">
+											<img class="rounded-circle"
+												src="https://dummyimage.com/50x50/ced4da/6c757d.jpg"
+												alt="..." />
+										</div>
+										<div class="ms-3">
+											<div class="fw-bold">Commenter Name</div>
+											If you're going to lead a space frontier, it has to be
+											government; it'll never be private enterprise. Because the
+											space frontier is dangerous, and it's expensive, and it has
+											unquantified risks.
+											<!-- Child comment 1-->
+											<div class="d-flex mt-4">
+												<div class="flex-shrink-0">
+													<img class="rounded-circle"
+														src="https://dummyimage.com/50x50/ced4da/6c757d.jpg"
+														alt="..." />
+												</div>
+												<div class="ms-3">
+													<div class="fw-bold">Commenter Name</div>
+													And under those conditions, you cannot establish a
+													capital-market evaluation of that enterprise. You can't get
+													investors.
+												</div>
+											</div>
+											<!-- Child comment 2-->
+											<div class="d-flex mt-4">
+												<div class="flex-shrink-0">
+													<img class="rounded-circle"
+														src="https://dummyimage.com/50x50/ced4da/6c757d.jpg"
+														alt="..." />
+												</div>
+												<div class="ms-3">
+													<div class="fw-bold">Commenter Name</div>
+													When you put money directly to a problem, it makes a good
+													headline.
+												</div>
+											</div>
+										</div>
+									</div>
+									<!-- Single comment-->
+									<div class="d-flex">
+										<div class="flex-shrink-0">
+											<img class="rounded-circle"
+												src="https://dummyimage.com/50x50/ced4da/6c757d.jpg"
+												alt="..." />
+										</div>
+										<div class="ms-3">
+											<div class="fw-bold">Commenter Name</div>
+											When I look at the universe and all the ways the universe
+											wants to kill us, I find it hard to reconcile that with
+											statements of beneficence.
+										</div>
+									</div>
+								</div>
+							</div>
+						</section>
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
 
-	<button type="button" class="btn btn-default"
-		onClick="fncUpdateFlashView(${flash.flashNo})">번개정보수정</button>
-	<button type="button" class="btn btn-default"
-		onClick="fncGetJoinFlashList(${flash.flashNo})">번개참여신청목록보기</button>
-	<button type="button" class="btn btn-default"
-		onClick="fncJoinFlash(${flash.flashNo})">번개참여하기</button>
-<jsp:include page="../layout/searchbar.jsp"></jsp:include>
+
+
 
 </body>
 </html>
