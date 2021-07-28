@@ -64,9 +64,9 @@
 <!--[비밀번호찾기]----------------------------------------------------------------------------------------------------------------->	
 	function setPwd() {	
 	
-			var userId=$('input[name=userId]').val();
+		var userId=$('input[name=userId]').val();
 			
-			$("form").attr("method" , "POST").attr("action" , "/user/getMobileAuthPW").submit();											
+		$("form").attr("method" , "POST").attr("action" , "/user/getMobileAuth?findPwd").submit();											
 																	
 	}
 <!---------------------------------------------------------------------------------------------------------------------------->	

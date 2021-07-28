@@ -150,6 +150,15 @@ public class CommonController {
 		
 		return "arrows";
 	}
+	
+	@RequestMapping("common/getUserInfo")
+	public String getUserInfo( @RequestParam("userId") String userId, 
+								Model model) throws Exception {
+		userService.getUser(userId);
+		System.out.println("이거확인 : "+userService.getUser(userId));
+		model.addAttribute("user", userService.getUser(userId));
+		return "common/getUserInfo";
+	}
 		
 //		@CrossOrigin(origins = "http://localhost:82")
 //		@GetMapping(value="/chat/chatList")
