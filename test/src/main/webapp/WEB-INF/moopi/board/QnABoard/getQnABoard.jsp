@@ -6,18 +6,236 @@
 	<html>
 	<head>
 	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
 	<title>Insert title here</title>
 	
-	<!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
-		<!--<link rel="stylesheet" href="/images/uploadFiles" >  -->
-		<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
+		<jsp:include page="../../common/commonCDN.jsp"></jsp:include>
+		
 		<script src="/javascript/summernote-lite.js"></script>
 		<script src="/javascript/lang/summernote-ko-KR.js"></script>
 		<link rel="stylesheet" href="/css/summernote-lite.css">
-		 	
+	 	<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link
+			href="https://fonts.googleapis.com/css2?family=Gaegu:wght@300&display=swap"
+			rel="stylesheet">	
+	
+	  
+	<style>
+	html  { background-color: #ffffff; background-image:none;}	
+	body {
+	padding-top: 100px;
+	margin: auto;
+	font-family: 'Gaegu', cursive;
+}
+	.hrLine { position: relative; padding: 0px 0; }
+	.hrLine hr{ border: 0; border-top:3px solid #3073ac; height:1px;width: 100%; margin-top: 10px;    margin-bottom: 10px; }			
+	.replyHr hr{ border: 0; border-top:1px solid #3073ac; height:1px;width: 100%; margin-top: 10px;    margin-bottom: 10px; }
+			
+	
+	.board_title	{
+     	border-top: 2px solid #2f5285;
+   		background-color: #e1eeff;
+	    padding: 2px 8px;
+	    align-items: center;
+	}
+
+	.board_title{
+	
+	}
+			
+	.reply_head{
+		background-color: #e8e8e8;
+	    border-radius: 4px;
+		display: flex;
+	    justify-content: space-between;
+	    padding: 5px;	   
+	}
+					
+	.board_content{
+		min-height:200px;
+		padding:10px;
+	
+	}
+	.reply_content{
+	
+		padding:5px;
+	}
+						
+	@media ( min-width : 768px) {
+		.container {
+			width: 750px;
+		}
+	}
+	
+	@media ( min-width : 992px) {
+		.container {
+			width: 1000px;
+		}
+	}
+	
+	/*사실 이 블럭은 없어도 된다*/
+	@media ( min-width : 1200px) {
+		.container {
+			width: 1000px;
+		}
+	}					
+	
+#popup_wrap {
+	width:560px;
+	height:270px; 
+	background:#fff; 
+	border: solid 1px #666666; 
+	position:fixed; top:50%; 
+	left:50%; margin:-250px 0 0 -250px; 
+	z-index:9999; 
+	display:none;
+	}
+#mask {
+	width:100%;
+	height:100%; 
+	position:fixed; 
+	background:rgba(0,0,0,0.7) repeat; 
+	top:0; 
+	left:0; 
+	z-index:999; 
+	display:none;
+	}
+.popup-cont01 {
+	width:478px; 
+	margin: 40px auto; 
+	text-align: center;
+	}
+.popup-cont01 button { 
+	width: 138px; 
+	height: 36px; 
+	line-height: 36px; 
+	background: #9f2f60; 
+	color: #ffffff; 
+	text-align: center; 
+	border: none; 
+	font-size: 16px;
+	}
+	
+	
+	
+	</style>
+	</head>
+	<body>
+	<!-- ToolBar Start /////////////////////////////////////-->
+		<jsp:include page="../../layout/toolbar.jsp" />
+	<!-- ToolBar End /////////////////////////////////////-->
+	<form class="form-horizontal" name="detailForm" enctype="multipart/form-data">
+<!-- 	<div class="col-xs-12 col-sm-12 col-md-12"> -->
+<!-- 			    <h3 class="head_title" data-edit="true" data-selector="h3.head_title" ><span class="fsize20" ><strong>QnA게시판조회</strong></span></h3> -->
+<!-- 		   </div> -->
+	<article>
+		
+	 	
+	 	
+		<div class="container hrLine"> 
+		
+	
+		
+		
+			<div class="row">
+				<div class="col-xs-8 col-sm-12 col-md-12">
+					<h2 class="head_title" data-edit="true" data-selector="h3.head_title" style="margin:0px"><span class="fsize20" ><strong>QnA게시판조회</strong></span></h2><br><br>
+				
+				<section clsss="board">
+				<div style="font-size:25px; margin:0px"> ${board.boardName}</div>	
+				<div class="board_title">
+				
+				<div style="display:inline-block; float:right;">${board.boardRegDate}
+				</div>
+				
+				<input class="board" type="hidden" id="boardNo" name="boardNo" value="${board.boardNo}">
+				
+				<div style="text-align:left;">
+					<pattern id="comment-write-image" patternUnits="userSpaceOnUse" width="40" height="40">									
+						<image xlink:href="//storage.googleapis.com/i.addblock.net/member/profile_default.jpg?_1627201858221" width="40" height="40"></image>								
+					</pattern>${board.boardWriter.nickname} </div>
+					</div>
+					<div class="board_content" >
+					${board.boardContent}
+					</div>
+					<div style="float:right;">
+						<button type="button" class="btn btn-primary updateBoard" >수정</button>
+						<button type="button" class="btn btn-primary deleteBoard" >삭제</button>
+						<div id="popup_wrap">
+							<div class="popup-cont01">      
+							        <button onclick="location.href='링크경로삽입'";>링크텍스트 삽입</button>&nbsp;&nbsp;
+							        <button id="popup_close">닫기</button>
+							  </div>
+							</div>
+						<div id="mask">< /div>
+						
+						<button type="button" class="btn btn-primary addReportBoard" >신고</button>
+					</div>
+					<br>
+					<br>
+				</section>
+				
+<!-- 				리플리스트 시작 -->
+				<section class="reply-content">
+					<div class="container replyHr">
+						<c:forEach var="reply" items="${list}">
+							<div id="${reply.replyNo }">
+								<input type="hidden" class="reply" name="replyNo" value="${reply.replyNo}">
+								<div class="reply_head">
+								<div style="display: inline-block">
+									${reply.replyWriter.nickname}
+								</div>
+								<div style="display: inline-block; float:right;">
+								    작성시간 : ${reply.replyRegDate}
+								</div>
+								</div>
+								<div class="reply_content" style="min-height:70px">
+								${reply.replyContent}
+								</div>
+								<div style="float:right;">
+									<button type="button" class="btn btn-primary updateReply">수정</button>
+									<button type="button" class="btn btn-primary deleteReply">삭제</button>
+									<button type="button" class="btn btn-primary addReportReply">신고</button>
+								</div>
+								<br><br>
+							</div>	
+							
+						</c:forEach>
+						<div class="reply">
+						</div>
+					</div>								
+<!-- 				<div class="row"> -->
+						
+ <!-- 					리플리스트 끝.	 -->
+ 				</section>
+ 				
+ 				<section class="replyWrite">
+					<form id = "addReplyForm" name="detailForm" enctype="multipart/form-data">
+									
+							<div style="padding-left:100px; width:800px">
+								<textarea id="summernote" placeholder="댓글을 입력해주세요." name="replyContent" id="replyContent" ></textarea>						
+							</div>					
+								<input type="hidden" id = "replyWriter" value="${dbUser.userId}"> 
+	  							<input type="hidden" id = "boardNo" value="${board.boardNo }"> 
+							<div class="btn btn-submit btn-round" style=" float:right; border-color: rgba(0, 0, 0, 0.4); color: rgba(0, 0, 0, 0.8);" id="addReply"> 
+								등록
+							</div>
+					</form>	
+				</section>
+				</div>	
+	</article>
+	<p></p>
+	
+		 
+	
+	</form>	
+	
+	
+	
+	<jsp:include page="../../layout/searchbar.jsp"></jsp:include>
+	</body>
 	<script type="text/javascript">
 	 $(document).ready(function() {
     	 $('#summernote').summernote({
@@ -26,7 +244,7 @@
 				maxHeight: null,             // 최대 높이
 				focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
 				lang: "ko-KR",					// 한글 설정
-				placeholder: '최대 2048자까지 쓸 수 있습니다',	//placeholder 설정
+				placeholder: ' ',	//placeholder 설정
 				  toolbar: [
 					    // [groupName, [list of button]]
 					    ['fontname', ['fontname']],
@@ -81,7 +299,7 @@
    
 		$(function() {
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-			$( "#updateBoard" ).on("click" , function() {
+			$( ".updateBoard" ).on("click" , function() {
 				fncUpdateView();
 			});
 		});	
@@ -120,7 +338,7 @@
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 			$( "#addReply" ).on("click" , function() {
 				alert("addReply");
-				alert($("textarea.form-control").val()) 
+				alert($("#summernote").val()) 
 				
 				fncAddReply();
 			});
@@ -128,15 +346,15 @@
 
 		function fncAddReply(){
 			
-			alert($(this).parent().html())
+// 			alert($(this).parent().html())
 			
-			var replyContent=$("textarea.form-control").val()
+			var replyContent=$("#summernote").val()
 			var replyWriter = $("#replyWriter").val();
 			var boardNo = $("#boardNo").val();
 			
-			alert(boardNo);
-			alert(replyWriter);
-			alert(replyContent);
+// 			alert(boardNo);
+// 			alert(replyWriter);
+// 			alert(replyContent);
 			
 			$.ajax({
 				url: "/reply/json/addReply",
@@ -146,15 +364,42 @@
 				data :  JSON.stringify ({ "boardNo": boardNo, "replyWriter": {"userId" :replyWriter}, "replyContent":replyContent}),		
 				success: function(data, state){
 					alert(state)
-				
-					var displayValue = "<h4>"
-						+"작성자 : " +JSONData.replyWriter.nickname+"<br/>"
-						+"프로필 : "+JSONData.replyWriter.profileImage+"<br/>"
-						+"답글내용 : "+JSONData.replyContent+"<br/>"
-						+"작성일 : "+JSONData.replyRegDate+"<br/>"
-						+"</h4>"
+// 					alert(data.replyWriter.nickname)
+// 					alert(JSONData.replyWriter.nickname)
+					var displayValue =
 					
-						$("#replyAddContent").val(displayValue);
+					 ' 	<div class='+data.replyNo+'>'		
+					+'  <input type="hidden" class="reply" name="replyNo" value='+data.replyNo+'>'
+					+'	<div class="reply_head">'
+					+'	<div style="display: inline-block">'
+					+	 data.replyWriter.nickname
+					+'	</div>'
+					+'	<div style="display: inline-block; float:right;">'
+					+'    작성시간 : '+ data.replyRegDate
+					+'	</div>'
+					+'	</div>'
+					+'	<div class="reply_content" style="min-height:70px">'
+					+   data.replyContent
+					+'	</div>'
+					+'	<div style="float:right;">'
+					+'	<button type="button" class="btn btn-primary updateReply">수정</button>'
+					+'	<button type="button" class="btn btn-primary deleteReply">삭제</button>'
+					+'	<button type="button" class="btn btn-primary ReportReply">신고</button>'
+					+'	</div>'
+					+'	</div>'
+					+'	<br><br>'
+					
+						
+						
+						
+// 						"<h4>"
+// 						+"작성자 : " +JSONData.replyWriter.nickname+"<br/>"
+// 						+"프로필 : "+JSONData.replyWriter.profileImage+"<br/>"
+// 						+"답글내용 : "+JSONData.replyContent+"<br/>"
+// 						+"작성일 : "+JSONData.replyRegDate+"<br/>"
+// 						+"</h4>"
+					
+						$(".reply").append(displayValue);
 						
 						
 				}
@@ -166,28 +411,29 @@
 		
 		$(function() {
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-			$( "#updateReply" ).on("click" , function() {
+			$( ".updateReply" ).on("click" , function() {
 // 				alert("test")
-				fncGeteReply();
+
+				replyNo = $(this).parent().parent().find("input[name=replyNo]").val()
+				fncGetReply(replyNo);
+				
+				
 			});
 		});	
 		
-		function fncGeteReply(){
+		function fncGetReply(replyNo){
 			alert("게시글수정");
-			alert($("#replyNo" ).val() );
-			var replyNo = $("#replyNo" ).val();
 			$.ajax({
 				url: "/reply/json/getReply/"+replyNo,
 				type: "GET",
 				dataType: "json",
 				contentType : "application/json",
 				data :  JSON,
-			    success : function(JSONData , status) {
+			    success : function(data , status) {
 		               //alert(JSONData.memberRole);	
 		                alert(status);
-			            alert("JSONData : \n"+JSONData.replyContent);
-		                var replyContent = JSONData.replyContent;
-		                var displayValue = "<h6>"
+		                var displayValue = 
+		                	"<h6>"
 		    			+"<form class='form-horizontal' name='detailForm'>"
 		    			+"<input type='hidden' id='replyNo' value=''>"
 		    			+"답글 내용 :" +"<input type='text' id='replyContent' value=''>"+"<br>"
@@ -196,10 +442,23 @@
 		    			+"</form>"
 		    			+"</h6>";
 		    			
-						$("#replyContent").remove();
-		    			$("#replyUpdateContent").html(displayValue);
-		    			$('#replyNo').val(replyNo);
-		    			$('#replyContent').val(replyContent);
+						
+						'<div style="padding-left:100px; width:800px">'
+					+	'	<textarea id="summernote" name="replyContent" id="replyContent" ></textarea>'						
+					+	'</div>	'
+					+	'	<input type="hidden" id = "replyWriter" value="'+data.replyWriter.userId+'">' 
+  					+	'	<input type="hidden" id = "boardNo" value="'+data.boardNo+'"> '
+					+	'<div class="btn btn-submit btn-round" style=" float:right; border-color: rgba(0, 0, 0, 0.4); color: rgba(0, 0, 0, 0.8);" id="addReply">' 
+					+	'등록'
+					+	'</div>'
+		    			
+		    			
+						$("#"+replyNo).remove();
+						$("#addReplyForm").remove();
+						$("#addReplyForm").append(displayValue);
+						$(".note-editable").append(data.replyContent);
+						
+						
 		                }
 			
 			            }
@@ -251,20 +510,17 @@
 		
 		$(function() {
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-			$( "#deleteReply" ).on("click" , function() {
-				
-				alert("test")
-				fncDelteReply();
+			$( ".deleteReply" ).on("click" , function() {
+				alert("deleteReply")
+				replyNo = $(this).parent().parent().find("input[name=replyNo]").val()
+				fncDelteReply(replyNo);
 			});
 		});	
 		
-		function fncDelteReply(){
+		function fncDelteReply(replyNo){
+			alert('#replyNo'+replyNo)
+			
 			alert("리플삭제");
-			alert($("#replyContent").val());
-			
-			var replyNo = $("#replyNo").val();
-			var replyContent = $("#replyContent").val();
-			
 			$.ajax({
 				url: "/reply/json/deleteReply/"+replyNo,
 				type: "GET",
@@ -275,7 +531,7 @@
 			    	
 		                alert(status);
 		                
-						$("#replyContent").remove();
+						$('#'+replyNo).remove();
 		                }
 		             
 			});
@@ -284,7 +540,7 @@
 		
 		$(function() {
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-			$(  "button.btn.btn-primary:contains('게시글신고')"  ).on("click" , function() {
+			$(  ".addReportBoard"  ).on("click" , function() {
 				
 				
 				fncAddBoardReport();
@@ -306,153 +562,39 @@
 			
 		$(function() {
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-			$(  "button.btn.btn-primary:contains('답글신고')"  ).on("click" , function() {
+			$(  ".addReportReply"  ).on("click" , function() {
 				
-				
-				fncAddReplyReport();
+				replyNo = $(this).parent().parent().find("input[name=replyNo]").val()
+				fncAddReplyReport(replyNo);
 				
 			});
 		});	
 		
 		
-		function fncAddReplyReport(){
+		function fncAddReplyReport(replyNo){
 			alert("AddReplyReport 실행");
 			
-			
-			var reportTarget = $("#replyNo").val();
-			
-			
-			self.location ="/report/addReportView?reportCategory=2&reportTargetRe.replyNo="+reportTarget;
+			self.location ="/report/addReportView?reportCategory=2&reportTargetRe.replyNo="+replyNo;
 			
 		}				
 				
-	</script>
-	  
-	<style>
-	html  { background-color: #ffffff; background-image:none;}	
-	body, body > .dsgn-body { background-color: transparent;
-	background-image: none;position: absolute; top: 0; left: 0;  right: 0; bottom: 0; width: auto; height: auto; padding: 0px; overflow: auto; }													
-	.forum-user-info li.user-ctrl .dropdown-menu,							
-	.forum-user-info li.user-ctrl .dropdown-menu li a {background-color: #ffffff; background-image:none;}							
-	.forum-user-info li.user-ctrl .dropdown-menu,.forum-user-info li.user-ctrl .dropdown-menu li + li {border-color:black}							
-	.forum-user-info li.user-ctrl .dropdown-menu li a {color:black}							
-	.forum-user-info li.user-ctrl .dropdown-menu li a:focus,							
-	.forum-user-info li.user-ctrl .dropdown-menu li a:hover,							
-	.forum-view .tpl-forum-list-footer button.btn.btn-round:focus,							
-	.forum-view .tpl-forum-list-footer button.btn.btn-round:hover,							
-	.page-comments .comm-footer .btn.btn-submit:hover {background-color:rgba(0,0,0,0.07);color:black !important;}							
-	.forum-write .tpl-forum-list-footer button,.forum-view .fr-view .fr-file {border-color:rgba(0,0,0,0.4)}							
-	.forum-write .tpl-forum-list-footer button,.forum-user-info li.user-info,					
-	.forum-view .fr-view .fr-file {color:rgba(0,0,0,0.8)}							
-	.forum-write .tpl-forum-title, .forum-write .tpl-forum-content {color : black}							
-	#forum-ctrl path {fill : rgba(0,0,0,0.6)}							
-	.page-comments .tpl-comment-form textarea::-webkit-input-placeholder {color:rgba(0,0,0,0.6) !important;}							
-	.page-comments .tpl-comment-form textarea:-ms-input-placeholder {color:rgba(0,0,0,0.6) !important;}							
-	.page-comments .tpl-comment-form textarea:-mos-input-placeholder {color:rgba(0,0,0,0.6) !important;}									
-	</style>
-	</head>
-	<body>
-	<!-- ToolBar Start /////////////////////////////////////-->
-		<jsp:include page="../../layout/toolbar.jsp" />
-	<!-- ToolBar End /////////////////////////////////////-->
-	<form class="form-horizontal" name="detailForm" enctype="multipart/form-data">
-	<div class="col-xs-12 col-sm-12 col-md-12">
-			    <h3 class="head_title" data-edit="true" data-selector="h3.head_title" ><span class="fsize20" ><strong>QnA게시판조회</strong></span></h3>
-		   </div>
-	<div >
-	<input class="board" type="hidden" id="boardNo" name="boardNo" value="${board.boardNo}">
-	
-	<p>게시글번호 :${board.boardNo}</p>
-	<p>게시글이름 :${board.boardName}</p>
-	<p>게시글내용 :${board.boardContent}</p>
-	<c:if test="${empty board.boardUpdate }">
-	<p>작 성 일 : ${board.boardRegDate}</p> 
-	</c:if>
-	<c:if test="${!empty board.boardUpdate }">
-	<p>수 정 일 : ${board.boardUpdate}</p>
-	</c:if>
-	<p>작 성 자 : ${board.boardWriter.nickname} ${board.boardWriter.profileImage }</p>
-	
-		<c:if test="user.userId == '#replyWriter' ">
-	<button type="button" class="btn btn-primary" id="updateBoard">수정하기</button>
-	<button type="button" class="btn btn-primary" id="deleteBoard">삭제하기</button>
-	</c:if>
-	<button type="button" class="btn btn-primary" id="addBoardReport">게시글신고</button>
-<!-- 	</a> -->
-
-	<p></p>
-	</div>
-	</div>
-	<c:forEach var="reply" items="${list}">
-		--------------------------------------------
-		<div >
-		<input type="hidden" class="reply" id="replyNo" name="replyNo" value="${reply.replyNo}">
-		<p id="replyContent">${reply.replyWriter.nickname} ${reply.replyWriter.profileImage } : ${reply.replyContent}    작성시간 ${reply.replyRegDate}</p>
-	<%-- 	<c:if test="user.userId == '#replyWriter' "> --%>
-		<button type="button" class="btn btn-primary" id="updateReply">답변수정</button>
-		<button type="button" class="btn btn-primary" id="deleteReply">답변삭제</button>
-	<%-- 	</c:if> --%>
-		
-		<button type="button" class="btn btn-primary" id="addReportReply">답글신고</button>
-		
-		</c:forEach>
-	
-	 
-	
-	<div class="page-comments" data-id="545295" style="text-align: center; font-size: 20px; background-image: none; background-position: center center; background-repeat: no-repeat; min-height: 50px; margin-top: -21px;">
-		<div class="container">
-			<form id = "addReplyForm">
-				<div class="tpl-comment-form" style="border-color: rgba(0, 0, 0, 0.2);">				
-					<div class="comm-wrap">					
-						<div class="comm-body">						
-						<span class="comm-profile">							
-							<svg viewBox="0 0 40 40" width="35" height="35">								
-							<!-- 	코멘트 프로필사진부분 -->
-								<pattern id="comment-write-image" patternUnits="userSpaceOnUse" width="40" height="40">									
-								<image xlink:href="//storage.googleapis.com/i.addblock.net/member/profile_default.jpg?_1627201858221" width="40" height="40"></image>								
-								</pattern>
-								<circle cx="20" cy="20" r="20" fill="url(#comment-write-image)">프로필이미지</circle>
-							</svg>
-							<span>${dbUser.nickname } ddd</span>		
-						</span>						
-							<div class="comm-area">							
-								<textarea class="form-control" id="summernote" placeholder="댓글을 입력해주세요." name="replyContent" id="replyContent" style="color: rgba(0, 0, 0, 0.8);">test</textarea>						
-							</div>					
-						</div>					
-							<div class="comm-footer">			 			
-								<div class="checkbox">			 				
-									<label style="color: rgba(0, 0, 0, 0.8);">			 					
-										<span class="cl-icon">
-										</svg>
-									</label>
-								</div>						
-								<div class="btn-box comment-submit">
-									<input type="hidden" id = "replyWriter" value="${dbUser.userId}"> 
-		  							<input type="hidden" id = "boardNo" value="${board.boardNo }"> 
-									<span class="btn btn-submit btn-round" style="border-color: rgba(0, 0, 0, 0.4); color: rgba(0, 0, 0, 0.8);" id="addReply"> 등록</span>
-								</div>
-							</div>
-					</div>			
-				</div>
-			</form>	
-				<ul class="comment-list"></ul>
-		</div>
-	</div>
-	
-	
-	
-	
-	
-	<p></p>
-	
-		 
-	
-	</form>
-	
-	
-	
-	<jsp:include page="../../layout/searchbar.jsp"></jsp:include>
-	</body>
+		$(document).ready(function(){
+		$("#popup_open").click(function(){
+		$("#popup_wrap").css("display", "block");
+		$("#mask").css("display", "block");
+		});
+		});
+		$(document).ready(function(){ 
+		$("#popup_open").click(function(){ 
+		$("#popup_wrap").css("display", "block"); 
+		$("#mask").css("display", "block"); 
+		}); 
+		$("#popup_close").click(function(){ 
+		$("#popup_wrap").css("display", "none"); 
+		$("#mask").css("display", "none"); 
+		}); 
+		}); 
+</script>
 	
 	</html>
 	
