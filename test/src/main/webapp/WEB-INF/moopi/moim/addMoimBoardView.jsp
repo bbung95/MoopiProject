@@ -6,16 +6,45 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Hello! Moopi!</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<!-- Favicon --> 
+<link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
+
+<!-- Bootstrap icons -->
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+<!-- Core theme CSS (includes Bootstrap) -->
+<link href="/css/styles.css" rel="stylesheet" />
+
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>  -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- 구글 폰트 -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+<!-- Sweet Alert -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
+<!-- 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" > -->
+<!-- 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" > -->
 	<!--<link rel="stylesheet" href="/images/uploadFiles" >  -->
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
-	<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
-  	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+<!-- 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script> -->
+  	
+<!--   	써머노트 -->
+  	<script src="/javascript/summernote-lite.js"></script>
+	<script src="/javascript/lang/summernote-ko-KR.js"></script>
+	
+	<link rel="stylesheet" href="/css/summernote-lite.css">
+  	
+  	
+  	
 <script>
 
 
@@ -29,7 +58,7 @@ $(function() {
 
 
 function fncAddBoard(){
-	alert("게시글등록");
+	swal("게시글등록");
 	
 	var boardCategory	=$("input[name='boardCategory']").val();
 	var boardWriter		=$("input[name='boardWriter']").val();
@@ -43,20 +72,17 @@ function fncAddBoard(){
 
 </script>
   <style>
-body{
-	padding-top: 50px;
+body {
+	padding-top: 100px;
+	font-family: 'Nanum Gothic', sans-serif;
+	font-size: 16px;
+	background-color:#f7f6f3;
 }
 </style>
 
 </head>
 <body> 
      <jsp:include page="../layout/toolbar.jsp" />
-     <jsp:include page="../layout/moimToolbar.jsp" />
-<!-- <h3> 게시글 등록</h3> -->
-<!--     <hidden></hidden> -->
-<!--      <input type="hidden" id="boardCategory" name="boardCategory" value="1"/> -->
-<!--      <input type="hidden" id="boardWriter" name="boardWriter" value="user01"/> -->
-<!--     <p>게시글제목 </p> <input id="boardName" name="boardName"></input> -->
     
     <script>  
      $(document).ready(function() {
@@ -83,64 +109,87 @@ body{
 				}
 	});
 			  });
-  
-  function uploadSummernoteImageFile(file, editor) {
-      data = new FormData();
-      data.append("file", file);
-      $.ajax({
-          data : data,
-          type : "POST",
-          url : "/board/uploadImage",
-          contentType : false,
-          processData : false,
-          success : function(data) {
-              //항상 업로드된 파일의 url이 있어야 한다.
-              $(editor).summernote('insertImage', data.url);
-          }
-      });
-  }
-  
-  $("div.note-editable").on('drop',function(e){
-      for(i=0; i< e.originalEvent.dataTransfer.files.length; i++){
-      	uploadSummernoteImageFile(e.originalEvent.dataTransfer.files[i],$("#summernote")[0]);
-      }
-     e.preventDefault();
-})
+     
+     function uploadSummernoteImageFile(file, editor) {
+         data = new FormData();
+         data.append("file", file);
+         $.ajax({
+             data : data,
+             type : "POST",
+             url : "/board/uploadImage",
+             contentType : false,
+             processData : false,
+             success : function(data) {
+                 //항상 업로드된 파일의 url이 있어야 한다.
+                 $(editor).summernote('insertImage', data.url);
+             }
+         });
+     }
+     
+     $("div.note-editable").on('drop',function(e){
+         for(i=0; i< e.originalEvent.dataTransfer.files.length; i++){
+         	uploadSummernoteImageFile(e.originalEvent.dataTransfer.files[i],$("#summernote")[0]);
+         }
+        e.preventDefault();
+   })
+     
+     
+     
+     
+     
  			      </script> 
  
  <div class="container">
 
-		<h1 class="bg-primary text-center">모임 게시글 작성</h1>
+		<div class="col-xs-12 col-sm-12 col-md-12">
+			    <h3 class="head_title" data-edit="true" data-selector="h3.head_title" ><span class="fsize20" ><strong>Write</strong></span></h3>
+		  
+		   </div>
+		   
+	 
+		
 		
 		<!-- form Start /////////////////////////////////////-->
 		<form class="form-horizontal" name="detailForm" enctype="multipart/form-data">
 		  <input type="hidden" id="boardWriter.userId" name="boardWriter.userId" value="${dbUser.userId }">
 		  <input type="hidden" id="boardCategory" name="boardCategory" value="4">
 		  <input type="hidden" id="boardMoimNo" name="boardMoimNo" value="${boardMoimNo }">
+		  
 		  <div class="form-group">
-		    <label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">게시글제목</label>
-		    <div class="col-sm-4">
-		      <input type="text" class="form-control" id="boardName" name="boardName" placeholder="게시글제목">
+		    <label for="ssn" class="col-sm-offset col-sm-2 control-label">Title</label>
+		    <div class="col-sm-6">
+		      <input type="text" class="form-control" id="boardName" name="boardName" placeholder="title...">
 		    </div>
 		  </div>
 		  
 		  <div class="form-group">
-		    <label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">게시글내용</label>
-		    <div class="col-sm-4">
-		    <textarea id="summernote" name ="boardContent"><p>글을 입력해주세요.</p></textarea>
+		  	<div class="table op_tableline10" data-loop="true" data-view="7">
+		    <label for="ssn" class="col-sm-offset col-sm-2 control-label">Content</label>
+		    <div class="col-sm-6">
+		    <textarea id="summernote" name ="boardContent">Content...</textarea>
 		    </div>
 		  </div>
+		  </div>
 		  
+<!-- 		  <div class="form-group"> -->
+<!-- 		    <label for="ssn" class="col-sm-offset col-sm-2 control-label">비밀번호</label> -->
+<!-- 		    <div class="col-sm-2"> -->
+<!-- 		      <input type="text" class="form-control" id="boardPassword" name="boardPassword"> -->
+<!-- 		    </div> -->
+<!-- 		  </div> -->
+		 
 		  <div class="form-group">
-		    <div class="col-sm-offset-4  col-sm-4 text-center">
+		    <div class="col-sm-offset-5  col-sm-4 text-center">
 		      <button type="button" class="btn btn-primary" >등록</button>
-			   <a class="btn btn-default btn" href="#" role="button">취소</a>
+			   <a class="btn btn-default btn" href="javascript:history.back();" role="button">취소</a>
 		    </div>
 		  </div>
 		  
+		 
 		  
 		  
 		</form>
+<jsp:include page="../layout/moimSidebar.jsp"></jsp:include>		
 <jsp:include page="../layout/searchbar.jsp"></jsp:include>
 </body>
 </html>

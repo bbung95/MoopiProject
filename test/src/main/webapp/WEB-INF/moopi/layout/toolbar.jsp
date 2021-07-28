@@ -8,27 +8,69 @@
 	integrity="sha384-vuFJ2JiSdUpXLKGK+tDteQZBqNlMwAjhZ3TvPaDfN9QmbPb7Q8qUpbSNapQev3YF"
 	crossorigin="anonymous"></script>
 <style>
-.weather{
-	position : fixed;
+.weather {
+	position: fixed;
 	bottom: 0;
 	left: 0;
 	margin-left: 20px;
 	margin-bottom: 20px;
 }
 
-#toolbar{
+#toolbar {
 	background: white;
+	height: 62px;
 }
 
-.toolbar_i{
-	font-size : 20px;
+.toolbar_i {
+	font-size: 20px;
+	margin: 5px;
 }
+
+#noticeCount {
+	position: absolute;
+	display : none;
+	top: 0px;
+	left: 25px;
+}
+
+.notice_pre {
+	white-space: normal;
+	word-break: break-all;
+	padding-left: 15px;
+	padding-right: 15px;
+	text-align: left;
+	font-size: 15px;
+	margin-top: 0.5rem;
+	margin-bottom: 0.5rem;
+}
+
+/*사이즈*/
+@media ( min-width : 768px) {
+	.container {
+		width: 750px;
+	}
+}
+
+@media ( min-width : 992px) {
+	.container {
+		width: 1000px;
+	}
+}
+
+/*사실 이 블럭은 없어도 된다*/
+@media ( min-width : 1200px) {
+	.container {
+		width: 1000px;
+	}
+}
+
 </style>
 
+<div style="width: 10px; height: 10px;"></div>
 
 <!-- ToolBar Start /////////////////////////////////////-->
-<nav
-	class="navbar navbar-expand-lg navbar-light  fixed-top" id="toolbar">
+<nav class="navbar navbar-expand-lg navbar-light  fixed-top"
+	id="toolbar">
 	<div class="container px-5">
 		<a class="navbar-brand" href="/">Moopi</a>
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -39,49 +81,50 @@
 		</button>
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-				<li class="nav-item"><a class="nav-link" >모임무피</a></li>
-				<li class="nav-item"><a class="nav-link" >번개무피</a></li>
-				<li class="nav-item"><a class="nav-link" >무피게시판</a></li>
-				<li class="nav-item"><a class="nav-link" >문의게시판</a></li>
-				
+				<li class="nav-item"><a class="nav-link">모임무피</a></li>
+				<li class="nav-item"><a class="nav-link">번개무피</a></li>
+				<li class="nav-item"><a class="nav-link">무피게시판</a></li>
+				<li class="nav-item"><a class="nav-link">문의게시판</a></li>
+
 				<!-- sessionScope.id가 없으면 : 로그인을 하지 않았을 경우 -->
 				<c:if test="${empty sessionScope.dbUser}">
-					<li class="nav-item"><a class="nav-link" >로그인</a></li>
+					<li class="nav-item"><a class="nav-link">로그인</a></li>
 				</c:if>
-				
+
 				<!-- sessionScope.id가 있을시 : 로그인을 했을 경우 -->
 				<c:if test="${not empty sessionScope.dbUser}">
-				<li class="nav-item dropdown" id="noticeCount">
-					<a class="nav-link dropdown-toggle" id="navbarDropdownBlog"
+
+					<!-- 알림 -->
+					<li class="nav-item noticebtn" data-bs-toggle="offcanvas"
+						data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"><a
+						class="nav-link" style="position: relative;"> <i
+							class="bi bi-envelope toolbar_i"></i><span id="noticeCount"
+							class="badge rounded-pill bg-danger"></span></a></li>
+
+					<!-- 채팅 -->
+					<li class="nav-item chatbtn"><a class="nav-link"><i
+							class="bi bi-chat toolbar_i"></i></a></li>
+
+					<!-- 로그인시 메뉴  -->
+					<li class="nav-item dropdown"><a
+						class="nav-link dropdown-toggle" id="navbarDropdownPortfolio"
 						href="#" role="button" data-bs-toggle="dropdown"
-						aria-expanded="false"><i class="bi bi-envelope toolbar_i"></i></a>
-					<ul class="dropdown-menu dropdown-menu-end"
-						aria-labelledby="navbarDropdownPortfolio" id="noticeList">
-						<div align="right">
-									<a href="javascript:deleteNoticeAll()">전체삭제</a>
-								</div>
-								<div class="noticeOut"></div>
-					</ul>
-				</li>
-				
-				<li class="nav-item chatbtn"><a class="nav-link"><i class="bi bi-chat toolbar_i"></i></a></li>
-				<li class="nav-item dropdown">
-					<a class="nav-link dropdown-toggle" id="navbarDropdownPortfolio"
-						href="#" role="button" data-bs-toggle="dropdown"
-						aria-expanded="false"><img src="/images/uploadFiles/${dbUser.profileImage}" style="width: 30px; height: 30px; border-radius: 50%;"/></a>
-					<ul class="dropdown-menu dropdown-menu-end"
-						aria-labelledby="navbarDropdownPortfolio">
-						<li><a class="dropdown-item" >마이홈</a></li>
-						<li><a class="dropdown-item" >내정보보기</a></li>
-						<li><a class="dropdown-item" >충전</a></li>
-						<li><a class="dropdown-item" >로그아웃</a></li>
-						<c:if test="${dbUser.userRole == '1'}">
-						<li><a class="dropdown-item" href="/common/adminMoopi" target="_blank">관리자</a></li>
-						</c:if>
-					</ul>
-				</li>
+						aria-expanded="false"><img
+							src="/images/uploadFiles/${dbUser.profileImage}"
+							style="width: 30px; height: 30px; border-radius: 50%;" /></a>
+						<ul class="dropdown-menu dropdown-menu-end"
+							aria-labelledby="navbarDropdownPortfolio">
+							<li><a class="dropdown-item">마이홈</a></li>
+							<li><a class="dropdown-item">내정보보기</a></li>
+							<li><a class="dropdown-item">충전</a></li>
+							<li><a class="dropdown-item">로그아웃</a></li>
+							<c:if test="${dbUser.userRole == '1'}">
+								<li><a class="dropdown-item" href="/common/adminMoopi"
+									target="_blank">관리자</a></li>
+							</c:if>
+						</ul></li>
 				</c:if>
-				
+
 			</ul>
 		</div>
 	</div>
@@ -93,6 +136,18 @@
 	<div class="City"></div>
 </div>
 
+
+
+<!-- offcanvas  -->
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight"
+	aria-labelledby="offcanvasRightLabel">
+	<div class="offcanvas-header">
+		<h5 id="offcanvasRightLabel">Moopi 알림</h5>
+		<button type="button" class="btn text-reset"
+			data-bs-dismiss="offcanvas" aria-label="Close">전체삭제</button>
+	</div>
+	<div class="offcanvas-body noticeOut"></div>
+</div>
 
 
 <!-- ToolBar End /////////////////////////////////////-->
@@ -129,7 +184,6 @@
 										var $Temp = Math.floor(data.main.temp)
 												+ 'º';
 										var $city = data.name;
-										console.log($Icon);
 										$('.CurrIcon')
 												.append(
 														'<i class="' + weatherIcon[$Icon] +'"></i>');
@@ -139,37 +193,25 @@
 								})
 					});
 
-	//읽지않은 알림 카운트
+	 //읽지않은 알림 카운트
 	function noticeCount() {
-		$
-				.ajax({
-					url : "/common/json/getNoticeCount/" + dbUser,
-					method : "GET",
-					dataType : "text",
-					success : function(data, status) {
-						if (data != 0) {
-							let display = "<span id='test' style='background: red;'> ! </span>";
-							$('#noticeCount > a > span').append(display);
-						}
-					}
-				});
-	}
-
-	//해당 알림 삭제
-	function deleteNotice(noticeNo) {
 		$.ajax({
-			url : "/common/json/deleteNotice/" + noticeNo,
+			url : "/common/json/getNoticeCount/" + dbUser,
 			method : "GET",
 			dataType : "text",
 			success : function(data, status) {
-				$('.notice ' + noticeNo).remove();
 
+				if (data != 0) {
+
+					$('#noticeCount').append(data);
+					$('#noticeCount').css('display', 'block');
+				}
 			}
 		});
-	}
+	} 
 
 	//알림 전체삭제
-	function deleteNoticeAll() {
+	$('button:contains("전체삭제")').on('click',function(){
 		$.ajax({
 			url : "/common/json/deleteNoticeAll/" + dbUser,
 			method : "GET",
@@ -177,20 +219,32 @@
 			success : function(data, status) {
 
 				$('.noticeOut').children().remove();
-				let display = "<li style='height: 40px'>알림이 존재하지 않습니다.</li>";
+				let display = "<div style='height: 40px'>알림이 존재하지 않습니다.</div>";
 				$('.noticeOut').append(display);
 			}
 		});
-	}
+	}) 
 
+	// 알림 읽음표시
+	 $('.noticebtn').on('click', function() {
+		$.ajax({
+			url : "/common/json/updateNoticeState/" + dbUser,
+			method : "GET",
+			dataType : "JSON",
+			success : function(data, status) {
+			}
+		})
+		$('#noticeCount').css('display', 'none');
+	}) 
+ 
 	function chatjoin(target) {
 		popWin = window
 				.open(
 						"/chat/joinRoom?userId=" + dbUser + "&trgt=" + target
 								+ "&type=1",
 						"popWin",
-						"left=460, top=300, width=460, height=600, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");
-	}
+					"left=460, top=300, width=460, height=600, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");
+	} 
 
 	// 읽지않은 알림과 알림 리스트
 	if (dbUser !== '') {
@@ -207,7 +261,7 @@
 
 								//채팅 알림 type 1
 								if (data[i].noticeType == '1') {
-									display += "<div style='height: 60px; width: 250px;' class='notice "
+									/* display += "<div style='height: 60px; '  class='notice "+data[i].noticeNo+"'>"
 											+ data[i].noticeNo
 											+ "' onclick='javascript:chatjoin(\""
 											+ data[i].noticeUser.userId
@@ -216,125 +270,173 @@
 											+ " : "
 											+ data[i].noticeContent
 											+ "</span>"
-											+ "<span><a href='javascript:deleteNotice("
-											+ data[i].noticeNo
-											+ ")'>X</a></span></div>";
+											+ "<span><button type='button' class='btn-close' notice='"+data[i].noticeNo+"' aria-label='Close'></button></span></div>"; */
 
 									// 모임 정모 생성 알림 type 2
 								} else if (data[i].noticeType == '2') {
-									display += "<span class='notice "
-											+ data[i].noticeNo
-											+ "' style='height: 60px; width: 250px;' onclick='location.href=\"/meeting/listMeeting?userId="
-											+ dbUser
-											+ "&mmNo="
-											+ data[i].moim.mmNo
-											+ "\"'><span>"
+									display += "<div style='height: 60px; '  class='notice "+data[i].noticeNo+"'>"
+											+ "<span onclick='location.href=\"/meeting/listMeeting?userId="+dbUser+"&mmNo="+data[i].moim.mmNo+"\"'>"
 											+ "<img style='width: 50px; height: 50px; margin: 5px' src='/images/uploadFiles/"+data[i].moim.mmFile+"' />"
 											+ data[i].moim.mmName
 											+ "의  "
 											+ data[i].noticeContent
-											+ "</span></span>"
-											+ "<span><a href='javascript:deleteNotice("
-											+ data[i].noticeNo
-											+ ")'>X</a></span>";
+											+ "</span>"
+											+ "<span><button type='button' class='btn-close' notice='"+data[i].noticeNo+"' aria-label='Close'></button></span></div>";
 
 									// 정모 가입 알림 type 3
 								} else if (data[i].noticeType == '3') {
-									display += "<span class='notice "
-											+ data[i].noticeNo
-											+ "' style='height: 60px; width: 250px;' onclick='location.href=\"/meeting/listMeeting?userId="
-											+ dbUser
-											+ "&mmNo="
-											+ data[i].moim.mmNo
-											+ "\"'><span>"
+									display += "<div style='height: 60px; '  class='notice "+data[i].noticeNo+"'>"
+											+ "<span onclick='location.href=\"/meeting/listMeeting?userId="+dbUser+"&mmNo="+data[i].moim.mmNo+"\"'>"
 											+ "<img style='width: 50px; height: 50px; margin: 5px' src='/images/uploadFiles/"+data[i].moim.mmFile+"' />"
 											+ data[i].moim.mmName
 											+ data[i].noticeContent
-											+ "</span></span>"
-											+ "<span><a href='javascript:deleteNotice("
-											+ data[i].noticeNo
-											+ ")'>X</a></span>";
+											+ "</span>"
+											+ "<span><button type='button' class='btn-close' notice='"+data[i].noticeNo+"' aria-label='Close'></button></span></div>";
 
 									// 모임 가입승인 알림 type 4
 								} else if (data[i].noticeType == '4') {
-									display += "<span class='notice "
-											+ data[i].noticeNo
-											+ "' style='height: 60px; width: 250px;' onclick='location.href=\"/moim/getMoim?mmNo="
-											+ data[i].moim.mmNo
-											+ "\"'><span>"
-											+ "<img style='width: 50px; height: 50px; margin: 5px' src='/images/uploadFiles/"+data[i].moim.mmFile+"' />"
+									display += "<div style='height: 60px; '  class='notice "+data[i].noticeNo+"'>"
+											+ "<span onclick='location.href=\"/moim/getMoim?mmNo="+data[i].moim.mmNo+"'>"
+											+ "<img style='width: 50px; height: 50px; margin: 5px' src='/images/uploadFiles/"+data[i].moim.mmFile+"\"' />"
 											+ data[i].moim.mmName
 											+ "의  "
 											+ data[i].noticeContent
-											+ "</span></span>"
-											+ "<span><a href='javascript:deleteNotice("
-											+ data[i].noticeNo
-											+ ")'>X</a></span>";
+											+ "</span>"
+											+ "<span><button type='button' class='btn-close' notice='"+data[i].noticeNo+"' aria-label='Close'></button></span></div>";
 
 									// 플래쉬 참가 알림 type 5
 								} else if (data[i].noticeType == '5') {
-									display += "<span class='notice "
-											+ data[i].noticeNo
-											+ "' style='height: 60px; width: 250px;' onclick='location.href=\"/flash/getFlash?flashNo="
-											+ data[i].flash.flashNo
-											+ "\"'><span>"
+									display += "<div style='height: 60px; '  class='notice "+data[i].noticeNo+"'>"
+											+ "<span onclick='location.href=\"/flash/getFlash?flashNo="+data[i].flash.flashNo+"\"'>"
 											+ "<img style='width: 50px; height: 50px; margin: 5px' src='/images/uploadFiles/"+data[i].flash.flashImage+"' />"
 											+ data[i].flash.flashName
 											+ "의 "
 											+ data[i].noticeUser.nickname
 											+ data[i].noticeContent
-											+ "</span></span>"
-											+ "<span><a href='javascript:deleteNotice("
-											+ data[i].noticeNo
-											+ ")'>X</a></span>";
+											+ "</span>"
+											+ "<span><button type='button' class='btn-close' notice='"+data[i].noticeNo+"' aria-label='Close'></button></span></div>";
 
 									// 게시글 댓글 알림 type 6
 								} else if (data[i].noticeType == '6') {
-
+									display += "<div style='height: 60px; '  class='notice "+data[i].noticeNo+"'>"
+											+ "<span onclick='location.href=\"/user/getMyHome?userId="+data[i].toUserId+"\"'>"
+											+ "<img style='width: 50px; height: 50px; margin: 5px; border-radius: 50%;' src='/images/uploadFiles/"
+											+ data[i].noticeUser.profileImage
+											+ "' />"
+											+ data[i].noticeUser.nickname
+											+ "님이 댓글을 작성했습니다"
+											+ "</span>"
+											+ "<span><button type='button' class='btn-close' notice='"+data[i].noticeNo+"' aria-label='Close'></button></span></div>";
+											
 									// 게시글 좋아요 알림 type 7
 								} else if (data[i].noticeType == '7') {
-
+									display += "<div style='height: 60px; '  class='notice "+data[i].noticeNo+"'>"
+											+ "<span onclick='location.href=\"/user/getMyHome?userId="+data[i].toUserId+"\"'>"
+											+ "<img style='width: 50px; height: 50px; margin: 5px; border-radius: 50%;' src='/images/uploadFiles/"
+											+ data[i].noticeUser.profileImage
+											+ "' />"
+											+ data[i].noticeUser.nickname
+											+ "님이 좋아요했습니다."
+											+ "</span>"
+											+ "<span><button type='button' class='btn-close' notice='"+data[i].noticeNo+"' aria-label='Close'></button></span></div>";
+									
 									// 팔로우 알림 type 8
 								} else if (data[i].noticeType == '8') {
-									display += "<div style='height: 60px; width: 250px;'  class='notice "
-											+ data[i].noticeNo
-											+ "' onclick='location.href=\"/user/getMyHome?userId="
-											+ data[i].noticeUser.userId
-											+ "\"'><span>"
+									display += "<div style='height: 60px; '  class='notice "+data[i].noticeNo+"'>"
+											+ "<span onclick='location.href=\"/user/getMyHome?userId="+data[i].noticeUser.userId+"\"'>"
 											+ "<img style='width: 50px; height: 50px; margin: 5px; border-radius: 50%;' src='/images/uploadFiles/"
 											+ data[i].noticeUser.profileImage
 											+ "' />"
 											+ data[i].noticeUser.nickname
 											+ data[i].noticeContent
 											+ "</span>"
-											+ "<span><a href='javascript:deleteNotice("
-											+ data[i].noticeNo
-											+ ")'>X</a></span></div>";
+											+ "<span><button type='button' class='btn-close' notice='"+data[i].noticeNo+"' aria-label='Close'></button></span></div>";
 
-									// 모임 가입승인 알림 type 9
+									// 모임 초대 알림 type 9
+								} else if( data[i].noticeType == '9'){
+									display += "<div style='height: 60px; '  class='notice "+data[i].noticeNo+"'>"
+											+ "<span onclick='location.href=\"/moim/getMoim?mmNo="+data[i].moim.mmNo+"\"'>"
+											+ "<img style='width: 50px; height: 50px; margin: 5px; border-radius: 50%;' src='/images/uploadFiles/"
+											+ data[i].moim.mmFile
+											+ "' />"
+											+ data[i].moim.mmName+"의 초대되었습니다"
+											+ "</span>"
+											+ "<span>"
+											+ "<button type='button' class='btn btn- apply' mmNo='"+data[i].moim.mmNo+"' userId='"+data[i].toUserId+"'>Accept</button>"
+											+ "<button type='button' class='btn btn-default refuseApply' memberNo='"+data[i].member.memberNo+"'>reject</button>"
+											+ "<button type='button' class='btn-close' notice='"+data[i].noticeNo+"' aria-label='Close'></button></span></div>";
 								}
 							}
 							$('.noticeOut').append(display);
 						} else {
-							let display = "<li style='height: 40px'>알림이 존재하지 않습니다.</li>";
+							let display = "<div style='height: 40px'>알림이 존재하지 않습니다.</div>";
 							$('.noticeOut').append(display);
 						}
 						noticeCount();
+
+						// 해당알림 삭제
+						$('.btn-close').on('click', function() {
+
+							let noticeNo = $(this).attr('notice');
+
+							$.ajax({
+								url : "/common/json/deleteNotice/" + noticeNo,
+								method : "GET",
+								dataType : "text",
+								success : function(data, status) {
+
+									$("." + noticeNo).remove();
+									
+									if($('.noticeOut').text() == ''){
+										let display = "<div style='height: 40px'>알림이 존재하지 않습니다.</div>";
+										$('.noticeOut').append(display);
+									}
+								}
+							});
+						})
+						// 알림삭제 end
+						
+						$('.apply').on('click', function(){
+		
+							let mmNo = $(this).attr("mmNo");
+							let userId = $(this).attr("userId");
+							let notice = $(this);
+		
+							$.ajax({
+									url: "/moim/json/applyMoim",
+									method: "POST",
+									contentType : "application/JSON",
+									data: JSON.stringify({"mmUser" : {"userId" : userId},
+												"mmNo" : mmNo}),
+									dataType : "text",
+							success: function(data, state){
+									notice.next().next().click();
+								}
+							})
+						})
+	
+						$('.refuseApply').on('click', function(){
+		
+							let memberNo = $(this).attr("memberNo");
+							let notice = $(this);
+							
+							$.ajax({
+								url: "/moim/json/refuseApply",
+								method: "POST",
+								contentType : "application/JSON",
+								data: JSON.stringify({"memberNo" : memberNo}),
+								dataType : "text",
+								success: function(data, state){
+									notice.next().click();
+								}
+							})
+						})
+						
+						
+						
 					}
 				})
 	}
-
-	// 알림 읽음표시
-	$('#noticeCount').on('click', function() {
-		$.ajax({
-			url : "/common/json/updateNoticeState/" + dbUser,
-			method : "GET",
-			dataType : "JSON",
-			success : function(data, status) {
-			}
-		})
-		$('#test').remove();
-	})
 
 	////////////////////////////// toolbar navigator
 
@@ -362,22 +464,21 @@
 
 		location.href = "/board/listBoard?category=2";
 	})
-	
-	$("a:contains('로그인')").on('click', function(){
-		
+
+	$("a:contains('로그인')").on('click', function() {
+
 		location.href = "/user/loginView";
 	})
-	
+
 	$(".chatbtn")
 			.on(
 					"click",
 					function() {
 
 						popWin = window
-								.open(	
-/* 										"https://bbung95-rtc.herokuapp.com/chatList?userId="+dbUser+"&profile="+userProfile+"&nickname="+nickname,
- */ 										"http://localhost:82/chatList?userId="+dbUser+"&profile="+userProfile+"&nickname="+nickname,
- 									"popWin",
+								.open(
+										"https://bbung95-rtc.herokuapp.com/chatList?userId="+dbUser+"&profile="+userProfile+"&nickname="+nickname,
+										"popWin",
 										"left=460, top=300, width=460, height=600, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");
 					});
 
@@ -391,24 +492,19 @@
 		location.href = "/user/myInformation";
 	})
 
-	$("a:contains('쪽지')").on("click", function() {
-
-		location.href = "/";
-	})
-
 	$("a:contains('로그아웃')").on("click", function() {
 
 		location.href = "/user/logout";
+	})
+
+	$("a:contains('충전')").on("click", function() {
+
+		location.href = "/payment/addPaymentView?userId=" + dbUser;
 	})
 
 	/* $("a:contains('관리자')").on("click", function() {
 
 		location.href = "/common/adminMoopi";
 	}) */
-
-	$("a:contains('충전')").on("click", function() {
-
-		location.href = "/payment/addPaymentView?userId=" + dbUser;
-	})
 </script>
 

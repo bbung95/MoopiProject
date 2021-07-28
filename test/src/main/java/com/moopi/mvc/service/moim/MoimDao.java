@@ -34,8 +34,10 @@ public interface MoimDao {
 	public void updateMoim(Moim moim) throws Exception;
 	
 	//모임가입신청, 가입신청시 멤버role은 1
-	public void applyMoim(@Param("userId") String userId, 
-						  @Param("mmNo") int mmNo) throws Exception;
+//	public void applyMoim(@Param("userId") String userId, 
+//						  @Param("mmNo") int mmNo) throws Exception;
+	
+	public void applyMoim(@Param("member") Member member) throws Exception;
 	
 	//모임생성시, 생성자가 바로 모임장 되는 메서드이다. 멤버role은 4
 	public void newApplyMoim(@Param("userId") String userId, 

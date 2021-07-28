@@ -43,7 +43,7 @@
 		<result property="meflId.badge"				column="BADGE" 		jdbcType="VARCHAR" />
 	</resultMap>
 	
-	<insert id="applyMeeting">
+	<insert id="applyMeeting" >
 	 	INSERT
 		INTO MEETING_FLASH_MEMBER(
 		MEFL_ID, TARGET_NO, JOIN_REGDATE, JOIN_STATE, MEFL_TYPE

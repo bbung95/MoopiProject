@@ -28,10 +28,9 @@
 <script src="/javascript/jquery.bpopup-0.1.1.min.js"></script>
 
 
-<!---[마이홈으로 이동하는 단순 컨트롤러 실행]----------------------------------------------------------------------------------------------------------------------->	
-		$("button[name='movePU']").on("click", function(){
-			location.href = "/user/updateProfile"
-		});
+<!---[마이홈으로 이동하는 단순 컨트롤러 실행]----------------------------------------------------------------------------------------------------------------------->
+$("button[name='movePU']").on("click", function(){ location.href =
+"/user/updateProfile" });
 <!-------------------------------------------------------------------------------------------------------------------------->
 
 </script>
@@ -219,12 +218,30 @@ body {
 	border-radius: 50%;
 }
 
-.boardProfile{
+.boardProfile {
 	border-radius: 50%;
-	width : 40px;
+	width: 40px;
 	height: 40px;
 	margin-top: 10px;
-	margin-bottom : -10px;
+	margin-bottom: -10px;
+}
+
+.replyProfile {
+	border-radius: 50%;
+	width: 30px;
+	height: 30px;
+	margin-top: 10px;
+	margin-bottom: -10px;
+}
+
+#replyContents {
+	list-style-type: none;
+	margin: 0 auto;
+	padding: 0;
+}
+
+#replyContents>li {
+	padding: 0.5rem 1rem;
 }
 
 .moimImg {
@@ -267,6 +284,8 @@ body {
 /* bpopup */
 #element_to_pop_up {
 	display: none;
+	height: auto;
+	max-height: 482px;
 }
 
 /* Swiper sliber */
@@ -294,9 +313,9 @@ body {
 	align-items: center;
 }
 
-.board_i > i{
+.board_i>i {
 	font-size: 20px;
-	margin-left: 10px; 
+	margin-left: 10px;
 }
 
 .thumbnail-img {
@@ -313,15 +332,26 @@ body {
 
 @media ( min-width : 992px) {
 	.container {
-		width: 940px;
+		width: 1000px;
 	}
 }
 
 /*사실 이 블럭은 없어도 된다*/
 @media ( min-width : 1200px) {
 	.container {
-		width: 940px;
+		width: 1000px;
 	}
+}
+
+pre {
+	white-space: normal;
+	word-break: break-all;
+	padding-left: 15px;
+	padding-right: 15px;
+	text-align: left;
+	font-size: 15px;
+	margin-top: 0.5rem;
+	margin-bottom: 0.5rem;
 }
 </style>
 </head>
@@ -339,8 +369,7 @@ body {
 
 				<div class="col-xs-4 col-sm-4 col-md-4 item"></div>
 				<div class="col-xs-4 col-sm-4 col-md-4 item">
-					<img
-						src="//storage.googleapis.com/i.addblock.net/sample/content_image_46_1.jpg"
+					<img src="/images/uploadFiles/${user.profileImage}"
 						class="img-responsive profileImg" data-attach="true"
 						data-fixedsize="true" data-fixed-width="250" style="width: 250px;">
 					<div class="text-box" style="margin-top: 20px;">
@@ -365,31 +394,27 @@ body {
 								data-bs-toggle="modal" data-bs-target="#staticBackdrop">게시글등록</button>
 						</c:if>
 						<c:if test="${dbUser.userId != user.userId}">
-							<button class="btn btn-primary mybtn" type="button"
-								target="${user.userId}">팔로우</button>
-							<button class=" btn btn-light mybtn" type="button"
-								target="${user.userId}" type="1">채팅</button>
+							<button class="btn btn-primary mybtn" target="${user.userId}">팔로우</button>
+							<button class=" btn btn-light mybtn" target="${user.userId}"
+								type="1">채팅</button>
 						</c:if>
 					</div>
 				</div>
+
+				<!-- 모임리스트 -->
 				<div class="col-xs-4 col-sm-4 col-md-4 item">
-					<div class="card border-0 bg-light mt-xl-3">
+					<div class="card border-0 bg-light ">
 						<div class="card-body p-4 py-lg-3">
-							<div class="d-flex align-items-center justify-content-center">
-								<div class="text-center">
-									<div class="h6 fw-bolder">Have more questions?</div>
-									<p class="text-muted mb-3">
-										Contact us at <br /> <a href="#!">support@domain.com</a>
-									</p>
-									<div class="h6 fw-bolder">Follow us</div>
-									<a class="fs-5 px-2 link-dark" href="#!"><i
-										class="bi-twitter"></i></a> <a class="fs-5 px-2 link-dark"
-										href="#!"><i class="bi-facebook"></i></a> <a
-										class="fs-5 px-2 link-dark" href="#!"><i
-										class="bi-linkedin"></i></a> <a class="fs-5 px-2 link-dark"
-										href="#!"><i class="bi-youtube"></i></a>
+							<c:forEach var="moim" items="${moim}">
+								<div>
+									<span
+										style="background: white; margin: 5px; height: 100px; border-radius: 10px;"
+										onclick="location='/moim/getMoim?mmNo=${moim.mmNo}'"> <img
+										style="margin: 5px; height: 90px; width: 90px; border-radius: 10px;"
+										src="/images/uploadFiles/${moim.mmFile}"></img> <span>${moim.mmName}</span>
+									</span>
 								</div>
-							</div>
+							</c:forEach>
 						</div>
 					</div>
 				</div>
@@ -421,18 +446,17 @@ body {
 
 	<!-- get board view -->
 	<div class="container" id="element_to_pop_up">
-		<div class="row" >
+		<div class="row">
 			<div class="col-xs-8 col-sm-8 col-md-8">
 				<div class="swiper-container">
-					<div class="swiper-wrapper">
-					</div>
+					<div class="swiper-wrapper"></div>
 					<div class="swiper-pagination"></div>
 					<div class="swiper-button-next"></div>
 					<div class="swiper-button-prev"></div>
 				</div>
 			</div>
-			<div class="col-xs-4 col-sm-4 col-md-4 text-wrap" style="background: white;" id="element_content">
-			</div>
+			<div class="col-xs-4 col-sm-4 col-md-4 text-wrap"
+				style="background: white;" id="element_content"></div>
 		</div>
 	</div>
 
@@ -484,6 +508,9 @@ body {
 
 	<!-- Initialize Swiper -->
 	<script>
+	
+	var dbUser = "<c:out value='${dbUser.userId}'/>"
+	
     var swiper = new Swiper('.swiper-container', {
         pagination: '.swiper-pagination',
         paginationClickable: false,
@@ -496,27 +523,57 @@ body {
     });
     
 $('button:contains("채팅")').on('click', function(){
-	
-	let target = $(this).attr('target');
+
 	let type = $(this).attr('type');
+	let target = $(this).attr('target');
 	
-	$.ajax({
-		url: "/common/chat/joinRoom/"+dbUser+"/"+target+"/"+type,
-		method: "GET",
-		dataType: "JSON",
-		success: function(data,state){
-	
-		popWin = window.open(
-			"https://bbung95-rtc.herokuapp.com/chat?userId="+data.user.userId+"&trgt="+data.target.userId+"&type="+data.type
-			+"&name="+data.user.nickname+"&profile="+data.user.profileImage+"&trgtName="+data.target.nickname
-			+"&trgtProfile="+data.target.profileImage,
-			"popWin"+target,
-			"left=460, top=300, width=460, height=600, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");
+	if(dbUser == ''){
+		
+		alert("로그인 후 이용가능합니다.");
+		return;
+	}
+		
+		$.ajax({
+				url: "/common/chat/joinRoom/"+dbUser+"/"+target+"/"+type,
+				method: "GET",
+				dataType: "JSON",
+				success: function(data,state){
+					console.log(JSON.stringify(data));
+					let url;
+					if(data.type == 1){
+						url = "http://localhost:82/chat?userId="+data.user.userId+"&trgt="+data.target.userId+"&type="+data.type
+								+"&name="+data.user.nickname+"&profile="+data.user.profileImage+"&trgtName="+data.target.nickname
+								+"&trgtProfile="+data.target.profileImage; 
+						
+						/* url = "https://bbung95-rtc.herokuapp.com/chat?userId="+data.user.userId+"&trgt="+data.target.userId+"&type="+data.type
+						+"&name="+data.user.nickname+"&profile="+data.user.profileImage+"&trgtName="+data.target.nickname
+						+"&trgtProfile="+data.target.profileImage;*/
+					}else{
+						 url = "http://localhost:82/chat?userId="+data.user.userId+"&trgt="+data.target.mmNo+"&type="+data.type
+						+"&name="+data.user.nickname+"&profile="+data.user.profileImage+"&trgtName="+data.target.mmName
+						+"&trgtProfile="+data.target.mmFile+"&roomNo="+data.target.mmNo; 
+						
+						/*url = "https://bbung95-rtc.herokuapp.com/chat?userId="+data.user.userId+"&trgt="+data.target.mmNo+"&type="+data.type
+						+"&name="+data.user.nickname+"&profile="+data.user.profileImage+"&trgtName="+data.target.mmName
+						+"&trgtProfile="+data.target.mmFile+"&roomNo="+data.target.mmNo;*/
+					}
+				popWin = window.open(
+					url,
+						"popWin"+target,
+					"left=460, top=300, width=460, height=600, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");
+			
 		}
 	})
+		
 })
 
 $('button:contains("팔로우")').on('click', function(){
+	
+	if(dbUser == ''){
+		
+		alert("로그인 후 이용가능합니다.");
+		return;
+	}
 	
 	let target = $(this).attr('target');
 	$.ajax({
@@ -546,12 +603,12 @@ if(${followCheck}){
 //////// 게시글 등록
 function upload(formData){
 	// formData key &value 확인
-	 for (var key of formData.keys()) {
+	/*  for (var key of formData.keys()) {
 	  console.log(key);
 	}
 	for (var value of formData.values()) {
 	  console.log(value);
-	} 
+	}  */
 	$.ajax({
             url : "/user/json/addMyBoard"
                 , method : "POST"
@@ -727,13 +784,6 @@ if(${followCheck}){
 													+'</div>'
 													+'</div>'
 													+'</div>'
-													+'<div class="board_i"><i class="bi bi-heart"></i><i class="bi bi-heart-fill"></i>'+list[i].boardLike+'</div>'
-													+'<div class="cont-wrap">'
-													+'<div class="tpl-forum-list-cont" data-selector=".tpl-forum-list-cont" data-font="true"'
-													+'data-title="content font" style="overflow:hidden; height: 20px;">'+list[i].boardContent+'</div>'
-													+'</div>'
-													+'</div>'
-													+'</div>'
 								$('#boardView').append(displayValue);
 							}
 							loading = false;
@@ -747,35 +797,83 @@ if(${followCheck}){
 		
 		function getMyBoard(boardNo){
 			
-			
 			$.ajax({
 				url: "/user/json/getMyBoard/"+boardNo,
 				method : "GET",
 				dataType : "JSON",
 				success: function(data, state){
 					let board = data.board;
-					let reply = data;
+					let reply = data.reply;
 					let fileArry = board.boardFile.split("/");
 					
 					let displayslide = '';
 					let display = '';
+					// 게시글 이미지 
 					for(var i= 0; i < fileArry.length-1; i++){
 						displayslide += '<div class="swiper-slide">'
-								    + '<img src="/images/uploadFiles/'+fileArry[i]+'" class="img-responsive" data-attach="true" style="width: 100%; "></div>';
+								    + '<img src="/images/uploadFiles/'+fileArry[i]+'" class="img-responsive" data-attach="true" style="width: 80%; height: auto; max-height: 482px;"></div>';
 					}			
 					
-					display += '<div style="display: inline-block;"><img class="boardProfile" src="/images/uploadFiles/'+board.boardWriter.profileImage+'" /><span style="vertical-align: middle;">'+board.boardWriter.nickname+'</span></div>'
+					// 게시글 상세내용
+					display += '<div"><img class="boardProfile" src="/images/uploadFiles/'+board.boardWriter.profileImage+'" />'
+							+ board.boardWriter.nickname+' </div>'
+							+ board.boardRegDate
 							+ '<hr/>'
-							+ '<p data-edit="true" data-selector="p">'
+							+ '<pre data-edit="true" data-selector="p" >'
 							+ '<span class="fsize13">'+board.boardContent+'</span>'
-							+ '</p>'
-							+ '<hr/ style="margin: 0;">'
-							+ '<div class="board_i"><i class="bi bi-heart"></i><i class="bi bi-heart-fill"></i>'+board.boardLike+'</div>'
+							+ '</pre>'
+							+ '<ul id="replyContents" style="overflow: auto; max-height: 300px;">'
+
+					// 리플	
+					for(var i = 0; i < reply.length; i++){
+						display += '<li>'
+							+ '<div style="align-items: center; font-size: 13px" onclick="location.href=\'/user/getMyHome?userId='+reply[i].replyWriter.userId+'\'">'
+							+ '<img class="replyProfile" src="/images/uploadFiles/'+reply[i].replyWriter.profileImage+'" />'+reply[i].replyWriter.nickname+' '+reply[i].replyRegDate+'</div>'
+							+ '<pre style="font-size : 13px; padding-left: 40px;">'+reply[i].replyContent+'</pre></li>';
+					}
+							
+					// 리플 입력폼
+					display	+= '</ul><hr/ style="margin: 0;">'
+							+ '<div class="board_i">'
+					
+					// like 온 오프
+					if(data.likeCheck){
+						display += '<i class="bi bi-heart-fill likebtn"></i><span class="likeCount">'+board.boardLike+'</span></div>'
+					}else{
+						display += '<i class="bi bi-heart likebtn"></i><span class="likeCount">'+board.boardLike+'</span></div>'
+					}	
+					
+					display	+= '<div class="input-group mb-3">'
+							+ '<input type="hidden" id="myBoardNo" value="'+board.boardNo+'"/>'
+							+ '<input type="text" class="form-control" placeholder="Recipient reply" name="replyContent" id="replyContent">'
+							+ '<button class="btn btn-outline-secondary" type="button" id="button-addon2" onclick="addReply('+board.boardNo+')">전송</button>'
+							+ '</div>'
 									
 					$('.swiper-wrapper').children().remove();
 					$('.swiper-wrapper').append(displayslide);
 					$('#element_content').children().remove();
 					$('#element_content').append(display);
+					
+					$('.likebtn').on('click', function(){
+						$.ajax({
+							url : "/user/json/myBoardLike/"+boardNo,
+							method : "GET",
+							dataType : "JSON",
+							success: function(data, state){
+								
+								let count = parseInt($('.likeCount').text().trim());
+								$('.likeCount').children().remove();
+								
+								if(data){
+									$('.bi-heart-fill').attr('class','bi bi-heart likebtn');
+									$('.likeCount').text(count-1);
+								}else{
+									$('.bi-heart').attr('class','bi bi-heart-fill likebtn');
+									$('.likeCount').text(count+1);
+								}
+							}
+						})
+					})
 				}
 			})
 			
@@ -785,6 +883,54 @@ if(${followCheck}){
 	        });
 		}
 		
+		// 댓글등록
+		function addReply(boardNo){
+			
+			let replyContent = $('#replyContent').val();
+			
+			// 유효성체크
+			if(dbUser == ''){
+				
+				alert("로그인 후 이용가능합니다.");
+				return;
+			}
+			
+			$.ajax({
+				url: "/reply/json/addReply",
+				type: "POST",
+				dataType: "json",
+				contentType : "application/json",
+				data :  JSON.stringify ({ "boardNo": boardNo, "replyWriter": {"userId" :dbUser}, "replyContent":replyContent}),		
+				success: function(data, state){
+					
+					let display = '<li>'
+								+ '<div style="align-items: center; font-size: 13px" onclick="location.href=\'/user/getMyHome?userId='+data.replyWriter.userId+'\'">'
+								+ '<img class="replyProfile" src="/images/uploadFiles/'+data.replyWriter.profileImage+'" />'+data.replyWriter.nickname+' '+data.replyRegDate+'</div>'
+								+ '<pre style="font-size : 13px; padding-left: 40px;">'+data.replyContent+'</pre></li>';
+					
+					$('#replyContents').append(display);
+					$('#replyContent').val('');
+				}
+
+			});
+		}
+		
+		// 댓글삭제
+		function deleteReply(){
+			$.ajax({
+				url: "/reply/json/deleteReply/"+replyNo,
+				type: "GET",
+				dataType: "json",	
+				contentType : "application/json",
+				data : "text",
+		  		success : function(data , status) {
+		    	
+	                alert(status);
+	                
+					$("#replyContent").remove();
+	            }
+			})     
+		}
 </script>
 </body>
 </html>

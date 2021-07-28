@@ -212,14 +212,14 @@ public class MoimController {
 	
 	
 	
-	//모임 가입신청하기
-	@RequestMapping("applyMoim")
-	public String applyMoim(@RequestParam("userId") String userId,
-	@RequestParam("mmNo") int mmNo) throws Exception {
-		System.out.println("모임 가입신청을 합니다.");
-		moimService.applyMoim(userId, mmNo);
-		return "forward:/moim/getMoim";
-	}
+//	//모임 가입신청하기
+//	@RequestMapping("applyMoim")
+//	public String applyMoim(@RequestParam("userId") String userId,
+//	@RequestParam("mmNo") int mmNo) throws Exception {
+//		System.out.println("모임 가입신청을 합니다.");
+//		moimService.applyMoim(userId, mmNo);
+//		return "forward:/moim/getMoim";
+//	}
 	
 	//모임 탈퇴하기
 	@RequestMapping("leaveMoim")
@@ -231,14 +231,14 @@ public class MoimController {
 		return "forward:모임상세조회페이지";
 	}
 	
-	//가입신청 거절하기
-	@RequestMapping("refuseApply")
-	public String refuseApply(@RequestParam("memberNo") int memberNo,
-			@RequestParam("mmNo") int mmNo) throws Exception {
-		System.out.println("가입신청을 거절 합니다.");
-		moimService.refuseApply(memberNo);
-		return "redirect:/moim/listMember?mmNo="+mmNo+"&status=1";
-	}
+//	//가입신청 거절하기
+//	@RequestMapping("refuseApply")
+//	public String refuseApply(@RequestParam("memberNo") int memberNo,
+//			@RequestParam("mmNo") int mmNo) throws Exception {
+//		System.out.println("가입신청을 거절 합니다.");
+//		moimService.refuseApply(memberNo);
+//		return "redirect:/moim/listMember?mmNo="+mmNo+"&status=1";
+//	}
 	
 	//멤버 권한변경(가입신청수락, 매니저권한위임및박탈)
 	@RequestMapping("updateMember")
@@ -305,6 +305,7 @@ public class MoimController {
 	
 		System.out.println(search.toString()+boardMoimNo);
 		
+		Moim moim = moimService.getMoim(boardMoimNo);		
 		String boardCategory = null;
 		Map map = new HashMap();
 
@@ -320,7 +321,7 @@ public class MoimController {
 		model.addAttribute("list", map.get("list"));
 		model.addAttribute("totalCount", map.get("totalCount"));
 		model.addAttribute("boardMoimNo", boardMoimNo);
-		
+		model.addAttribute("moim", moim);
 			return "/moim/listMoimBoard";
 	}
 	
@@ -361,7 +362,8 @@ public class MoimController {
 	
 	@RequestMapping("addBoardView")
 	public String addBoardView(@ModelAttribute("boardMoimNo") int boardMoimNo, Model model) {
-		
+		Moim moim = moimService.getMoim(boardMoimNo);
+		model.addAttribute("moim", moim);
 		model.addAttribute("boardMoimNo", boardMoimNo);
 		
 		return "/moim/addMoimBoardView";

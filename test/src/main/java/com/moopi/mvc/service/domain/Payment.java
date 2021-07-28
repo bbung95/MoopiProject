@@ -18,6 +18,7 @@ public class Payment {
 	private int paymentPrice;
 	private int paymentCoinCount;
 	private String paymentUid;
+	private String option;
 	
 	public Payment() {
 		
