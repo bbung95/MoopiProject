@@ -44,6 +44,27 @@
 	margin-top: 0.5rem;
 	margin-bottom: 0.5rem;
 }
+
+/*사이즈*/
+@media ( min-width : 768px) {
+	.container {
+		width: 750px;
+	}
+}
+
+@media ( min-width : 992px) {
+	.container {
+		width: 1000px;
+	}
+}
+
+/*사실 이 블럭은 없어도 된다*/
+@media ( min-width : 1200px) {
+	.container {
+		width: 1000px;
+	}
+}
+
 </style>
 
 <div style="width: 10px; height: 10px;"></div>

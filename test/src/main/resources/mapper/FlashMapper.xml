@@ -96,6 +96,14 @@
 		WHERE FLASH_NO = #{flashNo}
 	</update>
 	
+	<update id="joinFlashUpdate" parameterType="flash">
+		UPDATE FLASH
+		<set>
+			FLASH_CURRENT_COUNT = FLASH_CURRENT_COUNT +1
+		</set>
+		WHERE FLASH_NO = #{flashNo}
+	</update>
+	
 	<select id="getFlashList" parameterType="search" resultMap="flashSelectMap">
 		SELECT
 			FLASH_NO, FLASH_NAME, FLASH_CONTENT, FLASH_FILE, FLASH_CONSTRUCTOR, FLASH_REGDATE,
