@@ -666,7 +666,7 @@ function fncPopUp(){
 	</div>
 	ㆍlocation :<span id='mtAddr'></span>
 	<div>
-	<iframe id="locate" src="../moim/mapView.jsp" width="350" height="350"></iframe>
+	<jsp:include page="../map/mapView.jsp" ></jsp:include>
 	</div>
 		
 	<br>
