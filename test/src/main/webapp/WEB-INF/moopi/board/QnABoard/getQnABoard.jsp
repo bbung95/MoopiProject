@@ -6,18 +6,150 @@
 	<html>
 	<head>
 	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
 	<title>Insert title here</title>
 	
 	<!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
 		<!--<link rel="stylesheet" href="/images/uploadFiles" >  -->
 		<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link
+			href="https://fonts.googleapis.com/css2?family=Gaegu:wght@300&display=swap"
+			rel="stylesheet">
+		
+		<!-- Bootstrap Dropdown Hover JS -->
+		<script src="/javascript/bootstrap-dropdownhover.min.js"></script>
+		
+		<!-- Favicon-->
+		<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+		<!-- Bootstrap icons-->
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
+			rel="stylesheet" />
+		<!-- Core theme CSS (includes Bootstrap)-->
+		<link href="/css/styles.css" rel="stylesheet" />
+		
 		<script src="/javascript/summernote-lite.js"></script>
 		<script src="/javascript/lang/summernote-ko-KR.js"></script>
 		<link rel="stylesheet" href="/css/summernote-lite.css">
 		 	
+	
+	  
+	<style>
+	html  { background-color: #ffffff; background-image:none;}	
+	body {
+	padding-top: 100px;
+	margin: auto;
+	font-family: 'Gaegu', cursive;
+}
+	.hrLine { position: relative; padding: 0px 0; }
+	.hrLine hr{ border: 0; border-top:3px solid #3073ac; height:1px;width: 100%; margin-top: 10px;    margin-bottom: 10px; }			
+	.replyHr hr{ border: 0; border-top:1px solid #3073ac; height:1px;width: 100%; margin-top: 10px;    margin-bottom: 10px; }
+						
+	</style>
+	</head>
+	<body>
+	<!-- ToolBar Start /////////////////////////////////////-->
+		<jsp:include page="../../layout/toolbar.jsp" />
+	<!-- ToolBar End /////////////////////////////////////-->
+	<form class="form-horizontal" name="detailForm" enctype="multipart/form-data">
+<!-- 	<div class="col-xs-12 col-sm-12 col-md-12"> -->
+<!-- 			    <h3 class="head_title" data-edit="true" data-selector="h3.head_title" ><span class="fsize20" ><strong>QnA게시판조회</strong></span></h3> -->
+<!-- 		   </div> -->
+	<article>
+		
+	 	
+		<div class="container hrLine"> 
+			<div class="row">
+				<div class="col-xs-2 col-sm-2 col-md-2"></div>
+				<div class="col-xs-8 col-sm-8 col-md-8">
+				<section clsss="board-head">
+					<h2 class="head_title" data-edit="true" data-selector="h3.head_title" style="margin:0px"><span class="fsize20" ><strong>QnA게시판조회</strong></span></h2>
+						                <hr class="half-rule userEL9009200" data-selector="hr" data-border="true" data-title="line color">
+				<div style="display:inline-block; font-size:20px; margin:0px"> ${board.boardName}</div>
+				<div style="display:inline-block; float:right;">${board.boardRegDate}
+				</div>
+				<input class="board" type="hidden" id="boardNo" name="boardNo" value="${board.boardNo}">
+				<div style="text-align:right;">
+					<pattern id="comment-write-image" patternUnits="userSpaceOnUse" width="40" height="40">									
+						<image xlink:href="//storage.googleapis.com/i.addblock.net/member/profile_default.jpg?_1627201858221" width="40" height="40"></image>								
+					</pattern>${board.boardWriter.nickname} </div>
+				</section>
+				<hr>
+				<section class="board-content">
+					<div style="min-height:200px">
+					${board.boardContent}
+					</div>
+					<p style="text-align:right;">작성시간 : ${board.boardRegDate}</p>
+					<hr>
+				</section>
+				
+<!-- 				리플리스트 시작 -->
+				<section class="reply-content">
+				
+					<div class="container replyHr">
+						<c:forEach var="reply" items="${list}">
+						<div class="col-xs-1 col-sm-1 col-md-1">
+<%-- 							<c:if test="user.userId == '#reple.replyWriter.userId' "> --%>
+						</div>
+						
+						<input type="hidden" class="reply" id="replyNo" name="replyNo" value="${reply.replyNo}">
+						<div class="col-xs-7 col-sm-7 col-md-7">
+							<div style="display: inline-block">
+								${reply.replyWriter.nickname}
+							</div>
+							<div style="display: inline-block; float:right;">
+							    작성시간 : ${reply.replyRegDate}
+							</div>
+							<div style="min-height:70px">
+							${reply.replyContent}
+							</div>
+							<button type="button" class="btn btn-primary" id="updateBoard">수정</button>
+								<button type="button" class="btn btn-primary" id="deleteBoard">삭제</button>
+<%-- 							</c:if> --%>
+								<button type="button" class="btn btn-primary" id="addReportReply">신고</button>
+							<hr>
+						</div>
+						
+						<div class="row">
+						
+						</c:forEach>
+ <!-- 					리플리스트 끝.	 -->
+ 				</section>
+ 				<section class="replyWrite">
+								<form id = "addReplyForm">
+										<div class="col-xs-2 col-sm-2 cols-md-2" style="text-align:right;">
+												${dbUser.nickname }
+										</div>
+										<div class="col-xs-6 col-sm-6 cols-md-6">
+											<textarea id="summernote" placeholder="댓글을 입력해주세요." name="replyContent" id="replyContent" ></textarea>						
+										</div>					
+											<input type="hidden" id = "replyWriter" value="${dbUser.userId}"> 
+				  							<input type="hidden" id = "boardNo" value="${board.boardNo }"> 
+										<div class="btn btn-submit btn-round" style=" float:right; border-color: rgba(0, 0, 0, 0.4); color: rgba(0, 0, 0, 0.8);" id="addReply"> 
+											등록
+										</div>
+								</form>	
+				</section>
+				</div>	
+				<div class="col-xs-2 col-sm-2 col-md-2"></div>
+				
+			</div>
+		</div>
+		</section>
+	
+	<p></p>
+	
+		 
+	
+	</form>	
+	
+	
+	
+	<jsp:include page="../../layout/searchbar.jsp"></jsp:include>
+	</body>
 	<script type="text/javascript">
 	 $(document).ready(function() {
     	 $('#summernote').summernote({
@@ -120,7 +252,7 @@
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 			$( "#addReply" ).on("click" , function() {
 				alert("addReply");
-				alert($("textarea.form-control").val()) 
+				alert($("#summernote").val()) 
 				
 				fncAddReply();
 			});
@@ -130,7 +262,7 @@
 			
 			alert($(this).parent().html())
 			
-			var replyContent=$("textarea.form-control").val()
+			var replyContent=$("#summernote").val()
 			var replyWriter = $("#replyWriter").val();
 			var boardNo = $("#boardNo").val();
 			
@@ -327,132 +459,5 @@
 		}				
 				
 	</script>
-	  
-	<style>
-	html  { background-color: #ffffff; background-image:none;}	
-	body, body > .dsgn-body { background-color: transparent;
-	background-image: none;position: absolute; top: 0; left: 0;  right: 0; bottom: 0; width: auto; height: auto; padding: 0px; overflow: auto; }													
-	.forum-user-info li.user-ctrl .dropdown-menu,							
-	.forum-user-info li.user-ctrl .dropdown-menu li a {background-color: #ffffff; background-image:none;}							
-	.forum-user-info li.user-ctrl .dropdown-menu,.forum-user-info li.user-ctrl .dropdown-menu li + li {border-color:black}							
-	.forum-user-info li.user-ctrl .dropdown-menu li a {color:black}							
-	.forum-user-info li.user-ctrl .dropdown-menu li a:focus,							
-	.forum-user-info li.user-ctrl .dropdown-menu li a:hover,							
-	.forum-view .tpl-forum-list-footer button.btn.btn-round:focus,							
-	.forum-view .tpl-forum-list-footer button.btn.btn-round:hover,							
-	.page-comments .comm-footer .btn.btn-submit:hover {background-color:rgba(0,0,0,0.07);color:black !important;}							
-	.forum-write .tpl-forum-list-footer button,.forum-view .fr-view .fr-file {border-color:rgba(0,0,0,0.4)}							
-	.forum-write .tpl-forum-list-footer button,.forum-user-info li.user-info,					
-	.forum-view .fr-view .fr-file {color:rgba(0,0,0,0.8)}							
-	.forum-write .tpl-forum-title, .forum-write .tpl-forum-content {color : black}							
-	#forum-ctrl path {fill : rgba(0,0,0,0.6)}							
-	.page-comments .tpl-comment-form textarea::-webkit-input-placeholder {color:rgba(0,0,0,0.6) !important;}							
-	.page-comments .tpl-comment-form textarea:-ms-input-placeholder {color:rgba(0,0,0,0.6) !important;}							
-	.page-comments .tpl-comment-form textarea:-mos-input-placeholder {color:rgba(0,0,0,0.6) !important;}									
-	</style>
-	</head>
-	<body>
-	<!-- ToolBar Start /////////////////////////////////////-->
-		<jsp:include page="../../layout/toolbar.jsp" />
-	<!-- ToolBar End /////////////////////////////////////-->
-	<form class="form-horizontal" name="detailForm" enctype="multipart/form-data">
-	<div class="col-xs-12 col-sm-12 col-md-12">
-			    <h3 class="head_title" data-edit="true" data-selector="h3.head_title" ><span class="fsize20" ><strong>QnA게시판조회</strong></span></h3>
-		   </div>
-	<div >
-	<input class="board" type="hidden" id="boardNo" name="boardNo" value="${board.boardNo}">
-	
-	<p>게시글번호 :${board.boardNo}</p>
-	<p>게시글이름 :${board.boardName}</p>
-	<p>게시글내용 :${board.boardContent}</p>
-	<c:if test="${empty board.boardUpdate }">
-	<p>작 성 일 : ${board.boardRegDate}</p> 
-	</c:if>
-	<c:if test="${!empty board.boardUpdate }">
-	<p>수 정 일 : ${board.boardUpdate}</p>
-	</c:if>
-	<p>작 성 자 : ${board.boardWriter.nickname} ${board.boardWriter.profileImage }</p>
-	
-		<c:if test="user.userId == '#replyWriter' ">
-	<button type="button" class="btn btn-primary" id="updateBoard">수정하기</button>
-	<button type="button" class="btn btn-primary" id="deleteBoard">삭제하기</button>
-	</c:if>
-	<button type="button" class="btn btn-primary" id="addBoardReport">게시글신고</button>
-<!-- 	</a> -->
-
-	<p></p>
-	</div>
-	</div>
-	<c:forEach var="reply" items="${list}">
-		--------------------------------------------
-		<div >
-		<input type="hidden" class="reply" id="replyNo" name="replyNo" value="${reply.replyNo}">
-		<p id="replyContent">${reply.replyWriter.nickname} ${reply.replyWriter.profileImage } : ${reply.replyContent}    작성시간 ${reply.replyRegDate}</p>
-	<%-- 	<c:if test="user.userId == '#replyWriter' "> --%>
-		<button type="button" class="btn btn-primary" id="updateReply">답변수정</button>
-		<button type="button" class="btn btn-primary" id="deleteReply">답변삭제</button>
-	<%-- 	</c:if> --%>
-		
-		<button type="button" class="btn btn-primary" id="addReportReply">답글신고</button>
-		
-		</c:forEach>
-	
-	 
-	
-	<div class="page-comments" data-id="545295" style="text-align: center; font-size: 20px; background-image: none; background-position: center center; background-repeat: no-repeat; min-height: 50px; margin-top: -21px;">
-		<div class="container">
-			<form id = "addReplyForm">
-				<div class="tpl-comment-form" style="border-color: rgba(0, 0, 0, 0.2);">				
-					<div class="comm-wrap">					
-						<div class="comm-body">						
-						<span class="comm-profile">							
-							<svg viewBox="0 0 40 40" width="35" height="35">								
-							<!-- 	코멘트 프로필사진부분 -->
-								<pattern id="comment-write-image" patternUnits="userSpaceOnUse" width="40" height="40">									
-								<image xlink:href="//storage.googleapis.com/i.addblock.net/member/profile_default.jpg?_1627201858221" width="40" height="40"></image>								
-								</pattern>
-								<circle cx="20" cy="20" r="20" fill="url(#comment-write-image)">프로필이미지</circle>
-							</svg>
-							<span>${dbUser.nickname } ddd</span>		
-						</span>						
-							<div class="comm-area">							
-								<textarea class="form-control" id="summernote" placeholder="댓글을 입력해주세요." name="replyContent" id="replyContent" style="color: rgba(0, 0, 0, 0.8);">test</textarea>						
-							</div>					
-						</div>					
-							<div class="comm-footer">			 			
-								<div class="checkbox">			 				
-									<label style="color: rgba(0, 0, 0, 0.8);">			 					
-										<span class="cl-icon">
-										</svg>
-									</label>
-								</div>						
-								<div class="btn-box comment-submit">
-									<input type="hidden" id = "replyWriter" value="${dbUser.userId}"> 
-		  							<input type="hidden" id = "boardNo" value="${board.boardNo }"> 
-									<span class="btn btn-submit btn-round" style="border-color: rgba(0, 0, 0, 0.4); color: rgba(0, 0, 0, 0.8);" id="addReply"> 등록</span>
-								</div>
-							</div>
-					</div>			
-				</div>
-			</form>	
-				<ul class="comment-list"></ul>
-		</div>
-	</div>
-	
-	
-	
-	
-	
-	<p></p>
-	
-		 
-	
-	</form>
-	
-	
-	
-	<jsp:include page="../../layout/searchbar.jsp"></jsp:include>
-	</body>
-	
 	</html>
 	
