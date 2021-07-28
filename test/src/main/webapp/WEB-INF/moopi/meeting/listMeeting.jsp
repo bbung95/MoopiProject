@@ -570,8 +570,8 @@ function fncPopUp(){
 <body>
 
 <!-- ToolBar Start ///////////////////////////////////// -->
-<jsp:include page="../layout/toolbar.jsp" />
-<%-- <jsp:include page="../layout/moimToolbar.jsp"/> --%>
+<%-- <jsp:include page="../layout/toolbar.jsp" /> --%>
+<jsp:include page="../layout/moimToolbar.jsp"/>
 <!-- ToolBar End /////////////////////////////////////-->
 
 <center><h3>Your Meeting Calendar
@@ -666,7 +666,7 @@ function fncPopUp(){
 	</div>
 	ㆍlocation :<span id='mtAddr'></span>
 	<div>
-	<iframe id="locate" src="../moim/mapView.jsp" width="350" height="350"></iframe>
+	<jsp:include page="../map/mapView.jsp" ></jsp:include>
 	</div>
 		
 	<br>

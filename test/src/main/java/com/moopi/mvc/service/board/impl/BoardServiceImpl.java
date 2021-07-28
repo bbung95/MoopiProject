@@ -128,17 +128,29 @@ public Map<String, Object> getBoardList(Search search, String boardCategory, Str
 
 	}
 	
-	public int getLike(Map map) throws Exception {
+	public int getLike(String userId, String target) throws Exception {
+		
+		Map map = new HashMap();
+		map.put("userId", userId);
+		map.put("likeTarget", target);
 	
 		return boardDao.getLike(map);
 	}
 	
-	public void addLike(Map map) throws Exception {
+	public void addLike(String userId, String target) throws Exception {
+		
+		Map map = new HashMap();
+		map.put("userId", userId);
+		map.put("likeTarget", target);
 		
 		boardDao.addLike(map);
 	}
 	
-	public void deleteLike(Map map) throws Exception {
+	public void deleteLike(String userId, String target) throws Exception {
+		
+		Map map = new HashMap();
+		map.put("userId", userId);
+		map.put("likeTarget", target);
 		
 		boardDao.deleteLike(map);
 	}

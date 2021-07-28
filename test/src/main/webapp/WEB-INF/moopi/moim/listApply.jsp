@@ -39,7 +39,7 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> 
 
 <script>
-function fncAccept(userId, mmNo){
+/* function fncAccept(userId, mmNo){
 	swal("가입신청을 수락하겠습니다.");
 	self.location ="/moim/updateMember?userId="+userId+"&mmNo="+mmNo+"&status=1"
 }
@@ -47,7 +47,44 @@ function fncAccept(userId, mmNo){
 function fncRefuse(memberNo, mmNo){
 	swal("가입신청을 거절하겠습니다.");
 	self.location ="/moim/refuseApply?memberNo="+memberNo+"&mmNo="+mmNo
-}
+} */
+
+$(function(){
+	
+	$('.apply').on('click', function(){
+		
+		let mmNo = $(this).attr("mmNo");
+		let userId = $(this).attr("userId");
+		
+		$.ajax({
+			url: "/moim/json/applyMoim",
+			method: "POST",
+			contentType : "application/JSON",
+			data: JSON.stringify({"mmUser" : {"userId" : userId},
+					"mmNo" : mmNo}),
+			dataType : "text",
+			success: function(data, state){
+				
+			}
+		})
+	})
+	
+	$('.refuseApply').on('click', function(){
+		
+		let memberNo = $(this).attr("memberNO");
+		
+		$.ajax({
+			url: "/moim/json/refuseApply",
+			method: "POST",
+			contentType : "application/JSON",
+			data: JSON.stringify({"memberNo" : memberNo}),
+			dataType : "text",
+			success: function(data, state){
+				
+			}
+		})
+	})
+})
 
 
 </script>
@@ -193,8 +230,10 @@ table.dataTable td {
             <td id="td6">${member.mmUser.interestSecond}</td>
             <td id="td7">${member.mmUser.interestThird}</td>
             <td id="td8">
-            <button type="button" class="btn btn-default" onClick="fncAccept('${member.mmUser.userId}', '${member.mmNo}')">Accept</button>
-			<button type="button" class="btn btn-default" onClick="fncRefuse('${member.memberNo}', '${member.mmNo}')">reject</button>
+            <button type="button" class="btn btn-default apply" mmNo="${member.mmNo}" userId="${member.mmUser.userId}">Accept</button>
+			<button type="button" class="btn btn-default refuseApply" memberNo="${member.memberNo}">reject</button>
+<%--             <button type="button" class="btn btn-default" onClick="fncAccept('${member.mmUser.userId}', '${member.mmNo}')">Accept</button>
+			<button type="button" class="btn btn-default" onClick="fncRefuse('${member.memberNo}', '${member.mmNo}')">reject</button> --%>
             </td>
           </tr>
         </c:forEach>  
