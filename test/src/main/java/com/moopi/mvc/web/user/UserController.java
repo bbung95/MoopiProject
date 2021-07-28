@@ -19,10 +19,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.moopi.mvc.service.common.impl.CommonServiceImpl;
 import com.moopi.mvc.service.domain.User;
 import com.moopi.mvc.service.moim.impl.MoimServiceImpl;
 import com.moopi.mvc.service.user.impl.UserServiceImpl;
 
+import ch.qos.logback.core.joran.conditional.ElseAction;
 import oracle.sql.DATE;
 
 @Controller
@@ -34,6 +36,16 @@ public class UserController {
 	
 	@Autowired
 	private MoimServiceImpl moimService;
+	
+	@Autowired
+	private CommonServiceImpl commonService;
+	
+	@RequestMapping("getMyHomeBoard")
+	public String getMyHomeBoard () {
+		System.out.println("확인");
+		
+		return "user/getMyHomeBoard";
+	}
 		
 	// 카카오 로그인 및 회원가입
 	@RequestMapping("kakaoLogin")
@@ -53,30 +65,55 @@ public class UserController {
 	
 	// [완료] 로그인페이지 (단순 네비게이션)
 	@RequestMapping("loginView")
-	public String loginView(@ModelAttribute("user") User user) throws Exception{		
+	public String loginView(@ModelAttribute("user") User user) throws Exception{
 		return "user/loginView";
 	}
 
 	// [완료] 로그인 
 	@RequestMapping("loginUser")
-	public String login(@ModelAttribute("user") User user, 
-						HttpSession session) throws Exception{
+	public String login(@ModelAttribute("user") User user, @RequestParam("userId") String userId,
+						HttpSession session, Model model) throws Exception{
 		User dbUser = userService.loginUser(user.getUserId());
 		System.out.println(dbUser);		
 		String dbId = user.getUserId();
 		String dbPw = user.getPassword();
 		
-		dbUser = userService.getUser(dbId);	
-		if (dbId != null && dbPw.equals(dbUser.getPassword())) {
-				System.out.println("아이디 및 비밀번호가 일치합니다.");
-				session.setAttribute("dbUser", dbUser);
-				return "redirect:/";
-			} else {
-				System.out.println("아이디 및 비밀번호가 일치하지 않습니다.");
-				return "user/loginView";
-			}
+		System.out.println("유저롤 확인 : "+dbUser.getUserRole());
+		
+		if (dbUser.getUserRole().equals("6")) {
+			System.out.println("유저롤 6번으로 완전탈퇴 복구불가 회원입니다.");
+			session.invalidate();		
+			return "user/loginView";
+		
+		} else if (dbUser.getUserRole().equals("5")) {
+			System.out.println("유저롤 5번으로 복구가능 회원입니다.");
+			model.addAttribute("userId", userId);
+			System.out.println("updateRestoreUser로 이동합니다.");
+			session.invalidate();
+			return "redirect:updateRestoreUser";
+		
+		} else {
+			dbUser = userService.getUser(dbId);	
+			if (dbId != null && dbPw.equals(dbUser.getPassword())) {
+					System.out.println("아이디 및 비밀번호가 일치합니다.");
+					session.setAttribute("dbUser", dbUser);
+					return "redirect:/";
+				} else {
+					System.out.println("아이디 및 비밀번호가 일치하지 않습니다.");
+					return "user/loginView";
+				}
+
+		}
+		
 		}
 	
+	@RequestMapping("updateRestoreUser")
+	public String updateRestoreUser() {
+		
+		System.out.println("탈퇴회원이 복구를요청할때 뜨는 페이지입니다.");
+		return "user/updateRestoreUser";
+	}
+
 
 //-- 로그아웃 구현 -------------------------------------------------------------------------------------------
 	@RequestMapping("logout")
@@ -134,72 +171,62 @@ public class UserController {
 		int age = year - birthday;
 		user.setAge(age);
 		
+		user.setProfileImage("default-profileImg.png");
+		
 		userService.addUser(user);
 		
 		return "redirect:/";
 	}
 //-----------------------------------------------------------------------------------------------------------------
-
-	
-// [완료] 모바일인증 단순네비게이션
-	@RequestMapping("getMobileAuth")
-	public String getMobileAuth() throws Exception {
-		return "user/getMobileAuth";	
-	}
-
-// [완료] 비밀번호찾기
 	@RequestMapping("getMobileAuthPW")
-	public String getMobileAuthPW(	Model model, @RequestParam("userId") String userId) throws Exception {		
+	public String getMobileAuthPW(	Model model, 
+									@RequestParam("userId") String userId) throws Exception {	
 		User id = userService.getUser(userId);
 		model.addAttribute("dbUser", id);		
 		return "user/getMobileAuth";	
 	}
+	
+	@RequestMapping("getMobileAuth")
+	public String getMobileAuth() throws Exception {
+		return "user/getMobileAuth";	
+	}
+	
+	@RequestMapping("updatePwdViewError")
+	public String updatePwdViewError() throws Exception {
+		return "user/updatePwdViewError";
+	}
+
 	@RequestMapping("updatePwdViewMobile")
 	public String updatePwdViewMobile( @RequestParam("userId") String userId) throws Exception {
 		System.out.println("여기로 진입완료");
 		return "user/updatePwdViewMobile";
 	}
+	
+	// 아이디와 비번이 맞는지 확인
+	@RequestMapping("getAuthValidity")
+	public String getAuthValidity (	@RequestParam("userId") String userId,
+									@RequestParam("phone") String phone, User user,
+									Model model) throws Exception {		
+		User Id = userService.getId(phone);
+		if ( userId.equals(Id.getUserId())) {
+			model.addAttribute("dbUser", Id);
+			return "/user/updatePwdView";
+		} else {
+			model.addAttribute("user", user);
+		return "redirect:/user/updatePwdViewError";
+		}
+	}		
+	
 //-- [리턴수정필요] 비밀번호찾기 - 아이디, 모바일번호인증 일치 여부 확인
 	@RequestMapping("updatePwdView")
-	public String updatePwdView(	@RequestParam("userId") String userId,
-									@RequestParam("phone") String phone,								
-									User user) throws Exception {
-		System.out.println("진입");
-		
-		System.out.println("회원이 직접 입력한 아이디 : "+userId);
-		System.out.println("회원이 직접 입력한 모바일번호 : "+phone);
-		
-		// 입력한 주소 아이디를 가져옴
-		User dbUser = userService.getUser(userId);
-		
-		System.out.println("dbUser : "+dbUser);
-		
-		dbUser.getUserId();
-		dbUser.getPhone();
-		System.out.println("해당 아이디인지 확인 : "+dbUser.getUserId());
-		System.out.println("해당 폰넘버인지 확인 : "+dbUser.getPhone());
-		
-		String getId = dbUser.getUserId();			
-		String getPhone = dbUser.getPhone();
-		
-		System.out.println("db의 Id 확인 : "+getId);
-		System.out.println("db의 phone 확인 : "+getPhone);
-		
-		// 입력한아이디와 입력한 모바일인증번호가 db에 저장되어있는 아이디와 모바일번호가 같다면,
-		// 입력한아이디와 db의 아이디
-		
-		if( dbUser != null) {
-			System.out.println("널이아님");
-			return "user/updatePwdView";
-		} else if (dbUser == null) {
-			System.out.println("널");
-			return "user/loginView";
-		} 
-
-	
-		System.out.println("그외");
-		return "user/updatePwdView";
+	public String updatePwdView(	@RequestParam("userId") String userId,								
+									Model model) throws Exception {
+		User id = userService.getUser(userId);
+		model.addAttribute("dbUser", id);
+		return "user/updatePwd";
 	}
+	
+
 
 //-- searchUserPwd.jsp로 이동하는 단순네비게이션 ------------------------------------------------------------
 	@RequestMapping("searchUserPwd")
@@ -289,8 +316,9 @@ public class UserController {
 								Model model) throws Exception{
 				
 		System.out.println("\n"+"UserController_____updateProfile 프로필수정 페이지"+"\n");
-
+		
 		model.addAttribute("dbUser",userService.getUser(userId));
+		model.addAttribute("interest",commonService.getInterest());
 		
 		System.out.println(userService.getUser(userId));
 		return "user/updateProfile";
@@ -443,24 +471,21 @@ public class UserController {
 	public String updateUserView( @RequestParam("userId") String userId, Model model ) throws Exception {
 		
 		model.addAttribute("dbUser", userService.getUser(userId));
-			
-		System.out.println("UserController_____getIdView 시작");
-		System.out.println("아이디찾기 진행시 아이디를 띄워주는 뷰입니다.");
 					
 		return "user/updateUserView";
 	}
 //-----------------------------------------------------------------------------------------------------------------
-	@RequestMapping("updateUser")
-	public void updateUser ( 	@RequestParam("userId") String userId, 
-								@RequestParam("password") String password,
-								@RequestParam("phone") String phone,
-								Model model, User user) throws Exception {
-		
-		user.setPassword(password);
-		user.setPhone(phone);
-		
-		userService.updateUser(user);
-	}
+//	@RequestMapping("updateUser")
+//	public void updateUser ( 	
+//								@RequestParam("password") String password,
+//								@RequestParam("phone") String phone,
+//								User user) throws Exception {
+//		
+//		user.setPassword(password);
+//		user.setPhone(phone);
+//		
+//		userService.updateUser(user);
+//	}
 	
 	@RequestMapping(value="myInformation")
 	public String myInformation() {
@@ -469,13 +494,12 @@ public class UserController {
 		return "user/myInformation";
 	}
 	
-	@RequestMapping("test")
-	public String test() {
+	@RequestMapping("findPwd")
+	public String findPwd() {
 		
 		System.out.println("myInformation 시작");
-		return "user/test";
+		return "user/findPwd";
 	}
-	
 	
 	
 	

@@ -62,8 +62,10 @@
 
 // [로그인 적합성체크]
 	function fncLogin() {		
+		
 		var id=$('input[name=userId]').val();
-		var password=$('input[name=password]').val();								
+		var password=$('input[name=password]').val();		
+	
 		if(id == null || id.length < 1) {
 			alert("ID 를 입력하지 않으셨습니다.");
 			$('input[name=userId]').focus();
@@ -73,7 +75,8 @@
 			alert('패스워드를 입력하지 않으셨습니다.');
 			$('input[name=password]').focus();
 			return;
-		}			
+		}
+					
 		$("form").attr("method", "POST").attr("action", "/user/loginUser").submit();
 	}	
 	
@@ -272,7 +275,7 @@
 		var id=$('input[name=userId]').val();
 		var findPwd = $("#findPwd").val();	
 		popWin = window.open(
-					"searchUserPwd",
+					"searchUserPwd?findPwd",
 					"childForm",
 					"left=460, top=300, width=580, height=640, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");									
 	}
@@ -372,68 +375,5 @@
 							</form>
 						</div>
 
-						<form action="#" method="post">
-
-							<!-- 아이디입력 -->
-							<div class="form-group first">
-								<label for="userId">ID</label> <input type="text"
-									class="form-control" id="userId" name="userId">
-							</div>
-
-							<!-- 패스워드입력 -->
-							<div class="form-group last mb-3">
-								<label for="password">Password</label> <input type="password"
-									class="form-control" id="password" name="password">
-							</div>
-
-							<!-- 아이디찾기 -->
-							<div class="d-flex mb-2 align-items-center">
-								<a href="javascript:findId();" class="forgot-pass">Forgot
-									Id?</a></span>
-							</div>
-
-							<!-- 패스워드찾기 -->
-							<div class="d-flex mb-4 align-items-center">
-								<a href="javascript:findPwd();" id="findPwd" class="forgot-pass">Forgot
-									Password?</a>
-							</div>
-
-							<!-- 로그인버튼 -->
-							<div style="text-align: center;">
-								<a><input type="submit" value="Login"
-									class="btn btn-block btn-basic" onClick="javascript:fncLogin()"></a>
-							</div>
-							<div style="text-align: center;">
-								<a href="/user/addUserView" style="color: black;">회원가입</a>
-							</div>
-
-							<!-- 회색글씨 -->
-							<span class="d-block text-center my-3 text-muted">&mdash;
-								or &mdash;</span>
-
-							<div class="social-login">
-								<a
-									class="Kakao btn d-flex justify-content-center align-items-center"
-									name="kakaoLogin" onclick="javascript:KakaoLogin()"> <img
-									src="../images/API/kakao_btn.png" width="200" name="kakaoLogin">
-									<span class="icon-Kakao mr-3"></span>
-								</a> <a
-									class="kakao btn d-flex justify-content-center align-items-center"
-									id="naverIdLogin" onclick="javascipt:NaverLogin()"> <img
-									src="../images/API/naver_btn.png" width="200" name="naverLogin">
-									<span class="icon-Naver mr-3"></span>
-								</a> <a
-									class="google btn d-flex justify-content-center align-items-center"
-									name="googleLogin" id="googleLogin"
-									onclick="javascript:googleSign(googleUser)"> <img
-									src="../images/API/google_btn.png" width="200"
-									name="googleLogin"> <span class="icon-Google mr-3"></span>
-								</a>
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
 </body>
 </html>
