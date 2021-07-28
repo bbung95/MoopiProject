@@ -106,9 +106,6 @@
 					, BD.BD_UPDATE
 					, BD.BD_PASSWORD
                     ORDER BY 
-                    <if test="map.boardCategory == 3 or map.search.searchKeyword !=null">
-					LIKECOUNT, 
-					</if>
                     BD.BD_NO DESC
                     ) inner_table,
                     (select @rownum := 0) as R
@@ -133,6 +130,15 @@
 		, U.USER_ID
 		, U.NICKNAME
 		, U.PROFILE_IMAGE
+		,  ( SELECT 
+						COUNT(*)
+						FROM
+						follow_like
+						WHERE
+						FL_TYPE = '1'
+						AND
+						FL_TARGET = BD.BD_NO
+					) AS LIKECOUNT
 		FROM 
 		  BOARD BD
 		, USERS U
