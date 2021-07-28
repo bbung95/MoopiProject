@@ -22,16 +22,15 @@
 <link href="/css/styles.css" rel="stylesheet" />
 
 <!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
-
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
-<link rel="stylesheet" href="/images/uploadFiles" >  
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" > -->
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" > -->
+<!-- <link rel="stylesheet" href="/images/uploadFiles" >   -->
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-<script src="/javascript/owl.carousel.min.js"></script>
+<!-- <script src="/javascript/owl.carousel.min.js"></script> -->
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script> 
-<link rel="stylesheet" href="/css/owl.carousel.min.css">
-<link rel="stylesheet" href="/css/owl.theme.default.min.css">
+<!-- <link rel="stylesheet" href="/css/owl.carousel.min.css"> -->
+<!-- <link rel="stylesheet" href="/css/owl.theme.default.min.css"> -->
 
 <!-- 구글 폰트 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -44,19 +43,35 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> 
 
 <script>
-function fncAccept(userId, mmNo){
-	swal(userId+"님을 초대합니다.");
-	//self.location ="/moim/updateMember?userId="+userId+"&mmNo="+mmNo+"&status=1"
+function invite(userId, mmNo){
+	swal(userId+"님을 초대하였습니다.");
+	console.log(userId);
+	console.log(mmNo);
+	$.ajax( 
+			{
+				url : "/moim/json/inviteYou/"+userId+"/"+mmNo,
+				method : "GET" ,
+				dataType : "json" ,
+				headers : {
+					"Accept" : "application/json",
+					"Content-Type" : "application/json"
+				},
+				success : function(JSONData , status) {
+					alert(status);
+					$(this).val("초대완료");
+					
+				}
+		}); //ajax 종료
 }
 
 </script>
 
 <style>
 body{
-		padding-top: 50px;
+		padding-top: 100px;
 		background-color:#f7f6f3;
 		font-family: 'Nanum Gothic', sans-serif;
-		font-size : 20px;
+		font-size : 16px;
 	}
 	
 	.userProfile {
@@ -71,9 +86,6 @@ body{
 }	
 	
 /* 코드펜 */
-body { 
-  font-size: 140%; 
-}
 
 h2 {
   text-align: center;
@@ -199,7 +211,7 @@ table.dataTable td {
             <td id="td4">${user.addr}</td>
             <td id="td5">${user.profileContent}</td>
 			<td id="td6">
-			<button type="button" class="btn btn-default" onClick="fncAccept('${user.userId}', '${member.mmNo}')">초대</button>
+			<button type="button" id="${user.userId}" class="btn btn-success" onClick="invite('${user.userId}', '${moim.mmNo}')">초대</button>
 			</td>
           </tr>
         </c:forEach>  
