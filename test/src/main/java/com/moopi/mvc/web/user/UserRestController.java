@@ -411,14 +411,64 @@ public class UserRestController {
 	}
 	
 	@GetMapping(value="json/getMyBoard/{boardNo}")
-	public Map<String, Object> getMyBoard(@PathVariable int boardNo ) throws Exception{
+	public Map<String, Object> getMyBoard(@PathVariable int boardNo , HttpSession session) throws Exception{
 		
 		System.out.println("getMyBoard : GET");
+		
+		/////// 추가부분
+		User user = (User)session.getAttribute("dbUser");
+			
+		// 팔로우 유무체크
+		boolean check = false;
+		if(user != null) {
+			if(boardService.getLike(user.getUserId(), Integer.toString(boardNo)) == 1) {
+				check = true;
+			}
+		}
 		
 		Map <String, Object> map = new HashMap<String, Object>();
 		map.put("board", boardService.getBoard(boardNo));
 		map.put("reply", replyService.getReplyList(boardNo));
+		map.put("likeCheck", check);
 		
 		return map;
 	}
+	
+	@GetMapping(value="json/myBoardLike/{target}")
+	public boolean myBoardLike (@PathVariable String target, HttpSession session) throws Exception {
+				
+		System.out.println("myBoardLike : GET");
+		
+		// session User
+		User user = (User) session.getAttribute("dbUser");
+		
+		// 팔로우 유무 체크
+		int likeCheck = boardService.getLike(user.getUserId(), target);
+
+		if (likeCheck != 1) {
+			boardService.addLike(user.getUserId(), target);
+			
+			Board board = boardService.getBoard(Integer.parseInt(target));
+			
+			// 알림 대상 체크
+			if(!user.getUserId().equals(board.getBoardWriter().getUserId())) {
+				
+			System.out.println("board Like Notice");
+			Notice notice = new Notice();
+			notice.setToUserId(board.getBoardWriter().getUserId()); // 알림대상
+			notice.setNoticeType("7");
+			notice.setNoticeUser(user);
+			notice.setBoard(board);
+			commonService.addNotice(notice);
+			}
+			//
+			return false;
+		}
+
+		boardService.deleteLike(user.getUserId(), target);
+		
+		
+		return true;
+	}
+
 }

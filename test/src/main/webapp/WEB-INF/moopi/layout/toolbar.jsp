@@ -28,8 +28,7 @@
 
 #noticeCount {
 	position: absolute;
-	/*  	display : none;
- */
+	display : none;
 	top: 0px;
 	left: 25px;
 }
@@ -173,7 +172,7 @@
 								})
 					});
 
-	//읽지않은 알림 카운트
+	 //읽지않은 알림 카운트
 	function noticeCount() {
 		$.ajax({
 			url : "/common/json/getNoticeCount/" + dbUser,
@@ -188,7 +187,7 @@
 				}
 			}
 		});
-	}
+	} 
 
 	//알림 전체삭제
 	$('button:contains("전체삭제")').on('click',function(){
@@ -203,10 +202,10 @@
 				$('.noticeOut').append(display);
 			}
 		});
-	})
+	}) 
 
 	// 알림 읽음표시
-	$('.noticebtn').on('click', function() {
+	 $('.noticebtn').on('click', function() {
 		$.ajax({
 			url : "/common/json/updateNoticeState/" + dbUser,
 			method : "GET",
@@ -215,16 +214,16 @@
 			}
 		})
 		$('#noticeCount').css('display', 'none');
-	})
-
+	}) 
+ 
 	function chatjoin(target) {
 		popWin = window
 				.open(
 						"/chat/joinRoom?userId=" + dbUser + "&trgt=" + target
 								+ "&type=1",
 						"popWin",
-						"left=460, top=300, width=460, height=600, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");
-	}
+					"left=460, top=300, width=460, height=600, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");
+	} 
 
 	// 읽지않은 알림과 알림 리스트
 	if (dbUser !== '') {
@@ -241,7 +240,7 @@
 
 								//채팅 알림 type 1
 								if (data[i].noticeType == '1') {
-									display += "<div style='height: 60px; '  class='notice "+data[i].noticeNo+"'>"
+									/* display += "<div style='height: 60px; '  class='notice "+data[i].noticeNo+"'>"
 											+ data[i].noticeNo
 											+ "' onclick='javascript:chatjoin(\""
 											+ data[i].noticeUser.userId
@@ -250,82 +249,101 @@
 											+ " : "
 											+ data[i].noticeContent
 											+ "</span>"
-											+ "<span><button type='button' class='btn-close' notice='"+data[i].noticeNo+"' aria-label='Close'></button></span>";
+											+ "<span><button type='button' class='btn-close' notice='"+data[i].noticeNo+"' aria-label='Close'></button></span></div>"; */
 
 									// 모임 정모 생성 알림 type 2
 								} else if (data[i].noticeType == '2') {
 									display += "<div style='height: 60px; '  class='notice "+data[i].noticeNo+"'>"
-											+ "<span onclick='location.href=\"/meeting/listMeeting?userId="+dbUser+"&mmNo="+data[i].moim.mmNo+"'>"
+											+ "<span onclick='location.href=\"/meeting/listMeeting?userId="+dbUser+"&mmNo="+data[i].moim.mmNo+"\"'>"
 											+ "<img style='width: 50px; height: 50px; margin: 5px' src='/images/uploadFiles/"+data[i].moim.mmFile+"' />"
 											+ data[i].moim.mmName
 											+ "의  "
 											+ data[i].noticeContent
 											+ "</span>"
-											+ "<span><button type='button' class='btn-close' notice='"+data[i].noticeNo+"' aria-label='Close'></button></span>";
+											+ "<span><button type='button' class='btn-close' notice='"+data[i].noticeNo+"' aria-label='Close'></button></span></div>";
 
 									// 정모 가입 알림 type 3
 								} else if (data[i].noticeType == '3') {
 									display += "<div style='height: 60px; '  class='notice "+data[i].noticeNo+"'>"
-											+ "<span onclick='location.href=\"/meeting/listMeeting?userId="+dbUser+"&mmNo="+data[i].moim.mmNo+"'>"
+											+ "<span onclick='location.href=\"/meeting/listMeeting?userId="+dbUser+"&mmNo="+data[i].moim.mmNo+"\"'>"
 											+ "<img style='width: 50px; height: 50px; margin: 5px' src='/images/uploadFiles/"+data[i].moim.mmFile+"' />"
 											+ data[i].moim.mmName
 											+ data[i].noticeContent
 											+ "</span>"
-											+ "<span><button type='button' class='btn-close' notice='"+data[i].noticeNo+"' aria-label='Close'></button></span>";
+											+ "<span><button type='button' class='btn-close' notice='"+data[i].noticeNo+"' aria-label='Close'></button></span></div>";
 
 									// 모임 가입승인 알림 type 4
 								} else if (data[i].noticeType == '4') {
 									display += "<div style='height: 60px; '  class='notice "+data[i].noticeNo+"'>"
 											+ "<span onclick='location.href=\"/moim/getMoim?mmNo="+data[i].moim.mmNo+"'>"
-											+ "<img style='width: 50px; height: 50px; margin: 5px' src='/images/uploadFiles/"+data[i].moim.mmFile+"' />"
+											+ "<img style='width: 50px; height: 50px; margin: 5px' src='/images/uploadFiles/"+data[i].moim.mmFile+"\"' />"
 											+ data[i].moim.mmName
 											+ "의  "
 											+ data[i].noticeContent
 											+ "</span>"
-											+ "<span><button type='button' class='btn-close' notice='"+data[i].noticeNo+"' aria-label='Close'></button></span>";
+											+ "<span><button type='button' class='btn-close' notice='"+data[i].noticeNo+"' aria-label='Close'></button></span></div>";
 
 									// 플래쉬 참가 알림 type 5
 								} else if (data[i].noticeType == '5') {
 									display += "<div style='height: 60px; '  class='notice "+data[i].noticeNo+"'>"
-											+ "<span onclick='location.href=\"/flash/getFlash?flashNo="+data[i].flash.flashNo+"'>"
+											+ "<span onclick='location.href=\"/flash/getFlash?flashNo="+data[i].flash.flashNo+"\"'>"
 											+ "<img style='width: 50px; height: 50px; margin: 5px' src='/images/uploadFiles/"+data[i].flash.flashImage+"' />"
 											+ data[i].flash.flashName
 											+ "의 "
 											+ data[i].noticeUser.nickname
 											+ data[i].noticeContent
 											+ "</span>"
-											+ "<span><button type='button' class='btn-close' notice='"+data[i].noticeNo+"' aria-label='Close'></button></span>";
+											+ "<span><button type='button' class='btn-close' notice='"+data[i].noticeNo+"' aria-label='Close'></button></span></div>";
 
 									// 게시글 댓글 알림 type 6
 								} else if (data[i].noticeType == '6') {
 									display += "<div style='height: 60px; '  class='notice "+data[i].noticeNo+"'>"
-											+ "<span onclick='location.href=\"/user/getMyHome?userId="+data[i].toUserId+"'>"
+											+ "<span onclick='location.href=\"/user/getMyHome?userId="+data[i].toUserId+"\"'>"
 											+ "<img style='width: 50px; height: 50px; margin: 5px; border-radius: 50%;' src='/images/uploadFiles/"
 											+ data[i].noticeUser.profileImage
 											+ "' />"
 											+ data[i].noticeUser.nickname
-											+ "이 댓글을 작성했습니다"
+											+ "님이 댓글을 작성했습니다"
 											+ "</span>"
-											+ "<span><button type='button' class='btn-close' notice='"+data[i].noticeNo+"' aria-label='Close'></button></span>";
+											+ "<span><button type='button' class='btn-close' notice='"+data[i].noticeNo+"' aria-label='Close'></button></span></div>";
 											
 									// 게시글 좋아요 알림 type 7
 								} else if (data[i].noticeType == '7') {
-
+									display += "<div style='height: 60px; '  class='notice "+data[i].noticeNo+"'>"
+											+ "<span onclick='location.href=\"/user/getMyHome?userId="+data[i].toUserId+"\"'>"
+											+ "<img style='width: 50px; height: 50px; margin: 5px; border-radius: 50%;' src='/images/uploadFiles/"
+											+ data[i].noticeUser.profileImage
+											+ "' />"
+											+ data[i].noticeUser.nickname
+											+ "님이 좋아요했습니다."
+											+ "</span>"
+											+ "<span><button type='button' class='btn-close' notice='"+data[i].noticeNo+"' aria-label='Close'></button></span></div>";
+									
 									// 팔로우 알림 type 8
 								} else if (data[i].noticeType == '8') {
 									display += "<div style='height: 60px; '  class='notice "+data[i].noticeNo+"'>"
-											+ "<span onclick='location.href=\"/user/getMyHome?userId="
-											+ data[i].noticeUser.userId
-											+ "'>"
+											+ "<span onclick='location.href=\"/user/getMyHome?userId="+data[i].noticeUser.userId+"\"'>"
 											+ "<img style='width: 50px; height: 50px; margin: 5px; border-radius: 50%;' src='/images/uploadFiles/"
 											+ data[i].noticeUser.profileImage
 											+ "' />"
 											+ data[i].noticeUser.nickname
 											+ data[i].noticeContent
 											+ "</span>"
-											+ "<span><button type='button' class='btn-close' notice='"+data[i].noticeNo+"' aria-label='Close'></button></span>";
+											+ "<span><button type='button' class='btn-close' notice='"+data[i].noticeNo+"' aria-label='Close'></button></span></div>";
 
-									// 모임 가입승인 알림 type 9
+									// 모임 초대 알림 type 9
+								} else if( data[i].noticeType == '9'){
+									display += "<div style='height: 60px; '  class='notice "+data[i].noticeNo+"'>"
+											+ "<span onclick='location.href=\"/moim/getMoim?mmNo="+data[i].moim.mmNo+"\"'>"
+											+ "<img style='width: 50px; height: 50px; margin: 5px; border-radius: 50%;' src='/images/uploadFiles/"
+											+ data[i].moim.mmFile
+											+ "' />"
+											+ data[i].moim.mmName+"의 초대되었습니다"
+											+ "</span>"
+											+ "<span>"
+											+ "<button type='button' class='btn btn- apply' mmNo='"+data[i].moim.mmNo+"' userId='"+data[i].toUserId+"'>Accept</button>"
+											+ "<button type='button' class='btn btn-default refuseApply' memberNo='"+data[i].member.memberNo+"'>reject</button>"
+											+ "<button type='button' class='btn-close' notice='"+data[i].noticeNo+"' aria-label='Close'></button></span></div>";
 								}
 							}
 							$('.noticeOut').append(display);
@@ -356,6 +374,45 @@
 							});
 						})
 						// 알림삭제 end
+						
+						$('.apply').on('click', function(){
+		
+							let mmNo = $(this).attr("mmNo");
+							let userId = $(this).attr("userId");
+							let notice = $(this);
+		
+							$.ajax({
+									url: "/moim/json/applyMoim",
+									method: "POST",
+									contentType : "application/JSON",
+									data: JSON.stringify({"mmUser" : {"userId" : userId},
+												"mmNo" : mmNo}),
+									dataType : "text",
+							success: function(data, state){
+									notice.next().next().click();
+								}
+							})
+						})
+	
+						$('.refuseApply').on('click', function(){
+		
+							let memberNo = $(this).attr("memberNo");
+							let notice = $(this);
+							
+							$.ajax({
+								url: "/moim/json/refuseApply",
+								method: "POST",
+								contentType : "application/JSON",
+								data: JSON.stringify({"memberNo" : memberNo}),
+								dataType : "text",
+								success: function(data, state){
+									notice.next().click();
+								}
+							})
+						})
+						
+						
+						
 					}
 				})
 	}
@@ -399,13 +456,7 @@
 
 						popWin = window
 								.open(
-										/* 										"https://bbung95-rtc.herokuapp.com/chatList?userId="+dbUser+"&profile="+userProfile+"&nickname="+nickname,
-										 */"http://localhost:82/chatList?userId="
-												+ dbUser
-												+ "&profile="
-												+ userProfile
-												+ "&nickname="
-												+ nickname,
+										"https://bbung95-rtc.herokuapp.com/chatList?userId="+dbUser+"&profile="+userProfile+"&nickname="+nickname,
 										"popWin",
 										"left=460, top=300, width=460, height=600, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");
 					});
