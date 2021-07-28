@@ -305,6 +305,7 @@ public class MoimController {
 	
 		System.out.println(search.toString()+boardMoimNo);
 		
+		Moim moim = moimService.getMoim(boardMoimNo);		
 		String boardCategory = null;
 		Map map = new HashMap();
 
@@ -320,7 +321,7 @@ public class MoimController {
 		model.addAttribute("list", map.get("list"));
 		model.addAttribute("totalCount", map.get("totalCount"));
 		model.addAttribute("boardMoimNo", boardMoimNo);
-		
+		model.addAttribute("moim", moim);
 			return "/moim/listMoimBoard";
 	}
 	
@@ -361,7 +362,8 @@ public class MoimController {
 	
 	@RequestMapping("addBoardView")
 	public String addBoardView(@ModelAttribute("boardMoimNo") int boardMoimNo, Model model) {
-		
+		Moim moim = moimService.getMoim(boardMoimNo);
+		model.addAttribute("moim", moim);
 		model.addAttribute("boardMoimNo", boardMoimNo);
 		
 		return "/moim/addMoimBoardView";
