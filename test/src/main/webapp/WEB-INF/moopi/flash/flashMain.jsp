@@ -9,6 +9,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 <title>Insert title here</title>
+
+<!-- Favicon-->
+<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+	href="https://fonts.googleapis.com/css2?family=Gaegu:wght@300&display=swap"
+	rel="stylesheet">
+
+<!-- Bootstrap Dropdown Hover JS -->
+<script src="/javascript/bootstrap-dropdownhover.min.js"></script>
+
 <!-- Favicon-->
 <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
 <!-- Bootstrap icons-->
@@ -18,14 +33,11 @@
 <!-- Core theme CSS (includes Bootstrap)-->
 <link href="/css/styles.css" rel="stylesheet" />
 
-<!--<link rel="stylesheet" href="/images/uploadFiles" >  -->
-<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-
-<script
+<!-- Bootstrap core JS-->
+	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 	<!-- Core theme JS-->
 	<script src="/js/scripts.js"></script>
-
 
 <script>
 function fncAddFlashView(){
@@ -39,7 +51,7 @@ function fncGetFlash(flashNo){
 }
 
 function fncAddFlash(){
-	alert("번개 생성한다.");
+	alert("번개생성!.");
 	$(".form-horizontal").attr("method", "POST").attr("action", "/flash/addFlash").submit();
 	//console.log($('#userId').val());
 
@@ -358,40 +370,18 @@ margin-bottom:20px;
   <div id="carousel-userEL9001096" class="carousel slide" data-ride="carousel-userEL9001096">
    <ol class="carousel-indicators" data-nav="true">
     <li data-target="#carousel-userEL9001096" data-slide-to="0" class="active"></li>
-    <li data-target="#carousel-userEL9001096" data-slide-to="1" class=""></li>
-    <li data-target="#carousel-userEL9001096" data-slide-to="2" class=""></li>
    </ol>
    <div class="carousel-inner" data-loop="true">
     <div class="item bg userEL9001096-bg1 active" data-attach="true" data-target=".userEL9001096-bg1">
      <div class="bg-box" data-selector=".bg-box" data-obackground="true" data-title=""></div>
      <div class="container">
       <div class="carousel-caption">
-       <h1 class="figure-title head_title" data-selector="h1.head_title" data-edit="true"><span class="fsize48"><strong>ELIT VESTLBULUM</strong></span></h1>
-       <h5 class="figure-caption" data-selector="h5" data-edit="true"><span class="fsize14">Nunc sagittis sed leo in feugiat. Vivamus imperdiet, massa ac fringilla mattis, dui nisl aliquet tortor, sed convallis tellus nisi convallis odio. <br>Quisque ullamcorper a enim et tempor. Nullam vulputate, lacus non bibendum faucibus, lorem arcu dictum quam, at iaculis tortor turpis auctor diam.</span></h5>
-      </div>
-     </div>
-    </div>
-    <div class="item bg userEL9001096-bg2" data-attach="true" data-target=".userEL9001096-bg2">
-     <div class="bg-box" data-selector=".bg-box" data-obackground="true" data-title=""></div>
-     <div class="container">
-      <div class="carousel-caption">
-       <h1 class="figure-title head_title" data-selector="h1.head_title" data-edit="true"><span class="fsize48"><strong>ELIT VESTLBULUM</strong></span></h1>
-       <h5 class="figure-caption" data-selector="h5" data-edit="true"><span class="fsize14">Nunc sagittis sed leo in feugiat. Vivamus imperdiet, massa ac fringilla mattis, dui nisl aliquet tortor, sed convallis tellus nisi convallis odio. <br>Quisque ullamcorper a enim et tempor. Nullam vulputate, lacus non bibendum faucibus, lorem arcu dictum quam, at iaculis tortor turpis auctor diam.</span></h5>
-      </div>
-     </div>
-    </div>
-    <div class="item bg userEL9001096-bg3" data-attach="true" data-target=".userEL9001096-bg3">
-     <div class="bg-box" data-selector=".bg-box" data-obackground="true" data-title=""></div>
-     <div class="container">
-      <div class="carousel-caption">
-       <h1 class="figure-title head_title" data-selector="h1.head_title" data-edit="true"><span class="fsize48"><strong>ELIT VESTLBULUM</strong></span></h1>
-      <h5 class="figure-caption" data-selector="h5" data-edit="true"><span class="fsize14">Nunc sagittis sed leo in feugiat. Vivamus imperdiet, massa ac fringilla mattis, dui nisl aliquet tortor, sed convallis tellus nisi convallis odio. <br>Quisque ullamcorper a enim et tempor. Nullam vulputate, lacus non bibendum faucibus, lorem arcu dictum quam, at iaculis tortor turpis auctor diam.</span></h5>
+       <h1 class="figure-title head_title" data-selector="h1.head_title" data-edit="true"><span class="fsize200"><strong>어서오세요 번개처럼 번쩍하는 번개무피 여러분!</strong></span></h1>
+       <h5 class="figure-caption" data-selector="h5" data-edit="true"><span class="fsize48">번개무피는 번개 생성시 2개의 코인을 소모하고 참가시 1개의 코인을 소모한답니다 노쇼를 방지하기 위한 최소한의 금액입니다ㅠㅠ<br>그리고 번개 무피는 무피에서 제일 자유로운 공간이에요 신고 조차 불가능합니다 하지만 저희 무피 운영진이 항시 모니터링 중이니 선정적인 번개나 위법 모임은 즉각 제제를 받으실수 있습니다! </span></h5>
       </div>
      </div>
     </div>
    </div>
-   <a class="left carousel-control" href="#carousel-userEL9001096" data-slide="prev"><img src="//storage.googleapis.com/i.addblock.net/fa-showcase-left.png" class="fa fa-showcase-left"></a>
-   <a class="right carousel-control" href="#carousel-userEL9001096" data-slide="next"><img src="//storage.googleapis.com/i.addblock.net/fa-showcase-right.png" class="fa fa-showcase-right"></a>
   </div>
 </div>
 
@@ -407,7 +397,7 @@ margin-bottom:20px;
 </h3>id="myModal" 
 -->
 
-<button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#staticBackdrop">번개!<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-file-plus-fill" viewBox="0 0 16 16">
+<button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#staticBackdrop">번개생성<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" class="bi bi-file-plus-fill" viewBox="0 0 16 16">
   <path d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM8.5 6v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 1 0z"/>
 </svg></button>
 
@@ -535,7 +525,7 @@ margin-bottom:20px;
 		  <div class="form-group">
 		    <label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">번개만남시간</label>
 		    <div class="col-sm-20">
-		      <input type="text" class="form-control" id="flashTime" name="flashTime" placeholder="만남시간">
+		      <input type="datetime-local" class="form-control" id="flashTime" name="flashTime" placeholder="만남시간">
 		    </div>
 		  </div>
 		  
@@ -564,7 +554,6 @@ margin-bottom:20px;
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-bs-dismiss="modal" aria-label="Close">Close</button>
-       <!--  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">Close</button> -->
         <button type="button" class="btn btn-primary" onClick="fncAddFlash()">Create</button>
       </div>
     </div>

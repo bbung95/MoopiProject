@@ -193,8 +193,8 @@ img.whale{
         <h1 onClick="fncInvite(${moim.mmNo})">Invite</h1>
         <h1 onClick="fncListMember(${moim.mmNo})">Member</h1>
         <c:if test = "${dbUser.userId eq moim.mmConstructor.userId}">
-		<button type="button" class="btn btn-default" onClick="fncUptMoimView(${moim.mmNo})">Update</button>
-		<button type="button" class="btn btn-default" onClick="fncApplyList(${moim.mmNo})">List Apply</button>
+		<div onClick="fncUptMoimView(${moim.mmNo})">Update</div>
+		<dic onClick="fncApplyList(${moim.mmNo})">List Apply</div>
 		</c:if>
 		</div>
 <!-- SideBar End -->
