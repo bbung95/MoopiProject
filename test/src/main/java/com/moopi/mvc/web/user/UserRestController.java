@@ -35,6 +35,7 @@ import com.moopi.mvc.service.domain.Moim;
 import com.moopi.mvc.service.domain.Notice;
 import com.moopi.mvc.service.domain.User;
 import com.moopi.mvc.service.moim.impl.MoimServiceImpl;
+import com.moopi.mvc.service.reply.impl.ReplyServiceImpl;
 import com.moopi.mvc.service.user.impl.UserServiceImpl;
 
 import net.nurigo.java_sdk.api.GroupMessage;
@@ -59,6 +60,9 @@ public class UserRestController {
 
 	@Autowired
 	private BoardServiceImpl boardService;
+	
+	@Autowired
+	private ReplyServiceImpl replyService;
 
 	@Autowired
 	private MoimServiceImpl moimService;
@@ -413,6 +417,7 @@ public class UserRestController {
 		
 		Map <String, Object> map = new HashMap<String, Object>();
 		map.put("board", boardService.getBoard(boardNo));
+		map.put("reply", replyService.getReplyList(boardNo));
 		
 		return map;
 	}

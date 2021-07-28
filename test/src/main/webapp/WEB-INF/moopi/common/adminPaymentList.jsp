@@ -46,35 +46,33 @@
 								class="mb-2 border-solid border-gray-300 rounded border shadow-sm w-full">
 								<div
 									class="bg-gray-200 px-2 py-3 border-solid border-gray-200 border-b">
-									유저목록</div>
+									결제목록</div>
 								<div class="p-3">
 									<table class="table-responsive w-full rounded">
 										<thead align="center">
 											<tr>
-												<th class="border px-4 py-2" width="20%">아이디</th>
+												<th class="border px-4 py-2" width="20%">No</th>
+												<th class="border px-4 py-2" width="10%">아이디</th>
 												<th class="border px-4 py-2" width="10%">이름</th>
 												<th class="border px-4 py-2" width="10%">닉네임</th>
-												<th class="border px-4 py-2" width="20%">생년월일</th>
-												<th class="border px-4 py-2" width="5%">연령</th>
-												<th class="border px-4 py-2" width="5%">가입경로</th>
-												<th class="border px-4 py-2" width="20%">가입일자</th>
+												<th class="border px-4 py-2" width="20%">일자</th>
+												<th class="border px-4 py-2" width="5%">가격</th>
 												<th class="border px-4 py-2" width="5%">코인</th>
-												<th class="border px-4 py-2" width="5%">현재상태</th>
+												<th class="border px-4 py-2" width="5%">유형</th>
 											</tr>
 										</thead>
 										<tbody>
-											<c:forEach var="user" items="${list}">
+											<c:forEach var="pay" items="${list}">
 												<tr>
-													<td class="border px-4 py-2">${user.userId}</td>
-													<td class="border px-4 py-2">${user.userName}</td>
-													<td class="border px-4 py-2">${user.nickname}</td>
-													<td class="border px-4 py-2">${user.regDate}</td>
-													<td class="border px-4 py-2">${user.age}</td>
-													<td class="border px-4 py-2">${user.joinPath}</td>
-													<td class="border px-4 py-2">${user.regDate}</td>
-													<td class="border px-4 py-2">${user.coin}</td>
+													<td class="border px-4 py-2">${pay.paymentNo}</td>
+													<td class="border px-4 py-2">${pay.paymentUserId.userId}</td>
+													<td class="border px-4 py-2">${pay.paymentUserId.userName}</td>
+													<td class="border px-4 py-2">${pay.paymentUserId.nickname}</td>
+													<td class="border px-4 py-2">${pay.paymentRegdate }</td>
+													<td class="border px-4 py-2">${pay.paymentPrice }</td>
+													<td class="border px-4 py-2">${pay.paymentCoinCount }</td>
 													<td class="border px-4 py-2"><i
-														class="fas fa-check text-green-500 mx-2"></i></td>
+														class="fas fa-check text-green-500 mx-2"></i>${pay.paymentRole}</td>
 												</tr>
 											</c:forEach>
 										</tbody>

@@ -19,7 +19,7 @@
 		<result property="board.boardNo"		column="NOTICE_BOARD_NO"	jdbcType="NUMERIC"/>
 		<result property="board.boardCategory"  column="bd_category"		jdbcType="CHAR"/>
 		<result property="flash.flashName"		column="flash_name"			jdbcType="VARCHAR"/>
-		<result property="flash.flashlNo"		column="NOTICE_FLASH_NO"	jdbcType="NUMERIC"/>
+		<result property="flash.flashNo"		column="NOTICE_FLASH_NO"	jdbcType="NUMERIC"/>
 		<result property="flash.flashFile"      column="flash_file"			jdbcType="VARCHAR"/>
 		<result property="moim.mmNo"			column="NOTICE_MOIM_NO"		jdbcType="NUMERIC"/>
 		<result property="moim.mmName" 			column="MM_NAME" 			jdbcType="VARCHAR"/>
