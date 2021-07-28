@@ -18,47 +18,45 @@
 <link href="/css/styles.css" rel="stylesheet" />
 
 <!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
-<link rel="stylesheet" href="/images/uploadFiles" >  
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" > -->
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" > -->
+<!-- <link rel="stylesheet" href="/images/uploadFiles" >   -->
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-<script src="/javascript/owl.carousel.min.js"></script>
+<!-- <script src="/javascript/owl.carousel.min.js"></script> -->
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script> 
-<link rel="stylesheet" href="/css/owl.carousel.min.css">
-<link rel="stylesheet" href="/css/owl.theme.default.min.css">
+<!-- <link rel="stylesheet" href="/css/owl.carousel.min.css"> -->
+<!-- <link rel="stylesheet" href="/css/owl.theme.default.min.css"> -->
 
 <!-- 구글 폰트 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Brush+Script&display=swap" rel="stylesheet">
 
 <!-- Sweet Alert -->
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> 
 
 <script>
 function fncAccept(userId, mmNo){
-	alert("가입신청을 수락하겠습니다.");
+	swal("가입신청을 수락하겠습니다.");
 	self.location ="/moim/updateMember?userId="+userId+"&mmNo="+mmNo+"&status=1"
 }
 
 function fncRefuse(memberNo, mmNo){
-	alert("가입신청을 거절하겠습니다.");
+	swal("가입신청을 거절하겠습니다.");
 	self.location ="/moim/refuseApply?memberNo="+memberNo+"&mmNo="+mmNo
 }
 
 
 </script>
-
-
-</head>
-<body>
 <style>
 	body{
-		padding-top: 50px;
+		padding-top: 100px;
 		background-color:#f7f6f3;
 		font-family: 'Nanum Gothic', sans-serif;
-		font-size : 20px;
+		font-size : 16px;
 	}
 	
 	.userProfile {
@@ -74,7 +72,7 @@ function fncRefuse(memberNo, mmNo){
 	
 /* 코드펜 */
 body { 
-  font-size: 140%; 
+
 }
 
 h2 {
@@ -156,6 +154,9 @@ table.dataTable td {
 	 text-align: center;
 }
 </style>
+
+</head>
+
 <!-- ToolBar Start /////////////////////////////////////-->
 	<jsp:include page="../layout/toolbar.jsp" />
 	
@@ -210,7 +211,8 @@ table.dataTable td {
 
 
 
-
+<jsp:include page="../layout/moimSidebar.jsp"></jsp:include>
+</body>
 
 
 
@@ -229,6 +231,5 @@ table.dataTable td {
 <!-- <hr> -->
 <%-- </c:forEach> --%>
 
-<jsp:include page="../layout/moimSidebar.jsp"></jsp:include>
-</body>
+
 </html>

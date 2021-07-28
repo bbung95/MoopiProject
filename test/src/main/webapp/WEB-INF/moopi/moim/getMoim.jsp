@@ -22,15 +22,15 @@
 <link href="/css/styles.css" rel="stylesheet" />
 
 <!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
-<link rel="stylesheet" href="/images/uploadFiles" >  
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" > -->
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" > -->
+<!-- <link rel="stylesheet" href="/images/uploadFiles" >   -->
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-<script src="/javascript/owl.carousel.min.js"></script>
+<!-- <script src="/javascript/owl.carousel.min.js"></script> -->
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script> 
-<link rel="stylesheet" href="/css/owl.carousel.min.css">
-<link rel="stylesheet" href="/css/owl.theme.default.min.css">
+<!-- <link rel="stylesheet" href="/css/owl.carousel.min.css"> -->
+<!-- <link rel="stylesheet" href="/css/owl.theme.default.min.css"> -->
 
 <!-- 구글 폰트 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -143,7 +143,7 @@
 </head>
 <style>
 	body{
-		padding-top: 50px;
+		padding-top: 100px;
 		background-color:#f7f6f3;
 	}
 	
@@ -350,7 +350,7 @@
 
 <!-- ToolBar Start ///////////////////////////////////// -->
 <jsp:include page="../layout/toolbar.jsp" /> 
-<jsp:include page="../layout/moimToolbar.jsp" />
+<%-- <jsp:include page="../layout/moimToolbar.jsp" /> --%>
 
 <!-- ToolBar End ///////////////////////////////////// -->
 

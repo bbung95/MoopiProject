@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Hello! Moopi!</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <!-- Favicon --> 
 <link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
 
@@ -18,13 +18,14 @@
 <link href="/css/styles.css" rel="stylesheet" />
 
 <!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
-<link rel="stylesheet" href="/images/uploadFiles" >  
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" > -->
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" > -->
+<!-- <link rel="stylesheet" href="/images/uploadFiles" >   -->
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <script src="/javascript/owl.carousel.min.js"></script>
 
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script> 
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>  -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 <link rel="stylesheet" href="/css/owl.carousel.min.css">
 <link rel="stylesheet" href="/css/owl.theme.default.min.css">
 
@@ -192,7 +193,7 @@ $(document).ready(function(){
           loop: true,
           nav: false,
           autoplay: true,
-          autoplayTimeout: 3000,
+          autoplayTimeout: 1600,
           autoplayHoverPause: true,
           autoHeight:true,
           autoWidth:true
@@ -206,9 +207,9 @@ $(document).ready(function(){
 
 <style>
 body {
-	padding-top: 50px;
+	padding-top: 100px;
 	font-family: 'Nanum Gothic', sans-serif;
-	font-size: 20px;
+	font-size: 16px;
 	background-color:#f7f6f3;
 }
 
@@ -266,6 +267,8 @@ body {
     max-width: 200px;
     max-height: 200px;
 }
+
+
 </style>
 
 </head>
@@ -276,6 +279,7 @@ body {
 
 <h3><img class="userProfile" src="/images/uploadFiles/${dbUser.profileImage}"> ${dbUser.nickname}님이 가입하신 모임들입니다.</h3>
 
+<hr>
 
 <div class="owl-carousel">
   <c:forEach items="${list2}" var="moim" >
@@ -287,12 +291,12 @@ body {
   </c:forEach>
 </div>
 
-
+<hr>
 
 <h3>
 <img class="userProfile" src="/images/uploadFiles/${dbUser.profileImage}"> ${dbUser.nickname}님의 관심사 ${dbUser.interestFirst}, ${dbUser.interestSecond}, ${dbUser.interestThird}에 맞는 모임들입니다.
 <!-- <span><img class="add" src="/images/plus.png" width="40" height="40"  onClick="javascript:fncAddMoimView()"/></span> -->
-<span><img class="add" src="/images/plus.png" width="40" height="40" data-toggle="modal" data-target="#myModal"/></span>
+<span><img class="add" src="/images/plus2.png" width="40" height="40" data-bs-target="#myModal" data-bs-toggle="modal"/></span>
 </h3>
 
 <!-- Modal 시작-->
@@ -310,34 +314,42 @@ body {
 		  <input type="hidden" id="userId" name="userId" value="${dbUser.userId}">
 		  <div class="form-group">
 		    <label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">모임무피명</label>
-		    <div class="col-sm-4">
+		    <div class="col-sm-20">
 		      <input type="text" class="form-control" id="mmName" name="mmName" placeholder="모임명">
 		    </div>
 		  </div>
 		  
+		  <br>
+		  
 		  <div class="form-group">
 		    <label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">대표썸네일</label>
-		    <div class="col-sm-4">
+		    <div class="col-sm-40">
 		      <input type="file" class="form-control" id="uploadFile" name="uploadFile" placeholder="대표썸네일">
 		    </div>
 		  </div>
+		  
+		  <br>
 		  
 		  <center>
 		  <p>drag and drop your image!</p>
 			<div class="content">
 			</div>
 		  </center>		
+		  
+		  <br>
 		    
 		  <div class="form-group">
 		    <label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">간단소개글</label>
-		    <div class="col-sm-4">
-		      <input type="text" class="form-control" id="mmContent" name="mmContent" placeholder="50자이내">
+		    <div class="col-sm-40">
+		    <textarea  style="resize:none" class="form-control" id="mmContent" name="mmContent" placeholder="50자이내"></textarea>
 		    </div>
 		  </div>
 		  
+		  <br>
+		  
 		  <div class="form-group">
 		    <label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">지역구</label>
-		    <div class="col-sm-4">
+		    <div class="col-sm-40">
 		      <select class="form-control" id="mmAddr" name="mmAddr">
 				  <option>종로구</option><option>중구</option><option>용산구</option><option>성동구</option>
 				  <option>광진구</option><option>동대문구</option><option>중랑구</option><option>성북구</option>
@@ -349,16 +361,20 @@ body {
 		    </div>
 		  </div>
 		  
+		  <br>
+		  
 		  <div class="form-group">
 		    <label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">인원</label>
-		    <div class="col-sm-4">
+		    <div class="col-sm-40">
 		      <input type="text" class="form-control" id="mmMaxCount" name="mmMaxCount" placeholder="가입가능정원">
 		    </div>
 		  </div>
 		  
+		  <br>
+		  
 		  <div class="form-group">
 		    <label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">관심사선택</label>
-		    <div class="col-sm-4">
+		    <div class="col-sm-40">
 		    	<select class="form-control" id="mmInterest" name="mmInterest">
 				  <option value="1">아웃도어/여행/사진/영상</option><option value="2">운동/스포츠</option><option value="3">인문학/책/글</option>
 				  <option value="4">업종/직무</option><option value="5">외국/언어</option><option value="6">문화/공연/축제/음악/악기</option>
@@ -368,23 +384,29 @@ body {
 		    </div>
 		  </div>
 		  
+		  <br>
+		  
 		  <div class="form-group">
 		    <label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">최소연령</label>
-		    <div class="col-sm-4">
+		    <div class="col-sm-40">
 		      <input type="text" class="form-control" id="mmMinAge" name="mmMinAge" placeholder="최소연령">
 		    </div>
 		  </div>
 		  
+		  <br>
+		  
 		  <div class="form-group">
 		    <label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">최대연령</label>
-		    <div class="col-sm-4">
+		    <div class="col-sm-40">
 		      <input type="text" class="form-control" id="mmMaxAge" name="mmMaxAge" placeholder="최대연령">
 		    </div>
 		  </div>
 		  
+		  <br>
+		  
 		  <div class="form-group">
 		    <label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">상태</label>
-		  <div class="col-sm-4">
+		  <div class="col-sm-40">
 		  <div class="radio">
 			  <label>
 			    <input type="radio" name="mmState" id="mmState1" value="1" checked>
@@ -399,6 +421,8 @@ body {
 			</div>
 			</div>
 		  </div>
+		  
+		  <br>
 		  
 		  <div class="form-group">
 		    <label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">유형</label>
@@ -429,7 +453,6 @@ body {
         <!-- 폼끝 -->
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary" onClick="fncAddMoim()">Create</button>
       </div>
     </div>
