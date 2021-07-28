@@ -105,11 +105,11 @@
 			<where>
 			F.FLASH_INTEREST = I.INTEREST_NO
 			<if test="searchCondition !=null">
-			<if test="searchCondition == 1 and searchKeyword !='' ">
-			FLASH_INTEREST = #{searchKeyword}
+			<if test="searchCondition == 1 and interestNo !='' ">
+			AND FLASH_INTEREST = #{interestNo}
 			</if>
-			<if test="searchCondition == 2 and searchKeyword !='' ">
-			FLASH_ADDR = #{searchKeyword}
+			<if test="searchCondition == 2 and addr !='' ">
+			AND FLASH_ADDR = #{addr}
 			</if>
 			<if test="searchCondition == 3 and searchKeyword !='' ">
 			AND FLASH_NAME like '%${searchKeyword}%' <!-- OR I.INTEREST_NAME like '%${searchKeyword}%'  -->

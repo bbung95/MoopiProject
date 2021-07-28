@@ -40,6 +40,16 @@ public class MoimRestController {
 		}			
 	}
 	
+	
+	@RequestMapping("json/inviteYou/{userId}/{mmNo}")
+	public String inviteYou(@PathVariable("userId") String userId,
+			@PathVariable("mmNo") int mmNo) throws Exception {
+		
+		moimService.applyMoim(userId, mmNo);
+		System.out.println("초대완료");
+		return "초대성공";
+	}
+	
 	 
 	@RequestMapping("json/listMoim/{userId}")
 	public Map getMyListMoim(@PathVariable("userId") String userId, Model model) throws Exception{

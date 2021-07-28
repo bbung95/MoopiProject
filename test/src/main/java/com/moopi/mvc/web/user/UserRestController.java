@@ -35,6 +35,7 @@ import com.moopi.mvc.service.domain.Moim;
 import com.moopi.mvc.service.domain.Notice;
 import com.moopi.mvc.service.domain.User;
 import com.moopi.mvc.service.moim.impl.MoimServiceImpl;
+import com.moopi.mvc.service.reply.impl.ReplyServiceImpl;
 import com.moopi.mvc.service.user.impl.UserServiceImpl;
 
 import net.nurigo.java_sdk.api.GroupMessage;
@@ -47,7 +48,6 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 
-@Controller
 @RestController
 @RequestMapping("/user/*")
 public class UserRestController {
@@ -60,6 +60,9 @@ public class UserRestController {
 
 	@Autowired
 	private BoardServiceImpl boardService;
+	
+	@Autowired
+	private ReplyServiceImpl replyService;
 
 	@Autowired
 	private MoimServiceImpl moimService;
@@ -363,9 +366,20 @@ public class UserRestController {
 		String fileName = "";
 		if (uploadFiles != null) {
 			for (MultipartFile file : uploadFiles) {
+				
+				// 랜덤 키
+				String[] array = new String[6];
+				String key = new String();
+				Random rd = new Random(); 
+
+				for (int i = 0; i < array.length; i++) {
+					array[i] = Integer.toString(rd.nextInt(10));
+					key += array[i];
+				}
+				
 				String uploadFile = "";
 				long currentTime = System.currentTimeMillis();
-				uploadFile = currentTime + file.getOriginalFilename();
+				uploadFile = currentTime + key + file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
 				fileName += uploadFile + "/";
 				try {
 					file.transferTo(new File(saveDir + "/" + uploadFile));
@@ -394,5 +408,17 @@ public class UserRestController {
 		search.setCurrentPage(currentPage);
 		
 		return boardService.getBoardList(search, "3", "1", userId);
+	}
+	
+	@GetMapping(value="json/getMyBoard/{boardNo}")
+	public Map<String, Object> getMyBoard(@PathVariable int boardNo ) throws Exception{
+		
+		System.out.println("getMyBoard : GET");
+		
+		Map <String, Object> map = new HashMap<String, Object>();
+		map.put("board", boardService.getBoard(boardNo));
+		map.put("reply", replyService.getReplyList(boardNo));
+		
+		return map;
 	}
 }
