@@ -212,14 +212,14 @@ public class MoimController {
 	
 	
 	
-	//모임 가입신청하기
-	@RequestMapping("applyMoim")
-	public String applyMoim(@RequestParam("userId") String userId,
-	@RequestParam("mmNo") int mmNo) throws Exception {
-		System.out.println("모임 가입신청을 합니다.");
-		moimService.applyMoim(userId, mmNo);
-		return "forward:/moim/getMoim";
-	}
+//	//모임 가입신청하기
+//	@RequestMapping("applyMoim")
+//	public String applyMoim(@RequestParam("userId") String userId,
+//	@RequestParam("mmNo") int mmNo) throws Exception {
+//		System.out.println("모임 가입신청을 합니다.");
+//		moimService.applyMoim(userId, mmNo);
+//		return "forward:/moim/getMoim";
+//	}
 	
 	//모임 탈퇴하기
 	@RequestMapping("leaveMoim")
@@ -231,14 +231,14 @@ public class MoimController {
 		return "forward:모임상세조회페이지";
 	}
 	
-	//가입신청 거절하기
-	@RequestMapping("refuseApply")
-	public String refuseApply(@RequestParam("memberNo") int memberNo,
-			@RequestParam("mmNo") int mmNo) throws Exception {
-		System.out.println("가입신청을 거절 합니다.");
-		moimService.refuseApply(memberNo);
-		return "redirect:/moim/listMember?mmNo="+mmNo+"&status=1";
-	}
+//	//가입신청 거절하기
+//	@RequestMapping("refuseApply")
+//	public String refuseApply(@RequestParam("memberNo") int memberNo,
+//			@RequestParam("mmNo") int mmNo) throws Exception {
+//		System.out.println("가입신청을 거절 합니다.");
+//		moimService.refuseApply(memberNo);
+//		return "redirect:/moim/listMember?mmNo="+mmNo+"&status=1";
+//	}
 	
 	//멤버 권한변경(가입신청수락, 매니저권한위임및박탈)
 	@RequestMapping("updateMember")

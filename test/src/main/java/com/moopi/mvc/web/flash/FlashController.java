@@ -173,6 +173,7 @@ public class FlashController {
 		coin.setFlash(flash);
 		
 		flashService.joinFlash(userId, flashNo);
+		flashService.joinFlashUpdate(flash);
 		userService.joinFlashCoin(user);
 
 		coinService.joinCoin(coin);

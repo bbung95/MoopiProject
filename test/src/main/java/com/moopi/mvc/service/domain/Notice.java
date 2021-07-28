@@ -22,9 +22,8 @@ public class Notice {
 	private Flash flash;
 	private Meeting meeting;
 	private Reply reply;
-	private Letter letter;
+	private Member member;
 	private String noticeType;
-	private String chatRoomNo;
 	
 	public Notice() {
 	}

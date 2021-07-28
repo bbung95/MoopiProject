@@ -48,7 +48,7 @@ public class ReplyRestController {
 	public User user;
 	
 	@PostMapping( value="json/addReply")
-	public Reply addReply(@RequestBody Reply reply) throws Exception{
+	public Reply addReply(@RequestBody Reply reply ) throws Exception{
 		
 		System.out.println("/reply/json/getReply : POST");
 		System.out.println(reply);
@@ -60,10 +60,12 @@ public class ReplyRestController {
 		notice.setBoard(board);
 		notice.setToUserId(board.getBoardWriter().getUserId());
 		notice.setNoticeUser(reply.getReplyWriter());
-		notice.setNoticeContent(reply.getReplyContent());
-		commomService.addNotice(notice);
+//		notice.setNoticeContent(reply.getReplyContent());
+//		commomService.addNotice(notice);
 		
-		return replyService.addReply(reply);
+		reply = replyService.addReply(reply);
+		System.out.println("111111"+reply.getReplyNo());
+		return reply;
 		
 	}
 
@@ -105,13 +107,15 @@ public class ReplyRestController {
 	}
 	
 	@RequestMapping( value="json/deleteReply/{replyNo}")
-	public void dleteReply(@PathVariable int replyNo){ 
+	public int dleteReply(@PathVariable int replyNo){ 
 		
 		
 		System.out.println("/reply/json/deleteReply ");
 		System.out.println(replyNo);
 
 		replyService.deleteReply(replyNo);
+		
+		return 1;
 	}	
 	
 }

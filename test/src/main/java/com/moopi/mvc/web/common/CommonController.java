@@ -144,6 +144,12 @@ public class CommonController {
 		}
 	}
 	
+	
+	@RequestMapping(value="/cc/test")
+	public String test () {
+		
+		return "test";
+	}
 		
 //		@CrossOrigin(origins = "http://localhost:82")
 //		@GetMapping(value="/chat/chatList")
