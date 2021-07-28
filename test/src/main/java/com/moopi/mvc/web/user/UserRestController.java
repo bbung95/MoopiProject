@@ -505,6 +505,6 @@ public class UserRestController {
 		
 		
 		return true;
-		}
+		} 
 	
 }
