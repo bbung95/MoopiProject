@@ -27,8 +27,9 @@
 <!-- <link rel="stylesheet" href="/images/uploadFiles" >   -->
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <!-- <script src="/javascript/owl.carousel.min.js"></script> -->
-
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script> 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/js/scripts.js"></script>
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>  -->
 <!-- <link rel="stylesheet" href="/css/owl.carousel.min.css"> -->
 <!-- <link rel="stylesheet" href="/css/owl.theme.default.min.css"> -->
 
@@ -146,66 +147,26 @@
 		padding-top: 100px;
 		background-color:#f7f6f3;
 	}
-	
-/* 	#side { */
-/* 	margin: 10px; */
-/* 	width: 120px; */
-/* 	height: 120px; */
-/* 	border-radius: 50%; */
-/* 	border: 4px solid #fff;;  */
-/*  	border-color: #05D4EB;  */
-/* 	float: right; */
-/* } */
-
-/* img.whale{ */
-/*     animation: rotate_image 10s linear infinite; */
-/*     transform-origin: 50% 50%; */
-/*     vertical-align:middle; */
-/* } */
- 
-/* @keyframes rotate_image{ */
-/* 	100% { */
-/*     	transform: rotate(360deg); */
-/*     } */
-/* } */
-
-/* .emphasized { */
-/*     box-shadow : rgba(0,0,0,0.5) 0 0 0 9999px; */
-/* }	 */
-
-/* #sidebar { */
-/*     display: none; */
-/*     position: fixed; */
-/*     top: 0;       */
-/*     right: 0; */
-/*     background-color: #63B3F8; */
-/*     color: #fff; */
-/*  	text-shadow: 0 0 7px #fff, 0 0 10px #fff, 0 0 21px #fff, 0 0 42px #0fa, */
-/*     0 0 82px #0fa, 0 0 92px #0fa, 0 0 102px #0fa, 0 0 151px #0fa; */
-/*     width: 300px; */
-/*     height: 100vh; */
-/*     text-align: center; */
-/*     padding-top : 150px; */
-/*     z-index:1; */
-/*     background-image:url("/images/uploadFiles/${moim.mmFile}"); */
-/* } */
 
 #moimThumbnail{
+	margin-top: 8px;
 	border:3px solid rgba(0,0,0,0.2);
 	display: inline-block;
-	margin: 0px auto;
+/* 	margin: 0px auto; */
 }
 
 #left{
 	border:1.5px solid rgba(0,0,0,0.2);
+	width:350px;
 	font-family:'Dancing Script', cursive;
 	font-size:22px;
 /* 	padding-left : 59px; */
 	text-align: center;
 }
 
-#right{
+.right{
 	border:1.5px solid rgba(0,0,0,0.2);
+	width:650px;
 }
 
 #moimName{
@@ -224,31 +185,30 @@
 
 
 /*멤버프로필시작*/
-/* body { */
-/*   height: 100vh; */
-/*   background-image: url(https://picsum.photos/g/3000/2000); */
-/*   background-size: cover;  */
-/*   background-position: center;  */
-/*   display: flex; */
-/*   align-items: center; */
-/* } */
+/*  body {  */
+/*    height: 100vh;  */
+/*    background-size: cover;   */
+/*    background-position: center;   */
+/*     display: flex;   */
+/*    align-items: center;  */
+/*  }  */
 
 .our-team {
-  padding: 30px 0 40px;
+  padding: 30px 0 40px; 
   margin-bottom: 30px;
   background-color: #f7f5ec;
-  text-align: center;
+  text-align: center; 
   overflow: hidden;
-  position: relative;
+  position: relative; 
 }
 
 .our-team .picture {
   display: inline-block;
-  height: 130px;
-  width: 130px;
+  height: 100px;
+  width: 100px;
   margin-bottom: 50px;
   z-index: 1;
-  position: relative;
+  position: relative; 
 }
 
 .our-team .picture::before {
@@ -284,7 +244,7 @@
 
 .our-team .picture img {
   width: 100%;
-  height: auto; 
+  height: 100%; 
   border-radius: 50%;
   transform: scale(1);
   transition: all 0.9s ease 0s;
@@ -324,7 +284,7 @@
 .our-team .social li span {
   display: block;
   padding: 10px;
-  font-size: 16px;
+  font-size: 14px;
   color: white;
   transition: all 0.3s ease 0s;
   text-decoration: none;
@@ -344,6 +304,37 @@
 .name{
 	font-size:18px;
 	font-weight: bold;
+}
+
+@media ( min-width : 768px) {
+	.container {
+		width: 750px;
+	}
+}
+
+@media ( min-width : 992px) {
+	.container {
+		width: 1000px;
+	}
+}
+
+/*사실 이 블럭은 없어도 된다*/
+@media ( min-width : 1200px) {
+	.container {
+		width: 1000px;
+	}
+}
+
+.name {
+	font-size:16px;
+}
+
+.jumbotron {
+  margin-top: 1rem;
+  padding: 2rem 1rem;
+  margin-bottom: 2rem;
+  background-color: #e9ecef;
+  border-radius: .3rem;
 }
 </style>
 <body>
@@ -369,6 +360,8 @@
 <!-- 		</div> -->
 <!-- SideBar End -->
 
+<div class="container">
+
 <div class="row">
     <div id="left" class="col-xs-3 col-md-3">
     <div style="text-align : center;">
@@ -390,8 +383,9 @@
 	<div>Type &nbsp&nbsp Free</div>
 	</c:if>
 	</div>
-	<div  id="right" class="col-xs-8 col-md-8">
+	
 	<!-- 점보트론 시작 -->
+	<div class="right" >
 	<div class="jumbotron">
 <!-- 		<img id="side" class="whale" src="/images/air2.png" width="400" height="300 "/> -->
 		<div id="moimName">${moim.mmName}</div>
@@ -401,136 +395,54 @@
 	<!-- 점보트론끝 -->
 	
 	<!-- 멤버썸네일 시작-->
-	<div class="container">
-	
-	 <div class="row">
-	 <c:forEach items="${list}" var="member">
-    <div class="col-12 col-sm-6 col-md-4 col-lg-2">
-      <div class="our-team">
-        <div class="picture">
-        <a href="/user/getMyHome?userId=${member.mmUser.userId}">
-          <img class="img-fluid" src="/images/uploadFiles/${member.mmUser.profileImage}">
-         </a>
-        </div>
-        <div class="team-content">
-          <h3 class="name">${member.mmUser.nickname}</h3>
-          <h4 class="title">${member.mmUser.profileContent}</h4>
-        </div>
-        <ul class="social">
-          <c:if test = "${member.memberRole eq '4'}">	
-          <li><span>모임장</span></li>
-          </c:if>
-          <c:if test = "${member.memberRole eq '3'}">
-          <li><span>운영진</span></li>
-          </c:if>
-          <c:if test = "${member.memberRole eq '2'}">
-          <li><span>멤버</span></li>
-          </c:if>
-        </ul>
-      </div>
-    </div>
-	</c:forEach>
-	
- 
-<!--         <div class="col-12 col-sm-6 col-md-4 col-lg-3"> -->
-<!--       <div class="our-team"> -->
-<!--         <div class="picture"> -->
-<!--           <img class="img-fluid" src="https://picsum.photos/130/130?image=839"> -->
-<!--         </div> -->
-<!--         <div class="team-content"> -->
-<!--           <h3 class="name">Patricia Knott</h3> -->
-<!--           <h4 class="title">Web Developer</h4> -->
-<!--         </div> -->
-<!--         <ul class="social"> -->
-<!--           <li><a href="https://codepen.io/collection/XdWJOQ/" class="fa fa-facebook" aria-hidden="true"></a></li> -->
-<!--         </ul> -->
-<!--       </div> -->
-<!--     </div> -->
-<!--         <div class="col-12 col-sm-6 col-md-4 col-lg-3"> -->
-<!--       <div class="our-team"> -->
-<!--         <div class="picture"> -->
-<!--           <img class="img-fluid" src="https://picsum.photos/130/130?image=856"> -->
-<!--         </div> -->
-<!--         <div class="team-content"> -->
-<!--           <h3 class="name">Justin Ramos</h3> -->
-<!--           <h4 class="title">Web Developer</h4> -->
-<!--         </div> -->
-<!--         <ul class="social"> -->
-<!--           <li><a href="https://codepen.io/collection/XdWJOQ/" class="fa fa-facebook" aria-hidden="true"></a></li> -->
-<!--         </ul> -->
-<!--       </div> -->
-<!--     </div> -->
-<!--   </div> -->
-<!-- </div> -->
-<!-- 	<!-- 멤버썸네일 끝 -->	 
-<!-- 	<!-- 2번째 멤버썸네일 시작--> 
 <!-- 	<div class="container"> -->
-<!-- 	<div class="row"> -->
-<!--     <div class="col-12 col-sm-6 col-md-4 col-lg-3"> -->
-<!--       <div class="our-team"> -->
-<!--         <div class="picture"> -->
-<!--           <img class="img-fluid" src="https://picsum.photos/130/130?image=1027"> -->
-<!--         </div> -->
-<!--         <div class="team-content"> -->
-<!--           <h3 class="name">Michele Miller</h3> -->
-<!--           <h4 class="title">Web Developer</h4> -->
-<!--         </div> -->
-<!--         <ul class="social"> -->
-<!--           <li><a href="https://codepen.io/collection/XdWJOQ/" class="fa fa-facebook" aria-hidden="true"></a></li> -->
-<!--         </ul> -->
-<!--       </div> -->
-<!--     </div> -->
-<!--         <div class="col-12 col-sm-6 col-md-4 col-lg-3"> -->
-<!--       <div class="our-team"> -->
-<!--         <div class="picture"> -->
-<!--           <img class="img-fluid" src="https://picsum.photos/130/130?image=839"> -->
-<!--         </div> -->
-<!--         <div class="team-content"> -->
-<!--           <h3 class="name">Patricia Knott</h3> -->
-<!--           <h4 class="title">Web Developer</h4> -->
-<!--         </div> -->
-<!--         <ul class="social"> -->
-<!--           <li><a href="https://codepen.io/collection/XdWJOQ/" class="fa fa-facebook" aria-hidden="true"></a></li> -->
-<!--         </ul> -->
-<!--       </div> -->
-<!--     </div> -->
-<!--         <div class="col-12 col-sm-6 col-md-4 col-lg-3"> -->
-<!--       <div class="our-team"> -->
-<!--         <div class="picture"> -->
-<!--           <img class="img-fluid" src="https://picsum.photos/130/130?image=856"> -->
-<!--         </div> -->
-<!--         <div class="team-content"> -->
-<!--           <h3 class="name">Justin Ramos</h3> -->
-<!--           <h4 class="title">Web Developer</h4> -->
-<!--         </div> -->
-<!--         <ul class="social"> -->
-<!--           <li><a href="https://codepen.io/collection/XdWJOQ/" class="fa fa-facebook" aria-hidden="true"></a></li> -->
-<!--         </ul> -->
-<!--       </div> -->
-<!--     </div> -->
-<!--   </div> -->
-<!--  </div> -->
-	<!-- 2번째 멤버썸네일 끝 -->
-</div>
-<!-- 컨테이너끝 -->
+	
+		 <div class="row">
 
+		 <c:forEach items="${list}" var="member">
+		 <div class="col-xs-8 col-sm-6 col-md-5 col-lg-3">
 
+	      <div class="our-team" >
+	        <div class="picture">
+	        <a href="/user/getMyHome?userId=${member.mmUser.userId}">
+	          <img class="img-fluid" src="/images/uploadFiles/${member.mmUser.profileImage}">
+	         </a>
+	        </div>
+	        <div class="team-content">
+	          <h3 class="name">${member.mmUser.nickname}</h3>
+	          <h4 class="title">${member.mmUser.profileContent}</h4>
+	        </div>
+	        <ul class="social">
+	          <c:if test = "${member.memberRole eq '4'}">	
+	          <li><span>모임장</span></li>
+	          </c:if>
+	          <c:if test = "${member.memberRole eq '3'}">
+	          <li><span>운영진</span></li>
+	          </c:if>
+	          <c:if test = "${member.memberRole eq '2'}">
+	          <li><span>멤버</span></li>
+	          </c:if>
+	        </ul>
+	      </div>
+	   
+	   </div>
+		</c:forEach>
+		
+		 </div>
+		
+		
 
-<!-- 	멤버및 모임장 넣을꺼야. -->
-	
-<!-- 	점보트론사용 -->
-	
-	
-<%-- 	<p>모임관심사No:${moim.mmInterest}</p> --%>
-<%-- 	<p>모임거주지:${moim.mmAddr}</p> --%>
-<%-- 	<p>모임무피상태(1공개2비공개):${moim.mmState}</p> --%>
-	
+		
+<!-- 	</div> -->
+
 	</div>
 
 </div>
 
-<jsp:include page="../layout/moimSidebar.jsp"></jsp:include>
-<jsp:include page="../layout/searchbar.jsp"></jsp:include>
+</div> <!-- 컨테이너끝 -->
+
+	<jsp:include page="../layout/moimSidebar.jsp"></jsp:include>
+<jsp:include page="../layout/searchbar.jsp"></jsp:include>	
 
 </body>
 </html>

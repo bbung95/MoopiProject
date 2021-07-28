@@ -110,12 +110,12 @@ public class MeetingController {
 	
 	//정모삭제, 실제 삭제는 아니고 MT_STATE를 3으로 변경하는것임.
 	@RequestMapping("deleteMeeting")
-	public String deleteMeeting(int mtNo, Model model, HttpSession session) throws Exception{
+	public String deleteMeeting(@RequestParam("mtNo")int mtNo, Model model, HttpSession session) throws Exception{
 		System.out.println("deleteMeeting :::");
 		meetingService.deleteMeeting(mtNo);
 		Meeting meeting = meetingService.getMeeting(mtNo);
 		model.addAttribute("mmNo", meeting.getMmNo());
-		User user = (User)session.getAttribute("user");
+		User user = (User)session.getAttribute("dbUser");
 		int mmNo = meeting.getMmNo();
 		String userId = user.getUserId();
 		
@@ -133,6 +133,11 @@ public class MeetingController {
 		System.out.println(map);
 		model.addAttribute("userId", userId);
 		model.addAttribute("moim", moimService.getMoim(mmNo));
+		model.addAttribute("lat", 37.534885143197336);
+		model.addAttribute("lng", 126.9881144036468);
+//		model.addAtrribute("mtAddr", "우이도가족캠핑장");
+		model.addAttribute("mtContent", "캠핑가요");
+		model.addAttribute("mtAddr", "우이도가족캠핑장");
 		return "meeting/listMeeting";
 	}
 	
