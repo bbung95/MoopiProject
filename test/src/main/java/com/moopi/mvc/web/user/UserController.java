@@ -27,7 +27,7 @@ import com.moopi.mvc.service.user.impl.UserServiceImpl;
 import ch.qos.logback.core.joran.conditional.ElseAction;
 import oracle.sql.DATE;
 
-@Controller
+@Controller 
 @RequestMapping("/user/*")
 public class UserController {
 
