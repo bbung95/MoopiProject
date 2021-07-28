@@ -65,6 +65,6 @@
 	})
 	$('a:contains("결제목록")').on('click', function(){
 		
-		location.href = "/common/getFlashList";
+		location.href = "/common/getPaymentList";
 	})
 </script>

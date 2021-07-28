@@ -59,6 +59,10 @@ public class FlashServiceImpl {
 		
 	}
 
+	public void joinFlashUpdate(Flash flash) throws Exception{
+		flashDao.joinFlashUpdate(flash);
+	}
+	
 	public Map<String, Object> getJoinFlashList (int targetNo) throws Exception{
 		List<MeetingFlashMember> list = flashDao.getJoinFlashList(targetNo);
 		//int totalCount = flashDao.getJoinTotalCount(targetNo);

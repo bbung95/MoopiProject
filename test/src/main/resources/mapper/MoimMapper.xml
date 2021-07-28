@@ -71,13 +71,13 @@
 		<result property="badge"			column="BADGE"				jdbcType="CHAR"/>
 	</resultMap>
 	
-	<insert id="applyMoim">
+	<insert id="applyMoim" useGeneratedKeys="true"  keyProperty="memberNo">
 	 	INSERT
 		INTO MEMBER(
 		MM_MEMBER_ID, MM_NO, MM_MEMBER_ROLE, MM_MEMBER_REGDATE 
 		)
 		VALUES( 
-		#{userId}, #{mmNo}, '1', now()
+		#{member.mmUser.userId}, #{member.mmNo}, '1', now()
 		)
 	 </insert>
 	 

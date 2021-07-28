@@ -22,16 +22,15 @@
 <link href="/css/styles.css" rel="stylesheet" />
 
 <!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
-
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
-<link rel="stylesheet" href="/images/uploadFiles" >  
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" > -->
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" > -->
+<!-- <link rel="stylesheet" href="/images/uploadFiles" >   -->
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-<script src="/javascript/owl.carousel.min.js"></script>
+<!-- <script src="/javascript/owl.carousel.min.js"></script> -->
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script> 
-<link rel="stylesheet" href="/css/owl.carousel.min.css">
-<link rel="stylesheet" href="/css/owl.theme.default.min.css">
+<!-- <link rel="stylesheet" href="/css/owl.carousel.min.css"> -->
+<!-- <link rel="stylesheet" href="/css/owl.theme.default.min.css"> -->
 
 <!-- 구글 폰트 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -66,10 +65,10 @@ $('table').DataTable();
 <body>
 <style>
 	body{
-		padding-top: 50px;
+		padding-top: 100px;
 		background-color:#f7f6f3;
 		font-family: 'Nanum Gothic', sans-serif;
-		font-size : 20px;
+		font-size : 16px;
 	}
 	
 	.userProfile {
@@ -85,7 +84,7 @@ $('table').DataTable();
 	
 /* 코드펜 */
 body { 
-  font-size: 140%; 
+
 }
 
 h2 {
@@ -221,7 +220,7 @@ table.dataTable td {
 			</td>
 			<td id="td8">
 			<c:if test = "${member.memberRole eq '2'}">
-			<button type="button" class="btn btn-default" onClick="fncAccept('${member.mmUser.userId}', '${member.mmNo}')">매니저임명</button>
+			<button type="button" class="btn btn-primary" onClick="fncAccept('${member.mmUser.userId}', '${member.mmNo}')">매니저임명</button>
 			</c:if>
 			<c:if test = "${member.memberRole eq '3'}">
 			<button type="button" class="btn btn-warning" onClick="fncRefuse('${member.memberNo}', '${member.mmNo}')">매니저박탈</button>
@@ -244,6 +243,8 @@ table.dataTable td {
 
 
 
+<jsp:include page="../layout/moimSidebar.jsp"></jsp:include>
+</body>
 
 
 
@@ -271,6 +272,4 @@ table.dataTable td {
 <!-- <hr> -->
 <%-- </c:forEach> --%>
 
-<jsp:include page="../layout/moimSidebar.jsp"></jsp:include>
-</body>
 </html>

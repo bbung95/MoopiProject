@@ -8,15 +8,16 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-<!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
-
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
-	<link rel="stylesheet" href="/images/uploadFiles" >
-	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
-
-	
+<jsp:include page="../../common/commonCDN.jsp"></jsp:include>
+		
+		<script src="/javascript/summernote-lite.js"></script>
+		<script src="/javascript/lang/summernote-ko-KR.js"></script>
+		<link rel="stylesheet" href="/css/summernote-lite.css">
+	 	<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link
+			href="https://fonts.googleapis.com/css2?family=Gaegu:wght@300&display=swap"
+			rel="stylesheet">	
 	
 <script type="text/javascript">
 
@@ -32,9 +33,9 @@ function fncGetBoard(boardNo){
 
 
 function fncGetPassword(boardNo){
-	alert("비번체크");
+// 	alert("비번체크");
 	var boardPassword = prompt("작성하실때 입력하신 비밀번호를 입력해주세요.");
-	alert(boardPassword)
+// 	alert(boardPassword)
 	
 	var jsonPassword;
 	
@@ -79,111 +80,6 @@ function fncGetPassword(boardNo){
   
 <style>
 
-.userEL8991295 { position: relative; padding: 30px 0; background-color: #ffffff; }
-
-.userEL8991295 .table { margin-bottom: 25px;  }
-.userEL8991295 .op_tableline10 {
-    border-top: 3px solid #eef0f4;
-}
-.userEL8991295 .table > .item {
-    clear: both;
-    position: relative;
-    overflow: hidden;
-}
-.userEL8991295 .op_itemline10 {
-     border-bottom: 1px solid #eef0f4; 
-}
-.userEL8991295 .table > .item:before,
-.userEL8991295 .table > .item:after {
-    content: ' ';
-    display: block;
-    position: relative;
-    clear: both;
-}
-.userEL8991295 .table > .item * { z-index: 1; position: relative; }
-
-.userEL8991295 .table > .item > div {
-    font-family: 'Libre Baskervile','Nanum Gothic';
-    vertical-align: top;
-    color:#848793;
-    line-height: 1.8;
-    font-size: 12px;
-    padding: 20px 0;
-}
-.userEL8991295 .table > .item > .thumb-wrap { padding-right: 3.5%; text-align:right; line-height: 1; position: relative; }
-
-.userEL8991295 .table > .item > .cont-wrap > ul > li { display: inline-block; float: left; line-height: 1.4; }
-.userEL8991295 .table > .item > .cont-wrap > ul > li:not(.hidden):not(:empty) + li:not(.hidden):not(:empty):before,
-.userEL8991295 .table > .item > .cont-wrap > ul > li:not(.hidden):not(:empty) + li:not(.hidden):empty + li:not(.hidden):not(:empty):before,
-.userEL8991295 .table > .item > .cont-wrap > ul > li:not(.hidden):not(:empty) + li.hidden + li:not(.hidden):not(:empty):before,
-.userEL8991295 .table > .item > .cont-wrap > ul > li:not(.hidden):not(:empty) + li.hidden + li.hidden + li:not(.hidden):not(:empty):before,
-.userEL8991295 .table > .item > .cont-wrap > ul > li:not(.hidden):not(:empty) + li:empty:not(.hidden)  + li.hidden + li:not(.hidden):not(:empty):before,
-.userEL8991295 .table > .item > .cont-wrap > ul > li:not(.hidden):not(:empty) + li.hidden + li.hidden + li.hidden + li:not(.hidden):not(:empty):before {
-    content: '|';
-    margin: 0 10px;
-    position: relative;
-    display: inline-block;
-    float: left;
-}
-
-.userEL8991295 .tpl-forum-list-title {
-    font-family: 'Libre Baskervile','Nanum Gothic';
-    display: inline-block;
-    font-size: 24px;
-    font-weight: 400; 
-    line-height: 1.4;
-    margin-right: 7px;
-    color:#535353;
-}
-
-.userEL8991295 .tpl-forum-list-etc {
-    font-family: 'Libre Baskervile','Nanum Gothic';
-    color: #afafaf;
-    font-size: 12px;
-    margin-top: 5px;
-}
-.userEL8991295 .tpl-forum-list-cont {
-    font-family: 'Libre Baskervile','Nanum Gothic';
-    color: #818181;
-    font-size: 12px;
-    overflow: hidden;
-    -webkit-line-clamp: 4;
-    -webkit-box-orient: vertical;
-    display: block;
-    display: -webkit-box; 
-    margin-top: 12px;
-    margin-bottom: 8px;
-}
-
-
-
-.userEL8991295 .table > .item > .cont-wrap .tpl-forum-list-hit:not(.hidden):not(:empty):after, 
-.userEL8991295 .table > .item > .cont-wrap .tpl-forum-list-comment:not(.hidden):not(:empty):after {
-    display: inline-block;
-    position: relative;
-    top: 0; left: 0;
-    float: left;
-    font-family: 'FontAwesome';
-    margin-right: 3px;
-}
-.userEL8991295 .table > .item > .cont-wrap .tpl-forum-list-hit:not(.hidden):not(:empty):after { content: '\f06e'; }
-.userEL8991295 .table > .item > .cont-wrap .tpl-forum-list-comment:not(.hidden):not(:empty):after { content: '\f0e5'; }
-
-
-.userEL8991295 .table > .item > .thumb-wrap .tpl-forum-list-thumb img { min-width: 100%; }
-.userEL8991295 .table > .item > .thumb-wrap .tpl-forum-list-num {
-    display: inline-block;
-    position: absolute;
-    top: 20px; left: 0;
-    padding: 6px 4px;
-    line-height: 1;
-    min-width: 22px;
-    text-align: center;
-    background-color: rgba(0,0,0,0.2);
-    color:#fff;
-    font-size:13px;
-}
-
 
 .userEL8991295 .tpl-forum-write {
     position: relative;
@@ -203,7 +99,7 @@ function fncGetPassword(boardNo){
     border-radius: 30px;
     border: 1px solid #a3a3a3;
     background-color: #a3a3a3;
-    color: #ffffff;
+    color: #0c2133;
 }
 
 .userEL8991295 .search-box { overflow:hidden; clear: both; padding-bottom: 20px; }
@@ -256,6 +152,12 @@ function fncGetPassword(boardNo){
     transform: translateX(1px);
 }
 
+.img-responsive{
+
+	width:150px;
+}
+
+
 .userEL8991295 .pagination > li > a {   
     font-family: 'Roboto', 'Nanum Gothic';
     font-size: 12px; 
@@ -305,36 +207,198 @@ function fncGetPassword(boardNo){
 
 
 
-@media only screen and (max-width:768px) {
-    .userEL8991295 .table { margin-bottom: 20px; }
-    .userEL8991295 .table > .item > .cont-wrap,
-    .userEL8991295 .table > .item > .thumb-wrap { padding-top: 16px; padding-bottom: 16px; }
-    .userEL8991295 .table > .item > .thumb-wrap { padding-right: 5%; }
-    .userEL8991295 .table > .item > .thumb-wrap .tpl-forum-list-num { top: 16px; }
-    .userEL8991295 .table > .item > .cont-wrap > ul > li:not(.hidden):not(:empty) + li:not(.hidden):not(:empty):before,
-    .userEL8991295 .table > .item > .cont-wrap > ul > li:not(.hidden):not(:empty) + li:not(.hidden):empty + li:not(.hidden):not(:empty):before,
-    .userEL8991295 .table > .item > .cont-wrap > ul > li:not(.hidden):not(:empty) + li.hidden + li:not(.hidden):not(:empty):before,
-    .userEL8991295 .table > .item > .cont-wrap > ul > li:not(.hidden):not(:empty) + li.hidden + li.hidden + li:not(.hidden):not(:empty):before,
-    .userEL8991295 .table > .item > .cont-wrap > ul > li:not(.hidden):not(:empty) + li:empty:not(.hidden)  + li.hidden + li:not(.hidden):not(:empty):before,
-    .userEL8991295 .table > .item > .cont-wrap > ul > li:not(.hidden):not(:empty) + li.hidden + li.hidden + li.hidden + li:not(.hidden):not(:empty):before { margin: 0 8px; }
-    .userEL8991295 .table > .item > .cont-wrap .tpl-forum-list-cont { margin-top: 9.6px; margin-bottom: 6.4px; }
-    .userEL8991295 .search-box { padding-bottom: 16px; }
+
+.userEL9022878 {
+  padding: 30px 0; background-color: #ffffff;
 }
-@media only screen and (max-width:480px) {
-    .userEL8991295 .table { margin-bottom: 12.5px; }
-    .userEL8991295 .table > .item > .cont-wrap { width: 70%; padding: 10px 0; }
-    .userEL8991295 .table > .item > .thumb-wrap { width: 30%; padding: 10px 5% 10px 0; }
-    .userEL8991295 .table > .item > .thumb-wrap .tpl-forum-list-num { top: 10px; }
-    .userEL8991295 .table > .item > .cont-wrap > ul > li:not(.hidden):not(:empty) + li:not(.hidden):not(:empty):before,
-    .userEL8991295 .table > .item > .cont-wrap > ul > li:not(.hidden):not(:empty) + li:not(.hidden):empty + li:not(.hidden):not(:empty):before,
-    .userEL8991295 .table > .item > .cont-wrap > ul > li:not(.hidden):not(:empty) + li.hidden + li:not(.hidden):not(:empty):before,
-    .userEL8991295 .table > .item > .cont-wrap > ul > li:not(.hidden):not(:empty) + li.hidden + li.hidden + li:not(.hidden):not(:empty):before,
-    .userEL8991295 .table > .item > .cont-wrap > ul > li:not(.hidden):not(:empty) + li:empty:not(.hidden)  + li.hidden + li:not(.hidden):not(:empty):before,
-    .userEL8991295 .table > .item > .cont-wrap > ul > li:not(.hidden):not(:empty) + li.hidden + li.hidden + li.hidden + li:not(.hidden):not(:empty):before { margin: 0 5px; }
-    .userEL8991295 .table > .item > .cont-wrap .tpl-forum-list-cont { margin-top: 6px; margin-bottom: 4px; }
-    .userEL8991295 .search-box { padding-bottom: 10px; }
+.userEL9022878 .table { margin-bottom:0; }
+.userEL9022878 .op_topBtLine50 { border-top: 1px solid #b3b5b7; } 
+.userEL9022878 .table-bottom-line { margin-bottom:20px; } 
+.userEL9022878 .table > thead > tr > th,
+.userEL9022878 .table > tbody > tr > td  {
+  line-height: 2;
+  letter-spacing: 0.07em;
+  text-align: center; 
+  padding:22px 7px;
+  border-bottom: none;
 }
 
+.userEL9022878 .table > tbody > tr.active > td, 
+.userEL9022878 .table > tbody > tr > td.active { background-color: transparent; }
+.userEL9022878 .table > thead > tr > th {
+  font-weight:400;
+  text-transform:uppercase;
+}
+.userEL9022878 .table > thead > tr > th.tpl-forum-num { width: 60px; }
+.userEL9022878 .table > thead > tr > th.tpl-forum-category { width: 150px; }
+.userEL9022878 .table > thead > tr > th.tpl-forum-name { width: 150px; }
+.userEL9022878 .table > thead > tr > th.tpl-forum-date { width: 100px; }
+.userEL9022878 .table > thead > tr > th.tpl-forum-hit { width: 60px; }
+.userEL9022878 .op_itemline10 {border-top: 1px solid #e0e0e0;}
+.userEL9022878 .table > tbody > tr > td.tpl-forum-list-content { padding-left:20px; padding-right:20px; text-align:left; }
+.userEL9022878 .table > tbody > tr > td.tpl-forum-list-content i { margin-right:5px; }
+.userEL9022878 .table > tbody > tr > td.tpl-forum-list-hit { margin-left: 7px; }
+
+.userEL9022878 .tpl-forum-header-row {
+    font-family: 'Lato', 'Nanum Gothic';
+    font-size: 12px;
+    color: #333;
+}
+
+.userEL9022878 .tpl-forum-list-etc {
+    color: #535353;
+    font-size: 12px;
+     font-family: 'Lato', 'Nanum Gothic';
+}
+.userEL9022878 .tpl-forum-list-content {
+ font-family: 'Lato', 'Nanum Gothic';
+    margin-top: 12px;
+    font-size: 12px;
+    line-height: 1.6;
+    color:#191919;
+}
+
+.userEL9022878 .tpl-forum-write {
+  min-width: 160px;
+  font-family: 'Raleway', 'Nanum Gothic';
+  font-size: 12px;
+  min-height: 36px;
+  letter-spacing: 0.07em;
+  text-transform:uppercase;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  border: 1px solid #191919;
+  background-color: transparent;
+  color: #191919;
+}
+
+.userEL9022878 .search-box { overflow:hidden; clear: both; padding-bottom: 20px; }
+.userEL9022878 .search-box .input-group { float:right; max-width:460px; }
+.userEL9022878 .search-box .form-control,
+.userEL9022878 .search-box .form-control:focus,
+.userEL9022878 .search-box .form-control:hover,
+.userEL9022878 .search-box .search-btn ,
+.userEL9022878 .search-box .search-btn:hover, 
+.userEL9022878 .search-box .search-btn:focus { 
+ background-color: transparent;
+ border: 1px solid #e9e9e9; 
+ -moz-border-radius: 0; 
+ border-radius: 0; 
+ -webkit-box-shadow: none;
+ box-shadow: none;
+ height: 24px;
+ vertical-align: top;
+}
+.userEL9022878 .search-box .form-control { font-family: 'Raleway', 'Nanum Gothic'; font-size: 12px; color: #737373; padding: 0 5px; }
+.userEL9022878 .search-box .form-control#stx { border-right: none; }
+.userEL9022878 .search-box select.form-control { width: 100px; text-transform: uppercase; margin-right: 5px; }
+.userEL9022878 .search-box .search-btn { 
+ border-left: 0! important; 
+ color: #191919; 
+padding: 3px 7px; 
+ -wekbit-transform: translateX(1px);
+ -moz-transform: translateX(1px);
+ -ms-transform: translateX(1px);
+ -o-transform: translateX(1px);
+  transform: translateX(1px);
+}
+
+.userEL9022878 .pagination > li > a { 
+ font-family:  'Open sans', 'Nanum Gothic';
+ font-size: 12px; 
+ color: #737373;
+ letter-spacing: 0.07em;
+ border:none;
+ background: transparent;
+}
+.userEL9022878 .pagination > li > a:hover,
+.userEL9022878 .pagination > li > span:hover,
+.userEL9022878 .pagination > li > a:focus,
+.userEL9022878 .pagination > li > span:focus {
+ background: transparent;
+}
+.userEL9022878 .table > tbody > tr > td.active, 
+.userEL9022878 .table > tbody > tr > th.active, 
+.userEL9022878 .table > tbody > tr.active>td, 
+.userEL9022878 .table > tbody > tr.active>th { background:none; }
+.userEL9022878 .pagination > .active > a,
+.userEL9022878 .pagination > .active > span,
+.userEL9022878 .pagination > .active > a:hover,
+.userEL9022878 .pagination > .active > span:hover,
+.userEL9022878 .pagination > .active > a:focus,
+.userEL9022878 .pagination > .active > span:focus {
+ z-index: 2;
+ color: #fb4045;
+ cursor: default;
+ background: none;
+ border-color: none;
+}
+
+
+.userEL9022878.colorSet .op_topBtLine50 { border-color: rgba(25,25,25,0.5); } 
+.userEL9022878.colorSet .op_itemline10 { border-color: rgba(25,25,25,0.1); }
+.userEL9022878.colorSet .search-box .form-control,
+.userEL9022878.colorSet .search-box .form-control:focus,
+.userEL9022878.colorSet .search-box .form-control:hover,
+.userEL9022878.colorSet .search-box .search-btn ,
+.userEL9022878.colorSet .search-box .search-btn:hover, 
+.userEL9022878.colorSet .search-box .search-btn:focus { border-color: rgba(25,25,25,0.15); }
+.userEL9022878.colorSet .search-box .form-control { color: rgba(25,25,25,0.75); }
+.userEL9022878.colorSet .search-box .search-btn { color: #191919; }
+.userEL9022878.colorSet .pagination > li > a { color: rgba(25,25,25,0.6); }
+.userEL9022878.colorSet .pagination > .active > a,
+.userEL9022878.colorSet .pagination > .active > span,
+.userEL9022878.colorSet .pagination > .active > a:hover,
+.userEL9022878.colorSet .pagination > .active > span:hover,
+.userEL9022878.colorSet .pagination > .active > a:focus,
+.userEL9022878.colorSet .pagination > .active > span:focus { color: #191919; }
+
+
+
+@media only screen and (min-width:992px) {
+.userEL9022878 .tpl-forum-write { position: absolute; bottom: 5px; right: 15px; }
+}
+@media only screen and (max-width:991px) {
+ .userEL9022878 .container > .row > .table-wrap { text-align: right; }
+ .userEL9022878 .container > .row > .table-wrap > .table { text-align: left; }
+ .userEL9022878 .table > tbody > tr > th,
+ .userEL9022878 .table > tbody > tr > td { padding:16px 10px; }
+ .userEL9022878 .table > tbody > tr > td.tpl-fourm-list-content { padding-left:16px; padding-right:16px; }
+}
+@media only screen and (max-width:767px) {
+ .userEL9022878 .table > thead > tr > th.tpl-forum-num,
+ .userEL9022878 .table > thead > tr > th.tpl-forum-category,
+ .userEL9022878 .table > thead > tr > th.tpl-forum-date,
+ .userEL9022878 .table > thead > tr > th.tpl-forum-hit,
+ .userEL9022878 .table > tbody > tr > td.tpl-forum-list-num,
+ .userEL9022878 .table > tbody > tr > td.tpl-forum-list-category,
+ .userEL9022878 .table > tbody > tr > td.tpl-forum-list-date,
+ .userEL9022878 .table > tbody > tr > td.tpl-forum-list-hit { display: none; }
+ .userEL9022878 .table > tbody > tr > th,
+ .userEL9022878 .table > tbody > tr > td { padding: 10px; }
+ .userEL9022878 .table > tbody > tr > td.tpl-forum-list-content { padding-left: 10px; padding-right: 10px; }
+ .userEL9022878 .table > thead > tr > th.tpl-forum-name,
+ .userEL9022878 .table > tbody > tr > td.tpl-forum-list-name { width: 110px; }
+ .userEL9022878 .table > tbody > tr > td.tpl-fourm-list-content,
+ .userEL9022878 .table > tbody > tr > td.tpl-forum-list-name { line-height: 1.8; }
+ .userEL9022878 .search-box select.form-control { width: 80px; }
+}
+@media only screen and (max-width:480px) {
+ .userEL9022878 .table > thead > tr > th.tpl-forum-name,
+ .userEL9022878 .table > tbody > tr > td.tpl-forum-name { width: 100px; }
+ .userEL9022878 .tpl-forum-write { width: 100%; }
+ .userEL9022878 .search-box { width: 100%; margin-left: 0; }
+ .userEL9022878 .search-box select.form-control { width: 70px; }
+}
+
+
+body {
+	padding-top: 100px;
+	margin: auto;
+	font-family: 'Gaegu', cursive;
+}
 </style>
 </head>
 <body>
@@ -344,19 +408,12 @@ function fncGetPassword(boardNo){
 
 <div class="userEL8991295 colorSet" data-forum-type="thumb" data-fcolor="#191919" >
     <div class="container">
-        <div class="row">
-			
 			<div class="col-xs-12 col-sm-12 col-md-12">
 			    <h3 class="head_title" data-edit="true" data-selector="h3.head_title" ><span class="fsize20" ><strong>문의 게시판</strong></span></h3>
 		   </div>
    		<form id="searchBar">
             <div class="col-xs-12 col-sm-12 col-md-12 search-box clearfix">
                 <div class="input-group">
-                    <div class="input-group-btn">
-                        <select id="scate" class="form-control" name="scate" placeholder="Category">
-                            <option value="">category</option>
-                        </select>
-                    </div>
                     <div class="input-group-btn">
                         <select id="sfl" class="form-control" name="searchCondition" placeholder="Search">
 							<option value="0"
@@ -376,83 +433,70 @@ function fncGetPassword(boardNo){
                 </div>
             </div>
         </form>
+		
 
-            <div class="col-xs-12 col-sm-12 col-md-12 table-wrap clearfix">
-
-                <div class="table op_tableline10" data-loop="true" data-view="7">
-
-				<c:forEach var="board" items="${list}">
-                    <div class="col-xs-12 col-sm-12 col-md-12 no-padding item op_itemline10">
-                        <div class="thumb-wrap col-xs-3 col-sm-2 col-md-2">
-                            <div class="tpl-forum-list-thumb">
-                                <img src="//storage.googleapis.com/i.addblock.net/sample/forum_thumb_8_1.jpg" class="img-responsive">
-                            </div>
-                            <div class="tpl-forum-list-num"><i class="tpl-forum-list-notice-icon cl-icon notice01" aria-hidden="true"></i></div>
-                        </div>
-                        <div class="cont-wrap col-xs-9 col-sm-10 col-md-10">
-                            <div class="tpl-forum-list-content">
-                                 <c:if test="${  empty board.boardPassword}"> 
-                                <span class="tpl-forum-list-title getBoard" data-selector=".tpl-forum-list-title" data-font="true" data-title="title font" name="boardNoame" onClick="fncGetBoard(${board.boardNo})">
-                                ${board.boardName}
-                                </c:if>
-                                <c:if test="${ !empty board.boardPassword}"> 
-                                <span class="tpl-forum-list-title checkPassword" data-selector=".tpl-forum-list-title" data-font="true" data-title="title font" "name=boardNoame" onClick="fncGetPassword(${board.boardNo})">
-								${board.boardName} 
-								</c:if>
-                                <br><br>
-                                
-                                 </span>
-                            </div>
-<!--                             <div class="tpl-forum-list-cont" data-selector=".tpl-forum-list-cont" data-font="true" data-title="content font">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus et nisl ex. Maecenas dignissim volutpat efficitur. Nullam hendrerit dui mattis sapien pulvinar blandit.</div> -->
-                            <ul>
-                                <li class="tpl-forum-list-name tpl-forum-list-etc config-font-etc" data-selector=".tpl-forum-list-etc" data-font="true" data-title="others">${board.boardWriter.nickname}</li>
-                                <li class="tpl-forum-list-date tpl-forum-list-etc config-font-etc">${board.boardRegDate}</li>
-<!--                                 <li class="tpl-forum-list-hit tpl-forum-list-etc config-font-etc">1</li> -->
-                                
-                                <c:if test="${  empty board.boardPassword}"> 
-                                <li class="tpl-forum-list-date tpl-forum-list-etc config-font-etc" id="getBoard" onClick="fncGetBoard(${board.boardNo})">
-                                공개
-                                </c:if> 
-								<c:if test="${ !empty board.boardPassword}"> 
-								<li class="tpl-forum-list-date tpl-forum-list-etc config-font-etc" id="checkPassword" name="checkPassword" onClick="fncGetPassword(${board.boardNo})">
-								비공개 
-								</c:if>
-								</li>
-								<li class="tpl-forum-list-date tpl-forum-list-etc config-font-etc">
-								${ board.replyCount == 0 ? "답변대기중" : "답변완료"}
-                            </ul>
-                        </div>
-                    </div>
-				</c:forEach>
-
-
-
-
-
+			<div class="userEL9022878 colorSet" data-fcolor="#191919">
+			    <div class="container">
+			        <div class="row">
+			
+			
+			            <div class="col-xs-12 col-sm-12 col-md-12 table-wrap clearfix">
+			                <div class="table-top-line op_topBtLine50"></div>
+			                <table class="table">
+			                    <thead>
+			                        <tr class="thead-bottom-line tpl-forum-header-row" data-selector=".tpl-forum-header-row" data-font="true" data-title="header row font">
+			                            <th class="ntpl-forum-num tpl-forum-num tpl-forum-header-row">no</th>
+			                            <th class="ntpl-forum-content tpl-forum-content tpl-forum-header-row">제목</th>
+			                            <th class="ntpl-forum-name tpl-forum-name tpl-forum-header-row">작성자</th>
+			                            <th class="ntpl-forum-date tpl-forum-date tpl-forum-header-row">작성일</th>
+			                            <th class="ntpl-forum-date tpl-forum-date tpl-forum-header-row">공개/비공개</th>
+			                            <th class="ntpl-forum-date tpl-forum-date tpl-forum-header-row">답변여부</th>
+			                        </tr>
+			                    </thead>
+			                    <tbody data-loop="true" data-view="8">
+			                        <c:forEach var="board" items="${list}">
+			                        <tr>
+			                            <td scope="row" class="tpl-forum-list-num tpl-forum-list-etc op_itemline10">1</td>
+			                            
+			                             
+		                                <c:if test="${ !empty board.boardPassword}"> 
+		                                <td class="tpl-forum-list-content op_itemline10"  onClick="fncGetPassword(${board.boardNo})">${board.boardName}</td>
+										</c:if>
+			                             <c:if test="${  empty board.boardPassword}"> 
+			                            <td class="tpl-forum-list-content op_itemline10"  onClick="fncGetBoard(${board.boardNo})">${board.boardName}</td>
+			                            </c:if>
+			                            
+			                            
+			                            <td class="tpl-forum-list-name tpl-forum-list-etc op_itemline10"> ${board.boardWriter.nickname}</td>
+			                            <td class="tpl-forum-list-date tpl-forum-list-etc op_itemline10">${board.boardRegDate}</td>
+			                            <td class="tpl-forum-list-date tpl-forum-list-etc op_itemline10">  
+			                             <c:if test="${  empty board.boardPassword}"> 
+		                                공개
+		                                </c:if> 
+										<c:if test="${ !empty board.boardPassword}"> 
+										비공개 
+										</c:if></td>
+			                            <td class="tpl-forum-list-date tpl-forum-list-etc op_itemline10">${ board.replyCount == 0 ? "답변대기중" : "답변완료"}</td>
+			                        </tr>
+			                        </c:forEach>
+			                        
+			                        
+			                    </tbody>
+			                </table>
+			
+			            </div> 
+			
+			        </div>
+			    </div>
+			</div>
 
                 </div>
+                
                 <button type="button" class="btn btn-default btn-sm tpl-forum-write" data-selector=".tpl-forum-write" data-button="true" data-title="button text" onClick="fncAddBoardView()">작성하기</button>
 	
-					<jsp:include page="../../common/pageNavigator.jsp"></jsp:include>	
-<!--                 <nav class="text-center clear"> -->
-<!--                     <ul class="pagination pagination-sm tpl-forum-pagination"> -->
-<!--                         <li><a href="#" aria-label="Previous"><span aria-hidden="true"><i class="fa fa-angle-left"></i></span></a></li> -->
-<!--                         <li class="active"><a href="#">1</a></li> -->
-<!--                         <li><a href="#">2</a></li> -->
-<!--                         <li><a href="#">3</a></li> -->
-<!--                         <li><a href="#">4</a></li> -->
-<!--                         <li><a href="#">5</a></li> -->
-<!--                         <li><a href="#" aria-label="Next"><span aria-hidden="true"><i class="fa fa-angle-right"></i></span></a></li> -->
-<!--                     </ul> -->
-<!--                 </nav> -->
-
+					<jsp:include page="../../common/pageNavigator.jsp"/>	
             </div>
 	<jsp:include page="../../layout/searchbar.jsp"></jsp:include>
-        </div>
-    </div>
-</div>
 
-
---------------------
 </body>
 </html>
