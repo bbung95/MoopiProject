@@ -82,41 +82,7 @@
 		}
 	}					
 	
-#popup_wrap {
-	width:560px;
-	height:270px; 
-	background:#fff; 
-	border: solid 1px #666666; 
-	position:fixed; top:50%; 
-	left:50%; margin:-250px 0 0 -250px; 
-	z-index:9999; 
-	display:none;
-	}
-#mask {
-	width:100%;
-	height:100%; 
-	position:fixed; 
-	background:rgba(0,0,0,0.7) repeat; 
-	top:0; 
-	left:0; 
-	z-index:999; 
-	display:none;
-	}
-.popup-cont01 {
-	width:478px; 
-	margin: 40px auto; 
-	text-align: center;
-	}
-.popup-cont01 button { 
-	width: 138px; 
-	height: 36px; 
-	line-height: 36px; 
-	background: #9f2f60; 
-	color: #ffffff; 
-	text-align: center; 
-	border: none; 
-	font-size: 16px;
-	}
+	
 	
 	
 	
@@ -163,14 +129,6 @@
 					<div style="float:right;">
 						<button type="button" class="btn btn-primary updateBoard" >수정</button>
 						<button type="button" class="btn btn-primary deleteBoard" >삭제</button>
-						<div id="popup_wrap">
-							<div class="popup-cont01">      
-							        <button onclick="location.href='링크경로삽입'";>링크텍스트 삽입</button>&nbsp;&nbsp;
-							        <button id="popup_close">닫기</button>
-							  </div>
-							</div>
-						<div id="mask">< /div>
-						
 						<button type="button" class="btn btn-primary addReportBoard" >신고</button>
 					</div>
 					<br>
@@ -212,15 +170,16 @@
  				</section>
  				
  				<section class="replyWrite">
-					<form id = "addReplyForm" name="detailForm" enctype="multipart/form-data">
-									
-							<div style="padding-left:100px; width:800px">
-								<textarea id="summernote" placeholder="댓글을 입력해주세요." name="replyContent" id="replyContent" ></textarea>						
-							</div>					
-								<input type="hidden" id = "replyWriter" value="${dbUser.userId}"> 
-	  							<input type="hidden" id = "boardNo" value="${board.boardNo }"> 
-							<div class="btn btn-submit btn-round" style=" float:right; border-color: rgba(0, 0, 0, 0.4); color: rgba(0, 0, 0, 0.8);" id="addReply"> 
-								등록
+					<form name="detailForm" enctype="multipart/form-data">
+							<div id="addReplyForm">		
+								<div style="padding-left:100px; width:800px">
+									<textarea id="summernote" placeholder="댓글을 입력해주세요." name="replyContent" id="replyContent" ></textarea>						
+								</div>					
+									<input type="hidden" id = "replyWriter" value="${dbUser.userId}"> 
+		  							<input type="hidden" id = "boardNo" value="${board.boardNo }"> 
+								<div class="btn btn-submit btn-round" style=" float:right; border-color: rgba(0, 0, 0, 0.4); color: rgba(0, 0, 0, 0.8);" id="addReply"> 
+									등록
+								</div>
 							</div>
 					</form>	
 				</section>
@@ -346,15 +305,11 @@
 
 		function fncAddReply(){
 			
-// 			alert($(this).parent().html())
 			
 			var replyContent=$("#summernote").val()
 			var replyWriter = $("#replyWriter").val();
 			var boardNo = $("#boardNo").val();
 			
-// 			alert(boardNo);
-// 			alert(replyWriter);
-// 			alert(replyContent);
 			
 			$.ajax({
 				url: "/reply/json/addReply",
@@ -363,9 +318,7 @@
 				contentType : "application/json",
 				data :  JSON.stringify ({ "boardNo": boardNo, "replyWriter": {"userId" :replyWriter}, "replyContent":replyContent}),		
 				success: function(data, state){
-					alert(state)
-// 					alert(data.replyWriter.nickname)
-// 					alert(JSONData.replyWriter.nickname)
+// 					alert(state)
 					var displayValue =
 					
 					 ' 	<div class='+data.replyNo+'>'		
@@ -389,19 +342,7 @@
 					+'	</div>'
 					+'	<br><br>'
 					
-						
-						
-						
-// 						"<h4>"
-// 						+"작성자 : " +JSONData.replyWriter.nickname+"<br/>"
-// 						+"프로필 : "+JSONData.replyWriter.profileImage+"<br/>"
-// 						+"답글내용 : "+JSONData.replyContent+"<br/>"
-// 						+"작성일 : "+JSONData.replyRegDate+"<br/>"
-// 						+"</h4>"
-					
 						$(".reply").append(displayValue);
-						
-						
 				}
 		
 
@@ -433,30 +374,39 @@
 		               //alert(JSONData.memberRole);	
 		                alert(status);
 		                var displayValue = 
-		                	"<h6>"
-		    			+"<form class='form-horizontal' name='detailForm'>"
-		    			+"<input type='hidden' id='replyNo' value=''>"
-		    			+"답글 내용 :" +"<input type='text' id='replyContent' value=''>"+"<br>"
-		    			+"<p></p>"
-		    			+"<a onClick='fncUpdateReply()'>수정하기</a>"+ "<br>"
-		    			+"</form>"
-		    			+"</h6>";
-		    			
-						
 						'<div style="padding-left:100px; width:800px">'
 					+	'	<textarea id="summernote" name="replyContent" id="replyContent" ></textarea>'						
 					+	'</div>	'
 					+	'	<input type="hidden" id = "replyWriter" value="'+data.replyWriter.userId+'">' 
   					+	'	<input type="hidden" id = "boardNo" value="'+data.boardNo+'"> '
-					+	'<div class="btn btn-submit btn-round" style=" float:right; border-color: rgba(0, 0, 0, 0.4); color: rgba(0, 0, 0, 0.8);" id="addReply">' 
-					+	'등록'
+					+	'<div class="btn btn-submit btn-round" style=" float:right; border-color: rgba(0, 0, 0, 0.4); color: rgba(0, 0, 0, 0.8);" id="updateReply">' 
+					+	'수정'
 					+	'</div>'
 		    			
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
 		    			
 						$("#"+replyNo).remove();
-						$("#addReplyForm").remove();
-						$("#addReplyForm").append(displayValue);
-						$(".note-editable").append(data.replyContent);
+// 						$("#addReplyForm").remove();
+// 						$("#addReplyForm").append(displayValue);
+// 						$(".note-editable").append(data.replyContent);
 						
 						
 		                }
@@ -466,16 +416,22 @@
 			)};
 			
 			
-		
-		
-		
-		
-		function fncUpdateReply(){
-			alert("리플업데이트");
-			alert($("#replyContent").val());
+		$(function(){
 			
-			var replyNo = $("#replyNo").val();
-			var replyContent = $("#replyContent").val();
+			$("#updateReply]").on("click", function(){
+				replyNo = $(this).parent().parent().find("input[name=replyNo]").val()
+				replyContent = $(this).parent().parent().find("textarea[name=replyNo]").val()
+				
+				fncUpdateReply(replyNo, replyContent)
+			})
+		})
+		
+		
+		
+		function fncUpdateReply(replyNo, replyContent){
+			alert("리플업데이트");
+// 			replyNo = $(this).parent().parent().find("input[name=replyNo]").val()
+			alert(replyNo)			
 			
 			$.ajax({
 				url: "/reply/json/updateReply",
@@ -483,27 +439,48 @@
 				dataType: "json",
 				contentType : "application/json",
 				data : JSON.stringify ({ "replyNo": replyNo , "replyContent":replyContent}),
-			    success : function(JSONData , status) {
+			    success : function(data , status) {
 			    	
 		                alert(status);
-			            alert("JSONData : \n"+JSONData.replyContent);
-			            console.log(JSONData);
-		                var replyContent = JSONData.replyContent;
-		                var replyWriterNickname = JSONData.replyWriter.nickname;
-		                var replyWriterProfileImage = JSONData.replyWriter.profileImage;
-		                alert(replyWriterNickname);
-		                
-		            	var displayValue = "<h4>"
-							+"작성자 : " +JSONData.replyWriter.nickname+"<br/>"
-							+"프로필 : "+JSONData.replyWriter.profileImage+"<br/>"
-							+"답글내용 : "+JSONData.replyContent+"<br/>"
-							+"작성일 : "+JSONData.replyRegDate+"<br/>"
-							+"</h4>"
-							
-						$("#replyContent1").remove();
-		    			$("#replyUpdateContent").html(displayValue);
+			            console.log(data);
+			            
+		            	var displayValue = 
+		            		 ' 	<div class='+data.replyNo+'>'		
+		 					+'  <input type="hidden" class="reply" name="replyNo" value='+data.replyNo+'>'
+		 					+'	<div class="reply_head">'
+		 					+'	<div style="display: inline-block">'
+		 					+	 data.replyWriter.nickname
+		 					+'	</div>'
+		 					+'	<div style="display: inline-block; float:right;">'
+		 					+'    작성시간 : '+ data.replyRegDate
+		 					+'	</div>'
+		 					+'	</div>'
+		 					+'	<div class="reply_content" style="min-height:70px">'
+		 					+   data.replyContent
+		 					+'	</div>'
+		 					+'	<div style="float:right;">'
+		 					+'	<button type="button" class="btn btn-primary updateReply">수정</button>'
+		 					+'	<button type="button" class="btn btn-primary deleteReply">삭제</button>'
+		 					+'	<button type="button" class="btn btn-primary ReportReply">신고</button>'
+		 					+'	</div>'
+		 					+'	</div>'
+		 					+'	<br><br>'	
+								
+		 				var displayValue2 = 
+		 						'<div style="padding-left:100px; width:800px">'
+							+	'	<textarea id="summernote" name="replyContent" id="replyContent" ></textarea>'						
+							+	'</div>	'
+							+	'	<input type="hidden" id = "replyWriter" value="'+data.replyWriter.userId+'">' 
+		  					+	'	<input type="hidden" id = "boardNo" value="'+data.boardNo+'"> '
+							+	'<div class="btn btn-submit btn-round" style=" float:right; border-color: rgba(0, 0, 0, 0.4); color: rgba(0, 0, 0, 0.8);" id="addReply">' 
+							+	'등록'
+							+	'</div>'	
+		 					
+		    			$("#"+replyNo).append(displayValue);
+		            	$("#addReplyForm").remove();
+		            	$("#addReplyForm").append(displayValue2);
 		                }
-		            
+			
 			});
 				
 		};
@@ -578,23 +555,6 @@
 			
 		}				
 				
-		$(document).ready(function(){
-		$("#popup_open").click(function(){
-		$("#popup_wrap").css("display", "block");
-		$("#mask").css("display", "block");
-		});
-		});
-		$(document).ready(function(){ 
-		$("#popup_open").click(function(){ 
-		$("#popup_wrap").css("display", "block"); 
-		$("#mask").css("display", "block"); 
-		}); 
-		$("#popup_close").click(function(){ 
-		$("#popup_wrap").css("display", "none"); 
-		$("#mask").css("display", "none"); 
-		}); 
-		}); 
-</script>
-	
+	</script>
 	</html>
 	
