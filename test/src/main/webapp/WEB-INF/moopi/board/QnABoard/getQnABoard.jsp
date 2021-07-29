@@ -15,12 +15,7 @@
 		<script src="/javascript/summernote-lite.js"></script>
 		<script src="/javascript/lang/summernote-ko-KR.js"></script>
 		<link rel="stylesheet" href="/css/summernote-lite.css">
-	 	<link rel="preconnect" href="https://fonts.googleapis.com">
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link
-			href="https://fonts.googleapis.com/css2?family=Gaegu:wght@300&display=swap"
-			
-			rel="stylesheet">	
+	 		
 	
 	  
 	<style>
@@ -135,7 +130,7 @@
 					${board.boardContent}
 					</div>
 					<div style="float:right;">
-					<c:if test="${dbUser.userId eq reply.replyWriter.userId}">
+					<c:if test="${dbUser.userId eq board.boardWriter.userId}">
 						<button type="button" class="btn btn-primary updateBoard" >수정</button>
 						<button type="button" class="btn btn-primary deleteBoard" >삭제</button>
 					</c:if>
