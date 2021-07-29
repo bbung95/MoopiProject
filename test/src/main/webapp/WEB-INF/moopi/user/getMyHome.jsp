@@ -28,10 +28,6 @@
 <script src="/javascript/jquery.bpopup-0.1.1.min.js"></script>
 
 
-<!---[마이홈으로 이동하는 단순 컨트롤러 실행]----------------------------------------------------------------------------------------------------------------------->
-$("button[name='movePU']").on("click", function(){ location.href =
-"/user/updateProfile" });
-<!-------------------------------------------------------------------------------------------------------------------------->
 
 </script>
 
@@ -265,7 +261,7 @@ body {
 	border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-/* 반응형 이미지 1:1 정렬  */
+
 .thumbnail {
 	position: relative;
 	padding-top: 100%;
@@ -353,6 +349,78 @@ pre {
 	margin-top: 0.5rem;
 	margin-bottom: 0.5rem;
 }
+
+</style>
+<style>
+
+.effect5 {
+  /* position: relative;
+   width: 400px; height: 300px; 
+   background: #000;
+  overflow: hidden;
+  box-shadow: 1px 1px 3px rgba(0,0,0,0.4); */ */
+}
+.effect5 img {
+/*   filter: sepia(20%) saturate(60%);
+ */}
+ .effect5 figcaption {
+  position: absolute;
+  top: 0; right:0; bottom: 0; left: 0;
+   display: flex;
+  align-items: center;
+   justify-content: center;
+  flex-direction: column; */
+  z-index: 1;
+  text-align: center;
+  line-height: 1.7em;
+  color: #black;
+  text-transform: uppercase;
+  font-size: 20px;
+  opacity:0;
+  transition: all 0.3s ease;
+} 
+ .effect5 figcaption h3 {
+  font-size: 1.3em;
+  letter-spacing: 2px;
+  font-weight: 100;
+}
+.effect5 figcaption em {
+  display: block;
+  font-weight: bold;
+  letter-spacing: 1px;
+  font-weight: 700;
+}
+.effect5:before,
+.effect5:after {
+  content: '';
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
+  background-color: rgba(0,0,0,0.3);
+  border-top: 70px solid rgba(0,0,0,0.4);
+  border-bottom: 70px solid rgba(0,0,0,0.4);
+  transition: all 0.3s ease;
+  z-index: 1;
+  opacity:0;
+} 
+.effect5:before {
+  transform: scaley(2);
+}
+.effect5:after {
+  transform: scaley(2);
+}
+
+.effect5:hover:before,
+.effect5:hover:after {
+  opacity:1;
+  transform: scale(1);
+}
+.effect5:hover > img {
+  opacity:0.7;
+}
+.effect5:hover figcaption {
+  opacity:1;
+  transition-delay: 0.1s;
+} 
 </style>
 </head>
 <body>
@@ -492,7 +560,9 @@ pre {
 			</div>
 		</div>
 	</div>
-
+	
+	
+	
 
 	<jsp:include page="../layout/searchbar.jsp"></jsp:include>
 
@@ -603,12 +673,12 @@ if(${followCheck}){
 //////// 게시글 등록
 function upload(formData){
 	// formData key &value 확인
-	/*  for (var key of formData.keys()) {
+	  for (var key of formData.keys()) {
 	  console.log(key);
 	}
 	for (var value of formData.values()) {
 	  console.log(value);
-	}  */
+	}  
 	$.ajax({
             url : "/user/json/addMyBoard"
                 , method : "POST"
@@ -622,36 +692,32 @@ function upload(formData){
                         
                         let fileArry = data.boardFile.split("/");
     					
-    					let displayValue = '<div class="col-xs-4 col-sm-4 col-md-4 no-padding item" onclik="getMyBoard('+data.boardNo+')">'
-    										+'<div class="border-wrap op_itemline10">'
-    										+'<div class="thumb-wrap">'
-    										+'<div class="tpl-forum-list-thumb" >'
-    										+'<div class="thumbnail-wrapper">'
-    										+'<div class="thumbnail">'
-    										+'<div class="thumbnail-centered">'
-    										+'<img class="thumbnail-img" src="/images/uploadFiles/'+fileArry[0]+'" class="img-responsive" >'
-    										+'</div>'
-    										+'</div>'
-    										+'</div>'
-    										+'</div>'
-    										+'<div class="cont-wrap">'
-    										+'<div class="tpl-forum-list-content">'
-    										+'<span class="tpl-forum-list-title" data-selector=".tpl-forum-list-title" data-font="true"'
-    										+'data-title="title font">Amazing work one really feelslike in a stone age. Impressive!</span>'
-    										+'</div>'
-    										+'<div class="tpl-forum-list-name tpl-forum-list-etc config-font-etc" data-selector=".tpl-forum-list-etc" data-font="true"'
-    										+'data-title="others">Den Kdivinich</div>'
-    										+'<ul>'
-    										+'<li class="tpl-forum-list-category tpl-forum-list-etc config-font-etc">category</li>'
-    										+'<li class="tpl-forum-list-date tpl-forum-list-etc config-font-etc">now</li>'
-    										+'<li class="tpl-forum-list-hit tpl-forum-list-etc config-font-etc">1486</li>'
-    										+'<li class="tpl-forum-list-comment tpl-forum-list-etc config-font-etc">25</li>'
-    										+'</ul>'
-    										+'<div class="tpl-forum-list-cont" data-selector=".tpl-forum-list-cont" data-font="true"'
-    										+'data-title="content font">Phasellus justo ante, ultrices eget lorem ut, vestibulum ultrices mauris.</div>'
-    										+'</div>'
-    										+'</div>'
-    										+'</div>'
+                        /* let displayValue = '<div class="col-xs-4 col-sm-4 col-md-4 no-padding item" onclick="getMyBoard('+data.boardNo+')">'
+										+'<div class="border-wrap op_itemline10">'
+										+'<div class="thumb-wrap">'
+										+'<div class="tpl-forum-list-thumb" >'
+										+'<div class="thumbnail-wrapper ">'
+										+'<div class="thumbnail effect-wrap">'
+										+'<figure class="thumbnail-centered effect5">'
+										+'<img class="thumbnail-img" src="/images/uploadFiles/'+fileArry[0]+'" class="img-responsive" >'
+										+'<figcaption>'
+									    +'<h3>Mouse Hover<em>Effect</em></h3>'
+									    +'</figcaption>'
+										+'</figure>'
+										+'</div>'
+										+'</div>'	
+										+'</div>'
+										+'</div>'
+										+'</div>'; */
+										
+						/* let displayValue = '<div class="effect-wrap">'
+							  			 + '<figure class="effect5">'
+					    				 + '<img src="https://tistory4.daumcdn.net/tistory/2141493/skin/images/simg06.png" alt="">'
+					    				 + '<figcaption>'
+					      				 + '<h3>Mouse Hover<em>Effect</em></h3>'
+					    				 + '</figcaption>'
+					 				 	 + '</figure>'
+										 + '</div>' */	
     					
                 	setTimeout(function() {
                 		$('#close').click();
@@ -772,18 +838,34 @@ if(${followCheck}){
 								
 								let fileArry = list[i].boardFile.split("/");
 								
-								let displayValue = '<div class="col-xs-4 col-sm-4 col-md-4 no-padding item" onclick="getMyBoard('+list[i].boardNo+')">'
+								let displayValue = '<div class="col-xs-4 col-sm-4 col-md-4 no-padding item myitem" onclick="getMyBoard('+list[i].boardNo+')">'
 													+'<div class="border-wrap op_itemline10">'
 													+'<div class="thumb-wrap">'
 													+'<div class="tpl-forum-list-thumb" >'
-													+'<div class="thumbnail-wrapper">'
-													+'<div class="thumbnail">'
-													+'<div class="thumbnail-centered">'
+													 +'<div class="thumbnail-wrapper">'
+													+'<div class="thumbnail effect5">'
+													+'<div class="thumbnail-centered ">'
 													+'<img class="thumbnail-img" src="/images/uploadFiles/'+fileArry[0]+'" class="img-responsive" >'
+													+ '<figcaption>'
+								      				 + '<h3>Mouse Hover<em>Effect</em></h3>'
+								    				 + '</figcaption>'
+ 													+'</div>'
+ 													+'</div>'
 													+'</div>'
 													+'</div>'
 													+'</div>'
 													+'</div>'
+													+'</div>'
+													
+													/* let displayValue = '<div class="effect-wrap">'
+											  			 + '<figure class="effect5">'
+									    				 + '<img src="https://tistory4.daumcdn.net/tistory/2141493/skin/images/simg06.png" alt="">'
+									    				 + '<figcaption>'
+									      				 + '<h3>Mouse Hover<em>Effect</em></h3>'
+									    				 + '</figcaption>'
+									 				 	 + '</figure>'
+														 + '</div>'	 */		
+													
 								$('#boardView').append(displayValue);
 							}
 							loading = false;

@@ -29,6 +29,7 @@
 		<result property="stateRegdate"		column="STATE_REGDATE"		jdbcType="DATE"/>
 		<result property="coin"				column="COIN"				jdbcType="NUMERIC"/>
 		<result property="badge"			column="BADGE"				jdbcType="CHAR"/>
+		<result property="targetId"			column="FL_TARGET"			jdbcType="VARCHAR"/>
 	</resultMap>
 
 	<insert id="addUser"			parameterType="user" >
@@ -286,17 +287,17 @@
 		
 	<select id="getFollowList"	resultMap="userSelectMap">
 		SELECT
-		u.user_id , u.nickname , u.profile_image
+		u.user_id , u.nickname , fl.fl_target, u.profile_image
 		FROM FOLLOW_LIKE fl , USERS u
 		<where>
 			fl.fl_type in ('2')
 			<if test="order == 1">
-				AND fl.user_id  = u.user_id 
-				AND fl.user_id in (#{userId})
+				AND fl.fl_target = u.user_id
+                AND fl.user_id in (#{userId})
 			</if>
 			<if test="order == 2">
-				AND fl.fl_target = u.user_id 
-				AND fl.fl_target in (#{userId})
+s				AND fl.user_id = u.user_id 
+                AND fl.fl_target in (#{userId})
 			</if>
 		</where>
 	</select>
@@ -315,11 +316,11 @@
 				<where>
 					fl.fl_type in ('2') <!-- 팔로잉 -->
 					<if test="order == 1">
-						AND fl.user_id  = u.user_id 
+						AND fl.fl_target  = u.user_id 
 						AND fl.user_id in (#{userId})
 					</if>
 					<if test="order == 2"> <!-- 팔로워 -->
-						AND fl.fl_target = u.user_id 
+						AND fl.user_id = u.user_id 
 						AND fl.fl_target in (#{userId})
 					</if>
 				</where>

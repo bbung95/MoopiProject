@@ -87,17 +87,18 @@ body>#mainlogo {
 }
 
 .selectbtn {
-	width: 250px;
-	height: 50px;
+	width: 200px;
+	height: 40px;
 	margin: 5px;
 	background: #ebf2f7;
 }
 
 .srchbtn {
 	width: 80px;
-	height: 50px;
+	height: 40px;
 	background: #d1e0e3;
 	color: black;
+	font-size :13px;
 }
 </style>
 </head>

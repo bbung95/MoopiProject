@@ -365,6 +365,16 @@
 											+ "<button type='button' class='btn btn- apply' mmNo='"+data[i].moim.mmNo+"' userId='"+data[i].toUserId+"'>Accept</button>"
 											+ "<button type='button' class='btn btn-default refuseApply' memberNo='"+data[i].member.memberNo+"'>reject</button>"
 											+ "<button type='button' class='btn-close' notice='"+data[i].noticeNo+"' aria-label='Close'></button></span></div>";
+								} else if( data[i].noticeType == '10'){
+									display += "<div style='height: 60px; '  class='notice "+data[i].noticeNo+"'>"
+											+ "<span onclick='location.href=\"/user/getMyHome?userId="+data[i].noticeUser.userId+"\"'>"
+											+ "<img style='width: 50px; height: 50px; margin: 5px; border-radius: 50%;' src='/images/uploadFiles/"
+											+ data[i].noticeUser.profileImage
+											+ "' />"
+											+ data[i].noticeUser.nickname
+											+ "님이 게시글을 등록했습니다."
+											+ "</span>"
+											+ "<span><button type='button' class='btn-close' notice='"+data[i].noticeNo+"' aria-label='Close'></button></span></div>";
 								}
 							}
 							$('.noticeOut').append(display);
@@ -428,6 +438,7 @@
 								dataType : "text",
 								success: function(data, state){
 									notice.next().click();
+									
 								}
 							})
 						})

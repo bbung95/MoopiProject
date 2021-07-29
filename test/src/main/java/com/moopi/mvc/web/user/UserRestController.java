@@ -2,6 +2,7 @@ package com.moopi.mvc.web.user;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -31,6 +32,7 @@ import com.moopi.mvc.common.Search;
 import com.moopi.mvc.service.board.impl.BoardServiceImpl;
 import com.moopi.mvc.service.common.impl.CommonServiceImpl;
 import com.moopi.mvc.service.domain.Board;
+import com.moopi.mvc.service.domain.Member;
 import com.moopi.mvc.service.domain.Moim;
 import com.moopi.mvc.service.domain.Notice;
 import com.moopi.mvc.service.domain.User;
@@ -392,6 +394,18 @@ public class UserRestController {
 		board.setBoardWriter(user);
 		board.setBoardCategory("3");
 		boardService.addBoard(board);
+		
+		// 알림
+		System.out.println("addMyBoard Notice");
+		Notice notice = new Notice();
+		notice.setBoard(board);
+		notice.setNoticeType("10");
+		notice.setNoticeUser(user);
+		List<User> list = userService.getFollowList(user.getUserId(), 1);
+		for(User target: list) {
+			notice.setToUserId(target.getTargetId()); // 알림대상
+			commonService.addNotice(notice);
+		}
 		
 		return board;
 
