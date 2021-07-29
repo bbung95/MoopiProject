@@ -73,6 +73,8 @@
 												<th class="border px-4 py-2" width="10%">모임명</th>
 												<th class="border px-4 py-2" width="5%">모임장아이디</th>
 												</c:if>
+												
+												<th class="border px-4 py-2" width="10%">아이디</th>
 												<th class="border px-4 py-2" width="10%">닉네임</th>
 												<th class="border px-4 py-2" width="10%">이름</th>
 												<th class="border px-4 py-2" width="8%">신고 유형</th>
@@ -88,23 +90,25 @@
 										<tbody>
 											<c:forEach var="report" items="${list}">
 												<tr>
-													<td class="border px-4 py-2" name="reportNo">${report.reportNo}</td>
+													<td class="border px-4 py-2 reportNo">${report.reportNo}</td>
 													
 													<c:if test="${search.searchCategory == 1}">
-														<td class="border px-4 py-2 boardNo">${report.reportTargetBd.boardNo}</td>
-														<td class="border px-4 py-2">${report.reportTargetBd.boardName}</td>
+														<td class="border px-4 py-2 boardNo get_board" >${report.reportTargetBd.boardNo}</td>
+														<td class="border px-4 py-2 ">${report.reportTargetBd.boardName}</td>
+														<td class="border px-4 py-2 rp_userId">${report.reportTargetBd.boardWriter.userId}</td>
 														<td class="border px-4 py-2">${report.reportTargetBd.boardWriter.nickname}</td>
 														<td class="border px-4 py-2">${report.reportTargetBd.boardWriter.userName}</td>
 													</c:if>
 													<c:if test="${search.searchCategory == 2}">
-														<td class="border px-4 py-2 replyNo">${report.reportTargetRe.replyNo}</td>
+														<td class="border px-4 py-2 replyNo get_board">${report.reportTargetRe.replyNo}</td>
 														<td class="border px-4 py-2">${report.reportTargetRe.replyContent}</td>
+														<td class="border px-4 py-2 rp_userId">${report.reportTargetRe.replyWriter.userId}</td>
 														<td class="border px-4 py-2">${report.reportTargetRe.replyWriter.nickname}</td>
 														<td class="border px-4 py-2">${report.reportTargetRe.replyWriter.userName}</td>
-														
+														<td style="display: none;" class="boardNo" value="${ report.reportTargetRe.boardNo}">${ report.reportTargetRe.boardNo}</td>
 													</c:if> 
 													<c:if test="${search.searchCategory == 3}">
-														<td class="border px-4 py-2 userId">${report.reportTarget.userId}</td>
+														<td class="border px-4 py-2 rp_userId">${report.reportTarget.userId}</td>
 														<td class="border px-4 py-2">${report.reportTarget.nickname}</td>
 														<td class="border px-4 py-2">${report.reportTarget.userName}</td>
 														
@@ -112,7 +116,7 @@
 													<c:if test="${search.searchCategory == 4}">
 														<td class="border px-4 py-2 mmNo">${report.reportTargetMm.mmNo}</td>
 														<td class="border px-4 py-2">${report.reportTargetMm.mmName}</td>
-														<td class="border px-4 py-2">${report.reportTargetMm.mmConstructor.userId}</td>
+														<td class="border px-4 py-2 rp_userId">${report.reportTargetMm.mmConstructor.userId}</td>
 														<td class="border px-4 py-2">${report.reportTargetMm.mmConstructor.nickname}</td>
 														<td class="border px-4 py-2">${report.reportTargetMm.mmConstructor.userName}</td>
 													</c:if>
@@ -128,22 +132,20 @@
 													<td class="border px-4 py-2">처리완료</td>
 													</c:if>
 													<c:if test="${report.reportResultUpdate == null}">
-													<td class="border px-4 py-2" ></td>
-														<div class="abc${report.reportNo}">
-															<td class="border px-4 py-2 reportUpdate${report.reportNo}" name ="reportUpdate" align="left">
-																<select name="reportResultState"> 
-																	<option value="1">해당없음</option>
-																	<option value="2">유저경고</option>
-																	<option value="3">해당글삭제</option>
-																</select> 
-															</td>
-															<td class="border px-4 py-2 reportUpdate${report.reportNo}" name ="reportUpdate">
-															<input type="text" class="stateReason"></input>	
+														<td class="border px-4 py-2 reportResultUpdate${report.reportNo }" ></td>
+														<td class="border px-4 py-2 reportResultState${report.reportNo }" align="left">
+															<select> 
+																<option value="1">해당없음</option>
+																<option value="2">해당글삭제</option>
+																<option value="3">유저경고</option>
+															</select> 
 														</td>
-														</div>
-														
-														  <td class="border px-4 py-2" align="left"><button type="button" class="btn btn-primary">처리하기</button></td>
-													  	
+															<td class="border px-4 py-2 stateReason${report.reportNo }" >
+																<input type="text" class="stateReason"></input>	
+															</td>
+													  	<td class="border px-4 py-2 process${report.reportNo }" align="left">
+													  	<button type="button" class="btn btn-primary">처리하기</button>
+													  	</td>
 												  </c:if>
 													
 												</tr>
@@ -235,10 +237,10 @@
 		
 		$(function() {
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-			$( "td.test" ).on("click" , function() {
-				
-				var boardNo = $(this).parent().find("input.boardNo").val();
-				window.location.href ="/board/getBoard?boardNo="+boardNo;
+			$( "td.get_board" ).on("click" , function() {
+				alert($(this).parent().parent().find(".boardNo").html())
+				var boardNo = $(this).parent().parent().find(".boardNo").html();
+				window.location.href ="/report/getReportBoard?boardNo="+boardNo;
 			});
 		});	
 		
@@ -249,52 +251,37 @@
 			$( "button.btn.btn-primary:contains('처리')" ).on("click" , function() {
 				
 				alert("신고처리");
-				
-				alert($(this).parent().parent().html());
-				
 				var reportResultState	= $(this).parent().parent().find("select").val();
-				var reportNo			= $(this).parent().parent().find("td.reportNo").val()
+				var reportNo			= $(this).parent().parent().find("td.reportNo").html()
 				var stateReason			= $(this).parent().parent().find("input.stateReason").val()
-				var reportTargetBd		= $(this).parent().parent().find("td.boardNo").val()
-				var reportTargetRe		= $(this).parent().parent().find("td.replyNo").val()
+				var reportTargetBd		= $(this).parent().parent().find("td.boardNo").html()
+				var reportTargetRe		= $(this).parent().parent().find("td.replyNo").html()
+				var reportTarget		= $(this).parent().parent().find("td.userId").html()
+				var reportTargetMm		= $(this).parent().parent().find("td.mmNo").html()
+				var rpUserId			= $(this).parent().parent().find("td.rp_userId").html()
 				
-				
-				alert(reportResultState)
-				alert(reportNo)
-				alert(stateReason)
-				alert(reportTargetBd)
-				alert(reportTargetRe)
-				
-//	 			//alert(reportResultState);
-//	 			//alert(reportNo);
-//	 			//alert(stateReason);
-//	 			//alert(reportTargetBd);
-//	 			//alert(reportTargetRe);
+				alert($(this).parent().parent().html())
 				
 				$.ajax( 
 						{
 							url : "/report/json/processReport",
 							method : "POST" ,
 							dataType : "json" ,
-							data :  JSON.stringify ({ "reportNo": reportNo, "reportResultState": reportResultState, "stateReason": stateReason, "reportTargetBd": {"boardNo" : reportTargetBd}, "reportTargetRe": {"replyNo" : reportTargetRe} }),
+							data :  JSON.stringify ({ "reportNo": reportNo, "reportResultState": reportResultState, "stateReason": stateReason,
+													"reportTargetBd": {"boardNo" : reportTargetBd , "boardWriter" : { "userId" : rpUserId} },  "reportTargetRe": {"replyNo" : reportTargetRe , "replyWriter" : {"userId" : rpUserId}}, "reportTargetMm" : {"mmNo" : reportTargetMm , "mmConstructor" :   {"userId" : rpUserId} } }),
 							contentType : "application/json",
-						    success : function(JSONData , status) {
-					               //alert(status);
-//	 				                //alert("JSONData : \n"+JSONData.boardPassword);
-									//alert(JSONData)
-									console.log(JSONData)
-					               var displayValue = 
-					            	   "<h4>"
-					            	   +"<td align='left'>"+JSONData.reportResultUpdate+"</td>"
-									   +"<td align='left'>"+JSONData.reportResultState+"</td>"
-									   +"<td align='left'>"+JSONData.stateReason+"</td>"
-									   +"<td align='left'>처리완료</td>"
-										+"</h4>"
-										
-									//Debug...									
-									//alert(displayValue);
-									$(".reportUpdate"+JSONData.reportNo+"").remove();
-									$(".reportUpdate"+JSONData.reportNo+"" ).append(displayValue);	
+						    success : function(data , status) {
+									console.log(data)
+					               var process = '처리완료'
+								   
+									$(".reportResultUpdate"+data.reportNo).empty();
+									$(".reportResultState"+data.reportNo).empty();
+									$(".stateReason"+data.reportNo).empty();
+									$(".process"+data.reportNo).empty();
+									$(".reportResultUpdate"+data.reportNo).append(data.reportResultUpdate);
+									$(".reportResultState"+data.reportNo).append(data.reportResultState);
+									$(".stateReason"+data.reportNo).append(data.stateReason);
+									$(".process"+data.reportNo).append(process);
 		
 					               }
 					               

@@ -1,8 +1,8 @@
 package com.moopi.mvc.web.report;
 
-import java.awt.List;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -114,26 +114,73 @@ public class ReportController {
 	@RequestMapping(method = RequestMethod.POST, path = "processReport")
 	public String processReport(@ModelAttribute Report report, Model model) throws Exception{
 		
-		System.out.println("processReport 실행");
+		System.out.println("11processReport 실행");
 		System.out.println(model );
-		System.out.println("report 값 체크 ========="+report); 
+		System.out.println("11report 값 체크 ========="+report); 
 		System.out.println(report.getReportNo());
 		reportService.processReport(report);
+		User user = new User();
 		
-		
-		System.out.println("report 값 체크 ========"+report);
+		System.out.println("1report 값 체크 ========"+report);
 		
 		if(report.getReportResultState() != "1" && report.getReportTargetBd() != null ) {
-			
-			
+			System.out.println("resultState값 체크"+ report.getReportResultState());
 			boardService.deleteBoard2(report.getReportTargetBd());
+			user = userService.getUser(report.getReportTargetBd().getBoardWriter().getUserId());
+			System.out.println("!!!!!!!!!!!!!!!!!!");
+			
+			if(report.getReportResultState().equals("3")){
+				System.out.println("if문 내부 시작");
+				
+				if(user.getUserRole().equals("2")) {
+					user.setUserRole("3");
+				}else if(user.getUserRole().equals("3")) {
+					user.setUserRole("4");
+				}
+				user.setStateReason(report.getStateReason());
+				user.setStateRegDate(report.getReportResultUpdate());
+				System.out.println("user의 값 ==========="+user);
+				
+			}
+			userService.updateUserRole(user);
+			
 		}else if(report.getReportResultState() != "1" && report.getReportTargetRe() != null ) {
 			
 			replyService.deleteReply2(report.getReportTargetRe());
+			user = userService.getUser(report.getReportTargetBd().getBoardWriter().getUserId());
+			if(report.getReportResultState().equals("3")){
+				
+				
+				if(user.getUserRole().equals("2")) {
+					user.setUserRole("3");
+				}else if(user.getUserRole().equals("3")) {
+					user.setUserRole("4");
+				}
+				user.setStateReason(report.getStateReason());
+				user.setStateRegDate(report.getReportResultUpdate());
+				
+			}
+			userService.updateUserRole(user);
 		}
-	
 		return "";
 	}
+	
+	@RequestMapping("getReportBoard")
+	public String getReportBoard(@ModelAttribute("boardNo")int boardNo, Model model) throws Exception {
+		
+		board = boardService.getBoard(boardNo);
+		
+			List<Reply> list = replyService.getReplyListAdmin(boardNo);	
+			
+			model.addAttribute("board", board);
+			model.addAttribute("list", list);
+			
+		return "report/getReportBoard";
+		
+	}
+	
+	
+	
 	
 	
 	
