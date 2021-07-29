@@ -31,18 +31,6 @@
 	<!-- Core theme CSS (includes Bootstrap)-->
 	<link href="/css/styles.css" rel="stylesheet" />
 	
-	<!-- Bootstrap core JS-->
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-	<!-- Core theme JS-->
-	<script src="/js/scripts.js"></script>
-
-
-
-
-
-
-
 
 <script type="text/javascript">
 	$(function() {
@@ -142,7 +130,7 @@ body>#mainlogo {
 										<span>Category</span>
 									</button>
 									<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton"
-										id="interest">
+										id="interest" style="height: 200px; overflow: auto;">
 										<c:forEach var="interest" items="${interest}">
 											<li><a class="dropdown-item" href="#"
 												type="${interest.interestNo}">${interest.interestName}</a></li>
@@ -153,13 +141,13 @@ body>#mainlogo {
 										type="button" data-bs-toggle="dropdown" id="addrbtn">
 										Addr</button>
 									<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton"
-										id="addr">
+										id="addr" style="height: 200px; overflow: auto;">
 
 									</ul>
 								</div>
 								<div>
-									<button class="btn btn-light srchbtn" type="button" order="1">모임</button>
-									<button class="btn btn-light srchbtn" type="button" order="2">번개</button>
+									<button class="btn btn-light srchbtn" type="button" order="1" style="margin-left:5px;">☮️ 모임</button>
+									<button class="btn btn-light srchbtn" type="button" order="2" style="margin-right:5px;">⚡ ️번개</button>
 								</div>
 							</form>
 
@@ -170,13 +158,13 @@ body>#mainlogo {
 		</div>
 	</header>
 	<jsp:include page="layout/footer.jsp"></jsp:include>
-	<jsp:include page="layout/searchbar.jsp"></jsp:include>
-
+ 	<jsp:include page="layout/searchbar.jsp"></jsp:include>
+ 
 	<!-- Bootstrap core JS-->
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 	<!-- Core theme JS-->
-	<script src="/js/scripts.js"></script>
+<	<script src="/js/scripts.js"></script>
 	<script>
 		let addrs = [ "종로구", "중구", "용산", "성동구", "광진구", "동대문구", "중랑구", "성북구",
 				"강북구", "도봉구", "노원구", "은평구", "마포구", "양천구", "강서구", "구로구", "금천구",

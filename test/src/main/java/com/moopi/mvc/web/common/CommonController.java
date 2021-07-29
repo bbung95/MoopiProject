@@ -1,5 +1,7 @@
 package com.moopi.mvc.web.common;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -126,6 +128,22 @@ public class CommonController {
 		return "common/adminPaymentList";
 	}
 	
+	@GetMapping("common/getStatistics")
+	public String getStatistics(Model model) throws Exception {
+		
+		Search search = new Search();
+		
+		Map<String , Object> map = paymentService.getMonthList(search);
+		Map<String , Object> map2 = paymentService.getWeekList(search);
+		Map<String , Object> map3 = paymentService.getDayList(search);
+		Map<String , Object> map4 = paymentService.getSelectList(search);
+		model.addAttribute("list", map.get("list"));
+		model.addAttribute("list2", map2.get("list2"));
+		model.addAttribute("list3", map2.get("list3"));
+		model.addAttribute("list4", map2.get("list4"));
+		return "common/adminStatistics";
+	}
+	
 	
 	@RequestMapping(value="/common/mainSearch")
 	public String mainSearch( 
@@ -144,6 +162,21 @@ public class CommonController {
 		}
 	}
 	
+	
+	@RequestMapping(value="/cc/test")
+	public String test () {
+		
+		return "test";
+	}
+	
+	@RequestMapping("common/getUserInfo")
+	public String getUserInfo( @RequestParam("userId") String userId, 
+								Model model) throws Exception {
+		userService.getUser(userId);
+		System.out.println("이거확인 : "+userService.getUser(userId));
+		model.addAttribute("user", userService.getUser(userId));
+		return "common/getUserInfo";
+	}
 		
 //		@CrossOrigin(origins = "http://localhost:82")
 //		@GetMapping(value="/chat/chatList")

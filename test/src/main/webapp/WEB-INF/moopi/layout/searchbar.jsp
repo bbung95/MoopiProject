@@ -11,22 +11,22 @@
 <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap"
 	rel="stylesheet">
 
-<div class="searchBar">	
-	<div class="searchList" >
+<div class="searchBar">
+	<div class="searchList">
 		<div>
-		<div id="searchType">
-			<div class="button active">모임무피</div>
-			<div class="button">번개무피</div>
-			<div class="button">포스팅</div>
-			<div class="button">유저</div>
-		</div>
+			<div id="searchType">
+				<div class="button active">모임무피</div>
+				<div class="button">번개무피</div>
+				<div class="button">포스팅</div>
+				<div class="button">유저</div>
+			</div>
 		</div>
 		<div class="searchOut" style="padding-top: 50px;"></div>
 	</div>
-	<form class="searchbtn" action="" >
+	<form class="searchbtn" action="">
 		<input type="hidden" class='type' value="1"> <input
-			type="search" id="searchkeyword" name="searchkeyword" autocomplete="off"> 
-			<i class="fa fa-search"></i>
+			type="search" id="searchkeyword" name="searchkeyword"
+			autocomplete="off"> <i class="fa fa-search"></i>
 	</form>
 </div>
 
@@ -261,21 +261,21 @@
 	
 </script>
 <style>
-:root {
-  --sc-color: #ebecf0;	/* 검색버튼 색상 */
-  --sc-color2: #c7cbd4; /* 검색키워드입력 창*/
-  --sc-color3: #f2f4fa; /* 검색리스트 border */
-  --sc-color4: #fafbff;	/* 검색리스트 백그라운드 */
+:root { 
+	--sc-color: #ebecf0; /* 검색버튼 색상 */ 
+	--sc-color2: #c7cbd4; /* 검색키워드입력 창*/ 
+	--sc-color3: #f2f4fa; /* 검색리스트 border */ 
+	--sc-color4: #fafbff; /* 검색리스트 백그라운드 */
 }
 
-.searchBar{
+.searchBar {
 	bottom: 20px;
 	right: 20px;
 	position: fixed;
 }
 
-.searchList{
-	display : none;
+.searchList {
+	display: none;
 	height: 400px;
 	width: 400px;
 	border: 1px solid var(--sc-color3);
@@ -283,29 +283,29 @@
 	margin-bottom: 50px;
 	border-radius: 20px;
 	overflow: auto;
-	-ms-overflow-style: none; 
+	-ms-overflow-style: none;
 }
 
-.searchList::-webkit-scrollbar{ 
-	display:none; 
+.searchList::-webkit-scrollbar {
+	display: none;
 }
 
-#searchType{
+#searchType {
 	position: fixed;
 	width: 400px;
-	height : 40px;	
+	height: 40px;
 	background: var(--sc-color3);
-	display:  flex;
-	margin-left : -1px;
+	display: flex;
+	margin-left: -1px;
 	margin-top: -1px;
 	border-radius: 20px 20px 0px 0px;
 	flex-wrap: nowrap;
 	flex-direction: row;
-	align-items:center;
+	align-items: center;
 	justify-content: space-evenly;
 }
 
-.button{
+.button {
 	width: 90px;
 	height: 35px;
 	line-height: 35px;
@@ -313,15 +313,15 @@
 	text-align: center;
 	justify-content: center;
 	border-radius: 6px 6px 0px 0px;
-	background: var(--sc-color3);
+	background: var(- -sc-color3);
 }
 
-.button:hover{
+.button:hover {
 	background: var(--sc-color4);
 }
 
-.active{
-	background : var(--sc-color4);
+.active {
+	background: var(--sc-color4);
 }
 
 .searchbtn {
@@ -387,6 +387,4 @@
 }
 
  */
-
-
 </style>

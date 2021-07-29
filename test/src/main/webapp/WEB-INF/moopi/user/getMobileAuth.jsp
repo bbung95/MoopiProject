@@ -38,30 +38,35 @@
 			
 			if(AuthNum == key){				
 				$(function() {	
-					
-						if (href == "?findId") {
-								
-								$("#checkBtn").fadeIn();		
-								var phone = $("#pnNum").val();
-								
-								
-								$("form").attr("method", "POST").attr("action", "/user/searchIdView").submit();					
 						
+						// 아이디 찾기시 모바일인증
+						if (href == "?findId") {
+								$("#checkBtn").fadeIn();		
+								var phone = $("#pnNum").val();															
+								$("form").attr("method", "POST").attr("action", "/user/searchIdView").submit();											
+						
+						// 회원가입시 모바일인증
 						} else if (href == "?addUser") {		
 								opener.document.getElementById("pInput").value = document.getElementById("pnNum").value
 								window.close();
-
-						} else {
 						
+						// 계정정보수정에서 회원모바일번호수정
+						} else if (href == "?updatePwd") {						
 								var phone=$('input[name=phone]').val();
 								var userId=$('input[name=userId]').val();
-								alert("?setPwd 진입완료");
-								alert("userId : "+userId);
-								alert("phone : "+phone);
-						
+								
 								opener.document.getElementById("pInput").value = document.getElementById("pnNum").value
 								window.close();
-						}					
+						
+						// loginView에서 비밀번호찾기
+						} else {
+								var userId=$('input[name=userId]').val();
+								var phone=$('input[name=phone]').val();
+								alert("유저아이디 : "+userId);
+								alert("모바일번호 : "+phone);
+								
+								$("form").attr("method", "POST").attr("action", "/user/getAuthValidity").submit();									
+						}						
 					
 						
         			});			
@@ -128,8 +133,7 @@
 	font-family : "NanumGothic";
 		text-align: center;
 		font-size: 30px;
-		padding : 15px;
-		
+		padding : 15px;		
 	}
 	
 	.listUserJoin {
