@@ -9,11 +9,8 @@
 <title>Insert title here</title>
 
 <!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
-	<!--<link rel="stylesheet" href="/images/uploadFiles" >  -->
-	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
+
+	<jsp:include page="../../common/commonCDN.jsp"/>
   	
 <!--   	써머노트 -->
   	<script src="/javascript/summernote-lite.js"></script>
@@ -51,8 +48,28 @@ function fncAddBoard(){
 </script>
   <style>
 body{
-	padding-top: 50px;
+	padding-top: 100px;
 }
+
+		@media ( min-width : 768px) {
+		.container {
+			width: 750px;
+		}
+	}
+	
+	@media ( min-width : 992px) {
+		.container {
+			width: 1000px;
+		}
+	}
+	
+	/*사실 이 블럭은 없어도 된다*/
+	@media ( min-width : 1200px) {
+		.container {
+			width: 1000px;
+		}
+	}					
+	
 </style>
 
 </head>
@@ -67,7 +84,7 @@ body{
 				maxHeight: null,             // 최대 높이
 				focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
 				lang: "ko-KR",					// 한글 설정
-				placeholder: '최대 2048자까지 쓸 수 있습니다',	//placeholder 설정
+				placeholder: '내용을 입력해주세요.',	//placeholder 설정
 				callbacks: {	//여기 부분이 이미지를 첨부하는 부분
 					onImageUpload : function(files) {
 						uploadSummernoteImageFile(files[0],this);
@@ -116,7 +133,7 @@ body{
  
  <div class="container">
 
-		<div class="col-xs-12 col-sm-12 col-md-12">
+		<div class="col-xs-12 col-sm-12 col-md-12" style="padding-bottom: 50px;">
 			    <h3 class="head_title" data-edit="true" data-selector="h3.head_title" ><span class="fsize20" ><strong>문의 게시글 작성</strong></span></h3>
 		  
 		   </div>
@@ -130,30 +147,26 @@ body{
 		  <input type="hidden" id="boardCategory" name="boardCategory" value="2">
 		  
 		  <div class="form-group">
-		    <label for="ssn" class="col-sm-offset col-sm-2 control-label">게시글제목</label>
-		    <div class="col-sm-6">
-		      <input type="text" class="form-control" id="boardName" name="boardName" placeholder="게시글제목">
+		    <div  style="padding-bottom: 30px;">
+		      <input type="text" class="form-control" id="boardName"  name="boardName"  style="width:90%;" placeholder="제목을 입력해주세요.">
 		    </div>
 		  </div>
 		  
 		  <div class="form-group">
-		  	<div class="table op_tableline10" data-loop="true" data-view="7">
-		    <label for="ssn" class="col-sm-offset col-sm-2 control-label">게시글내용</label>
-		    <div class="col-sm-6">
-		    <textarea id="summernote" name ="boardContent">글을 입력해주세요.</textarea>
+		    <div style="width:90%;">
+		    <textarea  id="summernote" name ="boardContent"></textarea>
 		    </div>
 		  </div>
-		  </div>
 		  
-		  <div class="form-group">
+		  <div class="form-group" style="padding-top:30px;">
 		    <label for="ssn" class="col-sm-offset col-sm-2 control-label">비밀번호</label>
-		    <div class="col-sm-2">
+		    <div class="col-sm-3">
 		      <input type="text" class="form-control" id="boardPassword" name="boardPassword">
 		    </div>
 		  </div>
 		 
 		  <div class="form-group">
-		    <div class="col-sm-offset-5  col-sm-4 text-center">
+		    <div class="col-sm-offset-5  col-sm-4 text-center" style="float:right;">
 		      <button type="button" class="btn btn-primary" >등록</button>
 			   <a class="btn btn-default btn" href="#" role="button">취소</a>
 		    </div>

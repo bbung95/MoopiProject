@@ -1,5 +1,7 @@
 package com.moopi.mvc.web.common;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +19,11 @@ import com.moopi.mvc.common.Search;
 import com.moopi.mvc.service.common.impl.CommonServiceImpl;
 import com.moopi.mvc.service.domain.Payment;
 import com.moopi.mvc.service.domain.User;
+import com.moopi.mvc.service.domain.UserData;
 import com.moopi.mvc.service.flash.impl.FlashServiceImpl;
 import com.moopi.mvc.service.moim.impl.MoimServiceImpl;
 import com.moopi.mvc.service.payment.impl.PaymentServiceImpl;
+import com.moopi.mvc.service.report.impl.ReportServiceImpl;
 import com.moopi.mvc.service.user.impl.UserServiceImpl;
 
 @Controller
@@ -35,6 +39,8 @@ public class CommonController {
 	private CommonServiceImpl commonService;
 	@Autowired
 	private PaymentServiceImpl paymentService;
+	@Autowired
+	private ReportServiceImpl reportService;
 
 	@Value("${page.pageUnit}")
 	int pageUnit;
@@ -103,13 +109,11 @@ public class CommonController {
 	}
 
 	@GetMapping("common/getReportList")
-	public String getReportList(Model model) throws Exception {
-
-		Search search = new Search();
+	public String getReportList(@ModelAttribute("search") Search search, Model model) throws Exception {
 
 		System.out.println("common/getReportList : GET");
-		model.addAttribute("list", flashService.getFlashList(search).get("list"));
-		return "common/adminFlashList";
+		model.addAttribute("list", reportService.getReportList(search, model).get("list"));
+		return "common/adminReportList";
 	}
 
 	@RequestMapping("common/getPaymentList")
@@ -125,6 +129,25 @@ public class CommonController {
 		model.addAttribute("list", paymentService.adminPaymentList(payment, search).get("list"));
 		model.addAttribute("totalCount", paymentService.adminPaymentList(payment, search).get("totalCount"));
 		return "common/adminPaymentList";
+	}
+
+	@GetMapping("common/getStatistics")
+	public String getStatistics(Model model) throws Exception {
+
+		Search search = new Search();
+
+		Map<String, Object> map = paymentService.getMonthList(search);
+		Map<String, Object> map2 = paymentService.getWeekList(search);
+		Map<String, Object> map3 = paymentService.getDayList(search);
+		Map<String, Object> map4 = paymentService.getSelectList(search);
+		UserData userData = userService.getJoinPath();
+		System.out.println("유저데이터값::::" + userData);
+		model.addAttribute("userData", userData);
+		model.addAttribute("list", map.get("list"));
+		model.addAttribute("list2", map2.get("list2"));
+		model.addAttribute("list3", map2.get("list3"));
+		model.addAttribute("list4", map2.get("list4"));
+		return "common/adminStatistics";
 	}
 
 	@RequestMapping(value = "/common/mainSearch")
@@ -150,10 +173,13 @@ public class CommonController {
 		}
 	}
 
-	@RequestMapping(value = "/cc/test")
-	public String test() {
-
-		return "test";
+	@RequestMapping("common/getUserInfo")
+	public String getUserInfo( @RequestParam("userId") String userId, 
+								Model model) throws Exception {
+		userService.getUser(userId);
+		System.out.println("이거확인 : "+userService.getUser(userId));
+		model.addAttribute("user", userService.getUser(userId));
+		return "common/getUserInfo";
 	}
 
 //		@CrossOrigin(origins = "http://localhost:82")

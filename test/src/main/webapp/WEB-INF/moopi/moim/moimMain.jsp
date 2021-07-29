@@ -33,7 +33,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
 <!-- Sweet Alert -->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
@@ -214,7 +214,7 @@ body {
 }
 
 #columns{
-	column-width:350px;
+	column-width:300px;
 /* 	border:5px solid green; */
 	column-gap: 15px;
 }
@@ -268,6 +268,33 @@ body {
     max-height: 200px;
 }
 
+@media ( min-width : 768px) {
+	.container {
+		width: 750px;
+	}
+}
+
+@media ( min-width : 992px) {
+	.container {
+		width: 1000px;
+	}
+}
+
+/*사실 이 블럭은 없어도 된다*/
+@media ( min-width : 1200px) {
+	.container {
+		width: 1000px;
+	}
+}
+
+#mmContent{
+	font-family : Gowun Dodum', sans-serif;
+}
+
+h3{
+	font-size : 20px;
+	font-weight: bold;
+}
 
 </style>
 
@@ -276,6 +303,8 @@ body {
 <!-- ToolBar Start /////////////////////////////////////-->
  <jsp:include page="../layout/toolbar.jsp" /> 
 <!-- ToolBar End /////////////////////////////////////-->
+
+<div class="container">
 
 <h3><img class="userProfile" src="/images/uploadFiles/${dbUser.profileImage}"> ${dbUser.nickname}님이 가입하신 모임들입니다.</h3>
 
@@ -296,7 +325,7 @@ body {
 <h3>
 <img class="userProfile" src="/images/uploadFiles/${dbUser.profileImage}"> ${dbUser.nickname}님의 관심사 ${dbUser.interestFirst}, ${dbUser.interestSecond}, ${dbUser.interestThird}에 맞는 모임들입니다.
 <!-- <span><img class="add" src="/images/plus.png" width="40" height="40"  onClick="javascript:fncAddMoimView()"/></span> -->
-<span><img class="add" src="/images/plus2.png" width="40" height="40" data-bs-target="#myModal" data-bs-toggle="modal"/></span>
+<span><img class="add" src="/images/plus2.png" width="40" height="40"  data-bs-target="#myModal" data-bs-toggle="modal"/></span>
 </h3>
 
 <!-- Modal 시작-->
@@ -475,6 +504,7 @@ body {
 	</c:forEach>
 </div> 
 
+</div> <!-- 컨테이너끝 -->
 
 <%-- <jsp:include page="../layout/moimSidebar.jsp"></jsp:include> --%>
 <jsp:include page="../layout/searchbar.jsp"></jsp:include>

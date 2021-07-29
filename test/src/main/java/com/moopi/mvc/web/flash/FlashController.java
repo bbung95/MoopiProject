@@ -46,13 +46,24 @@ public class FlashController {
 	int pageSize;
 	
 
-	public static final String savePic = "C:\\Users\\guddn\\git\\Test\\test\\src\\main\\resources\\static\\images\\uploadFiles";
-
+	public static final String saveDir = ClassLoader.getSystemResource("./static/").getPath().substring(0,
+			ClassLoader.getSystemResource("./static/").getPath().lastIndexOf("bin"))
+			+ "src/main/resources/static/images/uploadFiles";
+	
 	// Constructor
 	public FlashController() {
 		System.out.println(this.getClass());
 	}
 
+	//플래쉬검색
+	@RequestMapping(value = "/flash/getFlashList")
+	public String getFlashList( @RequestParam("search") Search search, Model model)throws Exception {
+		
+		model.addAttribute("list",flashService.getFlashList(search).get("list"));
+		
+		return "flash/flashMain";
+	}
+	
 	// 플래쉬 상세보기
 	@RequestMapping("getFlash")
 	public String getFlash(@RequestParam("flashNo") int flashNo, Model model) throws Exception {
@@ -86,7 +97,7 @@ public class FlashController {
 		System.out.println("flashFileName::" + flashFileName);
 		long currentTime = System.currentTimeMillis();// 시분초단위
 		try {
-			uploadFile.transferTo(new File(savePic + "/" + currentTime + flashFileName));
+			uploadFile.transferTo(new File(saveDir + "/" + currentTime + flashFileName));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -126,7 +137,7 @@ public class FlashController {
 		System.out.println(flashFileName);
 		long currentTime = System.currentTimeMillis();// 시분초단위
 		try {
-			uploadFile.transferTo(new File(savePic + "/" + currentTime + flashFileName));
+			uploadFile.transferTo(new File(saveDir + "/" + currentTime + flashFileName));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -150,6 +161,7 @@ public class FlashController {
 		search.setPageSize(pageSize);
 		
 		Map<String, Object> map = flashService.getFlashList(search);
+		model.addAttribute("interest", commonService.getInterest());
 		model.addAttribute("list", map.get("list"));
 		model.addAttribute("search", search);
 		model.addAttribute("totalCount",map.get("totalCount"));

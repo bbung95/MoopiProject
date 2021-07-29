@@ -23,6 +23,9 @@ import com.moopi.mvc.service.board.impl.BoardServiceImpl;
 import com.moopi.mvc.service.common.impl.CommonServiceImpl;
 import com.moopi.mvc.service.domain.Notice;
 import com.moopi.mvc.service.domain.User;
+import com.moopi.mvc.service.domain.UserData;
+import com.moopi.mvc.service.domain.ChartData;
+import com.moopi.mvc.service.payment.impl.PaymentServiceImpl;
 import com.moopi.mvc.service.flash.impl.FlashServiceImpl;
 import com.moopi.mvc.service.moim.impl.MoimServiceImpl;
 import com.moopi.mvc.service.user.impl.UserServiceImpl;
@@ -41,6 +44,8 @@ public class CommonRestController {
 	private BoardServiceImpl boardService;
 	@Autowired
 	private UserServiceImpl userService;
+	@Autowired
+	private PaymentServiceImpl paymentService;
 	
 	@Value("6")
 	private int pageSize;
@@ -66,7 +71,59 @@ public class CommonRestController {
 		System.out.println("/getNoticeCount : GET");
 		return commonService.getNoitceCount(userId);
 	}
+	
+	//차트에서 쓰려고 만들었습니다.
+	
+	@GetMapping(value = "json/getMonth")
+	public Map getMonth(Model model) throws Exception {
+		Search search = new Search();
+		System.out.println("/getMonth-월간통계 : GET");
+		Map map = paymentService.getMonthList(search);
+		model.addAttribute("list", map.get("list"));
+		return paymentService.getMonthList(search);
+	}
+	
+	
+	
+	@GetMapping(value = "json/getWeek")
+	public Map getWeek(Model model) throws Exception {
+		Search search = new Search();
+		System.out.println("/getWeek-주간통계 : GET");
+		Map map = paymentService.getWeekList(search);
+		model.addAttribute("list2", map.get("list2"));
+		return paymentService.getWeekList(search);
+	}
+	
+	@GetMapping(value = "json/getDay")
+	public Map getDay(Model model) throws Exception {
+		Search search = new Search();
+		System.out.println("/getDay-일간통계 : GET");
+		Map map = paymentService.getDayList(search);
+		model.addAttribute("list3", map.get("list3"));
+		return paymentService.getDayList(search);
+	}
 
+	
+	@GetMapping(value = "json/getJoinPath")
+	public UserData getJoinPath(Model model) throws Exception {
+		
+		System.out.println("/getJoinPath-가입경로 : GET");
+		UserData userData = userService.getJoinPath();
+		model.addAttribute("userData", userData);
+		return userData;
+	}
+	
+	
+	@GetMapping(value = "json/getGender")
+	public UserData getGender(Model model) throws Exception {
+		
+		System.out.println("/getGender-성비 : GET");
+		UserData userData = userService.getGender();
+		model.addAttribute("userData", userData);
+		return userData;
+	}
+	
+	
 	@GetMapping(value = "json/getListNotice/{userId}")
 	public List getListNotice(@PathVariable("userId") String userId) {
 

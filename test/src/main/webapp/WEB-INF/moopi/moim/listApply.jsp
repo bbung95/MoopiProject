@@ -24,7 +24,8 @@
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <!-- <script src="/javascript/owl.carousel.min.js"></script> -->
 
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script> 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/js/scripts.js"></script>
 <!-- <link rel="stylesheet" href="/css/owl.carousel.min.css"> -->
 <!-- <link rel="stylesheet" href="/css/owl.theme.default.min.css"> -->
 
@@ -51,13 +52,13 @@ function fncRefuse(memberNo, mmNo){
 
 $(function(){
 	
-	$('.apply').on('click', function(){
+	$('.accept').on('click', function(){
 		
 		let mmNo = $(this).attr("mmNo");
 		let userId = $(this).attr("userId");
 		
 		$.ajax({
-			url: "/moim/json/applyMoim",
+			url: "/moim/json/acceptApplyMoim",
 			method: "POST",
 			contentType : "application/JSON",
 			data: JSON.stringify({"mmUser" : {"userId" : userId},
@@ -230,10 +231,12 @@ table.dataTable td {
             <td id="td6">${member.mmUser.interestSecond}</td>
             <td id="td7">${member.mmUser.interestThird}</td>
             <td id="td8">
-            <button type="button" class="btn btn-default apply" mmNo="${member.mmNo}" userId="${member.mmUser.userId}">Accept</button>
+
+            <button type="button" class="btn btn-default accept" mmNo="${member.mmNo}" userId="${member.mmUser.userId}">Accept</button>
 			<button type="button" class="btn btn-default refuseApply" memberNo="${member.memberNo}">reject</button>
 <%--             <button type="button" class="btn btn-default" onClick="fncAccept('${member.mmUser.userId}', '${member.mmNo}')">Accept</button>
 			<button type="button" class="btn btn-default" onClick="fncRefuse('${member.memberNo}', '${member.mmNo}')">reject</button> --%>
+
             </td>
           </tr>
         </c:forEach>  

@@ -47,6 +47,11 @@
 <!-------------------------------------------------------------------------------------------------------------------------->   
   
 <script>
+
+
+
+
+
 <!-- 닉네임 유효성체크 -->
 	$(function() {	
 		$('input[name="nickname"]').keyup(function() {
@@ -83,75 +88,52 @@
 	}
 	
 <!-- [완료] Nickname 수정 -->
-	function updateNN(){
-		
+	function updateNN(){	
 		var userId = $("#userId").val();		
-		var nickname = $("#userNickname").val();
-		
+		var nickname = $("#userNickname").val();		
 		$.ajax ({
 			url : "/user/json/updateNickname",
 			type : "POST",
-			dataType : "json",
-			data : {
-					userId : "userId",
-					nickname : "nickname",
-			},
-			success : function(data) {
-					console.log("성공");
-			}
-		
+			contentType : "application/JSON",
+			dataType : "text",
+			data : JSON.stringify ({ userId : "userId", nickname : "nickname" }),
+			success : function(data, state) {
+					alert("닉네임 수정이 완료되었습니다.");
+			}	
 		});	
 	}
-		
-	/*	$.ajax ({
-			url : "/user/json/updateNickname/"+userId+"/"+nickname,
-			type : "GET",
-			dataType : "json",
-			contentType : "application/json",
-			success : function(data, state) {	
-				var nickname = data.nickname;	
-				alert(nickname);
-				
-				$('.mainNickname').text(nickname);
-			}
-		});
-	} */
 	
 <!-- [완료] profileContent 수정 -->
 	function updatePC(){		
 		var userId = $("#userId").val();		
-		var profileContent = $("#profileContent").val();		
+		var profileContent = $("#profileContent").val();			
 		$.ajax ({
-			url : "/user/json/updateContent/"+userId+"/"+profileContent,
-			type : "GET",
-			dataType : "json",
-			contentType : "application/json",
+			url : "/user/json/updateContent",
+			method : "POST",
+			contentType : "application/JSON",
+			dataType : "text",
+			data : JSON.stringify({"userId" : userId, "profileContent" : profileContent}),					
 			success : function(data, state) {
-				var profileContent = "jsonData.profileContent";				
-				$("#profileContent").val();
-			}
+				alert("프로필소개 변경이 완료되었습니다.");
+				}					
 		});
-		alert("프로필소개 수정이 완료되었습니다.");
 	}
 	
 <!-- [완료] fullAddr, addr 수정 -->
 	function updateAddr(){		
 		var userId = $("#userId").val();		
 		var fullAddr = $("#fullAddr").val();
-		var addr = $("#addr").val();				
+		var addr = $("#addr").val();					
 		$.ajax ({
-			url : "/user/json/updateAddress/"+userId+"/"+fullAddr+"/"+addr,
-			type : "GET",
-			dataType : "json",
-			contentType : "application/json",
+			url : "/user/json/updateAddress",
+			type : "POST",
+			contentType : "application/JSON",
+			dataType : "text",
+			data : JSON.stringify ({"userId" : userId, "fullAddr" : fullAddr, "addr" : addr}),
 			success : function(data, state) {
-				var fullAddr = "jsonData.fullAddr";		
-				var addr = "jsonData.addr";						
-				$("#fullAddr").val();
-				$("#addr").val();
-			}
+				alert("주소지 변경이 완료되었습니다.");
+				}					
 		});
-		alert("주소 수정이 완료되었습니다.");
 	}
 					
 <!-- [완료] interest 수정 -->
@@ -161,20 +143,18 @@
 		var interestSecond = $("#interestSecond").val();
 		var interestThird = $("#interestThird").val();						
 		$.ajax ({
-			url : "/user/json/updateInterest/"+userId+"/"+interestFirst+"/"+interestSecond+"/"+interestThird,
-			type : "GET",
-			dataType : "json",
-			contentType : "application/json",
-			success : function(data, state) {			
-				var interestFirst = "jsonData.interestFirst";		
-				var interestSecond = "jsonData.interestSecond";	
-				var interestThird = "jsonData.interestThird";						
-				$("#interestFirst").val();
-				$("#interestSecond").val();
-				$("#interestThird").val();
-			}
+			url : "/user/json/updateInterest",
+			type : "POST",
+			contentType : "application/JSON",
+			dataType : "text",
+			data : JSON.stringify ({"userId" : userId, 
+									"interestFirst" : interestFirst,
+									"interestSecond" : interestSecond,
+									"interestThird" : interestThird}),
+			success : function(data, state) {
+				alert("관심 변경이 완료되었습니다.");
+				}					
 		});
-		alert("관심사 수정이 완료되었습니다.");
 	}
 	
 <!-- [완료] 마이홈상태 수정 -->
@@ -183,17 +163,17 @@
 			var userId = $("#userId").val();
 			var myhomeState = $('.radio-value:checked').val();
 			$.ajax ({
-				url : "/user/json/updateMyhomeStat/"+userId+"/"+myhomeState,
-				type : "GET",
-				dataType : "json",
-				contentType : "application/json",
-				success : function(data, state) {			
-					var myhomeState = "jsonData.myhomeState";											
-					$("#myhomeState").val();					
-				}				
-			});				
-			alert("마이홈상태가 변경완료되었습니다.");		
-		})	 
+				url : "/user/json/updateMyhomeStat",
+				type : "POST",
+				contentType : "application/JSON",
+				dataType : "text",
+				data : JSON.stringify ({"userId" : userId, 
+										"myhomeState" : myhomeState}),
+				success : function(data, state) {
+					alert("마이홈 상태변경이 완료되었습니다.");
+				}	
+				})				
+		})
 	});
 	<!-- 모달 회원탈퇴 -->
 	 function fncLeave() {
@@ -230,9 +210,6 @@
 		a:visited { color: black; text-decoration: none;}
 		a:hover { color: red; text-decoration: none;}  
 		
-		.deleteUserRight {
-			text-align: right;
-		}
 
 		#staticBackdrop {
 		  top: 50%;
@@ -262,10 +239,54 @@
 			height : 100px;
 		}
 		
+		#updatebtn {
+			position: relative;
+        	left: 381px;
+       		top: -48px;
+       		width : 80px;
+		}
 		
+		#updateContent {
+			position: relative;
+        	left: 381px;
+       		top: -28px;
+       		width : 80px;
+		}
 		
+		#adrSearch {
+			position: relative;
+        	left: 381px;
+       		top: -28px;
+       		width : 80px;
+		}
 		
-	
+		#editBtn {
+			position: relative;
+        	left: 381px;
+       		top: 0px;
+       		width : 80px;
+		}
+		
+		.leaveUser {
+			position: relative;
+        	left: 385px;
+       		top: -28px;
+       		width : 100px;
+		}
+		
+		.updateProfile {
+			position: relative;
+			font-size : 36px;
+			text-align: center;
+			font-weight: 340;
+		}
+		
+		.etcContent {
+			position: relative;
+			font-size : 15px;
+			text-align: center;
+			font-weight: 340;
+		}
 				
 	</style>
 
@@ -275,17 +296,21 @@
 
 	<!-- [툴바] ----------------------------------------------------------->
 		<jsp:include page="../layout/toolbar.jsp"/>
-	<!-- [left toolbar] -------------------------------------------------------->
-		<jsp:include page="../layout/userToolbar.jsp"/>
-	<!----------------------------------------------------------------->
+
+
+
+
+
 
 
 <div class="container px-5 my-5 ">
 <body class="h-screen font-sans login bg-cover">
 <div class="container mx-auto h-full flex flex-1 justify-center items-center">
-    <div class="w-full max-w-lg">    
-        <div class="leading-loose">
-            <form class="max-w-xl m-4 p-10 bg-white rounded shadow-xl">
+    <div class="w-full max-w-lg">       
+        <div class="leading-loose">       
+        	<h1 class="updateProfile">프로필수정</h1>
+        	<p class="etcContent"> 변경하실 사항을 입력해주신 후 수정버튼을 눌러주세요 </p>
+            <div class="max-w-xl m-4 p-10 bg-white rounded shadow-xl">
                 <p class="text-gray-800 font-medium" style="text-align:center;"></p>
          	             	     
 				<!-- 아이디, 주소(동) [hidden] -->
@@ -293,11 +318,13 @@
 				<input type="hidden" class="form-control" id="addr" name="addr">
 				
          	     	<!-- 프로필사진, 닉네임, 닉네임 수정버튼 -->
+         	     <form id="upload" enctype="multipart/form-data">
 					<div class="row text-center" data-matrix-loop="true" data-matrix-column="1">
 						<div class="col-xs-4 col-sm-4 col-md-4 item"></div>
-						<div class="col-xs-4 col-sm-4 col-md-4 item">
-							<img src="http://newspublic.org/news/data/20210224/p1065611064396601_914_thum.jpeg" class="profileImg">			
-							<div class="text-box" style="margin-top: 20px;">
+						<div class="col-xs-4 col-sm-4 col-md-4 item">					
+							<input id="uploadFile" type="file" style="display:none" accept="image/*" />							
+						<img src="/images/uploadFiles/${dbUser.profileImage}" class="profileImg" >	
+							<div class="text-box" style="margin-top: 0px;">
 								<h5 class="head_title" data-edit="true" data-selector="h5.head_title">
 									<!-- 닉네임 -->
 									<span class="fsize15"><strong class="mainNickname">${dbUser.nickname}</strong></span>																													
@@ -305,12 +332,14 @@
 							</div>
 						</div>
 						</div>
-					</div>  
+					</div> 
+				</div>
+				</form>	
 					
 				<!-- 닉네임수정 -->
                 <div class="profileContent px-4 px-1">
                     <label class="block text-sm text-gray-00" for="userId">닉네임</label>
-					<input class="w-full px-4 py-1 text-gray-700 bg-gray-200 rounded" type="text" style="color:gray;" name="nickname" id="userNickname" value="${dbUser.nickname}" aria-label="nn" placeholder="닉네임 입력해주세요">						
+					<input class="w-full px-4 py-1 text-gray-700 bg-gray-200 rounded" type="text" style="color:gray;" name="nickname" id="userNickname" value="${dbUser.nickname}" required="" placeholder="닉네임 입력해주세요">						
 					<div class="check_font" id="NNCheck" style="height: 20px; font-size : 12px" ></div>	
 					<button class="px-4 py-0 text-white font-light tracking-wider bg-gray-900 rounded button" id="updatebtn" name="updatebtn" type="button" onclick="javascript:updateNN()" style="margin-top: 0px;">수정</button>							
 					<div></div> 
@@ -329,8 +358,8 @@
 	                <div class="address px-4 px-1">
 	                    <label class="block text-sm text-gray-00" for="address">주소</label>
 	                   
-	                    <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" type="text"  id="fullAddr" name="fullAddr" value="${dbUser.fullAddr}" placeholder="주소지 검색을 눌러주세요" readonly >
-						<button class="px-4 py-0 text-white font-light tracking-wider bg-gray-900 rounded button" id="adrSearch" name="addr" type="button" onclick="javascript:searchAdr()">검색</button>		
+	                    <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" type="text"  id="fullAddr" name="fullAddr" value="${dbUser.fullAddr}" onclick="javascript:searchAdr()" placeholder="주소지 검색을 눌러주세요" readonly >
+						<button class="px-4 py-0 text-white font-light tracking-wider bg-gray-900 rounded button" id="adrSearch" name="addr" type="button" onclick="javascript:updateAddr()">수정</button>		
 	                </div>
 				</div>
 
@@ -392,7 +421,7 @@
 
 					</div>
 					<div>				
-						<button class="px-4 py-0 text-white font-light tracking-wider bg-gray-900 rounded" id="img_btn" name="img_btn" type="button" onclick="javascript:updateInterest()">수정</button>	
+						<button class="px-4 py-0 text-white font-light tracking-wider bg-gray-900 rounded" id="editBtn" name="img_btn" type="button" onclick="javascript:updateInterest()">수정</button>	
 					</div>
 				</div>
 				
@@ -407,20 +436,7 @@
 					</div>				
 				</div>
 				
-				
-				
-				
-				
-				
-				<!-- 회원탈퇴 -->
-				<div>					
-					<div class="form-group px-4 px-1" style="text-align:right;">
-						<button class="deleteUserRight" onclick="javascript:deleteUser()">회원탈퇴</a></span>											
-					</div>
-				</div>
-
-
-	<button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#staticBackdrop">회원탈퇴</button>
+	<button type="button" class="btn btn-light leaveUser" data-bs-toggle="modal" data-bs-target="#staticBackdrop">회원탈퇴</button>
 					
 <!-- Modal -->
 	<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -433,8 +449,8 @@
 
 				<div class="modal-body">
 					<form id="deleteUser">
-				
-							<input type="hidden" id="userId" name="userId" value="${dbUser.userId}" />
+							<!-- !!!! -->				
+							<input type="hidden" id="deleteId" name="userId" value="${dbUser.userId}" />
 							<input type="hidden" id="userRole" name="userRole" value="${dbUser.userRole}" />
 							<input type="hidden" id="stateReason" name="stateReason" value="${dbUser.stateReason}" />
 								<h4 class="h4"> 회원탈퇴 신청 전 아래 사항을 확인 부탁드립니다 😊 </h4>
@@ -467,7 +483,7 @@
 			
 			
 			
-			</form>					
+							
         </div>
     </div>   
 </div>
@@ -480,8 +496,61 @@
         <!--/footer-->
     </div>
 </div>
+<script>
+ 
+   $(".profileImg").on("click", function() {  	
+		$("#uploadFile").click();  
+   });
+   
+   $("#uploadFile").on('change', (e)=>{
+   		console.log(e.target.files);
+   		updateProfileImage(e);
+   });
+   
+   // [2021-07-19 400Error 발생 : Required request part 'profileImage' is not present
+	// 0. 프로필이미지수정 버튼 실행시 uploadFile 실행
 
+	function updateProfileImage(e) {
+		
+		console.log("프로필이미지 Ajax 실행");
+	
+		// formData Object 생성 + form 가져오기
+		let form = $('#upload');
+		
+		var formData = new FormData(form[0]);
+		formData.append("file", e.target.files[0]); 
+		//formData.append("userId", "user01");
+		alert("form 확인 : "+form);
+		alert("formData 확인 : "+formData);
+		
+		console.log("formData : "+formData);
+		
+		for (var key of formData.keys()) {
+			console.log(key);
+		}
 
-
+		for (var value of formData.values()) {
+  			console.log(value);
+		}
+		
+		alert("for문 종료");
+		
+    	$.ajax({
+                url : "/user/json/uploadProfileImage"
+                    , method : "POST"
+                    , processData : false
+                    , contentType : false
+                    , data : formData
+                    , dataType: 'text'
+                    , success:function(result) {
+                        alert(" ajax success! ");
+                        alert(result);	// 확인 
+                        
+                        $('.profileImg').attr('src',"/images/uploadFiles/"+result);         
+                    } 
+		})
+    }
+   
+   </script>
 </body>
 </html>

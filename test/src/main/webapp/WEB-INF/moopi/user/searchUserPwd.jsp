@@ -25,6 +25,9 @@
 	
 			var userId=$('input[name=userId]').val();
 			
+			$("#joinButton").attr("disabled", false);
+			$("#joinButton").css("color", "gray");	
+			
 			$.ajax({
 				
 				url : '${pageContext.request.contextPath}/user/idCheck?userId='+userId,
@@ -35,7 +38,7 @@
 						$("#joinButton").attr("disabled", false);
 						$("#joinButton").css("color", "gray");	
 					
-						if ( $("#id_check").text == "" ) {
+						if ( $("#id_check").text == null ) {
 								$("#joinButton").css("color", "gray");
 								$("#joinButton").attr("disabled", false);								
 							} else if (data == 1 || $("#id_check").text == null ) {
@@ -58,14 +61,12 @@
 
 <!-------------------------------------------------------------------------------------------------------------------------->
 
-<!--[비밀번호찾]----------------------------------------------------------------------------------------------------------------->	
+<!--[비밀번호찾기]----------------------------------------------------------------------------------------------------------------->	
 	function setPwd() {	
 	
-		alert("setPwd실행");
-	
-		var userId=$('input[name=userId]').val();
-		
-		$("form").attr("method" , "POST").attr("action" , "/user/getMobileAuthPW?setPwd").submit();											
+			var userId=$('input[name=userId]').val();
+			
+			$("form").attr("method" , "POST").attr("action" , "/user/getMobileAuthPW").submit();											
 																	
 	}
 <!---------------------------------------------------------------------------------------------------------------------------->	
@@ -112,6 +113,14 @@
 	    padding-right: 48px;
 	    padding-bottom: 30px;
 	    padding-left: 48px;
+	}
+	
+	.check_font {
+		position : fixed;
+		font-family : "NanumGothic";
+		text-align: left;
+		padding-top: 7px;
+		font-size: 13px;			
 	}
 	
 	.AuthNumWrite {
@@ -162,12 +171,12 @@
 		<!-- 확인,취소 -->
 		<div class="AuthNumWrite">
 			<div class="col-sm-offset-4  col-sm-4 text-center">			
-				<button class="px-4 py-4 text-white font-light tracking-wider bg-gray-900 rounded" style="width:500px;" id="joinButton" name="img_btn" type="button" onclick="javascript:setPwd()">확인</button>
+				<button class="px-4 py-4 text-white font-light tracking-wider bg-gray-900 rounded" style="width:500px;" id="joinButton" disabled=”disabled” name="img_btn" type="button" onclick="javascript:setPwd()">확인</button>
 			</div>
 		</div> 
 		
 		<div class="information">
-			<p> • 존재하지 않는 아이디일 경우 <a href="http://localhost:8080/user/getMobileAuth?findId">ID찾기</a> 를 눌러주세요 </p>
+			<p> • 존재하지 않는 아이디일 경우 <a href="http://localhost:8080/user/getMobileAuth?findId">[ID찾기]</a>를 눌러주세요 </p>
 			<p> • 이용에 불편함을 느끼실 경우 문의게시판으로 문의 부탁드리겠습니다. </p>
 		</div>
 		
