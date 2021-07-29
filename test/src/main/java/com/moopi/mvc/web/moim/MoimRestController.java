@@ -89,13 +89,21 @@ public class MoimRestController {
 		return "테스트성공";
 	}
 
-	// 모임 가입신청하기
-	@PostMapping("json/applyMoim")
-	public String applyMoim(@RequestBody Member member) throws Exception {
-		System.out.println("모임 가입신청을 합니다.");
+	// 가입신청수락하기
+	@PostMapping("json/acceptApplyMoim")
+	public String acceptApplyMoim(@RequestBody Member member) throws Exception {
+		System.out.println("모임 가입신청을 수락합니다.");
 		moimService.updateMemeber(member.getMmUser().getUserId(), member.getMmNo(), 1);
 		return "apply";
 	}
+	
+	// 가입신청하기
+		@PostMapping("json/applyMoim")
+		public String applyMoim(@RequestBody Member member) throws Exception {
+			moimService.applyMoim(member);
+			System.out.println("가입완료");
+			return "가입완료";
+		}
 
 	// 가입신청 거절하기
 	@PostMapping("json/refuseApply")

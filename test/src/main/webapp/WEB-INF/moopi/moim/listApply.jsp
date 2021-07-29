@@ -52,13 +52,13 @@ function fncRefuse(memberNo, mmNo){
 
 $(function(){
 	
-	$('.apply').on('click', function(){
+	$('.accept').on('click', function(){
 		
 		let mmNo = $(this).attr("mmNo");
 		let userId = $(this).attr("userId");
 		
 		$.ajax({
-			url: "/moim/json/applyMoim",
+			url: "/moim/json/acceptApplyMoim",
 			method: "POST",
 			contentType : "application/JSON",
 			data: JSON.stringify({"mmUser" : {"userId" : userId},
@@ -232,7 +232,7 @@ table.dataTable td {
             <td id="td7">${member.mmUser.interestThird}</td>
             <td id="td8">
 
-            <button type="button" class="btn btn-default apply" mmNo="${member.mmNo}" userId="${member.mmUser.userId}">Accept</button>
+            <button type="button" class="btn btn-default accept" mmNo="${member.mmNo}" userId="${member.mmUser.userId}">Accept</button>
 			<button type="button" class="btn btn-default refuseApply" memberNo="${member.memberNo}">reject</button>
 <%--             <button type="button" class="btn btn-default" onClick="fncAccept('${member.mmUser.userId}', '${member.mmNo}')">Accept</button>
 			<button type="button" class="btn btn-default" onClick="fncRefuse('${member.memberNo}', '${member.mmNo}')">reject</button> --%>

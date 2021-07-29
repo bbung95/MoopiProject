@@ -107,11 +107,11 @@ public class PaymentServiceImpl {
 	public Map<String, Object> getWeekList(Search search) throws Exception {
 		System.out.println("getWeekList ServiceImpl start::");
 
-		List<Payment> list = paymentDao.getWeekList(search);
+		List<Payment> list2 = paymentDao.getWeekList(search);
 		int totalCount = paymentDao.getTotalCount(search);
 
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("list", list);
+		map.put("list2", list2);
 		map.put("totalCount", totalCount);
 
 		return map;
