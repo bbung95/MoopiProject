@@ -23,6 +23,7 @@ import com.moopi.mvc.service.board.impl.BoardServiceImpl;
 import com.moopi.mvc.service.common.impl.CommonServiceImpl;
 import com.moopi.mvc.service.domain.Notice;
 import com.moopi.mvc.service.domain.User;
+import com.moopi.mvc.service.domain.UserData;
 import com.moopi.mvc.service.domain.ChartData;
 import com.moopi.mvc.service.payment.impl.PaymentServiceImpl;
 import com.moopi.mvc.service.flash.impl.FlashServiceImpl;
@@ -102,6 +103,27 @@ public class CommonRestController {
 		return paymentService.getDayList(search);
 	}
 
+	
+	@GetMapping(value = "json/getJoinPath")
+	public UserData getJoinPath(Model model) throws Exception {
+		
+		System.out.println("/getJoinPath-가입경로 : GET");
+		UserData userData = userService.getJoinPath();
+		model.addAttribute("userData", userData);
+		return userData;
+	}
+	
+	
+	@GetMapping(value = "json/getGender")
+	public UserData getGender(Model model) throws Exception {
+		
+		System.out.println("/getGender-성비 : GET");
+		UserData userData = userService.getGender();
+		model.addAttribute("userData", userData);
+		return userData;
+	}
+	
+	
 	@GetMapping(value = "json/getListNotice/{userId}")
 	public List getListNotice(@PathVariable("userId") String userId) {
 

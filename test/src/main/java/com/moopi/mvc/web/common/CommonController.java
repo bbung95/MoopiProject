@@ -19,6 +19,7 @@ import com.moopi.mvc.common.Search;
 import com.moopi.mvc.service.common.impl.CommonServiceImpl;
 import com.moopi.mvc.service.domain.Payment;
 import com.moopi.mvc.service.domain.User;
+import com.moopi.mvc.service.domain.UserData;
 import com.moopi.mvc.service.flash.impl.FlashServiceImpl;
 import com.moopi.mvc.service.moim.impl.MoimServiceImpl;
 import com.moopi.mvc.service.payment.impl.PaymentServiceImpl;
@@ -137,6 +138,9 @@ public class CommonController {
 		Map<String , Object> map2 = paymentService.getWeekList(search);
 		Map<String , Object> map3 = paymentService.getDayList(search);
 		Map<String , Object> map4 = paymentService.getSelectList(search);
+		UserData userData = userService.getJoinPath();
+		System.out.println("유저데이터값::::"+userData);
+		model.addAttribute("userData", userData);
 		model.addAttribute("list", map.get("list"));
 		model.addAttribute("list2", map2.get("list2"));
 		model.addAttribute("list3", map2.get("list3"));

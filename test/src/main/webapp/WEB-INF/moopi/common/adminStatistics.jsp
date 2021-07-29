@@ -47,8 +47,18 @@
 var ctxlabels = new Array();
 var ctxdata = new Array();
 var ctxlabel = "월간 매출액";
+var userLabels = new Array();
+var userData = new Array();
+
+
+
 
 </script>
+
+
+
+
+
 
 <style>
   .chart-container {
@@ -110,9 +120,23 @@ var ctxlabel = "월간 매출액";
 								class="mb-2 border-solid border-gray-300 rounded border shadow-sm w-full">
 								<div
 									class="bg-gray-200 px-2 py-3 border-solid border-gray-200 border-b">
-									User Insight</div>
-								<div class="p-3">
-
+									User Insight
+									<button onClick="pathChange()" class="bg-transparent hover:bg-red-500 text-orange-dark font-semibold hover:text-white py-2 px-4 border border-red hover:border-transparent rounded">
+                                    가입경로
+                                </button>
+                                <button  class="bg-transparent hover:bg-red-500 text-orange-dark font-semibold hover:text-white py-2 px-4 border border-red hover:border-transparent rounded">
+                                    연령대
+                                </button>
+									<button onClick="genderChange()" class="bg-transparent hover:bg-red-500 text-orange-dark font-semibold hover:text-white py-2 px-4 border border-red hover:border-transparent rounded">
+                                    성별
+                                </button>
+                                <button  class="bg-transparent hover:bg-red-500 text-orange-dark font-semibold hover:text-white py-2 px-4 border border-red hover:border-transparent rounded">
+                                    관심사
+                                </button>
+									
+									</div>
+									<div class="chart-container">
+									<canvas id="userChartOne"></canvas>
 								</div>
 							</div>
 						</div>
@@ -153,21 +177,9 @@ var ctxlabel = "월간 매출액";
 		ctxlabels.push("${chartData.date}"+'월');
 		ctxdata.push("${chartData.paymentPrice}");
 	</c:forEach>
-
-// 	var labels2 = new Array();
-// 	var data2 = new Array();
-
-// 	<c:forEach items="${list2}" var="chartData2" >
-// 		labels2.push("${chartData2.start}"+"~"+"${chartData2.end}");
-// 		data2.push("${chartData2.paymentPrice}");
-// 	</c:forEach>
-
-//차트업데이트 시작
-
 	
 		//월별차트 시작
 		let myChartOne = document.getElementById('myChartOne').getContext('2d');
-// 		let myChartTwo = document.getElementById('myChartTwo').getContext('2d');
 		let myChartTwo = document.getElementById('myChartOne').getContext('2d');
 		let myChartThree = document.getElementById('myChartOne').getContext('2d');
 		
@@ -218,6 +230,7 @@ function weekChange(){
 	
 // 	alert("클릭");
 	barChart.destroy();
+
 	ctxlabels = [];
 	ctxdata = [];
 	console.log(ctxlabels);
@@ -282,7 +295,8 @@ function weekChange(){
 <script>
 function dayChange(){
 	
-// 	alert("클릭");
+	barChart.destroy();
+
 	ctxlabels = [];
 	ctxdata = [];
 	console.log(ctxlabels);
@@ -345,7 +359,7 @@ function dayChange(){
 <script>
 function monthChange(){
 	
-// 	alert("클릭");
+	barChart.destroy();
 	LineChart.destroy();
 	ctxlabels = [];
 	ctxdata = [];
@@ -381,21 +395,21 @@ function monthChange(){
 				datasets : [{
 					label : ctxlabel,
 					backgroundColor: [ 
-						'rgba(255, 99, 132, 0.2)',
-		                'rgba(54, 162, 235, 0.2)',
-		                'rgba(255, 206, 86, 0.2)',
+						'rgba(255, 206, 86, 0.2)',
 		                'rgba(75, 192, 192, 0.2)',
 		                'rgba(153, 102, 255, 0.2)',
-		                'rgba(255, 159, 64, 0.2)'
+		                'rgba(255, 159, 64, 0.2)',
+						'rgba(255, 99, 132, 0.2)',
+		                'rgba(54, 162, 235, 0.2)'
 						],
 					borderColor: [
-						'rgba(255,99,132,1)',
-		                'rgba(54, 162, 235, 1)',
 		                'rgba(255, 206, 86, 1)',
 		                'rgba(75, 192, 192, 1)',
 		                'rgba(153, 102, 255, 1)',
-		                'rgba(255, 159, 64, 1)'
-						],
+		                'rgba(255, 159, 64, 1)',
+						'rgba(255,99,132,1)',
+		                'rgba(54, 162, 235, 1)'
+		                ],
 					borderWidth: 1,	
 					data : ctxdata
 				}]
@@ -421,6 +435,145 @@ function monthChange(){
 </script>
 
 
+<script>
+//유저 차트 시작
+
+var userLabels = new Array();
+var userData = new Array();
+
+userLabels.push("무피", "구글", "네이버", "카카오");
+userData.push("${userData.moopi}", "${userData.google}", "${userData.naver}", "${userData.kakao}");
+
+console.log(userData);
+
+let userChartOne = document.getElementById('userChartOne').getContext('2d');
+let userChartTwo = document.getElementById('userChartOne').getContext('2d');
+
+let userBarChart = new Chart(userChartOne, {
+	type : 'radar',
+	data : {
+		labels : userLabels,
+		datasets : [{
+			label : '유저 가입 경로',
+			borderColor: 'rgba(252, 139, 105, 1.0)',
+			data : userData
+		}]
+	},
+	options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        }
+    } 
+});
+
+		
+function genderChange(){		
+
+	userBarChart.destroy();
+	userLabels = [];
+	userData = [];
+	userLabels.push("남성", "여성");
+	
+	$.ajax( 
+			{
+				url : "/common/json/getGender",
+				method : "GET" ,
+				dataType : "json" ,
+				headers : {
+					"Accept" : "application/json",
+					"Content-Type" : "application/json"
+				},
+				success : function(JSONData , status) {
+						
+				 		userData.push(JSONData.male, JSONData.female);	 		
+		
+		 userBarChart2 = new Chart(userChartTwo, {
+			type : 'bar',
+			data : {
+				labels : userLabels,
+				datasets : [{
+					label : userLabels,
+					backgroundColor: [ 
+						'rgba(54, 162, 235, 0.2)',
+						'rgba(255, 99, 132, 0.2)'
+						],
+					borderColor: [
+						'rgba(54, 162, 235, 1)',
+						'rgba(255,99,132,1)'		           
+						],
+					borderWidth: 1,	
+					data : userData
+				}]
+			},
+			options: {
+		        maintainAspectRatio: true,
+		        scales: {
+		            yAxes: [{
+		                ticks: {
+		                    beginAtZero:true
+		                }
+		            }]
+		        }
+		    } 
+		}); //다시로드끝
+				}
+		}); //ajax 종료
+}
+
+</script>
+
+<script>
+function pathChange(){
+
+ 	userBarChart2.destroy();
+	userLabels = [];
+	userData = [];
+	userLabels.push("무피", "구글", "네이버", "카카오");	
+	
+	
+	$.ajax( 
+			{
+				url : "/common/json/getJoinPath",
+				method : "GET" ,
+				dataType : "json" ,
+				headers : {
+					"Accept" : "application/json",
+					"Content-Type" : "application/json"
+				},
+				success : function(JSONData , status) {
+						
+				 		userData.push(JSONData.moopi, JSONData.google, JSONData.naver, JSONData.kakao);	 		
+		
+				 		userBarChart = new Chart(userChartOne, {
+				 			type : 'radar',
+				 			data : {
+				 				labels : userLabels,
+				 				datasets : [{
+				 					label : '유저 가입 경로',
+				 					borderColor: 'rgba(252, 139, 105, 1.0)',
+				 					data : userData
+				 				}]
+				 			},
+				 			options: {
+				 		        scales: {
+				 		            yAxes: [{
+				 		                ticks: {
+				 		                    beginAtZero:true
+				 		                }
+				 		            }]
+				 		        }
+				 		    } 
+				 		});
+				}
+		}); //ajax 종료
+	
+}
+
+</script>
 
 </body>
 

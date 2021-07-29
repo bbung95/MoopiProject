@@ -51,7 +51,7 @@
             <div class="col-xs-6 col-sm-6 col-md-3 item">
                 <h5 class="head_title" data-edit="true" data-selector="h5.head_title"><span class="fsize15"><strong>C A L L &nbsp; M E</strong></span></h5>
                 <hr data-border="true" data-selector="hr" data-title="선 컬러">
-                <p class="desc" data-edit="true" data-selector="p.desc" ><span style="font-family: 'Open sans';">010-1234-5678</span></p>
+                <p class="desc" data-edit="true" data-selector="p.desc" ><span style="font-family: 'Open sans';">010-4187-0000</span></p>
             </div>
 
             <div class="col-xs-6 col-sm-6 col-md-3 item">
