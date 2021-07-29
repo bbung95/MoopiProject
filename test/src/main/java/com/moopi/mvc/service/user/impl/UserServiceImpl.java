@@ -24,6 +24,13 @@ public class UserServiceImpl {
 	@Autowired
 	private UserDao userDao;
 	
+	
+	// ajax사용으로 인한 로그인
+	public User login(User user) {
+		userDao.login(user);
+		return userDao.loginUser(user.getUserId());
+	}
+	
 	// [완료] 로그인
 	public User loginUser(String userId) {
 
@@ -58,9 +65,9 @@ public class UserServiceImpl {
 		return userDao.getId(phone);
 	}
 	
-	// 유저정보변경 
-	public void updateUser(User user) throws Exception {
-		userDao.updateUser(user);
+	// 유저정보변경(모바일번호)
+	public void updateUserPhone(User user) throws Exception {
+		userDao.updateUserPhone(user);
 	}
 	
 //	// 계정정보수정
@@ -135,16 +142,14 @@ public class UserServiceImpl {
 // 프로필수정 - updateProfile
 	
 	// 0. 프로필이미지수정
-	public void updateProfileImage(String userId) {
+	public void updateProfileImage(User user) {
 		System.out.println("updateProfileImage ServiceImpl 진입완료");
-		userDao.updateProfileImage(userId);
+		userDao.updateProfileImage(user);
 	}
 	
 	// 1. 닉네임수정
-//	public void updateNickname(User user) {
-//		userDao.updateNickname(user);
-//	}
-	public void updateNickname(Map<String, Object> map) {
+	public void updateNickname(User user) {
+		userDao.updateNickname(user);
 	}
 	
 	// 2. 프로필소개수정
@@ -165,6 +170,11 @@ public class UserServiceImpl {
 	// 5. 마이홈상태수정
 	public void updateMyhomeStat(User user) {
 		userDao.updateMyhomeStat(user);
+	}
+	
+	// 6. 비밀번호변경
+	public void updateUserPWD(User user) {
+		userDao.updateUserPWD(user);
 	}
 
 // 팔로우 CRUD	

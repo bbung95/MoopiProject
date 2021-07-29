@@ -17,6 +17,8 @@ public interface UserDao {
 	// 로그인 
 	public User loginUser(String userId);
 	
+	public User login(User user);
+	
 // 회원가입 CRUD
 	
 	// [완료] 회원가입시 [UserRole - 2.정상회원
@@ -67,6 +69,9 @@ public interface UserDao {
 	// 유저프로필수정 
 	public void updateProfile(User user) throws Exception;
 	
+	// 유저 모바일번호 수정
+	public void updateUserPhone(User user) throws Exception;
+	
 	// 아이디찾기
 	public User getId(String phone);
 	
@@ -79,10 +84,10 @@ public interface UserDao {
 	
 	//결제후 유저 코인 Up
 	public void paymentUpdateCoin(User user) throws Exception;
-	
+	 
 // 프로필수정
 	// 0. 프로필이미지수정
-	public void updateProfileImage(String userId);
+	public void updateProfileImage(User user);
 	// 1. 닉네임수정
 	public void updateNickname(User user);
 	// 2. 프로필소개수정
@@ -93,6 +98,8 @@ public interface UserDao {
 	public void updateAddress(User user);
 	// 5. 마이홈상태수정
 	public void updateMyhomeStat(User user);
+	// 6. 비밀번호수정
+	public void updateUserPWD(User user);
 
 
 // 팔로우 CRUD 
