@@ -14,28 +14,44 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
 	<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 <!-------------------------------------------------------------------------------------------------------------------------->
-
+<!-- 필수 Core theme CSS (includes Bootstrap)-->
+	<link href="/css/admin/styles.css" rel="stylesheet" />
+	
 <script>
 	
 //-- [중간완료] 비밀번호 일치 Ajax 실행  --------------------------------------------------------------------------------------------------------------------------
-		
+	var userId=$('input[name=userId]').val();
+
 	$(function(){
 		
-			$("#password").keyup(function(){
+			$("#password1").keyup(function(){
+				
+				var regex = /^[A-Za-z\d]{8,12}$/;
+				var result = regex.exec($("#password1").val());
+				
+				if(result != null){
+                    $('#pwd_right').text("");
+                    $("#updateBtn").attr("disabled", false);
+                }else{
+                    $('#pwd_right').text("비밀번호는 영어대소문자와 숫자를 포함하여 8-11자리이상으로 작성해주세요");
+                    $('#pwd_right').css("color","red");
+                    $("#updateBtn").attr("disabled", false);
+                }
+			
 				$('#pwd_check').text('');
-				$("#loginButton").attr("disabled", false);
+				$("#updateBtn").attr("disabled", false);
 			});
 		
 			$("#password2").keyup(function(){				
 					if ($("#password").val() != $("#password2").val()){					
 						$('#pwd_check').text('');
 						$('#pwd_check').text('비밀번호가 일치하지 않습니다.');
-						$("#loginButton").attr("disabled", true);
+						$("#updateBtn").attr("disabled", true);
 
 					}else{
 						$('#pwd_check').text('');
 						$('#pwd_check').text('비밀번호가 일치합니다.');
-						$("#loginButton").attr("disabled", false);
+						$("#updateBtn").attr("disabled", false);
 						
 			}
 		}); 
@@ -45,67 +61,156 @@
 		
 		var userId=$("input[name='userId'").val();
 		var password=$("input[name='password'").val();
-
-		$("form").attr("method" , "POST").attr("action" , "/user/updatePwdView").submit();
+		
+		$.ajax ({
+				url : "/user/json/updatePwd",
+				method : "POST",
+				contentType : "application/JSON",
+				dataType : "text",
+				data : JSON.stringify({"userId" : userId, "password" : password}),
+					
+					success : function(data, state) {
+						alert("변경이 완료되었습니다.");
+						close();
+					}
+					
+				});
+			
 	}
 	
 </script>
-
+  <style>
+    @font-face {
+    	src: url("../font/NanumGothic-Regular.ttf")'
+    	font-family : "NanumGothic";
+    }
+    
+	body{
+		font-family : "NanumGothic";
+		padding-top: 30px;
+	}
+	
+	.start {
+		font-family : "NanumGothic";
+		padding: 30px 30px;
+	}
+	
+	.updatePWD {
+	font-family : "NanumGothic";
+		text-align: center;
+		font-size: 30px;
+		padding : 15px;
+		
+	}
+	
+	.listUserJoin {
+		font-family : "NanumGothic";
+		text-align: center;
+		padding : 10px;
+	}
+	
+	.writeInformation {
+		font-family : "NanumGothic";
+		border: 1px solid gray;
+		width: 100%;
+		padding: 30px 48px;
+		padding-top: 30px;
+	    padding-right: 48px;
+	    padding-bottom: 30px;
+	    padding-left: 48px;
+	}
+	
+	.AuthNumWrite {
+		font-family : "NanumGothic";
+		padding-top : 20px;
+	}
+	
+	#mobileAuth {
+		position: absolute;
+		border: 1px solid gray;
+	    bottom: 7.5px;
+	    right: 19px;
+	    width: 68px;
+	    padding: 0;
+	}
+	
+	.information {
+		font-family : "NanumGothic";
+		font-size : 12px;
+		padding-top : 20px;
+		color : gray;
+	}
+	
+	.check_font {
+		position : fixed;
+		font-family : "NanumGothic";
+		text-align: left;
+		font-size: 12px;			
+	}
+	
+	#confirmPWD {
+		padding-top : 12px;
+	}
+	
+	</style>
 </head>
 <body>
 
-<!-- Tool Bar ---------------------------------------------------------------------------------------------------------------->
-	<jsp:include page="../layout/toolbar.jsp" />
-<!---------------------------------------------------------------------------------------------------------------------------->
 
-<h3> 비밀번호변경 </h3>
 
-<!-- 화면구성 div Start ---------------------------------------------------------------------------------------------------------------->
 
-	<div class="container">
+<!-- # 모바일번호인증 - CoolSMS API ---------------------------------------------------------------------------------------------------------------------------------------->		
+		<form class="start">
 		
-		<div class="row">
+		아이디 물고오는지 확인 : < ${dbUser.userId} >
 		
-		<h1 class="bg-primary text-center">비밀번호변경</h1>
+		<h3 class="updatePWD"> 비밀번호변경 </h3>
+		<hr style="border:solid 0.11px black;">
+		
+		<!-- userId Hidden -->
+ 	  	<input type="hidden" class="form-control" id="userId" name="userId" value="${dbUser.userId}" readonly>
+ 	  	<p class="listUserJoin">  ${dbUser.userId}님의 본인인증이 완료되었습니다. 원하시는 비밀번호로 변경해주세요</p>
+ 	  	
+ 	  	
+ 	  	
+		<!-- 번호 입력 후 인증하기 버튼 -->
+		<div class="writeInformation">
+		
+			 <!-- 비밀번호 입력 -->
+			<div class="form-group">
+				<label for="password" class="col-sm-offset-1 col-sm-3 control-label">새 비밀번호</label>
+				<div class="col-sm-4">
+					<input type="password" class="form-control" id="password1" name="password" placeholder="비밀번호를 입력해주세요">
+				</div>
+					<div class="check_font" id="pwd_right" style="font-size : 12px" ></div>
+			</div>
 			
-<!-- FORM START ---------------------------------------------------------------------------------------------------------------->
+			 <!-- 비밀번호 확인 -->
+			<div class="form-group">
+				<label for="password2" id="confirmPWD" class="col-sm-offset-1 col-sm-3 control-label">새 비밀번호 확인</label>
+				<div class="col-sm-4">
+					<input type="password" class="form-control" id="password2" name="password2" placeholder="비밀번호를 한번 더 입력해주세요">
+				</div>
+				<div class="check_font" id="pwd_check"></div>
+			</div>
 
-	<form class="form-horizontal"">
- 	  		
- 	  	<div class="form-group">
- 	  		<div class="col-sm-offset-4  col-sm-4 text-left">
- 	  			<h5> ${dbUser.userId}님의 본인인증이 완료되었습니다. </h5>
-				<h5> 원하는 비밀번호를 입력해주세요. </h5>
-				<h3> 새 비밀번호 </h4>
- 	  		</div>
- 	  	</div>
- 	  	
-		  <!-- 비밀번호 입력 -->
-		<div class="form-group">
-			<label for="password" class="col-sm-offset-1 col-sm-3 control-label">비밀번호</label>
-			<div class="col-sm-4">
-				<input type="password" class="form-control" id="password" name="password" placeholder="비밀번호를 입력해주세요">
-			</div>
+			
 		</div>
-		  
-		  <!-- 비밀번호 확인 -->
-		<div class="form-group">
-			<label for="password2" class="col-sm-offset-1 col-sm-3 control-label">비밀번호확인</label>
-			<div class="col-sm-4">
-				<input type="password" class="form-control" id="password2" name="password2" placeholder="비밀번호를 한번 더 입력해주세요">
-			</div>
-			<div class="check_font" id="pwd_check"></div>
-		</div>
- 	  	
- 	  	
- 	  	<div class="form-group">
-			<div class="col-sm-offset-4  col-sm-4 text-center">
-				<button type="button" class="btn btn-default" id="checkBtn" onClick="updatePwd()">수정</button>
-				<a class="btn btn-default btn" id="close" onClick="fncClose()" role="button">취소</a>
+		
+		<!-- 확인,취소 -->
+		<div class="AuthNumWrite">
+			<div class="col-sm-offset-4  col-sm-4 text-center">	
+				<button class="px-4 py-4 text-white font-light tracking-wider bg-gray-900 rounded" type="button" style="width:500px;" id="checkBtn" onClick="javascript:updatePwd()">수정</button>			
 			</div>
 		</div> 
- 	  			
- 	</form>
+		
+		<div class="information">
+			<p> • 추측하기 어려운 비밀번호로 작성해주세요 </p>
+			<p> • 비밀번호 변경 권장기간은 최소 3개월입니다. </p>
+			<p> • 이용에 불편함을 느끼실 경우 문의게시판으로 문의 부탁드리겠습니다. </p>
+		</div>
+		
+		</form>
 
 </body>
 </html>

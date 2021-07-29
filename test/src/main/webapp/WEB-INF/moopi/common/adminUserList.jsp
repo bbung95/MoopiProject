@@ -22,7 +22,18 @@
 	rel="stylesheet">
 </head>
 
+<script>
+ $(function(){
+	$('.adminUserInfo').on('click', function() {
+		alert("진입");
+		var userId = $(this).attr('value');
+		alert("userId : "+userId);
+		self.location = "/common/getUserInfo?userId="+userId		
+	});
+});
+</script>
 <body>
+	
 	<!--Container -->
 	<div class="mx-auto bg-grey-lightest">
 		<!--Screen-->
@@ -62,10 +73,11 @@
 												<th class="border px-4 py-2" width="5%">현재상태</th>
 											</tr>
 										</thead>
+										
 										<tbody>
 											<c:forEach var="user" items="${list}">
-												<tr>
-													<td class="border px-4 py-2">${user.userId}</td>
+												<tr>												
+													<td class="border px-4 py-2 adminUserInfo" value="${user.userId}">${user.userId}</td>
 													<td class="border px-4 py-2">${user.userName}</td>
 													<td class="border px-4 py-2">${user.nickname}</td>
 													<td class="border px-4 py-2">${user.regDate}</td>
