@@ -24,24 +24,37 @@
 		</association>	
 		
 		<association property="reportTarget"  javaType="user">
-			<id property="userId" 				column="USER_ID" 			jdbcType="VARCHAR"/>
-			<result property="profileImage"		column="PROFILE_IMAGE"		jdbcType="VARCHAR"/>
-			<result property="nickname"			column="NICKNAME"			jdbcType="VARCHAR"/>
+			<id property="userId" 				column="U2.USER_ID" 			jdbcType="VARCHAR"/>
+			<result property="profileImage"		column="TARGET_ID"		jdbcType="VARCHAR"/>
+			<result property="nickname"			column="TARGET_NICKNAME"			jdbcType="VARCHAR"/>
+			<result property="userName"			column="TARGET_NAME"			jdbcType="VARCHAR"/>
 		</association>	
 		
 		<association property="reportTargetBd"  javaType="board">
-			<id property="boardNo" 				column="BD_NO" 			jdbcType="NUMERIC"/>
-			<result property="boardName"		column="BD_NAME"		jdbcType="VARCHAR"/>
-			<result property="boardWriter.userId"		column="BD_WRITER"		jdbcType="VARCHAR"/>
+			<id property="boardNo" 						column="BD_NO" 			jdbcType="NUMERIC"/>
+			<result property="boardName"				column="BD_NAME"		jdbcType="VARCHAR"/>
+			<result property="boardWriter.userId"		column="TARGET_ID"		jdbcType="VARCHAR"/>
+			<result property="boardWriter.nickname"		column="TARGET_NICKNAME"		jdbcType="VARCHAR"/>
+			<result property="boardWriter.userName"		column="TARGET_NAME"		jdbcType="VARCHAR"/>
 		</association>	
 		
 		<association property="reportTargetRe"  		javaType="reply">
 			<id property="replyNo" 					 	column="REPLY_NO" 			jdbcType="NUMERIC"/>
 			<result property="replyContent"				column="REPLY_CONTENT"		jdbcType="VARCHAR"/>
-			<result property="replyWriter.userId"		column="REPLY_WRITER"		jdbcType="VARCHAR"/>
+			<result property="replyWriter.userId"		column="TARGET_ID"			jdbcType="VARCHAR"/>
+			<result property="replyWriter.nickname"		column="TARGET_NICKNAME"		jdbcType="VARCHAR"/>
+			<result property="replyWriter.userName"		column="TARGET_NAME"		jdbcType="VARCHAR"/>
 			<result property="boardNo"					column="BD_NO"				jdbcType="NUMERIC"/>
-			
 		</association>		
+		
+		<association property="reportTargetMm">
+			<id property="mmNo"							column="MM_NO"				jdbcType="NUMERIC"/>
+			<result property="mmName"					column="MM_NAME"			jdbcType="VARCHAR"/>
+			<result property="mmConstructor.nickname"	column="TARGET_NAME"			jdbcType="VARCHAR"/>
+			<result property="mmConstructor.userName"	column="TARGET_NICKNAME"			jdbcType="VARCHAR"/>
+			<result property="mmConstructor.userId"		column="TARGET_ID"			jdbcType="VARCHAR"/>
+		</association>
+		
 		
 	</resultMap>	
 	
@@ -62,6 +75,9 @@
 	   </if>
 	   <if test="report.reportTargetBd !=null">
 	   , RP_TARGETBD
+	   </if>
+	   <if test="report.reportTargetMm !=null">
+	   , RP_TARGETMM
 	   </if>
 	   , RP_CATEGORY
 	   ) VALUES 
@@ -93,52 +109,88 @@
 		, R.RP_CONTENT
 		, R.RP_IMAGE
 		, R.RP_REGDATE
-		 <if test=" map.search.searchCategory == 3 ">
-		, U2.USER_ID
-		, U2.NICKNAME
-		</if>
 		<if test=" map.search.searchCategory == 1 ">
 		, B.BD_NO
 		, B.BD_NAME
-		, B.BD_WRITER
+		, U2.USER_ID   AS TARGET_ID
+		, U2.USER_NAME AS TARGET_NAME
+		, U2.NICKNAME  AS TARGET_NICKNAME
 		</if>
 		<if test=" map.search.searchCategory == 2 ">
 		, RE.REPLY_NO
 		, RE.REPLY_CONTENT
-		, RE.REPLY_WRITER
+		, U2.USER_ID    AS TARGET_ID     
+		, U2.USER_NAME  AS TARGET_NAME   
+		, U2.NICKNAME   AS TARGET_NICKNAME
 		, RE.BD_NO
+		</if>
+		 <if test=" map.search.searchCategory == 3 ">
+		, U2.USER_ID    AS TARGET_ID     
+		, U2.USER_NAME   AS TARGET_NAME   
+		, U2.NICKNAME  AS TARGET_NICKNAME
+		</if>
+		 <if test=" map.search.searchCategory == 4 ">
+		, M.MM_NO
+		, M.MM_NAME
+		, U2.USER_ID    AS TARGET_ID     
+		, U2.USER_NAME   AS TARGET_NAME   
+		, U2.NICKNAME  AS TARGET_NICKNAME
 		</if>
 		, R.RP_CATEGORY
 		, R.RP_RESULT_STATE
 		, R.RP_RESULT_UPDATE
 		, R.STATE_REASON
 		 FROM 
-		 REPORT R, BOARD B, USERS U, USERS U2, REPLY RE
+		  REPORT R
+		  , USERS U
+		  , USERS U2
+		  <if test=" map.search.searchCategory == 1 ">
+		  , BOARD B
+		  </if>
+		  <if test=" map.search.searchCategory == 2 ">
+		  , REPLY RE
+		  </if>
+		  <if test=" map.search.searchCategory == 4 ">
+		  , MOIM M
+		  </if>
 		 WHERE
 		 R.RP_BY_USERID = U.USER_ID
-		 <if test=" map.search.searchCategory == 3 ">
-		 AND
-		 R.RP_TARGET = U2.USER_ID
-		 </if>
 		 <if test=" map.search.searchCategory == 1 ">
 		 AND
 		 R.RP_TARGETBD = B.BD_NO
+		 AND
+		 B.BD_WRITER = U2.USER_ID
 		 </if>
 		 <if test=" map.search.searchCategory == 2 ">
 		 AND
 		 R.RP_TARGETRE = RE.REPLY_NO
+		 AND
+		 RE.REPLY_WRITER = U2.USER_ID
 		 </if>		 
+		  <if test=" map.search.searchCategory == 3 ">
+		 AND
+		 R.RP_TARGET = U2.USER_ID
+		 </if>
+		  <if test=" map.search.searchCategory == 4 ">
+		 AND
+		 R.RP_TARGETMM = M.MM_NO
+		 AND
+		 M.MM_CONSTRUCTOR = U2.USER_ID
+		 </if>
 		 GROUP BY
 		 U.USER_ID
-		 <if test=" map.search.searchCategory == 3 ">
-		 , U2.USER_ID
-		 </if>
 		 <if test=" map.search.searchCategory == 1 ">
 		 , B.BD_NO
 		 </if>
 		 <if test=" map.search.searchCategory == 2 ">
 		 , RE.REPLY_NO
 		 </if> 
+		  <if test=" map.search.searchCategory == 3 ">
+		 , U2.USER_ID
+		 </if>
+		  <if test=" map.search.searchCategory == 4 ">
+		 , M.MM_NO
+		 </if>
 		
 		 
 		 
