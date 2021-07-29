@@ -23,6 +23,7 @@ import com.moopi.mvc.service.domain.UserData;
 import com.moopi.mvc.service.flash.impl.FlashServiceImpl;
 import com.moopi.mvc.service.moim.impl.MoimServiceImpl;
 import com.moopi.mvc.service.payment.impl.PaymentServiceImpl;
+import com.moopi.mvc.service.report.impl.ReportServiceImpl;
 import com.moopi.mvc.service.user.impl.UserServiceImpl;
 
 @Controller
@@ -38,6 +39,8 @@ public class CommonController {
 	private CommonServiceImpl commonService;
 	@Autowired
 	private PaymentServiceImpl paymentService;
+	@Autowired
+	private ReportServiceImpl reportService;
 	
 	@Value("${page.pageUnit}")
 	int pageUnit;
@@ -106,13 +109,11 @@ public class CommonController {
 	}
 	
 	@GetMapping("common/getReportList")
-	public String getReportList(Model model) throws Exception {
-		
-		Search search = new Search();
+	public String getReportList(@ModelAttribute("search")Search search, Model model) throws Exception {
 		
 		System.out.println("common/getReportList : GET");
-		model.addAttribute("list",flashService.getFlashList(search).get("list"));
-		return "common/adminFlashList";
+		model.addAttribute("list", reportService.getReportList(search, model).get("list"));
+		return "common/adminReportList";
 	}
 	
 	@RequestMapping("common/getPaymentList")

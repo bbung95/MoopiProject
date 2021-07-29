@@ -44,7 +44,7 @@
                                 <div class="card-body p-5">
                                     
                                     <div class="mb-3">
-                                        <span class="display-4 fw-bold">1000</span>
+                                        <span class="display-5 fw-bold">1000</span>
                                         <span class="text-muted">원</span>
                                     </div>
                                     <ul class="list-unstyled mb-4">
@@ -68,7 +68,7 @@
                                 <div class="card-body p-5">
                                     
                                     <div class="mb-3">
-                                        <span class="display-4 fw-bold">2000</span>
+                                        <span class="display-5 fw-bold">2000</span>
                                         <span class="text-muted">원</span>
                                     </div>
                                     <ul class="list-unstyled mb-4">
@@ -92,7 +92,7 @@
                                 <div class="card-body p-5">
                                     
                                     <div class="mb-3">
-                                        <span class="display-4 fw-bold">3000</span>
+                                        <span class="display-5 fw-bold">3000</span>
                                         <span class="text-muted">원</span>
                                     </div>
                                     <ul class="list-unstyled mb-4">
@@ -116,13 +116,61 @@
                                 <div class="card-body p-5">
                                     
                                     <div class="mb-3">
-                                        <span class="display-4 fw-bold">100</span>
+                                        <span class="display-5 fw-bold">4000</span>
                                         <span class="text-muted">원</span>
                                     </div>
                                     <ul class="list-unstyled mb-4">
                                         <li class="mb-2">
                                             <i class="bi bi-check text-primary"></i>
-                                            <strong>1 코인</strong>
+                                            <strong>40 코인</strong>
+                                      
+                                    </ul>
+                                    <div class="d-grid">
+                                     <button class="btn btn-outline-primary" type="button" id="check_module" onclick="javascript:pay(4000)" name="cp_item">선택</button>
+                                  <!--    <input type="hidden" name="cp_item" value="1000"></div>  -->
+                                	<!--<label class="box-radio-input"><input type="button" class="btn btn-outline-primary" name="cp_item" id="check_module" value="1000"><span>1,000원</span></label>-->
+                                </div>
+                            </div>
+                        </div>
+						
+						</div>
+						
+						<div class="col-lg-6 col-xl-4">
+                            <div class="card mb-5 mb-xl-0">
+                                <div class="card-body p-5">
+                                    
+                                    <div class="mb-3">
+                                        <span class="display-5 fw-bold">5000</span>
+                                        <span class="text-muted">원</span>
+                                    </div>
+                                    <ul class="list-unstyled mb-4">
+                                        <li class="mb-2">
+                                            <i class="bi bi-check text-primary"></i>
+                                            <strong>50 코인</strong>
+                                      
+                                    </ul>
+                                    <div class="d-grid">
+                                     <button class="btn btn-outline-primary" type="button" id="check_module" onclick="javascript:pay(5000)" name="cp_item">선택</button>
+                                  <!--    <input type="hidden" name="cp_item" value="1000"></div>  -->
+                                	<!--<label class="box-radio-input"><input type="button" class="btn btn-outline-primary" name="cp_item" id="check_module" value="1000"><span>1,000원</span></label>-->
+                                </div>
+                            </div>
+                        </div>
+						
+						</div>
+						
+						<div class="col-lg-6 col-xl-4">
+                            <div class="card mb-5 mb-xl-0">
+                                <div class="card-body p-5">
+                                    
+                                    <div class="mb-3">
+                                        <span class="display-5 fw-bold">10000</span>
+                                        <span class="text-muted">원</span>
+                                    </div>
+                                    <ul class="list-unstyled mb-4">
+                                        <li class="mb-2">
+                                            <i class="bi bi-check text-primary"></i>
+                                            <strong>100 코인</strong>
                                       
                                     </ul>
                                     <div class="d-grid">
