@@ -31,6 +31,10 @@ function fncGetBoard(boardNo){
 	self.location ="/board/getBoard?boardNo="+boardNo;
 }
 
+function fncGetList(currentPage){
+	$("#currentPage").val(currentPage)
+	$("#searchBar").attr("method", "GET").attr("action", "/board/listBoard").submit();
+}
 
 function fncGetPassword(boardNo){
 // 	alert("비번체크");

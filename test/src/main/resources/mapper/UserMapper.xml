@@ -367,6 +367,8 @@
 		UPDATE users
 			<set>
 			 	USER_Role = #{userRole}
+			 ,  STATE_REASON =  #{stateReason}
+			 ,  STATE_REGDATE = #{STATE_REGDATE}
 			</set>
 		WHERE USER_ID = #{userId}
 	</update>
