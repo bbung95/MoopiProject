@@ -96,20 +96,20 @@ public class ReportController {
 		
 	}
 	
-	@RequestMapping("listReport")
-	public String getReportList(@ModelAttribute("search")Search search, Model model) throws Exception{
-		
-		System.out.println("listReport 실행");
-		
-		Map map = new HashMap();
-		
-		map = reportService.getReportList(search, model);
-		System.out.println(map.get("list"));
-		
-		model.addAttribute("list", map.get("list"));
-		
-		return "report/listReport";
-	}
+//	@RequestMapping("listReport")
+//	public String getReportList(@ModelAttribute("search")Search search, Model model) throws Exception{
+//		
+//		System.out.println("listReport 실행");
+//		
+//		Map map = new HashMap();
+//		
+//		map = reportService.getReportList(search, model);
+//		System.out.println(map.get("list"));
+//		
+//		model.addAttribute("list", map.get("list"));
+//		
+//		return "report/listReport";
+//	}
 		
 	@RequestMapping(method = RequestMethod.POST, path = "processReport")
 	public String processReport(@ModelAttribute Report report, Model model) throws Exception{

@@ -71,7 +71,7 @@ var markers = [];
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = {
         center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
-        level: 3 // 지도의 확대 레벨
+        level: 5 // 지도의 확대 레벨
     };  
 
 // 지도를 생성합니다    
@@ -234,7 +234,7 @@ function addMarker(position, idx, title) {
         markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imgOptions),
             marker = new kakao.maps.Marker({
             position: position, // 마커의 위치
-            draggable : true, // 마커 이동
+            draggable : false, // 마커 이동
             image: markerImage 
         });
 
@@ -286,7 +286,7 @@ function displayPagination(pagination) {
 // 검색결과 목록 또는 마커를 클릭했을 때 호출되는 함수입니다
 // 인포윈도우에 장소명을 표시합니다                                   펑션 추가해서 여기에 넣으면됨.
 function displayInfowindow(marker, title) {
-	alert(title)
+// 	alert(title)
     var content =   '<input type=hidden class="mapPositon" value=1"'+marker.getPosition()+'">'+ 
     				'<div style="padding:5px;z-index:1;">' + title + marker.getPosition()+'</div> <p>test</p>' +
 // 					'<button type="button" class="btn btn-default"  onClick="javascript:selectPlace('+marker.getPosition().getLat()+','+marker.getPosition().getLng()+','+title+'); window.close() ">모임생성하기</button>';
@@ -303,10 +303,10 @@ function selectPlace(lat, lng){
 // 		alert(lab)
 	 opener.document.getElementById("lat").value = lat
 	 opener.document.getElementById("lng").value = lng
-// 	 opener.document.getElementById("mtAddr").value = title
+//  	 opener.document.getElementByName("mtAddr").value = keyword
 	 alert("상위부모 펑션 실행.")
 	 opener.fncParentsMapView(lat, lng);
-// 	 opener.fncParentsMapView(lat, lng, title);
+//  	 opener.fncParentsMapView(lat, lng, title);
 }
 
 

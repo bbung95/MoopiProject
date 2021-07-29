@@ -47,7 +47,7 @@
 			alert("아이디 : "+userId);
 			
 			popWin = window.open(
-					"getMobileAuth",
+					"getMobileAuth?updatePwd",
 					"childForm",
 					"left=460, top=300, width=580, height=550, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");	
 			
@@ -66,7 +66,7 @@
 			$("#password1").keyup(function(){
 				
 				var regex = /^[A-Za-z\d]{8,12}$/;
-				var result = regex.exec($("#nowPwd").val());
+				var result = regex.exec($("#password1").val());
 				
 				if(result != null){
                     $('#pwd_right').text("");
@@ -97,19 +97,59 @@
 			}
 		}); 
 	});
-<!-------------------------------------------------------------------------------------------------------------------------->
-	function fncEdit() {
-	
+<!----------------------------------------updateUserPwd--------------------------------------------------------------------------------->
+
+<!-- [완료] 모바일번호수정 -->	
+	function editPN() {
 		var userId = $("#userId").val();
-		var password=$('input[name=password]').val();
-		
-		$("form").attr("method", "POST").attr("action", "/user/updateUser").submit();			
+		var phone = $("#pInput").val();		
+		$.ajax ({
+			url : "/user/json/updateUserPhone",
+			type : "POST",
+			contentType : "application/JSON",
+			dataType : "text",
+			data : JSON.stringify ({ userId : "userId", phone : "phone" }),
+			success : function(data, state) {
+					alert("모바일번호 수정이 완료되었습니다.");
+			}	
+		});	
 	}
 
+<!-- [완료] 비밀번호수정 -->
+	function editPW() {
+		var userId = $("#userId").val();
+		var password = $("#password1").val();	
+		alert("여기");
+		$.ajax ({
+			url : "/user/json/updateUserPWD",
+			type : "POST",
+			contentType : "application/JSON",
+			dataType : "text",
+			data : JSON.stringify ({ userId : "userId", password : "password" }),
+			success : function(data, state) {
+					alert("패스워드 수정이 완료되었습니다.");
+			}	
+		});	
+	}
 </script>		
     <style>
 	body{
 	padding-top: 50px;
+	}
+	
+	.etcContent {
+		position: relative;
+		font-size : 15px;
+		text-align: center;
+		font-weight: 340;
+		padding-down : 100px;
+	}
+	
+	.etcName {
+		position: relative;
+		font-size : 15px;
+		text-align: left;
+		font-weight: 340;
 	}
 	
 	.updateUserAccount {
@@ -123,6 +163,7 @@
 		font-family : "NanumGothic";
 		text-align: left;
 		font-size: 20px;
+		padding-top : -15px;
 	}
 	
 	.LabelName,
@@ -137,7 +178,7 @@
 		font-family : "NanumGothic";
 		text-align: left;
 		font-size: 20px;
-		padding-top : 20px;
+		padding-top : -10px;
 		display: inline-block
 			
 	}
@@ -146,7 +187,7 @@
 		font-family : "NanumGothic";
 		text-align: left;
 		font-size: 20px;
-		padding-top : 20px;
+		padding-top : -20px;
 		display: inline-block
 	}
 	
@@ -179,11 +220,11 @@
 	
 	#mobileAuthBtn {
 		border: 1px solid gray;
+		top : -50px;
 		font-size: 12px;
-	    right: 19px;
 	    width: 68px;
 	    margin-left: 315px;
-		margin-down: 310px;
+		
 	}
 	
 	.LabelPwd1Num {
@@ -231,16 +272,47 @@
 		margin-down: 310px;
 	}
 	
+	.editMobileContent{
+		position: relative;
+		font-size : 12px;
+		text-align: left;
+		font-weight: 340;
+		top : -33px;
+	}
+	
+	.updateProfile {
+		position: relative;
+		font-size : 36px;
+		text-align: center;
+		font-weight: 340;
+	}
+	
+	.etcContent {
+		position: relative;
+		font-size : 15px;
+		text-align: center;
+		font-weight: 340;
+	}
+	
+	.etcName {
+		position: relative;
+		font-size : 15px;
+		text-align: left;
+		font-weight: 340;
+	}
+				
+	
+	
 	</style>
 </head>
 <body>
 
 	<!-- Tool Bar ---------------------------------------------------------------------------------------------------------------->
-		<jsp:include page="../layout/toolbar.jsp" />
+	<jsp:include page="../layout/toolbar.jsp" />
 	<!---------------------------------------------------------------------------------------------------------------------------->
-	
+
 	<!-- [left toolbar] -------------------------------------------------------->
-		<jsp:include page="../layout/userToolbar.jsp"/>	
+	<jsp:include page="../layout/userToolbar.jsp"/>	
 	<!----------------------------------------------------------------->
 
 <body class="h-screen font-sans login bg-cover">
@@ -251,15 +323,21 @@
             	
             	<input type="hidden" class="form-control" id="userId" name="userId" value="${dbUser.userId}">
             	<input type="hidden" class="form-control" id="passwordConfirm" name="passwordConfirm" value="${dbUser.password}">
-            	<h3 class="updateUserAccount"> 계정정보수정 </h3>
-            	                  	 
+				<div>
+					<h1 class="updateProfile">계정정보수정</h1>
+					<p class="etcContent"> 변경하실 사항을 입력해주신 후 변경버튼을 눌러주세요 </p>
+            	</div>                  	 
                 <div>
                 	<div form-group class="userInformation">
-						<h6 class="LabelId block text-sm text-gray-00"> ${dbUser.userId}</label></h6>
-						<h6 class="LabelName block text-sm text-gray-00"> ${dbUser.userName}</label></h6>
-						<h6 class="LabelPhone block text-sm text-gray-00"> ${dbUser.phone}</label></h6>
-						<h6 class="LabelBirth block text-sm text-gray-00"> ${dbUser.birth}&nbsp;</label></h6>
-						<h6 class="LabelAge block text-sm text-gray-00"> ${dbUser.age} 세</label></h6>
+                		<p class="etcName"> 아이디 </p>
+							<h6 class="LabelId block text-sm text-gray-00"> ${dbUser.userId}</label></h6>
+						<p class="etcName"> 닉네임 </p>
+							<h6 class="LabelName block text-sm text-gray-00"> ${dbUser.userName}</label></h6>
+						<p class="etcName"> 모바일번호 </p>
+							<h6 class="LabelPhone block text-sm text-gray-00"> ${dbUser.phone}</label></h6>
+						<p class="etcName"> 생년월일 / 나이 </p>
+							<h6 class="LabelBirth block text-sm text-gray-00"> ${dbUser.birth}&nbsp;</label></h6>
+							<h6 class="LabelAge block text-sm text-gray-00"> ${dbUser.age} 세</label></h6>
 					</div>
                 </div>
                                         
@@ -267,8 +345,9 @@
 					<h6 class="LabelPhoneNum block text-sm text-gray-00">모바일번호</label></h6>
 				</div>
 				<div>
-                    <input class="editPhoneNum w-full px-3 py-1 text-gray-700 bg-gray-200 rounded" id="pInput" name="phone" type="text" value=${dbUser.phone}>      
-					<button type="button" id="mobileAuthBtn" class="micro_btn" onClick="updatePN()">인증하기</button>					                  
+                    <input class="editPhoneNum w-full px-3 py-1 text-gray-700 bg-gray-200 rounded" id="pInput" name="phone" type="text" value=${dbUser.phone} onClick="updatePN()">      
+					<button type="button" id="mobileAuthBtn" class="micro_btn" onClick="editPN()">변경하기</button>
+					<p class="editMobileContent fixed"> 모바일번호 변경을 원하신다면 위의 칸을 눌러주세요 </p>					                  
                 </div>
                 
                 
@@ -277,7 +356,7 @@
 				</div>
 				
 				<div>
-                    <input class="nowPwd1 w-full px-3 py-1 text-gray-700 bg-gray-200 rounded" id="nowPwd" name="nowPwd" type="password" placeholder="현재 비밀번호를 입력해주세요">      					                  
+                    <input class="nowPwd1 w-full px-3 py-1 text-gray-700 bg-gray-200 rounded" id="nowPwd" name="nowPwd" type="password" placeholder="현재 비밀번호를 입력해주세요" >      					                  
                 </div>
 				
                 <div>
@@ -293,7 +372,7 @@
 						<input class="newPwd2 w-full px-3 py-1 text-gray-700 bg-gray-200 rounded" id="password2" name="password2" type="password" placeholder="새 비밀번호를 한번 더 입력해주세요"> 
 					</div>  
 						<div class="check_font" id="pwd_check"></div>
-					<button type="button" id="updateBtn" class="micro_btn" onClick="fncEdit()">변경하기</button>	   					                  
+					<button type="button" id="updateBtn" class="micro_btn" onClick="javascript:editPW()">변경하기</button>  					                  
                 </div> 
 	
 	

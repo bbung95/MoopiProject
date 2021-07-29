@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -35,6 +36,7 @@ import com.moopi.mvc.service.domain.Board;
 import com.moopi.mvc.service.domain.Member;
 import com.moopi.mvc.service.domain.Moim;
 import com.moopi.mvc.service.domain.Notice;
+import com.moopi.mvc.service.domain.Reply;
 import com.moopi.mvc.service.domain.User;
 import com.moopi.mvc.service.moim.impl.MoimServiceImpl;
 import com.moopi.mvc.service.reply.impl.ReplyServiceImpl;
@@ -242,13 +244,15 @@ public class UserRestController {
 // [프로필 업데이트]-----------------------------------------------------------------------------------------------	
 
 	// ## 미구현 0. [프로필이미지수정] - updateNickname
-	@RequestMapping(value = "json/uploadProfileImage")
-	public String uploadProfileImage(@RequestParam("profileImage") MultipartFile uploadFile,
-			@RequestParam("userId") String userId) {
+	@PostMapping(value ="json/uploadProfileImage")
+	public String uploadProfileImage( @RequestParam("file") MultipartFile uploadFile, HttpSession session) {
 
 		System.out.println("RestController - 프로필이미지수정");
-
+		
+		User user = (User)session.getAttribute("dbUser");
+		System.out.println(user);
 		long currentTime = System.currentTimeMillis();
+		
 		String fileName = currentTime + uploadFile.getOriginalFilename();
 
 		try {
@@ -256,22 +260,74 @@ public class UserRestController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
+		
+		user.setProfileImage(fileName);
+		userService.updateProfileImage(user);
+		
 		return fileName;
 	}
 	
-	// 완료 - [관심사]
-	@GetMapping(value = "json/updateAddress/{userId}/{fullAddr}/{addr}")
-	public void updateAddress(	@PathVariable String userId, 
-								@PathVariable String fullAddr,
-								@PathVariable String addr) {
-		User user = new User();
-		user.setUserId(userId);
-		user.setFullAddr(fullAddr);
-		user.setAddr(addr);
-		userService.updateAddress(user);
+	@PostMapping(value="/json/loginView")
+	public Boolean loginView ( @RequestBody User user ) throws Exception {
+		userService.login(user);
+		return true;
+	}
+
+	@PostMapping(value="/json/updateNickname")
+	public Boolean updateNickname ( @RequestBody User user ) throws Exception {
+		userService.updateNickname(user);
+		return true;
 	}
 	
+	@PostMapping(value="/json/updateContent")
+	public Boolean updateContent ( @RequestBody User user ) throws Exception {
+		userService.updateContent(user);
+		return true;
+	}
+	
+	@PostMapping(value="/json/updateAddress")
+	public Boolean updateAddress ( @RequestBody User user) throws Exception {
+		userService.updateAddress(user);
+		return true;
+	}
+	
+	@PostMapping(value="/json/updateInterest")
+	public Boolean updateInterest ( @RequestBody User user ) throws Exception {
+		userService.updateInterest(user);
+		return true;
+	}
+
+	@PostMapping(value="/json/updateMyhomeStat")
+	public Boolean updateMyhomeStat ( @RequestBody User user ) throws Exception {
+		userService.updateMyhomeStat(user);
+		return true;
+	}
+	
+	@PostMapping(value="/json/updateUserPhone")
+	public Boolean updateUserPhone ( @RequestBody User user ) throws Exception {
+		userService.updateUserPhone(user);
+		return true;
+	}
+	
+	@PostMapping(value="/json/updateUserPWD")
+	public Boolean updateUserPWD ( @RequestBody User user ) throws Exception {
+		userService.updateUserPWD(user);
+		return true;
+	}
+		
+	
+//	// 완료 - [관심사]
+//	@GetMapping(value = "json/updateAddress/{userId}/{fullAddr}/{addr}")
+//	public void updateAddress(	@PathVariable String userId, 
+//								@PathVariable String fullAddr,
+//								@PathVariable String addr) {
+//		User user = new User();
+//		user.setUserId(userId);
+//		user.setFullAddr(fullAddr);
+//		user.setAddr(addr);
+//		userService.updateAddress(user);
+//	}
+//	
 //	// 완료 - [닉네임수정]
 //	@GetMapping(value = "json/updateNickname/{userId}/{nickname}")
 //	public void updateNickname(	@PathVariable String userId, 
@@ -281,51 +337,12 @@ public class UserRestController {
 //		user.setNickname(nickname);
 //		userService.updateNickname(user);
 //	}
-
-	// 완료 - [프로필소개수정]
-	@GetMapping(value = "json/updateContent/{userId}/{profileContent}")
-	public void updateContent(	@PathVariable String userId, 
-								@PathVariable String profileContent) {
-		User user = new User();
-		user.setUserId(userId);
-		user.setProfileContent(profileContent);
-		userService.updateContent(user);
-	}
 	
-	// 완료 - 관심사수정
-	@GetMapping(value = "json/updateInterest/{userId}/{interestFirst}/{interestSecond}/{interestThird}")
-	public void updateInterest(	@PathVariable String userId, 
-								@PathVariable String interestFirst,
-								@PathVariable String interestSecond,
-								@PathVariable String interestThird) {
-		User user = new User();
-		user.setUserId(userId);
-		user.setInterestFirst(interestFirst);
-		user.setInterestSecond(interestSecond);
-		user.setInterestThird(interestThird);
-		userService.updateInterest(user);
-	}
-	
-	// 마이홈상태수정
-	@GetMapping(value = "json/updateMyhomeStat/{userId}/{myhomeState}")
-	public void updateMyhomeStat(	@PathVariable String userId, 
-									@PathVariable int myhomeState) {	
-		System.out.println("마이홈상태 변경되는 메서드입니다.");		
-		// Int -> String 형변환
-		String mhState = Integer.toString(myhomeState);		
-		User user = new User();
-		user.setUserId(userId);
-		user.setMyhomeState(mhState);
-		userService.updateMyhomeStat(user);
-	}
-	
-	
-	
-	
-	
-	
-	
-	
+//	@PostMapping(value="/json/updatePwd")
+//	public Boolean updatePwd ( @RequestBody User user ) throws Exception {				
+//		userService.updateUserPwd(user);	
+//		return true;
+//	}
 	
 	
 // [팔로우 CRUD]
@@ -448,6 +465,25 @@ public class UserRestController {
 		return map;
 	}
 	
+
+	
+//	@PostMapping( value="json/login")
+//	public User login(@RequestBody User user) throws Exception{
+//		
+//		System.out.println("/user/json/login : POST");
+//		System.out.println(user);
+//		
+//		return userService.login(user);		
+//	}
+	
+	
+	@PostMapping(value="/json/updatePwd")
+	public Boolean updatePwd ( @RequestBody User user ) throws Exception {				
+		userService.updateUserPwd(user);	
+		return true;
+	}
+
+
 	@GetMapping(value="json/myBoardLike/{target}")
 	public boolean myBoardLike (@PathVariable String target, HttpSession session) throws Exception {
 				
@@ -483,6 +519,6 @@ public class UserRestController {
 		
 		
 		return true;
-	}
-
+		} 
+	
 }

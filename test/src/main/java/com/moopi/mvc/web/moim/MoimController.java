@@ -212,11 +212,12 @@ public class MoimController {
 	
 	
 	
-//	//모임 가입신청하기
+	//모임 가입신청하기
 //	@RequestMapping("applyMoim")
 //	public String applyMoim(@RequestParam("userId") String userId,
-//	@RequestParam("mmNo") int mmNo) throws Exception {
+//	@RequestParam("mmNo") int mmNo, Member member) throws Exception {
 //		System.out.println("모임 가입신청을 합니다.");
+//		member.setMmUser(null);
 //		moimService.applyMoim(userId, mmNo);
 //		return "forward:/moim/getMoim";
 //	}
@@ -305,6 +306,7 @@ public class MoimController {
 	
 		System.out.println(search.toString()+boardMoimNo);
 		
+		Moim moim = moimService.getMoim(boardMoimNo);		
 		String boardCategory = null;
 		Map map = new HashMap();
 
@@ -320,7 +322,7 @@ public class MoimController {
 		model.addAttribute("list", map.get("list"));
 		model.addAttribute("totalCount", map.get("totalCount"));
 		model.addAttribute("boardMoimNo", boardMoimNo);
-		
+		model.addAttribute("moim", moim);
 			return "/moim/listMoimBoard";
 	}
 	
@@ -361,7 +363,8 @@ public class MoimController {
 	
 	@RequestMapping("addBoardView")
 	public String addBoardView(@ModelAttribute("boardMoimNo") int boardMoimNo, Model model) {
-		
+		Moim moim = moimService.getMoim(boardMoimNo);
+		model.addAttribute("moim", moim);
 		model.addAttribute("boardMoimNo", boardMoimNo);
 		
 		return "/moim/addMoimBoardView";
