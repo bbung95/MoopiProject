@@ -6,24 +6,48 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Hello! Moopi!</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<!-- Favicon --> 
+<link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
 
-<jsp:include page="../common/commonCDN.jsp"></jsp:include>
+<!-- Bootstrap icons -->
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+<!-- Core theme CSS (includes Bootstrap) -->
+<link href="/css/styles.css" rel="stylesheet" />
+
+<!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" > -->
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" > -->
+<!-- <link rel="stylesheet" href="/images/uploadFiles" >   -->
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="/javascript/owl.carousel.min.js"></script>
+
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>  -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+<link rel="stylesheet" href="/css/owl.carousel.min.css">
+<link rel="stylesheet" href="/css/owl.theme.default.min.css">
+
+<!-- 구글 폰트 -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+<!-- Sweet Alert -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
 		
 		<script src="/javascript/summernote-lite.js"></script>
 		<script src="/javascript/lang/summernote-ko-KR.js"></script>
 		<link rel="stylesheet" href="/css/summernote-lite.css">
-	 	<link rel="preconnect" href="https://fonts.googleapis.com">
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link
-			href="https://fonts.googleapis.com/css2?family=Gaegu:wght@300&display=swap"
-			rel="stylesheet">	
 	
 <script type="text/javascript">
 
 function fncAddBoardView(){
 	alert("게시글작성");
-	self.location ="/board/addBoardView?category=2";
+	self.location ="/moim/addBoardView?category=4";
 }
 
 function fncGetBoard(boardNo){
@@ -442,7 +466,7 @@ padding: 3px 7px;
 body {
 	padding-top: 100px;
 	margin: auto;
-	font-family: 'Gaegu', cursive;
+	font-family: 'Nanum Gothic', sans-serif;
 }
 </style>
 </head>
@@ -473,12 +497,13 @@ body {
                     <span class="input-group-btn">
                         <button type="button" class="btn btn-default search-btn"><i class="fa fa-search"></i></button>
                     </span>
-                    <input type="hidden" id="category" name="category" value="2"/>
+                    <input type="hidden" id="category" name="category" value="4"/>
 					<input type="hidden" id="currentPage" name="currentPage" value="1" />
                 </div>
             </div>
         </form>
 		
+<button type="button" class="btn btn-default btn-sm tpl-forum-write" data-selector=".tpl-forum-write" data-button="true" data-title="button text" onClick="fncAddBoardView()">작성하기</button>
 
 			<div class="userEL9022878 colorSet" data-fcolor="#191919">
 			    <div class="container">
@@ -529,8 +554,6 @@ body {
 
                 </div>
                 
-                <button type="button" class="btn btn-default btn-sm tpl-forum-write" data-selector=".tpl-forum-write" data-button="true" data-title="button text" onClick="fncAddBoardView()">작성하기</button>
-	
 					<jsp:include page="../common/pageNavigator.jsp"/>	
             </div>
 	<jsp:include page="../layout/searchbar.jsp"></jsp:include>

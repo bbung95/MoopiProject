@@ -115,10 +115,28 @@ public class CommonRestController {
 	
 	
 	@GetMapping(value = "json/getGender")
-	public UserData getGender(Model model) throws Exception {
+	public UserData getGenderData(Model model) throws Exception {
 		
 		System.out.println("/getGender-성비 : GET");
-		UserData userData = userService.getGender();
+		UserData userData = userService.getGenderData();
+		model.addAttribute("userData", userData);
+		return userData;
+	}
+	
+	@GetMapping(value = "json/getAge")
+	public UserData getAgeData(Model model) throws Exception {
+		
+		System.out.println("/getAge-연령대 : GET");
+		UserData userData = userService.getAgeData();
+		model.addAttribute("userData", userData);
+		return userData;
+	}
+	
+	@GetMapping(value = "json/getInterest")
+	public UserData getInterestData(Model model) throws Exception {
+		
+		System.out.println("/getInterest-관심사 : GET");
+		UserData userData = userService.getInterestData();
 		model.addAttribute("userData", userData);
 		return userData;
 	}
