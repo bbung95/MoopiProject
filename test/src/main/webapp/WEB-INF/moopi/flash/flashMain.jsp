@@ -94,7 +94,7 @@
 	font-weight: normal;
 	text-overflow: ellipsis;
 	overflow: hidden;
-	-webkit-line-clamp: 3;
+	-webkit-line-clamp: 4;
 	-webkit-box-orient: vertical;
 	display: -webkit-box;
 	margin-top: 0;
@@ -113,7 +113,9 @@
 
 .userEL9001096 .userEL9001096-bg1 {
 	background-image:
-		url(//storage.googleapis.com/i.addblock.net/sample/showcase_42_1.jpg);
+		url(../images/flashM.jpeg);
+	background-size: 50% 50%;
+  	
 }
 
 .userEL9001096 .userEL9001096-bg2 {
@@ -527,9 +529,35 @@ function fncGetFlash(flashNo){
 }
 
 function fncAddFlash(){
-	alert("번개생성!.");
+	alert("번개생성 시작!");
+	
+// 	var name = $("name:flashName").val();
+// 	var file = $("#uploadFile").val();
+// 	var content = $("#flashContent").val();
+// 	var time = $("#flashTime").val();
+	
+// 	if (name == null || name.length< 1)
+// 		alert('번개무피명을 입력해주세요!');
+// 		return
+// 	}
+	
+// 	if (file == null || file.length< 1)
+// 		alert('썸네일 사진을 올려주세요');
+// 		return
+// 	}
+		
+// 	if (content == null || content.length< 1)
+// 		alert('썸네일 사진을 올려주세요');
+// 		return
+// 	}	
+	
+// 	if (time == null || time.length< 1)
+// 		alert('번개 시간 설정해주세요!');
+// 		return
+// 	}
+	
 	$(".form-horizontal").attr("method", "POST").attr("action", "/flash/addFlash").submit();
-	//console.log($('#userId').val());
+	
 
 }
 
@@ -568,14 +596,14 @@ $('.search-btn').on('click', function() {
 						<div class="carousel-caption">
 							<h1 class="figure-title head_title" data-selector="h1.head_title"
 								data-edit="true">
-								<span class="fsize200"><strong>어서오세요 번개처럼 번쩍하는
+								<span class="fsize400"><strong>어서오세요 번개처럼 번쩍하는
 										번개무피 여러분!</strong></span>
 							</h1>
 							<h5 class="figure-caption" data-selector="h5" data-edit="true">
-								<span class="fsize48">번개무피는 번개 생성시 2개의 코인을 소모하고 참가시 1개의
-									코인을 소모한답니다 노쇼를 방지하기 위한 최소한의 금액입니다ㅠㅠ<br>그리고 번개 무피는 무피에서 제일
-									자유로운 공간이에요 신고 조차 불가능합니다 하지만 저희 무피 운영진이 항시 모니터링 중이니 선정적인 번개나 위법
-									모임은 즉각 제제를 받으실수 있습니다!
+								<span class="fsize58">번개무피는 번개 생성시 2개의 코인을 소모하고 참가시 1개의
+									코인을 소모한답니다<br> 노쇼를 방지하기 위한 최소한의 금액입니다ㅠㅠ<br>그리고 번개 무피는 무피에서 제일
+									자유로운 공간이에요!<br>하지만 저희 무피 운영진이 항시 모니터링 중이니 선정적인 번개나 위법
+									번개는 즉각 제제를 받으실수 있습니다!
 								</span>
 							</h5>
 						</div>
