@@ -72,13 +72,34 @@ public class CommonRestController {
 	}
 	
 	//차트에서 쓰려고 만들었습니다.
+	
+	@GetMapping(value = "json/getMonth")
+	public Map getMonth(Model model) throws Exception {
+		Search search = new Search();
+		System.out.println("/getMonth-월간통계 : GET");
+		Map map = paymentService.getMonthList(search);
+		model.addAttribute("list", map.get("list"));
+		return paymentService.getMonthList(search);
+	}
+	
+	
+	
 	@GetMapping(value = "json/getWeek")
 	public Map getWeek(Model model) throws Exception {
 		Search search = new Search();
-		System.out.println("/getWeek : GET");
+		System.out.println("/getWeek-주간통계 : GET");
 		Map map = paymentService.getWeekList(search);
-		model.addAttribute("list", map.get("list"));
+		model.addAttribute("list2", map.get("list2"));
 		return paymentService.getWeekList(search);
+	}
+	
+	@GetMapping(value = "json/getDay")
+	public Map getDay(Model model) throws Exception {
+		Search search = new Search();
+		System.out.println("/getDay-일간통계 : GET");
+		Map map = paymentService.getDayList(search);
+		model.addAttribute("list3", map.get("list3"));
+		return paymentService.getDayList(search);
 	}
 
 	@GetMapping(value = "json/getListNotice/{userId}")
