@@ -30,6 +30,17 @@
 		<result property="coin"				column="COIN"				jdbcType="NUMERIC"/>
 		<result property="badge"			column="BADGE"				jdbcType="CHAR"/>
 	</resultMap>
+	
+	
+	<resultMap id="userDataSelectMap" type="userData">
+		<result property="moopi"			column="moopi"			jdbcType="NUMERIC"/>
+		<result property="google"			column="google"				jdbcType="NUMERIC"/>
+		<result property="naver"			column="naver"			jdbcType="NUMERIC"/>
+		<result property="kakao"			column="kakao"				jdbcType="NUMERIC"/>
+		<result property="male"			column="male"				jdbcType="NUMERIC"/>
+		<result property="female"			column="female"				jdbcType="NUMERIC"/>
+	</resultMap>	
+
 
 	<insert id="addUser"			parameterType="user" >
 		INSERT 
@@ -360,4 +371,40 @@
 		WHERE USER_ID = #{userId}
 	</update>
 		
+		
+		
+		<!-- 차트 -->
+		<select id="getJoinPath"	resultMap="userDataSelectMap">
+		select
+		count(join_path) AS moopi,
+		(select
+		count(join_path)
+		from users
+		where join_path = 2) AS google,
+		(
+		select
+		count(join_path)
+		from users
+		where join_path = 3
+		)  AS naver,
+		(
+		select
+		count(join_path)
+		from users
+		where join_path = 4
+		) AS kakao
+		from users
+		where join_path = 1;
+		</select>
+		
+		<select id="getGender"	resultMap="userDataSelectMap">
+		select count(gender) AS male,
+		(
+		select count(gender) 
+		from users
+		where gender = 2
+		) AS female
+		from users
+		where gender = 1;
+		</select>
 </mapper>

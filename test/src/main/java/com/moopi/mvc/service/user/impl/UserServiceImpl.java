@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 
 import com.moopi.mvc.common.Search;
 import com.moopi.mvc.service.domain.User;
+import com.moopi.mvc.service.domain.UserData;
 import com.moopi.mvc.service.user.UserDao;
 
 @Service
@@ -207,5 +208,13 @@ public class UserServiceImpl {
 		
 		userDao.updateUserRole(user);
 	}
+	
+	//차트관련
+	public UserData getJoinPath() throws Exception {
+		return userDao.getJoinPath();
+	}
 
+	public UserData getGender() throws Exception {
+		return userDao.getGender();
+	}
 }
