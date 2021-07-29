@@ -25,11 +25,12 @@
 //		logger.debug("Request URI ===> " + request.getRequestURI());
 //		
 //		HttpSession session = request.getSession();
-//		User user = (User)session.getAttribute("loginUser");
+//		User user = (User)session.getAttribute("dbUser");
 //		
 //		if(ObjectUtils.isEmpty(user)) {
 //			
 //		}
+//		return false;
 //	}
 //
 //	@Override

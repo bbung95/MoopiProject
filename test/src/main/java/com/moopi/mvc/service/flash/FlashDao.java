@@ -33,6 +33,8 @@ public interface FlashDao {
 	public void joinFlash(@Param("userId") String userId,
 							@Param("flashNo") int flashNo) throws Exception;
 	
+	public void joinFlashUpdate(Flash flash) throws Exception;
+	
 	public List<MeetingFlashMember> getJoinFlashList(int targetNo) throws Exception;
 
 

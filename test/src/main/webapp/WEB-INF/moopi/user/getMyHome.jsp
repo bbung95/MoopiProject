@@ -28,10 +28,9 @@
 <script src="/javascript/jquery.bpopup-0.1.1.min.js"></script>
 
 
-<!---[마이홈으로 이동하는 단순 컨트롤러 실행]----------------------------------------------------------------------------------------------------------------------->	
-		$("button[name='movePU']").on("click", function(){
-			location.href = "/user/updateProfile"
-		});
+<!---[마이홈으로 이동하는 단순 컨트롤러 실행]----------------------------------------------------------------------------------------------------------------------->
+$("button[name='movePU']").on("click", function(){ location.href =
+"/user/updateProfile" });
 <!-------------------------------------------------------------------------------------------------------------------------->
 
 </script>
@@ -333,14 +332,14 @@ body {
 
 @media ( min-width : 992px) {
 	.container {
-		width: 940px;
+		width: 1000px;
 	}
 }
 
 /*사실 이 블럭은 없어도 된다*/
 @media ( min-width : 1200px) {
 	.container {
-		width: 940px;
+		width: 1000px;
 	}
 }
 
@@ -395,29 +394,27 @@ pre {
 								data-bs-toggle="modal" data-bs-target="#staticBackdrop">게시글등록</button>
 						</c:if>
 						<c:if test="${dbUser.userId != user.userId}">
-							<button class="btn btn-primary mybtn" type="button"
-								target="${user.userId}">팔로우</button>
-							<button class=" btn btn-light mybtn" type="button"
-								target="${user.userId}" type="1">채팅</button>
+							<button class="btn btn-primary mybtn" target="${user.userId}">팔로우</button>
+							<button class=" btn btn-light mybtn" target="${user.userId}"
+								type="1">채팅</button>
 						</c:if>
 					</div>
 				</div>
-				
+
 				<!-- 모임리스트 -->
 				<div class="col-xs-4 col-sm-4 col-md-4 item">
-					<div class="card border-0 bg-light mt-xl-3">
+					<div class="card border-0 bg-light ">
 						<div class="card-body p-4 py-lg-3">
 							<c:forEach var="moim" items="${moim}">
 								<div>
 									<span
 										style="background: white; margin: 5px; height: 100px; border-radius: 10px;"
-										onclick="location='/moim/getMoim?mmNo=${moim.mmNo}'">
-										<img
+										onclick="location='/moim/getMoim?mmNo=${moim.mmNo}'"> <img
 										style="margin: 5px; height: 90px; width: 90px; border-radius: 10px;"
 										src="/images/uploadFiles/${moim.mmFile}"></img> <span>${moim.mmName}</span>
 									</span>
 								</div>
-							</c:forEach> 
+							</c:forEach>
 						</div>
 					</div>
 				</div>
@@ -526,30 +523,48 @@ pre {
     });
     
 $('button:contains("채팅")').on('click', function(){
+
+	let type = $(this).attr('type');
+	let target = $(this).attr('target');
 	
 	if(dbUser == ''){
 		
 		alert("로그인 후 이용가능합니다.");
 		return;
 	}
-	
-	let target = $(this).attr('target');
-	let type = $(this).attr('type');
-	
-	$.ajax({
-		url: "/common/chat/joinRoom/"+dbUser+"/"+target+"/"+type,
-		method: "GET",
-		dataType: "JSON",
-		success: function(data,state){
-	
-		popWin = window.open(
-			"https://bbung95-rtc.herokuapp.com/chat?userId="+data.user.userId+"&trgt="+data.target.userId+"&type="+data.type
-			+"&name="+data.user.nickname+"&profile="+data.user.profileImage+"&trgtName="+data.target.nickname
-			+"&trgtProfile="+data.target.profileImage,
-			"popWin"+target,
-			"left=460, top=300, width=460, height=600, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");
+		
+		$.ajax({
+				url: "/common/chat/joinRoom/"+dbUser+"/"+target+"/"+type,
+				method: "GET",
+				dataType: "JSON",
+				success: function(data,state){
+					console.log(JSON.stringify(data));
+					let url;
+					if(data.type == 1){
+						url = "http://localhost:82/chat?userId="+data.user.userId+"&trgt="+data.target.userId+"&type="+data.type
+								+"&name="+data.user.nickname+"&profile="+data.user.profileImage+"&trgtName="+data.target.nickname
+								+"&trgtProfile="+data.target.profileImage; 
+						
+						/* url = "https://bbung95-rtc.herokuapp.com/chat?userId="+data.user.userId+"&trgt="+data.target.userId+"&type="+data.type
+						+"&name="+data.user.nickname+"&profile="+data.user.profileImage+"&trgtName="+data.target.nickname
+						+"&trgtProfile="+data.target.profileImage;*/
+					}else{
+						 url = "http://localhost:82/chat?userId="+data.user.userId+"&trgt="+data.target.mmNo+"&type="+data.type
+						+"&name="+data.user.nickname+"&profile="+data.user.profileImage+"&trgtName="+data.target.mmName
+						+"&trgtProfile="+data.target.mmFile+"&roomNo="+data.target.mmNo; 
+						
+						/*url = "https://bbung95-rtc.herokuapp.com/chat?userId="+data.user.userId+"&trgt="+data.target.mmNo+"&type="+data.type
+						+"&name="+data.user.nickname+"&profile="+data.user.profileImage+"&trgtName="+data.target.mmName
+						+"&trgtProfile="+data.target.mmFile+"&roomNo="+data.target.mmNo;*/
+					}
+				popWin = window.open(
+					url,
+						"popWin"+target,
+					"left=460, top=300, width=460, height=600, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");
+			
 		}
 	})
+		
 })
 
 $('button:contains("팔로우")').on('click', function(){
@@ -769,13 +784,6 @@ if(${followCheck}){
 													+'</div>'
 													+'</div>'
 													+'</div>'
-													+'<div class="board_i"><i class="bi bi-heart"></i><i class="bi bi-heart-fill"></i>'+list[i].boardLike+'</div>'
-													+'<div class="cont-wrap">'
-													+'<div class="tpl-forum-list-cont" data-selector=".tpl-forum-list-cont" data-font="true"'
-													+'data-title="content font" style="overflow:hidden; height: 20px;">'+list[i].boardContent+'</div>'
-													+'</div>'
-													+'</div>'
-													+'</div>'
 								$('#boardView').append(displayValue);
 							}
 							loading = false;
@@ -788,7 +796,6 @@ if(${followCheck}){
 		
 		
 		function getMyBoard(boardNo){
-			
 			
 			$.ajax({
 				url: "/user/json/getMyBoard/"+boardNo,
@@ -808,7 +815,9 @@ if(${followCheck}){
 					}			
 					
 					// 게시글 상세내용
-					display += '<div style="display: inline-block;"><img class="boardProfile" src="/images/uploadFiles/'+board.boardWriter.profileImage+'" /><span style="vertical-align: middle;">'+board.boardWriter.nickname+'</span></div>'
+					display += '<div"><img class="boardProfile" src="/images/uploadFiles/'+board.boardWriter.profileImage+'" />'
+							+ board.boardWriter.nickname+' </div>'
+							+ board.boardRegDate
 							+ '<hr/>'
 							+ '<pre data-edit="true" data-selector="p" >'
 							+ '<span class="fsize13">'+board.boardContent+'</span>'
@@ -823,12 +832,18 @@ if(${followCheck}){
 							+ '<pre style="font-size : 13px; padding-left: 40px;">'+reply[i].replyContent+'</pre></li>';
 					}
 							
-							
-					
 					// 리플 입력폼
 					display	+= '</ul><hr/ style="margin: 0;">'
-							+ '<div class="board_i"><i class="bi bi-heart"></i><i class="bi bi-heart-fill"></i>'+board.boardLike+'</div>'
-							+ '<div class="input-group mb-3">'
+							+ '<div class="board_i">'
+					
+					// like 온 오프
+					if(data.likeCheck){
+						display += '<i class="bi bi-heart-fill likebtn"></i><span class="likeCount">'+board.boardLike+'</span></div>'
+					}else{
+						display += '<i class="bi bi-heart likebtn"></i><span class="likeCount">'+board.boardLike+'</span></div>'
+					}	
+					
+					display	+= '<div class="input-group mb-3">'
 							+ '<input type="hidden" id="myBoardNo" value="'+board.boardNo+'"/>'
 							+ '<input type="text" class="form-control" placeholder="Recipient reply" name="replyContent" id="replyContent">'
 							+ '<button class="btn btn-outline-secondary" type="button" id="button-addon2" onclick="addReply('+board.boardNo+')">전송</button>'
@@ -838,6 +853,27 @@ if(${followCheck}){
 					$('.swiper-wrapper').append(displayslide);
 					$('#element_content').children().remove();
 					$('#element_content').append(display);
+					
+					$('.likebtn').on('click', function(){
+						$.ajax({
+							url : "/user/json/myBoardLike/"+boardNo,
+							method : "GET",
+							dataType : "JSON",
+							success: function(data, state){
+								
+								let count = parseInt($('.likeCount').text().trim());
+								$('.likeCount').children().remove();
+								
+								if(data){
+									$('.bi-heart-fill').attr('class','bi bi-heart likebtn');
+									$('.likeCount').text(count-1);
+								}else{
+									$('.bi-heart').attr('class','bi bi-heart-fill likebtn');
+									$('.likeCount').text(count+1);
+								}
+							}
+						})
+					})
 				}
 			})
 			
@@ -847,7 +883,7 @@ if(${followCheck}){
 	        });
 		}
 		
-		
+		// 댓글등록
 		function addReply(boardNo){
 			
 			let replyContent = $('#replyContent').val();
@@ -879,6 +915,7 @@ if(${followCheck}){
 			});
 		}
 		
+		// 댓글삭제
 		function deleteReply(){
 			$.ajax({
 				url: "/reply/json/deleteReply/"+replyNo,
