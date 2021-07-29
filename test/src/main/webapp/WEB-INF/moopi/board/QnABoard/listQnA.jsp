@@ -455,8 +455,9 @@ body {
 			                    </thead>
 			                    <tbody data-loop="true" data-view="8">
 			                        <c:forEach var="board" items="${list}">
+			                        <c:set var="i" value="${ i+1 }"/>
 			                        <tr>
-			                            <td scope="row" class="tpl-forum-list-num tpl-forum-list-etc op_itemline10">1</td>
+			                            <td scope="row" class="tpl-forum-list-num tpl-forum-list-etc op_itemline10">${i }</td>
 			                            
 			                             
 		                                <c:if test="${ !empty board.boardPassword}"> 

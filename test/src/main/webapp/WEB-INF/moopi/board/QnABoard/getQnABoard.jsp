@@ -19,11 +19,14 @@
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link
 			href="https://fonts.googleapis.com/css2?family=Gaegu:wght@300&display=swap"
+			
 			rel="stylesheet">	
 	
 	  
 	<style>
 	html  { background-color: #ffffff; background-image:none;}	
+	
+	
 	body {
 	padding-top: 100px;
 	margin: auto;
@@ -42,10 +45,12 @@
 	}
 
 	.board_title{
+		font-weight:bold;
 	
 	}
 			
 	.reply_head{
+		font-weight:bold;
 		background-color: #e8e8e8;
 	    border-radius: 4px;
 		display: flex;
@@ -54,13 +59,16 @@
 	}
 					
 	.board_content{
+		font-weight:bold;
+		font-size:25px;
 		min-height:200px;
 		padding:10px;
 	
 	}
 	.reply_content{
-	
-		padding:5px;
+		font-weight:bold;
+		font-size:20px;
+		padding:15px;
 	}
 						
 	@media ( min-width : 768px) {
@@ -106,11 +114,11 @@
 		
 		
 			<div class="row">
-				<div class="col-xs-8 col-sm-12 col-md-12">
-					<h2 class="head_title" data-edit="true" data-selector="h3.head_title" style="margin:0px"><span class="fsize20" ><strong>QnA게시판조회</strong></span></h2><br><br>
+				<div class="col-xs-8 col-sm-12 col-md-12" style="padding-bottom: 50px;">
+					<h2 class="head_title" data-edit="true" data-selector="h3.head_title" style="margin:0px"><span class="fsize40" ><strong>QnA게시판조회</strong></span></h2><br><br>
 				
 				<section clsss="board">
-				<div style="font-size:25px; margin:0px"> ${board.boardName}</div>	
+				<div style="font-size:35px; margin:0px"> ${board.boardName}</div>	
 				<div class="board_title">
 				
 				<div style="display:inline-block; float:right;">${board.boardRegDate}
@@ -127,8 +135,10 @@
 					${board.boardContent}
 					</div>
 					<div style="float:right;">
+					<c:if test="${dbUser.userId eq reply.replyWriter.userId}">
 						<button type="button" class="btn btn-primary updateBoard" >수정</button>
 						<button type="button" class="btn btn-primary deleteBoard" >삭제</button>
+					</c:if>
 						<button type="button" class="btn btn-primary addReportBoard" >신고</button>
 					</div>
 					<br>
@@ -137,7 +147,7 @@
 				
 <!-- 				리플리스트 시작 -->
 				<section class="reply-content">
-					<div class="container replyHr">
+					<div class="container reply_list">
 						<c:forEach var="reply" items="${list}">
 							<div id="${reply.replyNo }">
 								<input type="hidden" class="reply" name="replyNo" value="${reply.replyNo}">
@@ -153,8 +163,13 @@
 								${reply.replyContent}
 								</div>
 								<div style="float:right;">
+								
+								
+								<c:if test="${dbUser.userId eq reply.replyWriter.userId}">
 									<button type="button" class="btn btn-primary updateReply">수정</button>
 									<button type="button" class="btn btn-primary deleteReply">삭제</button>
+								</c:if>
+									
 									<button type="button" class="btn btn-primary addReportReply">신고</button>
 								</div>
 								<br><br>
@@ -171,14 +186,17 @@
  				
  				<section class="replyWrite">
 					<form name="detailForm" enctype="multipart/form-data">
-							<div id="addReplyForm">		
-								<div style="padding-left:100px; width:800px">
-									<textarea id="summernote" placeholder="댓글을 입력해주세요." name="replyContent" id="replyContent" ></textarea>						
-								</div>					
-									<input type="hidden" id = "replyWriter" value="${dbUser.userId}"> 
-		  							<input type="hidden" id = "boardNo" value="${board.boardNo }"> 
-								<div class="btn btn-submit btn-round" style=" float:right; border-color: rgba(0, 0, 0, 0.4); color: rgba(0, 0, 0, 0.8);" id="addReply"> 
-									등록
+							<div id="addReplyForm" style="float:right; padding-right: 20px; padding-top: 20px;">
+								<div class="col-md-5" style="font-size: 20px;"> ${dbUser.nickname }</div>
+									<div style="padding-left:100px; width:900px">
+										<textarea id="summernote" placeholder="댓글을 입력해주세요." name="replyContent" id="replyContent" ></textarea>						
+									</div>					
+										<input type="hidden" id = "replyWriter" value="${dbUser.userId}"> 
+			  							<input type="hidden" id = "boardNo" value="${board.boardNo }"> 
+			  						<div class="reply_button" style="padding-top:20px;">
+										<div class="btn btn-submit btn-round" style=" float:right; border-color: rgba(0, 0, 0, 0.4); color: rgba(0, 0, 0, 0.8);" id="addReply"> 
+											등록
+										</div>
 								</div>
 							</div>
 					</form>	
@@ -196,6 +214,7 @@
 	<jsp:include page="../../layout/searchbar.jsp"></jsp:include>
 	</body>
 	<script type="text/javascript">
+	
 	 $(document).ready(function() {
     	 $('#summernote').summernote({
 				height: 150,                 // 에디터 높이
@@ -255,8 +274,12 @@
          }
         e.preventDefault();
    })
+   		</script>
+   		
+   		<script type="text/javascript">
    
-		$(function() {
+		
+   		$(function() {
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 			$( ".updateBoard" ).on("click" , function() {
 				fncUpdateView();
@@ -265,51 +288,50 @@
 		
 		
 		function fncUpdateView(){
-			alert("게시글수정");
-			alert(${board.boardNo});
+// 			alert("게시글수정");
+// 			alert(${board.boardNo});
 			var boardNo = ${board.boardNo};
-		// 	var boardCategory	=$("input[name='boardCategory']").val();
-		// 	var boardWriter		=$("input[name='boardWriter']").val();
-		// 	var boardName		=$("input[name='boardName']").val();
-		// 	var boardContent	=$("input[name='boardContent']").val();
-			
 			$("form.form-horizontal").attr("method" , "GET").attr("action" , "/board/updateView").submit();
 		}
 		
-		
-		$(function() {
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 			$( "#deleteBoard" ).on("click" , function() {
 				fncDeleteBoard();
 			});
-		});	
 		
 		function fncDeleteBoard(){
-			alert("게시글삭제");
-			alert(${board.boardNo});
 			var boardNo = ${board.boardNo};
 			
 			$("form.form-horizontal").attr("method" , "GET").attr("action" , "/board/deleteBoard").submit();
 			
 		}
 		
-		$(function() {
-			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+		function fncAddBoardReport(){
+			var reportTarget = $("#boardNo").val();
+			self.location ="/report/addReportView?reportCategory=1&reportTargetBd.boardNo="+reportTarget;
+		}
+		
+			
+			$(  ".addReportReply"  ).on("click" , function() {
+				replyNo = $(this).parent().parent().find("input[name=replyNo]").val()
+				fncAddReplyReport(replyNo);
+			});
+			
+		</script>
+		
+		
+		<script type="text/javascript">
+		
 			$( "#addReply" ).on("click" , function() {
-				alert("addReply");
-				alert($("#summernote").val()) 
 				
 				fncAddReply();
 			});
-		});	
 
 		function fncAddReply(){
-			
 			
 			var replyContent=$("#summernote").val()
 			var replyWriter = $("#replyWriter").val();
 			var boardNo = $("#boardNo").val();
-			
 			
 			$.ajax({
 				url: "/reply/json/addReply",
@@ -321,7 +343,7 @@
 // 					alert(state)
 					var displayValue =
 					
-					 ' 	<div class='+data.replyNo+'>'		
+					 ' 	<div id='+data.replyNo+'>'		
 					+'  <input type="hidden" class="reply" name="replyNo" value='+data.replyNo+'>'
 					+'	<div class="reply_head">'
 					+'	<div style="display: inline-block">'
@@ -337,33 +359,42 @@
 					+'	<div style="float:right;">'
 					+'	<button type="button" class="btn btn-primary updateReply">수정</button>'
 					+'	<button type="button" class="btn btn-primary deleteReply">삭제</button>'
-					+'	<button type="button" class="btn btn-primary ReportReply">신고</button>'
+					+'	<button type="button" class="btn btn-primary addReportReply">신고</button>'
 					+'	</div>'
 					+'	</div>'
 					+'	<br><br>'
 					
-						$(".reply").append(displayValue);
-				}
+						$(".reply_list").append(displayValue);
+						$(".note-editable").empty();
+					
+						
+	 		       			$( ".updateReply" ).on("click" , function() {
+	 		       				replyNo = $(this).parent().parent().find("input[name=replyNo]").val()
+	 		       				fncGetReply(replyNo);
+	 		       			});
+						
+	 		       			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+	 		       			$( ".deleteReply" ).on("click" , function() {
+	 		       				replyNo = $(this).parent().parent().find("input[name=replyNo]").val()
+	 		       				fncDelteReply(replyNo);
+	 		       			});
+	 		            	
+	 		       			$(  ".addReportReply"  ).on("click" , function() {
+	 		       				replyNo = $(this).parent().parent().find("input[name=replyNo]").val()
+	 		       				fncAddReplyReport(replyNo);
+	 		       			});
+						}
+				});
 		
-
-		});
+			}
 		
-		}
-		
-		$(function() {
-			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+			
 			$( ".updateReply" ).on("click" , function() {
-// 				alert("test")
-
 				replyNo = $(this).parent().parent().find("input[name=replyNo]").val()
 				fncGetReply(replyNo);
-				
-				
 			});
-		});	
 		
 		function fncGetReply(replyNo){
-			alert("게시글수정");
 			$.ajax({
 				url: "/reply/json/getReply/"+replyNo,
 				type: "GET",
@@ -371,133 +402,109 @@
 				contentType : "application/json",
 				data :  JSON,
 			    success : function(data , status) {
-		               //alert(JSONData.memberRole);	
-		                alert(status);
 		                var displayValue = 
-						'<div style="padding-left:100px; width:800px">'
-					+	'	<textarea id="summernote" name="replyContent" id="replyContent" ></textarea>'						
-					+	'</div>	'
-					+	'	<input type="hidden" id = "replyWriter" value="'+data.replyWriter.userId+'">' 
-  					+	'	<input type="hidden" id = "boardNo" value="'+data.boardNo+'"> '
-					+	'<div class="btn btn-submit btn-round" style=" float:right; border-color: rgba(0, 0, 0, 0.4); color: rgba(0, 0, 0, 0.8);" id="updateReply">' 
+						'<div class="btn btn-submit btn-round" style=" float:right; border-color: rgba(0, 0, 0, 0.4); color: rgba(0, 0, 0, 0.8);" id="updateReply">' 
 					+	'수정'
 					+	'</div>'
+					+	'<input type="hidden" name="replyNo" value="'+data.replyNo+'">'
 		    			
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-		    			
-						$("#"+replyNo).remove();
-// 						$("#addReplyForm").remove();
-// 						$("#addReplyForm").append(displayValue);
-// 						$(".note-editable").append(data.replyContent);
+						$("#"+replyNo).empty();
+						$(".reply_button").empty();
+						$(".reply_button").append(displayValue);
+						$(".note-editable").append(data.replyContent);
 						
-						
-		                }
-			
-			            }
-         
-			)};
-			
-			
-		$(function(){
-			
-			$("#updateReply]").on("click", function(){
-				replyNo = $(this).parent().parent().find("input[name=replyNo]").val()
-				replyContent = $(this).parent().parent().find("textarea[name=replyNo]").val()
-				
-				fncUpdateReply(replyNo, replyContent)
-			})
-		})
-		
-		
-		
-		function fncUpdateReply(replyNo, replyContent){
-			alert("리플업데이트");
-// 			replyNo = $(this).parent().parent().find("input[name=replyNo]").val()
-			alert(replyNo)			
-			
-			$.ajax({
-				url: "/reply/json/updateReply",
-				type: "POST",
-				dataType: "json",
-				contentType : "application/json",
-				data : JSON.stringify ({ "replyNo": replyNo , "replyContent":replyContent}),
-			    success : function(data , status) {
-			    	
-		                alert(status);
-			            console.log(data);
-			            
-		            	var displayValue = 
-		            		 ' 	<div class='+data.replyNo+'>'		
-		 					+'  <input type="hidden" class="reply" name="replyNo" value='+data.replyNo+'>'
-		 					+'	<div class="reply_head">'
-		 					+'	<div style="display: inline-block">'
-		 					+	 data.replyWriter.nickname
-		 					+'	</div>'
-		 					+'	<div style="display: inline-block; float:right;">'
-		 					+'    작성시간 : '+ data.replyRegDate
-		 					+'	</div>'
-		 					+'	</div>'
-		 					+'	<div class="reply_content" style="min-height:70px">'
-		 					+   data.replyContent
-		 					+'	</div>'
-		 					+'	<div style="float:right;">'
-		 					+'	<button type="button" class="btn btn-primary updateReply">수정</button>'
-		 					+'	<button type="button" class="btn btn-primary deleteReply">삭제</button>'
-		 					+'	<button type="button" class="btn btn-primary ReportReply">신고</button>'
-		 					+'	</div>'
-		 					+'	</div>'
-		 					+'	<br><br>'	
+						$(function(){
+							$("#updateReply").on("click", function(){
 								
-		 				var displayValue2 = 
-		 						'<div style="padding-left:100px; width:800px">'
-							+	'	<textarea id="summernote" name="replyContent" id="replyContent" ></textarea>'						
-							+	'</div>	'
-							+	'	<input type="hidden" id = "replyWriter" value="'+data.replyWriter.userId+'">' 
-		  					+	'	<input type="hidden" id = "boardNo" value="'+data.boardNo+'"> '
-							+	'<div class="btn btn-submit btn-round" style=" float:right; border-color: rgba(0, 0, 0, 0.4); color: rgba(0, 0, 0, 0.8);" id="addReply">' 
-							+	'등록'
-							+	'</div>'	
-		 					
-		    			$("#"+replyNo).append(displayValue);
-		            	$("#addReplyForm").remove();
-		            	$("#addReplyForm").append(displayValue2);
+								replyNo = $(this).parent().parent().find("input[name=replyNo]").val()
+								replyContent = $(this).parent().parent().find("textarea[name=replyContent]").val()
+								fncUpdateReply(replyNo, replyContent)
+							})
+						})
+						
+						function fncUpdateReply(replyNo, replyContent){
+// 							alert("리플업데이트");
+// //				 			replyNo = $(this).parent().parent().find("input[name=replyNo]").val()
+// 							alert(replyNo)			
+// 							alert(replyContent)			
+							
+							$.ajax({
+								url: "/reply/json/updateReply",
+								type: "POST",
+								dataType: "json",
+								contentType : "application/json",
+								data : JSON.stringify ({ "replyNo": replyNo , "replyContent":replyContent}),
+							    success : function(data , status) {
+							    	
+// 						                alert(status);
+							            console.log(data);
+							            
+						            	var displayValue = 
+						            		 ' 	<div class='+data.replyNo+'>'		
+						 					+'  <input type="hidden" class="reply" name="replyNo" value='+data.replyNo+'>'
+						 					+'	<div class="reply_head">'
+						 					+'	<div style="display: inline-block">'
+						 					+	 data.replyWriter.nickname
+						 					+'	</div>'
+						 					+'	<div style="display: inline-block; float:right;">'
+						 					+'    작성시간 : '+ data.replyRegDate
+						 					+'	</div>'
+						 					+'	</div>'
+						 					+'	<div class="reply_content" style="min-height:70px">'
+						 					+   data.replyContent
+						 					+'	</div>'
+						 					+'	<div style="float:right;">'
+						 					+'	<button type="button" class="btn btn-primary updateReply">수정</button>'
+						 					+'	<button type="button" class="btn btn-primary deleteReply">삭제</button>'
+						 					+'	<button type="button" class="btn btn-primary addReportReply">신고</button>'
+						 					+'	</div>'
+						 					+'	</div>'
+						 					+'	<br><br>'	
+												
+				 		 				var displayValue2 = 
+				 		 					
+				 		 					'<div class="btn btn-submit btn-round" style=" float:right; border-color: rgba(0, 0, 0, 0.4); color: rgba(0, 0, 0, 0.8);" id="addReply">' 
+										+	'	등록'
+										+	'</div>'
+						 					
+						    			$("#"+replyNo).append(displayValue);
+						    			$(".note-editable").empty();
+				 		            	$(".reply_button").empty();
+				 		            	$(".reply_button").append(displayValue2);
+						               
+					 		       			$( "#addReply" ).on("click" , function() {
+					 		       				fncAddReply();
+					 		       			});
+					 		            	
+					 		       			$( ".updateReply" ).on("click" , function() {
+					 		       				replyNo = $(this).parent().parent().find("input[name=replyNo]").val()
+					 		       				fncGetReply(replyNo);
+					 		       			});
+					 		            	
+					 		       			$( ".deleteReply" ).on("click" , function() {
+// 					 		       				alert("updateReply 내부 deleteReply")
+					 		       				replyNo = $(this).parent().parent().find("input[name=replyNo]").val()
+					 		       				fncDelteReply(replyNo);
+					 		       			});
+					 		            	
+					 		       			$(  ".addReportReply"  ).on("click" , function() {
+					 		       				replyNo = $(this).parent().parent().find("input[name=replyNo]").val()
+					 		       				fncAddReplyReport(replyNo);
+					 		       			});
+						    		}
+							});
+						}
 		                }
-			
-			});
-				
-		};
+		            }
+			)};
 		
-		$(function() {
-			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 			$( ".deleteReply" ).on("click" , function() {
-				alert("deleteReply")
+// 				alert("바깥의 deleteReply")
 				replyNo = $(this).parent().parent().find("input[name=replyNo]").val()
 				fncDelteReply(replyNo);
 			});
-		});	
 		
 		function fncDelteReply(replyNo){
-			alert('#replyNo'+replyNo)
-			
-			alert("리플삭제");
 			$.ajax({
 				url: "/reply/json/deleteReply/"+replyNo,
 				type: "GET",
@@ -505,56 +512,18 @@
 				contentType : "application/json",
 				data : JSON,
 			    success : function(JSONData , status) {
-			    	
-		                alert(status);
-		                
 						$('#'+replyNo).remove();
 		                }
-		             
 			});
-				
 		};
 		
-		$(function() {
-			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 			$(  ".addReportBoard"  ).on("click" , function() {
-				
-				
 				fncAddBoardReport();
-				
 			});
-		});	
-		
-		
-		function fncAddBoardReport(){
-			alert("AddBoardReport 실행");
-			
-			
-			var reportTarget = $("#boardNo").val();
-			
-			
-			self.location ="/report/addReportView?reportCategory=1&reportTargetBd.boardNo="+reportTarget;
-			
-		}
-			
-		$(function() {
-			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-			$(  ".addReportReply"  ).on("click" , function() {
-				
-				replyNo = $(this).parent().parent().find("input[name=replyNo]").val()
-				fncAddReplyReport(replyNo);
-				
-			});
-		});	
-		
 		
 		function fncAddReplyReport(replyNo){
-			alert("AddReplyReport 실행");
-			
 			self.location ="/report/addReportView?reportCategory=2&reportTargetRe.replyNo="+replyNo;
-			
 		}				
-				
 	</script>
 	</html>
 	
