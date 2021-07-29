@@ -362,7 +362,7 @@
 											+ data[i].moim.mmName+"의 초대되었습니다"
 											+ "</span>"
 											+ "<span>"
-											+ "<button type='button' class='btn btn- apply' mmNo='"+data[i].moim.mmNo+"' userId='"+data[i].toUserId+"'>Accept</button>"
+											+ "<button type='button' class='btn btn-default notice-accept' mmNo='"+data[i].moim.mmNo+"' userId='"+data[i].toUserId+"'>Accept</button>"
 											+ "<button type='button' class='btn btn-default refuseApply' memberNo='"+data[i].member.memberNo+"'>reject</button>"
 											+ "<button type='button' class='btn-close' notice='"+data[i].noticeNo+"' aria-label='Close'></button></span></div>";
 								}
@@ -396,14 +396,14 @@
 						})
 						// 알림삭제 end
 						
-						$('.apply').on('click', function(){
+						$('.notice-accept').on('click', function(){
 		
 							let mmNo = $(this).attr("mmNo");
 							let userId = $(this).attr("userId");
 							let notice = $(this);
 		
 							$.ajax({
-									url: "/moim/json/applyMoim",
+									url: "/moim/json/acceptApplyMoim",
 									method: "POST",
 									contentType : "application/JSON",
 									data: JSON.stringify({"mmUser" : {"userId" : userId},

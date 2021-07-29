@@ -129,7 +129,7 @@
 	<!-- 일별통계 -->
 	<select id="getDayList" parameterType="search" resultMap="chartSelectMap">
 		select 
-		sum(payment_price)  AS payment_price, payment_regdate AS date
+		sum(payment_price)  AS payment_price, date_format(payment_regdate, '%c월%d일') AS date
 		from payment 
 		group by date
 		order by date
