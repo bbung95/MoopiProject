@@ -212,11 +212,12 @@ public class MoimController {
 	
 	
 	
-//	//모임 가입신청하기
+	//모임 가입신청하기
 //	@RequestMapping("applyMoim")
 //	public String applyMoim(@RequestParam("userId") String userId,
-//	@RequestParam("mmNo") int mmNo) throws Exception {
+//	@RequestParam("mmNo") int mmNo, Member member) throws Exception {
 //		System.out.println("모임 가입신청을 합니다.");
+//		member.setMmUser(null);
 //		moimService.applyMoim(userId, mmNo);
 //		return "forward:/moim/getMoim";
 //	}

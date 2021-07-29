@@ -454,7 +454,7 @@ body {
 <div class="userEL8991295 colorSet" data-forum-type="thumb" data-fcolor="#191919" >
     <div class="container">
 			<div class="col-xs-12 col-sm-12 col-md-12">
-			    <h3 class="head_title" data-edit="true" data-selector="h3.head_title" ><span class="fsize20" ><strong>문의 게시판</strong></span></h3>
+			    <h3 class="head_title" data-edit="true" data-selector="h3.head_title" ><span class="fsize20" ><strong>소모임 게시판</strong></span></h3>
 		   </div>
    		<form id="searchBar">
             <div class="col-xs-12 col-sm-12 col-md-12 search-box clearfix">
@@ -494,8 +494,6 @@ body {
 			                            <th class="ntpl-forum-content tpl-forum-content tpl-forum-header-row">제목</th>
 			                            <th class="ntpl-forum-name tpl-forum-name tpl-forum-header-row">작성자</th>
 			                            <th class="ntpl-forum-date tpl-forum-date tpl-forum-header-row">작성일</th>
-			                            <th class="ntpl-forum-date tpl-forum-date tpl-forum-header-row">공개/비공개</th>
-			                            <th class="ntpl-forum-date tpl-forum-date tpl-forum-header-row">답변여부</th>
 			                            <th class="ntpl-forum-date tpl-forum-date tpl-forum-header-row">Like</th>
 			                        </tr>
 			                    </thead>
@@ -515,14 +513,6 @@ body {
 			                            
 			                            <td class="tpl-forum-list-name tpl-forum-list-etc op_itemline10"> ${board.boardWriter.nickname}</td>
 			                            <td class="tpl-forum-list-date tpl-forum-list-etc op_itemline10">${board.boardRegDate}</td>
-			                            <td class="tpl-forum-list-date tpl-forum-list-etc op_itemline10">  
-			                             <c:if test="${  empty board.boardPassword}"> 
-		                                공개
-		                                </c:if> 
-										<c:if test="${ !empty board.boardPassword}"> 
-										비공개 
-										</c:if></td>
-			                            <td class="tpl-forum-list-date tpl-forum-list-etc op_itemline10">${ board.replyCount == 0 ? "답변대기중" : "답변완료"}</td>
 			                            <td class="tpl-forum-list-date tpl-forum-list-etc op_itemline10">${ board.boardLike}</td>
 			                        </tr>
 			                        </c:forEach>

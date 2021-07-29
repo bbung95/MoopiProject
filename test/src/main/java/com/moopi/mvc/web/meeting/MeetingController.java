@@ -95,16 +95,17 @@ public class MeetingController {
 	
 	//정모수정
 	@RequestMapping("updateMeeting")
-	public String updateMeeting(@ModelAttribute("meeting") Meeting meeting,
-			@RequestParam("userId") String userId, Model model) throws Exception{
+	public String updateMeeting(@ModelAttribute("meeting") Meeting meeting, HttpSession session, Model model) throws Exception{
 		
-		System.out.println("addMeeting :::");
+		System.out.println("updateMeeting :::");
 		System.out.println(meeting);
-		User user = userService.getUser(userId);
+		User user = (User)session.getAttribute("dbUser");
 		meeting.setMtConstructor(user);
+		String userId = user.getUserId();
 		meetingService.updateMeeting(meeting);
 		model.addAttribute("meeting", meeting);
 		int mmNo = meeting.getMmNo();
+		model.addAttribute("mmNo", mmNo);
 		return "redirect:/meeting/listMeeting?mmNo="+mmNo+"&userId="+userId;
 	}
 	
@@ -138,6 +139,7 @@ public class MeetingController {
 //		model.addAtrribute("mtAddr", "우이도가족캠핑장");
 		model.addAttribute("mtContent", "캠핑가요");
 		model.addAttribute("mtAddr", "우이도가족캠핑장");
+		model.addAttribute("mmNo", mmNo);
 		return "meeting/listMeeting";
 	}
 	
