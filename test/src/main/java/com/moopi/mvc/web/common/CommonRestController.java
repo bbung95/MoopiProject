@@ -23,6 +23,8 @@ import com.moopi.mvc.service.board.impl.BoardServiceImpl;
 import com.moopi.mvc.service.common.impl.CommonServiceImpl;
 import com.moopi.mvc.service.domain.Notice;
 import com.moopi.mvc.service.domain.User;
+import com.moopi.mvc.service.domain.ChartData;
+import com.moopi.mvc.service.payment.impl.PaymentServiceImpl;
 import com.moopi.mvc.service.flash.impl.FlashServiceImpl;
 import com.moopi.mvc.service.moim.impl.MoimServiceImpl;
 import com.moopi.mvc.service.user.impl.UserServiceImpl;
@@ -41,6 +43,8 @@ public class CommonRestController {
 	private BoardServiceImpl boardService;
 	@Autowired
 	private UserServiceImpl userService;
+	@Autowired
+	private PaymentServiceImpl paymentService;
 	
 	@Value("6")
 	private int pageSize;
@@ -65,6 +69,16 @@ public class CommonRestController {
 
 		System.out.println("/getNoticeCount : GET");
 		return commonService.getNoitceCount(userId);
+	}
+	
+	//차트에서 쓰려고 만들었습니다.
+	@GetMapping(value = "json/getWeek")
+	public Map getWeek(Model model) throws Exception {
+		Search search = new Search();
+		System.out.println("/getWeek : GET");
+		Map map = paymentService.getWeekList(search);
+		model.addAttribute("list", map.get("list"));
+		return paymentService.getWeekList(search);
 	}
 
 	@GetMapping(value = "json/getListNotice/{userId}")

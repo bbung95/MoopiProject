@@ -1,5 +1,7 @@
 package com.moopi.mvc.web.common;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -124,6 +126,22 @@ public class CommonController {
 		model.addAttribute("list",paymentService.adminPaymentList( payment, search).get("list"));
 		model.addAttribute("totalCount",paymentService.adminPaymentList(payment, search).get("totalCount"));
 		return "common/adminPaymentList";
+	}
+	
+	@GetMapping("common/getStatistics")
+	public String getStatistics(Model model) throws Exception {
+		
+		Search search = new Search();
+		
+		Map<String , Object> map = paymentService.getMonthList(search);
+		Map<String , Object> map2 = paymentService.getWeekList(search);
+		Map<String , Object> map3 = paymentService.getDayList(search);
+		Map<String , Object> map4 = paymentService.getSelectList(search);
+		model.addAttribute("list", map.get("list"));
+		model.addAttribute("list2", map2.get("list2"));
+		model.addAttribute("list3", map2.get("list3"));
+		model.addAttribute("list4", map2.get("list4"));
+		return "common/adminStatistics";
 	}
 	
 	
