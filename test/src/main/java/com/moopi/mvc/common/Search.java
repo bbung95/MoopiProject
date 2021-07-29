@@ -26,6 +26,8 @@ public class Search {
 	private String searchCategory;
 	private int interestNo;
 	private String addr;
+	private String startDay;
+	private String endDay;
 	   
 	///Constructor
 	public Search() {

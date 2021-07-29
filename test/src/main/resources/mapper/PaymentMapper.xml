@@ -16,6 +16,14 @@
 		<result property="paymentUid" 			column="PAYMENT_UID" 		jdbcType="VARCHAR" />
 	</resultMap>
 	
+	<resultMap id="chartSelectMap" type="chartData">
+		<result property="paymentRegdate"		column="PAYMENT_REGDATE" 	jdbcType="DATE" />
+		<result property="paymentPrice" 		column="PAYMENT_PRICE" 		jdbcType="NUMERIC" />
+		<result property="date" 	column="DATE" jdbcType="DATE" />
+		<result property="start" 	column="START" jdbcType="DATE" />
+		<result property="end" 	column="END" jdbcType="DATE" />
+	</resultMap>
+	
 	
 
 	<select id="getPayment" parameterType="int" resultMap="paymentSelectMap">
@@ -97,5 +105,45 @@
 		</choose>
 	</select>
 	
+	
+	<!-- 월별통계 -->
+	<select id="getMonthList" parameterType="search" resultMap="chartSelectMap">
+		select 
+		sum(payment_price)  AS payment_price, date_format(payment_regdate, '%c') AS date
+		from payment 
+		group by date
+		order by 2
+	</select>
+	
+	<!-- 주간통계 -->
+	<select id="getWeekList" parameterType="search" resultMap="chartSelectMap">
+		SELECT DATE_FORMAT(DATE_SUB(payment_regdate, INTERVAL (DAYOFWEEK(payment_regdate)-1) DAY), '%m/%d') as start,
+       DATE_FORMAT(DATE_SUB(payment_regdate, INTERVAL (DAYOFWEEK(`payment_regdate`)-7) DAY), '%m/%d') as end,
+       DATE_FORMAT(payment_regdate, '%Y%U') AS date,
+       sum(payment_price) AS payment_price
+ 		 FROM payment
+		 GROUP BY date
+		 order by date
+	</select>
+	
+	<!-- 일별통계 -->
+	<select id="getDayList" parameterType="search" resultMap="chartSelectMap">
+		select 
+		sum(payment_price)  AS payment_price, payment_regdate AS date
+		from payment 
+		group by date
+		order by date
+	</select>
+	
+	<!-- 기간별통계 -->
+	<select id="getSelectList" parameterType="search" resultMap="chartSelectMap">
+		SELECT DATE(payment_regdate) AS date,
+       sum(payment_price) As payment_price
+  		FROM payment
+		 WHERE DATE(payment_regdate) &gt;= STR_TO_DATE(#{startDay}, '%Y-%m-%d')
+  	 AND DATE(payment_regdate) &lt;= STR_TO_DATE(#{endDay}, '%Y-%m-%d')
+		 GROUP BY date
+		 order by date
+	</select>
 	
 </mapper> 
