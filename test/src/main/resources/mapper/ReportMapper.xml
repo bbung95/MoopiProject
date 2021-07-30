@@ -76,9 +76,9 @@
 	   <if test="report.reportTargetBd.boardNo != 0">
 	   , RP_TARGETBD
 	   </if>
-<!-- 	   <if test="report.reportTargetMm.mmNo != 0"> -->
-<!-- 	   , RP_TARGETMM -->
-<!-- 	   </if> -->
+	   <if test="report.reportTargetMm.mmNo != 0">
+	   , RP_TARGETMM
+	   </if>
 	   , RP_CATEGORY
 	   ) VALUES 
 	   (
@@ -94,6 +94,9 @@
 	   </if>
 	   <if test="report.reportTargetBd.boardNo != 0 ">
 	   , #{report.reportTargetBd.boardNo}
+	   </if>
+	   <if test="report.reportTargetMm.mmNo != 0 ">
+	   , #{report.reportTargetMm.mmNo}
 	   </if>
 	   , #{report.reportCategory});
 		

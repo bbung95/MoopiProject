@@ -382,6 +382,13 @@
 		and NOT mm_member_role = '6'
 		and NOT mm_member_role = '5'
 	</select>
-
+	
+	<update id="updateReportMoim" parameterType="moim">
+		UPDATE MOIM
+		<set>
+			MM_STATE = #{mmState},
+		</set>
+		WHERE MM_NO = #{mmNo}
+	</update>
 
 </mapper>

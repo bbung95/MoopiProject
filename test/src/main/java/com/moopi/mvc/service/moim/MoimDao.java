@@ -83,8 +83,8 @@ public interface MoimDao {
 	//모임에 가입된 멤버의 총 인원수
 	public int getTotalCountMember(int mmNo) throws Exception;
 	
-	
-	
+	// 신고에 의한 모임폐쇄
+	public void updateReportMoim(Moim moim) throws Exception;
 	
 	
 	
