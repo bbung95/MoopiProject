@@ -44,20 +44,62 @@
 
 <script>
 
-var mmNo = ${mmNo};
+var mmNo = ${moim.mmNo};
 console.log(mmNo);
 
-function fncAccept(userId, mmNo){
-	alert("가입신청을 수락하겠습니다.");
-	self.location ="/moim/updateMember?userId="+userId+"&mmNo="+mmNo+"&status=1"
+function fncMember1(userId, mmNo){
+	swal("매니저로 임명합니다.");
+	
+	$.ajax( 
+			{
+				url : "json/updateMember/"+userId+"/"+mmNo+"/"+2,
+				method : "GET" ,
+				dataType : "json" ,
+				headers : {
+					"Accept" : "application/json",
+					"Content-Type" : "application/json"
+				},
+				success : function(JSONData , status) {
+					alert(status);
+				}
+		}); //ajax 종료
 }
 
-function fncRefuse(memberNo, mmNo){
-	alert("가입신청을 거절하겠습니다.");
-	self.location ="/moim/refuseApply?memberNo="+memberNo+"&mmNo="+mmNo
+function fncMember2(userId, mmNo){
+	swal("매니저 권한을 박탈합니다.");
+	$.ajax( 
+			{
+				url : "moim/json/updateMember/"+userId+"/"+mmNo+"/"+3,
+				method : "GET" ,
+				dataType : "json" ,
+				headers : {
+					"Accept" : "application/json",
+					"Content-Type" : "application/json"
+				},
+				success : function(JSONData , status) {
+					alert(status);
+				}
+		}); //ajax 종료
 }
 
-$('table').DataTable();
+function fncMember3(userId, mmNo){
+	swal("블랙처리 합니다.");
+	$.ajax( 
+			{
+				url : "moim/json/updateMember/"+userId+"/"+mmNo+"/"+4,
+				method : "GET" ,
+				dataType : "json" ,
+				headers : {
+					"Accept" : "application/json",
+					"Content-Type" : "application/json"
+				},
+				success : function(JSONData , status) {
+					alert(status);
+				}
+		}); //ajax 종료
+}
+
+// $('table').DataTable();
 </script>
 
 
@@ -220,12 +262,12 @@ table.dataTable td {
 			</td>
 			<td id="td8">
 			<c:if test = "${member.memberRole eq '2'}">
-			<button type="button" class="btn btn-primary" onClick="fncAccept('${member.mmUser.userId}', '${member.mmNo}')">매니저임명</button>
+			<button type="button" class="btn btn-primary" onClick="fncMember1('${member.mmUser.userId}', '${member.mmNo}')">매니저임명</button>
 			</c:if>
 			<c:if test = "${member.memberRole eq '3'}">
-			<button type="button" class="btn btn-warning" onClick="fncRefuse('${member.memberNo}', '${member.mmNo}')">매니저박탈</button>
+			<button type="button" class="btn btn-warning" onClick="fncMember2('${member.mmUser.userId}', '${member.mmNo}')">매니저박탈</button>
 			</c:if>
-			<button type="button" class="btn btn-danger" onClick="fncRefuse('${member.memberNo}', '${member.mmNo}')">블랙</button>
+			<button type="button" class="btn btn-danger" onClick="fncMember3('${member.mmUser.userId}', '${member.mmNo}')">블랙</button>
 			</td>
           </tr>
         </c:forEach>  

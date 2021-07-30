@@ -166,8 +166,8 @@ public class CommonController {
 	public String mainSearch(@RequestParam("type") int type, Search search, HttpSession session, Model model)
 			throws Exception {
 
-		System.out.println(search);
-
+		System.out.println("써치의값:::"+search);
+		
 		User user = (User) session.getAttribute("dbUser");
 
 		if (type == 1) {

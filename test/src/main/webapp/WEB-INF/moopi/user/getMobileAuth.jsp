@@ -13,9 +13,11 @@
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
 <!-------------------------------------------------------------------------------------------------------------------------->
+<!-- 스윗얼럿 -->
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	
 <!-- 필수 Core theme CSS (includes Bootstrap)-->
 	<link href="/css/admin/styles.css" rel="stylesheet" />
-
 <script>
 	
 	// 취소버튼 누를시 닫힘
@@ -34,39 +36,42 @@
 		function fncKey() {
 			
 			var userId=$('input[name=userId]').val();
-			var AuthNum = $("#AuthNum").val();
+			var AuthNum = $("#AuthNum").val()	
+			
 			
 			if(AuthNum == key){				
 				$(function() {	
-						
-						// 아이디 찾기시 모바일인증
+								
 						if (href == "?findId") {
-								$("#checkBtn").fadeIn();		
-								var phone = $("#pnNum").val();															
-								$("form").attr("method", "POST").attr("action", "/user/searchIdView").submit();											
+							$("#checkBtn").fadeIn();		
+							var phone = $("#pnNum").val();	
+							$("form").attr("method", "POST").attr("action", "/user/searchIdView").submit();			
+							return;				
 						
-						// 회원가입시 모바일인증
+
 						} else if (href == "?addUser") {		
-								opener.document.getElementById("pInput").value = document.getElementById("pnNum").value
-								window.close();
-						
+							opener.document.getElementById("pInput").value = document.getElementById("pnNum").value
+							window.close();
+							return;
+								
 						// 계정정보수정에서 회원모바일번호수정
 						} else if (href == "?updatePwd") {						
-								var phone=$('input[name=phone]').val();
-								var userId=$('input[name=userId]').val();
-								
-								opener.document.getElementById("pInput").value = document.getElementById("pnNum").value
-								window.close();
-						
-						// loginView에서 비밀번호찾기
+							var phone=$('input[name=phone]').val();
+							var userId=$('input[name=userId]').val();							
+							opener.document.getElementById("pInput").value = document.getElementById("pnNum").value
+							window.close();
+							return;
+
 						} else {
-								var userId=$('input[name=userId]').val();
-								var phone=$('input[name=phone]').val();
-								alert("유저아이디 : "+userId);
-								alert("모바일번호 : "+phone);
+						
+								var phone = $("#pnNum").val();
 								
-								$("form").attr("method", "POST").attr("action", "/user/getAuthValidity").submit();									
-						}						
+								alert("?setPwd 진입완료");
+								alert("userId : "+userId);
+								alert("phone : "+phone);
+						
+								$("form").attr("method", "POST").attr("action", "/user/updatePwdView").submit();	
+						}							
 					
 						
         			});			
@@ -77,7 +82,7 @@
 		}		
 <!-------------------------------------------------------------------------------------------------------------------------->
 
-//--# [모바일인증번호] 인증번호 발송하기 --------------------------------------------------------------------------------------------------------------------------
+// [모바일인증API]
 		
 		function fncAuth(){
 		
@@ -109,10 +114,8 @@
 						
 				});	 //ajax종료
 		};
-		
-
-		
-</script>		
+</script>	
+	
     <style>
     @font-face {
     	src: url("../font/NanumGothic-Regular.ttf")'
@@ -178,10 +181,6 @@
 </head>
 <body>
 
-
-
-
-<!-- # 모바일번호인증 - CoolSMS API ---------------------------------------------------------------------------------------------------------------------------------------->		
 		<form class="start">
 		
 		<h3 class="MobileAuth"> 모바일번호인증 </h3>
@@ -216,20 +215,17 @@
 		<!-- 확인,취소 -->
 		<div class="AuthNumWrite">
 			<div class="col-sm-offset-4  col-sm-4 text-center">			
-				<button class="px-4 py-4 text-white font-light tracking-wider bg-gray-900 rounded" style="width:500px;" id="checkBtn" name="img_btn" type="button" onclick="javascript:fncKey()">확인</button>	
+				<button class="px-4 py-4 text-white font-light tracking-wider bg-gray-900 rounded" style="width:500px;" id="checkBtn" name="img_btn" type="button" onClick="fncKey()">확인</button>	
 			</div>
 		</div> 
 		
 		<div class="information">
 			<p> • 모바일번호 입력시 "-" 없이 입력해주세요. </p>
-			<p> • 이용에 불편함을 느끼실 경우 문의게시판으로 문의 부탁드리겠습니다. </p>
+			<p> • 이용에 불편함을 느끼실 경우 <a href="mailto:hello@norgianclue.com">hello@norgianclue.com</a> 이메일주소로 문의 부탁드리겠습니다. </p>
 		</div>
 		
 
 		</form>
-<!---------------------------------------------------------------------------------------------------------------------------------------------------------------------->
-
-
 
 </body>
 </html>

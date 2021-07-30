@@ -17,7 +17,7 @@
 //	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 //
 //	@Override
-//	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
+//	public String preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 //			throws Exception {
 //	
 //		logger.debug("========================================================");
@@ -27,10 +27,13 @@
 //		HttpSession session = request.getSession();
 //		User user = (User)session.getAttribute("dbUser");
 //		
-//		if(ObjectUtils.isEmpty(user)) {
-//			
+//		if(user == null) {
+//			return "redirect:/user/loginView";
+//		} else {
+//			return "redirect:/";
 //		}
-//		return false;
+//		
+//
 //	}
 //
 //	@Override

@@ -67,16 +67,16 @@
 	   , RP_TYPE
 	   , RP_CONTENT
 	   , RP_REGDATE
-	   <if test="report.reportTarget !=null">
+	   <if test="report.reportTarget.userId !=null">
 	   , RP_TARGET
 	   </if>
-	   <if test="report.reportTargetRe !=null">
+	   <if test="report.reportTargetRe.replyNo != 0">
 	   , RP_TARGETRE
 	   </if>
-	   <if test="report.reportTargetBd !=null">
+	   <if test="report.reportTargetBd.boardNo != 0">
 	   , RP_TARGETBD
 	   </if>
-	   <if test="report.reportTargetMm !=null">
+	   <if test="report.reportTargetMm.mmNo != 0">
 	   , RP_TARGETMM
 	   </if>
 	   , RP_CATEGORY
@@ -86,14 +86,17 @@
 	   , #{report.reportType}
 	   , #{report.reportContent}
 	   , NOW()
-	    <if test="report.reportTarget !=null">
+	    <if test="report.reportTarget.userId !=null">
 	   , #{report.reportTarget.userId}
 	   </if>
-	    <if test="report.reportTargetRe !=null">
+	    <if test="report.reportTargetRe.replyNo  != 0">
 	   , #{report.reportTargetRe.replyNo}
 	   </if>
-	   <if test="report.reportTargetBd !=null">
+	   <if test="report.reportTargetBd.boardNo != 0 ">
 	   , #{report.reportTargetBd.boardNo}
+	   </if>
+	   <if test="report.reportTargetMm.mmNo != 0 ">
+	   , #{report.reportTargetMm.mmNo}
 	   </if>
 	   , #{report.reportCategory});
 		
@@ -191,6 +194,7 @@
 		  <if test=" map.search.searchCategory == 4 ">
 		 , M.MM_NO
 		 </if>
+		 ORDER BY R.RP_NO
 		
 		 
 		 

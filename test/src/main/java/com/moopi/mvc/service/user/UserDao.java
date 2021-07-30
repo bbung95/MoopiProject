@@ -36,6 +36,10 @@ public interface UserDao {
 	
 	// 회원탈퇴시 [UserRole - 5.탈퇴회원]
 	public void updateLeaveUser(User user) throws Exception;
+	
+	// [관리자] 회원블랙시
+	public void updateBlackUser(User user) throws Exception;
+
 
 // 마이홈
 	
@@ -71,7 +75,7 @@ public interface UserDao {
 	public void updateProfile(User user) throws Exception;
 	
 	// 유저 모바일번호 수정
-	public void updateUserPhone(User user) throws Exception;
+	public void updateUserPhone(User user);
 	
 	// 아이디찾기
 	public User getId(String phone);
@@ -120,7 +124,9 @@ public interface UserDao {
 	
 	public int getFollowCount(@Param("userId") String userId, @Param("order") int order);
 
-	public void updateUserRole(@Param("user") User user);
+	public void updateUserRole(User user);
+
+	//public void updateUserRole(@Param("user") User user);
 	
 	
 	//차트관련
