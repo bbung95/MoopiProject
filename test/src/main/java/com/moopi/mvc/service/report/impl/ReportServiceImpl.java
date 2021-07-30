@@ -17,36 +17,36 @@ public class ReportServiceImpl {
 
 	@Autowired
 	private ReportDao reportDao;
-	
+
 	public void addReport(Report report) throws Exception {
-				
+
 		reportDao.addReport(report);
-		
+
 	}
-	
-	public Map<String, Object> getReportList(Search search, Model model ) throws Exception{
-		
+
+	public Map<String, Object> getReportList(Search search, Model model) throws Exception {
+
 		Map map = new HashMap();
 		map.put("model", model);
 		map.put("search", search);
 		System.out.println(model);
-		
+
 		List<Report> list = reportDao.getReportList(map);
-		
+
 		map.put("list", list);
-		
+
 		return map;
 	}
-	
-	public void processReport(Report report ) throws Exception{
-		
+
+	public void processReport(Report report) throws Exception {
+
 		reportDao.processReport(report);
-		
+
 	}
-	
-	public Report getReport(Report report) throws Exception{
-		
+
+	public Report getReport(Report report) throws Exception {
+
 		return reportDao.getReport(report);
 	}
-	
+
 }

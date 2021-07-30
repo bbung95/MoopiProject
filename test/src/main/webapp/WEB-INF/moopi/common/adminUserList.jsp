@@ -35,13 +35,42 @@
 
 <script>
 	$(function() {
-		$('.adminUserInfo').on('click', function() {
+		$( '.adminUserInfo' ).on( 'click', function() {
 			alert("진입");
 			var userId = $(this).attr('value');
 			alert("userId : " + userId);
 			self.location = "/common/getUserInfo?userId=" + userId
 		});
 	});
+	
+	$( ".addReportMoim"  ).on("click" , function() {
+			fncAddBoardMoim();
+});
+
+function fncAddBoardMoim(){
+var reportTarget = $("#mmNo").val();
+
+//	self.location ="/report/addReportView?reportCategory=1&reportTargetBd.boardNo="+reportTarget;
+popWin = window.open(
+		"/report/addReportView?reportCategory=1&reportTargetBd.boardNo="+reportTarget ,
+		"popReport",
+		"left=460, top=300, width=900, height=600, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");
+}
+"  ).on("click" , function() {
+		fncAddBoardReport();
+	});
+
+	function fncAddBoardReport(){
+		var reportTarget = $("#boardNo").val();
+		
+	//		self.location ="/report/addReportView?reportCategory=1&reportTargetBd.boardNo="+reportTarget;
+		popWin = window.open(
+				"/report/addReportView?reportCategory=1&reportTargetBd.boardNo="+reportTarget ,
+				"popReport",
+				"left=460, top=300, width=900, height=600, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");
+	}
+
+	
 </script>
 <body>
 
@@ -189,30 +218,3 @@
 </body>
 
 </html>
-
-
-
-
-
-
-<div class="shadow-sm p-3 mb-1 bg-body rounded">
-	<div class="toast-body">
-		Hello, world! This is a toast message.
-		<div class="mt-2 pt-2 border-top">
-			<button type="button" class="btn btn-primary btn-sm">Take
-				action</button>
-			<button type="button" class="btn btn-secondary btn-sm"
-				data-bs-dismiss="toast">Close</button>
-		</div>
-	</div>
-</div>
-
-<div class="shadow-sm p-3 mb-1 bg-body rounded">
-	<div class="toast-header">
-		<img src="..." class="rounded me-2" alt="..."> <strong
-			class="me-auto">Bootstrap</strong> <small>11 mins ago</small>
-		<button type="button" class="btn-close" data-bs-dismiss="toast"
-			aria-label="Close"></button>
-	</div>
-	<div class="toast-body">Hello, world! This is a toast message.</div>
-</div>
