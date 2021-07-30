@@ -204,6 +204,7 @@ public class UserServiceImpl {
 		return userDao.getFollowCount(userId, order);
 	}
 	
+	//유저롤 업데이트. 
 	public void updateUserRole(@Param("user") User user) {
 		
 		userDao.updateUserRole(user);
@@ -214,7 +215,15 @@ public class UserServiceImpl {
 		return userDao.getJoinPath();
 	}
 
-	public UserData getGender() throws Exception {
-		return userDao.getGender();
+	public UserData getGenderData() throws Exception {
+		return userDao.getGenderData();
+	}
+	
+	public UserData getAgeData() throws Exception {
+		return userDao.getAgeData();
+	}
+	
+	public UserData getInterestData() throws Exception{
+		return userDao.getInterestData();
 	}
 }

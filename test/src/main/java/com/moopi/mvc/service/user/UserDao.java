@@ -126,7 +126,11 @@ public interface UserDao {
 	//차트관련
 	public UserData getJoinPath() throws Exception;
 	
-	public UserData getGender() throws Exception;
+	public UserData getGenderData() throws Exception;
+	
+	public UserData getAgeData() throws Exception;
+	
+	public UserData getInterestData() throws Exception;
 
 }
 
