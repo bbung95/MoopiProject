@@ -47,6 +47,7 @@ public class FlashRestController {
 		System.out.println(this.getClass());
 	}
 
+	// getJoinFlashList where :: joinFlashmember List
 	@GetMapping(value = "json/getJoinFlashList/{targetNo}")
 	public Map<String, Object> getJoinFlashList(@PathVariable("targetNo")int targetNo ) throws Exception{
 		System.out.println("getJoinFlashList : GET");
@@ -55,6 +56,8 @@ public class FlashRestController {
 		return flashService.getJoinFlashList(targetNo);
 	}
 	
+	
+	//getListFlash auto scroll target:: mainFlash
 	@GetMapping(value = "json/getListFlash/{currentPage}")
 	public Map<String,Object> getListFlash(@PathVariable int currentPage)throws Exception  {
 		
