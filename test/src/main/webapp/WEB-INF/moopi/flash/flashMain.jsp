@@ -21,8 +21,7 @@
 	href="https://fonts.googleapis.com/css2?family=Gaegu:wght@300&display=swap"
 	rel="stylesheet">
 
-<!-- Bootstrap Dropdown Hover JS -->
-<script src="/javascript/bootstrap-dropdownhover.min.js"></script>
+
 
 <!-- Favicon-->
 <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
@@ -620,16 +619,29 @@ $('.search-btn').on('click', function() {
 </h3>id="myModal" 
 -->
 
-	<button type="button" class="btn btn-light" data-bs-toggle="modal"
-		data-bs-target="#staticBackdrop">
-		번개생성
-		<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64"
-			fill="currentColor" class="bi bi-file-plus-fill" viewBox="0 0 16 16">
+	<c:if test="${empty dbUser }">
+		<button type="button" class="btn btn-light" data-bs-toggle="modal"
+			style="display: none" data-bs-target="#staticBackdrop">
+			번개생성
+			<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64"
+				fill="currentColor" class="bi bi-file-plus-fill" viewBox="0 0 16 16">
   <path
-				d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM8.5 6v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 1 0z" />
+					d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM8.5 6v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 1 0z" />
 </svg>
-	</button>
+		</button>
+	</c:if>
 
+	<c:if test="${!empty dbUser}">
+		<button type="button" class="btn btn-light" data-bs-toggle="modal"
+			data-bs-target="#staticBackdrop">
+			번개생성
+			<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64"
+				fill="currentColor" class="bi bi-file-plus-fill" viewBox="0 0 16 16">
+  <path
+					d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM8.5 6v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 1 0z" />
+</svg>
+		</button>
+	</c:if>
 
 	<div class="userEL9001404 colorSet" data-forum-type="thumb"
 		data-fcolor="#191919">
@@ -725,10 +737,14 @@ $('.search-btn').on('click', function() {
 			<div class="modal-content">
 				<div class="modal-header">
 					<h2 class="modal-title" id="staticBackdropLabel">번개를 번개처럼생성!</h2>
-					
-					<c:if test=""></c:if>
+
+
+
+
 					<button type="button" class="btn-close" data-bs-dismiss="modal"
 						aria-label="Close"></button>
+
+
 				</div>
 
 				<div class="modal-body">
@@ -861,7 +877,7 @@ function getListFlash() {
 					let list = data.list;
 					if(list.length > 0){
 						for (var i = 0; i < data.list.length; i++) {
-						
+								
 						let displayValue ='<div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 table-wrap no-padding clearfix">'
 
 						+'<div class="table clearfix" data-loop="true" data-view="9">'
@@ -892,9 +908,13 @@ function getListFlash() {
 						+'<div class="tpl-forum-list-cont">만남시간:'+list[i].flashTime+'</div>'
 						+'<div class="tpl-forum-list-name tpl-forum-list-etc">장소:'+list[i].flashAddr+'</div>'
 						+'<ul>'
-						+'<li class="tpl-forum-list-category tpl-forum-list-etc">주최자:'+list[i].flashConstructor.userId+'</li>'
-						+'<li class="tpl-forum-list-date tpl-forum-list-etc">모집상태:'+list[i].flashState+'</li>'
-						+'<li class="tpl-forum-list-hit tpl-forum-list-etc">참가인원:'+list[i].flashCurrentCount+'</li>'
+						+'<li class="tpl-forum-list-category tpl-forum-list-etc">주최자:'+list[i].flashConstructor.nickname+'</li>'
+						if(list[i].flashState == 1){
+							displayValue +='<li class="tpl-forum-list-date tpl-forum-list-etc">모집상태:모집중</li>'
+						}else{
+							displayValue +='<li class="tpl-forum-list-date tpl-forum-list-etc">모집상태:모집끝</li>'
+						}
+						displayValue +='<li class="tpl-forum-list-hit tpl-forum-list-etc">참가인원:'+list[i].flashCurrentCount+'</li>'
 						+'<li class="tpl-forum-list-comment tpl-forum-list-etc">모집인원:'+list[i].flashMaxCount+'</li>'
 						+'</ul>'
 						+'</div>'
@@ -910,9 +930,11 @@ function getListFlash() {
 						$('#flashListView').append(displayValue);
 						}
   						loading = false;
+  						console.log(currentPage);
 	 					currentPage++;
 					}
-				}
+					
+					}
 			});
 }
 getListFlash();
