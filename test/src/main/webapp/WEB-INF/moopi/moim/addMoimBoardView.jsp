@@ -74,16 +74,20 @@ function fncAddBoard(){
   <style>
 body {
 	padding-top: 100px;
-	font-family: 'Nanum Gothic', sans-serif;
-	font-size: 16px;
+
 	background-color:#f7f6f3;
+}
+
+main{
+font-family: 'Nanum Gothic', sans-serif;
+font-size: 16px;
 }
 </style>
 
 </head>
 <body> 
      <jsp:include page="../layout/toolbar.jsp" />
-    
+    <main>
     <script>  
      $(document).ready(function() {
     	 $('#summernote').summernote({
@@ -175,6 +179,8 @@ body {
 		</form>
 	</div> 
 <jsp:include page="../layout/moimSidebar.jsp"></jsp:include>				
+
+</main>
 <jsp:include page="../layout/searchbar.jsp"></jsp:include>
 </body>
 </html>

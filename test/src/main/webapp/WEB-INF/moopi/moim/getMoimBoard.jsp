@@ -21,8 +21,17 @@
 	body {
 	padding-top: 100px;
 	margin: auto;
-	font-family: 'Nanum Gothic', sans-serif;
 }
+
+
+	main{
+font-family: 'Nanum Gothic', sans-serif;
+font-size: 16px;
+}
+
+
+
+
 	.hrLine { position: relative; padding: 0px 0; }
 	.hrLine hr{ border: 0; border-top:3px solid #3073ac; height:1px;width: 100%; margin-top: 10px;    margin-bottom: 10px; }			
 	.replyHr hr{ border: 0; border-top:1px solid #3073ac; height:1px;width: 100%; margin-top: 10px;    margin-bottom: 10px; }
@@ -90,6 +99,8 @@
 	<body>
 	<!-- ToolBar Start /////////////////////////////////////-->
 		<jsp:include page="../layout/toolbar.jsp" />
+		
+	<main>
 	<!-- ToolBar End /////////////////////////////////////-->
 	<form class="form-horizontal" name="detailForm" enctype="multipart/form-data">
 <!-- 	<div class="col-xs-12 col-sm-12 col-md-12"> -->
@@ -199,7 +210,7 @@
 	
 	</form>	
 	
-	
+	</main>
 	<jsp:include page="../layout/moimSidebar.jsp"></jsp:include>
 	<jsp:include page="../layout/searchbar.jsp"></jsp:include>
 	</body>
