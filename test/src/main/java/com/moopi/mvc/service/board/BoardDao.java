@@ -34,4 +34,5 @@ public interface BoardDao {
 	public void deleteLike(@Param("map")Map map)throws Exception;
 	
 	public Board checkPassword(@Param("boardNo")int boardNo)throws Exception;
+	
 }	

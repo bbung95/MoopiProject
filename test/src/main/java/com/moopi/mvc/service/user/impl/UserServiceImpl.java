@@ -204,6 +204,7 @@ public class UserServiceImpl {
 		return userDao.getFollowCount(userId, order);
 	}
 	
+	//유저롤 업데이트. 
 	public void updateUserRole(@Param("user") User user) {
 		
 		userDao.updateUserRole(user);
