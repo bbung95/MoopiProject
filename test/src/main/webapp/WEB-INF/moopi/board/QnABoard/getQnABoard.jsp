@@ -301,16 +301,40 @@
 			
 		}
 		
+		// 보드리폿
+// 		<button type="button" class="btn btn-primary addReportBoard" >신고</button>
+		
+		$(  ".addReportBoard"  ).on("click" , function() {
+				fncAddBoardReport();
+			});
+		
 		function fncAddBoardReport(){
 			var reportTarget = $("#boardNo").val();
-			self.location ="/report/addReportView?reportCategory=1&reportTargetBd.boardNo="+reportTarget;
+			
+// 			self.location ="/report/addReportView?reportCategory=1&reportTargetBd.boardNo="+reportTarget;
+			popWin = window.open(
+					"/report/addReportView?reportCategory=1&reportTargetBd.boardNo="+reportTarget ,
+					"popReport",
+					"left=460, top=300, width=900, height=600, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");
 		}
 		
+		// 리플리폿
+		//	+'	<button type="button" class="btn btn-primary addReportReply">신고</button>'		
 			
 			$(  ".addReportReply"  ).on("click" , function() {
 				replyNo = $(this).parent().parent().find("input[name=replyNo]").val()
 				fncAddReplyReport(replyNo);
 			});
+			
+			function fncAddReplyReport(replyNo){
+// 				self.location ="/report/addReportView?reportCategory=2&reportTargetRe.replyNo="+replyNo;
+				popWin = window.open(
+						"/report/addReportView?reportCategory=2&reportTargetRe.replyNo="+replyNo ,
+						"popReport",
+						"left=460, top=300, width=900, height=600, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");
+				
+			}	
+			
 			
 		</script>
 		
@@ -512,13 +536,7 @@
 			});
 		};
 		
-			$(  ".addReportBoard"  ).on("click" , function() {
-				fncAddBoardReport();
-			});
-		
-		function fncAddReplyReport(replyNo){
-			self.location ="/report/addReportView?reportCategory=2&reportTargetRe.replyNo="+replyNo;
-		}				
+				
 	</script>
 	</html>
 	
