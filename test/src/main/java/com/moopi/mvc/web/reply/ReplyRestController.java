@@ -70,7 +70,7 @@ public class ReplyRestController {
 	}
 
 	@RequestMapping( value="json/getReplyList/{boardNo}", method=RequestMethod.GET )
-	public List getReplyList( @PathVariable int boardNo){ 
+	public List getReplyList( @PathVariable int boardNo) throws Exception{ 
 		
 		
 		System.out.println("/reply/json/getReplyList : GET");
@@ -82,7 +82,7 @@ public class ReplyRestController {
 	}
 	
 	@RequestMapping( value="json/getReply/{replyNo}")
-	public Reply getReply(@PathVariable int replyNo){ 
+	public Reply getReply(@PathVariable int replyNo) throws Exception{ 
 		
 		
 		System.out.println("/reply/json/getReply ");
@@ -107,7 +107,7 @@ public class ReplyRestController {
 	}
 	
 	@RequestMapping( value="json/deleteReply/{replyNo}")
-	public int dleteReply(@PathVariable int replyNo){ 
+	public int dleteReply(@PathVariable int replyNo) throws Exception{ 
 		
 		
 		System.out.println("/reply/json/deleteReply ");

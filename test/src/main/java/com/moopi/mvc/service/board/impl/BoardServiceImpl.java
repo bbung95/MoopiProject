@@ -183,7 +183,5 @@ public Map<String, Object> getBoardList(Search search, String boardCategory, Str
 		boardDao.deleteBoard2(board);
 
 	}
-	
-	
 
 }
