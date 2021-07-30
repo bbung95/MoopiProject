@@ -290,7 +290,7 @@
 		}
 		
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-			$( "#deleteBoard" ).on("click" , function() {
+			$( ".deleteBoard" ).on("click" , function() {
 				fncDeleteBoard();
 			});
 		

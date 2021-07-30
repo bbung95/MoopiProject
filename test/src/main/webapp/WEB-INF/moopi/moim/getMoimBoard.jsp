@@ -7,240 +7,12 @@
 	<head>
 	<meta charset="UTF-8">
 	<title>Hello! Moopi!</title>
-<link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />	
-<jsp:include page="../common/commonCDN.jsp"></jsp:include>
-		
+	
+		<jsp:include page="../common/commonCDN.jsp"></jsp:include>
 		<script src="/javascript/summernote-lite.js"></script>
 		<script src="/javascript/lang/summernote-ko-KR.js"></script>
 		<link rel="stylesheet" href="/css/summernote-lite.css">
-	 	<link rel="preconnect" href="https://fonts.googleapis.com">
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link
-			href="https://fonts.googleapis.com/css2?family=Gaegu:wght@300&display=swap"
-			rel="stylesheet">	
-	<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
-<script type="text/javascript">
-	
-		$(function() {
-			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-			$( "#updateBoard" ).on("click" , function() {
-				fncUpdateView();
-			});
-		});	
-		
-		
-		function fncUpdateView(){
-			alert("게시글수정");
-			alert(${board.boardNo});
-			var boardNo = ${board.boardNo};
-		 	var boardCategory	=$("input[name='boardCategory']").val();
-		// 	var boardWriter		=$("input[name='boardWriter']").val();
-		// 	var boardName		=$("input[name='boardName']").val();
-		// 	var boardContent	=$("input[name='boardContent']").val();
-			
-			$("form.form-horizontal").attr("method" , "GET").attr("action" , "/moim/updateView").submit();
-		}
-		
-		
-		$(function() {
-			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-			$( "#deleteBoard" ).on("click" , function() {
-				fncDeleteBoard();
-			});
-		});	
-		
-		function fncDeleteBoard(){
-			alert("게시글삭제");
-			alert(${board.boardNo});
-			var boardNo = ${board.boardNo};
-			
-			$("form.form-horizontal").attr("method" , "GET").attr("action" , "/moim/deleteBoard").submit();
-			
-		}
-		//////////////////////////////////////
-		
-		
-		$(function() {
-			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-			$( "#updateReply" ).on("click" , function() {
-// 				alert("test")
-				fncGeteReply();
-			});
-		});	
-		
-		function fncGeteReply(){
-			alert("게시글수정");
-			alert($("#replyNo" ).val() );
-			var replyNo = $("#replyNo" ).val();
-			$.ajax({
-				url: "/reply/json/getReply/"+replyNo,
-				type: "GET",
-				dataType: "json",
-				contentType : "application/json",
-				data :  JSON,
-			    success : function(JSONData , status) {
-		               //alert(JSONData.memberRole);	
-		                alert(status);
-			            alert("JSONData : \n"+JSONData.replyContent);
-		                var replyContent = JSONData.replyContent;
-		                var displayValue = "<h6>"
-		    			+"<form class='form-horizontal' name='detailForm'>"
-		    			+"<input type='hidden' id='replyNo' value=''>"
-		    			+"답글 내용 :" +"<input type='text' id='replyContent' value=''>"+"<br>"
-		    			+"<p></p>"
-		    			+"<a onClick='fncUpdateReply()'>수정하기</a>"+ "<br>"
-		    			+"</form>"
-		    			+"</h6>";
-		    			
-						$("#replyContent").remove();
-		    			$("#replyUpdateContent").html(displayValue);
-		    			$('#replyNo').val(replyNo);
-		    			$('#replyContent').val(replyContent);
-		                }
-			
-			            }
-         
-			)};
-			
-			
-		
-		
-		
-		
-		function fncUpdateReply(){
-			alert("리플업데이트");
-			alert($("#replyContent").val());
-			
-			var replyNo = $("#replyNo").val();
-			var replyContent = $("#replyContent").val();
-			
-			$.ajax({
-				url: "/reply/json/updateReply",
-				type: "POST",
-				dataType: "json",
-				contentType : "application/json",
-				data : JSON.stringify ({ "replyNo": replyNo , "replyContent":replyContent}),
-			    success : function(JSONData , status) {
-			    	
-		                alert(status);
-			            alert("JSONData : \n"+JSONData.replyContent);
-			            console.log(JSONData);
-		                var replyContent = JSONData.replyContent;
-		                var replyWriterNickname = JSONData.replyWriter.nickname;
-		                var replyWriterProfileImage = JSONData.replyWriter.profileImage;
-		                alert(replyWriterNickname);
-		                
-		            	var displayValue = "<h4>"
-							+"작성자 : " +JSONData.replyWriter.nickname+"<br/>"
-							+"프로필 : "+JSONData.replyWriter.profileImage+"<br/>"
-							+"답글내용 : "+JSONData.replyContent+"<br/>"
-							+"작성일 : "+JSONData.replyRegDate+"<br/>"
-							+"</h4>"
-							
-						$("#replyContent1").remove();
-		    			$("#replyUpdateContent").html(displayValue);
-		                }
-		            
-			});
-				
-		};
-		
-		$(function() {
-			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-			$( "#deleteReply" ).on("click" , function() {
-				
-				alert("test")
-				fncDelteReply();
-			});
-		});	
-		
-		function fncDelteReply(){
-			alert("리플삭제");
-			alert($("#replyContent").val());
-			
-			var replyNo = $("#replyNo").val();
-			var replyContent = $("#replyContent").val();
-			
-			$.ajax({
-				url: "/reply/json/deleteReply/"+replyNo,
-				type: "GET",
-				dataType: "json",
-				contentType : "application/json",
-				data : JSON,
-			    success : function(JSONData , status) {
-			    	
-		                alert(status);
-		                
-						$("#replyContent").remove();
-		                }
-		             
-			});
-				
-		};
-		
-		$(function() {
-			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-			$(  "button.btn.btn-primary:contains('게시글신고')"  ).on("click" , function() {
-				
-				
-				fncAddBoardReport();
-				
-			});
-		});	
-		
-		$(  ".addReportBoard"  ).on("click" , function() {
-			fncAddBoardReport();
-		});
-		
-		function fncAddBoardReport(){
-			alert("AddBoardReport 실행");
-			
-			
-			var reportTarget = $("#boardNo").val();
-			
-			popWin = window.open(
-				"/report/addReportView?reportCategory=1&reportTargetBd.boardNo="+reportTarget,
-				"popWin",
-				"left=460, top=300, width=900, height=600, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");
-// 			self.location ="/report/addReportView?reportCategory=1&reportTargetBd.boardNo="+reportTarget;
-			
-		}
-			
-		///
-		
-			
-		
-		function fncAddReplyReport(replyNo){
-			self.location ="/report/addReportView?reportCategory=2&reportTargetRe.replyNo="+replyNo;
-		}				
-		
-		///
-		$(function() {
-			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-			$(  "button.btn.btn-primary:contains('답글신고')"  ).on("click" , function() {
-				
-				
-				fncAddReplyReport();
-				
-			});
-		});	
-		
-		
-		function fncAddReplyReport(){
-			alert("AddReplyReport 실행");
-			
-			
-			var reportTarget = $("#replyNo").val();
-			
-			
-			self.location ="/report/addReportView?reportCategory=2&reportTargetRe.replyNo="+reportTarget;
-			
-		}				
-				
-	</script>
-	  
-	  <!-- font-family: 'Nanum Gothic', sans-serif; -->
-	  
+	 		
 	  
 		<style>
 	html  { background-color: #ffffff; background-image:none;}	
@@ -357,7 +129,7 @@
 						<button type="button" class="btn btn-primary updateBoard" >수정</button>
 						<button type="button" class="btn btn-primary deleteBoard" >삭제</button>
 					</c:if>
-						<button type="button" class="btn btn-primary addBoard" >신고</button>
+						<button type="button" class="btn btn-primary addReportBoard" >신고</button>
 					</div>
 					<br>
 					<br>
@@ -368,7 +140,7 @@
 					<div class="container reply_list">
 						<c:forEach var="reply" items="${list}">
 							<div id="${reply.replyNo }">
-								<input type="hidden" class="reply" name="replyNo" value="${reply.replyNo}">
+								<input type="hidden" class="reply"  name="replyNo" value="${reply.replyNo}">
 								<div class="reply_head">
 								<div style="display: inline-block">
 									${reply.replyWriter.nickname}
@@ -513,11 +285,11 @@
 		}
 		
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-			$( ".deleteBoard" ).on("click" , function() {
-				alert( " 클릭");
-				fncDeleteBoard();
-				
-			});
+		$( ".deleteBoard" ).on("click" , function() {
+			alert( " 클릭");
+			fncDeleteBoard();
+			
+		});
 		
 		function fncDeleteBoard(){
 			var boardNo = ${board.boardNo};
@@ -526,16 +298,36 @@
 			
 		}
 		
-		function fncAddBoardReport(){
-			var reportTarget = $("#boardNo").val();
-			self.location ="/report/addReportView?reportCategory=1&reportTargetBd.boardNo="+reportTarget;
-		}
+		$(  ".addReportBoard"  ).on("click" , function() {
+			fncAddBoardReport();
+		});
+	
+	function fncAddBoardReport(){
+		var reportTarget = $("#boardNo").val();
 		
+//			self.location ="/report/addReportView?reportCategory=1&reportTargetBd.boardNo="+reportTarget;
+		popWin = window.open(
+				"/report/addReportView?reportCategory=1&reportTargetBd.boardNo="+reportTarget ,
+				"popReport",
+				"left=460, top=300, width=900, height=600, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");
+	}
+	
+	// 리플리폿
+	//	+'	<button type="button" class="btn btn-primary addReportReply">신고</button>'		
+		
+		$(  ".addReportReply"  ).on("click" , function() {
+			replyNo = $(this).parent().parent().find("input[name=replyNo]").val()
+			fncAddReplyReport(replyNo);
+		});
+		
+		function fncAddReplyReport(replyNo){
+//				self.location ="/report/addReportView?reportCategory=2&reportTargetRe.replyNo="+replyNo;
+			popWin = window.open(
+					"/report/addReportView?reportCategory=2&reportTargetRe.replyNo="+replyNo ,
+					"popReport",
+					"left=460, top=300, width=900, height=600, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");
 			
-			$(  ".addReportReply"  ).on("click" , function() {
-				replyNo = $(this).parent().parent().find("input[name=replyNo]").val()
-				fncAddReplyReport(replyNo);
-			});
+		}
 			
 		</script>
 		
