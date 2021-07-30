@@ -366,11 +366,11 @@
 	<update id="updateUserRole"		parameterType="user">
 		UPDATE users
 			<set>
-			 	USER_Role = #{userRole}
-			 ,  STATE_REASON =  #{stateReason}
-			 ,  STATE_REGDATE = #{STATE_REGDATE}
+			 	USER_ROLE = #{user.userRole}
+			 ,  STATE_REASON =  #{user.stateReason}
+			 ,  STATE_REGDATE = now()
 			</set>
-		WHERE USER_ID = #{userId}
+		WHERE USER_ID = #{user.userId}
 	</update>
 		
 		
