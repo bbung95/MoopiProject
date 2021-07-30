@@ -22,7 +22,10 @@
 	<script src="/javascript/bootstrap-dropdownhover.min.js"></script>	
 
 <!-- Favicon-->
-	<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+	<link rel="icon" type="image/x-icon" href="assets/favicon.ico"/>
+	
+<!-- 스윗얼럿 -->
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <!-- Bootstrap icons-->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
@@ -51,6 +54,8 @@
 
 <!-- 다음주소 -->
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	
+	
 <!-------------------------------------------------------------------------------------------------------------------------->   
   
 <script>

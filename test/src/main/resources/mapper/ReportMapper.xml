@@ -24,8 +24,7 @@
 		</association>	
 		
 		<association property="reportTarget"  javaType="user">
-			<id property="userId" 				column="U2.USER_ID" 			jdbcType="VARCHAR"/>
-			<result property="profileImage"		column="TARGET_ID"		jdbcType="VARCHAR"/>
+			<id property="userId" 				column="TARGET_ID" 			jdbcType="VARCHAR"/>
 			<result property="nickname"			column="TARGET_NICKNAME"			jdbcType="VARCHAR"/>
 			<result property="userName"			column="TARGET_NAME"			jdbcType="VARCHAR"/>
 		</association>	
@@ -76,9 +75,9 @@
 	   <if test="report.reportTargetBd.boardNo != 0">
 	   , RP_TARGETBD
 	   </if>
-<!-- 	   <if test="report.reportTargetMm.mmNo != 0"> -->
-<!-- 	   , RP_TARGETMM -->
-<!-- 	   </if> -->
+	   <if test="report.reportTargetMm.mmNo != 0">
+	   , RP_TARGETMM
+	   </if>
 	   , RP_CATEGORY
 	   ) VALUES 
 	   (
@@ -95,19 +94,26 @@
 	   <if test="report.reportTargetBd.boardNo != 0 ">
 	   , #{report.reportTargetBd.boardNo}
 	   </if>
+	   <if test="report.reportTargetMm.mmNo != 0 ">
+	   , #{report.reportTargetMm.mmNo}
+	   </if>
 	   , #{report.reportCategory});
 		
 	</insert>	
 	
 	<select id="getReportList" parameterType="map" resultMap="reportSelectMap">
 	
-			SELECT 
+		SELECT
+		*
+		FROM (SELECT
+		inner_table.* , @ROWNUM := @ROWNUM +1 AS RNUM
+        FROM( 
+		SELECT 
 		  R.RP_NO
 		, R.RP_BY_USERID
 		, U.NICKNAME
 		, R.RP_TYPE
 		, R.RP_CONTENT
-		, R.RP_IMAGE
 		, R.RP_REGDATE
 		<if test=" map.search.searchCategory == 1 ">
 		, B.BD_NO
@@ -160,22 +166,58 @@
 		 R.RP_TARGETBD = B.BD_NO
 		 AND
 		 B.BD_WRITER = U2.USER_ID
+			 <if test="map.search.searchKeyword != null and map.search.searchCondition == 0">
+			 AND
+			 U2.USER_ID  LIKE CONCAT ('%',#{map.search.searchKeyword},'%')
+			 </if>
+			  <if test="map.search.searchKeyword != null and map.search.searchCondition == 1">
+			 AND
+			 U2.NICKNAME LIKE CONCAT ('%',#{map.search.searchKeyword},'%')
+			 </if>
 		 </if>
 		 <if test=" map.search.searchCategory == 2 ">
 		 AND
 		 R.RP_TARGETRE = RE.REPLY_NO
 		 AND
 		 RE.REPLY_WRITER = U2.USER_ID
+		  	<if test=" map.search.searchKeyword != null and map.search.searchCondition == 0 ">
+			 AND
+			 U2.USER_ID LIKE CONCAT ('%',#{map.search.searchKeyword},'%')
+			 </if>
+			  <if test="map.search.searchKeyword != null and map.search.searchCondition == 1">
+			 AND
+			 U2.NICKNAME LIKE CONCAT ('%',#{map.search.searchKeyword},'%')
+			 </if>
 		 </if>		 
 		  <if test=" map.search.searchCategory == 3 ">
 		 AND
 		 R.RP_TARGET = U2.USER_ID
+			  <if test="map.search.searchKeyword != null and map.search.searchCondition == 0">
+			 AND
+			 U2.USER_ID LIKE CONCAT ('%',#{map.search.searchKeyword},'%')
+			 </if>
+			  <if test="map.search.searchKeyword != null and map.search.searchCondition == 1">
+			 AND
+			 U2.NICKNAME LIKE CONCAT ('%',#{map.search.searchKeyword},'%')
+			 </if>
 		 </if>
 		  <if test=" map.search.searchCategory == 4 ">
 		 AND
 		 R.RP_TARGETMM = M.MM_NO
 		 AND
 		 M.MM_CONSTRUCTOR = U2.USER_ID
+		 	 <if test="map.search.searchKeyword != null and map.search.searchCondition == 0">
+			 AND
+			 U2.USER_ID  LIKE CONCAT ('%',#{map.search.searchKeyword},'%')
+			 </if>
+			  <if test="map.search.searchKeyword != null and map.search.searchCondition == 1">
+			 AND
+			 U2.NICKNAME LIKE CONCAT ('%',#{map.search.searchKeyword},'%')
+			 </if>
+			  <if test="map.search.searchKeyword != null and map.search.searchCondition == 2">
+			 AND
+			 M.MM_NAME LIKE CONCAT ('%',#{map.search.searchKeyword},'%')
+			 </if>
 		 </if>
 		 GROUP BY
 		 U.USER_ID
@@ -192,7 +234,8 @@
 		 , M.MM_NO
 		 </if>
 		 ORDER BY R.RP_NO
-		
+		) inner_table, (select @rownum := 0) as R )tables
+		WHERE rnum between #{map.search.startRowNum} and #{map.search.endRowNum} 
 		 
 		 
 		 
@@ -223,6 +266,86 @@
 	WHERE
 		RP_NO = #{report.reportNo}
 	
+	</select>
+	
+	<select id="getTotalCount" parameterType="report" resultType="int">
+	
+		SELECT 
+		 COUNT(*)
+		 FROM 
+		  REPORT R
+		  , USERS U
+		  , USERS U2
+		  <if test=" map.search.searchCategory == 1 ">
+		  , BOARD B
+		  </if>
+		  <if test=" map.search.searchCategory == 2 ">
+		  , REPLY RE
+		  </if>
+		  <if test=" map.search.searchCategory == 4 ">
+		  , MOIM M
+		  </if>
+		 WHERE
+		 R.RP_BY_USERID = U.USER_ID
+		 <if test=" map.search.searchCategory == 1 ">
+		 AND
+		 R.RP_TARGETBD = B.BD_NO
+		 AND
+		 B.BD_WRITER = U2.USER_ID
+			 <if test="map.search.searchKeyword != null and map.search.searchCondition == 0">
+			 AND
+			 U2.USER_ID  LIKE CONCAT ('%',#{map.search.searchKeyword},'%')
+			 </if>
+			  <if test="map.search.searchKeyword != null and map.search.searchCondition == 1">
+			 AND
+			 U2.NICKNAME LIKE CONCAT ('%',#{map.search.searchKeyword},'%')
+			 </if>
+		 </if>
+		 <if test=" map.search.searchCategory == 2 ">
+		 AND
+		 R.RP_TARGETRE = RE.REPLY_NO
+		 AND
+		 RE.REPLY_WRITER = U2.USER_ID
+		  	<if test=" map.search.searchKeyword != null and map.search.searchCondition == 0 ">
+			 AND
+			 U2.USER_ID LIKE CONCAT ('%',#{map.search.searchKeyword},'%')
+			 </if>
+			  <if test="map.search.searchKeyword != null and map.search.searchCondition == 1">
+			 AND
+			 U2.NICKNAME LIKE CONCAT ('%',#{map.search.searchKeyword},'%')
+			 </if>
+		 </if>		 
+		  <if test=" map.search.searchCategory == 3 ">
+		 AND
+		 R.RP_TARGET = U2.USER_ID
+			  <if test="map.search.searchKeyword != null and map.search.searchCondition == 0">
+			 AND
+			 U2.USER_ID LIKE CONCAT ('%',#{map.search.searchKeyword},'%')
+			 </if>
+			  <if test="map.search.searchKeyword != null and map.search.searchCondition == 1">
+			 AND
+			 U2.NICKNAME LIKE CONCAT ('%',#{map.search.searchKeyword},'%')
+			 </if>
+		 </if>
+		  <if test=" map.search.searchCategory == 4 ">
+		 AND
+		 R.RP_TARGETMM = M.MM_NO
+		 AND
+		 M.MM_CONSTRUCTOR = U2.USER_ID
+		 	 <if test="map.search.searchKeyword != null and map.search.searchCondition == 0">
+			 AND
+			 U2.USER_ID  LIKE CONCAT ('%',#{map.search.searchKeyword},'%')
+			 </if>
+			  <if test="map.search.searchKeyword != null and map.search.searchCondition == 1">
+			 AND
+			 U2.NICKNAME LIKE CONCAT ('%',#{map.search.searchKeyword},'%')
+			 </if>
+			  <if test="map.search.searchKeyword != null and map.search.searchCondition == 2">
+			 AND
+			 M.MM_NAME LIKE CONCAT ('%',#{map.search.searchKeyword},'%')
+			 </if>
+		 </if>
+		 
 	</select>
 	
 	

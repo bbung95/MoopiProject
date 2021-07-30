@@ -15,21 +15,6 @@
 <!-------------------------------------------------------------------------------------------------------------------------->
 
 <script>
-
-	function restore() {
-		var userId=$('input[name=userId]').val();
-		$.ajax({
-			url : "/user/json/restoreUser",
-			method : "POST",
-			contentType : "application/JSON",
-			dataType : "text",
-			data : JSON.stringify({"userId" : userId}),
-			success : function(data, state) {
-					alert(userId+" 회원님의 복구가 완료되었습니다.");
-					close();
-			}
-		})//End ajax		
-	}//End restore();
 	
 </script>
 
@@ -73,7 +58,6 @@
 
 </head>
 <body>
-{user.stateReason}
 		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -89,7 +73,7 @@
 								<h4 class="blackUserContent" style="center;"> ${userId} 님께서는 하단의 사유로 블라인드 처리되신 회원입니다 </h4>
 								<div class="regDateContent">블랙일자 및 사유</div>
 								<div class="regDate">${stateRegDate}2021-07-30</div>
-								<div class="stateReason">${stateReason}사유입력</div>
+								<div class="stateReason">${stateReason}</div>
 								
 								<div class="delete_p" style="margin-top: 10px;">
 								<hr>
@@ -104,8 +88,7 @@
 				</div>
 
 				<div class="modal-footer">		
-					<div><button type="button" class="btn btn-light" onclick="javascript:restore()">복원하기</button>
-					<button type="button" class="btn btn-light" onclick="javascript:window.close()">복원취소</button></div>
+					<button type="button" class="btn btn-light" onclick="javascript:window.close()">확인</button></div>
 				</div>
 			</div>
 		</div>
