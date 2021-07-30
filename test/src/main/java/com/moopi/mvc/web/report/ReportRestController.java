@@ -75,7 +75,7 @@ public class ReportRestController {
 					user.setUserRole("4");
 				}
 				user.setStateReason(report.getStateReason());
-				user.setStateRegDate(report.getReportResultUpdate());
+				user.setStateRegdate(report.getReportResultUpdate());
 				System.out.println("user의 값 ==========="+user);
 				
 			}
@@ -94,13 +94,29 @@ public class ReportRestController {
 					user.setUserRole("4");
 				}
 				user.setStateReason(report.getStateReason());
-				user.setStateRegDate(report.getReportResultUpdate());
+				user.setStateRegdate(report.getReportResultUpdate());
 				
 			}
 			userService.updateUserRole(user);
 		}
 		
 		return	reportService.getReport(report);
+		
+	}
+	
+	@RequestMapping("addReport")
+	public String addReport(@RequestBody Report report) throws Exception{
+		
+		System.out.println("addReport 실행");
+		
+		System.out.println(report);
+		
+		if(report.getReportByUser().getUserId() != null || report.getReportByUser().getUserId() != "") {
+		reportService.addReport(report);
+		System.out.println("신고자아이디체크 '"+report.getReportByUser().getUserId()+"' 공백일경우 널값들어감. " );
+		}
+		
+		return "";
 		
 	}
 	
