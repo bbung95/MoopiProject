@@ -66,16 +66,16 @@
         	self.location ="/moim/updateMoimView?mmNo="+mmNo
         }
 
-        function fncApply(mmNo){
-        	<c:if test = "${null ne dbUser.userId}">
-        		alert("가입하기");
-        		alert("가입신청이 완료되었습니다.");
-        		self.location ="/moim/applyMoim?userId=${dbUser.userId}&mmNo="+mmNo	
-        	</c:if>
-        	<c:if test = "${empty dbUser.userId}">
-        	swal("회원가입이 필요한 페이지입니다.");
-        	</c:if>
-        }
+//         function fncApply(mmNo){
+//         	<c:if test = "${null ne dbUser.userId}">
+//         		alert("가입하기");
+//         		alert("가입신청이 완료되었습니다.");
+//         		self.location ="/moim/applyMoim?userId=${dbUser.userId}&mmNo="+mmNo	
+//         	</c:if>
+//         	<c:if test = "${empty dbUser.userId}">
+//         	swal("회원가입이 필요한 페이지입니다.");
+//         	</c:if>
+//         }
 
         function fncApplyList(mmNo){
         	swal("가입신청목록보기");
@@ -193,27 +193,37 @@ img.whale{
         <h1 onClick="fncInvite(${moim.mmNo})">Invite</h1>
         <h1 onClick="fncListMember(${moim.mmNo})">Member</h1>
         <c:if test = "${dbUser.userId eq moim.mmConstructor.userId}">
-		<div onClick="fncUptMoimView(${moim.mmNo})">Update</div>
-		<dic onClick="fncApplyList(${moim.mmNo})">List Apply</div>
+        <br>
+		<h3><div onClick="fncUptMoimView(${moim.mmNo})" >Update</div></h3>
+		<h3><dic onClick="fncApplyList(${moim.mmNo})" >List Apply</div></h3>
 		</c:if>
 		</div>
 <!-- SideBar End -->
 
 
 	<script type="text/javascript">
-
 	
+	var mmNo6 = ${moim.mmNo};
+	var userId6 = "<c:out value='${dbUser.userId}'/>";
 	
     $("h1#choose").on("click", function(){
 		
 		if($("#choose").text('Join Us')){
 			alert("가입신청 완료");
-			self.location ="/moim/applyMoim?userId=${dbUser.userId}&mmNo=${moim.mmNo}"
-		}		
-		else if($("#choose").text('Withdraw')){
-			alert("탈퇴신청 완료");
-		}
-		
+		        	$.ajax( 
+        			{
+        				url : "/moim/json/applyMoim",
+        				method : "POST" ,
+        				dataType : "json" ,
+       					contentType : "application/JSON",
+        				data: JSON.stringify( {"mmUser" : {"userId" : userId6 },
+        					"mmNo" : mmNo6} ),
+        				
+        				success : function(JSONData , status) {
+        					alert(status);
+        				}
+        		}); //ajax 종료
+		}				
 	});
 
 	$("h1:contains('Home')").on("click", function(){

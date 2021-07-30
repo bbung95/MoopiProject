@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.moopi.mvc.common.Search;
 import com.moopi.mvc.service.domain.User;
+import com.moopi.mvc.service.domain.UserData;
 
 @Mapper
 public interface UserDao {
@@ -59,7 +60,7 @@ public interface UserDao {
 	public List<User> getUserList(@Param("search") Search search, @Param("searchState") int searchState);
 	
 	// 검색관련 - 유저리스트 조회시 회원 수
-	public int getTotalCount(Search search) throws Exception;
+	public int getTotalCount(@Param("search") Search search, @Param("searchState") int searchState ) throws Exception;
 
 	// 패스워드수정
 	public void updatePwd(User user) throws Exception;
@@ -124,6 +125,19 @@ public interface UserDao {
 	public int getFollowCount(@Param("userId") String userId, @Param("order") int order);
 
 	public void updateUserRole(User user);
+
+	//public void updateUserRole(@Param("user") User user);
+	
+	
+	//차트관련
+	public UserData getJoinPath() throws Exception;
+	
+	public UserData getGenderData() throws Exception;
+	
+	public UserData getAgeData() throws Exception;
+	
+	public UserData getInterestData() throws Exception;
+
 }
 
 	

@@ -15,7 +15,7 @@
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
   	
-<script>
+<script type="text/javascript">
 $(function() {
 	//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 	$( "#addReport" ).on("click" , function() {
@@ -26,19 +26,55 @@ $(function() {
 function fncAddReport(){
 	alert("신고");
 	
-	var reportType			= $("#reportType").is(':checked');
+	var reportType			= $("input[name=reportType]:checked").val();
 	var reportContent		= $("#reportContent").val();
+// 	if ( $("#reportTarget").val() != null ) {
 	var reportTarget		= $("#reportTarget").val();
+// 	alert(reportTarget);
+// 	}
+// 	if ( $("#reportTargetBd").val() != null) {
+	var reportTargetBd		= $("#reportTargetBd").val();
+// 	alert(reportTargetBd);
+// 	}
+// 	if (  $("#reportTargetRe").val() != null ) {
+	var reportTargetRe		= $("#reportTargetRe").val();
+// 	alert(reportTargetRe);
+// 	}
+// 	if (  $("#reportTargetMm").val() != null ) {
+	var reportTargetMm		= $("#reportTargetMm").val();
+// 	alert(reportTargetMm);
+// 	}
 	var reportCategory 		= $("#reportCategory").val();
-	var reportByUser 		= $("#reportByUser").val();
-	var targetName  		= $("#targetName").val();
+	var reportByUserId		= $("#reportByUser").val();
 	
-	alert(reportContent);
-	alert(reportByUser);
+// 	alert(reportType);
+// 	alert(reportContent);
+// 	alert(reportTarget);
+// 	alert(reportTargetBd);
+// 	alert(reportTargetRe);
+// 	alert(reportTargetMm);
+// 	alert(reportCategory);
+// 	alert(reportByUserId);
 	
-	$("form").attr("method" , "POST").attr("action" , "/report/addReport").submit();
+	$.ajax({
+		url: "/report/json/addReport",
+		type: "POST",
+		dataType: "json",
+		contentType : "application/json",
+		data :  JSON.stringify ({ "reportType": reportType, "reportContent": reportContent, "reportTarget": { "userId": reportTarget }, "reportTargetBd": {"boardNo" :reportTargetBd},
+								 "reportTargetRe": { "replyNo" : reportTargetRe} , "reportTargetMm": { "mmNo" : reportTargetMm} , "reportCategory" : reportCategory, "reportByUser" : {"userId":reportByUserId} }),		
+		success: function(data, state){
+			
+			
+			close();
+		
+		}
+	
+	});
 	
 }
+
+
 
 
 </script>
@@ -53,16 +89,13 @@ function fncAddReport(){
 		<form class="form-horizontal" name="detailForm" >
 		<!-- 카테고리 1번에 해당하는 신고글. -->
 		  <c:if test="${reportCategory == 1}">
-		  <input type="hidden" id="reportByUser.userId" name="reportByUser.userId" value="${dbUser.userId}">
-		  <input type="hidden" id="reportTargetBd.boardNo" name="reportTargetBd.boardNo" value="${board.boardNo}">
+		  <input type="hidden" id="reportByUser" name="reportByUser.userId" value="${dbUser.userId}">
+		  <input type="hidden" id="reportTargetBd" name="reportTargetBd.boardNo" value="${board.boardNo}">
 		  <input type="hidden" id="reportCategory" name="reportCategory" value="${reportCategory}">
-		  <div>
-            <div>
                 <div>
 					<p>작성자</p>
                     <p class="targetName">
                     <p id="targetName">${board.boardWriter.nickname}</p>
-                    </p>
                 </div>
                 
                 <div>
@@ -77,18 +110,13 @@ function fncAddReport(){
            
            <!-- 카테고리 2번에 해당하는 신고글. -->
             <c:if test="${reportCategory == 2}">
-		  
-		  
-		  <input type="hidden" id="reportByUser.userId" name="reportByUser.userId" value="${dbUser.userId}">
+		  <input type="hidden" id="reportByUser" name="reportByUser.userId" value="${dbUser.userId}">
 		  <input type="hidden" id="reportTargetRe" name="reportTargetRe.replyNo" value="${reply.replyNo}">
 		  <input type="hidden" id="reportCategory" name="reportCategory" value="${reportCategory}">
-		  <div>
-            <div>
                 <div>
 					<p>작성자</p>
                     <p class="targetName">
                     <p id="targetName">${reply.replyWriter.nickname}</p>
-                    </p>
                 </div>
                 
                  <div>
@@ -100,10 +128,9 @@ function fncAddReport(){
                 <div class="c_rp_dtl">
                     <p>신고유형</p>
                 </div>
-            </div>
-            <div class="c_rp_lst">
-                <ul class="wp">
-                    <li class="itm">
+            <div class="c_rp_lst" id= "reportType">
+                <ul class="wp" >
+                    <li class="itm" >
                         <input type="radio" name="reportType" value="1">
                         <label> 음란</label> 
                     </li>
@@ -125,18 +152,15 @@ function fncAddReport(){
 					<p>상세내용</p>
                     <p class="reportContent">
                     <input type="text" id="reportContent" name="reportContent" style="width:300px;height:200px;">
-                    
                     </p>
-            </div>
-            <button type="button" class="btn btn-primary" id="addReport">신고하기</button>
-            
+           
+            <button type="button" class="btn btn-primary" onclick="javascript:fncAddReport()" >신고하기</button>
+             </div>
+        
+        </form>
         </div>
         
-		  
-		  
-		  
-		</form>
-		</div>
+		
 </body>
 
 

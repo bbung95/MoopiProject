@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.moopi.mvc.common.Search;
 import com.moopi.mvc.service.domain.User;
+import com.moopi.mvc.service.domain.UserData;
 import com.moopi.mvc.service.user.UserDao;
 
 @Service
@@ -78,7 +79,7 @@ public class UserServiceImpl {
 		System.out.println("UserServiceImpl :: getUserList 시작");
 		
 		List<User> list = userDao.getUserList(search, searchState);
-		int totalCount = userDao.getTotalCount(search);		
+		int totalCount = userDao.getTotalCount(search, searchState);		
 		System.out.println("totalCount : "+totalCount);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -205,10 +206,28 @@ public class UserServiceImpl {
 		return userDao.getFollowCount(userId, order);
 	}
 	
+	//유저롤 업데이트. 
 	public void updateUserRole(@Param("user") User user) {
 		
 		userDao.updateUserRole(user);
 	}
 	
 
+	//차트관련
+	public UserData getJoinPath() throws Exception {
+		return userDao.getJoinPath();
+	}
+
+
+	public UserData getGenderData() throws Exception {
+		return userDao.getGenderData();
+	}
+	
+	public UserData getAgeData() throws Exception {
+		return userDao.getAgeData();
+	}
+	
+	public UserData getInterestData() throws Exception{
+		return userDao.getInterestData();
+	}
 }

@@ -44,7 +44,7 @@
 	<link rel="stylesheet" href="/css/summernote-lite.css">
   	
   	
-  	
+<!-- 게시판 -->  	
 <script>
 
 
@@ -146,30 +146,62 @@ body {
 		  
 		   </div>
 		   
-	 
-		
-		
-		<!-- form Start /////////////////////////////////////-->
+	 <!--  뉴폼 -->
+	 <!-- form Start /////////////////////////////////////-->
 		<form class="form-horizontal" name="detailForm" enctype="multipart/form-data">
 		  <input type="hidden" id="boardWriter.userId" name="boardWriter.userId" value="${dbUser.userId }">
 		  <input type="hidden" id="boardCategory" name="boardCategory" value="4">
 		  <input type="hidden" id="boardMoimNo" name="boardMoimNo" value="${boardMoimNo }">
 		  
 		  <div class="form-group">
-		    <label for="ssn" class="col-sm-offset col-sm-2 control-label">Title</label>
-		    <div class="col-sm-6">
-		      <input type="text" class="form-control" id="boardName" name="boardName" placeholder="title...">
+		    <div  style="padding-bottom: 30px;">
+		      <input type="text" class="form-control" id="boardName"  name="boardName"  style="width:90%;" placeholder="제목을 입력해주세요.">
 		    </div>
 		  </div>
 		  
 		  <div class="form-group">
-		  	<div class="table op_tableline10" data-loop="true" data-view="7">
-		    <label for="ssn" class="col-sm-offset col-sm-2 control-label">Content</label>
-		    <div class="col-sm-6">
-		    <textarea id="summernote" name ="boardContent">Content...</textarea>
+		    <div style="width:90%;">
+		    <textarea  id="summernote" name ="boardContent"></textarea>
 		    </div>
 		  </div>
+		  
+		 
+		  <div class="form-group">
+		    <div class="col-sm-offset-5  col-sm-4 text-center" style="float:right;">
+		      <button type="button" class="btn btn-primary" >등록</button>
+			   <a class="btn btn-default btn" href="javascript:history.back();" role="button">취소</a>
+		    </div>
 		  </div>
+		</form>
+	</div> 
+<jsp:include page="../layout/moimSidebar.jsp"></jsp:include>				
+<jsp:include page="../layout/searchbar.jsp"></jsp:include>
+</body>
+</html>
+	 <!-- 뉴폼 -->
+		
+		
+		<!-- form Start /////////////////////////////////////-->
+<!-- 		<form class="form-horizontal" name="detailForm" enctype="multipart/form-data"> -->
+<%-- 		  <input type="hidden" id="boardWriter.userId" name="boardWriter.userId" value="${dbUser.userId }"> --%>
+<!-- 		  <input type="hidden" id="boardCategory" name="boardCategory" value="4"> -->
+<%-- 		  <input type="hidden" id="boardMoimNo" name="boardMoimNo" value="${boardMoimNo }"> --%>
+		  
+<!-- 		  <div class="form-group"> -->
+<!-- 		    <label for="ssn" class="col-sm-offset col-sm-2 control-label">Title</label> -->
+<!-- 		    <div class="col-sm-6"> -->
+<!-- 		      <input type="text" class="form-control" id="boardName" name="boardName" placeholder="title..."> -->
+<!-- 		    </div> -->
+<!-- 		  </div> -->
+		  
+<!-- 		  <div class="form-group"> -->
+<!-- 		  	<div class="table op_tableline10" data-loop="true" data-view="7"> -->
+<!-- 		    <label for="ssn" class="col-sm-offset col-sm-2 control-label">Content</label> -->
+<!-- 		    <div class="col-sm-6"> -->
+<!-- 		    <textarea id="summernote" name ="boardContent">Content...</textarea> -->
+<!-- 		    </div> -->
+<!-- 		  </div> -->
+<!-- 		  </div> -->
 		  
 <!-- 		  <div class="form-group"> -->
 <!-- 		    <label for="ssn" class="col-sm-offset col-sm-2 control-label">비밀번호</label> -->
@@ -178,18 +210,18 @@ body {
 <!-- 		    </div> -->
 <!-- 		  </div> -->
 		 
-		  <div class="form-group">
-		    <div class="col-sm-offset-5  col-sm-4 text-center">
-		      <button type="button" class="btn btn-primary" >등록</button>
-			   <a class="btn btn-default btn" href="javascript:history.back();" role="button">취소</a>
-		    </div>
-		  </div>
+<!-- 		  <div class="form-group"> -->
+<!-- 		    <div class="col-sm-offset-5  col-sm-4 text-center"> -->
+<!-- 		      <button type="button" class="btn btn-primary" >등록</button> -->
+<!-- 			   <a class="btn btn-default btn" href="javascript:history.back();" role="button">취소</a> -->
+<!-- 		    </div> -->
+<!-- 		  </div> -->
 		  
 		 
 		  
 		  
-		</form>
-<jsp:include page="../layout/moimSidebar.jsp"></jsp:include>		
-<jsp:include page="../layout/searchbar.jsp"></jsp:include>
-</body>
-</html>
+<!-- 		</form> -->
+
+<%-- <jsp:include page="../layout/searchbar.jsp"></jsp:include> --%>
+<!-- </body> -->
+<!-- </html> -->

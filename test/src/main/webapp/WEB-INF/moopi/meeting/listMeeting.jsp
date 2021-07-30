@@ -79,6 +79,7 @@ var mtStart2="";
 var mtEnd="";
 var mtEnd2="";
 var mtMaxCount="";
+var mtCurrentCount="";
 var mtAddr="";
 var mtConstructor="";
 var mmNo="";
@@ -144,6 +145,12 @@ $(function(){
 //         $("#mtStart4").val(mtStart);
 //         $("#mtEnd4").val(mtEnd);
         $("#UmtAddr2").val(mtAddr);
+        $("#UmtAddr2").val(mtAddr);
+        $("#UmmNo").val(mmNo);
+        $("#UmtNo").val(mtNo);
+        $("#UmtCurrentCount2").val(mtCurrentCount);
+        $("#UmtConstructor").val(mtConstructor);
+        
     });
 });
 
@@ -325,7 +332,7 @@ function fncAddMt() {
 
 function fncUptMt() {
 	alert("정모를수정합니다");
-	$("#uptMt").attr("method", "POST").attr("action", "/meeting/updateMeeting").submit();
+	$("#uptMt2").attr("method", "POST").attr("action", "/meeting/updateMeeting").submit();
 }
 
 function fncApplyMt(mtNo, userId){
@@ -448,6 +455,7 @@ $(document).ready(function() {
         	mtEnd2 = event.end2;
         	mtContent = event.description;
         	mtMaxCount = event.maxCount;
+        	mtCurrentCount = event.currentCount;
         	mtConstructor = event.constructor;
         	mtAddr = event.addr;
         	mtMapX = event.mtMapX;
@@ -647,8 +655,8 @@ function fncPopUp(){
 <body>
 
 <!-- ToolBar Start ///////////////////////////////////// -->
-<%-- <jsp:include page="../layout/toolbar.jsp" /> --%>
-<jsp:include page="../layout/moimToolbar.jsp"/>
+<jsp:include page="../layout/toolbar.jsp" />
+<%-- <jsp:include page="../layout/moimToolbar.jsp"/> --%>
 <!-- ToolBar End /////////////////////////////////////-->
 <center>
 <h3>Your Meeting Calendar
@@ -741,8 +749,8 @@ function fncPopUp(){
 		  </div>
 		  
 		  <br>
-	<input type='hidden' id='lat'name='mtMapX' value=''>
-	<input type='hidden' id='lng'name='mtMapY' value=''>
+	<input type='hidden' id='lat' name='mtMapX' value=''>
+	<input type='hidden' id='lng' name='mtMapY' value=''>
 	<button type="button" class="btn btn-info" onClick='fncAddMap()' >장소등록</button><br>
 		 
 		</form>
@@ -772,7 +780,9 @@ function fncPopUp(){
 
 	<form id = "uptMt2" class="form-horizontal" name="detailForm">
 		  <input type="hidden" name="userId" value="${dbUser.userId}">
-		  <input type='hidden' name='mmNo' value='${moim.mmNo}'>
+		  <input type='hidden' id="UmmNo" name='mmNo' value="${mmNo}">
+		  <input type='hidden' id="UmtNo" name='mtNo'>
+		  <input type="hidden" id="UmtCurrentCount2" name="mtCurrentCount">
 		  
 		  <div class="form-group">
 		    <label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">Title</label>
@@ -786,7 +796,7 @@ function fncPopUp(){
 		  <div class="form-group">
 		    <label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">Content</label>
 		    <div class="col-sm-40">
-		    <textarea  style="resize:none" class="form-control" id="UmtContent" name="mtContent" 				placeholder="50자이내"></textarea>
+		    <textarea  style="resize:none" class="form-control" id="UmtContent" name="mtContent" placeholder="50자이내"></textarea>
 		    </div>
 		  </div>
 		  
