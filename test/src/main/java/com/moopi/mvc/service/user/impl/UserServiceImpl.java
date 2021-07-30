@@ -82,7 +82,7 @@ public class UserServiceImpl {
 		System.out.println("UserServiceImpl :: getUserList 시작");
 		
 		List<User> list = userDao.getUserList(search, searchState);
-		int totalCount = userDao.getTotalCount(search);		
+		int totalCount = userDao.getTotalCount(search, searchState);		
 		System.out.println("totalCount : "+totalCount);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -215,7 +215,15 @@ public class UserServiceImpl {
 		return userDao.getJoinPath();
 	}
 
-	public UserData getGender() throws Exception {
-		return userDao.getGender();
+	public UserData getGenderData() throws Exception {
+		return userDao.getGenderData();
+	}
+	
+	public UserData getAgeData() throws Exception {
+		return userDao.getAgeData();
+	}
+	
+	public UserData getInterestData() throws Exception{
+		return userDao.getInterestData();
 	}
 }

@@ -124,13 +124,13 @@ var userData = new Array();
 									<button onClick="pathChange()" class="bg-transparent hover:bg-red-500 text-orange-dark font-semibold hover:text-white py-2 px-4 border border-red hover:border-transparent rounded">
                                     가입경로
                                 </button>
-                                <button  class="bg-transparent hover:bg-red-500 text-orange-dark font-semibold hover:text-white py-2 px-4 border border-red hover:border-transparent rounded">
+                                <button onClick="ageChange()" class="bg-transparent hover:bg-red-500 text-orange-dark font-semibold hover:text-white py-2 px-4 border border-red hover:border-transparent rounded">
                                     연령대
                                 </button>
 									<button onClick="genderChange()" class="bg-transparent hover:bg-red-500 text-orange-dark font-semibold hover:text-white py-2 px-4 border border-red hover:border-transparent rounded">
                                     성별
                                 </button>
-                                <button  class="bg-transparent hover:bg-red-500 text-orange-dark font-semibold hover:text-white py-2 px-4 border border-red hover:border-transparent rounded">
+                                <button onClick="interestChange()" class="bg-transparent hover:bg-red-500 text-orange-dark font-semibold hover:text-white py-2 px-4 border border-red hover:border-transparent rounded">
                                     관심사
                                 </button>
 									
@@ -210,6 +210,7 @@ var userData = new Array();
 				}]
 			},
 			options: {
+				events: ['click'],
 		        maintainAspectRatio: true,
 		        scales: {
 		            yAxes: [{
@@ -272,6 +273,7 @@ function weekChange(){
 				}]
 			},
 			options: {
+				events: ['click'],
 		        maintainAspectRatio: true,
 		        scales: {
 		            yAxes: [{
@@ -338,6 +340,7 @@ function dayChange(){
 				}]
 			},
 			options: {
+				events: ['click'],
 		        maintainAspectRatio: true,
 		        scales: {
 		            yAxes: [{
@@ -415,6 +418,7 @@ function monthChange(){
 				}]
 			},
 			options: {
+				events: ['click'],
 		        maintainAspectRatio: true,
 		        scales: {
 		            yAxes: [{
@@ -448,6 +452,8 @@ console.log(userData);
 
 let userChartOne = document.getElementById('userChartOne').getContext('2d');
 let userChartTwo = document.getElementById('userChartOne').getContext('2d');
+let userChartThree = document.getElementById('userChartOne').getContext('2d');
+let userChartFour = document.getElementById('userChartOne').getContext('2d');
 
 let userBarChart = new Chart(userChartOne, {
 	type : 'radar',
@@ -460,6 +466,7 @@ let userBarChart = new Chart(userChartOne, {
 		}]
 	},
 	options: {
+		events: ['click'],
         scales: {
             yAxes: [{
                 ticks: {
@@ -473,7 +480,7 @@ let userBarChart = new Chart(userChartOne, {
 		
 function genderChange(){		
 
-	userBarChart.destroy();
+// 	userBarChart.destroy();
 	userLabels = [];
 	userData = [];
 	userLabels.push("남성", "여성");
@@ -510,6 +517,7 @@ function genderChange(){
 				}]
 			},
 			options: {
+				events: ['click'],
 		        maintainAspectRatio: true,
 		        scales: {
 		            yAxes: [{
@@ -529,7 +537,7 @@ function genderChange(){
 <script>
 function pathChange(){
 
- 	userBarChart2.destroy();
+//  	userBarChart2.destroy();
 	userLabels = [];
 	userData = [];
 	userLabels.push("무피", "구글", "네이버", "카카오");	
@@ -574,6 +582,124 @@ function pathChange(){
 }
 
 </script>
+
+<script>
+function ageChange(){
+
+
+	userLabels = [];
+	userData = [];
+	userLabels.push("20대", "30대", "40대", "50대");	
+	
+	
+	$.ajax( 
+			{
+				url : "/common/json/getAge",
+				method : "GET" ,
+				dataType : "json" ,
+				headers : {
+					"Accept" : "application/json",
+					"Content-Type" : "application/json"
+				},
+				success : function(JSONData , status) {
+						
+				 		userData.push(JSONData.twenties, JSONData.thirties, JSONData.forties, JSONData.fifties);	 		
+		
+				 		var userPieChart = new Chart(userChartThree, {
+				 			type : 'doughnut',
+				 			data : {
+				 				labels : userLabels,
+				 				datasets : [{
+				 					label : '연령대 분포',
+									backgroundColor: [ 
+										'rgba(255, 206, 86, 0.2)',
+						                'rgba(75, 192, 192, 0.2)',
+						                'rgba(153, 102, 255, 0.2)',
+						                'rgba(255, 99, 132, 0.2)'],
+				 					data : userData
+				 				}]
+				 			},
+				 			options: {
+				 				events: ['click'],
+				 		        scales: {
+				 		            yAxes: [{
+				 		                ticks: {
+				 		                    beginAtZero:true
+				 		                }
+				 		            }]
+				 		        }
+				 		    } 
+				 		});
+				}
+		}); //ajax 종료
+	
+}
+
+</script>
+
+<script>
+function interestChange(){
+
+
+	userLabels = [];
+	userData = [];
+	userLabels.push("아웃도어/여행/사진/영상", "운동/스포츠", "인문학/책/글", "업종/직무", "외국/언어", "문화/공연/축제/음악/악기", "공예/만들기", "댄스/무용", "사교/인맥", "차/오토바이", "게임/오락", "맛집/카페");	
+	
+	
+	$.ajax( 
+			{
+				url : "/common/json/getInterest",
+				method : "GET" ,
+				dataType : "json" ,
+				headers : {
+					"Accept" : "application/json",
+					"Content-Type" : "application/json"
+				},
+				success : function(JSONData , status) {
+						
+				 		userData.push(JSONData.travel, JSONData.sport, JSONData.book, JSONData.work, JSONData.language, JSONData.music, JSONData.make, JSONData.dance, JSONData.friend, JSONData.car, JSONData.game, JSONData.caffe);	 		
+		
+				 		var userPolarChart = new Chart(userChartFour, {
+				 			type : 'bar',
+				 			data : {
+				 				labels : userLabels,
+				 				datasets : [{
+				 					label : '관심사분포',
+									backgroundColor: [ 
+										'rgba(255, 206, 86, 0.2)',
+						                'rgba(75, 192, 192, 0.2)',
+						                'rgba(153, 102, 255, 0.2)',
+						                'rgba(142, 62, 201, 0.2)',
+						                'rgba(20, 78, 202, 0.2)',
+						                'rgba(15, 66, 132, 0.2)',
+						                'rgba(240, 108, 178, 0.2)',
+						                'rgba(175, 96, 100, 0.2)',
+						                'rgba(14, 88, 252, 0.2)',
+						                'rgba(146, 104, 30, 0.2)',
+						                'rgba(100, 200, 199, 0.2)',
+						                'rgba(148, 66, 25, 0.2)'
+						                ],
+				 					data : userData
+				 				}]
+				 			},
+				 			options: {
+				 				events: ['click'],
+				 		        scales: {
+				 		            yAxes: [{
+				 		                ticks: {
+				 		                    beginAtZero:true
+				 		                }
+				 		            }]
+				 		        }
+				 		    } 
+				 		});
+				}
+		}); //ajax 종료
+	
+}
+
+</script>
+
 
 </body>
 

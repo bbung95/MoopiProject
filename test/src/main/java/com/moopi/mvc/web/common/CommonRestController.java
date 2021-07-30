@@ -115,10 +115,28 @@ public class CommonRestController {
 	
 	
 	@GetMapping(value = "json/getGender")
-	public UserData getGender(Model model) throws Exception {
+	public UserData getGenderData(Model model) throws Exception {
 		
 		System.out.println("/getGender-성비 : GET");
-		UserData userData = userService.getGender();
+		UserData userData = userService.getGenderData();
+		model.addAttribute("userData", userData);
+		return userData;
+	}
+	
+	@GetMapping(value = "json/getAge")
+	public UserData getAgeData(Model model) throws Exception {
+		
+		System.out.println("/getAge-연령대 : GET");
+		UserData userData = userService.getAgeData();
+		model.addAttribute("userData", userData);
+		return userData;
+	}
+	
+	@GetMapping(value = "json/getInterest")
+	public UserData getInterestData(Model model) throws Exception {
+		
+		System.out.println("/getInterest-관심사 : GET");
+		UserData userData = userService.getInterestData();
 		model.addAttribute("userData", userData);
 		return userData;
 	}
@@ -182,6 +200,8 @@ public class CommonRestController {
 		} else {
 			System.out.println("User List");
 			search.setSearchCondition(2);
+			search.setPageSize(pageSize);
+			search.setPageUnit(pageUnit);
 			return userService.getUserList(search, 0);
 		}
 
@@ -203,20 +223,20 @@ public class CommonRestController {
 		return map;
 	}
 
-	@PostMapping(value = "json/fileUpload")
-	public String fileUpload(@RequestParam("uploadFile") MultipartFile file) {
-
-		System.out.println("fileUpload : POST");
-		long currentTime = System.currentTimeMillis();
-		String fileName = currentTime + file.getOriginalFilename();
-		try {
-			file.transferTo(new File(saveDir + "/" + fileName));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return fileName;
-	}
+//	@PostMapping(value = "json/fileUpload")
+//	public String fileUpload(@RequestParam("uploadFile") MultipartFile file) {
+//
+//		System.out.println("fileUpload : POST");
+//		long currentTime = System.currentTimeMillis();
+//		String fileName = currentTime + file.getOriginalFilename();
+//		try {
+//			file.transferTo(new File(saveDir + "/" + fileName));
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//
+//		return fileName;
+//	}
 
 // 	다중 이미지 업로드	
 //	@PostMapping(value="json/fileUpload")

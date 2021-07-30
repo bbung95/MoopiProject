@@ -51,7 +51,7 @@ public class FlashTest {
 		flash.setFlashMaxCount(5);
 		flash.setFlashAddr("서울시");
 		flash.setFlashState(1);
-		flash.setFlashInterest("2");
+//		flash.setFlashInterest(2);
 		flash.setFlashMapX(10);
 		flash.setFlashMapY(30);
 		flashService.addFlash(flash);
@@ -89,8 +89,6 @@ public class FlashTest {
 		System.out.println("flashInterest is '1' totalList::" + map.get("list"));
 		System.out.println("flashInterest is '1' flashCount::" + map.get("totalCount"));
 
-	
 	}
+
 }
-
-
