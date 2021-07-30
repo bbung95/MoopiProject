@@ -14,6 +14,17 @@
 
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 
+<! ------------------------------------------------ Bootstrap, jQuery CDN -------------------------------------------------->
+<!-- Favicon-->
+<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+<!-- Bootstrap icons-->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
+	rel="stylesheet" />
+<!-- Core theme CSS (includes Bootstrap)-->
+<link href="/css/styles.css" rel="stylesheet" />
+<!-------------------------------------------------------------------------------------------------------------------------->
+
 <!-- Css -->
 <link rel="stylesheet" href="/css/admin/styles.css">
 <link rel="stylesheet" href="/css/admin/all.css">
@@ -24,7 +35,7 @@
 
 <body>
 	<!--Container -->
-	<div class="mx-auto bg-grey-lightest">
+	<div class="mx-auto bg-	grey-lightest">
 		<!--Screen-->
 		<div class="min-h-screen flex flex-col">
 			<!--Header Section Starts Here-->
@@ -161,8 +172,9 @@
 						<!--/Grid Form-->
 
 
-						<form class="form-inline" name="detailForm">
-
+						<form id="detailForm"
+							class="form-inline d-flex justify-content-end" name="detailForm">
+							
 							<div class="form-group">
 								<select name="searchCondition" class="form-control"
 									style="width: 110px">
@@ -181,15 +193,19 @@
 								<label class="sr-only" for="searchKeyword">검색어</label> <input
 									type="text" class="form-control" id="searchKeyword"
 									name="searchKeyword" placeholder="검색어"
-									value="${! empty search.searchKeyword ? search.searchKeyword : '' }">
+									value="${! empty search.searchKeyword ? search.searchKeyword : '' }"
+									style="width: 200px;">
 							</div>
 
-							<button type="button" class="btn btn-default">검색</button>
+							<button type="button" class="btn btn-primary">검색</button>
+							<input type="hidden" class="searchCategory" name="searchCategory" value="${search.searchCategory}">
 
-							<input type="hidden" id="currentPage" name="currentPage" value="" />
+							<input type="hidden" id="searchState" name="searchState"
+								value="0" /> 
+								<input type="hidden" id="currentPage" name="currentPage" value="1" />
 						</form>
-
-
+						
+						<jsp:include page="pageNavigator.jsp"></jsp:include>
 
 					</div>
 				</main>
