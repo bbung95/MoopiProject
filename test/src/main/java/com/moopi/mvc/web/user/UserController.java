@@ -459,6 +459,7 @@ public class UserController {
 			session.setAttribute("user", googleId);
 			return "redirect:/";
 		} else {
+			user.setJoinPath("2");
 			return "user/addUserInfo";
 		}
 	}	
