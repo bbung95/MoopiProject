@@ -65,20 +65,19 @@ public class UserController {
 	
 	// [완료] 로그인페이지 (단순 네비게이션)
 	@RequestMapping("loginView")
-	public String loginView(@ModelAttribute("user") User user) throws Exception{
+	public String loginView() throws Exception{
 		return "user/loginView";
 	}
 
 	// [완료] 로그인 
 	@RequestMapping("loginUser")
-	public String login(@ModelAttribute("user") User user, @RequestParam("userId") String userId,
-						HttpSession session, Model model) throws Exception{
-		User dbUser = userService.loginUser(user.getUserId());
-		System.out.println(dbUser);		
+	public String login(	@ModelAttribute("user") User user, 
+							@RequestParam("userId") String userId,
+							HttpSession session, 
+							Model model) throws Exception{
+		User dbUser = userService.loginUser(user.getUserId());	
 		String dbId = user.getUserId();
 		String dbPw = user.getPassword();
-		
-		System.out.println("유저롤 확인 : "+dbUser.getUserRole());
 		
 		if (dbUser.getUserRole().equals("6")) {
 			System.out.println("유저롤 6번으로 완전탈퇴 복구불가 회원입니다.");
@@ -88,9 +87,8 @@ public class UserController {
 		} else if (dbUser.getUserRole().equals("5")) {
 			System.out.println("유저롤 5번으로 복구가능 회원입니다.");
 			model.addAttribute("userId", userId);
-			System.out.println("updateRestoreUser로 이동합니다.");
 			session.invalidate();
-			return "redirect:updateRestoreUser";
+			return "user/loginView";
 		
 		} else {
 			dbUser = userService.getUser(dbId);	
@@ -99,6 +97,7 @@ public class UserController {
 					session.setAttribute("dbUser", dbUser);
 					return "redirect:/";
 				} else {
+					model.addAttribute("message", "이건뭐지");
 					System.out.println("아이디 및 비밀번호가 일치하지 않습니다.");
 					return "user/loginView";
 				}
@@ -106,12 +105,32 @@ public class UserController {
 		}
 		
 		}
-	
+	// 탈퇴복구 네비게이션
 	@RequestMapping("updateRestoreUser")
-	public String updateRestoreUser() {
-		
+	public String updateRestoreUser( @RequestParam("userId") String userId,
+									@RequestParam("profileImage") String profileImage,
+									@RequestParam("nickname") String nickname,
+									Model model) {		
+		model.addAttribute("userId", userId);
+		model.addAttribute("profileImage", profileImage);
+		model.addAttribute("nickname", nickname);		
 		System.out.println("탈퇴회원이 복구를요청할때 뜨는 페이지입니다.");
 		return "user/updateRestoreUser";
+	}
+	
+	// 블랙복구 네비게이션
+	@RequestMapping("getBlackUser")
+	public String getBlackUser( @RequestParam("userId") String userId,
+								@RequestParam("profileImage") String profileImage,
+								@RequestParam("nickname") String nickname,
+								@RequestParam("stateReason") String stateReason,
+								Model model) {		
+		model.addAttribute("userId", userId);
+		model.addAttribute("profileImage", profileImage);
+		model.addAttribute("nickname", nickname);	
+		model.addAttribute("stateReason", stateReason);
+		System.out.println("");
+		return "user/getBlackUser";
 	}
 
 
@@ -326,64 +345,19 @@ public class UserController {
 		return "user/updateProfile";
 		
 	}
-//-----------------------------------------------------------------------------------------------------------------	
-
-//// 계정정보수정
-//	@RequestMapping("updateUserViewupdateUserView")
-//	public void updateUserView( 	@RequestParam("userId") String userId,
-//									@RequestParam("phone") String phone,
-//									@RequestParam("password") String password,
-//									User user) throws Exception {
-//		user.getUserId();
-//		user.getPhone();
-//		user.getPassword();
-//		
-//		userService.updateUserView(user);
-//		
-//		user.setPhone(phone);
-//		user.setPassword(password);
-//	
-//	}
 	
-//	@RequestMapping("updateNickname")
-//	public String updateUser(	@RequestParam("userId") String userId,
-//								@RequestParam("nickname") String nickname,
-//									@ModelAttribute("user") User user,
-//									Model model) throws Exception {
-//				
-//		System.out.println("\n"+"UserRestController_____updateNickname 시작");
-//		
-//		user.setNickname(nickname);
-//		System.out.println("변경해서 데리고 온 닉네임 확인하기 : "+nickname);
-//		
-//		System.out.println("데려온 userId : "+user.getUserId());
-//		System.out.println("데려온 nickname : "+user.getNickname());
-//
-//		userService.updateUser(user);
-//		System.out.println("변경되었는지 확인해보기 : "+user);
-//		
-//		model.addAttribute(nickname, user);
-//		System.out.println("모델로 두었을 떄 변경되었는지 확인해보기 : "+user);
-//		
-////		user.getUser(user.getUserId());
-////		user.addAttribute("nickname", user);
-//		System.out.println("이것도 확인 : "+user.getUserId());
-////		System.out.println("두번째 확인 : "+model.addAttribute("nickname", user));
-//		return "user/updateUser";				
-//	}
-
 // [프로필 업데이트]-----------------------------------------------------------------------------------------------	
 	
 
-	// 1. [닉네임수정] - updateNickname
-//	@RequestMapping("updateNickname")
-//	public String updateNickname(	@RequestParam("userId") String userId,
-//									@RequestParam("nickname") String nickname,
-//									@ModelAttribute("user") User user) {
-//		System.out.println("닉네임수정");		
-//		userService.updateNickname(user);
-//		return "user/updateUser";				
-//	}
+	 //1. [닉네임수정] - updateNickname
+	@RequestMapping("updateNickname")
+	public String updateNickname(	@RequestParam("userId") String userId,
+									@RequestParam("nickname") String nickname,
+									@ModelAttribute("user") User user) {
+		System.out.println("닉네임수정");		
+		userService.updateNickname(user);
+		return "user/updateUser";				
+	}
 	
 	// 2. [프로필소개수정] - updateContent
 	@RequestMapping("updateContent")
@@ -407,6 +381,8 @@ public class UserController {
 		return "user/updateInterest";				
 	}
 	
+
+	
 	// 회원탈퇴
 	@RequestMapping("updateLeaveUser")
 	public String updateLeaveUser (	@RequestParam("userId") String userId,
@@ -423,7 +399,26 @@ public class UserController {
 		session.invalidate();
 		return "redirect:/";
 	}
+	
+	// 회원블랙
+		@RequestMapping("updateBlackUser")
+		public String updateBlackUser (	@RequestParam("userId") String userId,
+										@RequestParam("userRole") String userRole,
+										@RequestParam("stateReason") String stateReason,
+										HttpSession session,
+										Model model) throws Exception {		
+			User user = new User();
+			user.setUserId(userId);
+			user.setStateReason(stateReason);		
+			model.addAttribute("dbUser", userId);
+			model.addAttribute("dbUser", stateReason);		
+			userService.updateBlackUser(user);
+			session.invalidate();
+			return "redirect:/";
+		}
+	
 
+	
 
 //-- [완료] 회원가입 addUserView.jsp로 단순 네비게이션  -------------------------------------------------------------------------------------------
 	@RequestMapping("getIdView")
@@ -464,30 +459,30 @@ public class UserController {
 			session.setAttribute("user", googleId);
 			return "redirect:/";
 		} else {
+			user.setJoinPath("2");
 			return "user/addUserInfo";
 		}
 	}	
 	
 //-- [완료] 회원가입 addUserView.jsp로 단순 네비게이션  -------------------------------------------------------------------------------------------
-	@RequestMapping("updateUserView")
-	public String updateUserView( @RequestParam("userId") String userId, Model model ) throws Exception {
-		
-		model.addAttribute("dbUser", userService.getUser(userId));
-					
+	@GetMapping("updateUserView")
+	public String updateUserView() throws Exception {					
+		return "redirect:/user/passwordConfirm";
+	}
+	
+	@PostMapping("updateUserView")
+	public String updateUserView(HttpSession session, Model model) throws Exception {			
 		return "user/updateUserView";
 	}
-//-----------------------------------------------------------------------------------------------------------------
-//	@RequestMapping("updateUser")
-//	public void updateUser ( 	
-//								@RequestParam("password") String password,
-//								@RequestParam("phone") String phone,
-//								User user) throws Exception {
-//		
-//		user.setPassword(password);
-//		user.setPhone(phone);
-//		
-//		userService.updateUser(user);
-//	}
+	
+	@RequestMapping("passwordConfirm")
+	public String passwordConfirm ( HttpSession session, Model model ) throws Exception {		
+		User user = (User)session.getAttribute("dbUser");		
+		if(user == null) {
+			return "redirect:/";
+		}						
+		return "user/passwordConfirm";
+	}	
 	
 	@RequestMapping(value="myInformation")
 	public String myInformation() {

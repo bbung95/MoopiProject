@@ -275,87 +275,89 @@
 
 									// 모임 정모 생성 알림 type 2
 								} else if (data[i].noticeType == '2') {
-									display += "<div style='height: 60px; '  class='notice "+data[i].noticeNo+"'>"
-											+ "<span onclick='location.href=\"/meeting/listMeeting?userId="
-											+ dbUser
-											+ "&mmNo="
-											+ data[i].moim.mmNo
-											+ "\"'>"
-											+ "<img style='width: 50px; height: 50px; margin: 5px' src='/images/uploadFiles/"+data[i].moim.mmFile+"' />"
-											+ data[i].moim.mmName
-											+ "의  "
-											+ data[i].noticeContent
-											+ "</span>"
-											+ "<span><button type='button' class='btn-close' notice='"+data[i].noticeNo+"' aria-label='Close'></button></span></div>";
+											
+									display	+= '<div class="shadow-sm p-3 mb-1 bg-body rounded notice '+data[i].noticeNo+'">'
+											+'<div class="toast-header">'
+											+'<img src="/images/uploadFiles/'+data[i].moim.mmFile+'" class="me-2" style="width: 40px; height: 40px; margin: 5px; border-radius: 50%;""> <strong'
+											+'class="me-auto">'+data[i].moim.mmName+'</strong> <small>'+data[i].noticeRegDate+'</small>'
+											+'<button type="button" class="btn-close" data-bs-dismiss="toast"'
+											+'aria-label="Close" notice="'+data[i].noticeNo+'"></button>'
+											+'</div>'
+											+'<div class="toast-body" onclick="location.href=\'/meeting/listMeeting?userId='+dbUser+'&mmNo='+data[i].moim.mmNo+'\'">'
+											+data[i].moim.mmName+'의 정모가 추가되었습니다.</div>'
+											+'</div>'		
 
 									// 정모 가입 알림 type 3
 								} else if (data[i].noticeType == '3') {
-									display += "<div style='height: 60px; '  class='notice "+data[i].noticeNo+"'>"
-											+ "<span onclick='location.href=\"/meeting/listMeeting?userId="
-											+ dbUser
-											+ "&mmNo="
-											+ data[i].moim.mmNo
-											+ "\"'>"
-											+ "<img style='width: 50px; height: 50px; margin: 5px' src='/images/uploadFiles/"+data[i].moim.mmFile+"' />"
-											+ data[i].moim.mmName
-											+ data[i].noticeContent
-											+ "</span>"
-											+ "<span><button type='button' class='btn-close' notice='"+data[i].noticeNo+"' aria-label='Close'></button></span></div>";
+											
+									display	+= '<div class="shadow-sm p-3 mb-1 bg-body rounded notice '+data[i].noticeNo+'">'
+											+'<div class="toast-header">'
+											+'<img src="/images/uploadFiles/'+data[i].noticeUser.profileImage+'" class="me-2" style="width: 40px; height: 40px; margin: 5px; border-radius: 50%;""> <strong'
+											+'class="me-auto">'+data[i].noticeUser.nickname+'</strong> <small>'+data[i].noticeRegDate+'</small>'
+											+'<button type="button" class="btn-close" data-bs-dismiss="toast"'
+											+'aria-label="Close" notice="'+data[i].noticeNo+'"></button>'
+											+'</div>'
+											+'<div class="toast-body" onclick="location.href=\'/meeting/listMeeting?userId='+dbUser+'&mmNo='+data[i].moim.mmNo+'\'">'
+											+data[i].moim.mmName+'의 참가하셨습니다.</div>'
+											+'</div>'		
 
 									// 모임 가입승인 알림 type 4
 								} else if (data[i].noticeType == '4') {
-									display += "<div style='height: 60px; '  class='notice "+data[i].noticeNo+"'>"
-											+ "<span onclick='location.href=\"/moim/getMoim?mmNo="
-											+ data[i].moim.mmNo
-											+ "'>"
-											+ "<img style='width: 50px; height: 50px; margin: 5px' src='/images/uploadFiles/"+data[i].moim.mmFile+"\"' />"
-											+ data[i].moim.mmName
-											+ "의  "
-											+ data[i].noticeContent
-											+ "</span>"
-											+ "<span><button type='button' class='btn-close' notice='"+data[i].noticeNo+"' aria-label='Close'></button></span></div>";
+											
+									display	+= '<div class="shadow-sm p-3 mb-1 bg-body rounded notice '+data[i].noticeNo+'">'
+											+'<div class="toast-header">'
+											+'<img src="/images/uploadFiles/'+data[i].moim.mmFile+'" class="me-2" style="width: 40px; height: 40px; margin: 5px; border-radius: 50%;""> <strong'
+											+'class="me-auto">'+data[i].moim.mmName+'</strong> <small>'+data[i].noticeRegDate+'</small>'
+											+'<button type="button" class="btn-close" data-bs-dismiss="toast"'
+											+'aria-label="Close" notice="'+data[i].noticeNo+'"></button>'
+											+'</div>'
+											+'<div class="toast-body" onclick="location.href=\'/moim/getMoim?mmNo='+data[i].moim.mmNo+'\'">'
+											+data[i].moim.mmName+'의 가입이 승인되었습니다.</div>'
+											+'</div>'
 
 									// 플래쉬 참가 알림 type 5
 								} else if (data[i].noticeType == '5') {
-									display += "<div style='height: 60px; '  class='notice "+data[i].noticeNo+"'>"
-											+ "<span onclick='location.href=\"/flash/getFlash?flashNo="
-											+ data[i].flash.flashNo
-											+ "\"'>"
-											+ "<img style='width: 50px; height: 50px; margin: 5px' src='/images/uploadFiles/"+data[i].flash.flashImage+"' />"
-											+ data[i].flash.flashName
-											+ "의 "
-											+ data[i].noticeUser.nickname
-											+ data[i].noticeContent
-											+ "</span>"
-											+ "<span><button type='button' class='btn-close' notice='"+data[i].noticeNo+"' aria-label='Close'></button></span></div>";
-
+								
+									display	+= '<div class="shadow-sm p-3 mb-1 bg-body rounded notice '+data[i].noticeNo+'">'
+											+'<div class="toast-header">'
+											+'<img src="/images/uploadFiles/'+data[i].noticeUser.profileImage+'" class="me-2" style="width: 40px; height: 40px; margin: 5px; border-radius: 50%;""> <strong'
+											+'class="me-auto">'+data[i].noticeUser.nickname+'</strong> <small>'+data[i].noticeRegDate+'</small>'
+											+'<button type="button" class="btn-close" data-bs-dismiss="toast"'
+											+'aria-label="Close" notice="'+data[i].noticeNo+'"></button>'
+											+'</div>'
+											+'<div class="toast-body" onclick="location.href=\'/flash/getFlash?flashNo='+data[i].flash.flashNo+'\'">'
+											+data[i].noticeUser.nickname+'님이 참가하셨습니다.</div>'
+											+'</div>'						
+											
 									// 게시글 댓글 알림 type 6
 								} else if (data[i].noticeType == '6') {
-									display += "<div style='height: 60px; '  class='notice "+data[i].noticeNo+"'>"
-											+ "<span onclick='location.href=\"/user/getMyHome?userId="
-											+ data[i].toUserId
-											+ "\"'>"
-											+ "<img style='width: 50px; height: 50px; margin: 5px; border-radius: 50%;' src='/images/uploadFiles/"
-											+ data[i].noticeUser.profileImage
-											+ "' />"
-											+ data[i].noticeUser.nickname
-											+ "님이 댓글을 작성했습니다"
-											+ "</span>"
-											+ "<span><button type='button' class='btn-close' notice='"+data[i].noticeNo+"' aria-label='Close'></button></span></div>";
-
+									
+									display	+= '<div class="shadow-sm p-3 mb-1 bg-body rounded notice '+data[i].noticeNo+'">'
+											+'<div class="toast-header">'
+											+'<img src="/images/uploadFiles/'+data[i].noticeUser.profileImage+'" class="me-2" style="width: 40px; height: 40px; margin: 5px; border-radius: 50%;""> <strong'
+											+'class="me-auto">'+data[i].noticeUser.nickname+'</strong> <small>'+data[i].noticeRegDate+'</small>'
+											+'<button type="button" class="btn-close" data-bs-dismiss="toast"'
+											+'aria-label="Close" notice="'+data[i].noticeNo+'"></button>'
+											+'</div>'
+											+'<div class="toast-body" onclick="location.href=\'/user/getMyHome?userId='+data[i].toUserId+'\'">'
+											+data[i].noticeUser.nickname+'님이 댓글을 작성했습니다.</div>'
+											+'</div>'		
+											
+											
 									// 게시글 좋아요 알림 type 7
 								} else if (data[i].noticeType == '7') {
-									display += "<div style='height: 60px; '  class='notice "+data[i].noticeNo+"'>"
-											+ "<span onclick='location.href=\"/user/getMyHome?userId="
-											+ data[i].toUserId
-											+ "\"'>"
-											+ "<img style='width: 50px; height: 50px; margin: 5px; border-radius: 50%;' src='/images/uploadFiles/"
-											+ data[i].noticeUser.profileImage
-											+ "' />"
-											+ data[i].noticeUser.nickname
-											+ "님이 좋아요했습니다."
-											+ "</span>"
-											+ "<span><button type='button' class='btn-close' notice='"+data[i].noticeNo+"' aria-label='Close'></button></span></div>";
+									
+									display	+= '<div class="shadow-sm p-3 mb-1 bg-body rounded notice '+data[i].noticeNo+'">'
+											+'<div class="toast-header">'
+											+'<img src="/images/uploadFiles/'+data[i].noticeUser.profileImage+'" class="me-2" style="width: 40px; height: 40px; margin: 5px; border-radius: 50%;""> <strong'
+											+'class="me-auto">'+data[i].noticeUser.nickname+'</strong> <small>'+data[i].noticeRegDate+'</small>'
+											+'<button type="button" class="btn-close" data-bs-dismiss="toast"'
+											+'aria-label="Close" notice="'+data[i].noticeNo+'"></button>'
+											+'</div>'
+											+'<div class="toast-body" onclick="location.href=\'/user/getMyHome?userId='+data[i].toUserId+'\'">'
+											+data[i].noticeUser.nickname+'님이 좋아요했습니다.</div>'
+											+'</div>'
+											
 
 									// 팔로우 알림 type 8
 								} else if (data[i].noticeType == '8') {
@@ -373,21 +375,21 @@
 											
 									// 모임 초대 알림 type 9
 								} else if (data[i].noticeType == '9') {
-									display += "<div style='height: 60px; '  class='notice "+data[i].noticeNo+"'>"
-											+ "<span onclick='location.href=\"/moim/getMoim?mmNo="
-											+ data[i].moim.mmNo
-											+ "\"'>"
-											+ "<img style='width: 50px; height: 50px; margin: 5px; border-radius: 50%;' src='/images/uploadFiles/"
-											+ data[i].moim.mmFile
-											+ "' />"
-											+ data[i].moim.mmName
-											+ "의 초대되었습니다"
-											+ "</span>"
-											+ "<span>"
-											+ "<button type='button' class='btn btn-default notice-accept' mmNo='"+data[i].moim.mmNo+"' userId='"+data[i].toUserId+"'>Accept</button>"
-											+ "<button type='button' class='btn btn-default refuseApply' memberNo='"+data[i].member.memberNo+"'>reject</button>"
-											+ "<button type='button' class='btn-close' notice='"+data[i].noticeNo+"' aria-label='Close'></button></span></div>";
-								
+											
+									display	+= '<div class="shadow-sm p-3 mb-1 bg-body rounded notice '+data[i].noticeNo+'">'
+											+'<div class="toast-body">'
+											+'<img src="/images/uploadFiles/'+data[i].moim.mmFile+'" class="me-2" style="width: 40px; height: 40px; margin: 5px; border-radius: 50%;" onclick="location.href=\'/moim/getMoim?mmNo='+data[i].moim.mmNo+'\'">'
+											+'<small>'+data[i].noticeRegDate+'</small>'
+											+ data[i].moim.mmName+'모임의 초대되었습니다'
+											+'<button type="button" class="btn-close" data-bs-dismiss="toast"'
+											+'aria-label="Close" notice="'+data[i].noticeNo+'"></button>'
+											+'<div class="mt-2 pt-2 border-top">'
+											+'<button type="button" class="btn btn-primary btn-sm notice-accept" mmNo="'+data[i].moim.mmNo+'" userId="'+data[i].toUserId+'">수락</button>'
+											+'<button type="button" class="btn btn-secondary btn-sm refuseApply" data-bs-dismiss="toast" memberNo="'+data[i].member.memberNo+'">거절</button>'
+											+'</div>'
+											+'</div>'
+											+'</div>'		
+											
 									// 팔로우 게시글 알림
 								} else if (data[i].noticeType == '10') {
 											
@@ -458,7 +460,7 @@
 									"mmUser" : {
 										"userId" : userId
 									},
-									"mmNo" : mmNo
+									"mmNo" : mmNo , "memberRole" : 7
 								}),
 								dataType : "text",
 								success : function(data, state) {

@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.moopi.mvc.service.board.impl.BoardServiceImpl;
 import com.moopi.mvc.service.domain.Board;
+import com.moopi.mvc.service.domain.Moim;
 import com.moopi.mvc.service.domain.Reply;
 import com.moopi.mvc.service.domain.Report;
 import com.moopi.mvc.service.domain.User;
+import com.moopi.mvc.service.moim.impl.MoimServiceImpl;
 import com.moopi.mvc.service.reply.impl.ReplyServiceImpl;
 import com.moopi.mvc.service.report.impl.ReportServiceImpl;
 import com.moopi.mvc.service.user.impl.UserServiceImpl;
@@ -35,6 +37,10 @@ public class ReportRestController {
 	@Autowired
 	private UserServiceImpl userService;
 	
+	@Autowired
+	private MoimServiceImpl moimService;
+	
+	
 	public Report report;
 	
 	public Board board;
@@ -42,6 +48,8 @@ public class ReportRestController {
 	public Reply reply;
 	
 	public User user;
+	
+	public Moim moim;
 	
 	public int userRole;
 	
@@ -52,19 +60,19 @@ public class ReportRestController {
 	@PostMapping(value="processReport")
 	public Report processReport(@RequestBody Report report) throws Exception{
 		
-		System.out.println("11processReport 실행");
-		System.out.println("11report 값 체크 ========="+report); 
+		System.out.println("processReport 실행");
+		System.out.println("report 값 체크 ========="+report); 
 		System.out.println(report.getReportNo());
 		reportService.processReport(report);
 		User user = new User();
 		
-		System.out.println("1report 값 체크 ========"+report);
+		System.out.println("report 값 체크 ========"+report);
 		
-		if(report.getReportResultState() != "1" && report.getReportTargetBd() != null ) {
+		if(report.getReportResultState() != "1" && report.getReportTargetBd().getBoardNo() != 0 ) {
 			System.out.println("resultState값 체크"+ report.getReportResultState());
 			boardService.deleteBoard2(report.getReportTargetBd());
 			user = userService.getUser(report.getReportTargetBd().getBoardWriter().getUserId());
-			System.out.println("!!!!!!!!!!!!!!!!!!");
+			System.out.println("if문 내부 boardProcess 실행");
 			
 			if(report.getReportResultState().equals("3")){
 				System.out.println("if문 내부 시작");
@@ -81,10 +89,11 @@ public class ReportRestController {
 			}
 			userService.updateUserRole(user);
 			
-		}else if(report.getReportResultState() != "1" && report.getReportTargetRe() != null ) {
+		}else if(report.getReportResultState() != "1" && report.getReportTargetRe().getReplyNo() != 0 ) {
+			System.out.println("if문 내부 replyProcess 실행");
 			
 			replyService.deleteReply2(report.getReportTargetRe());
-			user = userService.getUser(report.getReportTargetBd().getBoardWriter().getUserId());
+			user = userService.getUser(report.getReportTargetRe().getReplyWriter().getUserId());
 			if(report.getReportResultState().equals("3")){
 				
 				
@@ -98,7 +107,38 @@ public class ReportRestController {
 				
 			}
 			userService.updateUserRole(user);
-		}
+		}else if(report.getReportResultState() != "1" && report.getReportTarget().getUserId() != null ) {
+			System.out.println("if문 내부 userProcess 실행");
+			
+			user = userService.getUser(report.getReportTarget().getUserId());
+			if(report.getReportResultState().equals("3")){
+				
+				if(user.getUserRole().equals("2")) {
+					user.setUserRole("3");
+				}else if(user.getUserRole().equals("3")) {
+					user.setUserRole("4");
+				}
+				user.setStateReason(report.getStateReason());
+				user.setStateRegdate(report.getReportResultUpdate());
+				
+				}
+				userService.updateUserRole(user);
+				
+			}else if(report.getReportResultState() != "1" && report.getReportTargetMm().getMmNo() != 0 ) {
+				System.out.println("if문 내부 moimProcess 실행");
+				
+				moim = moimService.getMoim(report.getReportTargetMm().getMmNo());
+				
+				if(report.getReportResultState().equals("3")){
+					System.out.println("내부의if문 한번더실행");
+					moim.setMmState(3);
+					
+					moimService.updateReportMoim(moim);
+					
+					System.out.println(moim);
+				}	
+			
+			}
 		
 		return	reportService.getReport(report);
 		

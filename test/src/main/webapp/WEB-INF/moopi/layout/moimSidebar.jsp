@@ -224,7 +224,7 @@ onClick="fncUptMoimView(${moim.mmNo})"
         				dataType : "json" ,
        					contentType : "application/JSON",
         				data: JSON.stringify( {"mmUser" : {"userId" : userId6 },
-        					"mmNo" : mmNo6} ),
+        					"mmNo" : mmNo6 , "memberRole": 1} ),
         				
         				success : function(JSONData , status) {
         					alert(status);

@@ -247,20 +247,9 @@ public class MoimController {
 		if (status == 1) {
 			moimService.addCount(mmNo);
 		}
+		
+		return "redirect:/moim/listMember?mmNo="+mmNo+"&status="+status;
 
-		// 알림
-		System.out.println("moim Notice");
-		Notice notice = new Notice();
-		Moim moim = new Moim();
-		moim.setMmNo(mmNo);
-		notice.setToUserId(userId); // 알림대상
-		notice.setNoticeContent("가입되었습니다");
-		notice.setMoim(moim);
-		notice.setNoticeType("4");
-		commonService.addNotice(notice);
-		//
-
-		return "redirect:/moim/listMember?mmNo=" + mmNo + "&status=" + status;
 	}
 
 	// 멤버 리스트 조회하기
