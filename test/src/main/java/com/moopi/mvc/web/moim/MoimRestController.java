@@ -56,6 +56,7 @@ public class MoimRestController {
 		user.setUserId(userId);
 		member.setMmUser(user);
 		member.setMmNo(mmNo);
+		member.setMemberRole(7);
 		moimService.applyMoim(member);
 		System.out.println("초대완료");
 
@@ -101,13 +102,29 @@ public class MoimRestController {
 	@PostMapping("json/acceptApplyMoim")
 	public String acceptApplyMoim(@RequestBody Member member) throws Exception {
 		System.out.println("모임 가입신청을 수락합니다.");
-		moimService.updateMemeber(member.getMmUser().getUserId(), member.getMmNo(), 1);
+		moimService.updateMemeber(member.getMmUser().getUserId(), member.getMmNo(), member.getMemberRole());
+		
+		// 알림
+		if(member.getMemberRole() == 1) {
+			System.out.println("moim Notice");
+			Notice notice = new Notice();
+			Moim moim = new Moim();
+			moim.setMmNo(member.getMmNo());
+			notice.setToUserId(member.getMmUser().getUserId()); // 알림대상
+			notice.setMoim(moim);
+			notice.setNoticeType("4");
+			commonService.addNotice(notice);
+		}
+		//
+		
 		return "apply";
 	}
 	
 	// 가입신청하기
 		@PostMapping("json/applyMoim")
 		public String applyMoim(@RequestBody Member member) throws Exception {
+			
+			member.setMemberRole(1);
 			moimService.applyMoim(member);
 			System.out.println("가입완료");
 			return "가입완료";
