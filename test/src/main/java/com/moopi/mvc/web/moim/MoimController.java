@@ -252,18 +252,6 @@ public class MoimController {
 			moimService.addCount(mmNo);
 		}
 		
-		// 알림
-		System.out.println("moim Notice");
-		Notice notice = new Notice();
-		Moim moim = new Moim();
-		moim.setMmNo(mmNo);
-		notice.setToUserId(userId); // 알림대상
-		notice.setNoticeContent("가입되었습니다");
-		notice.setMoim(moim);
-		notice.setNoticeType("4");
-		commonService.addNotice(notice);
-		//
-		
 		return "redirect:/moim/listMember?mmNo="+mmNo+"&status="+status;
 	}
 	

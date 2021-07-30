@@ -189,30 +189,3 @@
 </body>
 
 </html>
-
-
-
-
-
-
-<div class="shadow-sm p-3 mb-1 bg-body rounded">
-	<div class="toast-body">
-		Hello, world! This is a toast message.
-		<div class="mt-2 pt-2 border-top">
-			<button type="button" class="btn btn-primary btn-sm">Take
-				action</button>
-			<button type="button" class="btn btn-secondary btn-sm"
-				data-bs-dismiss="toast">Close</button>
-		</div>
-	</div>
-</div>
-
-<div class="shadow-sm p-3 mb-1 bg-body rounded">
-	<div class="toast-header">
-		<img src="..." class="rounded me-2" alt="..."> <strong
-			class="me-auto">Bootstrap</strong> <small>11 mins ago</small>
-		<button type="button" class="btn-close" data-bs-dismiss="toast"
-			aria-label="Close"></button>
-	</div>
-	<div class="toast-body">Hello, world! This is a toast message.</div>
-</div>

@@ -54,14 +54,17 @@ public class ReplyRestController {
 		System.out.println(reply);
 		
 		// 댓글 알림
-		Notice notice = new Notice();
-		Board board = boardService.getBoard(reply.getBoardNo());
-		notice.setNoticeType("6");
-		notice.setBoard(board);
-		notice.setToUserId(board.getBoardWriter().getUserId());
-		notice.setNoticeUser(reply.getReplyWriter());
-//		notice.setNoticeContent(reply.getReplyContent());
-//		commomService.addNotice(notice);
+		if(reply.getType() != 0) {
+			Notice notice = new Notice();
+			Board board = boardService.getBoard(reply.getBoardNo());
+				notice.setNoticeType("6");
+				notice.setBoard(board);	
+				notice.setToUserId(board.getBoardWriter().getUserId());
+				notice.setNoticeUser(reply.getReplyWriter());
+				notice.setNoticeContent(reply.getReplyContent());
+				
+			commomService.addNotice(notice);
+		}
 		
 		reply = replyService.addReply(reply);
 		System.out.println("111111"+reply.getReplyNo());

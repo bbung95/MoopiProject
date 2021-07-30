@@ -111,7 +111,7 @@
 		MM_MEMBER_ID, MM_NO, MM_MEMBER_ROLE, MM_MEMBER_REGDATE
 		)
 		VALUES(
-		#{member.mmUser.userId}, #{member.mmNo}, '1', now()
+		#{member.mmUser.userId}, #{member.mmNo}, #{member.memberRole}, now()
 		)
 	</insert>
 
@@ -141,7 +141,7 @@
 
 	<update id="updateMember">
 		UPDATE MEMBER
-		<if test="status == 1">
+		<if test="status == 1 or status == 7">
 			<set>
 				MM_MEMBER_ROLE = '2'
 			</set>
@@ -161,6 +161,8 @@
 				MM_MEMBER_ROLE = '5'
 			</set>
 		</if>
+		
+		
 		WHERE MM_MEMBER_ID = #{userId}
 		AND MM_NO = #{mmNo}
 	</update>
