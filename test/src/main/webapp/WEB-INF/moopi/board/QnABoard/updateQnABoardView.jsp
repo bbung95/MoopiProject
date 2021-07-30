@@ -11,9 +11,10 @@
 	<jsp:include page="../../common/commonCDN.jsp"></jsp:include>
 	
 	
-	<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
-  	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
-  	
+		<script src="/javascript/summernote-lite.js"></script>
+		<script src="/javascript/lang/summernote-ko-KR.js"></script>
+		<link rel="stylesheet" href="/css/summernote-lite.css">
+		
 <script>
 $(function() {
 	//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
@@ -40,9 +41,10 @@ function fncUpdateBoard(){
 </script>
   
 <style>
-body{
-	padding-top: 50px;
-}
+body {
+	padding-top: 100px;
+	margin: auto;
+	font-family: 'Gaegu', cursive;
 </style>
     
     <script>  
@@ -107,7 +109,9 @@ body{
  	<div class="container">
 
 		<div class="col-xs-12 col-sm-12 col-md-12" style="padding-bottom: 50px;">
-			    <h3 class="head_title" data-edit="true" data-selector="h3.head_title" ><span class="fsize20" ><strong>QnA 게시글 수정</strong></span></h3>
+			    <h3 class="head_title" data-edit="true" data-selector="h3.head_title" ><span class="fsize20" ><strong>
+			    ${board.boardCategory eq 1 ? '공지 수정' : 'QnA 게시글 수정' } 
+			    </strong></span></h3>
 		  
 		   </div>
 		   

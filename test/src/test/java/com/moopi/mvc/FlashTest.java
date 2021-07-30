@@ -1,3 +1,4 @@
+
 package com.moopi.mvc;
 
 import java.util.Map;
@@ -88,6 +89,8 @@ public class FlashTest {
 		System.out.println("flashInterest is '1' totalList::" + map.get("list"));
 		System.out.println("flashInterest is '1' flashCount::" + map.get("totalCount"));
 
+	
 	}
-
 }
+
+
