@@ -102,7 +102,7 @@ font-size: 16px;
 		
 	<main>
 	<!-- ToolBar End /////////////////////////////////////-->
-	<form class="form-horizontal" name="detailForm" enctype="multipart/form-data">
+	<form class="form-horizontal2" name="detailForm" enctype="multipart/form-data">
 <!-- 	<div class="col-xs-12 col-sm-12 col-md-12"> -->
 <!-- 			    <h3 class="head_title" data-edit="true" data-selector="h3.head_title" ><span class="fsize20" ><strong>QnA게시판조회</strong></span></h3> -->
 <!-- 		   </div> -->
@@ -292,7 +292,7 @@ font-size: 16px;
 // 			alert("게시글수정");
 // 			alert(${board.boardNo});
 			var boardNo = ${board.boardNo};
-			$("form.form-horizontal").attr("method" , "GET").attr("action" , "/board/updateView").submit();
+			$("form.form-horizontal2").attr("method" , "GET").attr("action" , "/board/updateView").submit();
 		}
 		
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
@@ -305,7 +305,7 @@ font-size: 16px;
 		function fncDeleteBoard(){
 			var boardNo = ${board.boardNo};
 			
-			$("form.form-horizontal").attr("method" , "GET").attr("action" , "/moim/deleteBoard").submit();
+			$("form.form-horizontal2").attr("method" , "GET").attr("action" , "/moim/deleteBoard").submit();
 			
 		}
 		
