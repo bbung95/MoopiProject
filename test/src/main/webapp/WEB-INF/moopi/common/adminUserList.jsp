@@ -35,13 +35,42 @@
 
 <script>
 	$(function() {
-		$('.adminUserInfo').on('click', function() {
+		$( '.adminUserInfo' ).on( 'click', function() {
 			alert("진입");
 			var userId = $(this).attr('value');
 			alert("userId : " + userId);
 			self.location = "/common/getUserInfo?userId=" + userId
 		});
 	});
+	
+	$( ".addReportMoim"  ).on("click" , function() {
+			fncAddBoardMoim();
+});
+
+function fncAddBoardMoim(){
+var reportTarget = $("#mmNo").val();
+
+//	self.location ="/report/addReportView?reportCategory=1&reportTargetBd.boardNo="+reportTarget;
+popWin = window.open(
+		"/report/addReportView?reportCategory=1&reportTargetBd.boardNo="+reportTarget ,
+		"popReport",
+		"left=460, top=300, width=900, height=600, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");
+}
+"  ).on("click" , function() {
+		fncAddBoardReport();
+	});
+
+	function fncAddBoardReport(){
+		var reportTarget = $("#boardNo").val();
+		
+	//		self.location ="/report/addReportView?reportCategory=1&reportTargetBd.boardNo="+reportTarget;
+		popWin = window.open(
+				"/report/addReportView?reportCategory=1&reportTargetBd.boardNo="+reportTarget ,
+				"popReport",
+				"left=460, top=300, width=900, height=600, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");
+	}
+
+	
 </script>
 <body>
 
