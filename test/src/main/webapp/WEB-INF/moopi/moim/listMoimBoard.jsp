@@ -23,7 +23,7 @@
 
 function fncAddBoardView(){
 	alert("게시글작성");
-	self.location ="/board/addBoardView?category=2";
+	self.location ="/board/addBoardView?category=4";
 }
 
 function fncGetBoard(boardNo){
