@@ -73,6 +73,7 @@ function fncGetJoinFlashList(flashNo){
 										+'<div class="d-flex align-items-center mt-lg-5 mb-4">'
 										+'<div class="ms-3">'
 										+'<div class="fw-bold">'+JSONData.list[i].meflId.userId+'</div>'
+										+'<div class="fw-bold">'+JSONData.list[i].meflId.nickname+'</div>'
 										+'<div class="text-muted">번개무피 참가자</div>'
 										+'</div>'
 										+'</div>'
@@ -117,6 +118,7 @@ function fncGetJoinFlashList(flashNo){
 								src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." />
 							<div class="ms-3">
 								<div class="fw-bold">${flash.flashConstructor.userId}</div>
+								<div class="fw-bold">${flash.flashConstructor.nickname}</div>
 								<div class="text-muted">번개무피 방장</div>
 							</div>
 						</div>

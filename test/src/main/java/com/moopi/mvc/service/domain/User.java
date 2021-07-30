@@ -52,8 +52,8 @@ public class User {
 	
 	// 관리자
 	private String stateReason;			// 처리사유 - 탈퇴처리사유, 블랙처리사유
-	private Date StateRegDate; 			// 처리일자
-
+	private Date stateRegdate; 			// 처리일자
+	
 	// Constructor
 	public User() {
 	}
