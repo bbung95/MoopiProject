@@ -313,6 +313,11 @@
 	<select id="getMoimList" parameterType="search"
 		resultMap="moimSelectMap">
 		SELECT
+		*
+		FROM (SELECT
+		inner_table.* , @ROWNUM := @ROWNUM +1 AS RNUM
+	    FROM(       
+		SELECT
 		MM_NO, MM_NAME, MM_CONTENT, MM_IMAGE, MM_MAX_COUNT,
 		MM_CURRENT_COUNT, MM_CONSTRUCTOR, MM_REGDATE,
 		MM_INTEREST, MM_ADDR,
@@ -335,6 +340,8 @@
 				</if>
 			</if>
 		</where>
+		) inner_table, (select @rownum := 0) as R )tables
+		WHERE rnum between #{startRowNum} and #{endRowNum}  	
 	</select>
 
 	<select id="getMyMoimList" parameterType="string"

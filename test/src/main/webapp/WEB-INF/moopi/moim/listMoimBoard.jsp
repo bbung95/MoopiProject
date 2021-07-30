@@ -128,7 +128,10 @@ function fncGetPassword(boardNo){
 </script>
   
 <style>
-
+			main{
+font-family: 'Nanum Gothic', sans-serif;
+font-size: 16px;
+}
 
 .userEL8991295 .tpl-forum-write {
     position: relative;
@@ -454,7 +457,7 @@ body {
 <!-- ToolBar Start /////////////////////////////////////-->
 <jsp:include page="../layout/toolbar.jsp"></jsp:include>
 <!-- ToolBar End /////////////////////////////////////-->
-
+<main>
 <div class="userEL8991295 colorSet" data-forum-type="thumb" data-fcolor="#191919" >
     <div class="container">
 			<div class="col-xs-12 col-sm-12 col-md-12">
@@ -533,7 +536,7 @@ body {
 			</div>
 
                 </div>
-                               
+  </main>                             
 	
 					<jsp:include page="../common/pageNavigator.jsp"/>	
             </div>

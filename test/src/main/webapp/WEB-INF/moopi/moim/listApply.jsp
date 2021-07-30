@@ -93,9 +93,12 @@ $(function(){
 	body{
 		padding-top: 100px;
 		background-color:#f7f6f3;
-		font-family: 'Nanum Gothic', sans-serif;
-		font-size : 16px;
 	}
+	
+		main{
+font-family: 'Nanum Gothic', sans-serif;
+font-size: 16px;
+}
 	
 	.userProfile {
 	margin: 10px;
@@ -202,7 +205,7 @@ table.dataTable td {
 <body>
 
 <h2>Apply List</h2>
-
+<main>
 <div class="container">
   <div class="row">
     <div class="col-xs-12">
@@ -251,7 +254,7 @@ table.dataTable td {
   </div>
 </div>
 
-
+</main>
 
 <jsp:include page="../layout/moimSidebar.jsp"></jsp:include>
 </body>

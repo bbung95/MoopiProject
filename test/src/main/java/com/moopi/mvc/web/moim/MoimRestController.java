@@ -72,13 +72,16 @@ public class MoimRestController {
 		return "초대성공";
 	}
 
-	@RequestMapping("json/listMoim/{userId}")
-	public Map getMyListMoim(@PathVariable("userId") String userId, Model model) throws Exception {
+	@RequestMapping("json/listMoim")
+	public Map getListMoim(@RequestBody Search search, Model model) throws Exception {
 
-		System.out.println("Ajax로 모임리스트를 가져옵니다.");
-		Search search = new Search();
+		System.out.println("Ajax로 모임리스트를 가져옵니다. :::인피니티스크롤");
+		search.setPageSize(8);
+		System.out.println(search);
+		
 		Map<String, Object> map = moimService.getMoimList(search);
-		model.addAttribute("list3", map.get("list3"));
+//		model.addAttribute("list3", map.get("list3"));
+		model.addAttribute("list", map.get("list"));
 		return map;
 	}
 
@@ -90,11 +93,12 @@ public class MoimRestController {
 	}
 	
 	@RequestMapping("json/updateMember/{userId}/{mmNo}/{status}")
-	public String updateMember(@PathVariable("userId") String userId,
+	public void updateMember(@PathVariable("userId") String userId,
 			@PathVariable("mmNo") int mmNo, @PathVariable("status") int status) throws Exception {
 		System.out.println("::::::::::::::::::::::::::해당 유저 권한 확인중....");
+		System.out.println("멤버권한변경한다.");
 		moimService.updateMemeber(userId, mmNo, status);
-		return "권한변경 완료";
+
 	}
 
 	// 가입신청수락하기
