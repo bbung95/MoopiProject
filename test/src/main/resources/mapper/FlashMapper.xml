@@ -10,6 +10,7 @@
 		<result property="flashNo" 			column="FLASH_NO" 			jdbcType="NUMERIC"/>
 		<result property="flashName"		column="FLASH_NAME" 		jdbcType="VARCHAR" />
 		<result property="flashConstructor.userId"	column="FLASH_CONSTRUCTOR" 		jdbcType="VARCHAR" />
+		<result property="flashConstructor.nickname"	column="nickname" 		jdbcType="VARCHAR" />
 		<result property="flashContent" 	column="FLASH_CONTENT" 		jdbcType="VARCHAR" />
 		<result property="flashFile" 		column="FLASH_FILE" 		jdbcType="VARCHAR" />
 		<result property="flashRegdate" 	column="FLASH_REGDATE" 		jdbcType="DATE" />
@@ -67,9 +68,10 @@
 		SELECT
 			FLASH_NO, FLASH_NAME, FLASH_CONTENT, FLASH_FILE, FLASH_CONSTRUCTOR, FLASH_REGDATE,
 			FLASH_TIME, FLASH_CURRENT_COUNT, FLASH_MAX_COUNT, FLASH_ADDR, FLASH_STATE, FLASH_INTEREST,
-			FLASH_MAP_X, FLASH_MAP_Y 		
-			FROM FLASH 
-		WHERE FLASH_NO = #{flashNo}	
+			FLASH_MAP_X, FLASH_MAP_Y , NICKNAME		
+			FROM FLASH , users
+			WHERE FLASH.FLASH_CONSTRUCTOR = USERS.user_id
+			AND FLASH_NO = #{flashNo}	
 	</select>
 	
 	<insert id="addFlash" parameterType="flash" useGeneratedKeys="true" keyProperty="flashNo">
