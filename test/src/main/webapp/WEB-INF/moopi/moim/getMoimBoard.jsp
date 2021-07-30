@@ -6,42 +6,14 @@
 	<html>
 	<head>
 	<meta charset="UTF-8">
-	<title>Hello! Moopi!</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<!-- Favicon --> 
-<link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
-
-<!-- Bootstrap icons -->
-
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
-<!-- Core theme CSS (includes Bootstrap) -->
-<link href="/css/styles.css" rel="stylesheet" />
-
-<!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
-<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" > -->
-<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" > -->
-<!-- <link rel="stylesheet" href="/images/uploadFiles" >   -->
-<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-
-
-<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>  -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-
-
-<!-- 구글 폰트 -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
-<!-- Sweet Alert -->
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<title>Insert title here</title>
 	
 	<!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
-<!-- 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" > -->
-<!-- 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" > -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
 		<!--<link rel="stylesheet" href="/images/uploadFiles" >  -->
-<!-- 		<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script> -->
-<!-- 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script> -->
+		<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
 		<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 	  	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 	 
@@ -307,7 +279,7 @@
 	<body>
 	<!-- ToolBar Start /////////////////////////////////////-->
 		<jsp:include page="../layout/toolbar.jsp" />
-<%-- 		<jsp:include page="../layout/moimToolbar.jsp" /> --%>
+		<jsp:include page="../layout/moimToolbar.jsp" />
 	<!-- ToolBar End /////////////////////////////////////-->
 	<form class="form-horizontal" name="detailForm" enctype="multipart/form-data">
 	<h3>모임 게시글 조회</h3>
