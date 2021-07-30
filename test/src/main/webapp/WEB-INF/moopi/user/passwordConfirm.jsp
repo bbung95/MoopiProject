@@ -29,6 +29,9 @@
     <link rel="stylesheet" href="../css/admin/styles.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
           crossorigin="anonymous">
+
+<!-- 스윗얼럿 -->
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <!-------------------------------------------------------------------------------------------------------------------------->
 
 <script>
@@ -39,10 +42,6 @@
 		var password = $('#nowPwd').val();
 		var dbPwd = ${dbUser.password};
 		
-		alert(userId);
-		alert(password);
-		alert(dbPwd);
-		
 		if(password == dbPwd){
 			$.ajax({
 					url : "/user/json/passwordConfirm",
@@ -51,16 +50,13 @@
             	  	contentType: 'application/json',
 					data : JSON.stringify ({ "userId": userId, "password": password }),			
 					dataType: 'text',
-					success : function(result) {
-						alert("ajax success!");              	
+					success : function(result) {             	
 						$("form").attr("method" , "POST").attr("action" , "/user/updateUserView").submit();
            	   	  }
 				});	
 		}else{
-		alert("비밀번호가 일치하지않습니다.");
-		}
-		
-				
+			swal("비밀번호가 일치하지않습니다.","비밀번호를 확인해주세요","error");
+		}				
 	} 
 
 </script>		
@@ -109,7 +105,7 @@
 		text-align: left;
 		font-weight: 340;
 	}
-	
+	x
 	.updateUserAccount {
 		font-family : "NanumGothic";
 		text-align: center;
