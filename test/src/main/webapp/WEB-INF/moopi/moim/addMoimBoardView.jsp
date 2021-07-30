@@ -65,7 +65,7 @@ function fncAddBoard(){
 	var boardName		=$("input[name='boardName']").val();	
 	var boardContent	=$("input[name='boardContent']").val();
 	
-	$("form.form-horizontal").attr("method" , "POST").attr("action" , "/moim/addBoard").submit();
+	$("form.form-horizontal2").attr("method" , "POST").attr("action" , "/moim/addBoard").submit();
 	
 }
 
@@ -152,7 +152,7 @@ font-size: 16px;
 		   
 	 <!--  뉴폼 -->
 	 <!-- form Start /////////////////////////////////////-->
-		<form class="form-horizontal" name="detailForm" enctype="multipart/form-data">
+		<form class="form-horizontal2" name="detailForm" enctype="multipart/form-data">
 		  <input type="hidden" id="boardWriter.userId" name="boardWriter.userId" value="${dbUser.userId }">
 		  <input type="hidden" id="boardCategory" name="boardCategory" value="4">
 		  <input type="hidden" id="boardMoimNo" name="boardMoimNo" value="${boardMoimNo }">
