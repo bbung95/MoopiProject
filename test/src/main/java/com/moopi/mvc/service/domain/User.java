@@ -43,6 +43,7 @@ public class User {
 	private String userRole;			// 유저Role - 관리자, 정상회원, 블랙회원, 탈퇴회원, 탈퇴복구회원
 
 	// 마이홈
+	private String targetId;
 	private String profileImage;		// 마이홈 - 프로필이미지 // type 원래 File 이여야함
 	private String profileContent;		// 마이홈 - 프로필소개
 	private String myhomeState;			// 마이홈상태 - 공개, 비공개
