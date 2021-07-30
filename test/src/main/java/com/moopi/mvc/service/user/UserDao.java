@@ -56,7 +56,7 @@ public interface UserDao {
 	public List<User> getUserList(@Param("search") Search search, @Param("searchState") int searchState);
 	
 	// 검색관련 - 유저리스트 조회시 회원 수
-	public int getTotalCount(Search search) throws Exception;
+	public int getTotalCount(@Param("search") Search search, @Param("searchState") int searchState ) throws Exception;
 
 	// 패스워드수정
 	public void updatePwd(User user) throws Exception;
@@ -126,7 +126,11 @@ public interface UserDao {
 	//차트관련
 	public UserData getJoinPath() throws Exception;
 	
-	public UserData getGender() throws Exception;
+	public UserData getGenderData() throws Exception;
+	
+	public UserData getAgeData() throws Exception;
+	
+	public UserData getInterestData() throws Exception;
 
 }
 
