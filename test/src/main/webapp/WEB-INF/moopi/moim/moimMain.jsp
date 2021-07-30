@@ -44,6 +44,7 @@ var j = 0;
 var t = 0;
 
 $(document).ready(function () {
+	<c:if test="${!empty dbUser}">
 	  $(document).scroll(function() {
 	    var maxHeight = $(document).height();
 	    var currentScroll = $(window).scrollTop() + $(window).height();
@@ -104,6 +105,7 @@ $(document).ready(function () {
    	      
 	    }//if문 종료
 	  })
+	 </c:if> 
 	});
 </script>
 
@@ -305,10 +307,11 @@ h3{
 <!-- ToolBar End /////////////////////////////////////-->
 
 <div class="container">
-
+<c:if test="${!empty dbUser}">
 <h3><img class="userProfile" src="/images/uploadFiles/${dbUser.profileImage}"> ${dbUser.nickname}님이 가입하신 모임들입니다.</h3>
-
 <hr>
+</c:if>
+
 
 <div class="owl-carousel">
   <c:forEach items="${list2}" var="moim" >
@@ -322,12 +325,18 @@ h3{
 
 <hr>
 
+<c:if test="${!empty dbUser}">
 <h3>
 <img class="userProfile" src="/images/uploadFiles/${dbUser.profileImage}"> ${dbUser.nickname}님의 관심사 ${dbUser.interestFirst}, ${dbUser.interestSecond}, ${dbUser.interestThird}에 맞는 모임들입니다.
 <!-- <span><img class="add" src="/images/plus.png" width="40" height="40"  onClick="javascript:fncAddMoimView()"/></span> -->
 <span><img class="add" src="/images/plus2.png" width="40" height="40"  data-bs-target="#myModal" data-bs-toggle="modal"/></span>
 </h3>
+</c:if>
 
+<c:if test="${empty dbUser}">
+검색하신 조건에 맞는 모임입니다.
+<hr>
+</c:if>
 <!-- Modal 시작-->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog modal-lg" role="document">

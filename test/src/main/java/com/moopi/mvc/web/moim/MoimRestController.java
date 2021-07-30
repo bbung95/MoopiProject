@@ -88,6 +88,14 @@ public class MoimRestController {
 
 		return "테스트성공";
 	}
+	
+	@RequestMapping("json/updateMember/{userId}/{mmNo}/{status}")
+	public String updateMember(@PathVariable("userId") String userId,
+			@PathVariable("mmNo") int mmNo, @PathVariable("status") int status) throws Exception {
+		System.out.println("::::::::::::::::::::::::::해당 유저 권한 확인중....");
+		moimService.updateMemeber(userId, mmNo, status);
+		return "권한변경 완료";
+	}
 
 	// 가입신청수락하기
 	@PostMapping("json/acceptApplyMoim")
