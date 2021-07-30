@@ -16,7 +16,11 @@ public interface ReportDao {
 	
 	public List<Report> getReportList(@Param("map")Map map) throws Exception;
 	
+	public int getTotalCount(@Param("map")Map map) throws Exception;
+	
 	public void processReport(@Param("report")Report report) throws Exception;
 	
 	public Report getReport(@Param("report")Report report) throws Exception;
+	
+	
 }

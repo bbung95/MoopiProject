@@ -170,8 +170,10 @@
 										${! empty search.searchCondition && search.searchCondition== 0 ? "selected" : ""  }>아이디</option>
 									<option value="1"
 										${! empty search.searchCondition && search.searchCondition== 1 ? "selected" : ""  }>닉네임</option>
+									<c:if test="${search.searchCategory == 4}">
 									<option value="2"
-										${! empty search.searchCondition && search.searchCondition== 2 ? "selected" : ""  }>작성자</option>
+										${! empty search.searchCondition && search.searchCondition== 2 ? "selected" : ""  }>모임명</option>
+									</c:if>
 								</select>
 							</div>
 
