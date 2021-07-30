@@ -105,6 +105,14 @@ body {
 		width: 1000px;
 	}
 }
+
+.profileImg {
+    border-radius: 50%;
+    width :40px;
+}
+img, svg {
+    vertical-align: middle;
+}
 </style>
 </head>
 <body>
@@ -147,10 +155,9 @@ body {
 									value="${board.boardNo}">
 
 								<div style="text-align: left;">
-									<pattern id="comment-write-image" patternUnits="userSpaceOnUse"
-										width="40" height="40"> <image
-										xlink:href="//storage.googleapis.com/i.addblock.net/member/profile_default.jpg?_1627201858221"
-										width="40" height="40"></image> </pattern>${board.boardWriter.nickname}
+									
+									<img src="/images/uploadFiles/${board.boardWriter.profileImage}" class="img-responsive profileImg">
+									${board.boardWriter.nickname}
 								</div>
 							</div>
 							<div class="board_content">${board.boardContent}</div>
@@ -175,6 +182,7 @@ body {
 											value="${reply.replyNo}">
 										<div class="reply_head">
 											<div style="display: inline-block">
+											<img src="/images/uploadFiles/${reply.replyWriter.profileImage}" class="img-responsive profileImg">
 												${reply.replyWriter.nickname}</div>
 											<div style="display: inline-block; float: right;">작성시간
 												: ${reply.replyRegDate}</div>
@@ -204,11 +212,13 @@ body {
 							<!-- 					리플리스트 끝.	 -->
 						</section>
 
+						<c:if test="${dbUser.userRole eq '1'}">
 						<section class="replyWrite">
 							<form name="detailForm" enctype="multipart/form-data">
 								<div id="addReplyForm"
 									style="float: right; padding-right: 20px; padding-top: 20px;">
 									<div class="col-md-5" style="font-size: 20px;">
+									<img src="/images/uploadFiles/${reply.replyWriter.profileImage}" class="img-responsive profileImg">
 										${dbUser.nickname }</div>
 									<div style="padding-left: 100px; width: 900px">
 										<textarea id="summernote" placeholder="댓글을 입력해주세요."
@@ -224,6 +234,7 @@ body {
 								</div>
 							</form>
 						</section>
+						</c:if>
 					</div>
 				</div>
 			</div>
@@ -396,6 +407,7 @@ body {
 					+'  <input type="hidden" class="reply" name="replyNo" value='+data.replyNo+'>'
 					+'	<div class="reply_head">'
 					+'	<div style="display: inline-block">'
+					+'  <img src="/images/uploadFiles/'+data.replyWriter.profileImage+'" class="img-responsive profileImg">'
 					+	 data.replyWriter.nickname
 					+'	</div>'
 					+'	<div style="display: inline-block; float:right;">'
@@ -493,6 +505,7 @@ body {
 						 					+'  <input type="hidden" class="reply" name="replyNo" value='+data.replyNo+'>'
 						 					+'	<div class="reply_head">'
 						 					+'	<div style="display: inline-block">'
+						 					+'  <img src="/images/uploadFiles/'+data.replyWriter.profileImage+'" class="img-responsive profileImg">'
 						 					+	 data.replyWriter.nickname
 						 					+'	</div>'
 						 					+'	<div style="display: inline-block; float:right;">'

@@ -397,6 +397,13 @@ padding: 3px 7px;
  .userEL9022878 .search-box select.form-control { width: 70px; }
 }
 
+.profileImg {
+    border-radius: 50%;
+    width :40px;
+}
+img, svg {
+    vertical-align: middle;
+}
 
 body {
 	padding-top: 100px;
@@ -472,7 +479,9 @@ body {
 			                            </c:if>
 			                            
 			                            
-			                            <td class="tpl-forum-list-name tpl-forum-list-etc op_itemline10"> ${board.boardWriter.nickname}</td>
+			                            <td class="tpl-forum-list-name tpl-forum-list-etc op_itemline10"> 
+			                            <img src="/images/uploadFiles/${board.boardWriter.profileImage}" class="img-responsive profileImg">
+			                            ${board.boardWriter.nickname}</td>
 			                            <td class="tpl-forum-list-date tpl-forum-list-etc op_itemline10">${board.boardRegDate}</td>
 			                            <td class="tpl-forum-list-date tpl-forum-list-etc op_itemline10">  
 			                             <c:if test="${  empty board.boardPassword}"> 
