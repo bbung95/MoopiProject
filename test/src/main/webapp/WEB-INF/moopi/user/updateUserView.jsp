@@ -6,33 +6,42 @@
 
 <head>
 <meta charset="UTF-8">
-<title> 계정정보조회(모바일번호,비밀번호수정) </title>
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+<title>Moopi</title>
+
+<! -- jQuery CDN -->	
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 
 <! ------------------------------------------------ Bootstrap, jQuery CDN -------------------------------------------------->
-<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@300&display=swap" rel="stylesheet">
-
-<!-- Bootstrap Dropdown Hover JS -->
-<script src="/javascript/bootstrap-dropdownhover.min.js"></script>
-
 <!-- Favicon-->
 <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-
 <!-- Bootstrap icons-->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
-
 <!-- Core theme CSS (includes Bootstrap)-->
 <link href="/css/styles.css" rel="stylesheet" />
-
-<!-- 템플릿 관련 CDN -->
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="../css/admin/styles.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
-          crossorigin="anonymous">
 <!-------------------------------------------------------------------------------------------------------------------------->
+	
+<!-- 구글폰트api -->	
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@300&display=swap" rel="stylesheet">
+	
+
+<!-- 필수 Core theme CSS (includes Bootstrap)-->
+	<link href="/css/admin/styles.css" rel="stylesheet" />
+	
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Core theme JS-->
+<script src="/js/scripts.js"></script>
+
+<!-- 스윗얼럿 -->
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<!-------------------------------------------------------------------------------------------------------------------------->   
 
 <script>
 
@@ -43,9 +52,7 @@
 			
 			var popWin;
 			var userId = $("#userId").val();
-			
-			alert("아이디 : "+userId);
-			
+		
 			popWin = window.open(
 					"getMobileAuth?updatePwd",
 					"childForm",
@@ -102,15 +109,20 @@
 <!-- [완료] 모바일번호수정 -->	
 	function editPN() {
 		var userId = $("#userId").val();
-		var phone = $("#pInput").val();		
+		var phone = $("#pInput").val();	
+		alert("userId : "+userId);
+		alert("phone : "+phone);
 		$.ajax ({
 			url : "/user/json/updateUserPhone",
 			type : "POST",
 			contentType : "application/JSON",
 			dataType : "text",
-			data : JSON.stringify ({ userId : "userId", phone : "phone" }),
+			data : JSON.stringify ({ "userId" : userId, "phone" : phone }),
 			success : function(data, state) {
+					alert("? : "+state);
+					alert("data : "+data);
 					alert("모바일번호 수정이 완료되었습니다.");
+					$('.LabelPhone').text(data);
 			}	
 		});	
 	}
@@ -125,16 +137,32 @@
 			type : "POST",
 			contentType : "application/JSON",
 			dataType : "text",
-			data : JSON.stringify ({ userId : "userId", password : "password" }),
+			data : JSON.stringify ({ "userId" : userId, "password" : password }),
 			success : function(data, state) {
 					alert("패스워드 수정이 완료되었습니다.");
 			}	
 		});	
 	}
+	
+<!-- 모달 회원탈퇴 -->
+	 function fncLeave() {
+     
+     	var userId = $("#userId").val();
+     	var userRole = $("#userRole").val();
+     	var stateReason = $("input[name='leaveReason']").val();
+   	
+     	alert("유저아이디 : "+userId);
+     	alert("유저롤 : "+userRole);
+     	alert("탈퇴사유 : "+stateReason);
+     	
+     	location.href = "/user/updateLeaveUser?userId="+userId+"&userRole="+userRole+"&stateReason="+stateReason;
+     	//$("form").attr("method" , "POST").attr("action" , "/user/updateLeaveUser").submit();
+     	
+     } 
 </script>		
     <style>
 	body{
-	padding-top: 50px;
+	padding-top: 70px;
 	}
 	
 	.etcContent {
@@ -247,8 +275,6 @@
 		font-size: 16px;
 	}
 	
-	
-	
 	.editPwd2 {
 		font-family : "NanumGothic";
 		text-align: left;
@@ -300,8 +326,93 @@
 		text-align: left;
 		font-weight: 340;
 	}
-				
 	
+		.modal-title {
+			 font-weight: 700;
+			 font-size : 24px;
+		}
+		
+		.h4 {
+			font-size : 18px;
+		}
+		
+		.delete_p {
+			font-weight: 340;
+			color : gray;
+		}
+		
+		.container px-5 my-5{
+			background-color : #d6d5d5;
+		}
+		
+		#leaveReason {
+			width: 430px;
+			height : 100px;
+		}
+		
+		#updatebtn {
+			position: relative;
+        	left: 381px;
+       		top: -48px;
+       		width : 80px;
+		}
+		
+		#updateContent {
+			position: relative;
+        	left: 381px;
+       		top: -28px;
+       		width : 80px;
+		}
+		
+		#adrSearch {
+			position: relative;
+        	left: 381px;
+       		top: -28px;
+       		width : 80px;
+		}
+		
+		#editBtn {
+			position: relative;
+        	left: 381px;
+       		top: 0px;
+       		width : 80px;
+		}
+		
+		.leaveUser {
+			position: relative;
+        	left: 385px;
+       		top: -28px;
+       		width : 100px;
+		}
+		
+		.updateProfile {
+			position: relative;
+			font-size : 36px;
+			text-align: center;
+			font-weight: 340;
+		}
+		
+		.etcContent {
+			position: relative;
+			font-size : 15px;
+			text-align: center;
+			font-weight: 340;
+		}
+		
+		#staticBackdrop {
+		  top: 0%;
+		  margin-top: -100%;
+		  width : 640px;
+		}
+		
+		// 모달Body
+		.modal-body {
+			width : 300%;
+			top : 30%;
+			padding : 50px;
+		}
+		
+		
 	
 	</style>
 </head>
@@ -337,7 +448,7 @@
 							<h6 class="LabelPhone block text-sm text-gray-00"> ${dbUser.phone}</label></h6>
 						<p class="etcName"> 생년월일 / 나이 </p>
 							<h6 class="LabelBirth block text-sm text-gray-00"> ${dbUser.birth}&nbsp;</label></h6>
-							<h6 class="LabelAge block text-sm text-gray-00"> ${dbUser.age} 세</label></h6>
+							<h6 class="LabelAge block text-sm text-gray-00">/ ${dbUser.age} 세</label></h6>
 					</div>
                 </div>
                                         
@@ -351,14 +462,7 @@
                 </div>
                 
                 
-				<div>
-					<h6 class="LabelPwdNum block text-sm text-gray-00">비밀번호</label></h6>
-				</div>
-				
-				<div>
-                    <input class="nowPwd1 w-full px-3 py-1 text-gray-700 bg-gray-200 rounded" id="nowPwd" name="nowPwd" type="password" placeholder="현재 비밀번호를 입력해주세요" >      					                  
-                </div>
-				
+
                 <div>
 					<h6 class="LabelnewPwd block text-sm text-gray-00" id="newPW">새 비밀번호</label></h6>
 				</div>
@@ -374,7 +478,59 @@
 						<div class="check_font" id="pwd_check"></div>
 					<button type="button" id="updateBtn" class="micro_btn" onClick="javascript:editPW()">변경하기</button>  					                  
                 </div> 
-	
-	
+                
+ 	<button type="button" class="btn btn-light leaveUser" data-bs-toggle="modal" data-bs-target="#staticBackdrop">회원탈퇴</button>
+					
+<!-- Modal -->
+	<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h2 class="modal-title" id="staticBackdropLabel">정말 무피를 떠나실건가요?</h2>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+
+				<div class="modal-body">
+					<form id="deleteUser">
+							<!-- !!!! -->				
+							<input type="hidden" id="deleteId" name="userId" value="${dbUser.userId}" />
+							<input type="hidden" id="userRole" name="userRole" value="${dbUser.userRole}" />
+							<input type="hidden" id="stateReason" name="stateReason" value="${dbUser.stateReason}" />
+								<h4 class="h4"> 회원탈퇴 신청 전 아래 사항을 확인 부탁드립니다 😊 </h4>
+								
+								<div class="delete_p" style="margin-top: 10px;">
+									<p>1. 신청일부터 30일 후 회원탈퇴가 처리되며, 회원탈퇴 처리 전까지 저희 무피사이트를 찾아주셔서 로그인 진행을 해주신다면 그 신청을 철회할 수 있습니다.</p>
+									<p>2. 회원탈퇴 후 기존 계정으로 회원가입을 신청할 수 없습니다.</p>
+									<p>3. 회원탈퇴 시 가입한 모임, 코인 등 회원이 가진 권리는 모두 소멸합니다. 회원탈퇴 후 잔여코인과 관련한 환불이 불가하므로 필요한 경우 탈퇴 전에 환불을 신청해주세요.</p>
+									<p>4. 회원탈퇴 시 회사가 보관하고 있는 회원 데이터는 모두 영구적으로 삭제됩니다. 다만, 관련 법령에 따라 회사가 보관할 의무가 있는 정보 또는 자료는 일정기간 동안 보관됩니다.</p>
+									<p>5. 회원탈퇴 후 저희 무피사이트에 게시한 게시물을 편집하거나 삭제할 수 없습니다. 필요한 경우 신청 전 게시물을 편집하거나 삭제해주세요.</p>			          
+								</div>		
+							
+								<div class="container mx-auto h-full flex flex-1" margin: 0px;>
+					               	<div class="pwd" style="margin-top: 40px;">
+					               	 <h4> 사유를 입력해주세요 </h4>
+					                    <label class="block text-sm text-gray-00" style="margin-top: 10px;"></label>
+					                    <input type="text" class="w-full px-30 py-1 text-gray-700 bg-gray-200 rounded" id="leaveReason" max-width: 500px; name="leaveReason">
+					                </div>
+				                </div> 
+					</form>
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-light text-black font-light bg-gray-300" style="width:500px;" data-bs-dismiss="modal">뒤로가기</button>
+					<button type="button" class="btn btn-secondary text-white font-light bg-gray-900" style="width:500px;" onclick="javascript:fncLeave()">탈퇴하기</button>
+				</div>
+			</div>
+		</div>
+	</div>
+			
+			
+			
+							
+        </div>
+    </div>   
+</div>
+		        			  			
+
 </body>
 </html>

@@ -82,82 +82,81 @@ public class UserRestController {
 	public UserRestController() {
 		System.out.println(this.getClass());
 	}
-// 모바일 본인인증 구현 [본인번호 입력해서 테스트NO] -----------------------------------------------------------------------------------------------	
-
-	// Cool SMS API_key 및 API_secret Number
-	String api_key = "NCSFQV50UBMEXKK1";
-	String api_secret = "HCNQNW9BUTL7MLYFDSHQWXVMZJUFXMKI";
-
-	Message message = new Message(api_key, api_secret);
-	SenderID senderID;
-	JSONObject result;
-	JSONArray result_array;
-
-	HashMap<String, String> params = new HashMap<String, String>();
-
-	@RequestMapping(value = "json/sms/{phone}", method = RequestMethod.GET)
-	public HashMap MessageTest(@PathVariable String phone) {
-
-		System.out.println("MassageTest 시작");
-
-		// 발송시간 시작
-		// long start = System.currentTimeMillis();
-
-		try {
-			String[] array = new String[6];
-			String key = new String();
-			Random rd = new Random(); // 랜덤 객체 생성
-
-			for (int i = 0; i < array.length; i++) {
-				array[i] = Integer.toString(rd.nextInt(10));
-				key += array[i];
-			}
-
+	// 모바일 본인인증 구현 [본인번호 입력해서 테스트NO] -----------------------------------------------------------------------------------------------	
+	
+		// Cool SMS API_key 및 API_secret Number
+		String api_key = "NCSFQV50UBMEXKK1";
+		String api_secret = "HCNQNW9BUTL7MLYFDSHQWXVMZJUFXMKI";
+		
+		Message message = new Message(api_key, api_secret);
+		SenderID senderID;
+		JSONObject result;
+		JSONArray result_array;
+		
+		HashMap<String, String> params = new HashMap<String, String>();
+				
+		@RequestMapping( value="json/sms/{phone}", method=RequestMethod.GET )
+		public HashMap MessageTest (@PathVariable String phone) {
+			
+			System.out.println("MassageTest 시작");
+			
+			// 발송시간 시작
+			//long start = System.currentTimeMillis();
+		
+			try {
+		    	String[] array = new String[6];
+				String key = new String();
+				Random rd = new Random(); //랜덤 객체 생성
+				
+				for(int i=0; i<array.length; i++) {
+		            array[i] = Integer.toString(rd.nextInt(10));
+		            key += array[i];
+		        }
+		    
 			// 문자보내기(테스트시 발신, 수신 둘다 내 번호로 하기)
 			params.put("to", phone); // 수신번호
 			params.put("from", "01049670511"); // 발신번호
 			params.put("type", "SMS");
-			params.put("text", "[Moopi 본인확인] 본인인증 확인번호 [" + key + "]를 입력하세요"); // 문자전송
+			params.put("text", "[Moopi 본인확인] 본인인증 확인번호 ["+key+"]를 입력하세요"); // 문자전송
 			params.put("mode", "test");
 			params.put("key", key);
-			System.out.println("이거확인해봐 : " + key); // 인증번호 6자리 숫자가 key가 됨
+			System.out.println("이거확인해봐 : "+key);	// 인증번호 6자리 숫자가 key가 됨
 			result = message.send(params);
-			System.out.println((result.get("group_id")));
-			;
-
+			System.out.println((result.get("group_id")));;
+			
 			// 발송시간 끝
-			// long end = System.currentTimeMillis();
+			//long end = System.currentTimeMillis();
+			
+		      // balance
+		      // result = message.balance();
+		      // System.out.println((result.get("cash")));
+		      
+		      // sent
+		      //params.clear();
+		      try {
+		        result = message.sent(params);
+		        System.out.println(result.get("data"));
+		      } catch (Exception e) {
+		        result = (JSONObject) JSONValue.parse(e.getMessage());
+		        System.out.println(result.get("code"));
+		        System.out.println("NoSuchMessage");
+		      }
 
-			// balance
-			// result = message.balance();
-			// System.out.println((result.get("cash")));
+		      // status
+		      //result = message.getStatus(params);
+		      System.out.println(result.get("data"));
 
-			// sent
-			// params.clear();
-			try {
-				result = message.sent(params);
-				System.out.println(result.get("data"));
-			} catch (Exception e) {
-				result = (JSONObject) JSONValue.parse(e.getMessage());
-				System.out.println(result.get("code"));
-				System.out.println("NoSuchMessage");
-			}
-
-			// status
-			// result = message.getStatus(params);
-			System.out.println(result.get("data"));
-
-			// cancel
-			params.put("mid", "MIDTEST");
-			// result = message.cancel(params);
-			// assertTrue(!result.isEmpty());
-		} catch (Exception e) {
-			// fail(e.toString());
-		}
-		System.out.println(result);
-		System.out.println(params);
-		return params;
-	}
+		      // cancel
+		      params.put("mid", "MIDTEST");
+		      //result = message.cancel(params);
+		      //assertTrue(!result.isEmpty());
+		    } catch (Exception e) {
+		      //fail(e.toString());
+		    }
+		    System.out.println(result);
+		    System.out.println(params);
+		    return params;
+		  }
 
 	// [중간완료] 아이디 중복체크진행
 	@RequestMapping("idCheck")
@@ -174,6 +173,8 @@ public class UserRestController {
 		System.out.println("UserRestController____닉네임 중복확인 컨트롤러실행");
 		return userService.nicknameCheck(nickname);
 	}
+	
+	
 
 	/*
 	 * // 카카오 로그인 및 회원가입
@@ -238,6 +239,21 @@ public class UserRestController {
 			userService.addUser(dbUser);
 		}
 	}
+	
+	@PostMapping("json/restoreUser")
+	public String restoreUser (	@RequestBody User user) throws Exception {
+		
+		user.setUserRole("2");
+		userService.updateUserRole(user);
+
+		return "성공";
+	}
+	
+	@PostMapping(value="json/getRole")
+	public User getRole(@RequestBody User user) throws Exception {				
+		user = userService.getUser(user.getUserId());
+		return user;
+	}
 
 // [프로필 업데이트]-----------------------------------------------------------------------------------------------	
 
@@ -272,9 +288,9 @@ public class UserRestController {
 	}
 
 	@PostMapping(value="/json/updateNickname")
-	public Boolean updateNickname ( @RequestBody User user ) throws Exception {
+	public String updateNickname ( @RequestBody User user ) throws Exception {
 		userService.updateNickname(user);
-		return true;
+		return user.getNickname();
 	}
 	
 	@PostMapping(value="/json/updateContent")
@@ -302,9 +318,9 @@ public class UserRestController {
 	}
 	
 	@PostMapping(value="/json/updateUserPhone")
-	public Boolean updateUserPhone ( @RequestBody User user ) throws Exception {
+	public String updateUserPhone ( @RequestBody User user ) throws Exception {
 		userService.updateUserPhone(user);
-		return true;
+		return user.getPhone();
 	}
 	
 	@PostMapping(value="/json/updateUserPWD")
@@ -312,6 +328,8 @@ public class UserRestController {
 		userService.updateUserPWD(user);
 		return true;
 	}
+	
+
 		
 	
 //	// 완료 - [관심사]
@@ -468,7 +486,11 @@ public class UserRestController {
 		userService.updateUserPwd(user);	
 		return true;
 	}
-
+	
+	@PostMapping(value="/json/passwordConfirm")
+	public boolean passwordConfirm ( @RequestBody User user) throws Exception {
+		return true;
+	}
 
 	@GetMapping(value="json/myBoardLike/{target}")
 	public boolean myBoardLike (@PathVariable String target, HttpSession session) throws Exception {

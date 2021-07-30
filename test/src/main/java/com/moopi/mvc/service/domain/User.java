@@ -32,7 +32,7 @@ public class User {
 	private String interestFirst;			// 관심사1
 	private String interestSecond;			// 관심사2
 	private String interestThird;			// 관심사3
-	private Date regDate;				// 가입일자
+	private String regDate;				// 가입일자
 	
 	// 생년, 생월, 생일 
 	private int birth1;					// 생년월일 - 년
@@ -51,6 +51,7 @@ public class User {
 	
 	// 관리자
 	private String stateReason;			// 처리사유 - 탈퇴처리사유, 블랙처리사유
+	private String stateRegdate;		// 탈퇴처리일, 블랙처리일
 	
 	// Constructor
 	public User() {

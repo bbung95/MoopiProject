@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>로그인 뷰 / 로그인 화면페이지</title>
+<title> Moopi </title>
 
 <!-- Core theme CSS (includes Bootstrap)-->
 	<link href="/css/styles.css" rel="stylesheet" />
@@ -18,12 +18,10 @@
 <!-- 구글폰트api -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link
-	href="https://fonts.googleapis.com/css2?family=Gaegu:wght@300&display=swap"
-	rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@300&display=swap" rel="stylesheet">
 
-<!-- Bootstrap Dropdown Hover JS -->
-<script src="/javascript/bootstrap-dropdownhover.min.js"></script>
+<!-- 스윗얼럿 -->
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <!-- Favicon-->
 <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
@@ -51,6 +49,7 @@
 	<script src="/js/scripts.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
 	
+
 <!-------------------------------------------------------------------------------------------------------------------------->
 <script>
 	
@@ -60,24 +59,50 @@
 	// 구글 키 : AIzaSyD3N7qWQr_bjwh9Lw-fLaK8bW5GtqbvAV8
 	// 네이버 : MJJpKOvtYqXuhtTnhQtq
 
-// [로그인 적합성체크]
+// [로그인 적합성체크] - 아이디입력, 비밀번호입력, userRole에 따른 로그인처리
 	function fncLogin() {		
 		
 		var id=$('input[name=userId]').val();
 		var password=$('input[name=password]').val();		
-	
+
 		if(id == null || id.length < 1) {
-			alert("ID 를 입력하지 않으셨습니다.");
+			swal("아이디를 입력하지 않으셨습니다.","아이디를 다시 확인해주세요","warning");
 			$('input[name=userId]').focus();
 			return;
 		}	
 		if(password == null || password.length < 1) {
-			alert('패스워드를 입력하지 않으셨습니다.');
+			swal('비밀번호를 입력하지 않으셨습니다.',"비밀번호를 다시 확인해주세요","warning");
 			$('input[name=password]').focus();
 			return;
 		}
+		
+			$.ajax({
+				url : "/user/json/getRole",
+				method : "POST",
+				contentType : "application/JSON",
+				dataType : "JSON",				
+				data : JSON.stringify({"userId" : id}),
+				success : function(data, state) {					
+					if(data.userRole == 5){
+						popWin = window.open(
+								"/user/updateRestoreUser?userId="+data.userId+"&profileImage="+data.profileImage+"&nickname="+data.nickname,
+								"popWin",
+								"left=460, top=300, width=600, height=465, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");
 					
-		$("form").attr("method", "POST").attr("action", "/user/loginUser").submit();
+					} else if(data.userRole == 6){
+						swal("이미 탈퇴하신 회원입니다","새로 가입을 진행해주세요","success");
+						return;
+					} else if(data.userRole == 4) {
+						popWin = window.open(
+								"/user/getBlackUser?userId="+data.userId+"&profileImage="+data.profileImage+"&nickname="+data.nickname,
+								"popWin",
+								"left=460, top=300, width=600, height=465, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");
+					} else {
+						$("form").attr("method", "POST").attr("action", "/user/loginUser").submit();
+					}
+				}	
+			});
+					
 	}	
 	
 // [회원가입 네비게이션]								
@@ -92,6 +117,7 @@
 		function init() {			
 			gapi.load('auth2', function() {
 					gapi.auth2.init();
+					
 					options = new gapi.auth2.SigninOptionsBuilder();
 					options.setPrompt('select_account');
 											
@@ -121,10 +147,11 @@
 							.done(function(e){
 									        // 여기가 제일중요 profile 정보가 다 담겨서 온다. LS가 ID인듯
 											var profile = googleUser.getBasicProfile(); // 프로필 총 출력
-											var userId = profile.LS;	// 고유식별값
-											var userName = profile.Ue;	// 유저이름										
-													
-											location.href = "/user/googleLogin?userId="+userId	
+											var userId = profile.getId();	// 고유식별값
+											var userName = profile.Ue;	// 유저이름	
+											console.log(userId);
+					
+											location.href = "/user/googleLogin?userId="+userId
 											})
 												.fail(function(e){
 												console.log(e);
@@ -207,7 +234,7 @@
 		//$("form").attr("method" , "POST").attr("action" , "/user/naverlogin").submit();
 	}
 	
-// 카카오톡 로그인
+// [카카오로그인]
 	
 		$("#custom-login-btn").on("click" , function() {
 			KakaoLogin();
@@ -256,7 +283,7 @@
 			}
 		}
 
-// 아이디찾기 - 다른 방식으로 접근, 차후 수정가능시 수정진행 할 예정
+// [아이디찾기]
 	function findId() {	
 		$(".forgot-Id").fadeIn();
 		var popWin;
@@ -268,7 +295,7 @@
 	}
 
 
-// 비밀번호찾기 - 다른 방식으로 접근, 차후 수정가능시 수정진행 할 예정	
+// [비밀번호찾기]	
 	function findPwd() {
 		$(".forgot-pass").fadeIn();			
 		var popWin;
@@ -277,16 +304,38 @@
 		popWin = window.open(
 					"searchUserPwd?findPwd",
 					"childForm",
-					"left=460, top=300, width=580, height=640, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");									
+					"left=460, top=300, width=580, height=515, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");									
 	}
 		
 </script>		
    
 	<style>
-		body {
-		background-image : url('../images/background/half_background.jpg');
-			padding-top: 50px;
-		}	
+	
+	html {	
+		height:100%;
+	}
+	
+	body {	
+		position: relative; 
+		width : 100%;
+		height : 100%;
+	}
+	
+	.realCenter {
+		position : absolute;
+		top : 50%;
+		left : 50%;
+		margin:-150px 0 0 -150px
+	}
+			
+
+	
+	#MP {
+		text-align : center;
+	}
+	
+
+		
 
 	</style>
 	
@@ -306,29 +355,22 @@
 	<!---------------------------------------------------------------------------------------------------------------------------->
 
 	<!-- 화면구성 div Start ---------------------------------------------------------------------------------------------------------------->
-	<div>
-		<a href="javascript:history.back()"> <img class="img-back"
-			src="../images/icons/icon_back.png" width="25" name="back"></a>
-	</div>
+	<input type="hidden" class="form-control" id="userRole" name="userRole" value="${user.userRole}" readonly>
 
-	<div class="d-lg-flex half">
-		<div class="bg order-1 order-md-2"></div>
-			<div class="contents order-2 order-md-1"> 
-				<div class="container">
-					<div class="row align-items-center justify-content-center">
-						<div class="col-md-7">
-							<div class="mb-4">
+	<div class="realCenter">	
+
+						
+							<div class="mb-4" >
 								<h3 class="row align-items-center justify-content-center">Moopi</h3><br>
-								<h5 class="row align-items-center justify-content-center">수정중</h5><br>
-								<p class="mb-4"> ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ</p>
+								<p class="mb-4" id="MP">Move People</p>
 							</div>
 					
-							<form action="#" method="post">
+							<form class="AddUserCenter" action="#" method="post">
 								
 								<!-- 아이디입력 -->
 								<div class="form-group first">
 									<label for="userId">ID</label>
-									<input type="text" class="form-control" id="userId" name="userId">
+									<input type="text" class="form-control" id="userId" name="userId" style="width:350px";>
 								</div>
 								
 								<!-- 패스워드입력 -->
@@ -349,7 +391,7 @@
 
 								<!-- 로그인버튼 -->
 								<div style="text-align : center;">
-									<a><input type="submit" value="Login" class="btn btn-block btn-basic" onClick="javascript:fncLogin()"></a>
+									<a><input type="button" value="Login" class="btn btn-block btn-basic" onClick="javascript:fncLogin()"></a>
 								</div>
 								<div style="text-align : center;">	
 									<a href="/user/addUserView" style="color:black;">회원가입</a>
@@ -374,6 +416,9 @@
 								</div>
 							</form>
 						</div>
+					</div>
+					</div>
+
 
 </body>
 </html>

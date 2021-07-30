@@ -4,13 +4,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpSession;
-
 import org.apache.ibatis.annotations.Param;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.ModelAttribute;
 
 import com.moopi.mvc.common.Search;
 import com.moopi.mvc.service.domain.User;
@@ -66,7 +63,7 @@ public class UserServiceImpl {
 	}
 	
 	// 유저정보변경(모바일번호)
-	public void updateUserPhone(User user) throws Exception {
+	public void updateUserPhone(User user) {
 		userDao.updateUserPhone(user);
 	}
 	
@@ -98,6 +95,11 @@ public class UserServiceImpl {
 		System.out.println("\nUserServiceImpl _____ updateLeaveUser 진입완료");
 		System.out.println("유저가 탈퇴를 눌렀을시 5번 유저롤로 변경된다");
 		userDao.updateLeaveUser(user);
+	}
+	
+	// 회원블랙
+	public void updateBlackUser (User user) throws Exception {
+		userDao.updateBlackUser(user);
 	}
 	
 	// 유저비밀번호변경
@@ -207,5 +209,6 @@ public class UserServiceImpl {
 		
 		userDao.updateUserRole(user);
 	}
+	
 
 }

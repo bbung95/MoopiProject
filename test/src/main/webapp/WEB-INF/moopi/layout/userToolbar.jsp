@@ -35,7 +35,7 @@
 	
 		$("li:contains('내 정보수정')").on("click", function() {
 
-			location.href = "/user/updateUserView?userId=" + dbUser;
+			location.href = "/user/passwordConfirm";
 		})
 		
 		$("li:contains('My모임무피')").on("click", function() {
