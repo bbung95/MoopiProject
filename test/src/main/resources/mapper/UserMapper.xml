@@ -325,7 +325,7 @@
 		
 	<select id="getFollowList"	resultMap="userSelectMap">
 		SELECT
-		u.user_id , u.nickname , fl.fl_target, u.profile_image
+		fl.user_id , u.nickname , fl.fl_target, u.profile_image
 		FROM FOLLOW_LIKE fl , USERS u
 		<where>
 			fl.fl_type in ('2')
@@ -334,7 +334,7 @@
                 AND fl.user_id in (#{userId})
 			</if>
 			<if test="order == 2">
-s				AND fl.user_id = u.user_id 
+				AND fl.user_id = u.user_id 
                 AND fl.fl_target in (#{userId})
 			</if>
 		</where>
@@ -389,11 +389,11 @@ s				AND fl.user_id = u.user_id
 	<update id="updateUserRole"		parameterType="user">
 		UPDATE users
 			<set>
-			 	USER_ROLE = #{user.userRole}
-			 ,  STATE_REASON =  #{user.stateReason}
+			 	USER_ROLE = #{userRole}
+			 ,  STATE_REASON =  #{stateReason}
 			 ,  STATE_REGDATE = now()
 			</set>
-		WHERE USER_ID = #{user.userId}
+		WHERE USER_ID = #{userId}
 	</update>
 		
 		

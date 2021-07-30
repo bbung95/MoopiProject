@@ -110,8 +110,6 @@
 	function editPN() {
 		var userId = $("#userId").val();
 		var phone = $("#pInput").val();	
-		alert("userId : "+userId);
-		alert("phone : "+phone);
 		$.ajax ({
 			url : "/user/json/updateUserPhone",
 			type : "POST",
@@ -119,9 +117,7 @@
 			dataType : "text",
 			data : JSON.stringify ({ "userId" : userId, "phone" : phone }),
 			success : function(data, state) {
-					alert("? : "+state);
-					alert("data : "+data);
-					alert("모바일번호 수정이 완료되었습니다.");
+					swal("success","모바일번호 수정이 완료되었습니다","success");
 					$('.LabelPhone').text(data);
 			}	
 		});	
@@ -131,7 +127,6 @@
 	function editPW() {
 		var userId = $("#userId").val();
 		var password = $("#password1").val();	
-		alert("여기");
 		$.ajax ({
 			url : "/user/json/updateUserPWD",
 			type : "POST",
@@ -139,7 +134,7 @@
 			dataType : "text",
 			data : JSON.stringify ({ "userId" : userId, "password" : password }),
 			success : function(data, state) {
-					alert("패스워드 수정이 완료되었습니다.");
+					swal("success","비밀번호 수정이 완료되었습니다","success");
 			}	
 		});	
 	}
@@ -224,7 +219,7 @@
 		font-family : "NanumGothic";
 		text-align: left;
 		font-size: 16px;
-		padding-top : 20px
+		padding-top : 10px
 	}
 	
 	.LabelPwdNum {
@@ -237,7 +232,7 @@
 	font-family : "NanumGothic";
 		text-align: left;
 		font-size: 16px;
-		padding-top : 20px;
+		padding-top : -50px;
 	}
 	
 	.editPhoneNum {
@@ -248,14 +243,15 @@
 	}
 	
 	#mobileAuthBtn {
-		border: 1px solid gray;
-		top : -50px;
-		font-size: 12px;
+	    border: 1px solid gray;
+	    top: -50px;
+	    font-size: 12px;
 	    width: 68px;
+	    width: 69px;
+	    text-align: center;
 	    margin-left: 315px;
-		
 	}
-	
+		
 	.LabelPwd1Num {
 		font-family : "NanumGothic";
 		text-align: left;
@@ -299,12 +295,32 @@
 		margin-down: 310px;
 	}
 	
+	
+	<div class="MobileNum">                        
+					<div class="MB">
+						<h6 class="LabelPhoneNum block text-sm text-gray-00">모바일번호</label></h6>
+					</div>
+					<div class="phoneNumDown">
+	                    <input class="editPhoneNum w-full px-3 py-1 text-gray-700 bg-gray-200 rounded" id="pInput" name="phone" type="text" value=${dbUser.phone} onClick="updatePN()">      				
+					</div>
+					<div class="mobileAuthBtn"	
+						<button type="button" id="mobileAuthBtn" class="micro_btn" onClick="editPN()">변경하기</button>
+					</div>
+					<div class="editMobileContent">	
+						<p class="fixed"> 모바일번호 변경을 원하신다면 위의 칸을 눌러주세요 </p>					                  
+	                </div>
+                </div>
+                
+	.MB {
+		padding-bottom : 24px;
+	}  
+	         
 	.editMobileContent{
 		position: relative;
 		font-size : 12px;
 		text-align: left;
 		font-weight: 340;
-		top : -33px;
+		top : -24px;
 	}
 	
 	.updateProfile {
@@ -411,8 +427,8 @@
 			width : 300%;
 			top : 30%;
 			padding : 50px;
-		}
-		
+
+
 		
 	
 	</style>
@@ -452,14 +468,20 @@
 							<h6 class="LabelAge block text-sm text-gray-00">/ ${dbUser.age} 세</label></h6>
 					</div>
                 </div>
-                                        
-				<div class="mobileNum">
-					<h6 class="LabelPhoneNum block text-sm text-gray-00">모바일번호</label></h6>
-				</div>
-				<div>
-                    <input class="editPhoneNum w-full px-3 py-1 text-gray-700 bg-gray-200 rounded" id="pInput" name="phone" type="text" value=${dbUser.phone} onClick="updatePN()">      
-					<button type="button" id="mobileAuthBtn" class="micro_btn" onClick="editPN()">변경하기</button>
-					<p class="editMobileContent fixed"> 모바일번호 변경을 원하신다면 위의 칸을 눌러주세요 </p>					                  
+                
+                <div class="MobileNum">                        
+					<div class="MB">
+						<h6 class="LabelPhoneNum block text-sm text-gray-00">모바일번호</label></h6>
+					</div>
+					<div class="phoneNumDown">
+	                    <input class="editPhoneNum w-full px-3 py-1 text-gray-700 bg-gray-200 rounded" id="pInput" name="phone" type="text" value=${dbUser.phone} onClick="updatePN()">      				
+					</div>
+					<div class="mobileAuthBtn">	
+						<button type="button" id="mobileAuthBtn" class="micro_btn" onClick="editPN()">변경하기</button>
+					</div>
+					<div class="editMobileContent">	
+						<p class="fixed"> 모바일번호 변경을 원하신다면 위의 칸을 눌러주세요 </p>					                  
+	                </div>
                 </div>
                 
                 

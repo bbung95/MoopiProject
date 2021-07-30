@@ -24,26 +24,14 @@ $(function() {
 });	
 
 function fncAddReport(){
-	alert("신고");
+// 	alert("신고");
 	
 	var reportType			= $("input[name=reportType]:checked").val();
 	var reportContent		= $("#reportContent").val();
-// 	if ( $("#reportTarget").val() != null ) {
 	var reportTarget		= $("#reportTarget").val();
-// 	alert(reportTarget);
-// 	}
-// 	if ( $("#reportTargetBd").val() != null) {
 	var reportTargetBd		= $("#reportTargetBd").val();
-// 	alert(reportTargetBd);
-// 	}
-// 	if (  $("#reportTargetRe").val() != null ) {
 	var reportTargetRe		= $("#reportTargetRe").val();
-// 	alert(reportTargetRe);
-// 	}
-// 	if (  $("#reportTargetMm").val() != null ) {
 	var reportTargetMm		= $("#reportTargetMm").val();
-// 	alert(reportTargetMm);
-// 	}
 	var reportCategory 		= $("#reportCategory").val();
 	var reportByUserId		= $("#reportByUser").val();
 	
@@ -83,12 +71,15 @@ function fncAddReport(){
  
  <div class="container">
 	
-		<h1 class="bg-primary text-center">신고하기</h1>
+		
 		
 		<!-- form Start /////////////////////////////////////-->
 		<form class="form-horizontal" name="detailForm" >
 		<!-- 카테고리 1번에 해당하는 신고글. -->
 		  <c:if test="${reportCategory == 1}">
+		  
+		  <h1 class="bg-primary text-center">게시글 신고</h1>
+		  
 		  <input type="hidden" id="reportByUser" name="reportByUser.userId" value="${dbUser.userId}">
 		  <input type="hidden" id="reportTargetBd" name="reportTargetBd.boardNo" value="${board.boardNo}">
 		  <input type="hidden" id="reportCategory" name="reportCategory" value="${reportCategory}">
@@ -110,6 +101,9 @@ function fncAddReport(){
            
            <!-- 카테고리 2번에 해당하는 신고글. -->
             <c:if test="${reportCategory == 2}">
+            
+            <h1 class="bg-primary text-center">댓글 신고</h1>
+            
 		  <input type="hidden" id="reportByUser" name="reportByUser.userId" value="${dbUser.userId}">
 		  <input type="hidden" id="reportTargetRe" name="reportTargetRe.replyNo" value="${reply.replyNo}">
 		  <input type="hidden" id="reportCategory" name="reportCategory" value="${reportCategory}">
@@ -124,6 +118,42 @@ function fncAddReport(){
                     <p>${reply.replyContent}</p>
                 </div>
            </c:if>  
+           
+           <c:if test="${reportCategory == 3}">
+            
+            <h1 class="bg-primary text-center">유저 신고</h1>
+            
+		  <input type="hidden" id="reportByUser" name="reportByUser.userId" value="${dbUser.userId}">
+		  <input type="hidden" id="reportTarget" name="reportTarget" value="${report.reportTarget.userId}">
+		  <input type="hidden" id="reportCategory" name="reportCategory" value="${reportCategory}">
+                <div>
+					<p>닉네임</p>
+                    <p class="targetName">
+                    <p id="targetName">${user.nickname}</p>
+                </div>
+                
+           </c:if>  
+           
+           
+           <c:if test="${reportCategory == 4}">
+            
+            <h1 class="bg-primary text-center">모임 신고</h1>
+            
+		  <input type="hidden" id="reportByUser" name="reportByUser.userId" value="${dbUser.userId}">
+		  <input type="hidden" id="reportTargetMm" name="reportTargetMm" value="${moim.mmNo}">
+		  <input type="hidden" id="reportCategory" name="reportCategory" value="${reportCategory}">
+                <div>
+					<p>모임명</p>
+                    <p class="targetName">
+                    <p id="targetName">${moim.mmName}</p>
+                </div>
+                
+                 <div>
+					<p>모임 소개</p>
+                    <p>${moim.mmContent}</p>
+                </div>
+           </c:if>  
+           
            
                 <div class="c_rp_dtl">
                     <p>신고유형</p>
