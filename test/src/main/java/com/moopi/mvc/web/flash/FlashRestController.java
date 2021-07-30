@@ -3,6 +3,7 @@ package com.moopi.mvc.web.flash;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,8 +13,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.moopi.mvc.common.Search;
+import com.moopi.mvc.service.coin.impl.CoinServiceImpl;
+import com.moopi.mvc.service.common.impl.CommonServiceImpl;
 import com.moopi.mvc.service.domain.MeetingFlashMember;
 import com.moopi.mvc.service.flash.impl.FlashServiceImpl;
+import com.moopi.mvc.service.user.impl.UserServiceImpl;
 
 @RestController
 @RequestMapping("/flash/*")
@@ -21,6 +26,21 @@ public class FlashRestController {
 	
 	@Autowired
 	private FlashServiceImpl flashService;
+	
+	@Autowired
+	private UserServiceImpl userService;
+
+	@Autowired
+	private CoinServiceImpl coinService;
+	
+	@Autowired
+	private CommonServiceImpl commonService;
+	
+	@Value("4")
+	private int pageSize;
+	
+	@Value("10")
+	private int pageUnit;
 	
 	//Constructor
 	public FlashRestController() {
@@ -33,6 +53,21 @@ public class FlashRestController {
 		//Map<String, Object> map = flashService.getJoinFlashList(targetNo);
 		
 		return flashService.getJoinFlashList(targetNo);
+	}
+	
+	@GetMapping(value = "json/getListFlash/{currentPage}")
+	public Map<String,Object> getListFlash(@PathVariable int currentPage)throws Exception  {
+		
+		System.out.println("getListFlash:Rest:GET:Start!! ");
+		
+		Search search = new Search();
+		search.setPageSize(pageSize);
+		search.setPageUnit(pageUnit);
+		search.setCurrentPage(currentPage);
+		
+		
+		
+		return flashService.getFlashList(search);
 	}
 	
 	
