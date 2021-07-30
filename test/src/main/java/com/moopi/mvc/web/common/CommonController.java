@@ -138,6 +138,7 @@ public class CommonController {
 		System.out.println("common/getReportList : GET");
 		
 		model.addAttribute("list", reportService.getReportList(search, model).get("list"));
+		model.addAttribute("resultPage", resultPage);
 		
 		return "common/adminReportList";
 	}
