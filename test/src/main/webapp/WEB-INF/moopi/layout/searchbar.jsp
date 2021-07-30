@@ -237,24 +237,19 @@
 	})
 	
 	// hover 효과
-	$('.searchbtn').hover(function() {
+	$('.searchbtn').on('click',function() {
 		if($('#searchkeyword').val().length != 0){
 			$('.searchList').css('display', 'block');
 		}
 		$('#searchkeyword').css('display', 'block');
 		$('.searchbtn').css('width', '400px').css('cursor','pointer');
 		$('.fa').css('background', '#c7cbd4').css('color', 'white');
-	},function(){
-		console.log($('#searchkeyword').val().length);
-		if($('#searchkeyword').val().length == 0){
-			unhover()
-		}
 	})
 
 	//요소 밖 클릭시 display none
 	 $(document).on('click', (e)=>{
 			if(!$('.searchBar').has(e.target).length){
-				//console.log(e.target.id);
+				//console.log(e.target.id);	
 				unhover();
 			}
 	}) 
