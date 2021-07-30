@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.moopi.mvc.common.Page;
 import com.moopi.mvc.common.Search;
 import com.moopi.mvc.service.common.impl.CommonServiceImpl;
 import com.moopi.mvc.service.domain.Payment;
@@ -73,14 +74,25 @@ public class CommonController {
 		return "redirect:/";
 	}
 
-	@GetMapping("common/getUserList")
-	public String getUsetList(Model model) throws Exception {
-
-		Search search = new Search();
+	@RequestMapping("common/getUserList")
+	public String getUsetList(@ModelAttribute Search search, @RequestParam(defaultValue = "0") int searchState, Model model) throws Exception {
 
 		System.out.println("common/getUsetList : GET");
-		model.addAttribute("list", userService.getUserList(search, 0).get("list"));
-		model.addAttribute("totalCount", userService.getUserList(search, 0).get("totalCount"));
+		
+		if (search.getCurrentPage() == 0) {
+			search.setCurrentPage(1);
+		}
+		search.setPageSize(pageSize);
+
+		
+		Map<String, Object> map = userService.getUserList(search, searchState);
+		
+		Page resultPage = new Page(search.getCurrentPage(), ((Integer) map.get("totalCount")).intValue(), pageUnit,
+				pageSize);
+		
+		model.addAttribute("list", map.get("list"));
+		model.addAttribute("resultPage", resultPage);
+		model.addAttribute("totalCount", map.get("totalCount"));
 
 		return "common/adminUserList";
 	}
