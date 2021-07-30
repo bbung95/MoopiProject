@@ -6,8 +6,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-
+<title>Hello! Moopi!</title>
+<link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />	
 <jsp:include page="../common/commonCDN.jsp"></jsp:include>
 		
 		<script src="/javascript/summernote-lite.js"></script>
@@ -18,17 +18,21 @@
 		<link
 			href="https://fonts.googleapis.com/css2?family=Gaegu:wght@300&display=swap"
 			rel="stylesheet">	
+		<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
+	
+	<!-- Sweet Alert -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	
 <script type="text/javascript">
 
 function fncAddBoardView(){
 	alert("게시글작성");
-	self.location ="/board/addBoardView?category=4";
+	self.location ="/moim/addBoardView?boardMoimNo="+${moim.mmNo};
 }
 
-function fncGetBoard(boardNo){
+function fncGetBoard2(boardNo){
 	alert("게시글조회");
-	self.location ="/board/getBoard?boardNo="+boardNo;
+	self.location ="/moim/getBoard?boardNo="+boardNo;
 }
 
 
@@ -442,7 +446,7 @@ padding: 3px 7px;
 body {
 	padding-top: 100px;
 	margin: auto;
-	font-family: 'Gaegu', cursive;
+	font-family: 'Nanum Gothic', sans-serif;
 }
 </style>
 </head>
@@ -479,6 +483,7 @@ body {
             </div>
         </form>
 		
+		<button type="button" class="btn btn-default btn-sm tpl-forum-write" data-selector=".tpl-forum-write" data-button="true" data-title="button text" onClick="fncAddBoardView()">작성하기</button>
 
 			<div class="userEL9022878 colorSet" data-fcolor="#191919">
 			    <div class="container">
@@ -507,7 +512,7 @@ body {
 		                                <td class="tpl-forum-list-content op_itemline10"  onClick="fncGetPassword(${board.boardNo})">${board.boardName}</td>
 										</c:if>
 			                             <c:if test="${  empty board.boardPassword}"> 
-			                            <td class="tpl-forum-list-content op_itemline10"  onClick="fncGetBoard(${board.boardNo})">${board.boardName}</td>
+			                            <td class="tpl-forum-list-content op_itemline10"  onClick="fncGetBoard2(${board.boardNo})">${board.boardName}</td>
 			                            </c:if>
 			                            
 			                            
@@ -528,11 +533,11 @@ body {
 			</div>
 
                 </div>
-                
-                <button type="button" class="btn btn-default btn-sm tpl-forum-write" data-selector=".tpl-forum-write" data-button="true" data-title="button text" onClick="fncAddBoardView()">작성하기</button>
+                               
 	
 					<jsp:include page="../common/pageNavigator.jsp"/>	
             </div>
+            <jsp:include page="../layout/moimSidebar.jsp"></jsp:include>
 	<jsp:include page="../layout/searchbar.jsp"></jsp:include>
 
 </body>
