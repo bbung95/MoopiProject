@@ -61,9 +61,11 @@
 			var regex = /[가-힣]{2,}/;
 			var result = regex.exec($("#userName").val());		
 			if(result != null){
-				$("#nameCheck").text("");  
+				$("#nameCheck").text(""); 
 			}else{
 				$("#nameCheck").text("이름은 한글만 입력 가능합니다.");
+				$("#nameCheck").css("color", "red");
+				$("#joinButton").attr("disabled", true); 
 			}		
 		})	
 	});
@@ -96,9 +98,9 @@
 <!-- [주소 API] -->
 	function searchAdr() {	
 		new daum.Postcode({		
-			oncomplete: function(data) {
+			oncomplete : function(data) {
 				$('#fullAddr').val(data.address);
-				$('#addr').val(data.bname);
+				$('#addr').val(data.sigungu);
 			}
 		}).open();				
 	}
@@ -110,7 +112,7 @@
 		popWin = window.open(
 				"getMobileAuth?addUser",
 				"childForm",
-					"left=460, top=300, width=460, height=800, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");	
+					"left=460, top=300, width=600, height=550, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");	
 		function setChildTest() {
 				penWin.document.getElementById("cInput").value = document.getElementById("pnNum").value;				
        	}
@@ -171,6 +173,34 @@
         .login{
             background-color : #D6D6D6;
         }
+        
+        #nameCheck{
+        	text-align: left;	
+			height : 20px;	
+        }
+        
+        #mobileAuth{		
+        	position: relative;	
+	        border: 1px solid gray;
+			top : -38px;
+			font-size: 12px;
+		    width: 70px;
+		    margin-left: 323px;
+       	}
+       	
+       	.nickname{
+       		position: relative;	
+       	}
+       	
+       	#adrSearch{		
+        	position: relative;	
+	        border: 1px solid gray;
+			top : -38px;
+			font-size: 12px;
+		    width: 70px;
+		    margin-left: 323px;
+		    padding-down : -150px;
+       	}
     </style>
 
 </head>
@@ -183,7 +213,7 @@
         <div class="leading-loose">
             <form class="max-w-xl m-4 p-10 bg-white rounded shadow-xl">
                 <p class="text-gray-800 font-medium">추가정보입력</p>
-         	       
+         	    
                 <div class="id">
                     <label class="block text-sm text-gray-00" for="userId">아이디</label>
 					<input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" id="userId" name="userId" type="text" required="" value="${user.userId}" readonly aria-label="Id">
@@ -199,15 +229,15 @@
                 
 				<div class="gender">
                     <label class="block text-sm text-gray-00" for="gender">성별</label>
-                    	<input type="radio" name="gender" value="남">남
-                    	<input type="radio" name="gender" value="여">여              
+                    	<input type="radio" name="gender" value="1">남
+                    	<input type="radio" name="gender" value="2">여             
 					</span>
                 </div>
                 
 				<div class="phone">
                     <label class="block text-sm text-gray-00" for="phone">모바일번호</label>
-                    <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" id="pInput" name="phone" type="text" required="" placeholder="인증을 진행해주세요" aria-label="phone" style="width:340px;">
-                    <button type="button" id="mobileAuth" class="btn btn-info" onclick="javascript:addUser()" style="color:gray;">인증하기</button>	
+                    <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" id="pInput" name="phone" type="text" required="" placeholder="인증을 진행해주세요" aria-label="phone" >
+                    <button class="micro_btn" type="button" id="mobileAuth" onclick="javascript:addUser()" style="color:gray;">인증하기</button>	
                 </div>
                 
 				<div class="nickname">
@@ -223,7 +253,7 @@
                 
                 <div class="address">
                     <label class="block text-sm text-gray-00" for="address">주소</label>
-                    <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" type="text"  id="fullAddr" name="fullAddr" placeholder="주소지 검색을 눌러주세요" readonly style="width:325px;">
+                    <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" type="text"  id="fullAddr" name="fullAddr" placeholder="주소지 검색을 눌러주세요" readonly>
 					<button type="button" id="adrSearch" name="addr" onclick="javascript:searchAdr()" style="color:gray;"> 주소지검색</button>
                 </div>
                 

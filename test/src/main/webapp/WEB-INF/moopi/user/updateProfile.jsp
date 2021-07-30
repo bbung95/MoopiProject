@@ -10,7 +10,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-<title>프로필수정</title>
+<title>Moopi</title>
 
 <! -- jQuery CDN -->	
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
@@ -19,9 +19,7 @@
 <!-- Favicon-->
 <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
 <!-- Bootstrap icons-->
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
-	rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
 <!-- Core theme CSS (includes Bootstrap)-->
 <link href="/css/styles.css" rel="stylesheet" />
 <!-------------------------------------------------------------------------------------------------------------------------->
@@ -44,13 +42,11 @@
 <!-- 다음주소 -->
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>	
 
+<!-- 스윗얼럿 -->
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <!-------------------------------------------------------------------------------------------------------------------------->   
   
 <script>
-
-
-
-
 
 <!-- 닉네임 유효성체크 -->
 	$(function() {	
@@ -82,7 +78,7 @@
 		new daum.Postcode({		
 			oncomplete: function(data) {
 				$('#fullAddr').val(data.address);
-				$('#addr').val(data.bname);
+				$('#addr').val(data.sigungu);
 			}
 		}).open();				
 	}
@@ -96,9 +92,10 @@
 			type : "POST",
 			contentType : "application/JSON",
 			dataType : "text",
-			data : JSON.stringify ({ userId : "userId", nickname : "nickname" }),
+			data : JSON.stringify ({ "userId" : userId, "nickname" : nickname }),
 			success : function(data, state) {
-					alert("닉네임 수정이 완료되었습니다.");
+					swal("SUCCESS!","닉네임 변경이 완료되었습니다.","success");
+					$('.mainNickname').text(data);
 			}	
 		});	
 	}
@@ -114,7 +111,7 @@
 			dataType : "text",
 			data : JSON.stringify({"userId" : userId, "profileContent" : profileContent}),					
 			success : function(data, state) {
-				alert("프로필소개 변경이 완료되었습니다.");
+				swal("SUCCESS!","프로필소개 수정이 완료되었습니다.","success");
 				}					
 		});
 	}
@@ -131,7 +128,7 @@
 			dataType : "text",
 			data : JSON.stringify ({"userId" : userId, "fullAddr" : fullAddr, "addr" : addr}),
 			success : function(data, state) {
-				alert("주소지 변경이 완료되었습니다.");
+				swal("SUCCESS!","주소지 변경이 완료되었습니다.","success");
 				}					
 		});
 	}
@@ -152,7 +149,7 @@
 									"interestSecond" : interestSecond,
 									"interestThird" : interestThird}),
 			success : function(data, state) {
-				alert("관심 변경이 완료되었습니다.");
+				swal("SUCCESS!","관심사 변경이 완료되었습니다.","success");
 				}					
 		});
 	}
@@ -178,7 +175,6 @@
 	<!-- 모달 회원탈퇴 -->
 	 function fncLeave() {
      
-     	alert("진짜탈퇴");
      	var userId = $("#userId").val();
      	var userRole = $("#userRole").val();
      	var stateReason = $("input[name='leaveReason']").val();
@@ -208,8 +204,7 @@
 		
 		a:link { color: gray; text-decoration: none;}
 		a:visited { color: black; text-decoration: none;}
-		a:hover { color: red; text-decoration: none;}  
-		
+		a:hover { color: red; text-decoration: none;}  	
 
 		#staticBackdrop {
 		  top: 50%;
@@ -436,50 +431,7 @@
 					</div>				
 				</div>
 				
-	<button type="button" class="btn btn-light leaveUser" data-bs-toggle="modal" data-bs-target="#staticBackdrop">회원탈퇴</button>
-					
-<!-- Modal -->
-	<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h2 class="modal-title" id="staticBackdropLabel">정말 무피를 떠나실건가요?</h2>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
-
-				<div class="modal-body">
-					<form id="deleteUser">
-							<!-- !!!! -->				
-							<input type="hidden" id="deleteId" name="userId" value="${dbUser.userId}" />
-							<input type="hidden" id="userRole" name="userRole" value="${dbUser.userRole}" />
-							<input type="hidden" id="stateReason" name="stateReason" value="${dbUser.stateReason}" />
-								<h4 class="h4"> 회원탈퇴 신청 전 아래 사항을 확인 부탁드립니다 😊 </h4>
-								
-								<div class="delete_p" style="margin-top: 10px;">
-									<p>1. 신청일부터 30일 후 회원탈퇴가 처리되며, 회원탈퇴 처리 전까지 저희 무피사이트를 찾아주셔서 로그인 진행을 해주신다면 그 신청을 철회할 수 있습니다.</p>
-									<p>2. 회원탈퇴 후 기존 계정으로 회원가입을 신청할 수 없습니다.</p>
-									<p>3. 회원탈퇴 시 가입한 모임, 코인 등 회원이 가진 권리는 모두 소멸합니다. 회원탈퇴 후 잔여코인과 관련한 환불이 불가하므로 필요한 경우 탈퇴 전에 환불을 신청해주세요.</p>
-									<p>4. 회원탈퇴 시 회사가 보관하고 있는 회원 데이터는 모두 영구적으로 삭제됩니다. 다만, 관련 법령에 따라 회사가 보관할 의무가 있는 정보 또는 자료는 일정기간 동안 보관됩니다.</p>
-									<p>5. 회원탈퇴 후 저희 무피사이트에 게시한 게시물을 편집하거나 삭제할 수 없습니다. 필요한 경우 신청 전 게시물을 편집하거나 삭제해주세요.</p>			          
-								</div>		
-							
-								<div class="container mx-auto h-full flex flex-1 justify-center items-center" margin: 10px;>
-					               	<div class="pwd" style="margin-top: 20px;">
-					               	 <h4> 사유를 입력해주세요 </h4>
-					                    <label class="block text-sm text-gray-00" style="margin-top: 10px;"></label>
-					                    <input type="text" class="w-full px-30 py-1 text-gray-700 bg-gray-200 rounded" id="leaveReason" max-width: 500px; name="leaveReason">
-					                </div>
-				                </div> 
-					</form>
-				</div>
-
-				<div class="modal-footer">
-					<button type="button" class="btn btn-light text-black font-light bg-gray-300" style="width:500px;" data-bs-dismiss="modal">뒤로가기</button>
-					<button type="button" class="btn btn-secondary text-white font-light bg-gray-900" style="width:500px;" onclick="javascript:fncLeave()">탈퇴하기</button>
-				</div>
-			</div>
-		</div>
-	</div>
+	
 			
 			
 			
