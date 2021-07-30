@@ -261,7 +261,6 @@ body {
 	border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-
 .thumbnail {
 	position: relative;
 	padding-top: 100%;
@@ -349,78 +348,103 @@ pre {
 	margin-top: 0.5rem;
 	margin-bottom: 0.5rem;
 }
-
 </style>
 <style>
-
 .effect5 {
-  /* position: relative;
+	/* position: relative;
    width: 400px; height: 300px; 
    background: #000;
   overflow: hidden;
   box-shadow: 1px 1px 3px rgba(0,0,0,0.4); */ */
-}
-.effect5 img {
-/*   filter: sepia(20%) saturate(60%);
- */}
- .effect5 figcaption {
-  position: absolute;
-  top: 0; right:0; bottom: 0; left: 0;
-   display: flex;
-  align-items: center;
-   justify-content: center;
-  flex-direction: column; */
-  z-index: 1;
-  text-align: center;
-  line-height: 1.7em;
-  color: #black;
-  text-transform: uppercase;
-  font-size: 20px;
-  opacity:0;
-  transition: all 0.3s ease;
-} 
- .effect5 figcaption h3 {
-  font-size: 1.3em;
-  letter-spacing: 2px;
-  font-weight: 100;
-}
-.effect5 figcaption em {
-  display: block;
-  font-weight: bold;
-  letter-spacing: 1px;
-  font-weight: 700;
-}
-.effect5:before,
-.effect5:after {
-  content: '';
-  position: absolute;
-  top: 0; right: 0; bottom: 0; left: 0;
-  background-color: rgba(0,0,0,0.3);
-  border-top: 70px solid rgba(0,0,0,0.4);
-  border-bottom: 70px solid rgba(0,0,0,0.4);
-  transition: all 0.3s ease;
-  z-index: 1;
-  opacity:0;
-} 
-.effect5:before {
-  transform: scaley(2);
-}
-.effect5:after {
-  transform: scaley(2);
+	
 }
 
-.effect5:hover:before,
-.effect5:hover:after {
-  opacity:1;
-  transform: scale(1);
+.effect5 img {
+	/*   filter: sepia(20%) saturate(60%);
+ */
+	
 }
-.effect5:hover > img {
-  opacity:0.7;
+
+.effect5 figcaption {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column; */
+	z-index: 1;
+	text-align: center;
+	line-height: 1.7em;
+	color: #black;
+	text-transform: uppercase;
+	font-size: 20px;
+	opacity: 0;
+	transition: all 0.3s ease;
 }
+
+.effect5 figcaption h3 {
+	font-size: 1.3em;
+	letter-spacing: 2px;
+	font-weight: 100;
+}
+
+.effect5 figcaption em {
+	display: block;
+	font-weight: bold;
+	letter-spacing: 1px;
+	font-weight: 700;
+}
+
+.effect5:before, .effect5:after {
+	content: '';
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background-color: rgba(0, 0, 0, 0.3);
+	border-top: 70px solid rgba(0, 0, 0, 0.4);
+	border-bottom: 70px solid rgba(0, 0, 0, 0.4);
+	transition: all 0.3s ease;
+	z-index: 1;
+	opacity: 0;
+}
+
+.effect5:before {
+	transform: scaley(2);
+}
+
+.effect5:after {
+	transform: scaley(2);
+}
+
+.effect5:hover:before, .effect5:hover:after {
+	opacity: 1;
+	transform: scale(1);
+}
+
+.effect5:hover>img {
+	opacity: 0.7;
+}
+
 .effect5:hover figcaption {
-  opacity:1;
-  transition-delay: 0.1s;
-} 
+	opacity: 1;
+	transition-delay: 0.1s;
+}
+
+.follow-content {
+	max-height: 500px;
+	min-height: 400px;
+	overflow: auto;
+	height: auto;
+}
+
+.follow-item {
+	margin: 0px 20px 0px 20px;
+}
 </style>
 </head>
 <body>
@@ -449,8 +473,8 @@ pre {
 							<span class="fsize13"><strong>${user.nickname}</strong></span>
 						</h5>
 						<h6 class="sub_text" data-edit="true" data-selector="h6.sub_text">
-							<span class="fsize12">팔로워 ${followerCount} &nbsp;
-								팔로잉${folloingCount}</span>
+							<span class="followList" type="2">팔로워 ${followerCount}</span><span
+								class="followList" type="1">팔로잉${folloingCount}</span>
 						</h6>
 					</div>
 
@@ -459,12 +483,13 @@ pre {
 							<button class="btn btn-light mybtn">프로필수정</button>
 							<!-- Button trigger modal -->
 							<button type="button" class="btn btn-light"
-								data-bs-toggle="modal" data-bs-target="#staticBackdrop">게시글등록</button>
+								data-bs-toggle="modal" data-bs-target="#register">게시글등록</button>
 						</c:if>
 						<c:if test="${dbUser.userId != user.userId}">
 							<button class="btn btn-primary mybtn" target="${user.userId}">팔로우</button>
 							<button class=" btn btn-light mybtn" target="${user.userId}"
 								type="1">채팅</button>
+							<button type="button" class="btn btn-light addReportUser">신고</button>
 						</c:if>
 					</div>
 				</div>
@@ -488,7 +513,7 @@ pre {
 				</div>
 			</div>
 
-			<hr / style="margin-bottom: 25px;">
+			<hr style="margin-bottom: 25px;">
 
 			<div class="text-center">
 				<c:if test="${!empty user.interestFirst}">
@@ -512,6 +537,7 @@ pre {
 		</div>
 	</main>
 
+
 	<!-- get board view -->
 	<div class="container" id="element_to_pop_up">
 		<div class="row">
@@ -528,8 +554,9 @@ pre {
 		</div>
 	</div>
 
+
 	<!-- Modal -->
-	<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
+	<div class="modal fade" id="register" data-bs-backdrop="static"
 		data-bs-keyboard="false" tabindex="-1"
 		aria-labelledby="staticBackdropLabel" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered">
@@ -554,15 +581,29 @@ pre {
 
 				<div class="modal-footer">
 					<button type="button" class="btn btn-light">등록</button>
-					<button type="button" id="close" class="btn btn-secondary"
-						data-bs-dismiss="modal">Close</button>
+					<button type="button" id="close"
+						class="btn btn-secondar		data-bs-dismiss="modal">Close</button>
 				</div>
 			</div>
 		</div>
 	</div>
-	
-	
-	
+
+
+	<!-- Modal2 -->
+	<div class="modal fade " id="followList" data-bs-keyboard="false"
+		tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content follow-content">
+				<div id="followType" class="d-flex justify-content-center ">
+					<div class="button followlistbtn" type="2">팔로워</div>
+					<div class="button followlistbtn" type="1">팔로잉</div>
+				</div>
+				<div class="followOut" style="padding-top: 50px;"></div>
+			</div>
+		</div>
+	</div>
+
+
 
 	<jsp:include page="../layout/searchbar.jsp"></jsp:include>
 
@@ -579,7 +620,8 @@ pre {
 	<!-- Initialize Swiper -->
 	<script>
 	
-	var dbUser = "<c:out value='${dbUser.userId}'/>"
+	var dbUser = "<c:out value='${dbUser.userId}'/>";
+	var userId = "<c:out value='${user.userId}'/>";
 	
     var swiper = new Swiper('.swiper-container', {
         pagination: '.swiper-pagination',
@@ -982,7 +1024,7 @@ if(${followCheck}){
 				type: "POST",
 				dataType: "json",
 				contentType : "application/json",
-				data :  JSON.stringify ({ "boardNo": boardNo, "replyWriter": {"userId" :dbUser}, "replyContent":replyContent}),		
+				data :  JSON.stringify ({ "boardNo": boardNo, "replyWriter": {"userId" :dbUser}, "replyContent":replyContent , "type": 1}),		
 				success: function(data, state){
 					
 					let display = '<li>'
@@ -1013,6 +1055,90 @@ if(${followCheck}){
 	            }
 			})     
 		}
-</script>
+		
+		// 팔로우 리스트 모달
+		var followModal = new bootstrap.Modal(document.getElementById('followList'), {
+			  keyboard: false
+			})
+		
+		function getFollowList(order){
+			
+			$.ajax({
+				url: "/user/json/getFollowList/"+userId+"/"+order,
+				type: "GET",
+				dataType: "JSON",
+				success: function(data, state){
+					
+					$('.followOut').children().remove();
+					let display = '';
+					for(var i of data){
+						if(order == 1){
+						
+						display = '<div class="d-flex border-bottom follow-item">'
+								+ '<div class="toast-body" onclick="location.href=\'/user/getMyHome?userId='+i.targetId+'\'"><img src="/images/uploadFiles/'+i.profileImage
+								+ '" style="width: 50px; height: 50px; border-radius: 50%; margin-right: 20px;" />'
+								+ i.nickname
+								+ '</div>'
+								+ '<button type="button" class="btn btn-primary me-2 m-auto"'
+								+ 'data-bs-dismiss="toast" aria-label="Close">팔로우</button>'
+								+ '</div>'
+						}else{
+							
+							display = '<div class="d-flex border-bottom follow-item">'
+								+ '<div class="toast-body" onclick="location.href=\'/user/getMyHome?userId='+i.userId+'\'"><img src="/images/uploadFiles/'+i.profileImage
+								+ '" style="width: 50px; height: 50px; border-radius: 50%; margin-right: 20px;" />'
+								+ i.nickname 
+								+ '</div>'
+								+ '<button type="button" class="btn btn-primary me-2 m-auto"'
+								+ 'data-bs-dismiss="toast" aria-label="Close">팔로우</button>'
+								+ '</div>'
+						}
+						
+						$('.followOut').append(display);
+					}				
+					
+				}
+			})
+		}
+		
+		$('.followList').on('click', function(){
+			
+			let order = $(this).attr("type");
+			
+			getFollowList(order);
+			followModal.show();
+		})
+		
+		$('.followlistbtn').on('click', function(){
+			
+			$('.active').attr('class', 'button followlistbtn' );
+			$(this).attr("class", "button followlistbtn active");
+			
+			let order = $(this).attr("type");
+			getFollowList(order);
+		})
+		
+		
+	
+   
+	// 리포트
+		
+   $(  ".addReportUser" ).on("click" , function() {
+      fncAddReportUser();
+   });
+
+   function fncAddReportUser(){
+      var reportTarget = "${user.userId}";
+      
+      popWin = window.open(
+            "/report/addReportView?reportCategory=3&reportTarget.userId="+reportTarget ,
+            "popReport",
+            "left=460, top=300, width=900, height=600, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");
+   }
+
+ 
+
+
+	</script>
 </body>
 </html>

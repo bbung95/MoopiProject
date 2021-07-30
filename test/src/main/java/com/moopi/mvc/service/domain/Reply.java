@@ -26,6 +26,8 @@ public class Reply {
 	private String replyFile;
 	// 리플 상태 1. 정상 2. 삭제
 	private String replyState;
+	// type 1. 마이홈 2. 모임
+	private int type;
 	
 	public Reply() {
 	}

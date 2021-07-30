@@ -390,7 +390,7 @@ font-size: 16px;
 	
 	</c:if>
 	<br>
-	<button type="button" class="btn btn-primary addReportReply">신고</button>
+	<button type="button" class="btn btn-primary addReportMoim">신고</button>
 	</div>
 	
 	<!-- 점보트론 시작 -->
@@ -454,4 +454,28 @@ font-size: 16px;
 <jsp:include page="../layout/searchbar.jsp"></jsp:include>	
 
 </body>
+	
+	<script type="text/javascript">
+	
+	$(  ".addReportMoim"  ).on("click" , function() {
+		alert(${moim.mmNo})
+		fncAddBoardMoim();
+		
+	});
+
+	function fncAddBoardMoim(){
+		var reportTarget = ${moim.mmNo}
+		
+	//		self.location ="/report/addReportView?reportCategory=1&reportTargetBd.boardNo="+reportTarget;
+		popWin = window.open(
+				"/report/addReportView?reportCategory=4&reportTargetMm.mmNo="+reportTarget ,
+				"popReport",
+				"left=460, top=300, width=900, height=600, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");
+	}
+
+
+	</script>
+
+
+
 </html>
