@@ -112,10 +112,8 @@
 }
 
 .userEL9001096 .userEL9001096-bg1 {
-	background-image:
-		url(../images/flashM.jpeg);
+	background-image: url(../images/flashM.jpeg);
 	background-size: 50% 50%;
-  	
 }
 
 .userEL9001096 .userEL9001096-bg2 {
@@ -500,20 +498,17 @@
 	}
 }
 
-
-
 .hover01 figure img {
 	-webkit-transform: scale(1);
 	transform: scale(1);
 	-webkit-transition: .3s ease-in-out;
 	transition: .3s ease-in-out;
 }
+
 .hover01 figure:hover img {
 	-webkit-transform: scale(1.3);
 	transform: scale(1.3);
 }
-
-
 </style>
 
 
@@ -601,9 +596,9 @@ $('.search-btn').on('click', function() {
 							</h1>
 							<h5 class="figure-caption" data-selector="h5" data-edit="true">
 								<span class="fsize58">번개무피는 번개 생성시 2개의 코인을 소모하고 참가시 1개의
-									코인을 소모한답니다<br> 노쇼를 방지하기 위한 최소한의 금액입니다ㅠㅠ<br>그리고 번개 무피는 무피에서 제일
-									자유로운 공간이에요!<br>하지만 저희 무피 운영진이 항시 모니터링 중이니 선정적인 번개나 위법
-									번개는 즉각 제제를 받으실수 있습니다!
+									코인을 소모한답니다<br> 노쇼를 방지하기 위한 최소한의 금액입니다ㅠㅠ<br>그리고 번개 무피는
+									무피에서 제일 자유로운 공간이에요!<br>하지만 저희 무피 운영진이 항시 모니터링 중이니 선정적인 번개나
+									위법 번개는 즉각 제제를 받으실수 있습니다!
 								</span>
 							</h5>
 						</div>
@@ -666,55 +661,54 @@ $('.search-btn').on('click', function() {
 						</div>
 					</div>
 				</form>
+				<div id="flashListView" class="row"></div>
+				<%-- 				<c:forEach var="flash" items="${list}"> --%>
+
+				<!-- 					<div -->
+				<!-- 						class="col-xs-12 col-sm-12 col-md-12 col-lg-6 table-wrap no-padding clearfix"> -->
+
+				<!-- 						<div class="table clearfix" data-loop="true" data-view="9"> -->
+
+				<!-- 							<div class="col-xs-12 col-sm-6 col-md-12 col-lg-10 item"> -->
+				<!-- 								<div class="thumb-wrap"> -->
+				<!-- 									<div class="tpl-forum-list-thumb"> -->
+
+				<!-- 										<div class="hover01 column"> -->
+
+				<%-- 										<div id="getFlash" onClick="fncGetFlash(${flash.flashNo})"> --%>
+
+				<%-- 										<figure><img src="/images/uploadFiles/${flash.flashFile}" width="200" --%>
+				<!-- 											height="200 " class="img-responsive"></figure> -->
+
+				<!-- 											</div> -->
+
+				<!-- 										</div> -->
+				<%-- 										<div class="cont-wrap">${flash.flashName}</div> --%>
+
+				<!-- 									</div> -->
+
+				<!-- 								</div> -->
+				<!-- 								<div class="cont-wrap"> -->
+				<!-- 									<div class="tpl-forum-list-content"> -->
+				<!-- 										<span class="tpl-forum-list-title"></span> -->
+				<!-- 									</div> -->
+				<%-- 									<div class="tpl-forum-list-cont">만남시간:${flash.flashTime}</div> --%>
+				<%-- 									<div class="tpl-forum-list-name tpl-forum-list-etc">장소:${flash.flashAddr}</div> --%>
+				<!-- 									<ul> -->
+				<%-- 										<li class="tpl-forum-list-category tpl-forum-list-etc">주최자:${flash.flashConstructor.userId}</li> --%>
+				<%-- 										<li class="tpl-forum-list-date tpl-forum-list-etc">모집상태:${flash.flashState}</li> --%>
+				<%-- 										<li class="tpl-forum-list-hit tpl-forum-list-etc">참가인원:${flash.flashCurrentCount}</li> --%>
+				<%-- 										<li class="tpl-forum-list-comment tpl-forum-list-etc">모집인원:${flash.flashMaxCount}</li> --%>
+				<!-- 									</ul> -->
+				<!-- 								</div> -->
+				<!-- 							</div> -->
 
 
-				<c:forEach var="flash" items="${list}">
 
-					<div
-						class="col-xs-12 col-sm-12 col-md-12 col-lg-6 table-wrap no-padding clearfix">
+				<!-- 						</div> -->
+				<!-- 					</div> -->
 
-						<div class="table clearfix" data-loop="true" data-view="9">
-
-							<div class="col-xs-12 col-sm-6 col-md-12 col-lg-10 item">
-								<div class="thumb-wrap">
-									<div class="tpl-forum-list-thumb">
-										
-										<div class="hover01 column">
-										
-										<div id="getFlash" onClick="fncGetFlash(${flash.flashNo})">
-										
-										<figure><img src="/images/uploadFiles/${flash.flashFile}" width="200"
-											height="200 " class="img-responsive"></figure>
-											
-											</div>
-											
-										</div>
-										<div class="cont-wrap">${flash.flashName}</div>
-										 
-									</div>
-
-								</div>
-								<div class="cont-wrap">
-									<div class="tpl-forum-list-content">
-										<span class="tpl-forum-list-title"></span>
-									</div>
-									<div class="tpl-forum-list-cont">만남시간:${flash.flashTime}</div>
-									<div class="tpl-forum-list-name tpl-forum-list-etc">장소:${flash.flashAddr}</div>
-									<ul>
-										<li class="tpl-forum-list-category tpl-forum-list-etc">주최자:${flash.flashConstructor.userId}</li>
-										<li class="tpl-forum-list-date tpl-forum-list-etc">모집상태:${flash.flashState}</li>
-										<li class="tpl-forum-list-hit tpl-forum-list-etc">참가인원:${flash.flashCurrentCount}</li>
-										<li class="tpl-forum-list-comment tpl-forum-list-etc">모집인원:${flash.flashMaxCount}</li>
-									</ul>
-								</div>
-							</div>
-
-
-
-						</div>
-					</div>
-
-				</c:forEach>
+				<%-- 				</c:forEach> --%>
 
 			</div>
 		</div>
@@ -731,6 +725,8 @@ $('.search-btn').on('click', function() {
 			<div class="modal-content">
 				<div class="modal-header">
 					<h2 class="modal-title" id="staticBackdropLabel">번개를 번개처럼생성!</h2>
+					
+					<c:if test=""></c:if>
 					<button type="button" class="btn-close" data-bs-dismiss="modal"
 						aria-label="Close"></button>
 				</div>
@@ -833,7 +829,94 @@ $('.search-btn').on('click', function() {
 		</div>
 	</div>
 
+	<!-- 무한 -->
 
+	<script>
+
+var loading = false;
+
+let currentPage = 1;
+
+$(window).scroll(
+		function() {
+			if ($(document).height() - $(window).height() == $(window)
+					.scrollTop()) {
+
+				if (!loading) {
+					loading = true;
+					getListFlash()
+				} else {
+				}
+			}
+		});
+
+function getListFlash() {
+
+	$.ajax({
+				url : "/flash/json/getListFlash/"+currentPage,
+				method : "GET",
+				dataType : "JSON",
+				success : function(data, status) {
+					
+					let list = data.list;
+					if(list.length > 0){
+						for (var i = 0; i < data.list.length; i++) {
+						
+						let displayValue ='<div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 table-wrap no-padding clearfix">'
+
+						+'<div class="table clearfix" data-loop="true" data-view="9">'
+
+						+'<div class="col-xs-12 col-sm-6 col-md-12 col-lg-10 item">'
+						+'<div class="thumb-wrap">'
+						+'<div class="tpl-forum-list-thumb">'
+										
+						+'<div class="hover01 column">'
+										
+						+'<div id="getFlash" onClick="fncGetFlash('+list[i].flashNo+')">'
+										
+						+'	<figure><img src="/images/uploadFiles/'+list[i].flashFile+'" width="200"'
+						+'height="200 " class="img-responsive"></figure>'
+											
+						+'</div>'
+											
+						+'</div>'
+						+'<div class="cont-wrap">'+list[i].flashName+'</div>'
+										 
+						+'</div>'
+
+						+'</div>'
+						+'<div class="cont-wrap">'
+						+'<div class="tpl-forum-list-content">'
+						+'<span class="tpl-forum-list-title"></span>'
+						+'</div>'
+						+'<div class="tpl-forum-list-cont">만남시간:'+list[i].flashTime+'</div>'
+						+'<div class="tpl-forum-list-name tpl-forum-list-etc">장소:'+list[i].flashAddr+'</div>'
+						+'<ul>'
+						+'<li class="tpl-forum-list-category tpl-forum-list-etc">주최자:'+list[i].flashConstructor.userId+'</li>'
+						+'<li class="tpl-forum-list-date tpl-forum-list-etc">모집상태:'+list[i].flashState+'</li>'
+						+'<li class="tpl-forum-list-hit tpl-forum-list-etc">참가인원:'+list[i].flashCurrentCount+'</li>'
+						+'<li class="tpl-forum-list-comment tpl-forum-list-etc">모집인원:'+list[i].flashMaxCount+'</li>'
+						+'</ul>'
+						+'</div>'
+						+'</div>'
+
+
+
+						+'</div>'
+						+'</div>'
+											
+											
+											
+						$('#flashListView').append(displayValue);
+						}
+  						loading = false;
+	 					currentPage++;
+					}
+				}
+			});
+}
+getListFlash();
+</script>
 
 
 
