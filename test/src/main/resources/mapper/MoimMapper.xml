@@ -4,242 +4,290 @@
 		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<!--<mapper namespace="com.moopi.mvc.mapper.MoimMapper">-->
-<mapper namespace="com.moopi.mvc.service.moim.MoimDao">   	
- 	
+<!--<mapper namespace="com.moopi.mvc.mapper.MoimMapper"> -->
+<mapper namespace="com.moopi.mvc.service.moim.MoimDao">
+
 	<resultMap id="moimSelectMap" type="moim">
-		<result property="mmNo" 			column="MM_NO" 		jdbcType="NUMERIC"/>
-		<result property="mmName"				column="MM_NAME" 		jdbcType="VARCHAR" />
-		<result property="mmContent" 			column="MM_CONTENT" 		jdbcType="VARCHAR" />
-		<result property="mmFile" 			column="mm_image" 			jdbcType="VARCHAR" /> 
-		<result property="mmMaxCount" 			column="MM_MAX_COUNT" 			jdbcType="NUMERIC" />
-		<result property="mmCurrentCount" 			column="MM_CURRENT_COUNT" 	jdbcType="NUMERIC" />
-		<result property="mmConstructor.userId" 			column="MM_CONSTRUCTOR" 			jdbcType="VARCHAR" />
-		<result property="mmConstructor.nickname" 			column="NICKNAME" 			jdbcType="VARCHAR" />
-		<result property="mmRegDate" 			column="MM_REGDATE" 			jdbcType="DATE"  />
-		<result property="mmInterest" 			column="MM_INTEREST" 		jdbcType="NUMERIC" />
-		<result property="mmAddr" 			column="MM_ADDR" 			jdbcType="VARCHAR"  />
-		<result property="mmState" 			column="MM_STATE" 			jdbcType="VARCHAR"  />
-		<result property="mmMinAge" 			column="MM_MIN_AGE" 			jdbcType="NUMERIC"  />
-		<result property="mmMaxAge" 			column="MM_MAX_AGE" 			jdbcType="NUMERIC"  />
-		<result property="mmType" 			column="MM_TYPE" 			jdbcType="VARCHAR"  />
+		<result property="mmNo" column="MM_NO" jdbcType="NUMERIC" />
+		<result property="mmName" column="MM_NAME" jdbcType="VARCHAR" />
+		<result property="mmContent" column="MM_CONTENT"
+			jdbcType="VARCHAR" />
+		<result property="mmFile" column="mm_image" jdbcType="VARCHAR" />
+		<result property="mmMaxCount" column="MM_MAX_COUNT"
+			jdbcType="NUMERIC" />
+		<result property="mmCurrentCount" column="MM_CURRENT_COUNT"
+			jdbcType="NUMERIC" />
+		<result property="mmConstructor.userId" column="MM_CONSTRUCTOR"
+			jdbcType="VARCHAR" />
+		<result property="mmConstructor.nickname" column="NICKNAME"
+			jdbcType="VARCHAR" />
+		<result property="mmRegDate" column="MM_REGDATE"
+			jdbcType="DATE" />
+		<result property="mmInterest" column="MM_INTEREST"
+			jdbcType="NUMERIC" />
+		<result property="mmAddr" column="MM_ADDR" jdbcType="VARCHAR" />
+		<result property="mmState" column="MM_STATE" jdbcType="VARCHAR" />
+		<result property="mmMinAge" column="MM_MIN_AGE"
+			jdbcType="NUMERIC" />
+		<result property="mmMaxAge" column="MM_MAX_AGE"
+			jdbcType="NUMERIC" />
+		<result property="mmType" column="MM_TYPE" jdbcType="VARCHAR" />
 	</resultMap>
-	
-	
-	  
+
+
+
 	<resultMap id="memberSelectMap" type="member">
-		<result property="memberNo" 			column="MEMBER_NO" 		jdbcType="NUMERIC"/>
-		<result property="mmUser.userId"				column="MM_MEMBER_ID" 		jdbcType="VARCHAR" />
-		<result property="mmUser.userName"				column="USER_NAME" 		jdbcType="VARCHAR" />
-		<result property="mmUser.badge"				column="BADGE" 		jdbcType="VARCHAR" />
-		<result property="mmUser.profileImage"				column="PROFILE_IMAGE" 		jdbcType="VARCHAR" />
-		<result property="mmUser.profileContent"				column="PROFILE_CONTENT" 		jdbcType="VARCHAR" />
-		<result property="mmUser.addr"				column="ADDR" 		jdbcType="VARCHAR" />
-		<result property="mmUser.nickname"				column="NICKNAME" 		jdbcType="VARCHAR" />
-		<result property="mmUser.interestFirst"				column="INTEREST_FIRST" 		jdbcType="VARCHAR" />
-		<result property="mmUser.interestSecond"				column="INTEREST_SECOND" 		jdbcType="VARCHAR" />
-		<result property="mmUser.interestThird"				column="INTEREST_THIRD" 		jdbcType="VARCHAR" />
-		<result property="mmNo" 			column="MM_NO" 		jdbcType="NUMERIC" />
-		<result property="memberRole" 			column="MM_MEMBER_ROLE" 			jdbcType="VARCHAR" /> 
-		<result property="memberRegDate" 			column="MM_MEMBER_REGDATE" 			jdbcType="DATE" />
+		<result property="memberNo" column="MEMBER_NO"
+			jdbcType="NUMERIC" />
+		<result property="mmUser.userId" column="MM_MEMBER_ID"
+			jdbcType="VARCHAR" />
+		<result property="mmUser.userName" column="USER_NAME"
+			jdbcType="VARCHAR" />
+		<result property="mmUser.badge" column="BADGE"
+			jdbcType="VARCHAR" />
+		<result property="mmUser.profileImage" column="PROFILE_IMAGE"
+			jdbcType="VARCHAR" />
+		<result property="mmUser.profileContent"
+			column="PROFILE_CONTENT" jdbcType="VARCHAR" />
+		<result property="mmUser.addr" column="ADDR" jdbcType="VARCHAR" />
+		<result property="mmUser.nickname" column="NICKNAME"
+			jdbcType="VARCHAR" />
+		<result property="mmUser.interestFirst" column="INTEREST_FIRST"
+			jdbcType="VARCHAR" />
+		<result property="mmUser.interestSecond"
+			column="INTEREST_SECOND" jdbcType="VARCHAR" />
+		<result property="mmUser.interestThird" column="INTEREST_THIRD"
+			jdbcType="VARCHAR" />
+		<result property="mmNo" column="MM_NO" jdbcType="NUMERIC" />
+		<result property="memberRole" column="MM_MEMBER_ROLE"
+			jdbcType="VARCHAR" />
+		<result property="memberRegDate" column="MM_MEMBER_REGDATE"
+			jdbcType="DATE" />
 	</resultMap>
-	
-	
+
+
 	<resultMap id="userSelectMap" type="user">
-		<result property="userId"			column="USER_ID"			jdbcType="VARCHAR"/>
-		<result property="password"			column="PWD"				jdbcType="VARCHAR"/>
-		<result property="userName"			column="USER_NAME"			jdbcType="VARCHAR"/>
-		<result property="phone"			column="PHONE"				jdbcType="VARCHAR"/>
-		<result property="birth"			column="BIRTH"				jdbcType="DATE"/>
-		<result property="age"				column="AGE"				jdbcType="NUMERIC"/>
-		<result property="gender"			column="GENDER"				jdbcType="VARCHAR"/>
-		<result property="joinPath"			column="JOIN_PATH"			jdbcType="CHAR"/>
-		<result property="regDate"			column="REGDATE"			jdbcType="DATE"/>
-		<result property="userRole"			column="USER_ROLE"			jdbcType="VARCHAR"/>
-		<result property="fullAddr"			column="FULL_ADDR"			jdbcType="VARCHAR"/>
-		<result property="addr"				column="ADDR"				jdbcType="VARCHAR"/>
-		<result property="nickname"			column="NICKNAME"			jdbcType="VARCHAR"/>
-		<result property="profileImage"		column="PROFILE_IMAGE"		jdbcType="VARCHAR"/>
-		<result property="profileContent"	column="PROFILE_CONTENT"	jdbcType="VARCHAR"/>
-		<result property="interestFirst"	column="INTEREST_FIRST"		jdbcType="NUMERIC"/>
-		<result property="interestSecond"	column="INTEREST_SECOND"	jdbcType="NUMERIC"/>
-		<result property="interestThird"	column="INTEREST_THIRD"		jdbcType="NUMERIC"/>
-		<result property="myhomeState"		column="MYHOME_STATE"		jdbcType="CHAR"/>
-		<result property="stateReason"		column="STATE_REASON"		jdbcType="VARCHAR"/>
-		<result property="stateRegdate"		column="STATE_REGDATE"		jdbcType="DATE"/>
-		<result property="coin"				column="COIN"				jdbcType="NUMERIC"/>
-		<result property="badge"			column="BADGE"				jdbcType="CHAR"/>
+		<result property="userId" column="USER_ID" jdbcType="VARCHAR" />
+		<result property="password" column="PWD" jdbcType="VARCHAR" />
+		<result property="userName" column="USER_NAME"
+			jdbcType="VARCHAR" />
+		<result property="phone" column="PHONE" jdbcType="VARCHAR" />
+		<result property="birth" column="BIRTH" jdbcType="DATE" />
+		<result property="age" column="AGE" jdbcType="NUMERIC" />
+		<result property="gender" column="GENDER" jdbcType="VARCHAR" />
+		<result property="joinPath" column="JOIN_PATH" jdbcType="CHAR" />
+		<result property="regDate" column="REGDATE" jdbcType="DATE" />
+		<result property="userRole" column="USER_ROLE"
+			jdbcType="VARCHAR" />
+		<result property="fullAddr" column="FULL_ADDR"
+			jdbcType="VARCHAR" />
+		<result property="addr" column="ADDR" jdbcType="VARCHAR" />
+		<result property="nickname" column="NICKNAME"
+			jdbcType="VARCHAR" />
+		<result property="profileImage" column="PROFILE_IMAGE"
+			jdbcType="VARCHAR" />
+		<result property="profileContent" column="PROFILE_CONTENT"
+			jdbcType="VARCHAR" />
+		<result property="interestFirst" column="INTEREST_FIRST"
+			jdbcType="NUMERIC" />
+		<result property="interestSecond" column="INTEREST_SECOND"
+			jdbcType="NUMERIC" />
+		<result property="interestThird" column="INTEREST_THIRD"
+			jdbcType="NUMERIC" />
+		<result property="myhomeState" column="MYHOME_STATE"
+			jdbcType="CHAR" />
+		<result property="stateReason" column="STATE_REASON"
+			jdbcType="VARCHAR" />
+		<result property="stateRegdate" column="STATE_REGDATE"
+			jdbcType="DATE" />
+		<result property="coin" column="COIN" jdbcType="NUMERIC" />
+		<result property="badge" column="BADGE" jdbcType="CHAR" />
 	</resultMap>
-	
-	<insert id="applyMoim" useGeneratedKeys="true"  keyProperty="memberNo">
-	 	INSERT
+
+	<insert id="applyMoim" useGeneratedKeys="true"
+		keyProperty="memberNo">
+		INSERT
 		INTO MEMBER(
-		MM_MEMBER_ID, MM_NO, MM_MEMBER_ROLE, MM_MEMBER_REGDATE 
+		MM_MEMBER_ID, MM_NO, MM_MEMBER_ROLE, MM_MEMBER_REGDATE
 		)
-		VALUES( 
+		VALUES(
 		#{member.mmUser.userId}, #{member.mmNo}, '1', now()
 		)
-	 </insert>
-	 
-	 <insert id="newApplyMoim">
-	 	INSERT
+	</insert>
+
+	<insert id="newApplyMoim">
+		INSERT
 		INTO MEMBER(
-		MM_MEMBER_ID, MM_NO, MM_MEMBER_ROLE, MM_MEMBER_REGDATE 
+		MM_MEMBER_ID, MM_NO, MM_MEMBER_ROLE, MM_MEMBER_REGDATE
 		)
-		VALUES( 
+		VALUES(
 		#{userId}, #{mmNo}, '4', now()
 		)
-	 </insert>
-	 
-	 <update	id="leaveMoim">
-	   	UPDATE MEMBER
-	   	<set>
-	   		MM_MEMBER_ROLE 	= '6'
-	   	</set>
-	   	WHERE MM_MEMBER_ID = #{userId} 
-	   	AND MM_NO = #{mmNo}
-	 </update>
-	 
-	 <delete id="refuseApply" parameterType="int">
-	 delete from member
-	 where member_no = #{memberNo}
-	 </delete>
-	 
-	 <update	id = "updateMember">
-	   	UPDATE MEMBER
-	   	<if test="status == 1">
-	   	<set>
-	   		MM_MEMBER_ROLE 	= '2'
-	   	</set>
-	   	</if>
-	   	<if test="status == 2">
-	   	<set>
-	   		MM_MEMBER_ROLE 	= '3'
-	   	</set>
-	   	</if>
-	   	<if test="status == 3">
-	   	<set>
-	   		MM_MEMBER_ROLE 	= '2'
-	   	</set>
-	   	</if>
-	   	<if test="status == 4">
-	   	<set>
-	   		MM_MEMBER_ROLE 	= '5'
-	   	</set>
-	   	</if>
-	   	WHERE MM_MEMBER_ID = #{userId} 
-	   	AND MM_NO = #{mmNo}
-	 </update>
-	 
-	 
-	 <update	id = "addCount">
-	 UPDATE moim
-	 <set>
-	 mm_current_count = mm_current_count +1
-	 </set>
-	 WHERE mm_no = #{mmNo}
-	 </update>
-	 
-	 
-	 <update	id = "subCount">
-	 UPDATE moim
-	 <set>
-	 mm_current_count = mm_current_count -1
-	 </set>
-	 WHERE mm_no = #{mmNo}
-	 </update>
-	 
-	 
-	 <select  id="getMemberList"  parameterType="int"	resultMap="memberSelectMap">
-		SELECT
-		MEMBER_NO, MM_MEMBER_ID, MM_NO, MM_MEMBER_ROLE, MM_MEMBER_REGDATE, USER_NAME, BADGE, 
-		NICKNAME, PROFILE_IMAGE, PROFILE_CONTENT, ADDR, x.INTEREST_NAME AS INTEREST_FIRST, y.INTEREST_NAME AS INTEREST_SECOND, z.INTEREST_NAME AS INTEREST_THIRD	
-		FROM MEMBER LEFT JOIN USERS u
-			ON MM_MEMBER_ID = U.USER_ID
-			LEFT OUTER JOIN INTEREST x 
-			ON INTEREST_FIRST = x.INTEREST_NO
-		    LEFT OUTER JOIN INTEREST y
-			ON INTEREST_SECOND = y.INTEREST_NO
-		    LEFT OUTER JOIN INTEREST z
-			ON INTEREST_THIRD = z.INTEREST_NO
+	</insert>
+
+	<update id="leaveMoim">
+		UPDATE MEMBER
+		<set>
+			MM_MEMBER_ROLE = '6'
+		</set>
+		WHERE MM_MEMBER_ID = #{userId}
+		AND MM_NO = #{mmNo}
+	</update>
+
+	<delete id="refuseApply" parameterType="int">
+		delete from member
+		where member_no = #{memberNo}
+	</delete>
+
+	<update id="updateMember">
+		UPDATE MEMBER
 		<if test="status == 1">
-		where mm_no =#{mmNo}
-		and mm_member_role ='1'
-				</if>
+			<set>
+				MM_MEMBER_ROLE = '2'
+			</set>
+		</if>
 		<if test="status == 2">
+			<set>
+				MM_MEMBER_ROLE = '3'
+			</set>
+		</if>
+		<if test="status == 3">
+			<set>
+				MM_MEMBER_ROLE = '2'
+			</set>
+		</if>
+		<if test="status == 4">
+			<set>
+				MM_MEMBER_ROLE = '5'
+			</set>
+		</if>
+		WHERE MM_MEMBER_ID = #{userId}
+		AND MM_NO = #{mmNo}
+	</update>
+
+
+	<update id="addCount">
+		UPDATE moim
+		<set>
+			mm_current_count = mm_current_count +1
+		</set>
+		WHERE mm_no = #{mmNo}
+	</update>
+
+
+	<update id="subCount">
+		UPDATE moim
+		<set>
+			mm_current_count = mm_current_count -1
+		</set>
+		WHERE mm_no = #{mmNo}
+	</update>
+
+
+	<select id="getMemberList" parameterType="int"
+		resultMap="memberSelectMap">
+		SELECT
+		MEMBER_NO, MM_MEMBER_ID, MM_NO, MM_MEMBER_ROLE,
+		MM_MEMBER_REGDATE, USER_NAME, BADGE,
+		NICKNAME, PROFILE_IMAGE, PROFILE_CONTENT, ADDR, x.INTEREST_NAME AS
+		INTEREST_FIRST, y.INTEREST_NAME AS INTEREST_SECOND, z.INTEREST_NAME AS
+		INTEREST_THIRD
+		FROM MEMBER LEFT JOIN USERS u
+		ON MM_MEMBER_ID = U.USER_ID
+		LEFT OUTER JOIN INTEREST x
+		ON INTEREST_FIRST = x.INTEREST_NO
+		LEFT OUTER JOIN INTEREST y
+		ON INTEREST_SECOND = y.INTEREST_NO
+		LEFT OUTER JOIN INTEREST z
+		ON INTEREST_THIRD = z.INTEREST_NO
+		<if test="status == 1">
+			where mm_no =#{mmNo}
+			and mm_member_role ='1'
+		</if>
+		<if test="status == 2">
+			where mm_no = #{mmNo}
+			and NOT mm_member_role ='1'
+			and NOT mm_member_role = '6'
+			and NOT mm_member_role = '5'
+			and U.user_id = mm_member_id
+		</if>
+	</select>
+
+
+	<select id="getInviteList" parameterType="int"
+		resultMap="userSelectMap">
+		SELECT
+		USER_ID, USER_NAME, PROFILE_IMAGE, PROFILE_CONTENT, NICKNAME, BIRTH, AGE,
+		JOIN_PATH, REGDATE, USER_ROLE, ADDR, GENDER,
+		x.INTEREST_NAME, y.INTEREST_NAME ,z.INTEREST_NAME
+		FROM users LEFT OUTER JOIN INTEREST x
+		ON INTEREST_FIRST = x.INTEREST_NO
+		LEFT OUTER JOIN INTEREST y
+		ON INTEREST_SECOND = y.INTEREST_NO
+		LEFT OUTER JOIN INTEREST z
+		ON INTEREST_THIRD = z.INTEREST_NO
+		<where>
+			( x.INTEREST_NO = #{mmInterest} OR
+			y.INTEREST_NO = #{mmInterest} OR
+			z.INTEREST_NO = #{mmInterest} ) AND
+			ADDR = #{mmAddr}
+		</where>
+	</select>
+
+
+	<select id="checkMember" resultMap="memberSelectMap">
+		SELECT
+		MEMBER_NO, MM_MEMBER_ID, MM_NO, MM_MEMBER_ROLE, MM_MEMBER_REGDATE, USER_NAME,
+		BADGE,
+		PROFILE_IMAGE, PROFILE_CONTENT, ADDR
+		FROM MEMBER M, USERS U
 		where mm_no = #{mmNo}
-		and NOT mm_member_role ='1'
-		and NOT mm_member_role = '6'
-		and NOT mm_member_role = '5'
-		and U.user_id = mm_member_id
-		</if>	
-	 </select>
-	 
-	 
-	 <select id = "getInviteList" parameterType="int" resultMap = "userSelectMap">
-	 SELECT
-			USER_ID, USER_NAME, PROFILE_IMAGE, PROFILE_CONTENT, NICKNAME, BIRTH, AGE, JOIN_PATH, REGDATE, USER_ROLE, ADDR, GENDER, 
-			x.INTEREST_NAME, y.INTEREST_NAME ,z.INTEREST_NAME
-		FROM users LEFT OUTER JOIN INTEREST x 
-			ON INTEREST_FIRST = x.INTEREST_NO
-		    LEFT OUTER JOIN INTEREST y
-			ON INTEREST_SECOND = y.INTEREST_NO
-		    LEFT OUTER JOIN INTEREST z
-			ON INTEREST_THIRD = z.INTEREST_NO		
-	 <where>
-	 ( x.INTEREST_NO = #{mmInterest} OR
-	 y.INTEREST_NO = #{mmInterest} OR
-	 z.INTEREST_NO = #{mmInterest} ) AND
-	 ADDR = #{mmAddr}
-	 </where>
-	 </select>
-	 
-	 
-	 <select id = "checkMember" resultMap="memberSelectMap">
-	 SELECT
-	 MEMBER_NO, MM_MEMBER_ID, MM_NO, MM_MEMBER_ROLE, MM_MEMBER_REGDATE, USER_NAME, BADGE, 
-	 PROFILE_IMAGE, PROFILE_CONTENT, ADDR	
-	 FROM MEMBER M, USERS U
-	 where mm_no = #{mmNo}
-	 and U.user_id = M.mm_member_id
-	 and M.mm_member_id = #{userId} 
-	 </select>
-
-	<select id="getMoim" parameterType="int" resultMap="moimSelectMap">
-		SELECT
-			MM_NO, MM_NAME, MM_CONTENT, MM_IMAGE, MM_MAX_COUNT, MM_CURRENT_COUNT, MM_CONSTRUCTOR, MM_REGDATE,
-			MM_INTEREST, MM_ADDR, MM_STATE, MM_MIN_AGE, MM_MAX_AGE, MM_TYPE 		
-			FROM MOIM 
-		WHERE MM_NO = #{mmNo}	
-	</select>
-	
-	<select id="getMoim2" parameterType="String" resultMap="moimSelectMap">
-		SELECT
-			MM_NO, MM_NAME, MM_CONTENT, MM_IMAGE, MM_MAX_COUNT, MM_CURRENT_COUNT, MM_CONSTRUCTOR, MM_REGDATE,
-			MM_INTEREST, MM_ADDR, MM_STATE, MM_MIN_AGE, MM_MAX_AGE, MM_TYPE 		
-			FROM MOIM 
-		WHERE MM_NAME = #{mmName}	
+		and U.user_id = M.mm_member_id
+		and M.mm_member_id = #{userId}
 	</select>
 
-	<insert id="addMoim"	parameterType="moim" 
-	  useGeneratedKeys="true"  keyProperty="mmNo">
-	 	INSERT
+	<select id="getMoim" parameterType="int"
+		resultMap="moimSelectMap">
+		SELECT
+		MM_NO, MM_NAME, MM_CONTENT, MM_IMAGE, MM_MAX_COUNT, MM_CURRENT_COUNT,
+		MM_CONSTRUCTOR, MM_REGDATE,
+		MM_INTEREST, MM_ADDR, MM_STATE, MM_MIN_AGE, MM_MAX_AGE, MM_TYPE
+		FROM MOIM
+		WHERE MM_NO = #{mmNo}
+	</select>
+
+	<select id="getMoim2" parameterType="String"
+		resultMap="moimSelectMap">
+		SELECT
+		MM_NO, MM_NAME, MM_CONTENT, MM_IMAGE, MM_MAX_COUNT, MM_CURRENT_COUNT,
+		MM_CONSTRUCTOR, MM_REGDATE,
+		MM_INTEREST, MM_ADDR, MM_STATE, MM_MIN_AGE, MM_MAX_AGE, MM_TYPE
+		FROM MOIM
+		WHERE MM_NAME = #{mmName}
+	</select>
+
+	<insert id="addMoim" parameterType="moim"
+		useGeneratedKeys="true" keyProperty="mmNo">
+		INSERT
 		INTO MOIM(
-		MM_NO, MM_NAME, MM_CONTENT, MM_IMAGE, MM_MAX_COUNT, MM_CURRENT_COUNT, MM_CONSTRUCTOR, MM_REGDATE,
-		MM_INTEREST, MM_ADDR, MM_STATE, MM_MIN_AGE, MM_MAX_AGE, MM_TYPE 
+		MM_NO, MM_NAME, MM_CONTENT, MM_IMAGE, MM_MAX_COUNT,
+		MM_CURRENT_COUNT, MM_CONSTRUCTOR, MM_REGDATE,
+		MM_INTEREST, MM_ADDR,
+		MM_STATE, MM_MIN_AGE, MM_MAX_AGE, MM_TYPE
 		)
-		VALUES( 
-		#{mmNo}, #{mmName}, #{mmContent}, #{mmFile}, 
-		#{mmMaxCount}, '1', #{mmConstructor.userId}, now(), #{mmInterest}, #{mmAddr}, #{mmState}, #{mmMinAge},               
+		VALUES(
+		#{mmNo}, #{mmName}, #{mmContent}, #{mmFile},
+		#{mmMaxCount}, '1', #{mmConstructor.userId}, now(), #{mmInterest}, #{mmAddr},
+		#{mmState}, #{mmMinAge},
 		#{mmMaxAge}, #{mmType}
 		)
-	 </insert>
-	
-	 <update	id="updateMoim"	parameterType="moim" >
-	   	UPDATE MOIM
-	   	<set>
-	   		MM_NAME 	= #{mmName} ,
-			MM_CONTENT	= #{mmContent},
+	</insert>
+
+	<update id="updateMoim" parameterType="moim">
+		UPDATE MOIM
+		<set>
+			MM_NAME = #{mmName} ,
+			MM_CONTENT = #{mmContent},
 			MM_IMAGE = #{mmFile} ,
 			MM_MAX_COUNT = #{mmMaxCount},
 			MM_INTEREST = #{mmInterest},
@@ -249,85 +297,91 @@
 			MM_TYPE = #{mmType},
 			MM_MIN_AGE = #{mmMinAge},
 			MM_MAX_AGE = #{mmMaxAge}
-	   	</set>
-	   	WHERE MM_NO = #{mmNo}
-	 </update>
-	 
-	
-	<!-- <select  id="getMoimList"  parameterType="search"	resultMap="moimSelectMap">
+		</set>
+		WHERE MM_NO = #{mmNo}
+	</update>
+
+
+	<!-- <select id="getMoimList" parameterType="search" resultMap="moimSelectMap"> 
+		SELECT MM_NO, MM_NAME, MM_CONTENT, MM_IMAGE, MM_MAX_COUNT, MM_CURRENT_COUNT, 
+		MM_CONSTRUCTOR, MM_REGDATE, MM_INTEREST, MM_ADDR, MM_STATE, MM_MIN_AGE, MM_MAX_AGE, 
+		MM_TYPE FROM MOIM <if test="searchCondition != null"> <where> <if test="searchCondition 
+		== 1 and searchKeyword !='' "> mm_interest = #{searchKeyword} </if> <if test="searchCondition 
+		== 2 and searchKeyword !='' "> mm_addr = #{searchKeyword} </if> </where> 
+		</if> </select> -->
+
+	<select id="getMoimList" parameterType="search"
+		resultMap="moimSelectMap">
 		SELECT
-		MM_NO, MM_NAME, MM_CONTENT, MM_IMAGE, MM_MAX_COUNT, MM_CURRENT_COUNT, MM_CONSTRUCTOR, MM_REGDATE,
-		MM_INTEREST, MM_ADDR, MM_STATE, MM_MIN_AGE, MM_MAX_AGE, MM_TYPE 		
-		FROM MOIM 
-		<if test="searchCondition != null">
-		<where>
-		<if test="searchCondition == 1 and searchKeyword !='' ">
-		mm_interest = #{searchKeyword}
-		</if>
-		<if test="searchCondition == 2 and searchKeyword !='' ">
-		mm_addr = #{searchKeyword}
-		</if>
-		</where>
-		</if> 	  	
-	 </select>-->
-	 
-	<select  id="getMoimList"  parameterType="search"	resultMap="moimSelectMap">
-		SELECT
-		MM_NO, MM_NAME, MM_CONTENT, MM_IMAGE, MM_MAX_COUNT, MM_CURRENT_COUNT, MM_CONSTRUCTOR, MM_REGDATE,
-		MM_INTEREST, MM_ADDR, MM_STATE, MM_MIN_AGE, MM_MAX_AGE, MM_TYPE , INTEREST_NAME		
+		MM_NO, MM_NAME, MM_CONTENT, MM_IMAGE, MM_MAX_COUNT,
+		MM_CURRENT_COUNT, MM_CONSTRUCTOR, MM_REGDATE,
+		MM_INTEREST, MM_ADDR,
+		MM_STATE, MM_MIN_AGE, MM_MAX_AGE, MM_TYPE , INTEREST_NAME
 		FROM MOIM M, INTEREST I
 		<where>
-		M.mm_interest = I.INTEREST_NO
-		<if test="searchCondition != null">
-		<if test="searchCondition == 1 and searchKeyword !='' ">
-		mm_interest = #{searchKeyword}
-		</if>
-		<if test="searchCondition == 2 and searchKeyword !='' ">
-		mm_addr = #{searchKeyword}
-		</if>
-		<if test="searchCondition == 3 and searchKeyword !='' ">
-			AND mm_name like '%${searchKeyword}%' <!-- OR I.INTEREST_NAME like '%${searchKeyword}%'  -->
-		</if>
-		</if> 	  	
+			M.mm_interest = I.INTEREST_NO
+			<if test="searchCondition != null">
+				<if test="searchCondition == 1 and searchKeyword !='' ">
+					AND mm_interest = #{interestNo}
+				</if>
+				<if test="searchCondition == 2 and searchKeyword !='' ">
+					AND mm_addr = #{addr}
+				</if>
+				<if test="searchCondition == 3 and searchKeyword !='' ">
+					AND mm_name like '%${searchKeyword}%' <!-- OR I.INTEREST_NAME like '%${searchKeyword}%' -->
+				</if>
+				<if test="searchCondition == 4 and searchKeyword !='' ">
+					AND mm_addr = #{addr} AND mm_interest = #{interestNo}
+				</if>
+			</if>
 		</where>
-	 </select>
-	 
-	 <select  id="getMyMoimList"  parameterType="string"	resultMap="moimSelectMap">
+	</select>
+
+	<select id="getMyMoimList" parameterType="string"
+		resultMap="moimSelectMap">
 		SELECT
-		M.MM_NO, MM_NAME, MM_CONTENT, MM_IMAGE, MM_MAX_COUNT, MM_CURRENT_COUNT, MM_CONSTRUCTOR, MM_REGDATE, 
-		MM_INTEREST, MM_ADDR, MM_STATE, MM_MIN_AGE, MM_MAX_AGE, MM_TYPE	
+		M.MM_NO, MM_NAME, MM_CONTENT, MM_IMAGE, MM_MAX_COUNT,
+		MM_CURRENT_COUNT, MM_CONSTRUCTOR, MM_REGDATE,
+		MM_INTEREST, MM_ADDR, MM_STATE, MM_MIN_AGE, MM_MAX_AGE, MM_TYPE
 		FROM MOIM M, MEMBER E
 		<where>
-		MM_MEMBER_ID = #{userId}
-		AND
-		M.MM_NO = E.MM_NO  	
+			MM_MEMBER_ID = #{userId}
+			AND
+			M.MM_NO = E.MM_NO
 		</where>
-	 </select>
-	 
-	
-	<select  id="getTotalCount"  parameterType="search"	 resultType="int">
-	  	select count(*)
-			from moim
-			<if test="searchCondition != null">
-			<where>
-			<if test="searchCondition == 1 and searchKeyword !='' ">
-			mm_interest = #{searchKeyword}
-			</if>
-			<if test="searchCondition == 2 and searchKeyword !='' ">
-			mm_addr = #{searchKeyword}
-			</if>
-			</where>
-			</if> 					
-	 </select>
-	 
-	 <select  id="getTotalCountMember"  parameterType="int"	 resultType="int">
-	  	select count(*)
-			from member
-			where mm_no = #{mmNo}
-			and NOT mm_member_role ='1'
-			and NOT mm_member_role = '6'
-			and NOT mm_member_role = '5'				
-	 </select>
+	</select>
 
-	
+
+	<select id="getTotalCount" parameterType="search" resultType="int">
+		select count(*)
+		from moim
+			<where>
+			<if test="searchCondition != null">
+				<if test="searchCondition == 1 and searchKeyword !='' ">
+					AND mm_interest = #{interestNo}
+				</if>
+				<if test="searchCondition == 2 and searchKeyword !='' ">
+					AND mm_addr = #{addr}
+				</if>
+				<if test="searchCondition == 3 and searchKeyword !='' ">
+					AND mm_name like '%${searchKeyword}%' <!-- OR I.INTEREST_NAME like '%${searchKeyword}%' -->
+				</if>
+				<if test="searchCondition == 4 and searchKeyword !='' ">
+					AND mm_addr = #{addr} AND mm_interest = #{interestNo}
+				</if>
+			</if>
+		</where>
+	</select>
+
+	<select id="getTotalCountMember" parameterType="int"
+		resultType="int">
+		select count(*)
+		from member
+		where mm_no = #{mmNo}
+		and NOT mm_member_role ='1'
+		and NOT mm_member_role = '6'
+		and NOT mm_member_role = '5'
+	</select>
+
+
 </mapper>

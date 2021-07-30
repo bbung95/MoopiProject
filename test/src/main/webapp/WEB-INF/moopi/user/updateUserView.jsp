@@ -134,7 +134,8 @@
 </script>		
     <style>
 	body{
-	padding-top: 50px;
+	
+		padding-top: 200px;
 	}
 	
 	.etcContent {
@@ -375,6 +376,10 @@
 					<button type="button" id="updateBtn" class="micro_btn" onClick="javascript:editPW()">변경하기</button>  					                  
                 </div> 
 	
-	
+	<!-- Bootstrap core JS-->
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+	<!-- Core theme JS-->
+	<script src="/js/scripts.js"></script>
 </body>
 </html>
