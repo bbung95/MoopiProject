@@ -36,40 +36,10 @@
 <script>
 	$(function() {
 		$( '.adminUserInfo' ).on( 'click', function() {
-			alert("진입");
 			var userId = $(this).attr('value');
-			alert("userId : " + userId);
 			self.location = "/common/getUserInfo?userId=" + userId
 		});
 	});
-	
-	$( ".addReportMoim"  ).on("click" , function() {
-			fncAddBoardMoim();
-});
-
-function fncAddBoardMoim(){
-var reportTarget = $("#mmNo").val();
-
-//	self.location ="/report/addReportView?reportCategory=1&reportTargetBd.boardNo="+reportTarget;
-popWin = window.open(
-		"/report/addReportView?reportCategory=1&reportTargetBd.boardNo="+reportTarget ,
-		"popReport",
-		"left=460, top=300, width=900, height=600, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");
-}
-"  ).on("click" , function() {
-		fncAddBoardReport();
-	});
-
-	function fncAddBoardReport(){
-		var reportTarget = $("#boardNo").val();
-		
-	//		self.location ="/report/addReportView?reportCategory=1&reportTargetBd.boardNo="+reportTarget;
-		popWin = window.open(
-				"/report/addReportView?reportCategory=1&reportTargetBd.boardNo="+reportTarget ,
-				"popReport",
-				"left=460, top=300, width=900, height=600, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");
-	}
-
 	
 </script>
 <body>
@@ -128,10 +98,11 @@ popWin = window.open(
 													<td class="border px-4 py-2">${user.joinPath}</td>
 													<td class="border px-4 py-2">${user.regDate}</td>
 													<td class="border px-4 py-2">${user.coin}</td>
-													<td class="border px-4 py-2"><c:if
-															test="${user.userRole == 1 || user.userRole == 2}">
+													<td class="border px-4 py-2 userState">
+													<c:if test="${user.userRole == 1 || user.userRole == 2}">
 															<i class="fas fa-check text-green-500 mx-2"></i>
-														</c:if> <c:if test="${user.userRole == 5 || user.userRole == 6}">
+														</c:if>
+														<c:if test="${user.userRole == 4 || user.userRole == 5 || user.userRole == 6}">
 															<i class="fas fa-times text-red-500 mx-2"></i>
 														</c:if></td>
 												</tr>
@@ -214,6 +185,12 @@ popWin = window.open(
 
 			userSearch()
 		})
+		
+		$('.userState').on('click', function(){
+			let userId = $(this).parent().children('td:first-child').text().trim();
+			
+		})
+		
 	</script>
 </body>
 
