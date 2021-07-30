@@ -123,8 +123,22 @@ public class CommonController {
 	@GetMapping("common/getReportList")
 	public String getReportList(@ModelAttribute("search") Search search, Model model) throws Exception {
 
+		if (search.getCurrentPage() == 0) {
+			search.setCurrentPage(1);
+		}
+		search.setPageSize(pageSize);
+
+		
+		Map<String, Object> map = reportService.getReportList(search, model );
+		
+		Page resultPage = new Page(search.getCurrentPage(), 
+				((Integer) map.get("totalCount")).intValue(), pageUnit,	pageSize);
+		
+		
 		System.out.println("common/getReportList : GET");
+		
 		model.addAttribute("list", reportService.getReportList(search, model).get("list"));
+		
 		return "common/adminReportList";
 	}
 
