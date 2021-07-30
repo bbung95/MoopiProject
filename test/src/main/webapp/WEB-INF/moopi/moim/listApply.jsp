@@ -62,7 +62,7 @@ $(function(){
 			method: "POST",
 			contentType : "application/JSON",
 			data: JSON.stringify({"mmUser" : {"userId" : userId},
-					"mmNo" : mmNo}),
+					"mmNo" : mmNo , "memberRole": 1}),
 			dataType : "text",
 			success: function(data, state){
 				

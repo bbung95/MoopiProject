@@ -374,6 +374,14 @@ public class UserRestController {
 
 		return true;
 	}
+	
+	@GetMapping(value="json/getFollowList/{userId}/{order}")
+	public List<User> getFollowList(@PathVariable("userId") String user, @PathVariable("order") int order){
+		
+		System.out.println("getFollowList : GET");
+		
+		return userService.getFollowList(user, order);
+	}
 
 // 마이홈 게시글 CRUD		
 	@PostMapping(value = "json/addMyBoard")
