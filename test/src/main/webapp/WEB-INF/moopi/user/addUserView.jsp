@@ -15,9 +15,6 @@
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@300&display=swap" rel="stylesheet">
-	
-<!-- Bootstrap Dropdown Hover JS -->
-	<script src="/javascript/bootstrap-dropdownhover.min.js"></script>	
 
 <!-- Favicon-->
 	<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
@@ -27,25 +24,15 @@
 
 <!-- Core theme CSS (includes Bootstrap)-->
 	<link href="/css/admin/styles.css" rel="stylesheet" />
-	
-<!-- 카카오로그인 -->
-	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 
-<!-- 구글로그인 -->
-	<script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
-	<meta name="google-signin-scope" content="profile email">
-	<meta name ="google-signin-client_id" content="959630660117-f5d12kulu8hloob7jid8f0jfeenr57sv.apps.googleusercontent.com">
-	<script src="https://apis.google.com/js/platform.js" async defer></script>
-
-<!-- 네이버로그인 -->
-	<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
-	<script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js"></script>
-	
 <!-- 템플릿 관련 CDN -->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="../css/admin/styles.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
           crossorigin="anonymous">
+          
+<!-- 스윗얼럿 -->
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <!-------------------------------------------------------------------------------------------------------------------------->   
   
 <script>
@@ -56,20 +43,17 @@
 		var password2=$("input[name='password2']").val();
 		
 		if(id == null || id.length <1){
-			alert("아이디는 필수로 입력하셔야 합니다");
+			swal("아이디는 필수로 입력하셔야 합니다.","아이디를 확인해주세요","error");
 			return;
-		}
-		
-		if(password == null || password.length <1){
-			alert("비밀번호는 필수로 입력하셔야 합니다");
+		}		
+		if(password == null || password.length<8){
+			swal("비밀번호의 길이가 올바르지 않습니다.","비밀번호를 확인해주세요","error");
 			return;
-		}
-		
-		if(password2 == null || password2.length <1){
-			alert("비밀번호를 한번 더 입력해주세요");
+		}		
+		if(password2 == null || password2.length<8){
+			swal("비밀번호를 한번 더 입력해주세요.","비밀번호를 확인해주세요","error");
 			return;
-		}
-		
+		}		
 		<!-- 필수값인 아이디와 비밀번호를 입력 후 가입을 누르면 UserController의 addUser가 실행된다.-->
 		$("form").attr("method" , "POST").attr("action" , "/user/addUserInfo").submit();
 	}
@@ -79,30 +63,21 @@
 
 	$(function() {
 		
-		$("#userId").keyup(function() {
-	
-			var userId = $('#userId').val();		
-			
-			$.ajax({
-				
+		$("#userId").keyup(function() {	
+			var userId = $('#userId').val();					
+			$.ajax({				
 				url : '${pageContext.request.contextPath}/user/idCheck?userId='+userId,
 				type : 'get',
-				success : function(data) {					
-					
-					if (data == 1) {
-							
-							// 1 : 아이디 중복일 경우
-								
+				success : function(data) {										
+					if (data == 1) {												
+							// 1 : 아이디 중복일 경우								
 								$("#id_check").text("해당 아이디는 이미 사용중입니다.");
 								$("#id_check").css("color", "red");
-								$("#loginButton").attr("disabled", true);
-						
+								$("#loginButton").attr("disabled", true);					
 						} else if (data == 0) {
-								
 								var id = $('#userId').val();
 								var regex = /^[a-z]+[a-z0-9]{5,19}$/g;
-								var result = regex.exec(id);
-								
+								var result = regex.exec(id);	
 								if (id == "") {
 									$("#id_check").text("아이디를 입력해주세요");
 									return;
@@ -113,9 +88,9 @@
 								} else {
 									$("#id_check").text("");
 									$("#id_check").text("아이디는 영문자로 시작하는 6~20자 영문자 또는 숫자이어야 합니다");
-									$("#id_check").css("color","red")
+									$("#id_check").css("color","red");
+									$("#loginButton").attr("disabled", true);									
 								}
-						
 						} 
 												
 					}, error : function() {
@@ -132,11 +107,10 @@
 		
 		$(function(){
 		
-			$("#password").keyup(function(){
-				
-				var regex = /^[A-Za-z\d]{8,12}$/;
+			$("#password").keyup(function(){			
+				var regex = /^[A-Za-z\d]{8,11}$/;
 				var result = regex.exec($("#password").val());
-				
+				console.log(result);
 				if(result != null){
                     $('#pwd_right').text("");
                 }else{
@@ -169,10 +143,63 @@
 </script>
   
     <style>
+    	body {
+			top:50%;
+			left:50%;
+			background:#f00;
+    	}
+    	
         .login{
             background-color : #D6D6D6;
-            padding-top: 76px;
+            padding-top: 0px;
         }
+        
+        .text-gray-800 {
+        	font-size : 25px;
+        }
+        		
+		#Id_blank{
+			font-size : 15px;
+			 font-weight: 500;
+		}
+		
+		#id_check {
+			text-align: left;	
+			height : 20px;	
+		}
+		
+		#cus_password{
+			font-size : 15px;
+			font-weight: 500;
+		}
+		
+		#pwd_right {
+			text-align: left;	
+			height : 20px;	
+			font-size : 12px
+		}
+		
+		#pwd_check {
+			text-align: left;	
+			height : 20px;
+			font-size : 12px	
+		}
+		
+		#cus_password2{
+			font-size : 15px;
+			font-weight: 500;
+		}
+		
+		#loginButton{ 
+	        width:400px;
+	        margin:auto;
+	        display:block;
+		}
+		
+		.already{
+			text-align : right;	
+		}
+
     </style>
 
 </head>
@@ -188,33 +215,39 @@
     <div class="w-full max-w-lg">    
         <div class="leading-loose">
             <form class="max-w-xl m-4 p-10 bg-white rounded shadow-xl">
-                <p class="text-gray-800 font-medium">회원가입</p>
-         	       
-                <div class="id">
-                    <label class="block text-sm text-gray-00" for="cus_Id">아이디</label>
-                   	 <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" id="userId" name="userId" type="text" required="" placeholder="사용하실 아이디를 입력해주세요" aria-label="Id">
-                    <div class="check_font" id="id_check" style="font-size : 12px"></div>
+                <p class="text-gray-800">회원가입</p>
+         	    <hr>
+                <div class ="ID_BLANK">
+                	<div class="cus_Id_Main">
+                		<label class="block text-sm text-gray-00" id="Id_blank">아이디</label>
+                    </div>
+                    <div>
+						<input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" id="userId" name="userId" type="text" required="" placeholder="사용하실 아이디를 입력해주세요" aria-label="Id">
+                   	</div>
+						<div class="check_font" id="id_check" style="font-size:12px" "pixed"></div>
                 </div>            
                 
-               	<div class="pwd">
-                    <label class="block text-sm text-gray-00" for="cus_password">비밀번호</label>
+               	<div class="PWD_BLANK">
+                    <label class="block text-sm text-gray-00" id="cus_password">비밀번호</label>
                     <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" type="password" id="password" name="password" type="text" required="" placeholder="비밀번호를 입력해주세요" aria-label="password">
-                    <div class="check_font" id="pwd_right" style="font-size : 12px" ></div>
+                    <div class="check_font" id="pwd_right"></div>
                 </div>
                 
                 <div class="pwd-confirm">
-                    <label class="block text-sm text-gray-00" for="cus_password2">비밀번호확인</label>
+                    <label class="block text-sm text-gray-00" id="cus_password2">비밀번호확인</label>
                     <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" type="password" id="password2" name="password2" type="text" required="" placeholder="비밀번호를 한번 더 입력해주세요" aria-label="password2">
-                    <div class="check_font" id="pwd_check" style="font-size : 12px"></div>
+                    <div class="check_font" id="pwd_check"></div>
                 </div>
                 
                 <div class="mt-4">
-                    <button class="px-4 py-1 text-white font-light tracking-wider bg-gray-900 rounded" id="loginButton" name="join" type="submit" onclick="javascript:fncAddUserInfo()">가입</button>
+                    <button class="px-4 py-1 text-white font-light tracking-wider bg-gray-900 rounded" id="loginButton" name="join" type="button" onclick="javascript:fncAddUserInfo()">가입</button>
                 </div>
-                              
+                
+                <div class="already">              
                 <a class="inline-block right-0 align-baseline font-monospace text-sm text-500 hover:text-blue-800" href="/user/loginView">
                     이미 가입된 계정이 있으신가요?
                 </a>
+                </div>
             </form>
         </div>
     </div>

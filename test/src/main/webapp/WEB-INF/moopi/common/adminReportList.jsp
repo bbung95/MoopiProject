@@ -65,16 +65,17 @@
 												
 												<c:if test="${search.searchCategory == 1}">
 												<th class="border px-4 py-2" width="10%">글제목</th>
+												<th class="border px-4 py-2" width="10%">아이디</th>
 												</c:if>
 												<c:if test="${search.searchCategory == 2}">
 												<th class="border px-4 py-2" width="10%">리플내용</th>
+												<th class="border px-4 py-2" width="10%">아이디</th>
 												</c:if> 
 												<c:if test="${search.searchCategory == 4}">
 												<th class="border px-4 py-2" width="10%">모임명</th>
 												<th class="border px-4 py-2" width="5%">모임장아이디</th>
 												</c:if>
 												
-												<th class="border px-4 py-2" width="10%">아이디</th>
 												<th class="border px-4 py-2" width="10%">닉네임</th>
 												<th class="border px-4 py-2" width="10%">이름</th>
 												<th class="border px-4 py-2" width="8%">신고 유형</th>
@@ -95,14 +96,14 @@
 													<c:if test="${search.searchCategory == 1}">
 														<td class="border px-4 py-2 boardNo get_board" >${report.reportTargetBd.boardNo}</td>
 														<td class="border px-4 py-2 ">${report.reportTargetBd.boardName}</td>
-														<td class="border px-4 py-2 rp_userId">${report.reportTargetBd.boardWriter.userId}</td>
+														<td class="border px-4 py-2 boardwriter">${report.reportTargetBd.boardWriter.userId}</td>
 														<td class="border px-4 py-2">${report.reportTargetBd.boardWriter.nickname}</td>
 														<td class="border px-4 py-2">${report.reportTargetBd.boardWriter.userName}</td>
 													</c:if>
 													<c:if test="${search.searchCategory == 2}">
 														<td class="border px-4 py-2 replyNo get_board">${report.reportTargetRe.replyNo}</td>
 														<td class="border px-4 py-2">${report.reportTargetRe.replyContent}</td>
-														<td class="border px-4 py-2 rp_userId">${report.reportTargetRe.replyWriter.userId}</td>
+														<td class="border px-4 py-2 replywriter">${report.reportTargetRe.replyWriter.userId}</td>
 														<td class="border px-4 py-2">${report.reportTargetRe.replyWriter.nickname}</td>
 														<td class="border px-4 py-2">${report.reportTargetRe.replyWriter.userName}</td>
 														<td style="display: none;" class="boardNo" value="${ report.reportTargetRe.boardNo}">${ report.reportTargetRe.boardNo}</td>
@@ -116,7 +117,7 @@
 													<c:if test="${search.searchCategory == 4}">
 														<td class="border px-4 py-2 mmNo">${report.reportTargetMm.mmNo}</td>
 														<td class="border px-4 py-2">${report.reportTargetMm.mmName}</td>
-														<td class="border px-4 py-2 rp_userId">${report.reportTargetMm.mmConstructor.userId}</td>
+														<td class="border px-4 py-2 moimuserid">${report.reportTargetMm.mmConstructor.userId}</td>
 														<td class="border px-4 py-2">${report.reportTargetMm.mmConstructor.nickname}</td>
 														<td class="border px-4 py-2">${report.reportTargetMm.mmConstructor.userName}</td>
 													</c:if>
@@ -136,8 +137,10 @@
 														<td class="border px-4 py-2 reportResultState${report.reportNo }" align="left">
 															<select> 
 																<option value="1">해당없음</option>
+																<c:if test="${report.reportCategory eq '1' or report.reportCategory eq '2' }">
 																<option value="2">해당글삭제</option>
-																<option value="3">유저경고</option>
+																</c:if>
+																<option value="3">${ report.reportCategory == '4' ? "모임폐쇄" : "유저경고" }</option>
 															</select> 
 														</td>
 															<td class="border px-4 py-2 stateReason${report.reportNo }" >
@@ -164,9 +167,9 @@
 								<select name="searchCondition" class="form-control"
 									style="width: 110px">
 									<option value="0"
-										${! empty search.searchCondition && search.searchCondition== 0 ? "selected" : ""  }>제목+내용</option>
+										${! empty search.searchCondition && search.searchCondition== 0 ? "selected" : ""  }>아이디</option>
 									<option value="1"
-										${! empty search.searchCondition && search.searchCondition== 1 ? "selected" : ""  }>제목</option>
+										${! empty search.searchCondition && search.searchCondition== 1 ? "selected" : ""  }>닉네임</option>
 									<option value="2"
 										${! empty search.searchCondition && search.searchCondition== 2 ? "selected" : ""  }>작성자</option>
 								</select>
@@ -256,9 +259,11 @@
 				var stateReason			= $(this).parent().parent().find("input.stateReason").val()
 				var reportTargetBd		= $(this).parent().parent().find("td.boardNo").html()
 				var reportTargetRe		= $(this).parent().parent().find("td.replyNo").html()
-				var reportTarget		= $(this).parent().parent().find("td.userId").html()
+				var reportTarget		= $(this).parent().parent().find("td.rp_userId").html()
 				var reportTargetMm		= $(this).parent().parent().find("td.mmNo").html()
-				var rpUserId			= $(this).parent().parent().find("td.rp_userId").html()
+				var boardwriter		= $(this).parent().parent().find("td.boardwriter").html()
+				var replywriter		= $(this).parent().parent().find("td.replywriter").html()
+				var moimuserid		= $(this).parent().parent().find("td.moimuserid").html()
 				
 				alert($(this).parent().parent().html())
 				
@@ -268,7 +273,10 @@
 							method : "POST" ,
 							dataType : "json" ,
 							data :  JSON.stringify ({ "reportNo": reportNo, "reportResultState": reportResultState, "stateReason": stateReason,
-													"reportTargetBd": {"boardNo" : reportTargetBd , "boardWriter" : { "userId" : rpUserId} },  "reportTargetRe": {"replyNo" : reportTargetRe , "replyWriter" : {"userId" : rpUserId}}, "reportTargetMm" : {"mmNo" : reportTargetMm , "mmConstructor" :   {"userId" : rpUserId} } }),
+													"reportTargetBd": {"boardNo" : reportTargetBd , "boardWriter" : { "userId" : boardwriter} },
+													"reportTargetRe": {"replyNo" : reportTargetRe , "replyWriter" : {"userId" : replywriter}},
+													"reportTargetMm" : {"mmNo" : reportTargetMm , "mmConstructor" :   {"userId" : moimuserid} }, 
+													"reportTarget" : { "userId" : reportTarget } }),
 							contentType : "application/json",
 						    success : function(data , status) {
 									console.log(data)
