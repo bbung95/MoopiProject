@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.moopi.mvc.common.Search;
 import com.moopi.mvc.service.domain.User;
+import com.moopi.mvc.service.domain.UserData;
 
 @Mapper
 public interface UserDao {
@@ -120,6 +121,13 @@ public interface UserDao {
 	public int getFollowCount(@Param("userId") String userId, @Param("order") int order);
 
 	public void updateUserRole(@Param("user") User user);
+	
+	
+	//차트관련
+	public UserData getJoinPath() throws Exception;
+	
+	public UserData getGender() throws Exception;
+
 }
 
 	

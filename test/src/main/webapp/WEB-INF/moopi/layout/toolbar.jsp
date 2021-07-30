@@ -118,7 +118,7 @@
 							<li><a class="dropdown-item">내정보보기</a></li>
 							<li><a class="dropdown-item">충전</a></li>
 							<li><a class="dropdown-item">로그아웃</a></li>
-							<c:if test="${dbUser.userRole == '1'}">
+							<c:if test="${dbUser.userRole eq '1'}">
 								<li><a class="dropdown-item" href="/common/adminMoopi"
 									target="_blank">관리자</a></li>
 							</c:if>

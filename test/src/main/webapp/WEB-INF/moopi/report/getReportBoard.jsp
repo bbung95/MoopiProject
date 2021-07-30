@@ -10,7 +10,7 @@
 	
 	<title>Insert title here</title>
 	
-		<jsp:include page="../../common/commonCDN.jsp"></jsp:include>
+		<jsp:include page="../common/commonCDN.jsp"></jsp:include>
 		
 		<script src="/javascript/summernote-lite.js"></script>
 		<script src="/javascript/lang/summernote-ko-KR.js"></script>
@@ -92,13 +92,8 @@
 	</style>
 	</head>
 	<body>
-	<!-- ToolBar Start /////////////////////////////////////-->
-		<jsp:include page="../../layout/toolbar.jsp" />
-	<!-- ToolBar End /////////////////////////////////////-->
+		<jsp:include page="../layout/toolbar.jsp" />
 	<form class="form-horizontal" name="detailForm" enctype="multipart/form-data">
-<!-- 	<div class="col-xs-12 col-sm-12 col-md-12"> -->
-<!-- 			    <h3 class="head_title" data-edit="true" data-selector="h3.head_title" ><span class="fsize20" ><strong>QnA게시판조회</strong></span></h3> -->
-<!-- 		   </div> -->
 	<article>
 		
 	 	
@@ -110,10 +105,17 @@
 		
 			<div class="row">
 				<div class="col-xs-8 col-sm-12 col-md-12" style="padding-bottom: 50px;">
-					<h2 class="head_title" data-edit="true" data-selector="h3.head_title" style="margin:0px"><span class="fsize40" ><strong>QnA게시판조회</strong></span></h2><br><br>
+					<h2 class="head_title" data-edit="true" data-selector="h3.head_title" style="margin:0px"><span class="fsize40" ><strong>신고된 게시글조회</strong></span></h2><br><br>
 				
 				<section clsss="board">
+				<c:if test="${board.boardState eq '2' }">
+					<div style="font-weight:bold; color: #6056c5; font-size:20px; float: right;"> 작성자가 삭제한 게시글입니다</div>
+				</c:if>
+				<c:if test="${board.boardState eq '3' }">
+					<div style="font-weight:bold; color: #6056c5; font-size:20px; float: right;"> 관리자가 삭제한 게시글입니다</div>
+				</c:if>
 				<div style="font-size:35px; margin:0px"> ${board.boardName}</div>	
+				
 				<div class="board_title">
 				
 				<div style="display:inline-block; float:right;">${board.boardRegDate}
@@ -127,6 +129,7 @@
 					</pattern>${board.boardWriter.nickname} </div>
 					</div>
 					<div class="board_content" >
+					${board.boardFile }
 					${board.boardContent}
 					</div>
 					<div style="float:right;">
@@ -154,12 +157,18 @@
 								    작성시간 : ${reply.replyRegDate}
 								</div>
 								</div>
+								<c:if test="${reply.replyState eq '2' }">
+								<div style="font-weight:bold; color: #6056c5; font-size:20px; float: right;"> 작성자가 삭제한 리플입니다</div>
+								</c:if>
+								<c:if test="${reply.replyState eq '3' }">
+								<div style="font-weight:bold; color: #ff0000; font-size:20px;  float: right;"> 관리자가 삭제한 리플입니다</div>
+								</c:if>
 								<div class="reply_content" style="min-height:70px">
 								${reply.replyContent}
 								</div>
+								
+								
 								<div style="float:right;">
-								
-								
 								<c:if test="${dbUser.userId eq reply.replyWriter.userId}">
 									<button type="button" class="btn btn-primary updateReply">수정</button>
 									<button type="button" class="btn btn-primary deleteReply">삭제</button>
@@ -206,7 +215,7 @@
 	
 	
 	
-	<jsp:include page="../../layout/searchbar.jsp"></jsp:include>
+	<jsp:include page="../layout/searchbar.jsp"></jsp:include>
 	</body>
 	<script type="text/javascript">
 	

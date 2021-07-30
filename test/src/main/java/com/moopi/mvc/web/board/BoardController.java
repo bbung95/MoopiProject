@@ -101,9 +101,6 @@ public class BoardController{
 	
 		String boardCategory = boardService.getBoardCategory(board.getBoardCategory());
 		System.out.println("보드카테고리값:"+boardCategory);
-		if(boardCategory.equals("Moim")) {
-			return "/moim/getMoimBoard";
-		}
 		
 		return "board/"+boardCategory+"Board/get"+boardCategory+"Board";
 	}

@@ -68,7 +68,7 @@
 	})
 	$('a:contains("신고목록")').on('click', function(){
 		
-		location.href = "/common/getFlashList";
+		location.href = "/common/getReportList?searchCategory=1";
 	})
 	$('a:contains("결제목록")').on('click', function(){
 		
