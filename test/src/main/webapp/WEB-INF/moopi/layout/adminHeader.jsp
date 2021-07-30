@@ -6,7 +6,7 @@
 	<div class="flex justify-between">
 		<div class="p-1 mx-3 inline-flex items-center">
 			<i class="fas fa-bars pr-2 text-white" onclick="sidebarToggle()"></i>
-			<h1 class="text-white p-2">Moopi</h1>
+			<h1 class="text-white p-2" >Moopi</h1>
 		</div>
 		<div class="p-1 flex flex-row items-center">
 			<a href="https://github.com/bbung95/MoopiProject"
@@ -19,4 +19,12 @@
 				<a href="#" class="text-white p-2 no-underline hidden md:block lg:block">${dbUser.nickname}</a>
 		</div>
 	</div>
+	
 </header>
+<script>
+	
+	$('h1:contains("Moopi")').on('click', function(){
+		
+		location.href = "/common/adminMoopi";
+	})
+</script>

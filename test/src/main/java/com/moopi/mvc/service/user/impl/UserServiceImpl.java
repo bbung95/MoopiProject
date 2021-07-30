@@ -82,7 +82,7 @@ public class UserServiceImpl {
 		System.out.println("UserServiceImpl :: getUserList 시작");
 		
 		List<User> list = userDao.getUserList(search, searchState);
-		int totalCount = userDao.getTotalCount(search);		
+		int totalCount = userDao.getTotalCount(search, searchState);		
 		System.out.println("totalCount : "+totalCount);
 		
 		Map<String, Object> map = new HashMap<String, Object>();

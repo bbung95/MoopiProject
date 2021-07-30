@@ -182,6 +182,8 @@ public class CommonRestController {
 		} else {
 			System.out.println("User List");
 			search.setSearchCondition(2);
+			search.setPageSize(pageSize);
+			search.setPageUnit(pageUnit);
 			return userService.getUserList(search, 0);
 		}
 
@@ -203,20 +205,20 @@ public class CommonRestController {
 		return map;
 	}
 
-	@PostMapping(value = "json/fileUpload")
-	public String fileUpload(@RequestParam("uploadFile") MultipartFile file) {
-
-		System.out.println("fileUpload : POST");
-		long currentTime = System.currentTimeMillis();
-		String fileName = currentTime + file.getOriginalFilename();
-		try {
-			file.transferTo(new File(saveDir + "/" + fileName));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return fileName;
-	}
+//	@PostMapping(value = "json/fileUpload")
+//	public String fileUpload(@RequestParam("uploadFile") MultipartFile file) {
+//
+//		System.out.println("fileUpload : POST");
+//		long currentTime = System.currentTimeMillis();
+//		String fileName = currentTime + file.getOriginalFilename();
+//		try {
+//			file.transferTo(new File(saveDir + "/" + fileName));
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//
+//		return fileName;
+//	}
 
 // 	다중 이미지 업로드	
 //	@PostMapping(value="json/fileUpload")
