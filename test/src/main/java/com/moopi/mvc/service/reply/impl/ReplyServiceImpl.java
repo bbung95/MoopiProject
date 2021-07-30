@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +19,7 @@ public class ReplyServiceImpl {
 	@Autowired
 	private ReplyDao replyDao;
 	
-	public Reply addReply(Reply reply){
+	public Reply addReply(Reply reply)throws Exception{
 		
 		replyDao.insertReply(reply);
 		
@@ -26,7 +27,7 @@ public class ReplyServiceImpl {
 	}
 
 
-	public List<Reply> getReplyList(int boardNo) {
+	public List<Reply> getReplyList(int boardNo)throws Exception {
 		
 		
 		List<Reply> list = new ArrayList<Reply>();
@@ -36,26 +37,34 @@ public class ReplyServiceImpl {
 		return list;
 	}
 
-	public Reply updateReply(Reply reply){
+	public Reply updateReply(Reply reply) throws Exception{
 		replyDao.updateReply(reply);
 		
 		return replyDao.getReply(reply.getReplyNo());
 	}
 	
-	public Reply getReply(int replyNo) {
+	public Reply getReply(int replyNo) throws Exception{
 		
 		return replyDao.getReply(replyNo);
 	}
 	
-	public void deleteReply(int replyNo){
+	public void deleteReply(int replyNo) throws Exception{
 		
 		replyDao.deleteReply(replyNo);
 	}
 	
-public void deleteReply2(Reply reply){
+	public void deleteReply2(Reply reply) throws Exception{
 		
 		replyDao.deleteReply2(reply);
 	}
 	
+	public List<Reply> getReplyListAdmin(@Param("boardNo")int boardNo) throws Exception{
+		
+		List<Reply> list = new ArrayList<Reply>();
+		list = replyDao.getReplyListAdmin(boardNo);
+		System.out.println("----boardNo check :  " +boardNo);
+		
+		return list;
+	}
 
 }

@@ -23,6 +23,8 @@ public class Report {
 	private Board	reportTargetBd;
 	//신고 타겟 리플
 	private Reply	reportTargetRe;
+	//신고 타겟 모임
+	private Moim	reportTargetMm;
 	//신고 내용
 	private String	reportContent;
 	//신고 일자

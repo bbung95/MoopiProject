@@ -29,7 +29,19 @@
 		<result property="stateRegdate"		column="STATE_REGDATE"		jdbcType="DATE"/>
 		<result property="coin"				column="COIN"				jdbcType="NUMERIC"/>
 		<result property="badge"			column="BADGE"				jdbcType="CHAR"/>
+		<result property="targetId"			column="FL_TARGET"			jdbcType="VARCHAR"/>
 	</resultMap>
+	
+	
+	<resultMap id="userDataSelectMap" type="userData">
+		<result property="moopi"			column="moopi"			jdbcType="NUMERIC"/>
+		<result property="google"			column="google"				jdbcType="NUMERIC"/>
+		<result property="naver"			column="naver"			jdbcType="NUMERIC"/>
+		<result property="kakao"			column="kakao"				jdbcType="NUMERIC"/>
+		<result property="male"			column="male"				jdbcType="NUMERIC"/>
+		<result property="female"			column="female"				jdbcType="NUMERIC"/>
+	</resultMap>	
+
 
 	<insert id="addUser"			parameterType="user" >
 		INSERT 
@@ -163,44 +175,56 @@
 	<!-- *수정예정 / 관리자 전용 회원목록조회 / Coin이 있어야함 / 유저No, 유저아이디, 유저이름, 유저닉네임, 생년월일, 연령, 가입경로, 가입일자, 코인, 현재상태 -->
 	<select id="getUserList"  		parameterType="search"		resultMap="userSelectMap">
 		SELECT
-			USER_ID, USER_NAME, NICKNAME, BIRTH, AGE, JOIN_PATH, REGDATE, USER_ROLE, 
-			x.INTEREST_NAME, y.INTEREST_NAME ,z.INTEREST_NAME
-		FROM users LEFT OUTER JOIN INTEREST x 
-			ON INTEREST_FIRST = x.INTEREST_NO
-		    LEFT OUTER JOIN INTEREST y
-			ON INTEREST_SECOND = y.INTEREST_NO
-		    LEFT OUTER JOIN INTEREST z
-			ON INTEREST_THIRD = z.INTEREST_NO		
-		<if test="search.searchCondition != null">
-			<where>
-				<if test="search.searchCondition == 2 and search.searchKeyword !='' ">
-					AND NICKNAME LIKE '%${search.searchKeyword}%'
-				</if>
-				<if test="search.searchCondition == 2 and search.searchKeyword !='' ">
-					AND NICKNAME LIKE '%${search.searchKeyword}%'
-				</if>
-			</where>
-				<if test="searchState == 2">
-					AND USER_ROLE = '2'
-				</if>
-				<if test="searchState == 3">
-					AND USER_ROLE = '3'
-				</if>
-		</if>  	
+		*
+		FROM (SELECT
+				inner_table.* , @ROWNUM := @ROWNUM +1 AS RNUM
+                FROM( SELECT
+					USER_ID, USER_NAME, NICKNAME, BIRTH, AGE, JOIN_PATH, REGDATE, USER_ROLE, 
+					x.INTEREST_NAME as INTEREST_FIRST, y.INTEREST_NAME as INTEREST_SECOND ,z.INTEREST_NAME as INTEREST_THIRD
+					FROM users LEFT OUTER JOIN INTEREST x 	
+					ON INTEREST_FIRST = x.INTEREST_NO
+		   			 LEFT OUTER JOIN INTEREST y
+					ON INTEREST_SECOND = y.INTEREST_NO
+		   			 LEFT OUTER JOIN INTEREST z
+					ON INTEREST_THIRD = z.INTEREST_NO		
+					<where>
+						<if test="search.searchCondition != null">
+							<if test="search.searchCondition == 1 and search.searchKeyword !='' ">
+								AND USER_ID LIKE '%${search.searchKeyword}%'
+							</if>
+							<if test="search.searchCondition == 2 and search.searchKeyword !='' ">
+								AND NICKNAME LIKE '%${search.searchKeyword}%'
+							</if>
+						</if>
+						<if test="searchState == 2">
+							AND USER_ROLE = '2'
+						</if>
+						<if test="searchState == 3">
+							AND USER_ROLE = '3'
+						</if>
+					</where>
+					) inner_table, (select @rownum := 0) as R )tables
+				WHERE rnum between #{search.startRowNum} and #{search.endRowNum}  	
 	 </select>
 	 
 	 <select id="getTotalCount" 	parameterType="search"		resultType="int">
 		SELECT COUNT(*) FROM users
-		<!-- <if test="searchCondition != null">
-			<where>
-				<if test="searchCondition == 1 and searchKeyword !='' ">
-					USER_ROLE = #{searchKeyword}
-				</if>
-				<if test="searchCondition == 2 and searchKeyword !='' ">
-					REGDATE = #{searchKeyword}
-				</if>
-			</where>
-		</if> -->
+					<where>
+						<if test="search.searchCondition != null">
+							<if test="search.searchCondition == 1 and search.searchKeyword !='' ">
+								AND NICKNAME LIKE '%${search.searchKeyword}%'
+							</if>
+							<if test="search.searchCondition == 2 and search.searchKeyword !='' ">
+								AND NICKNAME LIKE '%${search.searchKeyword}%'
+							</if>
+						</if>
+						<if test="searchState == 2">
+							AND USER_ROLE = '2'
+						</if>
+						<if test="searchState == 3">
+							AND USER_ROLE = '3'
+						</if>
+					</where>
 	</select>
 		
 	<!-- 비밀번호변경 -->
@@ -301,17 +325,17 @@
 		
 	<select id="getFollowList"	resultMap="userSelectMap">
 		SELECT
-		u.user_id , u.nickname , u.profile_image
+		u.user_id , u.nickname , fl.fl_target, u.profile_image
 		FROM FOLLOW_LIKE fl , USERS u
 		<where>
 			fl.fl_type in ('2')
 			<if test="order == 1">
-				AND fl.user_id  = u.user_id 
-				AND fl.user_id in (#{userId})
+				AND fl.fl_target = u.user_id
+                AND fl.user_id in (#{userId})
 			</if>
 			<if test="order == 2">
-				AND fl.fl_target = u.user_id 
-				AND fl.fl_target in (#{userId})
+s				AND fl.user_id = u.user_id 
+                AND fl.fl_target in (#{userId})
 			</if>
 		</where>
 	</select>
@@ -330,11 +354,11 @@
 				<where>
 					fl.fl_type in ('2') <!-- 팔로잉 -->
 					<if test="order == 1">
-						AND fl.user_id  = u.user_id 
+						AND fl.fl_target  = u.user_id 
 						AND fl.user_id in (#{userId})
 					</if>
 					<if test="order == 2"> <!-- 팔로워 -->
-						AND fl.fl_target = u.user_id 
+						AND fl.user_id = u.user_id 
 						AND fl.fl_target in (#{userId})
 					</if>
 				</where>
@@ -365,9 +389,191 @@
 	<update id="updateUserRole"		parameterType="user">
 		UPDATE users
 			<set>
-			 	USER_Role = #{userRole}
+			 	USER_ROLE = #{user.userRole}
+			 ,  STATE_REASON =  #{user.stateReason}
+			 ,  STATE_REGDATE = now()
 			</set>
-		WHERE USER_ID = #{userId}
+		WHERE USER_ID = #{user.userId}
 	</update>
 		
+		
+		
+		<!-- 차트 -->
+		<select id="getJoinPath"	resultMap="userDataSelectMap">
+		select
+		count(join_path) AS moopi,
+		(select
+		count(join_path)
+		from users
+		where join_path = 2) AS google,
+		(
+		select
+		count(join_path)
+		from users
+		where join_path = 3
+		)  AS naver,
+		(
+		select
+		count(join_path)
+		from users
+		where join_path = 4
+		) AS kakao
+		from users
+		where join_path = 1;
+		</select>
+		
+		<select id="getGenderData"	resultMap="userDataSelectMap">
+		select count(gender) AS male,
+		(
+		select count(gender) 
+		from users
+		where gender = 2
+		) AS female
+		from users
+		where gender = 1;
+		</select>
+		
+		
+		<select id="getAgeData"	resultMap="userDataSelectMap">
+		select count(age) AS twenties,
+		(
+		select count(age)
+		from users
+		where age between 30 and 39
+		) AS thirties,
+		(
+		select count(age)
+		from users
+		where age between 40 and 49
+		)AS forties,
+		(
+		select count(age)
+		from users
+		where age between 50 and 59
+		)AS fifties
+		from users
+		where age between 20 and 29;
+		</select>
+		
+		
+		<select id="getInterestData"	resultMap="userDataSelectMap">
+		SELECT
+		count(*) AS travel,
+		(
+		SELECT
+		count(*)
+		from users
+		where interest_first =2
+		or
+		interest_second =2
+		or
+		interest_third = 2
+		) AS sport,
+		(
+		SELECT
+		count(*)
+		from users
+		where interest_first =3
+		or
+		interest_second =3
+		or
+		interest_third = 3
+		) AS book,
+		(
+		SELECT
+		count(*)
+		from users
+		where interest_first =4
+		or
+		interest_second =4
+		or
+		interest_third = 4
+		) AS work,
+		(
+		SELECT
+		count(*)
+		from users
+		where interest_first =5
+		or
+		interest_second =5
+		or
+		interest_third = 5
+		) AS language,
+		(
+		SELECT
+		count(*)
+		from users
+		where interest_first =6
+		or
+		interest_second =6
+		or
+		interest_third = 6
+		) AS music,
+		(
+		SELECT
+		count(*)
+		from users
+		where interest_first =7
+		or
+		interest_second =7
+		or
+		interest_third = 7
+		) AS make,
+		(
+		SELECT
+		count(*)
+		from users
+		where interest_first =8
+		or
+		interest_second =8
+		or
+		interest_third = 8
+		) AS dance,
+		(
+		SELECT
+		count(*)
+		from users
+		where interest_first =9
+		or
+		interest_second =9
+		or
+		interest_third = 9
+		) AS friend,
+		(
+		SELECT
+		count(*)
+		from users
+		where interest_first =10
+		or
+		interest_second =10
+		or
+		interest_third = 10
+		) AS car,
+		(
+		SELECT
+		count(*)
+		from users
+		where interest_first =11
+		or
+		interest_second =11
+		or
+		interest_third = 11
+		) AS game,
+		(
+		SELECT
+		count(*)
+		from users
+		where interest_first =12
+		or
+		interest_second =12
+		or
+		interest_third = 12
+		) AS caffe
+		from users
+		where interest_first =1
+		or
+		interest_second =1
+		or
+		interest_third = 1
+		</select>
 </mapper>

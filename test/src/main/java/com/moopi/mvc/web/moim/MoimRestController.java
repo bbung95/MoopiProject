@@ -88,14 +88,30 @@ public class MoimRestController {
 
 		return "테스트성공";
 	}
+	
+	@RequestMapping("json/updateMember/{userId}/{mmNo}/{status}")
+	public String updateMember(@PathVariable("userId") String userId,
+			@PathVariable("mmNo") int mmNo, @PathVariable("status") int status) throws Exception {
+		System.out.println("::::::::::::::::::::::::::해당 유저 권한 확인중....");
+		moimService.updateMemeber(userId, mmNo, status);
+		return "권한변경 완료";
+	}
 
-	// 모임 가입신청하기
-	@PostMapping("json/applyMoim")
-	public String applyMoim(@RequestBody Member member) throws Exception {
-		System.out.println("모임 가입신청을 합니다.");
+	// 가입신청수락하기
+	@PostMapping("json/acceptApplyMoim")
+	public String acceptApplyMoim(@RequestBody Member member) throws Exception {
+		System.out.println("모임 가입신청을 수락합니다.");
 		moimService.updateMemeber(member.getMmUser().getUserId(), member.getMmNo(), 1);
 		return "apply";
 	}
+	
+	// 가입신청하기
+		@PostMapping("json/applyMoim")
+		public String applyMoim(@RequestBody Member member) throws Exception {
+			moimService.applyMoim(member);
+			System.out.println("가입완료");
+			return "가입완료";
+		}
 
 	// 가입신청 거절하기
 	@PostMapping("json/refuseApply")

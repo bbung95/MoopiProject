@@ -340,8 +340,8 @@
 <body>
 
 <!-- ToolBar Start ///////////////////////////////////// -->
-<%-- <jsp:include page="../layout/toolbar.jsp" />  --%>
-<jsp:include page="../layout/moimToolbar.jsp" />
+<jsp:include page="../layout/toolbar.jsp" /> 
+
 
 <!-- ToolBar End ///////////////////////////////////// -->
 
@@ -381,7 +381,11 @@
 	</c:if>
 	<c:if test = "${moim.mmType == 2}">
 	<div>Type &nbsp&nbsp Free</div>
+	<br>
+	
 	</c:if>
+	<br>
+	<button type="button" class="btn btn-primary addReportReply">신고</button>
 	</div>
 	
 	<!-- 점보트론 시작 -->

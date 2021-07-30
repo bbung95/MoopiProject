@@ -162,9 +162,10 @@
 </script>		
     <style>
 	body{
-	padding-top: 70px;
+		padding-top: 70px;
+		
 	}
-	
+	//padding-top: 200px;
 	.etcContent {
 		position: relative;
 		font-size : 15px;
@@ -478,6 +479,7 @@
 						<div class="check_font" id="pwd_check"></div>
 					<button type="button" id="updateBtn" class="micro_btn" onClick="javascript:editPW()">변경하기</button>  					                  
                 </div> 
+
                 
  	<button type="button" class="btn btn-light leaveUser" data-bs-toggle="modal" data-bs-target="#staticBackdrop">회원탈퇴</button>
 					
@@ -531,6 +533,14 @@
     </div>   
 </div>
 		        			  			
+
+
+	
+	<!-- Bootstrap core JS-->
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+	<!-- Core theme JS-->
+	<script src="/js/scripts.js"></script>
 
 </body>
 </html>

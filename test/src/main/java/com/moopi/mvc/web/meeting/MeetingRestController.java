@@ -86,7 +86,7 @@ public class MeetingRestController {
 		public String updateMeeting(@ModelAttribute("meeting") Meeting meeting,
 				Model model) throws Exception{
 			
-			System.out.println("addMeeting :::");
+			System.out.println("updateMeeting :::");
 			System.out.println(meeting);
 			//User user = userService.getUser(userId);
 			//meeting.setMtConstructor(user);

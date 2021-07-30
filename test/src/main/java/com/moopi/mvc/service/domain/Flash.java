@@ -24,7 +24,7 @@ public class Flash {
 	private int flashMaxCount;		//번개무피 최대인원
 	private String flashAddr;		//번개무피 장소
 	private int flashState;			//번개무피 상태
-	private int flashInterest;		//번개무피 관심사
+	private String flashInterest;		//번개무피 관심사
 	private int flashMapX;			//번개무피 좌표X
 	private int flashMapY;			//번개무피 좌표Y
 	

@@ -212,11 +212,12 @@ public class MoimController {
 	
 	
 	
-//	//모임 가입신청하기
+	//모임 가입신청하기
 //	@RequestMapping("applyMoim")
 //	public String applyMoim(@RequestParam("userId") String userId,
-//	@RequestParam("mmNo") int mmNo) throws Exception {
+//	@RequestParam("mmNo") int mmNo, Member member) throws Exception {
 //		System.out.println("모임 가입신청을 합니다.");
+//		member.setMmUser(null);
 //		moimService.applyMoim(userId, mmNo);
 //		return "forward:/moim/getMoim";
 //	}
@@ -336,7 +337,7 @@ public class MoimController {
 		
 		model.addAttribute("boardMoimNo", board.getBoardMoimNo());
 		
-		return "moim/listMoimBoard";
+		return "forward:/moim/listMoimBoard?boardMoimNo="+board.getBoardMoimNo();
 				
 	}
 
@@ -346,6 +347,11 @@ public class MoimController {
 		
 		System.out.println("getMoimBoard ::");
 		board = boardService.getBoard(boardNo);
+		
+		int mmNo = board.getBoardMoimNo();
+		Moim moim = moimService.getMoim(mmNo);
+		model.addAttribute("moim", moim);
+		
 		
 		if(board.getBoardCategory() !="1") {
 		List<Reply> list = replyService.getReplyList(boardNo);	
@@ -383,7 +389,7 @@ public class MoimController {
 		System.out.println(board.getBoardNo());
 		String boardCategory =boardService.getBoardCategory(board.getBoardCategory());
 		
-		return "forward:/board/getBoard?boardNo="+board.getBoardNo();
+		return "forward:/moim/getBoard?boardNo="+board.getBoardNo();
 		
 	}
 	
@@ -401,6 +407,19 @@ public class MoimController {
 		System.out.println("보드카테고리값:"+boardCategory);
 			return "/moim/updateMoimBoardView";
 		
+	}
+	
+	@RequestMapping("updateBoard")
+	public String updateBoard(@ModelAttribute("board")Board board, Model model) throws Exception {
+		
+		System.out.println("updateBoard실행");
+		
+		System.out.println("board값 체크"+board);
+		System.out.println("model값 체크"+model);
+		
+		boardService.updateBoard(board);
+		
+		return "forward:/moim/getBoard?boardNo="+board.getBoardNo();	
 	}
 	
 }

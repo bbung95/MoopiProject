@@ -52,43 +52,71 @@ public class ReportRestController {
 	@PostMapping(value="processReport")
 	public Report processReport(@RequestBody Report report) throws Exception{
 		
-		System.out.println("processReport 실행");
-		System.out.println("report 값 체크 ========="+report); 
+		System.out.println("11processReport 실행");
+		System.out.println("11report 값 체크 ========="+report); 
 		System.out.println(report.getReportNo());
 		reportService.processReport(report);
+		User user = new User();
 		
+		System.out.println("1report 값 체크 ========"+report);
 		
-		System.out.println("report 값 체크 ========"+report);
-		
-		if(report.getReportResultState() != "1" && report.getReportTargetBd() != null && report.getReportTargetRe().getReplyNo() == 0) {
-			
+		if(report.getReportResultState() != "1" && report.getReportTargetBd() != null ) {
+			System.out.println("resultState값 체크"+ report.getReportResultState());
 			boardService.deleteBoard2(report.getReportTargetBd());
-			System.out.println("게시글 삭제..");
+			user = userService.getUser(report.getReportTargetBd().getBoardWriter().getUserId());
+			System.out.println("!!!!!!!!!!!!!!!!!!");
 			
-		}else if(report.getReportResultState() != "1" && report.getReportTargetRe().getReplyNo() != 0 ) {
+			if(report.getReportResultState().equals("3")){
+				System.out.println("if문 내부 시작");
+				
+				if(user.getUserRole().equals("2")) {
+					user.setUserRole("3");
+				}else if(user.getUserRole().equals("3")) {
+					user.setUserRole("4");
+				}
+				user.setStateReason(report.getStateReason());
+				user.setStateRegdate(report.getReportResultUpdate());
+				System.out.println("user의 값 ==========="+user);
+				
+			}
+			userService.updateUserRole(user);
+			
+		}else if(report.getReportResultState() != "1" && report.getReportTargetRe() != null ) {
 			
 			replyService.deleteReply2(report.getReportTargetRe());
-			System.out.println("리플 삭제");
-		}else if(report.getReportResultState() != "1" && report.getReportTarget().getUserId() != null ) {
-			
-			user = userService.getUser(report.getReportTarget().getUserId());
-			
-			if(report.getReportResultState() == "2" ) {
-			
-				if(user.getUserRole() != "1") {
-					userRole = Integer.parseInt(user.getUserRole()) +1;
-					
-					user.setUserRole(Integer.toString(userRole));
-					userService.updateUserRole(user);
-				}
-			}else if(report.getReportResultState() == "3") {
+			user = userService.getUser(report.getReportTargetBd().getBoardWriter().getUserId());
+			if(report.getReportResultState().equals("3")){
 				
-				user.setUserRole("5");
-				userService.updateUserRole(user);
+				
+				if(user.getUserRole().equals("2")) {
+					user.setUserRole("3");
+				}else if(user.getUserRole().equals("3")) {
+					user.setUserRole("4");
+				}
+				user.setStateReason(report.getStateReason());
+				user.setStateRegdate(report.getReportResultUpdate());
+				
 			}
+			userService.updateUserRole(user);
 		}
 		
 		return	reportService.getReport(report);
+		
+	}
+	
+	@RequestMapping("addReport")
+	public String addReport(@RequestBody Report report) throws Exception{
+		
+		System.out.println("addReport 실행");
+		
+		System.out.println(report);
+		
+		if(report.getReportByUser().getUserId() != null || report.getReportByUser().getUserId() != "") {
+		reportService.addReport(report);
+		System.out.println("신고자아이디체크 '"+report.getReportByUser().getUserId()+"' 공백일경우 널값들어감. " );
+		}
+		
+		return "";
 		
 	}
 	

@@ -25,4 +25,15 @@ public interface PaymentDao {
 	
 	public List<Payment> adminPaymentList(@Param("payment") Payment payment, @Param("search") Search search) throws Exception;
 	
+	
+	//차트에서 추가했습니다.
+	public List<Payment> getMonthList(Search search) throws Exception;
+	
+	public List<Payment> getWeekList(Search search) throws Exception;
+	
+	public List<Payment> getDayList(Search search) throws Exception;
+	
+	public List<Payment> getSelectList(Search search) throws Exception;
+	
+	
 }
