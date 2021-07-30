@@ -20,10 +20,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@300&display=swap" rel="stylesheet">
 
-
 <!-- 스윗얼럿 -->
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
 
 <!-- Favicon-->
 <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
@@ -321,13 +319,14 @@
 		position: relative; 
 		width : 100%;
 		height : 100%;
+		background-color : white;
 	}
 	
 	.realCenter {
 		position : absolute;
 		top : 50%;
 		left : 50%;
-		margin:-150px 0 0 -150px
+		margin:-300px 0 0 -150px
 	}
 			
 
