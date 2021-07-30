@@ -108,4 +108,24 @@
 	  REPLY_NO = #{reply.replyNo}
 	</select>
 	
+	<select id="getReplyListAdmin" parameterType="int" resultMap="replySelectMap">
+
+		SELECT
+			R.REPLY_CONTENT
+		  , R.REPLY_FILE
+		  , R.REPLY_REGDATE
+		  , R.REPLY_STATE
+		  , R.REPLY_NO
+		  , U.USER_ID
+		  , U.NICKNAME
+		  , U.PROFILE_IMAGE
+		FROM
+			REPLY R
+		  , USERS U
+		WHERE
+			U.USER_ID = R.REPLY_WRITER
+		AND
+			R.BD_NO = #{boardNo}
+	</select>
+	
 </mapper>
