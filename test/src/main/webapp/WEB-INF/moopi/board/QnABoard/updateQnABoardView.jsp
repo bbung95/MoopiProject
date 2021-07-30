@@ -27,11 +27,11 @@ $(function() {
 
 
 function fncUpdateBoard(){
-	alert("게시글수정");
+// 	alert("게시글수정");
 	
-	alert($("input[name='boardNo']").val());
-	alert($("input[name='boardName']").val());
-	alert($("input[name='boardCategory']").val());
+// 	alert($("input[name='boardNo']").val());
+// 	alert($("input[name='boardName']").val());
+// 	alert($("input[name='boardCategory']").val());
 	
 	$("form").attr("method" , "POST").attr("action" , "/board/updateBoard").submit();
 	

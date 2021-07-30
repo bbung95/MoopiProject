@@ -159,7 +159,9 @@ body {
 									<button type="button" class="btn btn-primary updateBoard">수정</button>
 									<button type="button" class="btn btn-primary deleteBoard">삭제</button>
 								</c:if>
+								<c:if test="${dbUser.userId != board.boardWriter.userId}">
 								<button type="button" class="btn btn-primary addReportBoard">신고</button>
+								</c:if>
 							</div>
 							<br> <br>
 						</section>
@@ -186,8 +188,9 @@ body {
 												<button type="button" class="btn btn-primary updateReply">수정</button>
 												<button type="button" class="btn btn-primary deleteReply">삭제</button>
 											</c:if>
-
+											<c:if test="${dbUser.userId != reply.replyWriter.userId}">
 											<button type="button" class="btn btn-primary addReportReply">신고</button>
+											</c:if>
 										</div>
 										<br>
 										<br>
@@ -405,7 +408,7 @@ body {
 					+'	<div style="float:right;">'
 					+'	<button type="button" class="btn btn-primary updateReply">수정</button>'
 					+'	<button type="button" class="btn btn-primary deleteReply">삭제</button>'
-					+'	<button type="button" class="btn btn-primary addReportReply">신고</button>'
+// 					+'	<button type="button" class="btn btn-primary addReportReply">신고</button>'
 					+'	</div>'
 					+'	</div>'
 					+'	<br><br>'
@@ -502,7 +505,7 @@ body {
 						 					+'	<div style="float:right;">'
 						 					+'	<button type="button" class="btn btn-primary updateReply">수정</button>'
 						 					+'	<button type="button" class="btn btn-primary deleteReply">삭제</button>'
-						 					+'	<button type="button" class="btn btn-primary addReportReply">신고</button>'
+// 						 					+'	<button type="button" class="btn btn-primary addReportReply">신고</button>'
 						 					+'	</div>'
 						 					+'	</div>'
 						 					+'	<br><br>'	

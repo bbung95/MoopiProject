@@ -476,7 +476,7 @@
 					<div class="phoneNumDown">
 	                    <input class="editPhoneNum w-full px-3 py-1 text-gray-700 bg-gray-200 rounded" id="pInput" name="phone" type="text" value=${dbUser.phone} onClick="updatePN()">      				
 					</div>
-					<div class="mobileAuthBtn"	
+					<div class="mobileAuthBtn">	
 						<button type="button" id="mobileAuthBtn" class="micro_btn" onClick="editPN()">변경하기</button>
 					</div>
 					<div class="editMobileContent">	
