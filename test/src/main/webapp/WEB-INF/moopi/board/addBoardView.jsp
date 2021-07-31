@@ -10,7 +10,7 @@
 
 <!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
 
-	<jsp:include page="../../common/commonCDN.jsp"/>
+	<jsp:include page="../common/commonCDN.jsp"/>
   	
 <!--   	써머노트 -->
   	<script src="/javascript/summernote-lite.js"></script>
@@ -35,12 +35,12 @@ $(function() {
 function fncAddBoard(){
 // 	alert("게시글등록");
 	
-	var boardCategory	=$("input[name='boardCategory']").val();
-	var boardWriter		=$("input[name='boardWriter']").val();
-	var boardName		=$("input[name='boardName']").val();	
-	var boardContent	=$("input[name='boardContent']").val();
+// 	var boardCategory	=$("input[name='boardCategory']").val();
+// 	var boardWriter		=$("input[name='boardWriter']").val();
+// 	var boardName		=$("input[name='boardName']").val();	
+// 	var boardContent	=$("input[name='boardContent']").val();
 	
-	$("form.form-horizontal").attr("method" , "POST").attr("action" , "/board/addBoard").submit();
+	$("form.form-horizontal3").attr("method" , "POST").attr("action" , "/board/addBoard").submit();
 	
 }
 
@@ -49,6 +49,9 @@ function fncAddBoard(){
   <style>
 body{
 	padding-top: 100px;
+	margin: auto;
+	font-family: 'Gaegu', cursive;
+	
 }
 
 		@media ( min-width : 768px) {
@@ -74,7 +77,7 @@ body{
 
 </head>
 <body> 
-     <jsp:include page="../../layout/toolbar.jsp" />
+     <jsp:include page="../layout/toolbar.jsp" />
     
     <script>  
      $(document).ready(function() {
@@ -134,7 +137,9 @@ body{
  <div class="container">
 
 		<div class="col-xs-12 col-sm-12 col-md-12" style="padding-bottom: 50px;">
-			    <h3 class="head_title" data-edit="true" data-selector="h3.head_title" ><span class="fsize20" ><strong>문의 게시글 작성</strong></span></h3>
+			    <h3 class="head_title" data-edit="true" data-selector="h3.head_title" ><span class="fsize20" ><strong>
+			    ${boardCategory eq 'Moopi' ? '공지글 작성' : 'QnA 작성'}
+			    </strong></span></h3>
 		  
 		   </div>
 		   
@@ -142,9 +147,9 @@ body{
 		
 		
 		<!-- form Start /////////////////////////////////////-->
-		<form class="form-horizontal" name="detailForm" enctype="multipart/form-data">
+		<form class="form-horizontal3" name="detailForm" enctype="multipart/form-data">
 		  <input type="hidden" id="boardWriter.userId" name="boardWriter.userId" value="${dbUser.userId }">
-		  <input type="hidden" id="boardCategory" name="boardCategory" value="2">
+		  <input type="hidden" id="boardCategory" name="boardCategory" value="${boardCategory eq 'Moopi' ? '1' : '2' }">
 		  
 		  <div class="form-group">
 		    <div  style="padding-bottom: 30px;">
@@ -158,13 +163,14 @@ body{
 		    </div>
 		  </div>
 		  
+		  <c:if test="${boardCategory eq 'QnA' }">
 		  <div class="form-group" style="padding-top:30px;">
 		    <label for="ssn" class="col-sm-offset col-sm-2 control-label">비밀번호</label>
 		    <div class="col-sm-3">
 		      <input type="text" class="form-control" id="boardPassword" name="boardPassword">
 		    </div>
 		  </div>
-		 
+		 </c:if>
 		  <div class="form-group">
 		    <div class="col-sm-offset-5  col-sm-4 text-center" style="float:right;">
 		      <button type="button" class="btn btn-primary" >등록</button>
@@ -176,6 +182,6 @@ body{
 		  
 		  
 		</form>
-<jsp:include page="../../layout/searchbar.jsp"></jsp:include>
+<jsp:include page="../layout/searchbar.jsp"></jsp:include>
 </body>
 </html>
