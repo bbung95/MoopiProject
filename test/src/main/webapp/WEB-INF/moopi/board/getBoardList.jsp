@@ -454,7 +454,13 @@ body {
             </div>
         </form>
 		
-
+			<c:if test="${boardCategory eq 'QnA' }">
+                <button type="button" class="btn btn-default btn-sm tpl-forum-write" data-selector=".tpl-forum-write" data-button="true" data-title="button text" onClick="fncAddBoardView()">작성하기</button>
+			</c:if>
+			<c:if test="${boardCategory eq 'Moopi' and dbUser.userRole eq '1' }">
+				<button type="button" class="btn btn-default btn-sm tpl-forum-write" data-selector=".tpl-forum-write" data-button="true" data-title="button text" onClick="fncAddBoardView2()">작성하기</button>
+			</c:if>
+			
 			<div class="userEL9022878 colorSet" data-fcolor="#191919">
 			    <div class="container">
 			        <div class="row">
@@ -519,12 +525,7 @@ body {
 			</div>
 
                 </div>
-                <c:if test="${boardCategory eq 'QnA' }">
-                <button type="button" class="btn btn-default btn-sm tpl-forum-write" data-selector=".tpl-forum-write" data-button="true" data-title="button text" onClick="fncAddBoardView()">작성하기</button>
-				</c:if>
-				<c:if test="${boardCategory eq 'Moopi' and dbUser.userRole eq '1' }">
-				<button type="button" class="btn btn-default btn-sm tpl-forum-write" data-selector=".tpl-forum-write" data-button="true" data-title="button text" onClick="fncAddBoardView2()">작성하기</button>
-				</c:if>
+                
 				
 					<jsp:include page="../common/pageNavigator.jsp"/>	
             </div>
