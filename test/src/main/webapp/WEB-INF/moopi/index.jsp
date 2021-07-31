@@ -100,13 +100,17 @@ body>#mainlogo {
 	color: black;
 	font-size: 13px;
 }
+
+header{
+	background : #4299e1;
+}
 </style>
 </head>
 <body>
 
 	<jsp:include page="layout/toolbar.jsp"></jsp:include>
 
-	<header class="bg-primary py-5">
+	<header class=" py-5">
 		<div class="container px-5">
 			<div class="row gx-5 align-items-center justify-content-center">
 				<div class="col-xl-5 col-xxl-6 d-none d-xl-block text-center">
