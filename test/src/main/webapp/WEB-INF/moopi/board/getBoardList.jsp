@@ -400,6 +400,7 @@ padding: 3px 7px;
 .profileImg {
     border-radius: 50%;
     width :40px;
+    height: 40px;
 }
 img, svg {
     vertical-align: middle;
@@ -480,7 +481,7 @@ body {
                     <span class="input-group-btn">
                         <button type="button" class="btn btn-default search-btn"><i class="fa fa-search"></i></button>
                     </span>
-                    <input type="hidden" id="category" name="category" value="2"/>
+                    <input type="hidden" id="category" name="category" value="${boardCategory eq 'Moopi' ? '1' : '2' }"/>
 					<input type="hidden" id="currentPage" name="currentPage" value="1" />
                 </div>
             </div>
