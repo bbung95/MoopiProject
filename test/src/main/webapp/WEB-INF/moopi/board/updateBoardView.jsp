@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 	
-	<jsp:include page="../../common/commonCDN.jsp"></jsp:include>
+	<jsp:include page="../common/commonCDN.jsp"></jsp:include>
 	
 	
 		<script src="/javascript/summernote-lite.js"></script>
@@ -27,11 +27,11 @@ $(function() {
 
 
 function fncUpdateBoard(){
-	alert("게시글수정");
+// 	alert("게시글수정");
 	
-	alert($("input[name='boardNo']").val());
-	alert($("input[name='boardName']").val());
-	alert($("input[name='boardCategory']").val());
+// 	alert($("input[name='boardNo']").val());
+// 	alert($("input[name='boardName']").val());
+// 	alert($("input[name='boardCategory']").val());
 	
 	$("form").attr("method" , "POST").attr("action" , "/board/updateBoard").submit();
 	
@@ -102,7 +102,7 @@ body {
 </head>
 <body>
 
-	<jsp:include page="../../layout/toolbar.jsp" />
+	<jsp:include page="../layout/toolbar.jsp" />
 
 	
 
@@ -110,7 +110,7 @@ body {
 
 		<div class="col-xs-12 col-sm-12 col-md-12" style="padding-bottom: 50px;">
 			    <h3 class="head_title" data-edit="true" data-selector="h3.head_title" ><span class="fsize20" ><strong>
-			    ${board.boardCategory eq 1 ? '공지 수정' : 'QnA 게시글 수정' } 
+			    ${boardCategory eq 'Moopi' ? '공지 수정':'QnA 게시글 수정' }
 			    </strong></span></h3>
 		  
 		   </div>
@@ -119,7 +119,7 @@ body {
 		
 		
 		<!-- form Start /////////////////////////////////////-->
-		<form class="form-horizontal" name="detailForm" enctype="multipart/form-data">
+		<form class="form-horizontal3" name="detailForm" enctype="multipart/form-data">
 		  <input type="hidden" id="boardWriter.userId" name="boardWriter.userId" value="${dbUser.userId }">
 		  <input type="hidden" id="boardCategory" name="boardCategory" value="2">
 		  <input type="hidden" id="boardNo" name="boardNo" value="${board.boardNo}">
@@ -146,6 +146,7 @@ body {
 		</form>
  
 	</div>
+	<jsp:include page="../layout/searchbar.jsp"></jsp:include>
 </body>
 
 

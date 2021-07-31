@@ -99,8 +99,11 @@ public class CommonController {
 
 	@GetMapping("common/getMoimList")
 	public String getMoimList(Model model) throws Exception {
-
+		
 		Search search = new Search();
+		search.setCurrentPage(1);
+		search.setPageSize(pageSize);
+		
 
 		System.out.println("common/getMoimList : GET");
 		model.addAttribute("list", moimService.getMoimList(search).get("list"));
@@ -182,12 +185,16 @@ public class CommonController {
 			throws Exception {
 
 		System.out.println("써치의값:::"+search);
+		search.setCurrentPage(1);
+		search.setPageSize(pageSize);
 		
-		User user = (User) session.getAttribute("dbUser");
-
+		User user = (User)session.getAttribute("dbUser");
+		
 		if (type == 1) {
 			System.out.println("moimSearch");
-			model.addAttribute("list", moimService.getMoimList(search).get("list"));
+			
+			model.addAttribute("search", search);
+//			model.addAttribute("list", moimService.getMoimList(search).get("list"));
 			if (user != null) {
 				model.addAttribute("list2", moimService.getMyMoimList(user.getUserId()).get("list2"));
 			}
