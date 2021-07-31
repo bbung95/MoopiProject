@@ -33,7 +33,7 @@ function fncUpdateBoard(){
 // 	alert($("input[name='boardName']").val());
 // 	alert($("input[name='boardCategory']").val());
 	
-	$("form").attr("method" , "POST").attr("action" , "/board/updateBoard").submit();
+	$("form.form-horizontal3").attr("method" , "POST").attr("action" , "/board/updateBoard").submit();
 	
 }
 
