@@ -50,7 +50,6 @@ function fncAddBoard(){
 body{
 	padding-top: 100px;
 	margin: auto;
-	font-family: 'Gaegu', cursive;
 	
 }
 

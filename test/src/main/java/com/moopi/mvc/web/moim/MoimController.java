@@ -179,6 +179,7 @@ public class MoimController {
 		Map<String, Object> map2 = moimService.getMyMoimList(userId);
 		model.addAttribute("list2", map2.get("list2"));
 		model.addAttribute("search", search);
+		model.addAttribute("interest" , commonService.getInterest());		
 		System.out.println("내가 가입한 모임:" + map2);
 		System.out.println("forward:/moim/moimMain 으로 이동합니다.");
 		return "moim/moimMain";

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,6 +32,9 @@ public class MoimRestController {
 	private CommonServiceImpl commonService;
 	
 
+	@Value("6")
+	private int pageSize;
+	
 	public MoimRestController() {
 		System.out.println(this.getClass());
 	}
@@ -77,7 +81,7 @@ public class MoimRestController {
 	public Map getListMoim(@RequestBody Search search, Model model) throws Exception {
 
 		System.out.println("Ajax로 모임리스트를 가져옵니다. :::인피니티스크롤");
-		search.setPageSize(8);
+		search.setPageSize(pageSize);
 		System.out.println(search);
 		
 		Map<String, Object> map = moimService.getMoimList(search);

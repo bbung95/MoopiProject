@@ -44,7 +44,6 @@ function fncUpdateBoard(){
 body {
 	padding-top: 100px;
 	margin: auto;
-	font-family: 'Gaegu', cursive;
 </style>
     
     <script>  

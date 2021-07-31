@@ -166,6 +166,9 @@ public class FlashController {
 //		model.addAttribute("search", search);
 //		model.addAttribute("totalCount",map.get("totalCount"));
 //		System.out.println("getListFlash End");
+		model.addAttribute("search", search);
+		model.addAttribute("interest", commonService.getInterest());
+		
 		return "flash/flashMain";
 	}
 

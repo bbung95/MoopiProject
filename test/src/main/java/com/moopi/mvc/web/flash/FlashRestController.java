@@ -4,6 +4,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,7 +37,7 @@ public class FlashRestController {
 	@Autowired
 	private CommonServiceImpl commonService;
 	
-	@Value("4")
+	@Value("6")
 	private int pageSize;
 	
 	@Value("10")
@@ -58,16 +59,12 @@ public class FlashRestController {
 	
 	
 	//getListFlash auto scroll target:: mainFlash
-	@GetMapping(value = "json/getListFlash/{currentPage}")
-	public Map<String,Object> getListFlash(@PathVariable int currentPage)throws Exception  {
+	@RequestMapping(value = "json/getListFlash")
+	public Map<String,Object> getListFlash(@RequestBody Search search)throws Exception  {
 		
 		System.out.println("getListFlash:Rest:GET:Start!! ");
 		
-		Search search = new Search();
 		search.setPageSize(pageSize);
-		search.setPageUnit(pageUnit);
-		search.setCurrentPage(currentPage);
-		
 		
 		
 		return flashService.getFlashList(search);
