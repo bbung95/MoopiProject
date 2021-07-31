@@ -114,7 +114,6 @@
 		, U.NICKNAME
 		, R.RP_TYPE
 		, R.RP_CONTENT
-		, R.RP_IMAGE
 		, R.RP_REGDATE
 		<if test=" map.search.searchCategory == 1 ">
 		, B.BD_NO
