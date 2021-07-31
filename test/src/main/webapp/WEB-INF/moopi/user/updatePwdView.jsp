@@ -6,7 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <title> 비밀번호변경 View </title>
-
+<!-- 스윗얼럿 -->
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <! ------------------------------------------------ Bootstrap, jQuery CDN -------------------------------------------------->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
@@ -43,15 +44,16 @@
 			});
 		
 			$("#password2").keyup(function(){				
-					if ($("#password").val() != $("#password2").val()){					
+					if ($("#password1").val() != $("#password2").val()){					
 						$('#pwd_check').text('');
 						$('#pwd_check').text('비밀번호가 일치하지 않습니다.');
 						$("#updateBtn").attr("disabled", true);
-
+						return;
 					}else{
 						$('#pwd_check').text('');
 						$('#pwd_check').text('비밀번호가 일치합니다.');
 						$("#updateBtn").attr("disabled", false);
+						return;
 						
 			}
 		}); 
@@ -63,14 +65,15 @@
 		var password=$("input[name='password'").val();
 		
 		$.ajax ({
-				url : "/user/json/updatePwd",
+				url : "/user/json/updatePwdView",
 				method : "POST",
 				contentType : "application/JSON",
 				dataType : "text",
 				data : JSON.stringify({"userId" : userId, "password" : password}),
 					
 					success : function(data, state) {
-						alert("변경이 완료되었습니다.");
+						
+						swal("SUCCESS!","변경이 완료되었습니다.","success"); 
 						close();
 					}
 					

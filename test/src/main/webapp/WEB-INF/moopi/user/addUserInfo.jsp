@@ -161,8 +161,9 @@
 		var interest3=$("select[name='interestThird']").val();	
 		var birth = $("input[name='birth']").val();
 
-		
-		alert("반갑습니다 "+userName+"님 회원가입을 축하드립니다.");
+		swal("회원가입이 완료되었습니다.", "로그인을 진행해주세요","success");
+		//alert("반갑습니다 "+userName+"님 회원가입을 축하드립니다.");
+		w=
 		
 		$("form").attr("method" , "POST").attr("action" , "/user/addUser").submit();
 	
