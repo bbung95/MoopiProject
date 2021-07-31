@@ -11,7 +11,7 @@
 
 <title>Insert title here</title>
 
-<jsp:include page="../../common/commonCDN.jsp"></jsp:include>
+<jsp:include page="../common/commonCDN.jsp"></jsp:include>
 
 <script src="/javascript/summernote-lite.js"></script>
 <script src="/javascript/lang/summernote-ko-KR.js"></script>
@@ -117,9 +117,9 @@ img, svg {
 </head>
 <body>
 	<!-- ToolBar Start /////////////////////////////////////-->
-	<jsp:include page="../../layout/toolbar.jsp" />
+	<jsp:include page="../layout/toolbar.jsp" />
 	<!-- ToolBar End /////////////////////////////////////-->
-	<form class="form-horizontal" name="detailForm"
+	<form class="form-horizontal3" name="detailForm"
 		enctype="multipart/form-data">
 		<!-- 	<div class="col-xs-12 col-sm-12 col-md-12"> -->
 		<!-- 			    <h3 class="head_title" data-edit="true" data-selector="h3.head_title" ><span class="fsize20" ><strong>QnA게시판조회</strong></span></h3> -->
@@ -138,14 +138,17 @@ img, svg {
 						style="padding-bottom: 50px;">
 						<h2 class="head_title" data-edit="true"
 							data-selector="h3.head_title" style="margin: 0px">
-							<span class="fsize40"><strong>QnA게시판조회</strong></span>
+							<span class="fsize40"><strong>
+							
+							${boardCategory eq 'Moopi' ? '무피공지' : 'QnA 게시판조회'}
+							</strong></span>
 						</h2>
 						<br>
 						<br>
 
 						<section clsss="board">
 							<div style="font-size: 35px; margin: 0px">
-								${board.boardName}</div>
+								${board.boardName}1</div>
 							<div class="board_title">
 
 								<div style="display: inline-block; float: right;">${board.boardRegDate}
@@ -166,7 +169,7 @@ img, svg {
 									<button type="button" class="btn btn-primary updateBoard">수정</button>
 									<button type="button" class="btn btn-primary deleteBoard">삭제</button>
 								</c:if>
-								<c:if test="${dbUser.userId != board.boardWriter.userId}">
+								<c:if test="${dbUser.userId != board.boardWriter.userId and boardCategory eq 'QnA'}">
 								<button type="button" class="btn btn-primary addReportBoard">신고</button>
 								</c:if>
 							</div>
@@ -218,7 +221,7 @@ img, svg {
 								<div id="addReplyForm"
 									style="float: right; padding-right: 20px; padding-top: 20px;">
 									<div class="col-md-5" style="font-size: 20px;">
-									<img src="/images/uploadFiles/${reply.replyWriter.profileImage}" class="img-responsive profileImg">
+									<img src="/images/uploadFiles/${dbUser.profileImage}" class="img-responsive profileImg">
 										${dbUser.nickname }</div>
 									<div style="padding-left: 100px; width: 900px">
 										<textarea id="summernote" placeholder="댓글을 입력해주세요."
@@ -247,7 +250,7 @@ img, svg {
 
 
 
-	<jsp:include page="../../layout/searchbar.jsp"></jsp:include>
+	<jsp:include page="../layout/searchbar.jsp"></jsp:include>
 </body>
 <script type="text/javascript">
 	
@@ -327,7 +330,7 @@ img, svg {
 // 			alert("게시글수정");
 // 			alert(${board.boardNo});
 			var boardNo = ${board.boardNo};
-			$("form.form-horizontal").attr("method" , "GET").attr("action" , "/board/updateView").submit();
+			$("form.form-horizontal3").attr("method" , "GET").attr("action" , "/board/updateView").submit();
 		}
 		
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
@@ -338,7 +341,7 @@ img, svg {
 		function fncDeleteBoard(){
 			var boardNo = ${board.boardNo};
 			
-			$("form.form-horizontal").attr("method" , "GET").attr("action" , "/board/deleteBoard").submit();
+			$("form.form-horizontal3").attr("method" , "GET").attr("action" , "/board/deleteBoard").submit();
 			
 		}
 		

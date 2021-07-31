@@ -6,9 +6,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Hello Moopi!</title>
 
-<jsp:include page="../../common/commonCDN.jsp"></jsp:include>
+<jsp:include page="../common/commonCDN.jsp"></jsp:include>
 		
 		<script src="/javascript/summernote-lite.js"></script>
 		<script src="/javascript/lang/summernote-ko-KR.js"></script>
@@ -24,6 +24,11 @@
 function fncAddBoardView(){
 // 	alert("게시글작성");
 	self.location ="/board/addBoardView?category=2";
+}
+function fncAddBoardView2(){
+// 	alert("게시글작성");
+	
+	self.location ="/board/addBoardView?category=1";
 }
 
 function fncGetBoard(boardNo){
@@ -414,13 +419,17 @@ body {
 </head>
 <body>
 <!-- ToolBar Start /////////////////////////////////////-->
-<jsp:include page="../../layout/toolbar.jsp"></jsp:include>
+<jsp:include page="../layout/toolbar.jsp"></jsp:include>
 <!-- ToolBar End /////////////////////////////////////-->
 
 <div class="userEL8991295 colorSet" data-forum-type="thumb" data-fcolor="#191919" >
     <div class="container">
 			<div class="col-xs-12 col-sm-12 col-md-12">
-			    <h3 class="head_title" data-edit="true" data-selector="h3.head_title" ><span class="fsize20" ><strong>문의 게시판</strong></span></h3>
+			    <h3 class="head_title" data-edit="true" data-selector="h3.head_title" ><span class="fsize20" ><strong>
+			    
+			    ${boardCategory eq 'Moopi' ? '무피게시판':'QnA게시판' }
+			    
+			    </strong></span></h3>
 		   </div>
    		<form id="searchBar">
             <div class="col-xs-12 col-sm-12 col-md-12 search-box clearfix">
@@ -445,7 +454,13 @@ body {
             </div>
         </form>
 		
-
+			<c:if test="${boardCategory eq 'QnA' }">
+                <button type="button" class="btn btn-default btn-sm tpl-forum-write" data-selector=".tpl-forum-write" data-button="true" data-title="button text" onClick="fncAddBoardView()">작성하기</button>
+			</c:if>
+			<c:if test="${boardCategory eq 'Moopi' and dbUser.userRole eq '1' }">
+				<button type="button" class="btn btn-default btn-sm tpl-forum-write" data-selector=".tpl-forum-write" data-button="true" data-title="button text" onClick="fncAddBoardView2()">작성하기</button>
+			</c:if>
+			
 			<div class="userEL9022878 colorSet" data-fcolor="#191919">
 			    <div class="container">
 			        <div class="row">
@@ -460,8 +475,10 @@ body {
 			                            <th class="ntpl-forum-content tpl-forum-content tpl-forum-header-row">제목</th>
 			                            <th class="ntpl-forum-name tpl-forum-name tpl-forum-header-row">작성자</th>
 			                            <th class="ntpl-forum-date tpl-forum-date tpl-forum-header-row">작성일</th>
+			                            <c:if test="${boardCategory eq 'QnA' }">
 			                            <th class="ntpl-forum-date tpl-forum-date tpl-forum-header-row">공개/비공개</th>
 			                            <th class="ntpl-forum-date tpl-forum-date tpl-forum-header-row">답변여부</th>
+			                            </c:if>
 			                        </tr>
 			                    </thead>
 			                    <tbody data-loop="true" data-view="8">
@@ -484,13 +501,16 @@ body {
 			                            ${board.boardWriter.nickname}</td>
 			                            <td class="tpl-forum-list-date tpl-forum-list-etc op_itemline10">${board.boardRegDate}</td>
 			                            <td class="tpl-forum-list-date tpl-forum-list-etc op_itemline10">  
-			                             <c:if test="${  empty board.boardPassword}"> 
-		                                공개
-		                                </c:if> 
-										<c:if test="${ !empty board.boardPassword}"> 
-										비공개 
-										</c:if></td>
+			                            <c:if test="${boardCategory eq 'QnA' }">
+			                              <c:if test="${  empty board.boardPassword}"> 
+		                                  공개
+		                                  </c:if> 
+										  <c:if test="${ !empty board.boardPassword}"> 
+										  비공개 
+										  </c:if>
+										</td>
 			                            <td class="tpl-forum-list-date tpl-forum-list-etc op_itemline10">${ board.replyCount == 0 ? "답변대기중" : "답변완료"}</td>
+			                            </c:if>
 			                        </tr>
 			                        </c:forEach>
 			                        
@@ -506,11 +526,10 @@ body {
 
                 </div>
                 
-                <button type="button" class="btn btn-default btn-sm tpl-forum-write" data-selector=".tpl-forum-write" data-button="true" data-title="button text" onClick="fncAddBoardView()">작성하기</button>
-	
-					<jsp:include page="../../common/pageNavigator.jsp"/>	
+				
+					<jsp:include page="../common/pageNavigator.jsp"/>	
             </div>
-	<jsp:include page="../../layout/searchbar.jsp"></jsp:include>
+	<jsp:include page="../layout/searchbar.jsp"></jsp:include>
 
 </body>
 </html>
