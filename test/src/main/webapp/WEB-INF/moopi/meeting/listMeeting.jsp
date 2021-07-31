@@ -139,7 +139,7 @@ function authenticate() {
 
 $(function(){
     $('#uptButton').click(function(){
-        alert("수정버튼클릭");
+        swal("수정");
         $("#UmtName2").val(mtName);
         $("#UmtMaxCount2").val(mtMaxCount);
 //         $("#mtStart4").val(mtStart);
@@ -347,8 +347,8 @@ function fncApplyMt(mtNo, userId){
 					"Content-Type" : "application/json"
 				},
 				success : function(JSONData , status) {
-					alert(status);
-					alert("정모참여완료");
+// 					alert(status);
+					swal("정모참여완료");
 					$("#mtCurrentCount").text(JSONData.mtCurrentCount);
 				}
 		}); //ajax 종료
@@ -367,7 +367,7 @@ function fncLeaveMt(mtNo, userId){
 					"Content-Type" : "application/json"
 				},
 				success : function(JSONData , status) {
-					alert("정모참여 취소완료");
+					swal("정모참여 취소완료");
 					$("#mtCurrentCount").text(JSONData.mtCurrentCount);
 				}
 		}); //ajax 종료
@@ -386,12 +386,11 @@ function fncGetMEFL(mtNo){
 					"Content-Type" : "application/json"
 				},
 				success : function(JSONData , status) {
-					alert(JSONData.list.length);
+// 					alert(JSONData.list.length);
 					$( "#mfllist" ).remove();	
-					let displayValue = '';
+					let displayValue = "<h3>" + "참여자 목록" + "</h3>";
 					for(var i=0;i < JSONData.list.length;i++){
 					displayValue += "<div id=\"mfllist\">"
-										+ "<h3>" + "참여자 목록" + "</h3>"
 // 										+"유저ID	: "+JSONData.list[i].meflId.userId+"<br/>"
 // 										+"이름  : "+JSONData.list[i].meflId.userName+"<br/>"
 // 										+"나이  : "+JSONData.list[i].meflId.age+"<br/>"
@@ -660,7 +659,7 @@ function fncPopUp(){
 <!-- ToolBar End /////////////////////////////////////-->
 <center>
 <h3>Your Meeting Calendar
-<button type="button" class="btn btn-success" onClick="fncAddMtView()">정모 생성하기</button>
+<!-- <button type="button" class="btn btn-success" onClick="fncAddMtView()">정모 생성하기</button> -->
 <span><img class="add" src="/images/plus2.png" width="40" height="40"  data-bs-target="#myModal" data-bs-toggle="modal"/></span>
 </h3>
 </center>
@@ -947,10 +946,12 @@ function fncPopUp(){
 	 
 	<div>
 	<button type='button' class='btn btn-primary' id='map1' >지도</button>
+	<c:if test="${dbUser != constructor}">
 	<button type="button" class="btn btn-success" onClick="fncApplyMt(mtNo, '${dbUser.userId}')">참가</button>
+	</c:if>
 	<button type="button" class="btn btn-success" onClick="fncLeaveMt(mtNo, '${dbUser.userId}')">참가취소</button>
-	<button type="button" class="btn btn-primary" onClick="fncUptMtView('${dbUser.userId}')">수정</button>
-	<button type="button" class="btn btn-primary" id= "uptButton" data-bs-target="#myModal2" data-bs-toggle="modal">수정2</button>
+<%-- 	<button type="button" class="btn btn-primary" onClick="fncUptMtView('${dbUser.userId}')">수정</button> --%>
+	<button type="button" class="btn btn-primary" id= "uptButton" data-bs-target="#myModal2" data-bs-toggle="modal">수정</button>
 	<button type="button" class="btn btn-danger" onClick="fncDeleteMt('${dbUser.userId}')">삭제</button>	
 	</div>
 	<div>
