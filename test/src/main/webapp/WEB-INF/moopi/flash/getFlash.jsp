@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,8 +19,7 @@
 	href="https://fonts.googleapis.com/css2?family=Gaegu:wght@300&display=swap"
 	rel="stylesheet">
 
-<!-- Bootstrap Dropdown Hover JS -->
-<script src="/javascript/bootstrap-dropdownhover.min.js"></script>
+
 
 <!-- Favicon-->
 <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
@@ -59,8 +60,8 @@ function fncGetJoinFlashList(flashNo){
 				type : "JSON" ,
 				success : function(JSONData , status) {
 					//Debug...
-					alert("로딩중..");
-					alert(JSONData.list.length);
+					//alert("로딩중..");
+					alert(JSONData.list.length+"명 참가중 입니다.");
 					//$( ".cal" ).remove(displayValue);	
 					//let displayValue = '';
 					//Debug...
@@ -115,16 +116,16 @@ function fncGetJoinFlashList(flashNo){
 					<div class="col-lg-3">
 						<div class="d-flex align-items-center mt-lg-5 mb-4">
 							<img class="img-fluid rounded-circle"
-								src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." />
+								src="/images/uploadFiles/${flash.flashConstructor.profileImage}" width="50" height="50 "  />
 							<div class="ms-3">
-								<div class="fw-bold">${flash.flashConstructor.userId}</div>
+<%-- 								<div class="fw-bold">${flash.flashConstructor.userId}</div> --%>
 								<div class="fw-bold">${flash.flashConstructor.nickname}</div>
 								<div class="text-muted">번개무피 방장</div>
 							</div>
 						</div>
 						<div class="cal" style="padding-top: 1px"></div>
 						
-						<button type="button" class="btn btn-default"
+						<button type="button" class="btn btn-outline-primary"
 							onClick="fncGetJoinFlashList(${flash.flashNo})">번개참여목록보기</button>
 					</div>
 					<div class="col-lg-9">
@@ -138,9 +139,18 @@ function fncGetJoinFlashList(flashNo){
 								<div class="text-muted fst-italic mb-2">게시일:${flash.flashRegdate}</div>
 								<!-- Post categories-->
 								<a class="badge bg-secondary text-decoration-none link-light"
-									href="#!">${flash.flashInterest}</a> <a
+									href="#!">${flash.flashInterest}</a>
+									<c:if test="${flash.flashState == 1 }"> <a
 									class="badge bg-secondary text-decoration-none link-light"
-									href="#!">${flash.flashState}</a> <a
+									href="#!">모집중</a>
+									</c:if>
+									<c:if test="${flash.flashCurrentCount != flash.flashMaxCount}">
+									<c:if test="${flash.flashState == 2 }"> <a
+									class="badge bg-secondary text-decoration-none link-light"
+									href="#!">모집완료</a>
+									</c:if>
+									</c:if>
+									<a
 									class="badge bg-secondary text-decoration-none link-light"
 									href="#!">참가인원:${flash.flashCurrentCount}</a> <a
 									class="badge bg-secondary text-decoration-none link-light"
@@ -175,11 +185,21 @@ function fncGetJoinFlashList(flashNo){
 								</div>
 							</div>
 						</section>
-
-						<button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#staticBackdrop">번개수정</button>
 						
-						<button type="button" class="btn btn-default"
+						
+						
+						<c:if test="${dbUser.userId == flash.flashConstructor.userId}">
+						<button type="button" class="btn btn-light" data-bs-toggle="modal"  data-bs-target="#staticBackdrop">번개수정</button>
+						</c:if>
+						
+						<c:if test="${flash.flashCurrentCount != flash.flashMaxCount}">
+						<c:if test="${dbUser.userId != flash.flashConstructor.userId}">
+						<c:if test="${dbUser.userId != null}">
+						<button type="button" class="btn btn-outline-primary" 
 							onClick="fncJoinFlash(${flash.flashNo})">번개참여하기</button>
+						</c:if>
+						</c:if>
+						</c:if>
 						<jsp:include page="../layout/searchbar.jsp"></jsp:include>
 
 
@@ -195,7 +215,7 @@ function fncGetJoinFlashList(flashNo){
 			<div class="modal-content">
 				<div class="modal-header">
 					<h2 class="modal-title" id="staticBackdropLabel">번개무피 수정하기</h2>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					<button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 
 				<div class="modal-body">
@@ -246,7 +266,7 @@ function fncGetJoinFlashList(flashNo){
 		      <input type="datetime-local" class="form-control" id="flashTime" name="flashTime" placeholder="만남시간" value="${flash.flashTime}">
 		    </div>
 		  </div>
-		  ㄴ
+		  
 		  <div class="form-group">
 		    <label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">관심사선택</label>
 		    <div class="col-sm-20">
