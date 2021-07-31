@@ -22,9 +22,7 @@ public class Reply {
 	private String replyContent;
 	// 리플 작성시간
 	private Date replyRegDate;
-	// 리플 첨부파일
-	private String replyFile;
-	// 리플 상태 1. 정상 2. 삭제
+	// 리플 상태 1. 정상 2. 삭제 3.신고로인한 삭제
 	private String replyState;
 	// type 1. 마이홈 2. 모임
 	private int type;

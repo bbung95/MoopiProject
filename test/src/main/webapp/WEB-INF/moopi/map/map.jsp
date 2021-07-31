@@ -296,8 +296,8 @@ function displayInfowindow(marker, title) {
 
 function selectPlace(lat, lng){
 	
-	alert(lat);
-	alert(lng);
+// 	alert(lat);
+// 	alert(lng);
 	$("#mtMapX", opener.document).val(lat);
 	$("#mtMapY", opener.document).val(lng);
 }

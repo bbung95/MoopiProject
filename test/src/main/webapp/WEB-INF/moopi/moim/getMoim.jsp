@@ -147,6 +147,11 @@
 		padding-top: 100px;
 		background-color:#f7f6f3;
 	}
+	
+	main{
+font-family: 'Nanum Gothic', sans-serif;
+font-size: 16px;
+}
 
 #moimThumbnail{
 	margin-top: 8px;
@@ -342,7 +347,7 @@
 <!-- ToolBar Start ///////////////////////////////////// -->
 <jsp:include page="../layout/toolbar.jsp" /> 
 
-
+<main>
 <!-- ToolBar End ///////////////////////////////////// -->
 
 <!-- SideBar Start-->	
@@ -444,8 +449,8 @@
 </div>
 
 </div> <!-- 컨테이너끝 -->
-
-	<jsp:include page="../layout/moimSidebar.jsp"></jsp:include>
+</main>
+<jsp:include page="../layout/moimSidebar.jsp"></jsp:include>
 <jsp:include page="../layout/searchbar.jsp"></jsp:include>	
 
 </body>
