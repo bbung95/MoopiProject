@@ -8,41 +8,30 @@
 <meta charset="UTF-8">
 <title>Hello! Moopi!</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<!-- Favicon -->
-<link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
-
-<!-- Bootstrap icons -->
-
+<! ------------------------------------------------ Bootstrap, jQuery CDN -------------------------------------------------->
+<!-- Favicon-->
+<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+<!-- Bootstrap icons-->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
 	rel="stylesheet" />
-<!-- Core theme CSS (includes Bootstrap) -->
+<!-- Core theme CSS (includes Bootstrap)-->
 <link href="/css/styles.css" rel="stylesheet" />
+<!-------------------------------------------------------------------------------------------------------------------------->
+
 
 <!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
-<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" > -->
-<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" > -->
-<!-- <link rel="stylesheet" href="/images/uploadFiles" >   -->
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-<script src="/javascript/owl.carousel.min.js"></script>
-
-<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>  -->
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 <link rel="stylesheet" href="/css/owl.carousel.min.css">
 <link rel="stylesheet" href="/css/owl.theme.default.min.css">
+<script src="/javascript/owl.carousel.min.js"></script>
 
-<!-- 구글 폰트 -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link
-	href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap"
-	rel="stylesheet">
-<link
-	href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap"
-	rel="stylesheet">
 <!-- Sweet Alert -->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<!-- AOS 스크롤 효과 -->
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
 
 <script>
@@ -255,66 +244,121 @@ $(document).ready(function(){
 
 </script>
 
-
 <style>
 body {
-	padding-top: 100px;
-	background-color: #f7f6f3;
+	padding-top: 50px;
+}
+</style>
+
+<!-- 리스트 아이템 -->
+<style>
+.userEL8990950 {
+	padding: 20px 0;
+	background-color: #ffffff;
 }
 
-main {
-	font-family: 'Nanum Gothic', sans-serif;
-	font-size: 16px;
+.userEL8990950 .table {
+	margin-bottom: 20px;
 }
 
-#columns {
-	column-width: 300px;
-	/* 	border:5px solid green; */
-	column-gap: 15px;
+.userEL8990950 .item {
+	padding: 0 3px 6px;
 }
 
-#columns figure {
-	display: inline-block;
-	border: 1px solid rgba(0, 0, 0, 0.2);
-	margin: 0;
-	margin-bottom: 15px;
-	padding: 10px;
-	box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+.userEL8990950 .item .border-wrap {
+	min-height: 100%;
 }
 
-#columns figure img {
+.userEL8990950 .op_itemline10 {
+	border: 1px solid #dddddd;
+}
+
+.userEL8990950 .item .thumb-wrap {
+	position: relative;
+	line-height: 1;
+}
+
+.userEL8990950 .item .thumb-wrap .tpl-forum-list-thumb img {
 	width: 100%;
+	height: 100%;
 }
 
-#columns figure figcaption {
-	border-top: 1px solid rgba(0, 0, 0, 0.2);
-	padding: 10px;
-	margin-top: 11px;
+.userEL8990950 .tpl-forum-list-title {
+	font-family: 'Lato', 'Nanum Gothic';
+	font-size: 20px;
+	line-height: 1.3;
+	font-weight: normal;
+	color: #303030;
 }
 
+.userEL8990950 .tpl-forum-list-etc {
+	color: #757575;
+	text-align: center;
+	line-height: 1.8;
+	vertical-align: top;
+	font-size: 12px;
+	font-family: 'Lato', 'Nanum Gothic';
+}
+
+.userEL8990950 .tpl-forum-list-cont {
+	font-family: 'Lato', 'Nanum Gothic';
+	color: #757575;
+	font-size: 13px;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	display: block;
+	display: -webkit-box;
+	line-height: 1.6;
+}
+
+.userEL8990950 .item .cont-wrap {
+	padding: 25px 15px 20px;
+	text-align: center;
+	line-height: 1.8;
+	vertical-align: top;
+}
+
+.userEL8990950 .item .cont-wrap ul {
+	margin: 5px auto;
+	display: inline-block;
+	font
+}
+
+.tpl-forum-list-name:not(:empty):not(.hidden) {
+	margin-top: 15px;
+}
+
+.item-ul {
+	margin: 5px auto;
+	display: inline-block;
+}
+
+.item-ul>li {
+	display: inline-block;
+	float: left;
+	line-height: 1.4;
+}
+
+.item-ul>li:not(:empty):not(.hidden) ~ li:empty+li:not(:empty):not(.hidden):before,
+	.item-ul>li:not(:empty):not(.hidden) ~ li.hidden+li:not(:empty):not(.hidden):before,
+	.item-ul>li:not(:empty):not(.hidden)+li:not(:empty):not(.hidden):before
+	{
+	content: '|';
+	margin: 0 10px;
+	position: relative;
+	display: inline-block;
+	float: left;
+}
+</style>
+
+<style>
 .userProfile {
 	margin: 10px;
 	width: 40px;
 	height: 40px;
 	border-radius: 50%;
-}
-
-.add {
-	cursor: pointer;
-}
-
-.content {
-	outline: 2px dashed #92b0b3;
-	outline-offset: -10px;
-	text-align: center;
-	transition: all .15s ease-in-out;
-	width: 300px;
-	height: 300px;
-	background-color: gray;
-}
-
-.content {
-	margin-bottom: 20px;
 }
 
 .picture {
@@ -324,32 +368,27 @@ main {
 	max-height: 200px;
 }
 
-@media ( min-width : 768px) {
-	.container {
-		width: 750px;
-	}
+.thumbnail-wrapper {
+	width: 100%;
+	border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-@media ( min-width : 992px) {
-	.container {
-		width: 1000px;
-	}
+.thumbnail {
+	position: relative;
+	padding-top: 100%;
+	overflow: hidden;
 }
 
-/*사실 이 블럭은 없어도 된다*/
-@media ( min-width : 1200px) {
-	.container {
-		width: 1000px;
-	}
+.thumbnail-centered {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
 }
 
-#mmContent {
-	font-family: Gowun Dodum ', sans-serif;
-}
-
-h3 {
-	font-size: 20px;
-	font-weight: bold;
+.carousel-item>img {
+	max-height: 500px;
 }
 </style>
 
@@ -358,294 +397,353 @@ h3 {
 	<!-- ToolBar Start /////////////////////////////////////-->
 	<jsp:include page="../layout/toolbar.jsp" />
 	<!-- ToolBar End /////////////////////////////////////-->
-	<main>
-		<div class="container">
-			<c:if test="${!empty dbUser}">
-				<h3>
-					<img class="userProfile"
-						src="/images/uploadFiles/${dbUser.profileImage}">
-					${dbUser.nickname}님이 가입하신 모임들입니다.
-				</h3>
-				<hr>
-			</c:if>
-
-
-			<div class="owl-carousel">
-				<c:forEach items="${list2}" var="moim">
-					<div>
-						<%--   <img  onClick="fncGetMoim(${moim.mmNo})" class="picture" src="/images/uploadFiles/${moim.mmFile}" width="200" height="200 "/> --%>
-						<img onClick="fncGetMoim(${moim.mmNo})" class="picture"
-							src="/images/uploadFiles/${moim.mmFile}" />
-
-					</div>
-				</c:forEach>
-			</div>
-
-			<hr>
-
-			<c:if test="${!empty dbUser}">
-				<h3>
-					<img class="userProfile"
-						src="/images/uploadFiles/${dbUser.profileImage}">
-					${dbUser.nickname}님의 관심사 ${dbUser.interestFirst},
-					${dbUser.interestSecond}, ${dbUser.interestThird}에 맞는 모임들입니다.
-					<!-- <span><img class="add" src="/images/plus.png" width="40" height="40"  onClick="javascript:fncAddMoimView()"/></span> -->
-					<span><img class="add" src="/images/plus2.png" width="40"
-						height="40" data-bs-target="#myModal" data-bs-toggle="modal" /></span>
-				</h3>
-			</c:if>
-
-
+	
+	<!-- 검색 조건 -->
 	<input type="hidden" id="addr" value="${search.addr }" />
-				<input type="hidden" id="interest" value="${search.interestNo }" />
-				<input type="hidden" id="searchCondition" value="${search.searchCondition}" />
+	<input type="hidden" id="interest" value="${search.interestNo }" />
+	<input type="hidden" id="searchCondition"
+		value="${search.searchCondition}" />
 
 
-			<c:if test="${empty dbUser}">
-검색하신 조건에 맞는 모임입니다.
-<hr>
+	<!-- 메인 헤더 -->
+	<div id="carouselExampleSlidesOnly"
+		class="carousel slide carousel-fade" data-bs-ride="carousel">
+		<div class="carousel-inner">
+			<div class="carousel-item active" data-bs-interval="4500">
+				<img src="https://dummyimage.com/1160x500/ced4da/6c757d"
+					class="d-block w-100" alt="...">
+				<div class="carousel-caption d-none d-md-block">
+					<h5>First slide label</h5>
+					<p>Some representative placeholder content for the first slide.</p>
+				</div>
+			</div>
+			<div class="carousel-item" data-bs-interval="4500">
+				<img src="https://dummyimage.com/1160x500/ced4da/6c757d"
+					class="d-block w-100" alt="...">
+				<div class="carousel-caption d-none d-md-block">
+					<h5>Second slide label</h5>
+					<p>Some representative placeholder content for the first slide.</p>
+				</div>
+			</div>
+			<div class="carousel-item" data-bs-interval="4500">
+				<img src="https://dummyimage.com/1160x500/ced4da/6c757d"
+					class="d-block w-100" alt="...">
+				<div class="carousel-caption d-none d-md-block">
+					<h5>Third slide label</h5>
+					<p>Some representative placeholder content for the first slide.</p>
+				</div>
+			</div>
+		</div>
+	</div>
 
-				
 
-			</c:if>
-			<!-- Modal 시작-->
-			<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
-				aria-labelledby="myModalLabel">
-				<div class="modal-dialog modal-lg" role="document">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h4 class="modal-title" id="myModalLabel">모임 무피 만들기!</h4>
-						</div>
-						<div class="modal-body">
-							<!-- 폼시작 -->
+	<!-- 정렬 -->
+	<div class="container d-flex">
+		<input type="hidden" class="interest" name="interestNo" value="0">
+		<input type="hidden" class="addr" name="addr" value=""> <input
+			type="hidden" class="order" name="type" value=""> <input
+			type="hidden" class="searchCondition" name="searchCondition" value="">
+		<div class="me-auto p-2 bd-highlight h4">모임리스트</div>
+		<div class="bd-highlight">
+			<div class="dropdown mt-3">
+				<button class="btn btn-light dropdown-toggle selectbtn"
+					type="button" data-bs-toggle="dropdown" id="interestbtn">
+					<span>Category</span>
+				</button>
+				<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton"
+					id="interest" style="height: 200px; overflow: auto;">
+					<c:forEach var="interest" items="${interest}">
+						<li><a class="dropdown-item" href="#"
+							type="${interest.interestNo}">${interest.interestName}</a></li>
+					</c:forEach>
+				</ul>
 
-							<!-- form Start /////////////////////////////////////-->
-							<form id="addMoim" class="form-horizontal" name="detailForm"
-								enctype="multipart/form-data">
-								<input type="hidden" id="userId" name="userId"
-									value="${dbUser.userId}">
-								<div class="form-group">
-									<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">모임무피명</label>
-									<div class="col-sm-20">
-										<input type="text" class="form-control" id="mmName"
-											name="mmName" placeholder="모임명">
-									</div>
-								</div>
+				<button class="btn btn-light dropdown-toggle selectbtn"
+					type="button" data-bs-toggle="dropdown" id="addrbtn">Addr</button>
+				<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton"
+					id="addr" style="height: 200px; overflow: auto;">
 
-								<br>
+				</ul>
+			</div>
+		</div>
+	</div>
 
-								<div class="form-group">
-									<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">대표썸네일</label>
-									<div class="col-sm-40">
-										<input type="file" class="form-control" id="uploadFile"
-											name="uploadFile" placeholder="대표썸네일">
-									</div>
-								</div>
 
-								<br>
+	<!-- 리스트 뷰 -->
+	<div class="userEL8990950 colorSet" data-forum-type="thumb"
+		data-fcolor="#191919">
+		<div class="container">
+			<div class="row multi-columns-row">
+				<div class="row">
+					<div class="col-xs-3 col-sm-3 col-md-3">
+						<h3>관심사</h3>
+						<c:forEach var="interest" items="${interest}">
+							<div class="interestNo" type="${interest.interestNo}">${interest.interestName}</div>
 
-								<%-- 							<center> --%>
-								<!-- 								<p>drag and drop your image!</p> -->
-								<!-- 								<div class="content"></div> -->
-								<%-- 							</center> --%>
+						</c:forEach>
+					</div>
+					<div class="col-xs-9 col-sm-9 col-md-9">
 
-								<br>
+						<hr style="margin-bottom: 10px;" />
 
-								<div class="form-group">
-									<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">간단소개글</label>
-									<div class="col-sm-40">
-										<textarea style="resize: none" class="form-control"
-											id="mmContent" name="mmContent" placeholder="50자이내"></textarea>
-									</div>
-								</div>
+						<c:if test="${!empty dbUser}">
+							<div class="row">
 
-								<br>
+								<!-- 내 가입 목록 -->
+								<div class="owl-carousel">
+									<c:forEach items="${list2}" var="moim">
+										<div>
+											<%--   <img  onClick="fncGetMoim(${moim.mmNo})" class="picture" src="/images/uploadFiles/${moim.mmFile}" width="200" height="200 "/> --%>
+											<img onClick="fncGetMoim(${moim.mmNo})" class="picture"
+												src="/images/uploadFiles/${moim.mmFile}" />
 
-								<div class="form-group">
-									<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">지역구</label>
-									<div class="col-sm-40">
-										<select class="form-control" id="mmAddr" name="mmAddr">
-											<option>종로구</option>
-											<option>중구</option>
-											<option>용산구</option>
-											<option>성동구</option>
-											<option>광진구</option>
-											<option>동대문구</option>
-											<option>중랑구</option>
-											<option>성북구</option>
-											<option>강북구</option>
-											<option>도봉구</option>
-											<option>노원구</option>
-											<option>은평구</option>
-											<option>서대문구</option>
-											<option>마포구</option>
-											<option>양천구</option>
-											<option>강서구</option>
-											<option>구로구</option>
-											<option>금천구</option>
-											<option>영등포구</option>
-											<option>동작구</option>
-											<option>관악구</option>
-											<option>서초구</option>
-											<option>강남구</option>
-											<option>송파구</option>
-											<option>강동구</option>
-										</select>
-									</div>
-								</div>
-
-								<br>
-
-								<div class="form-group">
-									<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">인원</label>
-									<div class="col-sm-40">
-										<input type="text" class="form-control" id="mmMaxCount"
-											name="mmMaxCount" placeholder="가입가능정원">
-									</div>
-								</div>
-
-								<br>
-
-								<div class="form-group">
-									<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">관심사선택</label>
-									<div class="col-sm-40">
-										<select class="form-control" id="mmInterest" name="mmInterest">
-											<option value="1">아웃도어/여행/사진/영상</option>
-											<option value="2">운동/스포츠</option>
-											<option value="3">인문학/책/글</option>
-											<option value="4">업종/직무</option>
-											<option value="5">외국/언어</option>
-											<option value="6">문화/공연/축제/음악/악기</option>
-											<option value="7">공예/만들기</option>
-											<option value="8">댄스/무용</option>
-											<option value="9">사교/인맥</option>
-											<option value="10">차/오토바이</option>
-											<option value="11">게임/오락</option>
-											<option value="12">맛집/카</option>
-										</select>
-									</div>
-								</div>
-
-								<br>
-
-								<div class="form-group">
-									<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">최소연령</label>
-									<div class="col-sm-40">
-										<input type="text" class="form-control" id="mmMinAge"
-											name="mmMinAge" placeholder="최소연령">
-									</div>
-								</div>
-
-								<br>
-
-								<div class="form-group">
-									<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">최대연령</label>
-									<div class="col-sm-40">
-										<input type="text" class="form-control" id="mmMaxAge"
-											name="mmMaxAge" placeholder="최대연령">
-									</div>
-								</div>
-
-								<br>
-
-								<div class="form-group">
-									<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">상태</label>
-									<div class="col-sm-40">
-										<div class="radio">
-											<label> <input type="radio" name="mmState"
-												id="mmState1" value="1" checked> 공개
-											</label>
 										</div>
-										<div class="radio">
-											<label> <input type="radio" name="mmState"
-												id="mmState2" value="2"> 비공개
-											</label>
-										</div>
-									</div>
+									</c:forEach>
 								</div>
 
-								<br>
 
-								<div class="form-group">
-									<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">유형</label>
-									<div class="col-sm-4">
-										<div class="radio">
-											<label> <input type="radio" name="mmType"
-												id="mmType1" value="1" checked> 일반 모임무피
-											</label>
-										</div>
-										<div class="radio">
-											<label> <input type="radio" name="mmType" id="mmType"
-												value="2"> 자유 모임무피
-											</label>
-										</div>
-									</div>
-								</div>
+							</div>
+							<hr style="margin: 10px 0px 10px 0px;" />
+						</c:if>
 
-								<!-- 		  <div class="form-group"> -->
-								<!-- 		    <div class="col-sm-offset-4  col-sm-4 text-center"> -->
-								<!-- 		      <button type="button" class="btn btn-primary" onClick="fncAddMoim()" >등록</button> -->
-								<!-- 			   <a class="btn btn-default btn" role="button"  onclick="history.back()">취소</a> -->
-								<!-- 		    </div> -->
-								<!-- 		  </div> -->
-							</form>
-
-							<!-- 폼끝 -->
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-primary"
-								onClick="fncAddMoim()">Create</button>
-						</div>
+						<div class="row" id="moimListView"></div>
 					</div>
 				</div>
 			</div>
-
-			<!-- 모달끝 -->
-
-
-			<c:if test="${!empty dbUser}">
-
-			</c:if>
-			<div id="columns">
-				<c:forEach items="${list}" var="moim" end="8">
-					<figure>
-						<span id="mmName" onClick="fncGetMoim(${moim.mmNo})"><strong><left>${moim.mmName}</left></strong></span>
-						<img id="mmFile" src="/images/uploadFiles/${moim.mmFile}">
-						<figcaption id="mmContent">${moim.mmContent}</figcaption>
-					</figure>
-				</c:forEach>
-			</div>
-
 		</div>
-		<!-- 컨테이너끝 -->
-	</main>
-	<%-- <jsp:include page="../layout/moimSidebar.jsp"></jsp:include> --%>
-	<jsp:include page="../layout/searchbar.jsp"></jsp:include>
+	</div>
 
-<script>
+
+
+	<!-- Modal 시작-->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title" id="myModalLabel">모임 무피 만들기!</h4>
+				</div>
+				<div class="modal-body">
+					<!-- 폼시작 -->
+
+					<!-- form Start /////////////////////////////////////-->
+					<form id="addMoim" class="form-horizontal" name="detailForm"
+						enctype="multipart/form-data">
+						<input type="hidden" id="userId" name="userId"
+							value="${dbUser.userId}">
+						<div class="form-group">
+							<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">모임무피명</label>
+							<div class="col-sm-20">
+								<input type="text" class="form-control" id="mmName"
+									name="mmName" placeholder="모임명">
+							</div>
+						</div>
+
+						<br>
+
+						<div class="form-group">
+							<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">대표썸네일</label>
+							<div class="col-sm-40">
+								<input type="file" class="form-control" id="uploadFile"
+									name="uploadFile" placeholder="대표썸네일">
+							</div>
+						</div>
+
+						<br>
+
+						<%-- 							<center> --%>
+						<!-- 								<p>drag and drop your image!</p> -->
+						<!-- 								<div class="content"></div> -->
+						<%-- 							</center> --%>
+
+						<br>
+
+						<div class="form-group">
+							<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">간단소개글</label>
+							<div class="col-sm-40">
+								<textarea style="resize: none" class="form-control"
+									id="mmContent" name="mmContent" placeholder="50자이내"></textarea>
+							</div>
+						</div>
+
+						<br>
+
+						<div class="form-group">
+							<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">지역구</label>
+							<div class="col-sm-40">
+								<select class="form-control" id="mmAddr" name="mmAddr">
+									<option>종로구</option>
+									<option>중구</option>
+									<option>용산구</option>
+									<option>성동구</option>
+									<option>광진구</option>
+									<option>동대문구</option>
+									<option>중랑구</option>
+									<option>성북구</option>
+									<option>강북구</option>
+									<option>도봉구</option>
+									<option>노원구</option>
+									<option>은평구</option>
+									<option>서대문구</option>
+									<option>마포구</option>
+									<option>양천구</option>
+									<option>강서구</option>
+									<option>구로구</option>
+									<option>금천구</option>
+									<option>영등포구</option>
+									<option>동작구</option>
+									<option>관악구</option>
+									<option>서초구</option>
+									<option>강남구</option>
+									<option>송파구</option>
+									<option>강동구</option>
+								</select>
+							</div>
+						</div>
+
+						<br>
+
+						<div class="form-group">
+							<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">인원</label>
+							<div class="col-sm-40">
+								<input type="text" class="form-control" id="mmMaxCount"
+									name="mmMaxCount" placeholder="가입가능정원">
+							</div>
+						</div>
+
+						<br>
+
+						<div class="form-group">
+							<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">관심사선택</label>
+							<div class="col-sm-40">
+								<select class="form-control" id="mmInterest" name="mmInterest">
+									<option value="1">아웃도어/여행/사진/영상</option>
+									<option value="2">운동/스포츠</option>
+									<option value="3">인문학/책/글</option>
+									<option value="4">업종/직무</option>
+									<option value="5">외국/언어</option>
+									<option value="6">문화/공연/축제/음악/악기</option>
+									<option value="7">공예/만들기</option>
+									<option value="8">댄스/무용</option>
+									<option value="9">사교/인맥</option>
+									<option value="10">차/오토바이</option>
+									<option value="11">게임/오락</option>
+									<option value="12">맛집/카</option>
+								</select>
+							</div>
+						</div>
+
+						<br>
+
+						<div class="form-group">
+							<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">최소연령</label>
+							<div class="col-sm-40">
+								<input type="text" class="form-control" id="mmMinAge"
+									name="mmMinAge" placeholder="최소연령">
+							</div>
+						</div>
+
+						<br>
+
+						<div class="form-group">
+							<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">최대연령</label>
+							<div class="col-sm-40">
+								<input type="text" class="form-control" id="mmMaxAge"
+									name="mmMaxAge" placeholder="최대연령">
+							</div>
+						</div>
+
+						<br>
+
+						<div class="form-group">
+							<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">상태</label>
+							<div class="col-sm-40">
+								<div class="radio">
+									<label> <input type="radio" name="mmState"
+										id="mmState1" value="1" checked> 공개
+									</label>
+								</div>
+								<div class="radio">
+									<label> <input type="radio" name="mmState"
+										id="mmState2" value="2"> 비공개
+									</label>
+								</div>
+							</div>
+						</div>
+
+						<br>
+
+						<div class="form-group">
+							<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">유형</label>
+							<div class="col-sm-4">
+								<div class="radio">
+									<label> <input type="radio" name="mmType" id="mmType1"
+										value="1" checked> 일반 모임무피
+									</label>
+								</div>
+								<div class="radio">
+									<label> <input type="radio" name="mmType" id="mmType"
+										value="2"> 자유 모임무피
+									</label>
+								</div>
+							</div>
+						</div>
+
+						<!-- 		  <div class="form-group"> -->
+						<!-- 		    <div class="col-sm-offset-4  col-sm-4 text-center"> -->
+						<!-- 		      <button type="button" class="btn btn-primary" onClick="fncAddMoim()" >등록</button> -->
+						<!-- 			   <a class="btn btn-default btn" role="button"  onclick="history.back()">취소</a> -->
+						<!-- 		    </div> -->
+						<!-- 		  </div> -->
+					</form>
+
+					<!-- 폼끝 -->
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary"
+						onClick="fncAddMoim()">Create</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- 모달끝 -->
+
+	<button type="button" class="btn btn-light" data-bs-toggle="modal"
+			data-bs-target="#myModal">ㅇㅇ</button>
+
+
+	<jsp:include page="../layout/searchbar.jsp"></jsp:include>
+	<jsp:include page="../layout/footer.jsp"/>
+	
+
+	<!-- Bootstrap core JS-->
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+	<!-- Core theme JS-->
+	<script src="/js/scripts.js"></script>
+
+
+	<script>
 
 var currentPage = 1;
 
-<c:if test="${!empty dbUser}">
 $(document).scroll(function() {
   var maxHeight = $(document).height();
   var currentScroll = $(window).scrollTop() + $(window).height();
   	
   if (maxHeight <= currentScroll + 100) {
   	
-  	scroll()
+	  getMoimFlash()
   	 
   }//if문 종료
 })
-</c:if> 
 
-
-
-	function scroll(){
+	function getMoimList(){
 	
-// 		var addr = $('#addr').val();
-// 		var interest = $('#interest').val();
-// 		var searchCondition = $('#searchCondition').val();
+		let addr = $('#addr').val();
+ 		let interest = $('#interest').val();
+ 		let searchCondition = $('#searchCondition').val();
 	
 		$.ajax({
 	        url: "/moim/json/listMoim",
@@ -657,9 +755,9 @@ $(document).scroll(function() {
 			},
 			data: JSON.stringify({
 				"currentPage" : currentPage,
-				"searchCondition": ${search.searchCondition},
-				"addr" : "${search.addr}",
-				"interestNo" : ${search.interestNo}
+				"searchCondition": searchCondition,
+				"addr" : addr,
+				"interestNo" : interest
 			}),
 	        success: function (JSONData, status) {
 	        	console.log(status);
@@ -668,16 +766,70 @@ $(document).scroll(function() {
 		 	
 // 			 	alert(index);
 			 	console.log(currentPage);
-			 	var display = '';
+			 	var displayValue = '';
 			 	for(var i = 0; i < index; i++){
 		 		
-			 		display = "<figure>"
+	/* 		 		display = "<figure>"
 							+'<span onClick=\"fncGetMoim( '+JSONData.list[i].mmNo +')\"><strong><left>'+JSONData.list[i].mmName+'</left></strong></span>'
 							+'<img src=\"/images/uploadFiles/'+JSONData.list[i].mmFile+ '\" >'
 							+'<figcaption>'+JSONData.list[i].mmContent+'</figcaption>'
-							+'</figure>'
-		 	
-							$("#columns").append(display);
+							+'</figure>' */
+		 			
+							
+				displayValue = '<div data-aos="zoom-in-right" class="col-xs-4 col-sm-4 col-md-4 no-padding item" id="getFlash" onClick="fncGetMoim( '
+								+ JSONData.list[i].mmNo
+								+ ')" >'
+								+ '<div class="border-wrap op_itemline10" >'
+								+ '<div class="thumb-wrap">'
+								+ '<div class="tpl-forum-list-thumb">'
+								+ '<div class="thumbnail-wrapper">'
+								+ '<div class="thumbnail">'
+								+ '<div class="thumbnail-centered ">'
+								+ '<img src="/images/uploadFiles/'+JSONData.list[i].mmFile+'" class="thumbnail-img">'
+								+ '</div>'
+								+ '</div>'
+								+ '</div>'
+								+ '</div>'
+								+ '</div>'
+								+ '<div class="cont-wrap">'
+								+ '<div class="tpl-forum-list-content"'
+								+ '<span class="tpl-forum-list-title"'
+								+'data-selector=".tpl-forum-list-title" data-font="true"'
+								+'data-title="title font">'
+								+ JSONData.list[i].mmName
+								+ '</span>'
+								+ '</div>'
+								+ '<div'
+								+'class="tpl-forum-list-name tpl-forum-list-etc config-font-etc"'
+								+'data-selector=".tpl-forum-list-etc" data-font="true"'
+								+'data-title="others">'
+								//+ '<img src="/images/uploadFiles/'
+								//+ list[i].flashConstructor.profileImage
+								//+ '" style="width: 40px; height:40px; border-radius: 50%;" />'
+								//+ list[i].flashConstructor.nickname
+								+ '</div>'
+								+ '<ul class="d-flex item-ul" style="list-style: none;">'
+								+ '<li class="tpl-forum-list-category tpl-forum-list-etc config-font-etc">'
+								//+ list[i].flashTime
+								+ '</li>'
+								+ '<li class="tpl-forum-list-date tpl-forum-list-etc config-font-etc">'
+								//+ list[i].flashAddr
+								+ '</li>'
+								+ '<li class="tpl-forum-list-hit tpl-forum-list-etc config-font-etc">'
+								//+ list[i].flashCurrentCount
+								+ '</li>'
+								+ '<li class="tpl-forum-list-comment tpl-forum-list-etc config-font-etc">'
+								//+ list[i].flashMaxCount
+								+ '</li>'
+								+ '</ul>'
+								+ '<div class="tpl-forum-list-cont"'
+								+'data-selector=".tpl-forum-list-cont" data-font="true"'
+								+'data-title="content font"></div>'
+								+ '</div>' + '</div>' + '</div>'		
+					
+						console.log(displayValue);	
+							
+							$("#moimListView").append(displayValue); 
 				}
 		 	
 			 	currentPage++;
@@ -686,7 +838,24 @@ $(document).scroll(function() {
 			   	      
 					
 	}
-scroll();
+	
+	
+$('.interestNo').on('click', function(){
+	
+	let type = $(this).attr('type');
+	alert(type);
+	$('#interest').val(type);
+	$('#moimListView').children().remove();
+	getMoimList();
+})
+	
+	
+	
+	
+// 시작함수 init
+getMoimList();
+
+AOS.init();
 </script>
 
 

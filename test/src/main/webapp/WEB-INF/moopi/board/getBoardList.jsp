@@ -13,11 +13,6 @@
 		<script src="/javascript/summernote-lite.js"></script>
 		<script src="/javascript/lang/summernote-ko-KR.js"></script>
 		<link rel="stylesheet" href="/css/summernote-lite.css">
-	 	<link rel="preconnect" href="https://fonts.googleapis.com">
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link
-			href="https://fonts.googleapis.com/css2?family=Gaegu:wght@300&display=swap"
-			rel="stylesheet">	
 	
 <script type="text/javascript">
 
@@ -411,9 +406,12 @@ img, svg {
 }
 
 body {
-	padding-top: 100px;
+	padding-top: 50px;
 	margin: auto;
-	font-family: 'Gaegu', cursive;
+}
+
+.carousel-item>img {
+	max-height: 500px;
 }
 </style>
 </head>
@@ -421,6 +419,40 @@ body {
 <!-- ToolBar Start /////////////////////////////////////-->
 <jsp:include page="../layout/toolbar.jsp"></jsp:include>
 <!-- ToolBar End /////////////////////////////////////-->
+
+<!-- 메인 헤더 -->
+	<div id="carouselExampleSlidesOnly"
+		class="carousel slide carousel-fade" data-bs-ride="carousel">
+		<div class="carousel-inner">
+			<div class="carousel-item active" data-bs-interval="4500">
+				<img src="https://dummyimage.com/1160x500/ced4da/6c757d"
+					class="d-block w-100" alt="...">
+				<div class="carousel-caption d-none d-md-block">
+					<h5>First slide label</h5>
+					<p>Some representative placeholder content for the first slide.</p>
+				</div>
+			</div>
+			<div class="carousel-item" data-bs-interval="4500">
+				<img src="https://dummyimage.com/1160x500/ced4da/6c757d"
+					class="d-block w-100" alt="...">
+				<div class="carousel-caption d-none d-md-block">
+					<h5>Second slide label</h5>
+					<p>Some representative placeholder content for the first slide.</p>
+				</div>
+			</div>
+			<div class="carousel-item" data-bs-interval="4500">
+				<img src="https://dummyimage.com/1160x500/ced4da/6c757d"
+					class="d-block w-100" alt="...">
+				<div class="carousel-caption d-none d-md-block">
+					<h5>Third slide label</h5>
+					<p>Some representative placeholder content for the first slide.</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
 
 <div class="userEL8991295 colorSet" data-forum-type="thumb" data-fcolor="#191919" >
     <div class="container">

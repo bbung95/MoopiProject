@@ -319,24 +319,6 @@ body {
 	transform: translate(-50%, -50%);
 }
 
-@media ( min-width : 768px) {
-	.container {
-		width: 750px;
-	}
-}
-
-@media ( min-width : 992px) {
-	.container {
-		width: 1000px;
-	}
-}
-
-/*사실 이 블럭은 없어도 된다*/
-@media ( min-width : 1200px) {
-	.container {
-		width: 1000px;
-	}
-}
 
 pre {
 	white-space: normal;
@@ -535,7 +517,6 @@ figcaption > i{
 				data-fcolor="#191919">
 				<!-- 게시글 생성박스 -->
 				<div id="boardView" class="row multi-columns-row"></div>
-				<div id="loadbar"></div>
 			</div>
 		</div>
 	</main>
@@ -748,8 +729,8 @@ function upload(formData){
 	      								 +'<i class="bi bi-chat-left"></i><span> '+data.replyCount+'</span></em></h3>'
 	    								 + '</figcaption>'
 										+'<div class="thumbnail-centered ">'
-										+'<img class="thumbnail-img" src="/images/uploadFiles/'+fileArry[0]+'" class="img-responsive" >'
-										+'</div>'
+										+'<img class="thumbnail-img img-responsive" src="/images/uploadFiles/'+fileArry[0]+'" \ >'
+										+'</div>' 
 										+'</div>'
 										+'</div>'
 										+'</div>'
