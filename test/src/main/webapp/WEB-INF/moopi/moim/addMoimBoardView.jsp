@@ -65,7 +65,7 @@ function fncAddBoard(){
 	var boardName		=$("input[name='boardName']").val();	
 	var boardContent	=$("input[name='boardContent']").val();
 	
-	$("form.form-horizontal").attr("method" , "POST").attr("action" , "/moim/addBoard").submit();
+	$("form.form-horizontal2").attr("method" , "POST").attr("action" , "/moim/addBoard").submit();
 	
 }
 
@@ -74,16 +74,20 @@ function fncAddBoard(){
   <style>
 body {
 	padding-top: 100px;
-	font-family: 'Nanum Gothic', sans-serif;
-	font-size: 16px;
+
 	background-color:#f7f6f3;
+}
+
+main{
+font-family: 'Nanum Gothic', sans-serif;
+font-size: 16px;
 }
 </style>
 
 </head>
 <body> 
      <jsp:include page="../layout/toolbar.jsp" />
-    
+    <main>
     <script>  
      $(document).ready(function() {
     	 $('#summernote').summernote({
@@ -148,7 +152,7 @@ body {
 		   
 	 <!--  뉴폼 -->
 	 <!-- form Start /////////////////////////////////////-->
-		<form class="form-horizontal" name="detailForm" enctype="multipart/form-data">
+		<form class="form-horizontal2" name="detailForm" enctype="multipart/form-data">
 		  <input type="hidden" id="boardWriter.userId" name="boardWriter.userId" value="${dbUser.userId }">
 		  <input type="hidden" id="boardCategory" name="boardCategory" value="4">
 		  <input type="hidden" id="boardMoimNo" name="boardMoimNo" value="${boardMoimNo }">
@@ -175,6 +179,8 @@ body {
 		</form>
 	</div> 
 <jsp:include page="../layout/moimSidebar.jsp"></jsp:include>				
+
+</main>
 <jsp:include page="../layout/searchbar.jsp"></jsp:include>
 </body>
 </html>
