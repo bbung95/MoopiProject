@@ -164,7 +164,7 @@
 																<input type="text" class="stateReason"></input>	
 															</td>
 													  	<td class="border px-4 py-2 process${report.reportNo }" align="left">
-													  	<button type="button" class="btn btn-primary">처리하기</button>
+													  	<button type="button" class="btn btn-primary">처리<br>하기</button>
 													  	</td>
 												  </c:if>
 													
@@ -266,7 +266,8 @@
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 			$( "td.get_board" ).on("click" , function() {
 // 				alert($(this).parent().parent().find(".boardNo").html())
-				var boardNo = $(this).parent().parent().find(".boardNo").html();
+// 				alert($(this).parent().html())
+				var boardNo = $(this).parent().find(".boardNo").html();
 				window.location.href ="/report/getReportBoard?boardNo="+boardNo;
 			});
 		});	
@@ -275,7 +276,7 @@
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 			$( "td.get_moim" ).on("click" , function() {
 // 				alert($(this).parent().parent().find(".boardNo").html())
-				var mmNo = $(this).parent().parent().find(".mmNo").html();
+				var mmNo = $(this).parent().find(".mmNo").html();
 				window.location.href ="/moim/getMoim?mmNo="+mmNo;
 			});
 		});	
@@ -284,7 +285,7 @@
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 			$( "td.get_myboard" ).on("click" , function() {
 // 				alert($(this).parent().parent().find(".boardNo").html())
-				var userId = $(this).parent().parent().find(".rp_userId").html();
+				var userId = $(this).parent().find(".rp_userId").html();
 				window.location.href ="/user/getMyHome?userId="+userId;
 			});
 		});	
