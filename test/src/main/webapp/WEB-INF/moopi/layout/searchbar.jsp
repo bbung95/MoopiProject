@@ -106,13 +106,13 @@
 					}else{
 						for(var i in data.list){
 							 display += '<div><span style="background: white; margin: 5px; height: 80px; border-radius: 10px;" onclick="location=\'/user/getMyHome?userId='+data.list[i].userId+'\'">'
-									+'<img style="margin: 5px; width:70px; height: 60px; border-radius: 50%;" src="/images/uploadFiles/poco.jpg"></img>'
+									+'<img style="margin: 5px; width:70px; height: 60px; border-radius: 50%;" src="/images/uploadFiles/'+data.list[i].profileImage+'"></img>'
 									+'<span>'+data.list[i].nickname+'</span></span>'
 									if(dbUser == '' || dbUser == data.list[i].userId){
 										display += '</div>';
 									}else{
-										display += '<button target="'+data.list[i].userId+'" type="1">채팅</button>'
-												+'<button target="'+data.list[i].userId+'">팔로우</button></div>';
+										display += '<button class="btn btn-secondary" target="'+data.list[i].userId+'" type="1">채팅</button>'
+												+'<button class="btn btn-primary" target="'+data.list[i].userId+'">팔로우</button></div>';
 									} 
 						}
 						$('.searchOut').append(display);
@@ -132,21 +132,21 @@
 									console.log(JSON.stringify(data));
 									let url;
 									if(data.type == 1){
-										url = "http://localhost:82/chat?userId="+data.user.userId+"&trgt="+data.target.userId+"&type="+data.type
+										/* url = "http://localhost:82/chat?userId="+data.user.userId+"&trgt="+data.target.userId+"&type="+data.type
 												+"&name="+data.user.nickname+"&profile="+data.user.profileImage+"&trgtName="+data.target.nickname
-												+"&trgtProfile="+data.target.profileImage; 
+												+"&trgtProfile="+data.target.profileImage;  */
 										
-										/* url = "https://bbung95-rtc.herokuapp.com/chat?userId="+data.user.userId+"&trgt="+data.target.userId+"&type="+data.type
+										 url = "https://bbung95-rtc.herokuapp.com/chat?userId="+data.user.userId+"&trgt="+data.target.userId+"&type="+data.type
 										+"&name="+data.user.nickname+"&profile="+data.user.profileImage+"&trgtName="+data.target.nickname
-										+"&trgtProfile="+data.target.profileImage;*/
+										+"&trgtProfile="+data.target.profileImage;
 									}else{
-										 url = "http://localhost:82/chat?userId="+data.user.userId+"&trgt="+data.target.mmNo+"&type="+data.type
+										/*  url = "http://localhost:82/chat?userId="+data.user.userId+"&trgt="+data.target.mmNo+"&type="+data.type
 										+"&name="+data.user.nickname+"&profile="+data.user.profileImage+"&trgtName="+data.target.mmName
-										+"&trgtProfile="+data.target.mmFile+"&roomNo="+data.target.mmNo; 
+										+"&trgtProfile="+data.target.mmFile+"&roomNo="+data.target.mmNo;  */
 										
-										/*url = "https://bbung95-rtc.herokuapp.com/chat?userId="+data.user.userId+"&trgt="+data.target.mmNo+"&type="+data.type
+										url = "https://bbung95-rtc.herokuapp.com/chat?userId="+data.user.userId+"&trgt="+data.target.mmNo+"&type="+data.type
 										+"&name="+data.user.nickname+"&profile="+data.user.profileImage+"&trgtName="+data.target.mmName
-										+"&trgtProfile="+data.target.mmFile+"&roomNo="+data.target.mmNo;*/
+										+"&trgtProfile="+data.target.mmFile+"&roomNo="+data.target.mmNo;
 									}
 								popWin = window.open(
 									url,
@@ -170,7 +170,7 @@
 							dataType: "JSON",
 							success: function(data,state){
 								if(data){
-									button.css('background', 'gray');
+									button.attr('background', 'gray');
 								}else{
 									button.css('background', '');
 								}

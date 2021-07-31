@@ -94,7 +94,7 @@
 						return;
 					} else if(data.userRole == 4) {
 						popWin = window.open(
-								"/user/getBlackUser?userId="+data.userId+"&profileImage="+data.profileImage+"&nickname="+data.nickname,
+								"/user/getBlackUser?userId="+data.userId+"&profileImage="+data.profileImage+"&nickname="+data.nickname+"&stateReason="+data.stateReason,
 								"popWin",
 								"left=460, top=300, width=600, height=465, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");
 					} else {

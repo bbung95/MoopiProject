@@ -18,6 +18,7 @@
 		<result property="noticeUser.profileImage"	column="profile_image"		jdbcType="VARCHAR"/>  
 		<result property="board.boardNo"		column="NOTICE_BOARD_NO"	jdbcType="NUMERIC"/>
 		<result property="board.boardCategory"  column="bd_category"		jdbcType="CHAR"/>
+		<result property="board.boardFile"  	column="bd_file"		jdbcType="VARCHAR"/>
 		<result property="flash.flashName"		column="flash_name"			jdbcType="VARCHAR"/>
 		<result property="flash.flashNo"		column="NOTICE_FLASH_NO"	jdbcType="NUMERIC"/>
 		<result property="flash.flashFile"      column="flash_file"			jdbcType="VARCHAR"/>
@@ -55,7 +56,7 @@
 				inner_table.*  ,@ROWNUM := @ROWNUM +1 AS RNUM
 				FROM (SELECT
 						n.* , u.user_id , u.nickname , u.profile_image ,
-						 b.bd_category , b.bd_mm_no , f.flash_name , f.flash_file , m.MM_NAME , m.mm_image
+						 b.bd_category , b.bd_mm_no ,b.bd_file , f.flash_name , f.flash_file , m.MM_NAME , m.mm_image
 						FROM notice n LEFT OUTER JOIN users u
 							ON n.notice_user_id = u.user_id
     						LEFT OUTER JOIN board b
@@ -65,7 +66,7 @@
    							LEFT OUTER JOIN flash f
     						 ON n.notice_flash_no = f.flash_no
 						WHERE n.to_user_id in (#{userId})
-						ORDER BY n.notice_regdate DESC) inner_table , (SELECT @ROWNUM := 0) R) tables
+						ORDER BY n.notice_no DESC) inner_table , (SELECT @ROWNUM := 0) R) tables
 <!-- 		WHERE RNUM BETWEEN #{search.startRowNum} AND #{search.endRowNum} -->	
 	</select>
 	
