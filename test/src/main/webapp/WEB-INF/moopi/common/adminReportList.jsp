@@ -71,31 +71,37 @@
 									<table class="table-responsive w-full rounded">
 										<thead align="center">
 											<tr>
-												<th class="border px-4 py-2" width="4%">No</th>
-												<th class="border px-4 py-2" width="8%">신고된 타겟</th>
+												<th class="border px-4 py-2" width="3%">No</th>
+												
 												
 												<c:if test="${search.searchCategory == 1}">
+												<th class="border px-4 py-2" width="7%">신고된<br>글번호</th>
 												<th class="border px-4 py-2" width="10%">글제목</th>
 												<th class="border px-4 py-2" width="10%">아이디</th>
 												</c:if>
 												<c:if test="${search.searchCategory == 2}">
+												<th class="border px-4 py-2" width="6%">신고된<br>리플번호</th>
 												<th class="border px-4 py-2" width="10%">리플내용</th>
 												<th class="border px-4 py-2" width="10%">아이디</th>
 												</c:if> 
+												<c:if test="${search.searchCategory == 3}">
+												<th class="border px-4 py-2" width="7%">신고된<br>유저아이디</th>
+												</c:if> 
 												<c:if test="${search.searchCategory == 4}">
+												<th class="border px-4 py-2" width="7%">신고된<br>모임번호</th>
 												<th class="border px-4 py-2" width="10%">모임명</th>
 												<th class="border px-4 py-2" width="5%">모임장아이디</th>
 												</c:if>
 												
-												<th class="border px-4 py-2" width="10%">닉네임</th>
-												<th class="border px-4 py-2" width="10%">이름</th>
-												<th class="border px-4 py-2" width="8%">신고 유형</th>
-												<th class="border px-4 py-2" width="20%">신고 내용</th>
-												<th class="border px-4 py-2" width="7%">신고접수일</th>
-												<th class="border px-4 py-2" width="7%">신고처리일</th>
-												<th class="border px-4 py-2" width="5%">처리 결과</th>
-												<th class="border px-4 py-2" width="5%">처리 사유</th>
-												<th class="border px-4 py-2" width="5%"></th>
+												<th class="border px-4 py-2" width="7%">닉네임</th>
+												<th class="border px-4 py-2" width="7%">이름</th>
+												<th class="border px-4 py-2" width="7%">신고 유형</th>
+												<th class="border px-4 py-2" width="15%">신고 내용</th>
+												<th class="border px-4 py-2" width="7%">신고<br>접수일</th>
+												<th class="border px-4 py-2" width="7%">신고<br>처리일</th>
+												<th class="border px-4 py-2" width="5%">처리<br>결과</th>
+												<th class="border px-4 py-2" width="10%">처리<br>사유</th>
+												<th class="border px-4 py-2" width="10%">처리<br>상황</th>
 												
 											</tr>   
 										</thead>
@@ -120,13 +126,13 @@
 														<td style="display: none;" class="boardNo" value="${ report.reportTargetRe.boardNo}">${ report.reportTargetRe.boardNo}</td>
 													</c:if> 
 													<c:if test="${search.searchCategory == 3}">
-														<td class="border px-4 py-2 rp_userId">${report.reportTarget.userId}</td>
+														<td class="border px-4 py-2 rp_userId get_myboard">${report.reportTarget.userId}</td>
 														<td class="border px-4 py-2">${report.reportTarget.nickname}</td>
 														<td class="border px-4 py-2">${report.reportTarget.userName}</td>
 														
 													</c:if>
 													<c:if test="${search.searchCategory == 4}">
-														<td class="border px-4 py-2 mmNo">${report.reportTargetMm.mmNo}</td>
+														<td class="border px-4 py-2 mmNo get_moim">${report.reportTargetMm.mmNo}</td>
 														<td class="border px-4 py-2">${report.reportTargetMm.mmName}</td>
 														<td class="border px-4 py-2 moimuserid">${report.reportTargetMm.mmConstructor.userId}</td>
 														<td class="border px-4 py-2">${report.reportTargetMm.mmConstructor.nickname}</td>
@@ -141,7 +147,7 @@
 													<td class="border px-4 py-2 ">${report.reportResultUpdate}</td>
 													<td class="border px-4 py-2">${report.reportResultState}</td>
 													<td class="border px-4 py-2">${report.stateReason}</td>
-													<td class="border px-4 py-2">처리완료</td>
+													<td class="border px-4 py-2">처리<br>완료</td>
 													</c:if>
 													<c:if test="${report.reportResultUpdate == null}">
 														<td class="border px-4 py-2 reportResultUpdate${report.reportNo }" ></td>
@@ -259,19 +265,36 @@
 		$(function() {
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 			$( "td.get_board" ).on("click" , function() {
-				alert($(this).parent().parent().find(".boardNo").html())
+// 				alert($(this).parent().parent().find(".boardNo").html())
 				var boardNo = $(this).parent().parent().find(".boardNo").html();
 				window.location.href ="/report/getReportBoard?boardNo="+boardNo;
 			});
 		});	
 		
+		$(function() {
+			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+			$( "td.get_moim" ).on("click" , function() {
+// 				alert($(this).parent().parent().find(".boardNo").html())
+				var mmNo = $(this).parent().parent().find(".mmNo").html();
+				window.location.href ="/moim/getMoim?mmNo="+mmNo;
+			});
+		});	
+		
+		$(function() {
+			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+			$( "td.get_myboard" ).on("click" , function() {
+// 				alert($(this).parent().parent().find(".boardNo").html())
+				var userId = $(this).parent().parent().find(".rp_userId").html();
+				window.location.href ="/user/getMyHome?userId="+userId;
+			});
+		});	
 		
 		$(function() {
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 			
 			$( "button.btn.btn-primary:contains('처리')" ).on("click" , function() {
 				
-				alert("신고처리");
+// 				alert("신고처리");
 				var reportResultState	= $(this).parent().parent().find("select").val();
 				var reportNo			= $(this).parent().parent().find("td.reportNo").html()
 				var stateReason			= $(this).parent().parent().find("input.stateReason").val()
@@ -283,7 +306,7 @@
 				var replywriter		= $(this).parent().parent().find("td.replywriter").html()
 				var moimuserid		= $(this).parent().parent().find("td.moimuserid").html()
 				
-				alert($(this).parent().parent().html())
+// 				alert($(this).parent().parent().html())
 				
 				$.ajax( 
 						{

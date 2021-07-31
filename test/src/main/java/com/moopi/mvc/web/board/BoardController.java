@@ -79,10 +79,12 @@ public class BoardController{
 		model.addAttribute("resultPage", resultPage);
 		model.addAttribute("list", map.get("list"));
 		model.addAttribute("totalCount", map.get("totalCount"));
+		model.addAttribute("boardCategory", boardCategory);
+		
 		System.out.println(boardCategory);
 		
 			System.out.println("1111111111111111111111111");
-			return "/board/"+boardCategory+"Board/list"+boardCategory;
+			return "/board/getBoardList";
 
 	}
 	
@@ -97,12 +99,14 @@ public class BoardController{
 		List<Reply> list = ReplyService.getReplyList(boardNo);	
 		model.addAttribute("list", list);
 		}
-		model.addAttribute("board", board);
-	
 		String boardCategory = boardService.getBoardCategory(board.getBoardCategory());
+		
+		model.addAttribute("board", board);
+		model.addAttribute("boardCategory", boardCategory);
 		System.out.println("보드카테고리값:"+boardCategory);
 		
-		return "board/"+boardCategory+"Board/get"+boardCategory+"Board";
+//		return "board/"+boardCategory+"Board/get"+boardCategory+"Board";
+		return "/board/getBoard";
 	}
 	
 	
@@ -111,8 +115,11 @@ public class BoardController{
 		
 		String boardCategory = boardService.getBoardCategory(category);
 		System.out.println("보드카테고리값:"+boardCategory);
+		model.addAttribute("boardCategory", boardCategory);
 		
-		return "board/"+boardCategory+"Board/add"+boardCategory+"BoardView";
+		
+//		return "board/"+boardCategory+"Board/add"+boardCategory+"BoardView";
+		return "/board/addBoardView";
 	}
 	
 	@RequestMapping("addBoard")
@@ -125,7 +132,7 @@ public class BoardController{
 		boardService.addBoard(board);
 		System.out.println(board.getBoardNo());
 		String boardCategory =boardService.getBoardCategory(board.getBoardCategory());
-		
+		model.addAttribute("boardCategory", boardCategory);		
 		System.out.println("보드카테고리값:"+boardCategory);
 		
 		return "forward:/board/getBoard?boardNo="+board.getBoardNo();		
@@ -144,11 +151,9 @@ public class BoardController{
 		
 		String boardCategory = boardService.getBoardCategory(board.getBoardCategory()); 
 		System.out.println("보드카테고리값:"+boardCategory);
-		if(boardCategory.equals("Moim")) {
-			return "/moim/updateMoimBoardView";
-		}
 		
-		return "/board/"+boardCategory+"Board/update"+boardCategory+"BoardView";
+//		return "/board/"+boardCategory+"Board/update"+boardCategory+"BoardView";
+		return "/board/updateBoardView";
 	}
 	
 	@RequestMapping("updateBoard")
@@ -180,17 +185,6 @@ public class BoardController{
 		
 			System.out.println("abc");
 			return "forward:/board/listBoard?category="+board.getBoardCategory();
-	}
-	
-	@RequestMapping("/map")
-	public String getMap() throws Exception{
-		
-		return "/map/map";
-	}
-	@RequestMapping("/mapView")
-	public String getMapView() throws Exception{
-		
-		return "/map/mapView";
 	}
 	
 	

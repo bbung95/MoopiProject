@@ -11,6 +11,7 @@
 		<result property="flashName"		column="FLASH_NAME" 		jdbcType="VARCHAR" />
 		<result property="flashConstructor.userId"	column="FLASH_CONSTRUCTOR" 		jdbcType="VARCHAR" />
 		<result property="flashConstructor.nickname"	column="nickname" 		jdbcType="VARCHAR" />
+		<result property="flashConstructor.profileImage"	column="PROFILE_IMAGE" 		jdbcType="VARCHAR" />
 		<result property="flashContent" 	column="FLASH_CONTENT" 		jdbcType="VARCHAR" />
 		<result property="flashFile" 		column="FLASH_FILE" 		jdbcType="VARCHAR" />
 		<result property="flashRegdate" 	column="FLASH_REGDATE" 		jdbcType="DATE" />
@@ -68,7 +69,7 @@
 		SELECT
 			FLASH_NO, FLASH_NAME, FLASH_CONTENT, FLASH_FILE, FLASH_CONSTRUCTOR, FLASH_REGDATE,
 			FLASH_TIME, FLASH_CURRENT_COUNT, FLASH_MAX_COUNT, FLASH_ADDR, FLASH_STATE, FLASH_INTEREST,
-			FLASH_MAP_X, FLASH_MAP_Y , NICKNAME		
+			FLASH_MAP_X, FLASH_MAP_Y , NICKNAME	, PROFILE_IMAGE	
 			FROM FLASH , users
 			WHERE FLASH.FLASH_CONSTRUCTOR = USERS.user_id
 			AND FLASH_NO = #{flashNo}	
@@ -80,7 +81,7 @@
 			FLASH_TIME, FLASH_CURRENT_COUNT, FLASH_MAX_COUNT, FLASH_ADDR, FLASH_STATE, FLASH_INTEREST,
 			FLASH_MAP_X, FLASH_MAP_Y)
 		VALUES(#{flashNo}, #{flashName}, #{flashContent}, #{flashFile}, #{flashConstructor.userId},
-		now(), #{flashTime}, '1', #{flashMaxCount}, #{flashAddr}, #{flashState}, 
+		now(), #{flashTime}, '1', #{flashMaxCount}, #{flashAddr}, '1', 
 		#{flashInterest}, #{flashMapX}, #{flashMapY})
 	</insert>
 	
@@ -108,12 +109,17 @@
 	
 	<select id="getFlashList" parameterType="search" resultMap="flashSelectMap">
 		SELECT
+			*
+			FROM(SELECT
+					inner_table.* , @ROWNUM := @ROWNUM +1 AS RNUM
+			FROM(SELECT
+			
 			FLASH_NO, FLASH_NAME, FLASH_CONTENT, FLASH_FILE, FLASH_CONSTRUCTOR, FLASH_REGDATE,
 			FLASH_TIME, FLASH_CURRENT_COUNT, FLASH_MAX_COUNT, FLASH_ADDR, FLASH_STATE, FLASH_INTEREST,
-			FLASH_MAP_X, FLASH_MAP_Y , INTEREST_NAME
-			FROM FLASH F , INTEREST I
+			FLASH_MAP_X, FLASH_MAP_Y , INTEREST_NAME , NICKNAME , PROFILE_IMAGE
+			FROM FLASH F , INTEREST I , USERS u
 			<where>
-			F.FLASH_INTEREST = I.INTEREST_NO
+			F.FLASH_INTEREST = I.INTEREST_NO AND F.FLASH_CONSTRUCTOR = u.USER_ID
 			<if test="searchCondition !=null">
 			<if test="searchCondition == 1 and interestNo !='' ">
 			AND FLASH_INTEREST = #{interestNo}
@@ -129,6 +135,8 @@
 			</if> 
 			</if>
 			</where>
+			) inner_table, (select @rownum := 0) as R )tables
+			WHERE rnum between #{startRowNum} and #{endRowNum}
 	</select>
 	
 	<select  id="getTotalCount"  parameterType="search"	 resultType="int">
