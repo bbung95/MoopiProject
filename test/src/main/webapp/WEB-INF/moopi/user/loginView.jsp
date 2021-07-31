@@ -94,7 +94,7 @@
 						return;
 					} else if(data.userRole == 4) {
 						popWin = window.open(
-								"/user/getBlackUser?userId="+data.userId+"&profileImage="+data.profileImage+"&nickname="+data.nickname,
+								"/user/getBlackUser?userId="+data.userId+"&profileImage="+data.profileImage+"&nickname="+data.nickname+"&stateReason="+data.stateReason,
 								"popWin",
 								"left=460, top=300, width=600, height=465, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");
 					} else {
@@ -161,7 +161,6 @@
 		// 3. 실패 function
 		function onSignInFailure(t){		
 			console.log(t);
-			alert("로그인이 실패되었습니다.");
 		}     
         
 <!--- [구현중] 네이버로그인 API --------------------------------------------------------------------------------------------------------->	
@@ -244,7 +243,7 @@
 			// 카카오 API key
 			Kakao.init('2e00cfe75ad365584acc76b588be8d74');
 			Kakao.Auth.login({	
-				scope : 'account_email, gender, birthday',
+				scope : 'account_email',
 				success : function(authObj) {				
 					
 					Kakao.API.request({				
@@ -253,11 +252,11 @@
 							console.log("아이디 : "+response.id);
 							console.log("카카오계정 : "+response.kakao_account);
 							console.log("이메일주소 : "+response.kakao_account['email']);
-							console.log("성별 : "+response.kakao_account['gender']);	
-							console.log("생일 : "+response.kakao_account['birthday']);				
+							//console.log("성별 : "+response.kakao_account['gender']);	
+							//console.log("생일 : "+response.kakao_account['birthday']);				
 							var userId = response.id;	
-							var gender = response.gender;
-							var birth = response.birthday;						
+							//var gender = response.gender;
+							//var birth = response.birthday;						
 							location.href = "/user/kakaoLogin?userId="+userId;			
 						} //End response function					
 					}) //End API.request				

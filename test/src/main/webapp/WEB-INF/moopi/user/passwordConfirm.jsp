@@ -10,7 +10,8 @@
 
 <! ------------------------------------------------ Bootstrap, jQuery CDN -------------------------------------------------->
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-
+<!-- 스윗얼럿 -->
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@300&display=swap" rel="stylesheet">
@@ -30,8 +31,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
           crossorigin="anonymous">
 
-<!-- 스윗얼럿 -->
-	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 <!-------------------------------------------------------------------------------------------------------------------------->
 
 <script>
@@ -40,7 +40,7 @@
 
 		var userId = $('input[name="userId"]').val();	
 		var password = $('#nowPwd').val();
-		var dbPwd = ${dbUser.password};
+		var dbPwd = $('#password').val();
 		
 		if(password == dbPwd){
 			$.ajax({
@@ -50,13 +50,16 @@
             	  	contentType: 'application/json',
 					data : JSON.stringify ({ "userId": userId, "password": password }),			
 					dataType: 'text',
-					success : function(result) {             	
+					success : function(result) {
+						swal("SUCCESS!","확인 완료되었습니다","success");            	
 						$("form").attr("method" , "POST").attr("action" , "/user/updateUserView").submit();
            	   	  }
 				});	
 		}else{
-			swal("비밀번호가 일치하지않습니다.","비밀번호를 확인해주세요","error");
-		}				
+		swal("FAIL!","회원님의 정보와 비밀번호가 일치하지 않습니다.","error");  
+		}
+		
+				
 	} 
 
 </script>		

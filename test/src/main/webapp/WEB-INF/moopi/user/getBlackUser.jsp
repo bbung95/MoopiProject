@@ -72,7 +72,7 @@
 							<input type="hidden" id="stateReason" name="stateReason" value="${stateReason}" />
 								<h4 class="blackUserContent" style="center;"> ${userId} 님께서는 하단의 사유로 블라인드 처리되신 회원입니다 </h4>
 								<div class="regDateContent">블랙일자 및 사유</div>
-								<div class="regDate">${stateRegDate}2021-07-30</div>
+								<div class="regDate">${stateRegDate}2021-07-31</div>
 								<div class="stateReason">${stateReason}</div>
 								
 								<div class="delete_p" style="margin-top: 10px;">
