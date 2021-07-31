@@ -6,15 +6,15 @@
 <head>
 <meta charset="UTF-8">
 <title> 모바일 인증하기 페이지 </title>
-
+<!-- 스윗얼럿 -->
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <! ------------------------------------------------ Bootstrap, jQuery CDN -------------------------------------------------->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
 <!-------------------------------------------------------------------------------------------------------------------------->
-<!-- 스윗얼럿 -->
-	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 	
 <!-- 필수 Core theme CSS (includes Bootstrap)-->
 	<link href="/css/admin/styles.css" rel="stylesheet" />
@@ -34,7 +34,7 @@
 		var href = document.location.search;	
 	
 		function fncKey() {
-			
+		
 			var userId=$('input[name=userId]').val();
 			var AuthNum = $("#AuthNum").val()	
 			
@@ -45,7 +45,8 @@
 						if (href == "?findId") {
 							$("#checkBtn").fadeIn();		
 							var phone = $("#pnNum").val();	
-							$("form").attr("method", "POST").attr("action", "/user/searchIdView").submit();			
+							$("form").attr("method", "POST").attr("action", "/user/searchIdView").submit();		
+								
 							return;				
 						
 
@@ -55,7 +56,7 @@
 							return;
 								
 						// 계정정보수정에서 회원모바일번호수정
-						} else if (href == "?updatePwd") {						
+						} else if (href == "?updatePwdView") {						
 							var phone=$('input[name=phone]').val();
 							var userId=$('input[name=userId]').val();							
 							opener.document.getElementById("pInput").value = document.getElementById("pnNum").value
@@ -65,18 +66,13 @@
 						} else {
 						
 								var phone = $("#pnNum").val();
-								
-								alert("?setPwd 진입완료");
-								alert("userId : "+userId);
-								alert("phone : "+phone);
-						
-								$("form").attr("method", "POST").attr("action", "/user/updatePwdView").submit();	
+								$("form").attr("method", "POST").attr("action", "/user/updatePwdViewMobile").submit();	
 						}							
 					
 						
         			});			
 			} else {
-				alert("인증번호가 올바르지 않습니다. 인증번호를 다시 확인해주세요");
+				swal("인증번호가 올바르지 않습니다.","인증번호를 다시 확인해주세요","error");
 			}
 			
 		}		
@@ -85,15 +81,11 @@
 // [모바일인증API]
 		
 		function fncAuth(){
-		
-			
-			alert("인증버튼 누를시 활성화되는 alert");
-			
+		swal("모바일 인증번호 발송이 완료되었습니다.","success");
+
 			var phone = $("#pnNum").val()
-			alert("입력한 연락처 : "+phone);
 			
-			$.ajax( 
-					{
+			$.ajax({
 						url : "/user/json/sms/"+phone ,
 						method : "GET" ,
 						dataType : "json" ,
@@ -102,14 +94,10 @@
 							"Content-Type" : "application/json"
 						},
 						success : 
-						
+							
 							function(JSONData , status) {
-	
-								alert("status : "+status);
-								alert("JSONData : \n"+JSONData);
-								alert("JSONData : \n"+JSONData.key);
 								key = JSONData.key;
-								//<img src="/images/uploadFiles/${product.fileName}"/>
+								
 						}
 						
 				});	 //ajax종료
