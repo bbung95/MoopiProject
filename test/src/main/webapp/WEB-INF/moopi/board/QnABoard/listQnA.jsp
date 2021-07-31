@@ -22,12 +22,12 @@
 <script type="text/javascript">
 
 function fncAddBoardView(){
-	alert("게시글작성");
+// 	alert("게시글작성");
 	self.location ="/board/addBoardView?category=2";
 }
 
 function fncGetBoard(boardNo){
-	alert("게시글조회");
+// 	alert("게시글조회");
 	self.location ="/board/getBoard?boardNo="+boardNo;
 }
 
@@ -54,7 +54,7 @@ function fncGetPassword(boardNo){
 					},
 				    success : function(JSONData , status) {
 			             //alert(JSONData.memberRole);	
-			             alert(status);
+// 			             alert(status);
 // 			              alert("JSONData : \n"+JSONData.boardPassword);
 		                jsonPassword = JSONData.boardPassword
 // 		                alert(boardPassword+ ": 값비교 : "+ jsonPassword);
@@ -71,8 +71,8 @@ function fncGetPassword(boardNo){
 			
 			$("button.btn.btn-default.search-btn").on("click", function(){
 				
-				alert("검색")
-				alert($("#searchBar").html())
+// 				alert("검색")
+// 				alert($("#searchBar").html())
 				
 				$("#searchBar").attr("method", "GET").attr("action", "/board/listBoard").submit();
 			})
@@ -397,6 +397,13 @@ padding: 3px 7px;
  .userEL9022878 .search-box select.form-control { width: 70px; }
 }
 
+.profileImg {
+    border-radius: 50%;
+    width :40px;
+}
+img, svg {
+    vertical-align: middle;
+}
 
 body {
 	padding-top: 100px;
@@ -472,7 +479,9 @@ body {
 			                            </c:if>
 			                            
 			                            
-			                            <td class="tpl-forum-list-name tpl-forum-list-etc op_itemline10"> ${board.boardWriter.nickname}</td>
+			                            <td class="tpl-forum-list-name tpl-forum-list-etc op_itemline10"> 
+			                            <img src="/images/uploadFiles/${board.boardWriter.profileImage}" class="img-responsive profileImg">
+			                            ${board.boardWriter.nickname}</td>
 			                            <td class="tpl-forum-list-date tpl-forum-list-etc op_itemline10">${board.boardRegDate}</td>
 			                            <td class="tpl-forum-list-date tpl-forum-list-etc op_itemline10">  
 			                             <c:if test="${  empty board.boardPassword}"> 

@@ -33,7 +33,7 @@ $(function() {
 
 
 function fncAddBoard(){
-	alert("게시글등록");
+// 	alert("게시글등록");
 	
 	var boardCategory	=$("input[name='boardCategory']").val();
 	var boardWriter		=$("input[name='boardWriter']").val();

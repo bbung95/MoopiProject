@@ -32,9 +32,12 @@ public class ReportServiceImpl {
 		System.out.println(model);
 
 		List<Report> list = reportDao.getReportList(map);
-
+		int totalCount = reportDao.getTotalCount(map);
+		
+		
 		map.put("list", list);
-
+		map.put("totalCount", totalCount);
+		
 		return map;
 	}
 

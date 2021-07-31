@@ -128,7 +128,10 @@ function fncGetPassword(boardNo){
 </script>
   
 <style>
-
+			main{
+font-family: 'Nanum Gothic', sans-serif;
+font-size: 16px;
+}
 
 .userEL8991295 .tpl-forum-write {
     position: relative;
@@ -454,7 +457,7 @@ body {
 <!-- ToolBar Start /////////////////////////////////////-->
 <jsp:include page="../layout/toolbar.jsp"></jsp:include>
 <!-- ToolBar End /////////////////////////////////////-->
-
+<main>
 <div class="userEL8991295 colorSet" data-forum-type="thumb" data-fcolor="#191919" >
     <div class="container">
 			<div class="col-xs-12 col-sm-12 col-md-12">
@@ -504,8 +507,9 @@ body {
 			                    </thead>
 			                    <tbody data-loop="true" data-view="8">
 			                        <c:forEach var="board" items="${list}">
+			                          <c:set var="i" value="${ i+1 }"/>
 			                        <tr>
-			                            <td scope="row" class="tpl-forum-list-num tpl-forum-list-etc op_itemline10">1</td>
+			                            <td scope="row" class="tpl-forum-list-num tpl-forum-list-etc op_itemline10">${i}</td>
 			                            
 			                             
 		                                <c:if test="${ !empty board.boardPassword}"> 
@@ -533,7 +537,7 @@ body {
 			</div>
 
                 </div>
-                               
+  </main>                             
 	
 					<jsp:include page="../common/pageNavigator.jsp"/>	
             </div>

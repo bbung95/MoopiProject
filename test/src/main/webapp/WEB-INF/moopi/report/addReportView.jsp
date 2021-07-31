@@ -24,7 +24,7 @@ $(function() {
 });	
 
 function fncAddReport(){
-	alert("신고");
+// 	alert("신고");
 	
 	var reportType			= $("input[name=reportType]:checked").val();
 	var reportContent		= $("#reportContent").val();
@@ -35,14 +35,14 @@ function fncAddReport(){
 	var reportCategory 		= $("#reportCategory").val();
 	var reportByUserId		= $("#reportByUser").val();
 	
-	alert(reportType);
-	alert(reportContent);
-	alert(reportTarget);
-	alert(reportTargetBd);
-	alert(reportTargetRe);
-	alert(reportTargetMm);
-	alert(reportCategory);
-	alert(reportByUserId);
+// 	alert(reportType);
+// 	alert(reportContent);
+// 	alert(reportTarget);
+// 	alert(reportTargetBd);
+// 	alert(reportTargetRe);
+// 	alert(reportTargetMm);
+// 	alert(reportCategory);
+// 	alert(reportByUserId);
 	
 	$.ajax({
 		url: "/report/json/addReport",

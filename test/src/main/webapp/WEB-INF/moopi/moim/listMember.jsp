@@ -26,11 +26,8 @@
 <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" > -->
 <!-- <link rel="stylesheet" href="/images/uploadFiles" >   -->
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-<!-- <script src="/javascript/owl.carousel.min.js"></script> -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script> 
-<!-- <link rel="stylesheet" href="/css/owl.carousel.min.css"> -->
-<!-- <link rel="stylesheet" href="/css/owl.theme.default.min.css"> -->
 
 <!-- 구글 폰트 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -41,15 +38,41 @@
 
 <!-- Sweet Alert -->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> 
-
+<script src="/js/scripts.js"></script>
 <script>
+
+$(function(){
+
+    $('.primary').click(function () {
+		swal("매니저로 임명합니다.");
+    	 $(this).next().val();
+    	fncMember1($(this).next().val(), mmNo);
+    	 $(this).text("매니저박탈");
+    	
+    });
+
+    $('.warning').click(function () {
+    	swal("매니저 권한을 박탈한다.");
+    	fncMember2($(this).next().val(), mmNo);
+   	 	$(this).text("매니저임명");
+    });
+    
+    $('.danger').click(function () {
+    	swal("블랙 처리합니다.");
+    	fncMember3($(this).next().val(), mmNo);
+    	$(this).prev().prev().remove();
+    	$(this).text("블랙처리된 멤버입니다.");
+    });
+    
+  })
+
+
 
 var mmNo = ${moim.mmNo};
 console.log(mmNo);
 
 function fncMember1(userId, mmNo){
 	swal("매니저로 임명합니다.");
-	
 	$.ajax( 
 			{
 				url : "json/updateMember/"+userId+"/"+mmNo+"/"+2,
@@ -69,7 +92,7 @@ function fncMember2(userId, mmNo){
 	swal("매니저 권한을 박탈합니다.");
 	$.ajax( 
 			{
-				url : "moim/json/updateMember/"+userId+"/"+mmNo+"/"+3,
+				url : "json/updateMember/"+userId+"/"+mmNo+"/"+3,
 				method : "GET" ,
 				dataType : "json" ,
 				headers : {
@@ -86,7 +109,7 @@ function fncMember3(userId, mmNo){
 	swal("블랙처리 합니다.");
 	$.ajax( 
 			{
-				url : "moim/json/updateMember/"+userId+"/"+mmNo+"/"+4,
+				url : "json/updateMember/"+userId+"/"+mmNo+"/"+4,
 				method : "GET" ,
 				dataType : "json" ,
 				headers : {
@@ -95,9 +118,17 @@ function fncMember3(userId, mmNo){
 				},
 				success : function(JSONData , status) {
 					alert(status);
+					
 				}
 		}); //ajax 종료
 }
+
+$(document).ready(function(){ 
+	
+	$(".btn btn-primary").click(function(){
+		alert("클릭함");
+	})
+});
 
 // $('table').DataTable();
 </script>
@@ -109,9 +140,12 @@ function fncMember3(userId, mmNo){
 	body{
 		padding-top: 100px;
 		background-color:#f7f6f3;
-		font-family: 'Nanum Gothic', sans-serif;
-		font-size : 16px;
 	}
+	
+			main{
+font-family: 'Nanum Gothic', sans-serif;
+font-size: 16px;
+}
 	
 	.userProfile {
 	margin: 10px;
@@ -125,9 +159,7 @@ function fncMember3(userId, mmNo){
 }	
 	
 /* 코드펜 */
-body { 
 
-}
 
 h2 {
   text-align: center;
@@ -223,6 +255,7 @@ table.dataTable td {
 <body>
 <h2>Member List</h2>
 
+<main>
 <div class="container">
   <div class="row">
     <div class="col-xs-12">
@@ -261,13 +294,25 @@ table.dataTable td {
 				</c:if>
 			</td>
 			<td id="td8">
+<%-- 			<c:if test = "${member.memberRole eq '2'}"> --%>
+<%-- 			<button type="button" id="${member.mmUser.userId}" class="btn btn-primary" onClick="fncMember1('${member.mmUser.userId}', '${member.mmNo}')">매니저임명</button> --%>
+<%-- 			</c:if> --%>
+<%-- 			<c:if test = "${member.memberRole eq '3'}"> --%>
+<%-- 			<button type="button" class="btn btn-warning" onClick="fncMember2('${member.mmUser.userId}', '${member.mmNo}')">매니저박탈</button> --%>
+<%-- 			</c:if> --%>
+<%-- 			<button type="button" class="btn btn-danger" onClick="fncMember3('${member.mmUser.userId}', '${member.mmNo}')">블랙</button> --%>
+			
+			
 			<c:if test = "${member.memberRole eq '2'}">
-			<button type="button" class="btn btn-primary" onClick="fncMember1('${member.mmUser.userId}', '${member.mmNo}')">매니저임명</button>
+			<button type="button" class="primary">매니저임명</button>
+			<input type="hidden" value='${member.mmUser.userId}'>
 			</c:if>
 			<c:if test = "${member.memberRole eq '3'}">
-			<button type="button" class="btn btn-warning" onClick="fncMember2('${member.mmUser.userId}', '${member.mmNo}')">매니저박탈</button>
+			<button type="button" class="warning">매니저박탈</button>
+			<input type="hidden" value='${member.mmUser.userId}'>
 			</c:if>
-			<button type="button" class="btn btn-danger" onClick="fncMember3('${member.mmUser.userId}', '${member.mmNo}')">블랙</button>
+			<button type="button" class="danger">블랙</button>
+			<input type="hidden" value='${member.mmUser.userId}'>
 			</td>
           </tr>
         </c:forEach>  
@@ -281,7 +326,7 @@ table.dataTable td {
     </div>
   </div>
 </div>
-
+</main>
 
 
 
