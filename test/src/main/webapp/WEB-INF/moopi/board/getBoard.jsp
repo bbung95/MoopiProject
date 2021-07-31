@@ -109,6 +109,7 @@ body {
 .profileImg {
     border-radius: 50%;
     width :40px;
+    height: 40px;
 }
 img, svg {
     vertical-align: middle;
@@ -148,7 +149,7 @@ img, svg {
 
 						<section clsss="board">
 							<div style="font-size: 35px; margin: 0px">
-								${board.boardName}1</div>
+								${board.boardName}</div>
 							<div class="board_title">
 
 								<div style="display: inline-block; float: right;">${board.boardRegDate}

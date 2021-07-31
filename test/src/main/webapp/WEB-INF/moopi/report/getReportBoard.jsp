@@ -86,6 +86,14 @@
 	}					
 	
 	
+.profileImg {
+    border-radius: 50%;
+    width :40px;
+    height: 40px;
+}
+img, svg {
+    vertical-align: middle;
+}
 	
 	
 	
@@ -124,9 +132,8 @@
 				<input class="board" type="hidden" id="boardNo" name="boardNo" value="${board.boardNo}">
 				
 				<div style="text-align:left;">
-					<pattern id="comment-write-image" patternUnits="userSpaceOnUse" width="40" height="40">									
-						<image xlink:href="//storage.googleapis.com/i.addblock.net/member/profile_default.jpg?_1627201858221" width="40" height="40"></image>								
-					</pattern>${board.boardWriter.nickname} </div>
+					 <img src="/images/uploadFiles/${board.boardWriter.profileImage}" class="img-responsive profileImg">
+					 ${board.boardWriter.nickname} </div>
 					</div>
 					<div class="board_content" >
 					${board.boardFile }
@@ -151,6 +158,7 @@
 								<input type="hidden" class="reply" name="replyNo" value="${reply.replyNo}">
 								<div class="reply_head">
 								<div style="display: inline-block">
+								<img src="/images/uploadFiles/${reply.replyWriter.profileImage}" class="img-responsive profileImg">
 									${reply.replyWriter.nickname}
 								</div>
 								<div style="display: inline-block; float:right;">
@@ -191,7 +199,9 @@
  				<section class="replyWrite">
 					<form name="detailForm" enctype="multipart/form-data">
 							<div id="addReplyForm" style="float:right; padding-right: 20px; padding-top: 20px;">
-								<div class="col-md-5" style="font-size: 20px;"> ${dbUser.nickname }</div>
+								<div class="col-md-5" style="font-size: 20px;"> 
+								<img src="/images/uploadFiles/${dbUser.profileImage}" class="img-responsive profileImg">
+								${dbUser.nickname }</div>
 									<div style="padding-left:100px; width:900px">
 										<textarea id="summernote" placeholder="댓글을 입력해주세요." name="replyContent" id="replyContent" ></textarea>						
 									</div>					
