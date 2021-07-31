@@ -405,6 +405,7 @@ padding: 3px 7px;
 .profileImg {
     border-radius: 50%;
     width :40px;
+    height: 40px;
 }
 img, svg {
     vertical-align: middle;
