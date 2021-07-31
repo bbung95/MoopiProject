@@ -35,12 +35,11 @@
 
 <script>
 	$(function() {
-		$( '.adminUserInfo' ).on( 'click', function() {
+		$('.adminUserInfo').on('click', function() {
 			var userId = $(this).attr('value');
 			self.location = "/common/getUserInfo?userId=" + userId
 		});
 	});
-	
 </script>
 <body>
 
@@ -98,14 +97,25 @@
 													<td class="border px-4 py-2">${user.joinPath}</td>
 													<td class="border px-4 py-2">${user.regDate}</td>
 													<td class="border px-4 py-2">${user.coin}</td>
-													<td class="border px-4 py-2 userState">
-													<c:if test="${user.userRole == 1 || user.userRole == 2}">
-															<i class="fas fa-check text-green-500 mx-2"></i>
-														</c:if>
-														<c:if test="${user.userRole == 4 || user.userRole == 5 || user.userRole == 6}">
-															<i class="fas fa-times text-red-500 mx-2"></i>
-														</c:if></td>
+													<td class="border px-4 py-2 userState text-center"><a href="#"
+														data-bs-toggle="modal" data-bs-target="#exampleModal">
+															<c:if test="${user.userRole == 1 || user.userRole == 2}">
+																<i class="fas fa-check text-green-500 mx-2"></i>
+															</c:if>
+															<c:if test="${user.userRole == 3 }">
+															<i class="bi bi-circle-fill" style="color: orange;"></i>
+															</c:if>
+															<c:if test="${user.userRole == 4 || user.userRole == 6}">
+																<i class="fas fa-times text-red-500 mx-2"></i>
+															</c:if>
+															<c:if test="${user.userRole == 5}">
+																<i class="bi bi-diamond-fill" style="color: blue"></i>
+															</c:if>
+															</a></td>
 												</tr>
+
+
+
 											</c:forEach>
 										</tbody>
 									</table>
@@ -113,6 +123,8 @@
 							</div>
 						</div>
 						<!--/Grid Form-->
+
+
 
 						<!-- SearchBar -->
 						<form id="detailForm"
@@ -145,6 +157,11 @@
 						</form>
 
 
+						<!-- Button trigger modal -->
+
+
+
+
 						<!--  네비게이션  -->
 						<jsp:include page="pageNavigator.jsp"></jsp:include>
 
@@ -164,10 +181,44 @@
 
 	</div>
 
+
+	<!-- 블랙 처리 Modal -->
+	<div class="modal fade modal-center" id="exampleModal" tabindex="-1"
+		aria-labelledby="exampleModalLabel" aria-hidden="true"
+		style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">블랙처리</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<textarea class="overflow-auto text-break reason"
+						style="width: 300px; resize: none; min-height: 100px; border: 0.5px solid gray; border-radius: 10px; outline: none;"></textarea>
+					<div class="d-flex ">
+						<button
+							class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded">
+							처리</button>
+						<button type="button" class="btn btn-secondary"
+							data-bs-dismiss="modal">취소</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
 	<script src="/js/admin/main.js"></script>
+	<!-- Bootstrap core JS-->
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+	<!-- Core theme JS-->
+	<script src="/js/scripts.js"></script>
 
 	<script>
 		let searchState = $('#searchState').val();
+		let userId;
 
 		function userSearch() {
 
@@ -185,12 +236,36 @@
 
 			userSearch()
 		})
-		
-		$('.userState').on('click', function(){
-			let userId = $(this).parent().children('td:first-child').text().trim();
-			
+
+		$('.userState').on('click', function() {
+
+			userId = $(this).parent().children('td:first-child').text().trim();
 		})
-		
+
+		$('button:contains("처리")').on('click', function() {
+
+			let reason = $('.reason').val();
+
+			$.ajax({
+				url : "/user/json/updateBlackUser",
+				method : "POST",
+				dataType : "JSON",
+				contentType : "application/json",
+				data : JSON.stringify({
+					"userId" : userId,
+					"stateReason" : reason
+				}),
+				success : function(data, state) {
+
+					$('.reason').val('');
+					$('button:contains("취소")').click();
+				}
+			})
+		})
+
+		$('button:contains("취소")').on('click', function() {
+			$('.reason').val('');
+		})
 	</script>
 </body>
 

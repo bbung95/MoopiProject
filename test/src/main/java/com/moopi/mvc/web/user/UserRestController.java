@@ -551,4 +551,14 @@ public class UserRestController {
 		return true;
 		} 
 	
+	
+	// 어드민 유저 블랙 처리
+	@PostMapping(value="json/updateBlackUser")
+	public Boolean updateBlackUser(@RequestBody User user) throws Exception {
+		
+		System.out.println("updateBlackUser : POST");
+		userService.updateBlackUser(user);
+		
+		return true;
+	}
 }
