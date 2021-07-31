@@ -566,7 +566,7 @@ figcaption > i{
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title" id="staticBackdropLabel">게시글등록</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal"
+					<button type="button" id="close" class="btn-close" data-bs-dismiss="modal"
 						aria-label="Close"></button>
 				</div>
 
@@ -577,15 +577,15 @@ figcaption > i{
 						<button type="button" class="uploadbtn btn btn-light">업로드</button>
 						<input style="display: none" id="uploadFiles" type="file"
 							multiple="multiple">
-						<textarea name="boardContent"
+						<textarea id="boardContent" name="boardContent"
 							style="width: 100%; height: 100px; resize: none"></textArea>
 					</form>
 				</div>
 
 				<div class="modal-footer">
 					<button type="button" class="btn btn-light">등록</button>
-					<button type="button" id="close"
-						class="btn btn-secondar		data-bs-dismiss="modal">Close</button>
+					<!-- <button type="button" 
+						class="btn btn-secondar		data-bs-dismiss="modal">Close</button> -->
 				</div>
 			</div>
 		</div>
@@ -718,12 +718,12 @@ if(${followCheck}){
 //////// 게시글 등록
 function upload(formData){
 	// formData key &value 확인
-	  for (var key of formData.keys()) {
+	 /*  for (var key of formData.keys()) {
 	  console.log(key);
 	}
 	for (var value of formData.values()) {
 	  console.log(value);
-	}  
+	}   */
 	$.ajax({
             url : "/user/json/addMyBoard"
                 , method : "POST"
@@ -737,35 +737,30 @@ function upload(formData){
                         
                         let fileArry = data.boardFile.split("/");
     					
-                        /* let displayValue = '<div class="col-xs-4 col-sm-4 col-md-4 no-padding item" onclick="getMyBoard('+data.boardNo+')">'
+                        let displayValue = '<div class="col-xs-4 col-sm-4 col-md-4 no-padding item myitem" onclick="getMyBoard('+data.boardNo+')">'
 										+'<div class="border-wrap op_itemline10">'
 										+'<div class="thumb-wrap">'
 										+'<div class="tpl-forum-list-thumb" >'
-										+'<div class="thumbnail-wrapper ">'
-										+'<div class="thumbnail effect-wrap">'
-										+'<figure class="thumbnail-centered effect5">'
+										 +'<div class="thumbnail-wrapper">'
+										+'<div class="thumbnail effect5">'
+										+ '<figcaption>'
+	      								 + '<h3><em><i class="bi bi-heart likebtn"></i><span class="likeCount">'+data.boardLike+' </span>&nbsp'
+	      								 +'<i class="bi bi-chat-left"></i><span> '+data.replyCount+'</span></em></h3>'
+	    								 + '</figcaption>'
+										+'<div class="thumbnail-centered ">'
 										+'<img class="thumbnail-img" src="/images/uploadFiles/'+fileArry[0]+'" class="img-responsive" >'
-										+'<figcaption>'
-									    +'<h3>Mouse Hover<em>Effect</em></h3>'
-									    +'</figcaption>'
-										+'</figure>'
+										+'</div>'
+										+'</div>'
+										+'</div>'
+										+'</div>'
+										+'</div>'
 										+'</div>'
 										+'</div>'	
-										+'</div>'
-										+'</div>'
-										+'</div>'; */
-										
-						/* let displayValue = '<div class="effect-wrap">'
-							  			 + '<figure class="effect5">'
-					    				 + '<img src="https://tistory4.daumcdn.net/tistory/2141493/skin/images/simg06.png" alt="">'
-					    				 + '<figcaption>'
-					      				 + '<h3>Mouse Hover<em>Effect</em></h3>'
-					    				 + '</figcaption>'
-					 				 	 + '</figure>'
-										 + '</div>' */	
     					
                 	setTimeout(function() {
                 		$('#close').click();
+                		$('#boardContent').val('');
+                		fileList = [];
     					$('#boardView').prepend(displayValue);
                 	}, 3000, displayValue)
                     

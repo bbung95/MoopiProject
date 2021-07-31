@@ -75,7 +75,7 @@
 									if(dbUser == '' || dbUser == data.list[i].userId){
 										display += '</div>';
 									}else{
-										display += '<button target="'+data.list[i].mmNo+'" type="2">채팅</button></div>'
+										display += '<button class="btn btn-secondary" target="'+data.list[i].mmNo+'" type="2">채팅</button></div>'
 									} 
 						}
 						$('.searchOut').append(display);
