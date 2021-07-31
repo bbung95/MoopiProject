@@ -56,13 +56,13 @@ public class FlashController {
 	}
 
 	//플래쉬검색
-	@RequestMapping(value = "/flash/getFlashList")
-	public String getFlashList( @RequestParam("search") Search search, Model model)throws Exception {
-		
-		model.addAttribute("list",flashService.getFlashList(search).get("list"));
-		
-		return "flash/flashMain";
-	}
+//	@RequestMapping(value = "/flash/getFlashList")
+//	public String getFlashList( @RequestParam("search") Search search, Model model)throws Exception {
+//		
+//		model.addAttribute("list",flashService.getFlashList(search).get("list"));
+//		
+//		return "flash/flashMain";
+//	}
 	
 	// 플래쉬 상세보기
 	@RequestMapping("getFlash")
@@ -155,17 +155,17 @@ public class FlashController {
 
 		System.out.println("getListFlash Start::");
 		
-		if (search.getCurrentPage() == 0 ) {
-			search.setCurrentPage(1);
-		}
-		search.setPageSize(pageSize);
-		
-		Map<String, Object> map = flashService.getFlashList(search);
-		model.addAttribute("interest", commonService.getInterest());
-		model.addAttribute("list", map.get("list"));
-		model.addAttribute("search", search);
-		model.addAttribute("totalCount",map.get("totalCount"));
-		System.out.println("getListFlash End");
+//		if (search.getCurrentPage() == 0 ) {
+//			search.setCurrentPage(1);
+//		}
+//		search.setPageSize(pageSize);
+//		
+//		Map<String, Object> map = flashService.getFlashList(search);
+//		model.addAttribute("interest", commonService.getInterest());
+//		model.addAttribute("list", map.get("list"));
+//		model.addAttribute("search", search);
+//		model.addAttribute("totalCount",map.get("totalCount"));
+//		System.out.println("getListFlash End");
 		return "flash/flashMain";
 	}
 
