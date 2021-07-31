@@ -44,8 +44,17 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> 
 
 <script>
+
+
+$(function(){
+	$('.success').click(function () {
+		swal("초대 알림을 보내겠습니다..");
+    	invite($(this).next().val(), ${moim.mmNo})
+    	 $(this).text("초대완료");
+    });	
+})
+
 function invite(userId, mmNo){
-	swal(userId+"님을 초대하였습니다.");
 	console.log(userId);
 	console.log(mmNo);
 	$.ajax( 
@@ -71,9 +80,12 @@ function invite(userId, mmNo){
 body{
 		padding-top: 100px;
 		background-color:#f7f6f3;
-		font-family: 'Nanum Gothic', sans-serif;
-		font-size : 16px;
 	}
+	
+		main{
+font-family: 'Nanum Gothic', sans-serif;
+font-size: 16px;
+}
 	
 	.userProfile {
 	margin: 10px;
@@ -176,7 +188,7 @@ table.dataTable td {
 
 
 <h2>Invite List</h2>
-
+<main>
 <div class="container">
   <div class="row">
     <div class="col-xs-12">
@@ -212,7 +224,9 @@ table.dataTable td {
             <td id="td4">${user.addr}</td>
             <td id="td5">${user.profileContent}</td>
 			<td id="td6">
-			<button type="button" id="${user.userId}" class="btn btn-success" onClick="invite('${user.userId}', '${moim.mmNo}')">초대</button>
+<%-- 			<button type="button" id="${user.userId}" class="btn btn-success" onClick="invite('${user.userId}', '${moim.mmNo}')">초대</button> --%>
+			<button type="button" class="success">초대</button>
+			<input type="hidden" value="${user.userId}">
 			</td>
           </tr>
         </c:forEach>  
@@ -244,7 +258,7 @@ table.dataTable td {
 <%-- <p>회원소개:${user.profileContent}</p> --%>
 <%-- <button type="button" class="btn btn-default" onClick="fncAccept('${user.userId}', '${member.mmNo}')">초대</button> --%>
 <%-- </c:forEach> --%>
-
+</main>
 <jsp:include page="../layout/moimSidebar.jsp"></jsp:include>
 </body>
 </html>
