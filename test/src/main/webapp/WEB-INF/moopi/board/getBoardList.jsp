@@ -448,7 +448,7 @@ body {
                     <span class="input-group-btn">
                         <button type="button" class="btn btn-default search-btn"><i class="fa fa-search"></i></button>
                     </span>
-                    <input type="hidden" id="category" name="category" value="2"/>
+                    <input type="hidden" id="category" name="category" value="${boardCategory eq 'Moopi' ? '1' : '2' }"/>
 					<input type="hidden" id="currentPage" name="currentPage" value="1" />
                 </div>
             </div>
