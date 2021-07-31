@@ -178,17 +178,19 @@ public class CommonRestController {
 	}
 
 	@PostMapping(value = "json/searchList/{searchType}")
-	public Map<String, Object> getSearchList(@RequestBody Search search, @PathVariable("searchType") int searchType)
+	public Map<String, Object> getSearchList(@RequestBody Search search, @PathVariable("searchType") int searchType )
 			throws Exception {
 
 		System.out.println("SearchList : POST");
 
 		if (searchType == 1) {
 			System.out.println("Moim List");
+			search.setPageSize(pageSize);
 			search.setSearchCondition(3);
 			return moimService.getMoimList(search);
 		} else if (searchType == 2) {
 			System.out.println("Flash List");
+			search.setPageSize(pageSize);
 			search.setSearchCondition(3);
 			return flashService.getFlashList(search);
 		} else if (searchType == 3) {
