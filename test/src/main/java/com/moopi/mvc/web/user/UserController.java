@@ -242,7 +242,7 @@ public class UserController {
 									Model model) throws Exception {
 		User id = userService.getUser(userId);
 		model.addAttribute("dbUser", id);
-		return "user/updatePwd";
+		return "user/updatePwdView";
 	}
 	
 

@@ -47,11 +47,11 @@
 			return;
 		}		
 		if(password == null || password.length<8){
-			swal("비밀번호의 길이가 올바르지 않습니다.","비밀번호를 확인해주세요","error");
+			swal("올바른 비밀번호가 아닙니다.","비밀번호를 확인해주세요","error");
 			return;
 		}		
 		if(password2 == null || password2.length<8){
-			swal("비밀번호를 한번 더 입력해주세요.","비밀번호를 확인해주세요","error");
+			swal("올바른 비밀번호가 아닙니다.","비밀번호를 확인해주세요","error");
 			return;
 		}		
 		<!-- 필수값인 아이디와 비밀번호를 입력 후 가입을 누르면 UserController의 addUser가 실행된다.-->
@@ -107,33 +107,35 @@
 		
 		$(function(){
 		
-			$("#password").keyup(function(){			
-				var regex = /^[A-Za-z\d]{8,11}$/;
-				var result = regex.exec($("#password").val());
-				console.log(result);
+			$("#password1").keyup(function(){
+				
+				var regex = /^[A-Za-z\d]{8,12}$/;
+				var result = regex.exec($("#password1").val());
+				
 				if(result != null){
                     $('#pwd_right').text("");
+                    $("#updateBtn").attr("disabled", false);
                 }else{
                     $('#pwd_right').text("비밀번호는 영어대소문자와 숫자를 포함하여 8-11자리이상으로 작성해주세요");
-                    $('#pwd_right').css("color","red")
+                    $('#pwd_right').css("color","red");
+                    $("#updateBtn").attr("disabled", false);
                 }
 			
 				$('#pwd_check').text('');
-				$("#loginButton").attr("disabled", false);
+				$("#updateBtn").attr("disabled", false);
 			});
 		
 			$("#password2").keyup(function(){				
-					if ($("#password").val() != $("#password2").val()){					
+					if ($("#password1").val() != $("#password2").val()){					
 						$('#pwd_check').text('');
 						$('#pwd_check').text('비밀번호가 일치하지 않습니다.');
-						$('#pwd_check').css("color","red")
-						$("#loginButton").attr("disabled", true);
-
+						$("#updateBtn").attr("disabled", true);
+						return;
 					}else{
 						$('#pwd_check').text('');
 						$('#pwd_check').text('비밀번호가 일치합니다.');
-						$('#pwd_check').css("color","black")
-						$("#loginButton").attr("disabled", false);
+						$("#updateBtn").attr("disabled", false);
+						return;
 						
 			}
 		}); 
@@ -229,7 +231,7 @@
                 
                	<div class="PWD_BLANK">
                     <label class="block text-sm text-gray-00" id="cus_password">비밀번호</label>
-                    <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" type="password" id="password" name="password" type="text" required="" placeholder="비밀번호를 입력해주세요" aria-label="password">
+                    <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" type="password" id="password1" name="password" type="text" required="" placeholder="비밀번호를 입력해주세요" aria-label="password">
                     <div class="check_font" id="pwd_right"></div>
                 </div>
                 

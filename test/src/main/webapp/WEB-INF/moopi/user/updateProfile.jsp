@@ -167,7 +167,7 @@
 				data : JSON.stringify ({"userId" : userId, 
 										"myhomeState" : myhomeState}),
 				success : function(data, state) {
-					alert("마이홈 상태변경이 완료되었습니다.");
+					swal("SUCCESS!","마이홈 상태가 변경되었습니다.","success");
 				}	
 				})				
 		})
@@ -178,10 +178,6 @@
      	var userId = $("#userId").val();
      	var userRole = $("#userRole").val();
      	var stateReason = $("input[name='leaveReason']").val();
-   	
-     	alert("유저아이디 : "+userId);
-     	alert("유저롤 : "+userRole);
-     	alert("탈퇴사유 : "+stateReason);
      	
      	location.href = "/user/updateLeaveUser?userId="+userId+"&userRole="+userRole+"&stateReason="+stateReason;
      	//$("form").attr("method" , "POST").attr("action" , "/user/updateLeaveUser").submit();
@@ -235,31 +231,39 @@
 		}
 		
 		#updatebtn {
-			position: relative;
-        	left: 381px;
-       		top: -48px;
-       		width : 80px;
+		    background-color: #4299E1;
+		    position: relative;
+		    left: 383px;
+		    top: -52px;
+		    width: 80px;
+		    height: 32px;
 		}
 		
 		#updateContent {
-			position: relative;
-        	left: 381px;
-       		top: -28px;
-       		width : 80px;
+		    background-color: #4299E1;
+		    position: relative;
+		    left: 1px;
+		    top: 0px;
+		    width: 80px;
+		    height: 120px;
 		}
-		
+				
 		#adrSearch {
-			position: relative;
-        	left: 381px;
-       		top: -28px;
-       		width : 80px;
+		    background-color: #4299E1;
+		    position: relative;
+		    left: 0px;
+		    top: 0px;
+		    width: 80px;
+		    height: 32px;
 		}
-		
+				
 		#editBtn {
-			position: relative;
-        	left: 381px;
-       		top: 0px;
-       		width : 80px;
+		    background-color: #4299E1;
+		    position: relative;
+		    left: 383px;
+		    top: -69px;
+		    width: 80px;
+		    height: 68px;
 		}
 		
 		.leaveUser {
@@ -282,6 +286,16 @@
 			text-align: center;
 			font-weight: 340;
 		}
+		
+		#profileContent {
+			width: 378px;
+			text-align : center;
+			
+		}
+		
+		#userNickname {
+			width:378px;
+		}
 				
 	</style>
 
@@ -291,12 +305,6 @@
 
 	<!-- [툴바] ----------------------------------------------------------->
 		<jsp:include page="../layout/toolbar.jsp"/>
-
-
-
-
-
-
 
 <div class="container px-5 my-5 ">
 <body class="h-screen font-sans login bg-cover">
@@ -337,15 +345,13 @@
 					<input class="w-full px-4 py-1 text-gray-700 bg-gray-200 rounded" type="text" style="color:gray;" name="nickname" id="userNickname" value="${dbUser.nickname}" required="" placeholder="닉네임 입력해주세요">						
 					<div class="check_font" id="NNCheck" style="height: 20px; font-size : 12px" ></div>	
 					<button class="px-4 py-0 text-white font-light tracking-wider bg-gray-900 rounded button" id="updatebtn" name="updatebtn" type="button" onclick="javascript:updateNN()" style="margin-top: 0px;">수정</button>							
-					<div></div> 
-                </div>         	     
-         	      
+				</div> 
+                  
          	    <!-- 프로필소개 -->
                 <div class="profileContent px-4 px-1">
                     <label class="block text-sm text-gray-00" for="userId" >프로필소개</label>
 					<input class="w-full px-4 py-5 text-gray-700 bg-gray-200 rounded" style="color:gray;" id="profileContent" name="profileContent" type="text" required="" value="${dbUser.profileContent}" aria-label="profileContent" placeholder="프로필소개를 입력해주세요">						
 					<button class="px-4 py-0 text-white font-light tracking-wider bg-gray-900 rounded button" id="updateContent" name="updateContent" type="button" onclick="javascript:updatePC()" >수정</button>		
-					<div></div> 
                 </div>                               
                 
                 <!-- 주소 -->
@@ -353,7 +359,7 @@
 	                <div class="address px-4 px-1">
 	                    <label class="block text-sm text-gray-00" for="address">주소</label>
 	                   
-	                    <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" type="text"  id="fullAddr" name="fullAddr" value="${dbUser.fullAddr}" onclick="javascript:searchAdr()" placeholder="주소지 검색을 눌러주세요" readonly >
+	                    <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" type="text" style="width: 379px;" id="fullAddr" name="fullAddr" value="${dbUser.fullAddr}" onclick="javascript:searchAdr()" placeholder="주소지 검색을 눌러주세요" readonly >
 						<button class="px-4 py-0 text-white font-light tracking-wider bg-gray-900 rounded button" id="adrSearch" name="addr" type="button" onclick="javascript:updateAddr()">수정</button>		
 	                </div>
 				</div>
@@ -366,7 +372,7 @@
 
 						<div class="col-sm-15"> 
 							
-							<select name="interestFirst" id="interestFirst" style="width:460px;" class="px-4 py-0 text-black font-light tracking-wider bg-gray-200 rounded">
+							<select name="interestFirst" id="interestFirst" style="width:378px;" class="px-4 py-0 text-black font-light tracking-wider bg-gray-200 rounded">
 									<option> ${dbUser.interestFirst} </option> 
 									<option value="1">아웃도어/여행/사진/영상</option>
 									<option value="2">운동/스포츠</option>
@@ -382,7 +388,7 @@
 									<option value="12">맛집/카페</option>
 							</select> 
 														
-							<select name="interestSecond" id="interestSecond" style="width:460px;" class="px-4 py-0 text-black font-light tracking-wider bg-gray-200 rounded">
+							<select name="interestSecond" id="interestSecond" style="width:378px;" class="px-4 py-0 text-black font-light tracking-wider bg-gray-200 rounded">
 									<option> ${dbUser.interestSecond} </option>
 									<option value="1">아웃도어/여행/사진/영상</option>
 									<option value="2">운동/스포츠</option>
@@ -398,7 +404,7 @@
 									<option value="12">맛집/카페</option>
 							</select>
 												
-							<select name="interestThird" id="interestThird" style="width:460px;" class="px-4 py-0 text-black font-light tracking-wider bg-gray-200 rounded">
+							<select name="interestThird" id="interestThird" style="width:378px;" class="px-4 py-0 text-black font-light tracking-wider bg-gray-200 rounded">
 									<option>${dbUser.interestThird}</option>
 									<option value="1">아웃도어/여행/사진/영상</option>
 									<option value="2">운동/스포츠</option>
@@ -471,9 +477,6 @@
 		
 		var formData = new FormData(form[0]);
 		formData.append("file", e.target.files[0]); 
-		//formData.append("userId", "user01");
-		alert("form 확인 : "+form);
-		alert("formData 확인 : "+formData);
 		
 		console.log("formData : "+formData);
 		
@@ -485,8 +488,6 @@
   			console.log(value);
 		}
 		
-		alert("for문 종료");
-		
     	$.ajax({
                 url : "/user/json/uploadProfileImage"
                     , method : "POST"
@@ -495,8 +496,7 @@
                     , data : formData
                     , dataType: 'text'
                     , success:function(result) {
-                        alert(" ajax success! ");
-                        alert(result);	// 확인 
+                    swal("SUCCESS!","프로필 사진 수정이 완료되었습니다.","success");
                         
                         $('.profileImg').attr('src',"/images/uploadFiles/"+result);         
                     } 

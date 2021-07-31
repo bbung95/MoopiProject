@@ -54,7 +54,7 @@
 			var userId = $("#userId").val();
 		
 			popWin = window.open(
-					"getMobileAuth?updatePwd",
+					"getMobileAuth?",
 					"childForm",
 					"left=460, top=300, width=580, height=550, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");	
 			
@@ -294,23 +294,7 @@
 	    margin-left: 315px;
 		margin-down: 310px;
 	}
-	
-	
-	<div class="MobileNum">                        
-					<div class="MB">
-						<h6 class="LabelPhoneNum block text-sm text-gray-00">모바일번호</label></h6>
-					</div>
-					<div class="phoneNumDown">
-	                    <input class="editPhoneNum w-full px-3 py-1 text-gray-700 bg-gray-200 rounded" id="pInput" name="phone" type="text" value=${dbUser.phone} onClick="updatePN()">      				
-					</div>
-					<div class="mobileAuthBtn"	
-						<button type="button" id="mobileAuthBtn" class="micro_btn" onClick="editPN()">변경하기</button>
-					</div>
-					<div class="editMobileContent">	
-						<p class="fixed"> 모바일번호 변경을 원하신다면 위의 칸을 눌러주세요 </p>					                  
-	                </div>
-                </div>
-                
+
 	.MB {
 		padding-bottom : 24px;
 	}  
@@ -480,7 +464,7 @@
 						<button type="button" id="mobileAuthBtn" class="micro_btn" onClick="editPN()">변경하기</button>
 					</div>
 					<div class="editMobileContent">	
-						<p class="fixed"> 모바일번호 변경을 원하신다면 위의 칸을 눌러주세요 </p>					                  
+						<p class="editMC"> 모바일번호 변경을 원하신다면 위의 칸을 눌러주세요 </p>					                  
 	                </div>
                 </div>
                 

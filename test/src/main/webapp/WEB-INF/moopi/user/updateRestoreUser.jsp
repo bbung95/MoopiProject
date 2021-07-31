@@ -28,7 +28,6 @@
 			data : JSON.stringify({"userId" : userId}),
 			success : function(data, state) {
 					swal(userId+" 회원님의 복구가 완료되었습니다.","로그인을 진행해주세요","success");
-					alert(userId+" 회원님의 복구가 완료되었습니다.");
 					close();
 			}
 		})//End ajax		
@@ -81,7 +80,7 @@
 							<input type="hidden" id="stateReason" name="stateReason" value="${stateReason}" />
 								<h4 class="leaveUserContent" style="center;"> ${userId} 님께서는 탈퇴처리 진행중인 회원입니다 </h4>
 								<div class="regDateContent">탈퇴신청일자</div>
-								<div class="regDate">${stateRegDate}2021-07-30</div>
+								<div class="regDate">${stateRegDate}2021-07-31</div>
 								
 								<div class="delete_p" style="margin-top: 10px;">
 								<hr>
