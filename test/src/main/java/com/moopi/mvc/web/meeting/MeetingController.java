@@ -175,8 +175,10 @@ public class MeetingController {
 	
 	//카카오 지도...
 	@RequestMapping("/map")
-	   public String getMap() throws Exception{
-	      
+	   public String getMap(@RequestParam("mtAddr")String mtAddr, Model model) throws Exception{
+		
+			model.addAttribute("mtAddr", mtAddr);
+		
 	      return "/meeting/map";
 	   }
 	
