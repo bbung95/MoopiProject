@@ -87,24 +87,24 @@ body>#mainlogo {
 }
 
 .selectbtn {
-	width: 200px;
 	height: 40px;
-	margin: 5px;
-	background: #ebf2f7;
+	margin: 10px 2px 10px 0px;
+	background: white;
 }
 
 .srchbtn {
 	width: 80px;
 	height: 40px;
-	background: #d1e0e3;
-	color: black;
-	font-size: 13px;
+	background: #ebf2f7;
+	color: #9699ab;
+	font-size: 16px;
 }
 
-header{
-	background : #4299e1;
+header {
+	background-image: linear-gradient(120deg, #4299e1 50%, 60%, #b8d2ff 50%);
 }
 </style>
+
 </head>
 <body>
 
@@ -119,9 +119,12 @@ header{
 				</div>
 				<div class="col-lg-8 col-xl-7 col-xxl-6">
 					<div class="my-5 text-center text-xl-start">
-						<h1 class="display-5 fw-bolder text-white mb-2">Moopi Project</h1>
-						<p class="lead fw-normal text-white-50 mb-4">무피프로젝트 2021-06-06
-							~ 2021-08-06</p>
+						<h1 class="display-6 fw-bolder text-white mb-2">Moopi</h1>
+						<p class="lead fw-normal text-white-50 mb-4">
+							Moopi는 나와 같은 관심사 및 지역구의 소모임과 번개모임을 큐레이팅 해주고, 매칭시켜 주는 모임 플랫폼입니다.<br />
+							부담없이 편하게 만나고 헤어질 수 있는 일시적인 만남부터, 정기적인 정모활동을 통한 책임감 있고 끈끈한 교류까지
+							취향에 맞게 선택 할 수 있습니다.<br /> 함께하는, 보다 행복한 삶을 지금 당장 시작해 보세요.
+						</p>
 						<div>
 
 							<form id="mainSearch">
@@ -133,7 +136,8 @@ header{
 									value="">
 								<div class="dropdown mt-3" style="margin-bottom: 10px;">
 									<button class="btn btn-light dropdown-toggle selectbtn"
-										type="button" data-bs-toggle="dropdown" id="interestbtn">
+										type="button" data-bs-toggle="dropdown" id="interestbtn"
+										style="width: 200px;">
 										<span>Category</span>
 									</button>
 									<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton"
@@ -144,19 +148,19 @@ header{
 										</c:forEach>
 									</ul>
 
-									<button class="btn btn-light dropdown-toggle selectbtn"
-										type="button" data-bs-toggle="dropdown" id="addrbtn">
-										Addr</button>
+									<button class="btn btn-light dropdown-toggle selectbtn "
+										type="button" data-bs-toggle="dropdown" id="addrbtn"
+										style="width: 100px;">Addr</button>
 									<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton"
 										id="addr" style="height: 200px; overflow: auto;">
 
 									</ul>
-								</div>
-								<div>
-									<button class="btn btn-light srchbtn" type="button" order="1"
-										style="margin-left: 5px;">☮️ 모임</button>
-									<button class="btn btn-light srchbtn" type="button" order="2"
-										style="margin-right: 5px;">⚡ ️번개</button>
+									<span>
+										<button class="btn btn-light srchbtn" type="button" order="1"
+											style="margin-left: 5px;">모임</button>
+										<button class="btn btn-light srchbtn" type="button" order="2"
+											style="margin-right: 5px;">번개</button>
+									</span>
 								</div>
 							</form>
 
@@ -168,13 +172,11 @@ header{
 	</header>
 
 	<jsp:include page="layout/footer.jsp"></jsp:include>
-	<jsp:include page="layout/searchbar.jsp"></jsp:include>
 
 	<!-- Bootstrap core JS-->
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 	<!-- Core theme JS-->
-	<
 	<script src="/js/scripts.js"></script>
 	<script>
 		let addrs = [ "종로구", "중구", "용산", "성동구", "광진구", "동대문구", "중랑구", "성북구",

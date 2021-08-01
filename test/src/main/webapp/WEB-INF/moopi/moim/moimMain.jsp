@@ -34,121 +34,6 @@
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
 
-<script>
-var k = 9;
-var j = 0;
-var t = 0;
-
-
-// $(document).ready(function () {
-// 	<c:if test="${!empty dbUser}">
-// 	  $(document).scroll(function() {
-// 	    var maxHeight = $(document).height();
-// 	    var currentScroll = $(window).scrollTop() + $(window).height();
-	    	
-// 	    if (maxHeight <= currentScroll + 100) {
-	    	
-// 	    	scroll()
-	    	 
-// 	    }//if문 종료
-// 	  })
-// 	 </c:if> 
-// 	});
-	  
-// 	 scroll();
-	
-// 	function scroll(){
-		
-// 		var addr = $('#addr').val();
-// 		var interest = $('#interest').val();
-// 		var searchCondition = $('#searchCondition').val();
-		
-// 		$.ajax({
-//    	        url: "/moim/json/listMoim",
-//    	     	method : "POST" ,
-// 			dataType : "json" ,
-// 			headers : {
-// 				"Accept" : "application/json",
-// 				"Content-Type" : "application/json"
-// 			},
-// 			data: JSON.stringify({
-// 				"currenPage" : currentPage,
-// 				"searchCondition": searchCondition,
-// 				"addr" : addr,
-// 				"interest" : interest
-// 			}),
-//    	        success: function (JSONData, status) {
-//    	        	console.log(status);
-//    	        	console.log(JSONData.list);
-// 			 	var index = JSONData.list.length;
-			 	
-// // 			 	alert(index);
-// 			 	console.log(currentPage);
-// 			 	var display = '';
-// 			 	for(var i = 0; i < index; i++){
-			 		
-// 			 		display = "<figure>"
-// 							+'<span onClick=\"fncGetMoim( '+JSONData.list[i].mmNo +')\"><strong><left>'+JSONData.list[i].mmName+'</left></strong></span>'
-// 							+'<img src=\"/images/uploadFiles/'+JSONData.list[i].mmFile+ '\" >'
-// 							+'<figcaption>'+JSONData.list[i].mmContent+'</figcaption>'
-// 							+'</figure>'
-			 	
-// 							$("#columns").append(display);
-// 			 	}
-			 	
-// 			 	currentPage++;
-			 	
-			 	
-			 	
-			 	
-			 	
-// 			 	if(k+8 >= index){
-// 			 		for(var i= k; i < index; i++){
-// 		   	        	  //k+=1;
-// 						  $("#columns").append(
-// 							"<figure>"
-// 							+'<span onClick=\"fncGetMoim( '+JSONData.list[i].mmNo +')\"><strong><left>'+JSONData.list[i].mmName+'</left></strong></span>'
-// 							+'<img src=\"/images/uploadFiles/'+JSONData.list[i].mmFile+ '\" >'
-// 							+'<figcaption>'+JSONData.list[i].mmContent+'</figcaption>'
-// 							+'</figure>'
-// 						  );	  
-// 					  }
-// 			 		k=0;
-// 			 		j=1;
-// 			 	}else if(j==1){
-// 			 		t = 8;
-// 			 		for(var i= 0; i < t; i++){
-// 		   	        	  k+=1;
-// 						  $("#columns").append(
-// 							"<figure>"
-// 							+'<span onClick=\"fncGetMoim( '+JSONData.list[i].mmNo +')\"><strong><left>'+JSONData.list[i].mmName+'</left></strong></span>'
-// 							+'<img src=\"/images/uploadFiles/'+JSONData.list[i].mmFile+ '\" >'
-// 							+'<figcaption>'+JSONData.list[i].mmContent+'</figcaption>'
-// 							+'</figure>'
-// 						  );	  
-// 					  }
-// 			 		j=0;
-// 			 	}else if(k+8 < index){
-// 			 		for(var i= k; i < k+8; i++){
-// 		   	        	  k+=1;
-// 						  $("#columns").append(
-// 							"<figure>"
-// 							+'<span onClick=\"fncGetMoim( '+JSONData.list[i].mmNo +')\"><strong><left>'+JSONData.list[i].mmName+'</left></strong></span>'
-// 							+'<img src=\"/images/uploadFiles/'+JSONData.list[i].mmFile+ '\" >'
-// 							+'<figcaption>'+JSONData.list[i].mmContent+'</figcaption>'
-// 							+'</figure>'
-// 						  );	  
-// 					  }
-// 			 	}
-   	        	
-   	//        }//success 종료
-   	 //     })//ajax종료
-   	      
-		
-	//}
-</script>
-
-
 <script type="text/javascript">
 	
 	function fncAddMoimView(){	
@@ -164,7 +49,7 @@ var t = 0;
 
 
 	function fncGetMoim(mmNo){
-		swal("모임상세보기");
+		//swal("모임상세보기");
 		self.location ="/moim/getMoim?mmNo="+mmNo
 	};	
 
@@ -173,7 +58,7 @@ var t = 0;
 	};
 	
 	function fncAddMoim(){
-		swal("모임을 생성합니다.");
+		//swal("모임을 생성합니다.");
 		$("#addMoim").attr("method", "POST").attr("action", "/moim/addMoim").submit();
 	}
 
@@ -206,7 +91,7 @@ var t = 0;
 	  e.dataTransfer = e.originalEvent.dataTransfer;
 	  var files = e.target.files || e.dataTransfer.files;
 	  if (files.length > 1) {
-	      alert('하나만 올려라.');
+	      //alert('하나만 올려라.');
 	      return;
 	  }
 	  if (files[0].type.match(/image.*/)) {
@@ -389,6 +274,41 @@ body {
 
 .carousel-item>img {
 	max-height: 500px;
+	opacity: 0.7;
+}
+
+#btnbar{
+	position: fixed;
+	bottom: 0;
+	right: 0;
+	margin: 20px;
+}
+
+#btnbar > button{
+	background: #d1e0e3;
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	transition : all 0.5s;
+}
+
+#btnbar > button > i{
+	font-size : 20px;
+}
+
+#btnbar > button:hover{
+	background: #e0ecff;
+}
+
+.interestNo{
+	font-size: 16px;
+	padding: 7px;
+	margin :1px;
+	transition: all 0.5s;
+}
+
+.interestNo:hover{
+	background: #c5c7c9;
 }
 </style>
 
@@ -397,39 +317,38 @@ body {
 	<!-- ToolBar Start /////////////////////////////////////-->
 	<jsp:include page="../layout/toolbar.jsp" />
 	<!-- ToolBar End /////////////////////////////////////-->
-	
+
 	<!-- 검색 조건 -->
 	<input type="hidden" id="addr" value="${search.addr }" />
 	<input type="hidden" id="interest" value="${search.interestNo }" />
 	<input type="hidden" id="searchCondition"
 		value="${search.searchCondition}" />
 
-
 	<!-- 메인 헤더 -->
 	<div id="carouselExampleSlidesOnly"
 		class="carousel slide carousel-fade" data-bs-ride="carousel">
 		<div class="carousel-inner">
-			<div class="carousel-item active" data-bs-interval="4500">
-				<img src="https://dummyimage.com/1160x500/ced4da/6c757d"
+			<div class="carousel-item active" data-bs-interval="6000">
+				<img src="/images/background/moim1.jpg"
 					class="d-block w-100" alt="...">
 				<div class="carousel-caption d-none d-md-block">
-					<h5>First slide label</h5>
+					<h4>First slide label</h4>
 					<p>Some representative placeholder content for the first slide.</p>
 				</div>
 			</div>
-			<div class="carousel-item" data-bs-interval="4500">
-				<img src="https://dummyimage.com/1160x500/ced4da/6c757d"
+			<div class="carousel-item" data-bs-interval="6000">
+				<img src="/images/background/moim2.jpg"
 					class="d-block w-100" alt="...">
 				<div class="carousel-caption d-none d-md-block">
-					<h5>Second slide label</h5>
+					<h4>Second slide label</h4>
 					<p>Some representative placeholder content for the first slide.</p>
 				</div>
 			</div>
-			<div class="carousel-item" data-bs-interval="4500">
-				<img src="https://dummyimage.com/1160x500/ced4da/6c757d"
+			<div class="carousel-item" data-bs-interval="6000">
+				<img src="/images/background/flash1.jpg"
 					class="d-block w-100" alt="...">
 				<div class="carousel-caption d-none d-md-block">
-					<h5>Third slide label</h5>
+					<h4>Third slide label</h4>
 					<p>Some representative placeholder content for the first slide.</p>
 				</div>
 			</div>
@@ -443,25 +362,14 @@ body {
 		<input type="hidden" class="addr" name="addr" value=""> <input
 			type="hidden" class="order" name="type" value=""> <input
 			type="hidden" class="searchCondition" name="searchCondition" value="">
-		<div class="me-auto p-2 bd-highlight h4">모임리스트</div>
+		<div class="me-auto p-2 bd-highlight h4">모임</div>
 		<div class="bd-highlight">
 			<div class="dropdown mt-3">
-				<button class="btn btn-light dropdown-toggle selectbtn"
-					type="button" data-bs-toggle="dropdown" id="interestbtn">
-					<span>Category</span>
-				</button>
-				<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton"
-					id="interest" style="height: 200px; overflow: auto;">
-					<c:forEach var="interest" items="${interest}">
-						<li><a class="dropdown-item" href="#"
-							type="${interest.interestNo}">${interest.interestName}</a></li>
-					</c:forEach>
-				</ul>
 
 				<button class="btn btn-light dropdown-toggle selectbtn"
-					type="button" data-bs-toggle="dropdown" id="addrbtn">Addr</button>
-				<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton"
-					id="addr" style="height: 200px; overflow: auto;">
+					type="button" data-bs-toggle="dropdown" id="addrbtn" style="margin-right: 20px;">Addr</button>
+				<ul class="dropdown-menu addr" aria-labelledby="dropdownMenuButton"
+					style="height: 200px; overflow: auto;">
 
 				</ul>
 			</div>
@@ -476,20 +384,21 @@ body {
 			<div class="row multi-columns-row">
 				<div class="row">
 					<div class="col-xs-3 col-sm-3 col-md-3">
-						<h3>관심사</h3>
+						<div style="font-size: 20px;">관심사</div>
+						<hr/>
 						<c:forEach var="interest" items="${interest}">
 							<div class="interestNo" type="${interest.interestNo}">${interest.interestName}</div>
-
 						</c:forEach>
 					</div>
 					<div class="col-xs-9 col-sm-9 col-md-9">
 
-						<hr style="margin-bottom: 10px;" />
+						<hr style="margin: 0px 0px 10px 0px;" />
 
+						<!-- 내 가입 목록 -->
 						<c:if test="${!empty dbUser}">
+								<div >내 가입 목록</div>
+								<hr style="margin: 10px 0px 10px 0px;" />
 							<div class="row">
-
-								<!-- 내 가입 목록 -->
 								<div class="owl-carousel">
 									<c:forEach items="${list2}" var="moim">
 										<div>
@@ -504,6 +413,8 @@ body {
 
 							</div>
 							<hr style="margin: 10px 0px 10px 0px;" />
+							모임 리스트
+							<hr style="margin: 10px 0px 10px 0px;" />
 						</c:if>
 
 						<div class="row" id="moimListView"></div>
@@ -513,7 +424,17 @@ body {
 		</div>
 	</div>
 
-
+	<!-- btn collector -->
+	<div id="btnbar">
+	<c:if test="${!empty dbUser}">
+	<button data-bs-toggle="modal" data-bs-target="#myModal">
+		<i class="bi bi-plus"></i>
+	</button>
+	</c:if>
+	<button onclick="location.href='#carouselExampleSlidesOnly'">
+		<i class="bi bi-chevron-up"></i>
+	</button>
+	</div>
 
 	<!-- Modal 시작-->
 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
@@ -709,13 +630,9 @@ body {
 
 	<!-- 모달끝 -->
 
-	<button type="button" class="btn btn-light" data-bs-toggle="modal"
-			data-bs-target="#myModal">ㅇㅇ</button>
 
+	<jsp:include page="../layout/footer.jsp" />
 
-	<jsp:include page="../layout/searchbar.jsp"></jsp:include>
-	<jsp:include page="../layout/footer.jsp"/>
-	
 
 	<!-- Bootstrap core JS-->
 	<script
@@ -728,13 +645,53 @@ body {
 
 var currentPage = 1;
 
+// 지역구
+let addrs = [ "종로구", "중구", "용산", "성동구", "광진구", "동대문구", "중랑구", "성북구",
+	"강북구", "도봉구", "노원구", "은평구", "마포구", "양천구", "강서구", "구로구", "금천구",
+	"영등포구", "동작구", "관악구", "서초구", "강남구", "송파구", "강동구" ];
+
+for (var i = 0; i < addrs.length; i++) {
+
+	let display = '<li><a class="dropdown-item" href="#">' + addrs[i]
+		+ '</a></li>';
+	$('.addr').append(display);
+}
+
+$('.addr > li > a').on('click', function() {
+
+	$('#addrbtn').text($(this).text());
+	$('#addr').val($(this).text().trim());
+	$('#moimListView').children().remove();
+	
+	location.href= "#carouselExampleSlidesOnly";
+	currentPage = 1;
+	getMoimList();
+})
+
+// 관심사
+$('.interestNo').on('click', function(){
+	
+	let type = $(this).attr('type');
+	$('#interest').val(type);
+	$('#moimListView').children().remove();
+	
+	
+	location.href= "#carouselExampleSlidesOnly";
+	currentPage = 1;
+	getMoimList();
+})
+	
+
+
+
+/* 스크롤  */
 $(document).scroll(function() {
   var maxHeight = $(document).height();
   var currentScroll = $(window).scrollTop() + $(window).height();
   	
   if (maxHeight <= currentScroll + 100) {
   	
-	  getMoimFlash()
+	  getMoimList()
   	 
   }//if문 종료
 })
@@ -744,6 +701,17 @@ $(document).scroll(function() {
 		let addr = $('#addr').val();
  		let interest = $('#interest').val();
  		let searchCondition = $('#searchCondition').val();
+ 		
+		if (interest != 0 && addr != '') {
+			$('#searchCondition').val("4");
+		} else if (interest != 0) {
+			$('#searchCondition').val("1");
+		} else if (addr != '') {
+			$('#searchCondition').val("2");
+		} else {
+			$('#searchCondition').val("0");
+		}
+ 		
 	
 		$.ajax({
 	        url: "/moim/json/listMoim",
@@ -760,29 +728,21 @@ $(document).scroll(function() {
 				"interestNo" : interest
 			}),
 	        success: function (JSONData, status) {
-	        	console.log(status);
-	        	console.log(JSONData.list);
 			 	var index = JSONData.list.length;
 		 	
-// 			 	alert(index);
 			 	console.log(currentPage);
 			 	var displayValue = '';
 			 	for(var i = 0; i < index; i++){
 		 		
-	/* 		 		display = "<figure>"
-							+'<span onClick=\"fncGetMoim( '+JSONData.list[i].mmNo +')\"><strong><left>'+JSONData.list[i].mmName+'</left></strong></span>'
-							+'<img src=\"/images/uploadFiles/'+JSONData.list[i].mmFile+ '\" >'
-							+'<figcaption>'+JSONData.list[i].mmContent+'</figcaption>'
-							+'</figure>' */
 		 			
 							
 				displayValue = '<div data-aos="zoom-in-right" class="col-xs-4 col-sm-4 col-md-4 no-padding item" id="getFlash" onClick="fncGetMoim( '
 								+ JSONData.list[i].mmNo
 								+ ')" >'
-								+ '<div class="border-wrap op_itemline10" >'
+								+ '<div class="border-wrap op_itemline10 img-thumbnail" >'
 								+ '<div class="thumb-wrap">'
 								+ '<div class="tpl-forum-list-thumb">'
-								+ '<div class="thumbnail-wrapper">'
+								+ '<div class="thumbnail-wrapper ">'
 								+ '<div class="thumbnail">'
 								+ '<div class="thumbnail-centered ">'
 								+ '<img src="/images/uploadFiles/'+JSONData.list[i].mmFile+'" class="thumbnail-img">'
@@ -827,7 +787,6 @@ $(document).scroll(function() {
 								+'data-title="content font"></div>'
 								+ '</div>' + '</div>' + '</div>'		
 					
-						console.log(displayValue);	
 							
 							$("#moimListView").append(displayValue); 
 				}
@@ -838,16 +797,6 @@ $(document).scroll(function() {
 			   	      
 					
 	}
-	
-	
-$('.interestNo').on('click', function(){
-	
-	let type = $(this).attr('type');
-	alert(type);
-	$('#interest').val(type);
-	$('#moimListView').children().remove();
-	getMoimList();
-})
 	
 	
 	

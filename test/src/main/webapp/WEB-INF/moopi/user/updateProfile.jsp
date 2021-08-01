@@ -436,11 +436,6 @@
 						<input type="radio" class="radio-value" name="myhomeState" id="myhomeState" value="1">
 					</div>				
 				</div>
-				
-	
-			
-			
-			
 							
         </div>
     </div>   
@@ -454,6 +449,9 @@
         <!--/footer-->
     </div>
 </div>
+
+<jsp:include page="../layout/footer.jsp"></jsp:include>
+
 <script>
  
    $(".profileImg").on("click", function() {  	

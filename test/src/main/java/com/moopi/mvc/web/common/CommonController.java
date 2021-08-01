@@ -190,6 +190,8 @@ public class CommonController {
 		
 		User user = (User)session.getAttribute("dbUser");
 		
+		model.addAttribute("interest", commonService.getInterest());
+		
 		if (type == 1) {
 			System.out.println("moimSearch");
 			
