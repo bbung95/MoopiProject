@@ -1,7 +1,9 @@
 
 <!DOCTYPE html>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+	
 <html>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <head>
     <meta charset="utf-8">
     <title>키워드로 장소검색하고 목록으로 표출하기</title>
@@ -52,7 +54,7 @@
         <div class="option">
             <div>
                 <form onsubmit="searchPlaces(); return false;">
-                    키워드 : <input type="text" value="이춘복참치 종로 YMCA점" id="keyword" size="15"> 
+                    키워드 : <input type="text" value="${mtAddr}" id="keyword" size="15"> 
                     <button type="submit">검색하기</button> 
                 </form>
             </div>
@@ -286,29 +288,58 @@ function displayPagination(pagination) {
 // 검색결과 목록 또는 마커를 클릭했을 때 호출되는 함수입니다
 // 인포윈도우에 장소명을 표시합니다                                   펑션 추가해서 여기에 넣으면됨.
 function displayInfowindow(marker, title) {
-    var content =   '<input type=hidden class="mapPositon" value=1"'+marker.getPosition()+'">'+ 
-    				'<div style="padding:5px;z-index:1;">' + title + marker.getPosition()+'</div> <p>test</p>' +
-					'<button type="button" class="btn btn-default"  onClick="javascript:selectPlace('+marker.getPosition().getLat()+','+marker.getPosition().getLng()+')">모임생성하기</button>';
+	
+	var content =  	'<div style="padding:5px;z-index:1;">' + title+'</div> <p>test</p>' +
+					'<input type="hidden" class="selectmtAddr" value="'+title+'">' +
+					'<input type="hidden" class="selectlat" value="'+marker.getPosition().getLat()+'">' +
+					'<input type="hidden" class="selectlng" value="'+marker.getPosition().getLng()+'">' +
+					'<button type="button" class="btn btn-default" id="create">장소선택하기</button>';
 					
     infowindow.setContent(content);
     infowindow.open(map, marker);
+    
+    $("#create").on("click", function(){
+		
+		mtAddr = $(this).parent().find(".selectmtAddr").val()
+		selectlat = $(this).parent().find(".selectlat").val()
+		selectlng = $(this).parent().find(".selectlng").val()
+		
+		alert(mtAddr)
+		selectPlace(selectlat, selectlng, mtAddr)
+		
+    });
+
 }
 
-function selectPlace(lat, lng){
-	
-	alert(lat);
-	alert(lng);
-}
-
-
-
- // 검색결과 목록의 자식 Element를 제거하는 함수입니다
+// 검색결과 목록의 자식 Element를 제거하는 함수입니다
 function removeAllChildNods(el) {   
     while (el.hasChildNodes()) {
         el.removeChild (el.lastChild);
     }
 }
 </script>
+<script type="text/javascript">
+
+function selectPlace(lat, lng, mtAddr){
+	
+	alert(mtAddr);
+	alert(lat);
+	alert(lng);
+	
+	 opener.document.getElementById("lat").value = lat
+	 opener.document.getElementById("lng").value = lng
+	 opener.document.getElementById("mtAddr").value = mtAddr
+	 
+// 	 alert("상위부모 펑션 실행.")
+// 	 opener.fncParentsMapView(lat, lng, mtAddr);
+	
+	 window.close();
+	
+}
+
+</script>
+
+
 </body>
 
 </html>
