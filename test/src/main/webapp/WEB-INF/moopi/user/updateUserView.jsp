@@ -540,6 +540,7 @@
 </div>
 		        			  			
 
+<jsp:include page="../layout/footer.jsp"></jsp:include>
 
 	
 	<!-- Bootstrap core JS-->

@@ -248,9 +248,9 @@ img, svg {
 
 	</form>
 
+<jsp:include page="../layout/footer.jsp"></jsp:include>
 
 
-	<jsp:include page="../layout/searchbar.jsp"></jsp:include>
 </body>
 <script type="text/javascript">
 	

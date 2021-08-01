@@ -145,10 +145,9 @@ body {
 		</form>
  
 	</div>
-	<jsp:include page="../layout/searchbar.jsp"></jsp:include>
+	
+	<jsp:include page="../layout/footer.jsp"></jsp:include>
+	
 </body>
-
-
-
 </html>
 

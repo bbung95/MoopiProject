@@ -170,6 +170,41 @@ body {
 
 .carousel-item>img {
 	max-height: 500px;
+	opacity: 0.7;
+}
+
+#btnbar {
+	position: fixed;
+	bottom: 0;
+	right: 0;
+	margin: 20px;
+}
+
+#btnbar>button {
+	background: #d1e0e3;
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	transition: all 0.5s;
+}
+
+#btnbar>button>i {
+	font-size: 20px;
+}
+
+#btnbar>button:hover {
+	background: #e0ecff;
+}
+
+.interestNo{
+	font-size: 16px;
+	padding: 7px;
+	margin :1px;
+	transition: all 0.5s;
+}
+
+.interestNo:hover{
+	background: #c5c7c9;
 }
 </style>
 
@@ -234,39 +269,39 @@ body {
 	<!-- ToolBar Start /////////////////////////////////////-->
 	<jsp:include page="../layout/toolbar.jsp" />
 	<!-- ToolBar End /////////////////////////////////////-->
-	
+
 	<!-- 검색 조건 -->
 	<input type="hidden" id="addr" value="${search.addr }" />
 	<input type="hidden" id="interest" value="${search.interestNo }" />
 	<input type="hidden" id="searchCondition"
 		value="${search.searchCondition}" />
-	
-	
+
+
 	<!-- 메인 헤더 -->
 	<div id="carouselExampleSlidesOnly"
 		class="carousel slide carousel-fade" data-bs-ride="carousel">
 		<div class="carousel-inner">
-			<div class="carousel-item active" data-bs-interval="4500">
-				<img src="https://dummyimage.com/1160x500/ced4da/6c757d"
-					class="d-block w-100" alt="...">
+			<div class="carousel-item active" data-bs-interval="6000">
+				<img src="/images/background/moim2.jpg" class="d-block w-100"
+					alt="...">
 				<div class="carousel-caption d-none d-md-block">
-					<h5>First slide label</h5>
+					<h4>First slide label</h4>
 					<p>Some representative placeholder content for the first slide.</p>
 				</div>
 			</div>
-			<div class="carousel-item" data-bs-interval="4500">
-				<img src="https://dummyimage.com/1160x500/ced4da/6c757d"
-					class="d-block w-100" alt="...">
+			<div class="carousel-item " data-bs-interval="6000">
+				<img src="/images/background/moim1.jpg" class="d-block w-100"
+					alt="...">
 				<div class="carousel-caption d-none d-md-block">
-					<h5>Second slide label</h5>
+					<h4>Second slide label</h4>
 					<p>Some representative placeholder content for the first slide.</p>
 				</div>
 			</div>
-			<div class="carousel-item" data-bs-interval="4500">
-				<img src="https://dummyimage.com/1160x500/ced4da/6c757d"
-					class="d-block w-100" alt="...">
+			<div class="carousel-item" data-bs-interval="6000">
+				<img src="/images/background/flash1.jpg" class="d-block w-100"
+					alt="...">
 				<div class="carousel-caption d-none d-md-block">
-					<h5>Third slide label</h5>
+					<h4>Third slide label</h4>
 					<p>Some representative placeholder content for the first slide.</p>
 				</div>
 			</div>
@@ -279,25 +314,14 @@ body {
 		<input type="hidden" class="addr" name="addr" value=""> <input
 			type="hidden" class="order" name="type" value=""> <input
 			type="hidden" class="searchCondition" name="searchCondition" value="">
-		<div class="me-auto p-2 bd-highlight h4">번개리스트</div>
-		<div class="bd-highlight">
+		<div class="me-auto p-2 bd-highlight h4">번개</div>
+		<div class="bd-highlight ">
 			<div class="dropdown mt-3">
-				<button class="btn btn-light dropdown-toggle selectbtn"
-					type="button" data-bs-toggle="dropdown" id="interestbtn">
-					<span>Category</span>
-				</button>
-				<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton"
-					id="interest" style="height: 200px; overflow: auto;">
-					<c:forEach var="interest" items="${interest}">
-						<li><a class="dropdown-item" href="#"
-							type="${interest.interestNo}">${interest.interestName}</a></li>
-					</c:forEach>
-				</ul>
 
 				<button class="btn btn-light dropdown-toggle selectbtn"
-					type="button" data-bs-toggle="dropdown" id="addrbtn">Addr</button>
-				<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton"
-					id="addr" style="height: 200px; overflow: auto;">
+					type="button" data-bs-toggle="dropdown" id="addrbtn" style="margin-right: 20px;">Addr</button>
+				<ul class="dropdown-menu addr" aria-labelledby="dropdownMenuButton"
+					 style="height: 200px; overflow: auto;">
 
 				</ul>
 			</div>
@@ -313,15 +337,18 @@ body {
 			<div class="row multi-columns-row">
 				<div class="row">
 					<div class="col-xs-3 col-sm-3 col-md-3">
-						<h3>관심사</h3>
+						<div style="font-size: 20px;">관심사</div>
+						<hr/>
 						<c:forEach var="interest" items="${interest}">
-							<div type="${interest.interestNo}">${interest.interestName}</div>
+							<div class="interestNo" type="${interest.interestNo}">${interest.interestName}</div>
 
 						</c:forEach>
 					</div>
 					<div class="col-xs-9 col-sm-9 col-md-9">
-						
-						<hr style="margin-bottom: 10px;"/>
+
+						<hr style="margin: 0px 0px 10px 0px;" />
+						 번개 리스트
+						<hr style="margin: 10px 0px 10px 0px;" />
 						<div class="row" id="flashListView"></div>
 					</div>
 				</div>
@@ -329,7 +356,21 @@ body {
 		</div>
 	</div>
 
-
+	
+	<!-- btn collector -->
+	<div id="btnbar">
+	
+	<c:if test="${!empty dbUser}" >
+	<button data-bs-toggle="modal" data-bs-toggle="modal"
+			data-bs-target="#staticBackdrop">
+		<i class="bi bi-plus"></i>
+	</button>
+	</c:if>
+	<button onclick="location.href='#carouselExampleSlidesOnly'">
+		<i class="bi bi-chevron-up"></i>
+	</button>
+	</div>
+	
 
 	<!-- Modal -->
 	<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
@@ -447,20 +488,7 @@ body {
 		</div>
 	</div>
 
-	<c:if test="${!empty dbUser}">
-		<button type="button" class="btn btn-light" data-bs-toggle="modal"
-			data-bs-target="#staticBackdrop">
-			번개생성
-			<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64"
-				fill="currentColor" class="bi bi-file-plus-fill" viewBox="0 0 16 16">
-  <path
-					d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM8.5 6v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 1 0z" />
-</svg>
-		</button>
-	</c:if>
-
-	<jsp:include page="../layout/searchbar.jsp"/>
-	<jsp:include page="../layout/footer.jsp"/>
+	<jsp:include page="../layout/footer.jsp" />
 
 	<!-- 무한 -->
 	<!-- Core theme JS-->
@@ -474,6 +502,41 @@ body {
 		var loading = false;
 
 		let currentPage = 1;
+
+		// 지역구
+		let addrs = [ "종로구", "중구", "용산", "성동구", "광진구", "동대문구", "중랑구", "성북구",
+				"강북구", "도봉구", "노원구", "은평구", "마포구", "양천구", "강서구", "구로구", "금천구",
+				"영등포구", "동작구", "관악구", "서초구", "강남구", "송파구", "강동구" ];
+
+		for (var i = 0; i < addrs.length; i++) {
+
+			let display = '<li><a class="dropdown-item" href="#">' + addrs[i]
+					+ '</a></li>';
+			$('.addr').append(display);
+		}
+
+		$('.addr > li > a').on('click', function() {
+
+			$('#addrbtn').text($(this).text());
+			$('#addr').val($(this).text().trim());
+			$('#flashListView').children().remove();
+
+			location.href = "#carouselExampleSlidesOnly";
+			currentPage = 1;
+			getListFlash();
+		})
+
+		// 관심사
+		$('.interestNo').on('click', function() {
+
+			let type = $(this).attr('type');
+			$('#interest').val(type);
+			$('#flashListView').children().remove();
+
+			location.href = "#carouselExampleSlidesOnly";
+			currentPage = 1;
+			getListFlash();
+		})
 
 		$(window).scroll(
 				function() {
@@ -489,21 +552,30 @@ body {
 				});
 
 		function getListFlash() {
-	
+
 			let addr = $('#addr').val();
-	 		let interest = $('#interest').val();
-	 		let searchCondition = $('#searchCondition').val();
-			
-			
+			let interest = $('#interest').val();
+			let searchCondition = $('#searchCondition').val();
+
+			if (interest != 0 && addr != '') {
+				$('#searchCondition').val("4");
+			} else if (interest != 0) {
+				$('#searchCondition').val("1");
+			} else if (addr != '') {
+				$('#searchCondition').val("2");
+			} else {
+				$('#searchCondition').val("0");
+			}
+
 			$
 					.ajax({
 						url : "/flash/json/getListFlash",
 						method : "POST",
 						dataType : "JSON",
 						contentType : "application/json",
-						data: JSON.stringify({
+						data : JSON.stringify({
 							"currentPage" : currentPage,
-							"searchCondition": searchCondition,
+							"searchCondition" : searchCondition,
 							"addr" : addr,
 							"interestNo" : interest
 						}),
@@ -520,14 +592,14 @@ body {
 										displayValue += '<li class="tpl-forum-list-date tpl-forum-list-etc">모집상태:모집끝</li>'
 									} */
 
-									displayValue = '<div data-aos="zoom-in-right" class="col-xs-4 col-sm-4 col-md-4 no-padding item" id="getFlash" onClick="fncGetFlash('
+									displayValue = '<div data-aos="zoom-in-right" class="col-xs-4 col-sm-4 col-md-4 no-padding item " id="getFlash" onClick="fncGetFlash('
 											+ list[i].flashNo
 											+ ')" >'
-											+ '<div class="border-wrap op_itemline10" >'
+											+ '<div class="border-wrap op_itemline10 img-thumbnail" >'
 											+ '<div class="thumb-wrap">'
 											+ '<div class="tpl-forum-list-thumb">'
-											+ '<div class="thumbnail-wrapper">'
-											+ '<div class="thumbnail">'
+											+ '<div class="thumbnail-wrapper ">'
+											+ '<div class="thumbnail ">'
 											+ '<div class="thumbnail-centered ">'
 											+ '<img src="/images/uploadFiles/'+list[i].flashFile+'" class="thumbnail-img">'
 											+ '</div>'

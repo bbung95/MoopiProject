@@ -219,7 +219,7 @@ body {
 	width: 40px;
 	height: 40px;
 	margin-top: 10px;
-	margin-bottom: -10px;
+	margin-bottom : 10px;
 }
 
 .replyProfile {
@@ -586,12 +586,8 @@ figcaption > i{
 			</div>
 		</div>
 	</div>
-
-
-
-	<jsp:include page="../layout/searchbar.jsp"></jsp:include>
-
-
+	
+	 <jsp:include page="../layout/footer.jsp"></jsp:include>
 
 	<!-- Bootstrap core JS-->
 	<script
@@ -714,8 +710,6 @@ function upload(formData){
                 , dataType: 'JSON'
                 , success:function(data, state) {
                     	
-                		console.log(data);
-                        
                         let fileArry = data.boardFile.split("/");
     					
                         let displayValue = '<div class="col-xs-4 col-sm-4 col-md-4 no-padding item myitem" onclick="getMyBoard('+data.boardNo+')">'
@@ -741,6 +735,7 @@ function upload(formData){
                 	setTimeout(function() {
                 		$('#close').click();
                 		$('#boardContent').val('');
+                		$('#dropbox').children().remove();
                 		fileList = [];
     					$('#boardView').prepend(displayValue);
                 	}, 3000, displayValue)
@@ -919,9 +914,10 @@ if(${followCheck}){
 					}			
 					
 					// 게시글 상세내용
-					display += '<div"><img class="boardProfile" src="/images/uploadFiles/'+board.boardWriter.profileImage+'" />'
-							+ board.boardWriter.nickname+' </div>'
-							+ board.boardRegDate
+					display += '<div class="d-flex align-items-center"><img class="boardProfile" src="/images/uploadFiles/'+board.boardWriter.profileImage+'" />'
+							+ '<div style="margin: 5px 5px 5px 5px;">'+board.boardWriter.nickname+'</div>'
+							+ '<div class="ms-auto" style="margin: 5px 5px 5px 5px;">'+board.boardRegDate+'</div>'
+							+ '<div onclick="deleteBoard('+board.boardNo+');">삭제</div></div>'
 							+ '<hr/>'
 							+ '<pre data-edit="true" data-selector="p" >'
 							+ '<span class="fsize13">'+board.boardContent+'</span>'
@@ -931,8 +927,10 @@ if(${followCheck}){
 					// 리플	
 					for(var i = 0; i < reply.length; i++){
 						display += '<li>'
-							+ '<div style="align-items: center; font-size: 13px" onclick="location.href=\'/user/getMyHome?userId='+reply[i].replyWriter.userId+'\'">'
-							+ '<img class="replyProfile" src="/images/uploadFiles/'+reply[i].replyWriter.profileImage+'" />'+reply[i].replyWriter.nickname+' '+reply[i].replyRegDate+'</div>'
+							+ '<div class="d-flex align-items-center" style="font-size: 13px" onclick="location.href=\'/user/getMyHome?userId='+reply[i].replyWriter.userId+'\'">'
+							+ '<img class="replyProfile" src="/images/uploadFiles/'+reply[i].replyWriter.profileImage+'" />'
+							+'<div style="margin: 5px 5px 5px 5px;">'+reply[i].replyWriter.nickname+'</div>'
+							+'<div style="margin: 5px 5px 5px 5px;">'+reply[i].replyRegDate+'</div></div>'
 							+ '<pre style="font-size : 13px; padding-left: 40px;">'+reply[i].replyContent+'</pre></li>';
 					}
 							
@@ -1027,6 +1025,28 @@ if(${followCheck}){
 				dataType: "json",	
 				contentType : "application/json",
 				data : "text",
+		  		success : function(data , status) {
+		    	
+	                alert(status);
+	                
+					$("#replyContent").remove();
+	            }
+			})     
+		}
+		
+		// 게시글삭제
+		function deleteBoard(boardNo){
+			
+			alert("ss");
+			
+			$.ajax({
+				url: "/user/json/deleteMyBoard",
+				type: "GET",
+				dataType: "json",	
+				contentType : "application/json",
+				data : JSON.stringify({
+							"boardNo" : boardNo
+				}),
 		  		success : function(data , status) {
 		    	
 	                alert(status);

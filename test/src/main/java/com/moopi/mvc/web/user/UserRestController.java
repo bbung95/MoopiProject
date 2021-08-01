@@ -491,7 +491,15 @@ public class UserRestController {
 		return map;
 	}
 	
-
+	@PostMapping(value="json/deleteMyBoard")
+	public boolean deleteMyBoard(@RequestBody Board board) throws Exception {
+		
+		boardService.deleteBoard(board);
+		
+		return true;
+	}
+	
+	
 	
 //	@PostMapping( value="json/login")
 //	public User login(@RequestBody User user) throws Exception{

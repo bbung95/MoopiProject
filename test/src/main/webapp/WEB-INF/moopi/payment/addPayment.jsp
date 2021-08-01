@@ -201,6 +201,7 @@
     <button type="button" class="btn btn-lg btn-block  btn-custom" id="check_module">충 전 하 기</button>
  </div>	 -->
 
+<jsp:include page="../layout/footer.jsp"></jsp:include>
 
 	<script>
 	let userId = $('#userId').val();
