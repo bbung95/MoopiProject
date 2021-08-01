@@ -180,7 +180,7 @@ $(function(){
 // 	+"정모종료일 :" +"<input type='text' class='mtTime' name='mtEnd'>"+"<br>"
 // 	+"정모 총 인원 :"+ "<input type='text' name='mtMaxCount'>" 
 // 	+"<input type='hidden' name='mtCurrentCount' value='1'>" + "<br>"
-// 	+"정모 장소 :"+"<input type='text' id='mtAddr' name='mtAddr'>" + "<br>"
+// 	+"정모 장소 :"+"<input type='text' id='mtAddr' name='`'>" + "<br>"
 // 	+"<input type='hidden' id='lat'name='mtMapX' value=''>"
 // 	+"<input type='hidden' id='lng'name='mtMapY' value=''>"
 // 	+"<a onClick='fncAddMap()' >장소등록</a><br>"
@@ -355,13 +355,13 @@ function fncUptMtView() {
 
 function fncAddMap(){
 	
-// 	alert("click")
-	
+	mtAddr = $('.form-control.mtAddr').val()	
 	popWin = window.open(
-			"/moim/map",
+			"/meeting/map?mtAddr="+mtAddr,
+// 			"/moim/map?mtAddr="+mtAddr,
 			"popWin",
-			"left=460, top=300, width=900, height=600, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");
-}
+			"left=460, top=300, width=800, height=500, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");
+} 
 
 $(function(){
 	
@@ -406,12 +406,15 @@ function fncMap(lat, lng){
 	}
 	
 
+// function fncParentsMapView(lat, lng, mtAddr){
 function fncParentsMapView(lat, lng){
-// 	alert("부모 함수 실행 성공")
+	
+	alert("부모 함수 실행 성공")
 	
 //  	<script type=text/javascript src='/js/mapView.js'><\/script> 
-// 	alert(lat)
-// 	alert(lng)
+	alert(lat)
+	alert(lng)
+	alert(mtAddr)
 	
 }
 
@@ -872,13 +875,15 @@ body {
 						<div class="form-group">
 							<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">정모장소</label>
 							<div class="col-sm-40">
-								<input type="text" class="form-control" name="mtAddr">
+								<input type="text" class="form-control mtAddr" id="mtAddr" name="mtAddr" style="width: 250px; display:inline-block;">
+								<button type="button" class="btn btn-info" onClick='fncAddMap()'>장소검색</button>
+								<input type='hidden' id='lat' name='mtMapX' value=''>
+								<input type='hidden' id='lng' name='mtMapY' value=''>
+								
 							</div>
 						</div>
 
-						<br> <input type='hidden' id='lat' name='mtMapX' value=''>
-						<input type='hidden' id='lng' name='mtMapY' value=''>
-						<button type="button" class="btn btn-info" onClick='fncAddMap()'>장소등록</button>
+						
 						<br>
 
 					</form>
