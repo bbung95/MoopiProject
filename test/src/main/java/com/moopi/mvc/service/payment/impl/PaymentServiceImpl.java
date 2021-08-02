@@ -5,22 +5,19 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.moopi.mvc.common.Search;
 import com.moopi.mvc.service.domain.Payment;
 import com.moopi.mvc.service.domain.User;
 import com.moopi.mvc.service.payment.PaymentDao;
-import com.moopi.mvc.service.user.UserDao;
 
 @Service("paymentServiceImpl")
-public class PaymentServiceImpl {
+public class PaymentServiceImpl implements PaymentService{
 
 	@Autowired
 	// @Qualifier("paymentDaoImpl")
 	private PaymentDao paymentDao;
-	private UserDao userdao;
 	
 	// Constructor
 	public PaymentServiceImpl() {

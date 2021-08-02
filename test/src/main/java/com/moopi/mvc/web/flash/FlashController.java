@@ -1,7 +1,6 @@
 package com.moopi.mvc.web.flash;
 
 import java.io.File;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,31 +12,30 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.moopi.mvc.common.Search;
-import com.moopi.mvc.service.coin.impl.CoinServiceImpl;
-import com.moopi.mvc.service.common.impl.CommonServiceImpl;
+import com.moopi.mvc.service.coin.impl.CoinService;
+import com.moopi.mvc.service.common.impl.CommonService;
 import com.moopi.mvc.service.domain.Coin;
 import com.moopi.mvc.service.domain.Flash;
-import com.moopi.mvc.service.domain.MeetingFlashMember;
 import com.moopi.mvc.service.domain.Notice;
 import com.moopi.mvc.service.domain.User;
-import com.moopi.mvc.service.flash.impl.FlashServiceImpl;
-import com.moopi.mvc.service.user.impl.UserServiceImpl;
+import com.moopi.mvc.service.flash.impl.FlashService;
+import com.moopi.mvc.service.user.impl.UserService;
 
 @Controller
 @RequestMapping("/flash/*")
 public class FlashController {
 
 	@Autowired
-	private FlashServiceImpl flashService;
+	private FlashService flashService;
 
 	@Autowired
-	private UserServiceImpl userService;
+	private UserService userService;
 
 	@Autowired
-	private CoinServiceImpl coinService;
+	private CoinService coinService;
 	
 	@Autowired
-	private CommonServiceImpl commonService;
+	private CommonService commonService;
 	
 	@Value("${page.pageUnit}")
 	int pageUnit;
@@ -55,15 +53,6 @@ public class FlashController {
 		System.out.println(this.getClass());
 	}
 
-	//플래쉬검색
-//	@RequestMapping(value = "/flash/getFlashList")
-//	public String getFlashList( @RequestParam("search") Search search, Model model)throws Exception {
-//		
-//		model.addAttribute("list",flashService.getFlashList(search).get("list"));
-//		
-//		return "flash/flashMain";
-//	}
-	
 	// 플래쉬 상세보기
 	@RequestMapping("getFlash")
 	public String getFlash(@RequestParam("flashNo") int flashNo, Model model) throws Exception {
@@ -155,17 +144,6 @@ public class FlashController {
 
 		System.out.println("getListFlash Start::");
 		
-//		if (search.getCurrentPage() == 0 ) {
-//			search.setCurrentPage(1);
-//		}
-//		search.setPageSize(pageSize);
-//		
-//		Map<String, Object> map = flashService.getFlashList(search);
-//		model.addAttribute("interest", commonService.getInterest());
-//		model.addAttribute("list", map.get("list"));
-//		model.addAttribute("search", search);
-//		model.addAttribute("totalCount",map.get("totalCount"));
-//		System.out.println("getListFlash End");
 		model.addAttribute("search", search);
 		model.addAttribute("interest", commonService.getInterest());
 		
