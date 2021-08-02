@@ -15,8 +15,6 @@ public class Report {
 	private int 	reportNo;
 	//신고카테고리
 	private String	reportCategory;
-	//타겟 닉네임
-	private String	targetName;
 	//신고 타겟 유저
 	private User	reportTarget;
 	//신고 타겟 게시글
