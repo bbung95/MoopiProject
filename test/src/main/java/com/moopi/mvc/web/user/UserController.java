@@ -1,9 +1,6 @@
 package com.moopi.mvc.web.user;
 
-import java.io.File;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 import javax.servlet.http.HttpSession;
 
@@ -13,32 +10,26 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
-import com.moopi.mvc.service.common.impl.CommonServiceImpl;
+import com.moopi.mvc.service.common.impl.CommonService;
 import com.moopi.mvc.service.domain.User;
-import com.moopi.mvc.service.moim.impl.MoimServiceImpl;
-import com.moopi.mvc.service.user.impl.UserServiceImpl;
-
-import ch.qos.logback.core.joran.conditional.ElseAction;
-import oracle.sql.DATE;
+import com.moopi.mvc.service.moim.impl.MoimService;
+import com.moopi.mvc.service.user.impl.UserService;
 
 @Controller 
 @RequestMapping("/user/*")
 public class UserController {
 
 	@Autowired
-	private UserServiceImpl userService;
+	private UserService userService;
 	
 	@Autowired
-	private MoimServiceImpl moimService;
+	private MoimService moimService;
 	
 	@Autowired
-	private CommonServiceImpl commonService;
+	private CommonService commonService;
 	
 	@RequestMapping("getMyHomeBoard")
 	public String getMyHomeBoard () {
