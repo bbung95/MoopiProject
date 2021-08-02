@@ -18,8 +18,6 @@ public class BoardRestController {
 	@Autowired
 	private BoardServiceImpl boardService;
 	
-	@Autowired 
-	private ReplyServiceImpl ReplyService;
 	
 	public Board board;
 	public String getCategory = null;

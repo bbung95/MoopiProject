@@ -91,7 +91,7 @@ public class ReplyRestController {
 	}
 
 	@PostMapping(value = "json/updateReply")
-	public Reply updateProduct(@RequestBody Reply reply) throws Exception {
+	public Reply updateReply(@RequestBody Reply reply) throws Exception {
 
 		System.out.println("reply/json/updateReply 실행");
 
@@ -102,7 +102,7 @@ public class ReplyRestController {
 	}
 
 	@RequestMapping(value = "json/deleteReply/{replyNo}")
-	public int dleteReply(@PathVariable int replyNo) throws Exception {
+	public int deleteReply(@PathVariable int replyNo) throws Exception {
 
 		System.out.println("/reply/json/deleteReply ");
 		System.out.println(replyNo);
