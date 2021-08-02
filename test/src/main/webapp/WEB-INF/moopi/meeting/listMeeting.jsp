@@ -316,41 +316,49 @@ $(function(){
 
 <script>
 
+$('#event').click(function(){
+       //id가 "followModal"인 모달창을 열어준다. 
+    $('.modal-title').text("팔로우");    //modal 의 header 부분에 "팔로우"라는 값을 넣어준다. 
+});
+
+
+
+
 function fncUptMtView() {
 	alert("정모를 수정합니다.");
 // 	if(mtConstructor == ${dbUser.userId}){
 
-		var displayValue = "<h6>"
-			+"<form id='uptMt' class='form-horizontal' name='detailForm'>"
-			+"<input type='hidden' name='mtNo' value=''>"
-			+"<input type='hidden' name='mmNo' value=''>"
-			+"정모이름 :" +"<input type='text' name='mtName' value=''>"+"<br>"
-			+"정모내용 :"+"<input type='text' name='mtContent' value=''>"+"<br>"
-			+"주최자 :"+ "<input type='text' name='userId' value=''>" + "<br>"
-			+"정모시작일 :" +"<input type='text' id='uptStartTime' name='mtStart' value='' >"+"<br>"
-			+"정모종료일 :" +"<input type='text' id='uptEndTime' name='mtEnd' value='' >"+"<br>"
-			+"정모 총 인원 :"+ "<input type='text' name='mtMaxCount' value=''>" + "<br>"
-			+"정모 장소 :"+"<input type='text' name='mtAddr'>" + "<br>"
-			+"<a onClick='fncUptMt()'>수정하기</a>"+ "<br>"
-			+"</form>"
-			+"</h6>";
-			$("#getDate").slideUp('slow');
-			$("#addDate").html(displayValue);
-			$("#addDate").fadeIn('slow');
-			$("input[name=mtNo]").val(mtNo);
-			$("input[name=mmNo]").val(mmNo);
-			$("input[name=mtName]").val(mtName);
-			$("input[name=mtContent]").val(mtContent);
-			$("input[name=userId]").val(mtConstructor);
-			$("input[name=mtStart]").val(mtStart);
-			$("input[name=mtEnd]").val(mtEnd);
-			$("input[name=mtMaxCount]").val(mtMaxCount);
-			$("input[name=mtAddr]").val(mtAddr);	
+// 		var displayValue = "<h6>"
+// 			+"<form id='uptMt' class='form-horizontal' name='detailForm'>"
+// 			+"<input type='hidden' name='mtNo' value=''>"
+// 			+"<input type='hidden' name='mmNo' value=''>"
+// 			+"정모이름 :" +"<input type='text' name='mtName' value=''>"+"<br>"
+// 			+"정모내용 :"+"<input type='text' name='mtContent' value=''>"+"<br>"
+// 			+"주최자 :"+ "<input type='text' name='userId' value=''>" + "<br>"
+// 			+"정모시작일 :" +"<input type='text' id='uptStartTime' name='mtStart' value='' >"+"<br>"
+// 			+"정모종료일 :" +"<input type='text' id='uptEndTime' name='mtEnd' value='' >"+"<br>"
+// 			+"정모 총 인원 :"+ "<input type='text' name='mtMaxCount' value=''>" + "<br>"
+// 			+"정모 장소 :"+"<input type='text' name='mtAddr'>" + "<br>"
+// 			+"<a onClick='fncUptMt()'>수정하기</a>"+ "<br>"
+// 			+"</form>"
+// 			+"</h6>";
+// 			$("#getDate").slideUp('slow');
+// 			$("#addDate").html(displayValue);
+// 			$("#addDate").fadeIn('slow');
+// 			$("input[name=mtNo]").val(mtNo);
+// 			$("input[name=mmNo]").val(mmNo);
+// 			$("input[name=mtName]").val(mtName);
+// 			$("input[name=mtContent]").val(mtContent);
+// 			$("input[name=userId]").val(mtConstructor);
+// 			$("input[name=mtStart]").val(mtStart);
+// 			$("input[name=mtEnd]").val(mtEnd);
+// 			$("input[name=mtMaxCount]").val(mtMaxCount);
+// 			$("input[name=mtAddr]").val(mtAddr);	
 // 	}else{
 // 		alert("정모 주최자 ID와 동일하지 않습니다.");
 // 	}
-			$('#uptStartTime').bootstrapMaterialDatePicker({ format : 'YYYY-MM-DD HH:mm' });
-			$('#uptEndTime').bootstrapMaterialDatePicker({ format : 'YYYY-MM-DD HH:mm' });
+// 			$('#uptStartTime').bootstrapMaterialDatePicker({ format : 'YYYY-MM-DD HH:mm' });
+// 			$('#uptEndTime').bootstrapMaterialDatePicker({ format : 'YYYY-MM-DD HH:mm' });
 }
 
 function fncAddMap(){
@@ -499,26 +507,9 @@ function fncGetMEFL(mtNo){
 					let displayValue = "<h3>" + "참여자 목록" + "</h3>";
 					for(var i=0;i < JSONData.list.length;i++){
 					displayValue += "<div id=\"mfllist\">"
-// 										+"유저ID	: "+JSONData.list[i].meflId.userId+"<br/>"
-// 										+"이름  : "+JSONData.list[i].meflId.userName+"<br/>"
-// 										+"나이  : "+JSONData.list[i].meflId.age+"<br/>"
-// 										+"성별  : "+JSONData.list[i].meflId.gender+"<br/>"
-// 										+"FullAddr  : "+JSONData.list[i].meflId.fullAddr+"<br/>"
-// 										+"addr  : "+JSONData.list[i].meflId.addr+"<br/>"
 										+ '<img class=\"userProfile\" src=\"/images/uploadFiles/'+JSONData.list[i].meflId.profileImage+'\">'
 										+JSONData.list[i].meflId.nickname
-// 										+"주소 		: "+JSONData.list[i].meflId.addr+"<br/>"
-// 										+"프로필이미지 : "+JSONData.list[i].meflId.profileImage+"<br/>"
-										
-// 										+"자기소개 : "+JSONData.list[i].meflId.profileContent+"<br/>"
-// 										+"뱃지   	   : "+JSONData.list[i].meflId.badge+"<br/>"
-// 										+"MEFL넘버  : "+JSONData.list[i].meflNo+"<br/>"
-// 										+"MEFL타입  : "+JSONData.list[i].meflType+"<br/>"
-// 										+"타겟넘버   : "+JSONData.list[i].targetNo+"<br/>"
-// 										+"참여일자   : "+JSONData.list[i].joinRegDate+"<br/>"
 										+"</div>";
-							
-						
 						} //for문끝
 						$( "#getMEFL" ).append(displayValue);
 				}
@@ -569,12 +560,11 @@ $(document).ready(function() {
         	mtMapY = event.mtMapY;
 		 	lat = mtMapX;
 		 	lng = mtMapY;
-		 	fncMap(lat, lng)
-        	
+		 	fncMap(lat, lng);
         	console.log(mtConstructor);
 			console.log(mtMapX);
 			console.log(mtStart2);
-			$("#getDate").slideUp('slow');
+			
       	  $.ajax( 
     				{
     					url : "/meeting/json/getMeeting/"+mtNo,
@@ -588,8 +578,14 @@ $(document).ready(function() {
     						//alert(status);
     						//alert("JSONData : \n"+JSONData);
     						$( "h5" ).remove();	
-    						$("#addDate").slideUp('slow');
+//     						$("#addDate").slideUp('slow');
     						$("#mtName").text(JSONData.mtName);
+    						$("#mtName7").val(JSONData.mtName);
+    						$("#mtContent7").val(JSONData.mtContent);
+    						$("#mtMaxCount7").val(JSONData.mtMaxCount);
+    						$("#mtCurrentCount7").val(JSONData.mtCurrentCount);
+    						$("#mtStart7").val(JSONData.mtStart);
+    						$("#mtEnd7").val(JSONData.mtEnd);
     						console.log(mtName);
     						$("#UmtName2").text(JSONData.mtName);
     						$("#uptMt2 > input[name='mtName']").val(JSONData.mtName);
@@ -607,7 +603,7 @@ $(document).ready(function() {
     						$("#mtEnd2").val(JSONData.mtEnd2);
     						$("#UmtEnd2").val(JSONData.mtEnd2);
     						$("#mtMaxCount").text(JSONData.mtMaxCount);
-    						$("#UmtMaxCount").text(JSONData.mtMaxCount);
+    						$("#UmtMaxCount2").text(JSONData.mtMaxCount);
     						$("#mtCurrentCount").text(JSONData.mtCurrentCount);
     						$("#UmtCurrentCount").text(JSONData.mtCurrentCount);
     						$("#mtAddr").text(JSONData.mtAddr);
@@ -619,7 +615,7 @@ $(document).ready(function() {
     						$("#getDate").slideDown('slow');
     						relayout();
     						setMarker(JSONData.mtMapX, JSONData.mtMapY, JSONData.mtAddr, JSONData.mtContent);
-    						
+//     						$('#myModal3').modal("show");
     					}
     			}); //ajax 종료
       	  },
@@ -720,7 +716,7 @@ body {
 }
 
 .right {
-	float: right
+	float: left
 }
 
 .clear {
@@ -728,20 +724,23 @@ body {
 }
 
 #calendar {
-	max-width: 1000px;
-	margin: 40px auto;
-	margin-left: 100px;
-	padding: 0 10px;
-	float: left;
+	max-width: 900px;
+/* 	margin: 40px auto; */
+ 	margin-left: 100px; 
+/* 	padding: 0 10px; */
+	padding-top: 30px;
+ 	float: left; 
 }
 
 #getDate {
-	margin-top: 100px;
+	padding-top: 30px;
+	padding-left: 20px;
+	margin-left: 20px;
 	display: none;
 	float: left;
-	width: 400px;
-	height: auto;
-	border: 1.5px solid rgba(0, 0, 0, 0.2);
+	width: 380px;
+	height: 774px;
+ 	border: 1.5px solid rgba(0, 0, 0, 0.2); 
 	font-family: 'Nanum Brush Script', cursive;
 	font-size: 24px;
 }
@@ -912,16 +911,16 @@ body {
 				<div class="modal-body">
 
 
-					<form id="uptMt2" class="form-horizontal" name="detailForm">
+					<form id="uptMt" class="form-horizontal" name="detailForm">
 						<input type="hidden" name="userId" value="${dbUser.userId}">
-						<input type='hidden' id="UmmNo" name='mmNo' value="${mmNo}">
-						<input type='hidden' id="UmtNo" name='mtNo'> <input
-							type="hidden" id="UmtCurrentCount2" name="mtCurrentCount">
+						<input type='hidden'  name='mmNo' value="${mmNo}">
+						<input type='hidden'  name='mtNo'> <input
+							type="hidden" name="mtCurrentCount">
 
 						<div class="form-group">
-							<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">Title</label>
+							<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">모임명</label>
 							<div class="col-sm-20">
-								<input type="text" class="form-control" id="UmtName2"
+								<input type="text" class="form-control" 
 									name="mtName">
 							</div>
 						</div>
@@ -929,20 +928,19 @@ body {
 						<br>
 
 						<div class="form-group">
-							<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">Content</label>
+							<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">내용</label>
 							<div class="col-sm-40">
 								<textarea style="resize: none" class="form-control"
-									id="UmtContent" name="mtContent" placeholder="50자이내"></textarea>
+									 name="mtContent" placeholder="50자이내"></textarea>
 							</div>
 						</div>
 
 						<br>
 
 						<div class="form-group">
-							<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">Number
-								of People</label>
+							<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">최대참가인원</label>
 							<div class="col-sm-40">
-								<input type="text" class="form-control" id="UmtMaxCount2"
+								<input type="text" class="form-control" 
 									name="mtMaxCount">
 							</div>
 						</div>
@@ -1002,15 +1000,7 @@ body {
 	<!-- 모달끝 -->
 	<!-- 모달2 끝 -->
 
-
-
-
-
-
-
-
-
-
+<div class="container2">
 
 	<div id='top'>
 
@@ -1027,7 +1017,7 @@ body {
 				Theme Name: <select>
 					<option value='black-tie'>Black Tie</option>
 					<option value='blitzer'>Blitzer</option>
-					<option value='cupertino'>Cupertino</option>
+					<option value='cupertino' selected>Cupertino</option>
 					<option value='dark-hive'>Dark Hive</option>
 					<option value='dot-luv'>Dot Luv</option>
 					<option value='eggplant'>Eggplant</option>
@@ -1041,7 +1031,7 @@ body {
 					<option value='pepper-grinder'>Pepper Grinder</option>
 					<option value='redmond'>Redmond</option>
 					<option value='smoothness'>Smoothness</option>
-					<option value='south-street' selected>South Street</option>
+					<option value='south-street'>South Street</option>
 					<option value='start'>Start</option>
 					<option value='sunny'>Sunny</option>
 					<option value='swanky-purse'>Swanky Purse</option>
@@ -1062,8 +1052,10 @@ body {
 
 	<div id='calendar'></div>
 
-	<div id="container">
+	
 		<div id="addDate"></div>
+		
+	
 		<form class="frm">
 			<div id="getDate">
 				<!--  상세정보 div Start /////////////////////////////////////-->
@@ -1104,11 +1096,6 @@ body {
 				<div id="map" style="width: 100%; height: 350px;"></div>
 
 				<div>
-
-					<script type="text/javascript">
-	
-	
-	</script>
 				</div>
 
 				<br>
@@ -1117,11 +1104,161 @@ body {
 			<!-- getDate div 종료 -->
 
 		</form>
-
 	</div>
+	
+
+
+<!-- Modal3 -->
+<!-- Modal 시작-->
+	<div class="modal fade" id="myModal3" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title" id="myModalLabel">Meeting Detail!</h4>
+				</div>
+				<div class="modal-body">
+
+					<script
+						src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.5.10/js/ripples.min.js"></script>
+					<script
+						src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.5.10/js/material.min.js"></script>
+					<script type="text/javascript"
+						src="http://momentjs.com/downloads/moment-with-locales.min.js"></script>
+					<script type="text/javascript"
+						src="/javascript/bootstrap-material-datetimepicker.js"></script>
+
+
+
+
+					<form id="addMt" class="form-horizontal" name="detailForm">
+						<input type="hidden" name="userId" value="${dbUser.userId}">
+						<input type='hidden' name='mmNo' value='${moim.mmNo}'>
+						<div class="form-group">
+							<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">모임명</label>
+							<div class="col-sm-20">
+								<input type="text" class="form-control" id="mtName7" name="mtName" 
+									placeholder="모임명">
+							</div>
+						</div>
+
+						<br>
+
+						<div class="form-group">
+							<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">내용</label>
+							<div class="col-sm-40">
+								<textarea style="resize: none" class="form-control" id="mtContent7"
+									name="mtContent" placeholder="50자이내"></textarea>
+							</div>
+						</div>
+
+						<br>
+
+						<div class="form-group">
+							<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">최대참가인원</label>
+							<div class="col-sm-40">
+								<input type="text" class="form-control" id="mtMaxCount7" name="mtMaxCount">
+							</div>
+						</div>
+
+						<br>
+						
+						<div class="form-group">
+							<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">현재참가인원</label>
+							<div class="col-sm-40">
+								<input type="text" class="form-control" id="mtCurrentCount7" name="mtCurrentCount">
+							</div>
+						</div>
+
+						<br>
+
+						<div class="form-group">
+							<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">Start
+								Time</label>
+							<div class="col-sm-40">
+								<input type="text" class="form-control" id="mtStart7"
+									name="mtStart">
+							</div>
+						</div>
+
+						<br>
+
+						<div class="form-group">
+							<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">End
+								Time</label>
+							<div class="col-sm-40">
+								<input type="text" class="form-control" id="mtEnd7" name="mtEnd">
+							</div>
+						</div>
+
+						<br>
+
+						<div class="form-group">
+							<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">정모장소</label>
+							<div class="col-sm-40">
+								<input type="text" class="form-control mtAddr" id="mtAddr" name="mtAddr" style="width: 250px; display:inline-block;">
+								<button type="button" class="btn btn-info" onClick='fncAddMap()'>장소검색</button>
+								<input type='hidden' id='lat' name='mtMapX' value=''>
+								<input type='hidden' id='lng' name='mtMapY' value=''>
+								
+							</div>
+						</div>
+
+						<br>
+
+					</form>
+					
+
+				<div>
+				<button type="button" class="btn btn-info"
+					onClick="fncGetMEFL(mtNo)">참여한사람보기</button>
+					 <input type='hidden' id="mtMapX"> <input
+					type='hidden' id="mtMapY">
+					<button type='button' class='btn btn-primary' id='map1'>지도</button>
+					<c:if test="${dbUser != constructor}">
+						<button type="button" class="btn btn-success"
+							onClick="fncApplyMt(mtNo, '${dbUser.userId}')">참가</button>
+					</c:if>
+					<button type="button" class="btn btn-success"
+						onClick="fncLeaveMt(mtNo, '${dbUser.userId}')">참가취소</button>
+						<button type="button" class="btn btn-primary" onClick="fncUptMtView('${dbUser.userId}')">수정</button>
+					<button type="button" class="btn btn-primary" id="uptButton"
+						data-bs-target="#myModal2" data-bs-toggle="modal" aria-label="Close">수정</button>
+					<button type="button" class="btn btn-danger"
+						onClick="fncDeleteMt('${dbUser.userId}')">삭제</button>
+				</div>
+				<div>
+					<a id="connect" onClick="authenticate().then(loadClient)">구글캘린더와
+						연동하기</a>
+				</div>
+				<div>
+					<a id="insert" onClick="execute()">구글캘린더에 등록하기</a>
+				</div>
+				ㆍlocation :<span id='mtAddr'></span>
+				<div id="map" style="width: 100%; height: 350px;"></div>
+
+				<div>
+				</div>
+
+				<br>
+				<div id="getMEFL" style="padding-top: 30px"></div>
+					
+				</div>
+				<div class="modal-footer">
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- 모달끝 -->
+<!-- 모달3끝 -->
+
+
 
 	<jsp:include page="../layout/moimSidebar.jsp"></jsp:include>
 	<jsp:include page="../layout/searchbar.jsp"></jsp:include>
+	
+
 </body>
 <script type="text/javascript"
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2e00cfe75ad365584acc76b588be8d74"></script>
