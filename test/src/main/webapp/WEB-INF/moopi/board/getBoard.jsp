@@ -163,7 +163,7 @@ img, svg {
 									${board.boardWriter.nickname}
 								</div>
 							</div>
-							<div class="board_content">${board.boardContent}</div>
+							<span class="board_content" >${board.boardContent}</span><span class="board_hit" style="float:right;padding-right:10px">조회수 : ${board.boardHit}</span>
 							<div style="float: right;">
 								<c:if test="${dbUser.userId eq board.boardWriter.userId}">
 									<button type="button" class="btn btn-primary updateBoard">수정</button>

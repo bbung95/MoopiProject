@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +31,7 @@ public class BoardServiceImpl implements BoardService{
 	
 	public Board getBoard(int boardNo) throws Exception{
 		
+		boardDao.updateHit(boardNo);
 		return boardDao.getBoard(boardNo);
 	}
 

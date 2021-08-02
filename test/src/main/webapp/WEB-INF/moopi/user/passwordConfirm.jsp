@@ -187,6 +187,7 @@
                		 <button type="button" class="px-4 py-0 text-white font-light tracking-wider bg-gray-900 rounded button" style="height:40px" onclick="javascript:confirm()">확인</button>
 					</div>
 				</div>	
+			</form>
         </div>
     </div>   
 </div>

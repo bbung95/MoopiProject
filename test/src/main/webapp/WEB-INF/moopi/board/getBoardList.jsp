@@ -511,7 +511,9 @@ body {
 			                            <c:if test="${boardCategory eq 'QnA' }">
 			                            <th class="ntpl-forum-date tpl-forum-date tpl-forum-header-row">공개/비공개</th>
 			                            <th class="ntpl-forum-date tpl-forum-date tpl-forum-header-row">답변여부</th>
+			                            
 			                            </c:if>
+			                            <th class="ntpl-forum-date tpl-forum-date tpl-forum-header-row">조회수</th>
 			                        </tr>
 			                    </thead>
 			                    <tbody data-loop="true" data-view="8">
@@ -533,17 +535,22 @@ body {
 			                            <img src="/images/uploadFiles/${board.boardWriter.profileImage}" class="img-responsive profileImg">
 			                            ${board.boardWriter.nickname}</td>
 			                            <td class="tpl-forum-list-date tpl-forum-list-etc op_itemline10">${board.boardRegDate}</td>
-			                            <td class="tpl-forum-list-date tpl-forum-list-etc op_itemline10">  
+			                            
 			                            <c:if test="${boardCategory eq 'QnA' }">
+			                            
 			                              <c:if test="${  empty board.boardPassword}"> 
+			                              <td class="tpl-forum-list-date tpl-forum-list-etc op_itemline10">  
 		                                  공개
 		                                  </c:if> 
 										  <c:if test="${ !empty board.boardPassword}"> 
+										  <td class="tpl-forum-list-date tpl-forum-list-etc op_itemline10">  
 										  비공개 
 										  </c:if>
 										</td>
 			                            <td class="tpl-forum-list-date tpl-forum-list-etc op_itemline10">${ board.replyCount == 0 ? "답변대기중" : "답변완료"}</td>
 			                            </c:if>
+			                            </td>
+			                            <td class="tpl-forum-list-date tpl-forum-list-etc op_itemline10">${ board.boardHit}</td>
 			                        </tr>
 			                        </c:forEach>
 			                        
