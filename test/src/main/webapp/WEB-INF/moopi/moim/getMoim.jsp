@@ -145,11 +145,10 @@
 <style>
 	body{
 		padding-top: 100px;
-		background-color:#f7f6f3;
+/* 		background-color:#f7f6f3; */
 	}
 	
 	main{
-font-family: 'Nanum Gothic', sans-serif;
 font-size: 16px;
 }
 
@@ -163,7 +162,6 @@ font-size: 16px;
 #left{
 	border:1.5px solid rgba(0,0,0,0.2);
 	width:350px;
-	font-family:'Dancing Script', cursive;
 	font-size:22px;
 /* 	padding-left : 59px; */
 	text-align: center;
@@ -183,7 +181,6 @@ font-size: 16px;
 }
 
 #moimContent{
-	font-family: 'Nanum Brush Script', cursive;
 	font-size : 20px;
 	padding-left : 28px;
 }
@@ -376,16 +373,15 @@ font-size: 16px;
 <%-- 	<p>모임넘버:${moim.mmNo}</p> --%>
 	
 	<div id="information">Information</div>
-	<div>Max number of people &nbsp&nbsp ${moim.mmMaxCount}</div>
-	<div>Current number of people &nbsp&nbsp ${moim.mmCurrentCount}</div>
-	<div>Since &nbsp&nbsp ${moim.mmRegDate}</div>
-	<div>Minimum age &nbsp&nbsp ${moim.mmMinAge}</div>
-	<div>Maximum age &nbsp&nbsp ${moim.mmMaxAge}</div>
+	<div><i class="bi bi-people-fill"></i> ${moim.mmMaxCount} / ${moim.mmCurrentCount}</div>
+	<div>창립일 &nbsp&nbsp ${moim.mmRegDate}</div>
+	<div>최소 연령 &nbsp&nbsp ${moim.mmMinAge}</div>
+	<div>최대 연령 &nbsp&nbsp ${moim.mmMaxAge}</div>
 	<c:if test = "${moim.mmType == 1}">
-	<div>Type &nbsp&nbsp Nomal</div>
+	<div>일반 무피</div>
 	</c:if>
 	<c:if test = "${moim.mmType == 2}">
-	<div>Type &nbsp&nbsp Free</div>
+	<div>자유 무피</div>
 	<br>
 	
 	</c:if>

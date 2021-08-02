@@ -209,7 +209,6 @@ $(function(){
 	text-align: left;
 	overflow: hidden;
 	font-size: 12px;
-	font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;
 	line-height: 1.5;
 }
 
@@ -504,7 +503,8 @@ function fncGetMEFL(mtNo){
 				success : function(JSONData , status) {
 // 					alert(JSONData.list.length);
 					$( "#mfllist" ).remove();	
-					let displayValue = "<h3>" + "참여자 목록" + "</h3>";
+// 					let displayValue = "<h3>" + "참여자 목록" + "</h3>";
+					let displayValue = "";
 					for(var i=0;i < JSONData.list.length;i++){
 					displayValue += "<div id=\"mfllist\">"
 										+ '<img class=\"userProfile\" src=\"/images/uploadFiles/'+JSONData.list[i].meflId.profileImage+'\">'
@@ -589,7 +589,7 @@ $(document).ready(function() {
     						console.log(mtName);
     						$("#UmtName2").text(JSONData.mtName);
     						$("#uptMt2 > input[name='mtName']").val(JSONData.mtName);
-    						$("#userId").text(JSONData.mtConstructor.userId);
+    						$("#userId").text(JSONData.mtConstructor.nickname);
     						$("#mtContent").text(JSONData.mtContent);
     						$("#UmtContent").text(JSONData.mtContent);
     						$("#mtStart").text(JSONData.mtStart);
@@ -686,11 +686,11 @@ body {
 	padding: 0;
 	font-size: 14px;
 	padding-top: 100px;
-	background-color: #f7f6f3;
+/* 	background-color: #f7f6f3; */
 }
 
 #top, #calendar.fc-unthemed {
-	font-family: "Lucida Grande", Helvetica, Arial, Verdana, sans-serif;
+	
 }
 
 #top {
@@ -725,6 +725,7 @@ body {
 
 #calendar {
 	max-width: 900px;
+	max-height: 760px;
 /* 	margin: 40px auto; */
  	margin-left: 100px; 
 /* 	padding: 0 10px; */
@@ -739,10 +740,10 @@ body {
 	display: none;
 	float: left;
 	width: 380px;
-	height: 774px;
- 	border: 1.5px solid rgba(0, 0, 0, 0.2); 
-	font-family: 'Nanum Brush Script', cursive;
-	font-size: 24px;
+	height: 800px;
+/*  	border: 1.5px solid rgba(0, 0, 0, 0.2);  */
+	font-size: 16px;
+/* 	background-image: url("/images/background/back3.png") */
 }
 
 #addMt {
@@ -1060,14 +1061,24 @@ body {
 			<div id="getDate">
 				<!--  상세정보 div Start /////////////////////////////////////-->
 
-				ㆍtitle : <span id='mtName'></span><br> ㆍcontent :<span
-					id='mtContent'></span><br> ㆍconstructor : <span id='userId'></span><br>
-				ㆍstart :<span id='mtStart'></span><br> <input type='hidden'
-					id='mtStart2'> ㆍend :<span id='mtEnd'></span><br> <input
-					type='hidden' id='mtEnd2'> ㆍmax :<span id='mtMaxCount'></span><br>
-				ㆍcurrent :<span id='mtCurrentCount'></span>
-				<button type="button" class="btn btn-info"
-					onClick="fncGetMEFL(mtNo)">참여한사람보기</button>
+				ㆍ정모명 : <span id='mtName'></span><br> ㆍ모임내용 :<span
+					id='mtContent'></span><br> ㆍ주최자 : <span id='userId'></span><br>
+				ㆍ시작일 :<span id='mtStart'></span><br> <input type='hidden'
+					id='mtStart2'> ㆍ종료일 :<span id='mtEnd'></span><br> <input
+					type='hidden' id='mtEnd2'> ㆍ<i class="bi bi-people-fill"></i> <span id='mtMaxCount'></span>
+				/<span id='mtCurrentCount'></span>
+<!-- 				<button type="button" class="btn btn-info" -->
+<!-- 					>참여한사람보기</button> -->
+
+
+<button type="button" class="btn btn-light" onClick="fncGetMEFL(mtNo)">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+  <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/> 
+  <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+</svg>
+                
+              </button>
+				<br>
 				<br> <input type='hidden' id="mtMapX"> <input
 					type='hidden' id="mtMapY">
 
@@ -1086,20 +1097,27 @@ body {
 						onClick="fncDeleteMt('${dbUser.userId}')">삭제</button>
 				</div>
 				<div>
-					<a id="connect" onClick="authenticate().then(loadClient)">구글캘린더와
-						연동하기</a>
+				
+						
+              <a id="connect" onClick="authenticate().then(loadClient)" class="text-decoration-none"  >
+                <svg xmlns="http://www.w3.org/2000/svg" style="margin-top: 10px" width="16" height="16" fill="currentColor" class="bi bi-google" viewBox="0 0 16 16">
+  <path d="M15.545 6.558a9.42 9.42 0 0 1 .139 1.626c0 2.434-.87 4.492-2.384 5.885h.002C11.978 15.292 10.158 16 8 16A8 8 0 1 1 8 0a7.689 7.689 0 0 1 5.352 2.082l-2.284 2.284A4.347 4.347 0 0 0 8 3.166c-2.087 0-3.86 1.408-4.492 3.304a4.792 4.792 0 0 0 0 3.063h.003c.635 1.893 2.405 3.301 4.492 3.301 1.078 0 2.004-.276 2.722-.764h-.003a3.702 3.702 0 0 0 1.599-2.431H8v-3.08h7.545z"/>
+</svg>
+              </a>
+            
 				</div>
 				<div>
 					<a id="insert" onClick="execute()">구글캘린더에 등록하기</a>
+					<br>
 				</div>
 				ㆍlocation :<span id='mtAddr'></span>
 				<div id="map" style="width: 100%; height: 350px;"></div>
-
+				<div id="getMEFL" style="padding-top: 30px"></div>
 				<div>
 				</div>
 
 				<br>
-				<div id="getMEFL" style="padding-top: 30px"></div>
+				
 			</div>
 			<!-- getDate div 종료 -->
 
