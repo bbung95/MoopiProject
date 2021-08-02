@@ -144,33 +144,33 @@ public class MeetingController {
 	}
 	
 	//정모참가하기
-	@RequestMapping("applyMeeting")
-	public String applyMeeting(@RequestParam("mtNo") int mtNo,
-			@RequestParam("userId") String userId) throws Exception {
-		System.out.println("정모에 참가합니다.");
-		meetingService.applyMeeting(mtNo, userId);
-		
-		return "forward:정모상세조회페이지로이동";
-	}
+//	@RequestMapping("applyMeeting")
+//	public String applyMeeting(@RequestParam("mtNo") int mtNo,
+//			@RequestParam("userId") String userId) throws Exception {
+//		System.out.println("정모에 참가합니다.");
+//		meetingService.applyMeeting(mtNo, userId);
+//		
+//		return "forward:정모상세조회페이지로이동";
+//	}
 	
 	//정모참가취소하기
-	@RequestMapping("leaveMeeting")
-	public String leaveMeeting(@RequestParam("mtNo") int mtNo,
-			@RequestParam("userId") String userId) throws Exception {
-		System.out.println("정모참가를 취소합니다.");
-		meetingService.leaveMeeting(mtNo, userId);
-		return "forward:정모상세조회페이지로이동";
-	}
+//	@RequestMapping("leaveMeeting")
+//	public String leaveMeeting(@RequestParam("mtNo") int mtNo,
+//			@RequestParam("userId") String userId) throws Exception {
+//		System.out.println("정모참가를 취소합니다.");
+//		meetingService.leaveMeeting(mtNo, userId);
+//		return "forward:정모상세조회페이지로이동";
+//	}
 	
 	//정모 참가자 명단 조회
-	@RequestMapping("listMEFL")
-	public String getListMEFL(@RequestParam("mtNo") int mtNo, Model model) throws Exception {
-		
-		System.out.println("정모참가자명단을 보겠습니다.");
-		Map<String, Object> map = meetingService.getMEFLList(mtNo);
-		model.addAttribute("list", map.get("list"));
-		return "forward:정모상세조회페이지로이동";
-	}
+//	@RequestMapping("listMEFL")
+//	public String getListMEFL(@RequestParam("mtNo") int mtNo, Model model) throws Exception {
+//		
+//		System.out.println("정모참가자명단을 보겠습니다.");
+//		Map<String, Object> map = meetingService.getMEFLList(mtNo);
+//		model.addAttribute("list", map.get("list"));
+//		return "forward:정모상세조회페이지로이동";
+//	}
 	
 	
 	//카카오 지도...
