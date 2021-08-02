@@ -413,9 +413,9 @@ body {
 
 							</div>
 							<hr style="margin: 10px 0px 10px 0px;" />
+						</c:if>
 							모임 리스트
 							<hr style="margin: 10px 0px 10px 0px;" />
-						</c:if>
 
 						<div class="row" id="moimListView"></div>
 					</div>

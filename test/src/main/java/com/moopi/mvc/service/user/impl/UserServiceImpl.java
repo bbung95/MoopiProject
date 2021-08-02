@@ -15,7 +15,7 @@ import com.moopi.mvc.service.domain.UserData;
 import com.moopi.mvc.service.user.UserDao;
 
 @Service
-public class UserServiceImpl {
+public class UserServiceImpl implements UserService{
 	
 	@Autowired
 	private SqlSessionTemplate userSqlSession;

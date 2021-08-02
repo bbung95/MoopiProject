@@ -16,18 +16,15 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.moopi.mvc.common.Page;
 import com.moopi.mvc.common.Search;
-import com.moopi.mvc.service.board.impl.BoardServiceImpl;
-import com.moopi.mvc.service.common.impl.CommonServiceImpl;
+import com.moopi.mvc.service.board.impl.BoardService;
+import com.moopi.mvc.service.common.impl.CommonService;
 import com.moopi.mvc.service.domain.Board;
-import com.moopi.mvc.service.domain.Flash;
-import com.moopi.mvc.service.domain.Member;
 import com.moopi.mvc.service.domain.Moim;
-import com.moopi.mvc.service.domain.Notice;
 import com.moopi.mvc.service.domain.Reply;
 import com.moopi.mvc.service.domain.User;
-import com.moopi.mvc.service.moim.impl.MoimServiceImpl;
-import com.moopi.mvc.service.reply.impl.ReplyServiceImpl;
-import com.moopi.mvc.service.user.impl.UserServiceImpl;
+import com.moopi.mvc.service.moim.impl.MoimService;
+import com.moopi.mvc.service.reply.impl.ReplyService;
+import com.moopi.mvc.service.user.impl.UserService;
 
 @Controller
 @RequestMapping("/moim/*")
@@ -35,19 +32,19 @@ public class MoimController {
 	// 주석
 
 	@Autowired
-	private MoimServiceImpl moimService;
+	private MoimService moimService;
 
 	@Autowired
-	private UserServiceImpl userService;
+	private UserService userService;
 
 	@Autowired
-	private CommonServiceImpl commonService;
+	private CommonService commonService;
 
 	@Autowired
-	private BoardServiceImpl boardService;
+	private BoardService boardService;
 
 	@Autowired
-	private ReplyServiceImpl replyService;
+	private ReplyService replyService;
 
 	@Value("${page.pageUnit}")
 	int pageUnit;
@@ -56,8 +53,6 @@ public class MoimController {
 	int pageSize;
 
 	private Board board;
-
-	private Reply reply;
 
 	public static final String saveDir = ClassLoader.getSystemResource("./static/").getPath().substring(0,
 			ClassLoader.getSystemResource("./static/").getPath().lastIndexOf("bin"))
@@ -71,7 +66,7 @@ public class MoimController {
 //		System.out.println(userId);
 //		System.out.println(userMapper.getUser(userId));
 		Moim moim = moimService.getMoim(mmNo);
-		Map map = moimService.getMemberList(mmNo, 2);
+		Map<String, Object> map = moimService.getMemberList(mmNo, 2);
 		System.out.println("모임정보:::" + moim);
 		System.out.println("모임의멤버리스트:::" + map);
 		model.addAttribute("list", map.get("list"));
@@ -295,8 +290,7 @@ public class MoimController {
 		System.out.println(search.toString() + boardMoimNo);
 
 		Moim moim = moimService.getMoim(boardMoimNo);
-		String boardCategory = null;
-		Map map = new HashMap();
+		Map<String, Object> map = new HashMap<String, Object>();
 
 		if (search.getCurrentPage() == 0) {
 			search.setCurrentPage(1);

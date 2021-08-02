@@ -1,6 +1,5 @@
 package com.moopi.mvc.web.common;
 
-import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,39 +12,34 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.moopi.mvc.common.Search;
-import com.moopi.mvc.service.board.impl.BoardServiceImpl;
-import com.moopi.mvc.service.common.impl.CommonServiceImpl;
+import com.moopi.mvc.service.board.impl.BoardService;
+import com.moopi.mvc.service.common.impl.CommonService;
 import com.moopi.mvc.service.domain.Notice;
-import com.moopi.mvc.service.domain.User;
 import com.moopi.mvc.service.domain.UserData;
-import com.moopi.mvc.service.domain.ChartData;
-import com.moopi.mvc.service.payment.impl.PaymentServiceImpl;
-import com.moopi.mvc.service.flash.impl.FlashServiceImpl;
-import com.moopi.mvc.service.moim.impl.MoimServiceImpl;
-import com.moopi.mvc.service.user.impl.UserServiceImpl;
+import com.moopi.mvc.service.payment.impl.PaymentService;
+import com.moopi.mvc.service.flash.impl.FlashService;
+import com.moopi.mvc.service.moim.impl.MoimService;
+import com.moopi.mvc.service.user.impl.UserService;
 
 @RestController
 @RequestMapping("/common/*")
 public class CommonRestController {
 
 	@Autowired
-	private CommonServiceImpl commonService;
+	private CommonService commonService;
 	@Autowired
-	private MoimServiceImpl moimService;
+	private MoimService moimService;
 	@Autowired
-	private FlashServiceImpl flashService;
+	private FlashService flashService;
 	@Autowired
-	private BoardServiceImpl boardService;
+	private BoardService boardService;
 	@Autowired
-	private UserServiceImpl userService;
+	private UserService userService;
 	@Autowired
-	private PaymentServiceImpl paymentService;
+	private PaymentService paymentService;
 	
 	@Value("6")
 	private int pageSize;
@@ -75,10 +69,10 @@ public class CommonRestController {
 	//차트에서 쓰려고 만들었습니다.
 	
 	@GetMapping(value = "json/getMonth")
-	public Map getMonth(Model model) throws Exception {
+	public Map<String, Object> getMonth(Model model) throws Exception {
 		Search search = new Search();
 		System.out.println("/getMonth-월간통계 : GET");
-		Map map = paymentService.getMonthList(search);
+		Map<String, Object> map = paymentService.getMonthList(search);
 		model.addAttribute("list", map.get("list"));
 		return paymentService.getMonthList(search);
 	}
@@ -86,19 +80,19 @@ public class CommonRestController {
 	
 	
 	@GetMapping(value = "json/getWeek")
-	public Map getWeek(Model model) throws Exception {
+	public Map<String, Object> getWeek(Model model) throws Exception {
 		Search search = new Search();
 		System.out.println("/getWeek-주간통계 : GET");
-		Map map = paymentService.getWeekList(search);
+		Map<String, Object> map = paymentService.getWeekList(search);
 		model.addAttribute("list2", map.get("list2"));
 		return paymentService.getWeekList(search);
 	}
 	
 	@GetMapping(value = "json/getDay")
-	public Map getDay(Model model) throws Exception {
+	public Map<String, Object> getDay(Model model) throws Exception {
 		Search search = new Search();
 		System.out.println("/getDay-일간통계 : GET");
-		Map map = paymentService.getDayList(search);
+		Map<String, Object> map = paymentService.getDayList(search);
 		model.addAttribute("list3", map.get("list3"));
 		return paymentService.getDayList(search);
 	}
@@ -143,12 +137,10 @@ public class CommonRestController {
 	
 	
 	@GetMapping(value = "json/getListNotice/{userId}")
-	public List getListNotice(@PathVariable("userId") String userId) {
+	public List<Notice> getListNotice(@PathVariable("userId") String userId) {
 
 		System.out.println("/getListNotice : GET");
 		Search search = new Search();
-//		search.setStartRowNum(1);
-//		search.setEndRowNum(5);
 		return commonService.getListNotice(search, userId);
 	}
 
@@ -209,21 +201,21 @@ public class CommonRestController {
 
 	}
 	
-	@GetMapping(value="/chat/joinRoom/{userId}/{target}/{type}")
-	public Map joinRoom(@PathVariable String userId, @PathVariable String target,
-			@PathVariable String type, Model model) throws Exception {
-		
-		System.out.println("joinRoom : GET");
-		Map <String, Object> map = new HashMap<String, Object>();
-		map.put("user", userService.getUser(userId));
-		map.put("type", type);
-		if(type.equals("1")) {
-			map.put("target", userService.getUser(target));
-		}else{
-			map.put("target", moimService.getMoim(Integer.parseInt(target)));
-		}
-		return map;
-	}
+//	@GetMapping(value="/chat/joinRoom/{userId}/{target}/{type}")
+//	public Map joinRoom(@PathVariable String userId, @PathVariable String target,
+//			@PathVariable String type, Model model) throws Exception {
+//		
+//		System.out.println("joinRoom : GET");
+//		Map <String, Object> map = new HashMap<String, Object>();
+//		map.put("user", userService.getUser(userId));
+//		map.put("type", type);
+//		if(type.equals("1")) {
+//			map.put("target", userService.getUser(target));
+//		}else{
+//			map.put("target", moimService.getMoim(Integer.parseInt(target)));
+//		}
+//		return map;
+//	}
 
 //	@PostMapping(value = "json/fileUpload")
 //	public String fileUpload(@RequestParam("uploadFile") MultipartFile file) {

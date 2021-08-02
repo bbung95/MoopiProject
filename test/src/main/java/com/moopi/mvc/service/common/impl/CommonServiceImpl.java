@@ -12,7 +12,7 @@ import com.moopi.mvc.service.domain.Interest;
 import com.moopi.mvc.service.domain.Notice;
 
 @Service
-public class CommonServiceImpl {
+public class CommonServiceImpl implements CommonService{
 	
 	@Autowired
 	private CommonDao commonDao;
