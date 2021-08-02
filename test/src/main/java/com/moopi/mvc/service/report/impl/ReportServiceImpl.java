@@ -13,7 +13,7 @@ import com.moopi.mvc.service.domain.Report;
 import com.moopi.mvc.service.report.ReportDao;
 
 @Service
-public class ReportServiceImpl {
+public class ReportServiceImpl implements ReportService{
 
 	@Autowired
 	private ReportDao reportDao;
@@ -26,7 +26,7 @@ public class ReportServiceImpl {
 
 	public Map<String, Object> getReportList(Search search, Model model) throws Exception {
 
-		Map map = new HashMap();
+		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("model", model);
 		map.put("search", search);
 		System.out.println(model);

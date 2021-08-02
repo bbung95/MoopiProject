@@ -1,44 +1,40 @@
 package com.moopi.mvc.web.report;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.moopi.mvc.service.board.impl.BoardServiceImpl;
+import com.moopi.mvc.service.board.impl.BoardService;
 import com.moopi.mvc.service.domain.Board;
 import com.moopi.mvc.service.domain.Moim;
 import com.moopi.mvc.service.domain.Reply;
 import com.moopi.mvc.service.domain.Report;
 import com.moopi.mvc.service.domain.User;
-import com.moopi.mvc.service.moim.impl.MoimServiceImpl;
-import com.moopi.mvc.service.reply.impl.ReplyServiceImpl;
-import com.moopi.mvc.service.report.impl.ReportServiceImpl;
-import com.moopi.mvc.service.user.impl.UserServiceImpl;
+import com.moopi.mvc.service.moim.impl.MoimService;
+import com.moopi.mvc.service.reply.impl.ReplyService;
+import com.moopi.mvc.service.report.impl.ReportService;
+import com.moopi.mvc.service.user.impl.UserService;
 
 @RestController
 @RequestMapping("/report/json/*")
 public class ReportRestController {
 
 	@Autowired
-	private ReportServiceImpl reportService;
+	private ReportService reportService;
 	
 	@Autowired
-	private BoardServiceImpl boardService;
+	private BoardService boardService;
 	
 	@Autowired
-	private ReplyServiceImpl replyService;
+	private ReplyService replyService;
 	
 	@Autowired
-	private UserServiceImpl userService;
+	private UserService userService;
 	
 	@Autowired
-	private MoimServiceImpl moimService;
+	private MoimService moimService;
 	
 	
 	public Report report;

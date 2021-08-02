@@ -14,7 +14,7 @@ import com.moopi.mvc.service.domain.User;
 import com.moopi.mvc.service.moim.MoimDao;
 
 @Service
-public class MoimServiceImpl {
+public class MoimServiceImpl implements MoimService{
 
 	@Autowired
 	private MoimDao moimDao;

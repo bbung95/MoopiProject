@@ -14,7 +14,7 @@ import com.moopi.mvc.service.domain.Meeting;
 import com.moopi.mvc.service.domain.MeetingFlashMember;
 
 @Service
-public class MeetingServiceImpl {
+public class MeetingServiceImpl implements MeetingService{
 
 	@Autowired
 	private MeetingDao meetingDao;

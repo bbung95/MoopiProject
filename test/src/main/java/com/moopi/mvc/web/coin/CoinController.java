@@ -1,6 +1,5 @@
 package com.moopi.mvc.web.coin;
 
-import java.io.File;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,36 +8,28 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
-import com.moopi.mvc.common.Search;
-import com.moopi.mvc.service.coin.impl.CoinServiceImpl;
+import com.moopi.mvc.service.coin.impl.CoinService;
 import com.moopi.mvc.service.domain.Coin;
 import com.moopi.mvc.service.domain.Flash;
 import com.moopi.mvc.service.domain.User;
-import com.moopi.mvc.service.flash.impl.FlashServiceImpl;
-import com.moopi.mvc.service.payment.impl.PaymentServiceImpl;
-import com.moopi.mvc.service.user.impl.UserServiceImpl;
+import com.moopi.mvc.service.user.impl.UserService;
 
 @Controller
 @RequestMapping("/coin/*")
 public class CoinController {
 
 	@Autowired
-	private FlashServiceImpl flashService;
+	private UserService userService;
 
 	@Autowired
-	private UserServiceImpl userService;
-
-	@Autowired
-	private CoinServiceImpl coinService;
+	private CoinService coinService;
 
 	
 	public CoinController() {
 		System.out.println(this.getClass());
 	}
 
-	
 	@RequestMapping("coinHistory")
 	public String coinHistory(@ModelAttribute("coin") Coin coin ,Model model,
 			@RequestParam("userId") String userId) throws Exception{

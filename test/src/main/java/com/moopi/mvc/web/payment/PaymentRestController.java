@@ -1,26 +1,24 @@
 package com.moopi.mvc.web.payment;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.moopi.mvc.service.domain.Payment;
 import com.moopi.mvc.service.domain.User;
-import com.moopi.mvc.service.payment.impl.PaymentServiceImpl;
-import com.moopi.mvc.service.user.impl.UserServiceImpl;
+import com.moopi.mvc.service.payment.impl.PaymentService;
+import com.moopi.mvc.service.user.impl.UserService;
 
 @RestController
 @RequestMapping("/payment/*")
 public class PaymentRestController {
 
 	@Autowired
-	private PaymentServiceImpl paymentService;
+	private PaymentService paymentService;
 
 	@Autowired
-	private UserServiceImpl userService;
+	private UserService userService;
 
 	public PaymentRestController() {
 		System.out.println(this.getClass());
