@@ -3,15 +3,12 @@ package com.moopi.mvc.web.board;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.spi.FileSystemProvider;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.ibatis.annotations.Param;
-import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -22,25 +19,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 
 import com.google.gson.JsonObject;
 import com.moopi.mvc.common.Page;
 import com.moopi.mvc.common.Search;
-import com.moopi.mvc.service.board.impl.BoardServiceImpl;
+import com.moopi.mvc.service.board.impl.BoardService;
 import com.moopi.mvc.service.domain.Board;
 import com.moopi.mvc.service.domain.Reply;
-import com.moopi.mvc.service.reply.impl.ReplyServiceImpl;
+import com.moopi.mvc.service.reply.impl.ReplyService;
 
 @Controller
 @RequestMapping("/board/*")
 public class BoardController{
 	
 	@Autowired
-	private BoardServiceImpl boardService;
+	private BoardService boardService;
 	
 	@Autowired 
-	private ReplyServiceImpl ReplyService;
+	private ReplyService replyService;
 	
 	public Board board;
 	public String getCategory = null;
@@ -61,7 +57,7 @@ public class BoardController{
 		
 		
 		String boardCategory = null;
-		Map map = new HashMap();
+		Map<String , Object> map = new HashMap<String , Object>();
 		System.out.println("getBoardList start;;");
 		
 		if(search.getCurrentPage() == 0 ) {
@@ -96,7 +92,7 @@ public class BoardController{
 		board = boardService.getBoard(boardNo);
 		
 		if(board.getBoardCategory() !="1") {
-		List<Reply> list = ReplyService.getReplyList(boardNo);	
+		List<Reply> list = replyService.getReplyList(boardNo);	
 		model.addAttribute("list", list);
 		}
 		String boardCategory = boardService.getBoardCategory(board.getBoardCategory());

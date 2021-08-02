@@ -11,14 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.moopi.mvc.service.common.impl.CommonServiceImpl;
+import com.moopi.mvc.service.common.impl.CommonService;
 import com.moopi.mvc.service.domain.Meeting;
 import com.moopi.mvc.service.domain.Moim;
 import com.moopi.mvc.service.domain.Notice;
-import com.moopi.mvc.service.domain.User;
-import com.moopi.mvc.service.meeting.impl.MeetingServiceImpl;
-import com.moopi.mvc.service.moim.impl.MoimServiceImpl;
-import com.moopi.mvc.service.user.impl.UserServiceImpl;
+import com.moopi.mvc.service.meeting.impl.MeetingService;
 
 @RestController
 @RequestMapping("/meeting/*")
@@ -26,16 +23,10 @@ public class MeetingRestController {
 	
 	
 	@Autowired
-	private MeetingServiceImpl meetingService;
+	private MeetingService meetingService;
 	
 	@Autowired
-	private MoimServiceImpl moimService;
-	
-	@Autowired
-	private UserServiceImpl userService;
-	
-	@Autowired
-	private CommonServiceImpl commonService;
+	private CommonService commonService;
 	
 	public MeetingRestController() {
 		System.out.println(this.getClass());
@@ -131,7 +122,7 @@ public class MeetingRestController {
 	
 		//정모 참가자 명단 조회
 		@RequestMapping("json/listMEFL/{mtNo}")
-		public Map getListMEFL(@PathVariable("mtNo") int mtNo, Model model) throws Exception {
+		public Map<String, Object> getListMEFL(@PathVariable("mtNo") int mtNo, Model model) throws Exception {
 			
 			System.out.println("정모참가자명단을 보겠습니다.");
 			Map<String, Object> map = meetingService.getMEFLList(mtNo);
