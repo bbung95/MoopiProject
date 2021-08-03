@@ -32,7 +32,7 @@ public class MoimServiceImpl implements MoimService{
 		moimDao.addMoim(moim);
 	}
 
-	public Map<String, Object> getInviteList(int mmInterest, String mmAddr) throws Exception {
+	public Map<String, Object> getInviteList(String mmInterest, String mmAddr) throws Exception {
 
 		List<User> list = moimDao.getInviteList(mmInterest, mmAddr);
 

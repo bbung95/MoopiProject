@@ -411,6 +411,7 @@ body {
 
 .carousel-item>img {
 	max-height: 500px;
+	opacity: 0.7;
 }
 </style>
 </head>
@@ -449,7 +450,6 @@ body {
 <!-- 			</div> -->
 		</div>
 	</div>
-
 
 
 

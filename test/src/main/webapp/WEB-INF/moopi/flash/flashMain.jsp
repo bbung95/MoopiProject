@@ -196,15 +196,28 @@ body {
 	background: #e0ecff;
 }
 
-.interestNo{
+.interestNo {
 	font-size: 16px;
-	padding: 7px;
-	margin :1px;
-	transition: all 0.5s;
+	font-weight: bold;
+	height: 40px;
+	cursor: pointer;
+	line-height: 20px;
+	align-items: center;
 }
 
-.interestNo:hover{
-	background: #c5c7c9;
+.interestNo:hover {
+	color: #4299e1;
+}
+
+.interestActive {
+	color: #4299e1;
+}
+
+.listhead {
+	font-size: 24px;
+	font-weight: bold;
+	line-height: 34px;
+	margin-bottom: 16px;
 }
 </style>
 
@@ -285,24 +298,24 @@ body {
 				<img src="/images/background/moim2.jpg" class="d-block w-100"
 					alt="...">
 				<div class="carousel-caption d-none d-md-block">
-					<h4>First slide label</h4>
-					<p>Some representative placeholder content for the first slide.</p>
+					<h2>안녕하세요 자유로움을 추구하는 번개무피 여러분~</h2>
+					<!-- <p>Some representative placeholder content for the first slide.</p> -->
 				</div>
 			</div>
 			<div class="carousel-item " data-bs-interval="6000">
 				<img src="/images/background/moim1.jpg" class="d-block w-100"
 					alt="...">
 				<div class="carousel-caption d-none d-md-block">
-					<h4>Second slide label</h4>
-					<p>Some representative placeholder content for the first slide.</p>
+					<h2>여기는 무피에서 가장 자유로운 공간이에요.</h2>
+					<p>무피 회원 이라면 누구나 번개 생성 참가를 할수있어요.</p>
 				</div>
 			</div>
 			<div class="carousel-item" data-bs-interval="6000">
 				<img src="/images/background/flash1.jpg" class="d-block w-100"
 					alt="...">
 				<div class="carousel-caption d-none d-md-block">
-					<h4>Third slide label</h4>
-					<p>Some representative placeholder content for the first slide.</p>
+					<h2>하지만 자유에는 조금의 책임이 따른답니다 번개 생성시 2코인 참가시 1코인을 소비하게 되어요</h2>
+					<p>부족한 코인은 오른쪽 상단 충전에서 구매 하실수 있습니다!.</p>
 				</div>
 			</div>
 		</div>
@@ -318,7 +331,7 @@ body {
 		<div class="bd-highlight ">
 			<div class="dropdown mt-3">
 
-				<button class="btn btn-light dropdown-toggle selectbtn"
+				<button class="btn btn-light dropdown-toggle selectbtn shadow-sm"
 					type="button" data-bs-toggle="dropdown" id="addrbtn" style="margin-right: 20px;">Addr</button>
 				<ul class="dropdown-menu addr" aria-labelledby="dropdownMenuButton"
 					 style="height: 200px; overflow: auto;">
@@ -337,8 +350,7 @@ body {
 			<div class="row multi-columns-row">
 				<div class="row">
 					<div class="col-xs-3 col-sm-3 col-md-3">
-						<div style="font-size: 20px;">관심사</div>
-						<hr/>
+						<hr / style="margin: 0px 0px 15px 0px;">
 						<c:forEach var="interest" items="${interest}">
 							<div class="interestNo" type="${interest.interestNo}">${interest.interestName}</div>
 
@@ -347,8 +359,7 @@ body {
 					<div class="col-xs-9 col-sm-9 col-md-9">
 
 						<hr style="margin: 0px 0px 10px 0px;" />
-						 번개 리스트
-						<hr style="margin: 10px 0px 10px 0px;" />
+						 <div class="listhead">번개 리스트</div>
 						<div class="row" id="flashListView"></div>
 					</div>
 				</div>
@@ -530,12 +541,14 @@ body {
 		$('.interestNo').on('click', function() {
 
 			let type = $(this).attr('type');
+			$('.interestActive').attr('class', 'interestNo');
+			$(this).attr('class', 'interestNo interestActive');
 			$('#interest').val(type);
-			$('#flashListView').children().remove();
+			$('#moimListView').children().remove();
 
 			location.href = "#carouselExampleSlidesOnly";
 			currentPage = 1;
-			getListFlash();
+			getMoimList();
 		})
 
 		$(window).scroll(
@@ -586,13 +599,7 @@ body {
 								for (var i = 0; i < data.list.length; i++) {
 									let displayValue = '';
 
-									/* if (list[i].flashState == 1) {
-										displayValue += '<li class="tpl-forum-list-date tpl-forum-list-etc">모집상태:모집중</li>'
-									} else {
-										displayValue += '<li class="tpl-forum-list-date tpl-forum-list-etc">모집상태:모집끝</li>'
-									} */
-
-									displayValue = '<div data-aos="zoom-in-right" class="col-xs-4 col-sm-4 col-md-4 no-padding item " id="getFlash" onClick="fncGetFlash('
+									displayValue = '<div data-aos="" class="col-xs-4 col-sm-4 col-md-4 no-padding item " id="getFlash" onClick="fncGetFlash('
 											+ list[i].flashNo
 											+ ')" >'
 											+ '<div class="border-wrap op_itemline10 img-thumbnail" >'
@@ -616,20 +623,20 @@ body {
 											+ '</span>'
 											+ '</div>'
 											+ '<div'
-											+'class="tpl-forum-list-name tpl-forum-list-etc config-font-etc"'
+											+'class="tpl-forum-list-name tpl-forum-list-etc config-font-etc d-flex"'
 											+'data-selector=".tpl-forum-list-etc" data-font="true"'
 											+'data-title="others">'
 											+ '<img src="/images/uploadFiles/'
 											+ list[i].flashConstructor.profileImage
 											+ '" style="width: 40px; height:40px; border-radius: 50%;" />'
-											+ list[i].flashConstructor.nickname
+											+ '<span>'+list[i].flashConstructor.nickname+'</span>'
 											+ '</div>'
+											+'<div><span class="rounded-3 shadow-sm p-1 h7">'
+											+list[i].flashAddr+'</span><span class="rounded-3 shadow-sm p-1 h7">'
+											+list[i].flashInterest+'</span></div>'
 											+ '<ul class="d-flex item-ul" style="list-style: none;">'
 											+ '<li class="tpl-forum-list-category tpl-forum-list-etc config-font-etc">'
 											+ list[i].flashTime
-											+ '</li>'
-											+ '<li class="tpl-forum-list-date tpl-forum-list-etc config-font-etc">'
-											+ list[i].flashAddr
 											+ '</li>'
 											+ '<li class="tpl-forum-list-hit tpl-forum-list-etc config-font-etc">'
 											+ list[i].flashCurrentCount
