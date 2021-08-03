@@ -35,4 +35,7 @@ public interface BoardDao {
 	
 	public Board checkPassword(@Param("boardNo")int boardNo)throws Exception;
 	
+	public void updateHit(@Param("boardNo")int boardNo)throws Exception;
+	
+	
 }	

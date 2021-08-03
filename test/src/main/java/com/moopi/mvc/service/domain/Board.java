@@ -22,9 +22,9 @@ public class Board {
 	// 게시글 내용
 	private String boardContent; 
 	// 게시글 작성시간
-	private Date boardRegDate;
+	private String boardRegDate;
 	// 게시글 수정시간
-	private Date boardUpdate; 
+	private String boardUpdate; 
 	// 게시글 상태  1. 정상 2. 삭제 
 	private String boardState;
 	// 문의게시글용 비밀번호.
@@ -35,6 +35,10 @@ public class Board {
 	private int boardLike;
 	
 	private String boardFile;
+	
+	//게시글 조회수
+	private int boardHit;
+	
 	
 	//리플수 카운트
 	private int replyCount;

@@ -1,99 +1,229 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<html lang="ko">
+<!DOCTYPE html>
+<html>
 <head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
 
+<!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
+	<!--<link rel="stylesheet" href="/images/uploadFiles" >  -->
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
+  	
 <script type="text/javascript">
+$(function() {
+	//==> DOM Object GET 3ê°€ì§€ ë°©ë²• ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+	$( "#addReport" ).on("click" , function() {
+		fncAddReport();
+	});
+});	
+
+function fncAddReport(){
+// 	alert("ì‹ ê³ ");
+	
+	
+	var reportType			= $(".reportType").val();
+	var reportContent		= $("#reportContent").val();
+	var reportTarget		= $("#reportTarget").val();
+	var reportTargetBd		= $("#reportTargetBd").val();
+	var reportTargetRe		= $("#reportTargetRe").val();
+	var reportTargetMm		= $("#reportTargetMm").val();
+	var reportCategory 		= $("#reportCategory").val();
+	var reportByUserId		= $("#reportByUser").val();
+// 	alert($(".reportType").val())
+	alert(reportType);
+	alert(reportContent);
+	alert(reportTarget);
+	alert(reportTargetBd);
+	alert(reportTargetRe);
+	alert(reportTargetMm);
+	alert(reportCategory);
+	alert(reportByUserId);
+	
+	$.ajax({
+		url: "/report/json/addReport",
+		type: "POST",
+		dataType: "json",
+		contentType : "application/json",
+		data :  JSON.stringify ({ "reportType": reportType, "reportContent": reportContent, "reportTarget": { "userId": reportTarget }, "reportTargetBd": {"boardNo" :reportTargetBd},
+								 "reportTargetRe": { "replyNo" : reportTargetRe} , "reportTargetMm": { "mmNo" : reportTargetMm} , "reportCategory" : reportCategory, "reportByUser" : {"userId":reportByUserId} }),		
+		success: function(data, state){
+			
+			
+			close();
+		
+		}
+	
+	});
+	
+}
 
 
-var hasFocusEtcTxtBox = false;
 
 
-<script type="text/javascript">
-var initWidth = "538";
-var initHeight = "";
-var maxHeight = "";
 
-LH.add("setWindowSize('"+initWidth+"', '"+initHeight+"', '"+maxHeight+"')");
 </script>
+<style>
+.modal-content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 700px;
+    pointer-events: auto;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 0.3rem;
+    outline: 0;
+}
+img {
+  height:300px;
+  object-fit: scale-down;
+}
+</style>
 </head>
-
 <body>
+ 
+ <div class="container">
+	
+		
+		
+		<!-- form Start /////////////////////////////////////-->
+		<!-- ì¹´í…Œê³ ë¦¬ 1ë²ˆì— í•´ë‹¹í•˜ëŠ” ì‹ ê³ ê¸€. -->
+		 
+		  <div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title" id="myModalLabel">ì‹ ê³ í•˜ê¸°</h4>
+				</div>
+					<!-- í¼ì‹œì‘ -->
 
-<form name="frm" method="post" action="/BoardReportBadArticle.nhn">
-<input type=hidden name='badArticleReport.clubid' value='12730407'>
-<input type=hidden name='badArticleReport.articleid' value='3086316'>
-<input type=hidden name='badArticleReport.menuid' value='10'>
-<input type=hidden name='m' value='article'>
+					<!-- form Start /////////////////////////////////////-->
+					<form class="form-horizontal" name="detailForm" enctype="multipart/form-data">
+						 <c:if test="${reportCategory == 1}">
+						<input type="hidden" id="reportByUser" name="reportByUser.userId" value="${dbUser.userId}">
+					    <input type="hidden" id="reportTargetBd" name="reportTargetBd.boardNo" value="${board.boardNo}">
+					    <input type="hidden" id="reportCategory" name="reportCategory" value="${reportCategory}">
+						<div class="form-group">
+							<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">ê²Œì‹œê¸€ ì œëª©</label>
+							<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label"> ${board.boardName }</label>
+						</div>
 
-<input type=hidden name='revisionid' value=''>
+						<br>
+						<div class="form-group">
+							<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">ê²Œì‹œê¸€ ë‚´ìš©</label>
+							<div for="ssn" class="col-sm-offset-1 col-sm-3 control-label">
+								${board.boardContent }
+							</div>
+						</div>
 
-<div id="pop_wrap" style="width:530px;">
-    <div id="pop_header">
-        <h1>½Å°íÇÏ±â</h1>
-    </div>
-    
-    <div id="pop_container">
-        <div id="pop_content">
-            <dl class="list_report">
-                <dt class="first">Á¦&nbsp;&nbsp;&nbsp;¸ñ :</dt>
-                <dd class="first">¾Èµ¿ ÅÂÈ­ÁÖ°ø ¾ÆÆÄÆ®</dd>
-                <dt class="dt_type2">ÀÛ¼ºÀÚ :</dt>
-                <dd class="dd_type3">¾Æ±â´Ù¶÷Áãa(k753****)</dd>
-                <dt><span>»çÀ¯¼±ÅÃ</span> :</dt>
-                <dd class="dd_type">
-                    <p class="desc5">¿©·¯ »çÀ¯¿¡ ÇØ´çµÇ´Â °æ¿ì, ´ëÇ¥ÀûÀÎ »çÀ¯ 1°³¸¦ ¼±ÅÃÇØ ÁÖ¼¼¿ä
-                        <span><a target="_blank" href="https://cafe.naver.com/common/cafein_service_use.htm">¿î¿µ¿øÄ¢ ÀÚ¼¼È÷ º¸±â</a></span>
-                    </p>
-                    <ul class="list_type">
-                        <li>
-                            <input type="radio" name="badArticleReport.badType" id="rdo_illegal" value="AA03" class="input_rdo"><label for="rdo_illegal">&nbsp;ºÎÀûÀıÇÑ È«º¸ °Ô½Ã±Û</label>
-                            <strong><span class="more"><a href="#" onclick="changeInfoLayer('info_illegal','img_illegal');"><img id="img_illegal" src="https://ssl.pstatic.net/static/common/popup/img_more.gif" width="36" height="11" alt="´õº¸±â"></a></span></strong>
-                            <ul id="info_illegal" class="list_type2" style="display:none">
-                                <li>ºÒ¹ı »çÇà¼º, µµ¹Ú »çÀÌÆ®¸¦ È«º¸ÇÏ´Â °æ¿ì</li>
-                                <li>°³ÀÎÁ¤º¸, ÀÌ¹ÌÅ×ÀÌ¼Ç, ¼ºÀÎÀÇ¾àÇ°, ¸¶¾à, ´ëÆ÷Æù µî ºÒ¹ı Á¦Ç° ¹×<br>Á¤º¸¸¦ È«º¸, ÆÇ¸ÅÇÏ´Â °æ¿ì</li>
-                                <li>¼º¸Å¸Å, Àå±â¸Å¸Å µîÀÇ ½ÅÃ¼ °ü·Ã °Å·¡ Á¤º¸</li>
-                                <li>È«º¸/½ºÆÔ¼º ³»¿ëÀ» ¹İº¹ÇÏ¿© µî·ÏÇÏ´Â °æ¿ì</li>
-                            </ul>
-                        </li>
-                        <li>
-                            <input type="radio" name="badArticleReport.badType" id="rdo_obscenity" value="AA33" class="input_rdo"> <label for="rdo_obscenity">À½¶õ¼º ¶Ç´Â Ã»¼Ò³â¿¡°Ô ºÎÀûÇÕÇÑ ³»¿ë</label>
-                            <span class="more"><a href="#" onclick="changeInfoLayer('info_obscenity','img_obscenity');"><img id="img_obscenity" src="https://ssl.pstatic.net/static/common/popup/img_more.gif" width="36" height="11" alt="´õº¸±â"></a></span>
-                            <ul id="info_obscenity" class="list_type2" style="display:none">
-                            <li>À½¶õ¹° ¶Ç´Â À½¶õÇÑ ÇàÀ§(³ë°ñÀûÀÎ ¼ºÇàÀ§ Àå¸é)¸¦ ¹¦»çÇÏ´Â ÀÌ¹ÌÁö/µ¿¿µ»ó</li>
-                            <li>»ìÇØ/»óÇØ/Æø·Â µî ÀÜÀÎÇÑ Àå¸éÀ» ¹¦»çÇÏ´Â ÀÌ¹ÌÁö/µ¿¿µ»ó</li>
-                            <li>Áß°í ¼Ó¿Ê ÆÇ¸Å, °¡Ãâ À¯µµ µîÀÇ Ã»¼Ò³â À¯ÇØ Á¤º¸ °øÀ¯</li>
-                            </ul>
-                        </li>
-                        <li>
-                            <input type="radio" name="badArticleReport.badType" id="rdo_libel" value="NOT_SUBMIT" class="input_rdo"> <label for="rdo_libel">¸í¿¹ÈÑ¼Õ/»ç»ıÈ° Ä§ÇØ ¹× ÀúÀÛ±ÇÄ§ÇØµî</label>
-                        </li>
-                        <li>
-                            <input type="radio" name="badArticleReport.badType" id="rdo_illegal_photographs" value="NOT_SUBMIT" class="input_rdo"> <label for="rdo_illegal_photographs">ºÒ¹ıÃÔ¿µ¹°µî ½Å°í</label>
-                        </li>
-                        <li>
-                            <input type="radio" name="badArticleReport.badType" id="rdo_etc" value="AA34" class="input_rdo"> <label for="rdo_etc">±âÅ¸</label>
-                        </li>
-                    </ul>
+						<br>
 
-                    <textarea name="badArticleReport.reportDesc" id="etcTxtBox" cols="50" rows="5" class="txt_area" style="width:405px; height:80px;">ÇØ´ç ½Å°í´Â ³×ÀÌ¹ö ¿î¿µÀÚ¿¡°Ô Àü´ŞµË´Ï´Ù.
-   					 ¿ì¸® Ä«ÆäÀÇ ±ÔÁ¤À» À§¹İÇÑ °æ¿ì ¸Å´ÏÀú¿¡°Ô ¹®ÀÇÇØÁÖ¼¼¿ä.
-                    </textarea>
-                </dd>
-                <dl class="list_report" id="noticeBox" style="display:none">
-                    <dt class="dt_type3">½Å°íÇÏ±â<br>Àü¿¡ Àá±ñ!</dt>
-                    <dd class="dt_type3" id="notice_description"></dd>
-                </dl>
-            </dl>
-        </div>
-    </div>
-    
-    <div id="pop_footer">
-        <input type="image" id="btnReport" src="https://ssl.pstatic.net/static/common/popup/btn_report2.gif" alt="½Å°íÇÏ±â" title="½Å°íÇÏ±â" onMouseOver="this.src='https://ssl.pstatic.net/static/common/popup/btn_report2_over.gif'" onMouseOut="this.src='https://ssl.pstatic.net/static/common/popup/btn_report2.gif'" onclick="return submitForm();">
-        <a href="javascript:window.close()"><img src="https://ssl.pstatic.net/static/common/popup/btn_cancel2.gif" width="48" height="28" alt="Ãë¼Ò" onMouseOver="this.src='https://ssl.pstatic.net/static/common/popup/btn_cancel2_over.gif'" onMouseOut="this.src='https://ssl.pstatic.net/static/common/popup/btn_cancel2.gif'"></a>
-    </div>
+						<div class="form-group">
+							<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">ê²Œì‹œê¸€ ì‘ì„±ì</label>
+							<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">
+								${board.boardWriter.nickname }
+							</label>
+						</div>
+						</c:if>  
+						  <c:if test="${reportCategory == 2}">
+						<input type="hidden" id="reportByUser" name="reportByUser.userId" value="${dbUser.userId}">
+						  <input type="hidden" id="reportTargetRe" name="reportTargetRe.replyNo" value="${reply.replyNo}">
+						  <input type="hidden" id="reportCategory" name="reportCategory" value="${reportCategory}">
+
+						<br>
+						<div class="form-group">
+							<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">ëŒ“ê¸€ ë‚´ìš©</label>
+							<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">
+								${reply.replyContent }
+							</label>
+						</div>
+
+						<br>
+
+						<div class="form-group">
+							<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">ëŒ“ê¸€ ì‘ì„±ì</label>
+							<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">
+								${reply.replyWriter.nickname }
+							</label>
+						</div>
+						</c:if>  
+						<c:if test="${reportCategory == 3}">
+						  <input type="hidden" id="reportByUser" name="reportByUser.userId" value="${dbUser.userId}">
+		  <input type="hidden" id="reportTarget" name="reportTarget" value="${report.reportTarget.userId}">
+		  <input type="hidden" id="reportCategory" name="reportCategory" value="${reportCategory}">
+						<div class="form-group">
+							<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">ìœ ì € ë‹‰ë„¤ì„</label>
+							<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">${user.nickname}</label>
+						</div>
+
+						<br>
+						</c:if>  <c:if test="${reportCategory == 4}">
+						 <input type="hidden" id="reportByUser" name="reportByUser.userId" value="${dbUser.userId}">
+		  <input type="hidden" id="reportTargetMm" name="reportTargetMm" value="${moim.mmNo}">
+		  <input type="hidden" id="reportCategory" name="reportCategory" value="${reportCategory}">
+						<div class="form-group">
+							<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">ëª¨ì„ëª…</label>
+							<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label"> ${moim.mmName}</label>
+						</div>
+
+						<br>
+						<div class="form-group">
+							<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">ëª¨ì„ì†Œê°œ</label>
+							<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">
+								${moim.mmContent}
+							</label>
+						</div>
+
+						<br>
+
+						<div class="form-group">
+							<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">ëª¨ì„ì¥ ì•„ì´ë””</label>
+							<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">
+								${moim.mmConstructor.userId }
+							</label>
+						</div>
+						</c:if> 
+						<br>
+						<div class="form-group">
+							<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">ì‹ ê³ ì‚¬ìœ </label>
+								<select class="form-control reportType" style="width:300px;text-align: center;"  >
+									<option>=====ì„ íƒí•˜ì„¸ìš”=====</option>
+									<option name="reportType" value="1">ìŒë€ì„± ë° ë¶€ì ì ˆí•œ ìš”ì†Œ</option>
+									<option name="reportType" value="2">ìš•ì„¤ ë˜ëŠ” ê³µê²©ì ì¸ ìš”ì†Œ</option>
+									<option name="reportType" value="3">ê´‘ê³  ë° ìƒì—…ì ì¸ ìš”ì†Œ</option>
+									<option name="reportType" value="4">ë¶ˆë²•ì ì¸ ìš”ì†Œ</option>
+								</select>
+						</div>
+
+						<br>
+
+						<div class="form-group">
+							<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">ì¶”ê°€ ë‚´ìš©</label>
+							<div class="col-sm-20">
+								<input type="text" class="form-control" style="width:300px;height:70px" id="reportContent" placeholder="ì¶”ê°€ ë‚´ìš©ì„ ì…ë ¥í•´ì£¼ì„¸ìš”.">
+							</div>
+						</div>
+
+						<br>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-primary" id="addReport">ì‹ ê³ í•˜ê¸°</button>
+						</div>
+					</form>
+					<!-- í¼ë -->
+		</div>
+				
+				
 </div>
-</form>
-
+           
+		
 </body>
+
+
+
 </html>
+

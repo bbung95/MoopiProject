@@ -42,11 +42,8 @@ font-size: 16px;
    		background-color: #e1eeff;
 	    padding: 2px 8px;
 	    align-items: center;
-	}
-
-	.board_title{
-		font-weight:bold;
-	
+	    font-weight:bold;
+	    height :50px;
 	}
 			
 	.reply_head{
@@ -123,14 +120,13 @@ font-size: 16px;
 				<div style="font-size:35px; margin:0px"> ${board.boardName}</div>	
 				<div class="board_title">
 				
-				<div style="display:inline-block; float:right;">${board.boardRegDate}
+				<div style="display:inline-block; float:right;text-align: right">작성시간 : ${board.boardRegDate} <br/> 조회수 : ${board.boardHit} 
 				</div>
 				
 				<input class="board" type="hidden" id="boardNo" name="boardNo" value="${board.boardNo}">
 				
 				<div style="text-align:left;">
-					<pattern id="comment-write-image" patternUnits="userSpaceOnUse" width="40" height="40">									
-					</pattern>${board.boardWriter.nickname} </div>
+					${board.boardWriter.nickname} </div>
 					</div>
 					<div class="board_content" >
 					${board.boardContent}
