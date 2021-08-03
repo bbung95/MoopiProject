@@ -61,7 +61,7 @@
 												<th class="border px-4 py-2" width="5%">최대정원</th>
 												<th class="border px-4 py-2" width="10%">거주지</th>
 												<th class="border px-4 py-2" width="20%">관심사</th>
-												<th class="border px-4 py-2" width="5%">유형</th>
+												<th class="border px-4 py-2" width="6%">모집<br>상태</th>
 												<th class="border px-4 py-2" width="5%">현재상태</th>
 											</tr>
 										</thead>
@@ -71,13 +71,15 @@
 													<td class="border px-4 py-2">${flash.flashNo}</td>
 													<td class="border px-4 py-2">${flash.flashName}</td>
 													<td class="border px-4 py-2">${flash.flashConstructor.userId}</td>
-													<td class="border px-4 py-2">${flash.flashConstructor.userName}</td>
+													<td class="border px-4 py-2">${flash.flashConstructor.nickname}</td>
 													<td class="border px-4 py-2">${flash.flashRegdate}</td>
 													<td class="border px-4 py-2">${flash.flashCurrentCount}</td>
 													<td class="border px-4 py-2">${flash.flashMaxCount}</td>
 													<td class="border px-4 py-2">${flash.flashAddr}</td>											
 													<td class="border px-4 py-2">${flash.flashInterest}</td>
-													<td class="border px-4 py-2">${flash.flashState}
+													<td class="border px-4 py-2">
+													<c:if test="${flash.flashState eq '1'}">모집<br>완료</c:if>
+													<c:if test="${flash.flashState eq '0'}"></c:if>
 													</td>
 													<td class="border px-4 py-2"><i
 														class="fas fa-check text-green-500 mx-2"></i></td>
