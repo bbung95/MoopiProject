@@ -164,9 +164,9 @@ img, svg {
 			                            <div style="margin: 5px 5px 5px 5px;">${board.boardWriter.nickname}</div></div>
 								</div>
 								
-							</div>
-							<span class="board_content" >${board.boardContent}</span><span class="board_hit" style="float:right;padding-right:10px"></span>
-							<div style="float: right;">
+							</div >
+							<div class="board_content" style="height:350px; border-bottom: 1px solid #c4dbf3;;">${board.boardContent}</div>
+							<div style="float: right; padding-top: 10px;">
 								<c:if test="${dbUser.userId eq board.boardWriter.userId}">
 									<button type="button" class="btn btn-primary updateBoard">수정</button>
 									<button type="button" class="btn btn-primary deleteBoard">삭제</button>
@@ -187,9 +187,12 @@ img, svg {
 											value="${reply.replyNo}">
 										<div class="reply_head">
 											<div style="display: inline-block">
+											
+											
+											
 											<div class="tpl-forum-list-name tpl-forum-list-etc op_itemline10" style="display: flex !important; align-items: center !important;"> 
-			                            <img src="/images/uploadFiles/${reply.replyWriter.profileImage}" class="img-responsive profileImg">
-			                            <div style="margin: 5px 5px 5px 5px;">${reply.replyWriter.nickname}</div></div>
+				                            <img src="/images/uploadFiles/${reply.replyWriter.profileImage}" class="img-responsive profileImg">
+				                            <div style="margin: 5px 5px 5px 5px;">${reply.replyWriter.nickname}</div></div>
 			                            
 												
 												</div>
@@ -226,10 +229,12 @@ img, svg {
 							<form name="detailForm" enctype="multipart/form-data">
 								<div id="addReplyForm"
 									style="float: right; padding-right: 20px; padding-top: 20px;">
-									<div class="col-md-5" style="font-size: 20px;">
-									<img src="/images/uploadFiles/${dbUser.profileImage}" class="img-responsive profileImg">
-										${dbUser.nickname }</div>
-									<div style="padding-left: 100px; width: 900px">
+									<div class="tpl-forum-list-name tpl-forum-list-etc op_itemline10" style="display: flex !important; align-items: center !important;"> 
+			                            <img src="/images/uploadFiles/${dbUser.profileImage}" class="img-responsive profileImg">
+			                            <div style="margin: 5px 5px 5px 5px;">${dbUser.nickname}</div></div>	
+										
+										
+									<div style="padding-left: 100px; width: 1050px">
 										<textarea id="summernote" placeholder="댓글을 입력해주세요."
 											name="replyContent" id="replyContent"></textarea>
 									</div>
@@ -450,7 +455,12 @@ img, svg {
 	 		       			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 	 		       			$( ".deleteReply" ).on("click" , function() {
 	 		       				replyNo = $(this).parent().parent().find("input[name=replyNo]").val()
-	 		       				fncDelteReply(replyNo);
+	 		       				
+	 		       			var result = confirm("댓글 삭제하시겟습니까?");
+	 		       			if(result){
+	 		       			fncDelteReply(replyNo);
+	 		       			}
+	 		       				
 	 		       			});
 	 		            	
 	 		       			$(  ".addReportReply"  ).on("click" , function() {
@@ -517,9 +527,9 @@ img, svg {
 						            		 ' 	<div class='+data.replyNo+'>'		
 						 					+'  <input type="hidden" class="reply" name="replyNo" value='+data.replyNo+'>'
 						 					+'	<div class="reply_head">'
-						 					+'	<div style="display: inline-block">'
-						 					+'  <img src="/images/uploadFiles/'+data.replyWriter.profileImage+'" class="img-responsive profileImg">'
-						 					+	 data.replyWriter.nickname
+						 					+' <div class="tpl-forum-list-name tpl-forum-list-etc op_itemline10" style="display: flex !important; align-items: center !important;">' 
+						 					+' <img src="/images/uploadFiles/'+data.replyWriter.profileImage+'" class="img-responsive profileImg">'
+						 					+' <div style="margin: 5px 5px 5px 5px;">'+data.replyWriter.nickname+'</div></div>'
 						 					+'	</div>'
 						 					+'	<div style="display: inline-block; float:right;">'
 						 					+'    작성시간 : '+ data.replyRegDate
@@ -559,7 +569,10 @@ img, svg {
 					 		       			$( ".deleteReply" ).on("click" , function() {
 // 					 		       				alert("updateReply 내부 deleteReply")
 					 		       				replyNo = $(this).parent().parent().find("input[name=replyNo]").val()
-					 		       				fncDelteReply(replyNo);
+					 		       			var result = confirm("댓글을 삭제하시겟습니까?");
+					 		       			if(result){
+					 		       			fncDelteReply(replyNo);
+					 		       			}
 					 		       			});
 					 		            	
 					 		       			$(  ".addReportReply"  ).on("click" , function() {
@@ -576,6 +589,11 @@ img, svg {
 			$( ".deleteReply" ).on("click" , function() {
 // 				alert("바깥의 deleteReply")
 				replyNo = $(this).parent().parent().find("input[name=replyNo]").val()
+				var result = confirm("댓글을 삭제하시겟습니까?");
+				if(result){
+					fncDelteReply(replyNo);
+				}
+				
 				fncDelteReply(replyNo);
 			});
 		
