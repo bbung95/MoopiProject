@@ -26,8 +26,8 @@ $(function() {
 function fncAddReport(){
 // 	alert("신고");
 	
-	alert($("input[name=reportType]").val())
-	var reportType			= $("input[name=reportType]:checked").val();
+	
+	var reportType			= $(".reportType").val();
 	var reportContent		= $("#reportContent").val();
 	var reportTarget		= $("#reportTarget").val();
 	var reportTargetBd		= $("#reportTargetBd").val();
@@ -35,15 +35,15 @@ function fncAddReport(){
 	var reportTargetMm		= $("#reportTargetMm").val();
 	var reportCategory 		= $("#reportCategory").val();
 	var reportByUserId		= $("#reportByUser").val();
-	
-// 	alert(reportType);
-// 	alert(reportContent);
-// 	alert(reportTarget);
-// 	alert(reportTargetBd);
-// 	alert(reportTargetRe);
-// 	alert(reportTargetMm);
-// 	alert(reportCategory);
-// 	alert(reportByUserId);
+// 	alert($(".reportType").val())
+	alert(reportType);
+	alert(reportContent);
+	alert(reportTarget);
+	alert(reportTargetBd);
+	alert(reportTargetRe);
+	alert(reportTargetMm);
+	alert(reportCategory);
+	alert(reportByUserId);
 	
 	$.ajax({
 		url: "/report/json/addReport",
@@ -66,19 +66,24 @@ function fncAddReport(){
 
 
 
+
 </script>
 <style>
 .modal-content {
     position: relative;
     display: flex;
     flex-direction: column;
-    width: 550px;
+    width: 700px;
     pointer-events: auto;
     background-color: #fff;
     background-clip: padding-box;
     border: 1px solid rgba(0, 0, 0, 0.2);
     border-radius: 0.3rem;
     outline: 0;
+}
+img {
+  height:300px;
+  object-fit: scale-down;
 }
 </style>
 </head>
@@ -98,7 +103,7 @@ function fncAddReport(){
 					<!-- 폼시작 -->
 
 					<!-- form Start /////////////////////////////////////-->
-					<form id="addReport" class="form-horizontal" name="detailForm" enctype="multipart/form-data">
+					<form class="form-horizontal" name="detailForm" enctype="multipart/form-data">
 						 <c:if test="${reportCategory == 1}">
 						<input type="hidden" id="reportByUser" name="reportByUser.userId" value="${dbUser.userId}">
 					    <input type="hidden" id="reportTargetBd" name="reportTargetBd.boardNo" value="${board.boardNo}">
@@ -111,9 +116,9 @@ function fncAddReport(){
 						<br>
 						<div class="form-group">
 							<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">게시글 내용</label>
-							<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">
+							<div for="ssn" class="col-sm-offset-1 col-sm-3 control-label">
 								${board.boardContent }
-							</label>
+							</div>
 						</div>
 
 						<br>
@@ -186,7 +191,7 @@ function fncAddReport(){
 						<br>
 						<div class="form-group">
 							<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">신고사유</label>
-								<select class="form-control" style="width:300px" id="mmAddr" name="mmAddr">
+								<select class="form-control reportType" style="width:300px;text-align: center;"  >
 									<option>=====선택하세요=====</option>
 									<option name="reportType" value="1">음란성 및 부적절한 요소</option>
 									<option name="reportType" value="2">욕설 또는 공격적인 요소</option>

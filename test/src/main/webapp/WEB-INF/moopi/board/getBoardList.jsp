@@ -223,7 +223,6 @@ function fncGetPassword(boardNo){
   line-height: 2;
   letter-spacing: 0.07em;
   text-align: center; 
-  padding:22px 7px;
   border-bottom: none;
 }
 
@@ -381,7 +380,6 @@ padding: 3px 7px;
  .userEL9022878 .table > tbody > tr > td.tpl-forum-list-date,
  .userEL9022878 .table > tbody > tr > td.tpl-forum-list-hit { display: none; }
  .userEL9022878 .table > tbody > tr > th,
- .userEL9022878 .table > tbody > tr > td { padding: 10px; }
  .userEL9022878 .table > tbody > tr > td.tpl-forum-list-content { padding-left: 10px; padding-right: 10px; }
  .userEL9022878 .table > thead > tr > th.tpl-forum-name,
  .userEL9022878 .table > tbody > tr > td.tpl-forum-list-name { width: 110px; }
@@ -425,30 +423,30 @@ body {
 	<div id="carouselExampleSlidesOnly"
 		class="carousel slide carousel-fade" data-bs-ride="carousel">
 		<div class="carousel-inner">
-			<div class="carousel-item active" data-bs-interval="4500">
-				<img src="https://dummyimage.com/1160x500/ced4da/6c757d"
+			<div class="carousel-item active" data-bs-interval="6000">
+				<img src="/images/background/${boardCategory eq 'Moopi' ? 'notice1':'QnA2' }.jpg"
 					class="d-block w-100" alt="...">
-				<div class="carousel-caption d-none d-md-block">
-					<h5>First slide label</h5>
-					<p>Some representative placeholder content for the first slide.</p>
-				</div>
+<!-- 				<div class="carousel-caption d-none d-md-block"> -->
+<!-- 					<h4 class="word">Dale Carnegie</h4> -->
+<!-- 					<p class="word">The royal road to a man's heart is to talk to him about the things he treasures most.</p> -->
+<!-- 				</div> -->
 			</div>
-			<div class="carousel-item" data-bs-interval="4500">
-				<img src="https://dummyimage.com/1160x500/ced4da/6c757d"
-					class="d-block w-100" alt="...">
-				<div class="carousel-caption d-none d-md-block">
-					<h5>Second slide label</h5>
-					<p>Some representative placeholder content for the first slide.</p>
-				</div>
-			</div>
-			<div class="carousel-item" data-bs-interval="4500">
-				<img src="https://dummyimage.com/1160x500/ced4da/6c757d"
-					class="d-block w-100" alt="...">
-				<div class="carousel-caption d-none d-md-block">
-					<h5>Third slide label</h5>
-					<p>Some representative placeholder content for the first slide.</p>
-				</div>
-			</div>
+<!-- 			<div class="carousel-item" data-bs-interval="6000"> -->
+<!-- 				<img src="/images/background/moim3.jpg" -->
+<!-- 					class="d-block w-100" alt="..."> -->
+<!-- 				<div class="carousel-caption d-none d-md-block"> -->
+<!-- 					<h4 class="word">Tennesse Williams</h4> -->
+<!-- 					<p class="word">Life is partly what we make it, and partly what it is made by the friends we choose.</p> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
+<!-- 			<div class="carousel-item" data-bs-interval="6000"> -->
+<!-- 				<img src="/images/background/moim5.jpg" -->
+<!-- 					class="d-block w-100" alt="..."> -->
+<!-- 				<div class="carousel-caption d-none d-md-block"> -->
+<!-- 					<h4 class="word">Albert Camus</h4> -->
+<!-- 					<p class="word">Don't walk in front of me, I may not follow. Don't walk behine me, I may not lead. Walk beside me and just be my friend</p> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
 		</div>
 	</div>
 
@@ -460,8 +458,7 @@ body {
 			<div class="col-xs-12 col-sm-12 col-md-12">
 			    <h3 class="head_title" data-edit="true" data-selector="h3.head_title" ><span class="fsize20" ><strong>
 			    
-			    ${boardCategory eq 'Moopi' ? '무피게시판':'QnA게시판' }
-			    
+			    <br>
 			    </strong></span></h3>
 		   </div>
    		<form id="searchBar">
@@ -520,20 +517,20 @@ body {
 			                        <c:forEach var="board" items="${list}">
 			                        <c:set var="i" value="${ i+1 }"/>
 			                        <tr>
-			                            <td scope="row" class="tpl-forum-list-num tpl-forum-list-etc op_itemline10">${i }</td>
+			                            <td scope="row" class="tpl-forum-list-num tpl-forum-list-etc op_itemline10" style=" align-items: center !important;">${i }</td>
 			                            
 			                             
 		                                <c:if test="${ !empty board.boardPassword}"> 
-		                                <td class="tpl-forum-list-content op_itemline10"  onClick="fncGetPassword(${board.boardNo})">${board.boardName}</td>
+		                                <td class="tpl-forum-list-content op_itemline10"  onClick="fncGetPassword(${board.boardNo})" style=" align-items: center !important;">${board.boardName}</td>
 										</c:if>
 			                             <c:if test="${  empty board.boardPassword}"> 
-			                            <td class="tpl-forum-list-content op_itemline10"  onClick="fncGetBoard(${board.boardNo})">${board.boardName}</td>
+			                            <td class="tpl-forum-list-content op_itemline10"  onClick="fncGetBoard(${board.boardNo})" style=" align-items: center !important;">${board.boardName}</td>
 			                            </c:if>
 			                            
 			                            
-			                            <td class="tpl-forum-list-name tpl-forum-list-etc op_itemline10"> 
+			                            <td class="tpl-forum-list-name tpl-forum-list-etc op_itemline10" style="display: flex !important; align-items: center !important;"> 
 			                            <img src="/images/uploadFiles/${board.boardWriter.profileImage}" class="img-responsive profileImg">
-			                            ${board.boardWriter.nickname}</td>
+			                            <div style="margin: 5px 5px 5px 5px;">${board.boardWriter.nickname}</div></td>
 			                            <td class="tpl-forum-list-date tpl-forum-list-etc op_itemline10">${board.boardRegDate}</td>
 			                            
 			                            <c:if test="${boardCategory eq 'QnA' }">
@@ -570,7 +567,7 @@ body {
 					<jsp:include page="../common/pageNavigator.jsp"/>	
             </div>
 
-<jsp:include page="../layout/footer.jsp"></jsp:include>
+<div id="wrapper"><jsp:include page="../layout/footer.jsp"></jsp:include></div>
 
 
 </body>
