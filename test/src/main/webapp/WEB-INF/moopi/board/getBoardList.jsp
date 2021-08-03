@@ -413,6 +413,7 @@ body {
 
 .carousel-item>img {
 	max-height: 500px;
+	opacity: 0.7;
 }
 </style>
 </head>
@@ -425,33 +426,32 @@ body {
 	<div id="carouselExampleSlidesOnly"
 		class="carousel slide carousel-fade" data-bs-ride="carousel">
 		<div class="carousel-inner">
-			<div class="carousel-item active" data-bs-interval="4500">
-				<img src="https://dummyimage.com/1160x500/ced4da/6c757d"
-					class="d-block w-100" alt="...">
+			<div class="carousel-item active" data-bs-interval="6000">
+				<img src="/images/background/moim2.jpg" class="d-block w-100"
+					alt="...">
 				<div class="carousel-caption d-none d-md-block">
-					<h5>First slide label</h5>
+					<h4>First slide label</h4>
 					<p>Some representative placeholder content for the first slide.</p>
 				</div>
 			</div>
-			<div class="carousel-item" data-bs-interval="4500">
-				<img src="https://dummyimage.com/1160x500/ced4da/6c757d"
-					class="d-block w-100" alt="...">
+			<div class="carousel-item " data-bs-interval="6000">
+				<img src="/images/background/moim1.jpg" class="d-block w-100"
+					alt="...">
 				<div class="carousel-caption d-none d-md-block">
-					<h5>Second slide label</h5>
+					<h4>Second slide label</h4>
 					<p>Some representative placeholder content for the first slide.</p>
 				</div>
 			</div>
-			<div class="carousel-item" data-bs-interval="4500">
-				<img src="https://dummyimage.com/1160x500/ced4da/6c757d"
-					class="d-block w-100" alt="...">
+			<div class="carousel-item" data-bs-interval="6000">
+				<img src="/images/background/flash1.jpg" class="d-block w-100"
+					alt="...">
 				<div class="carousel-caption d-none d-md-block">
-					<h5>Third slide label</h5>
+					<h4>Third slide label</h4>
 					<p>Some representative placeholder content for the first slide.</p>
 				</div>
 			</div>
 		</div>
 	</div>
-
 
 
 

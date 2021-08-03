@@ -14,6 +14,12 @@
 	href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,600;1,400&display=swap"
 	rel="stylesheet">
 
+<!-- Maven Pro font -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Maven+Pro:wght@700&display=swap" rel="stylesheet">
+
+
 <script defer
 	src="https://use.fontawesome.com/releases/v5.15.2/js/all.js"
 	integrity="sha384-vuFJ2JiSdUpXLKGK+tDteQZBqNlMwAjhZ3TvPaDfN9QmbPb7Q8qUpbSNapQev3YF"
@@ -43,6 +49,20 @@ body::-webkit-scrollbar {
 #toolbar {
 	background: white;
 	height: 68px;
+	transition: all 0.5s;
+}
+
+
+.toolbar-color{
+	font-size: 16px;
+	line-height: 24px;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+#toolbar-main{
+	font-family: 'Maven Pro', sans-serif;
+	font-size: 25px;
 }
 
 .toolbar_i {
@@ -119,6 +139,32 @@ body::-webkit-scrollbar {
 	transform: translate(-50%, -50%);
 }
 
+.thumbnail-wrapper {
+	width: 100%;
+	border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.thumbnail {
+	position: relative;
+	padding-top: 100%;
+	overflow: hidden;
+}
+
+.thumbnail-centered {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	transform: translate(50%, 50%);
+}
+
+.thumbnail-img {
+	/*   max-width: 100%; */
+	/*   height: 박스의 height와 같아야 한다. */
+	transform: translate(-50%, -50%);
+}
+
 /*사이즈*/
 @media ( min-width : 768px) {
 	.container {
@@ -140,13 +186,11 @@ body::-webkit-scrollbar {
 }
 </style>
 
-<div style="width: 10px; height: 10px;"></div>
-
 <!-- ToolBar Start /////////////////////////////////////-->
-<div class="fixed-top" id="toolbarbox">
+<div class="fixed-top " id="toolbarbox">
 	<nav class="navbar navbar-expand-lg navbar-light" id="toolbar">
 		<div class="container px-5">
-			<a class="navbar-brand" href="/">Moopi</a>
+			<a class="navbar-brand toolbar-color" id="toolbar-main" href="/">MOOPI</a>
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
 				aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -164,14 +208,14 @@ body::-webkit-scrollbar {
 
 			<div class="collapse navbar-collapse " id="navbarSupportedContent">
 				<ul class="navbar-nav ms-auto mb-2 mb-lg-0 ">
-					<li class="nav-item "><a class="nav-link">모임무피</a></li>
-					<li class="nav-item "><a class="nav-link">번개무피</a></li>
-					<li class="nav-item "><a class="nav-link">무피게시판</a></li>
-					<li class="nav-item "><a class="nav-link">문의게시판</a></li>
+					<li class="nav-item "><a class="nav-link toolbar-color">모임무피</a></li>
+					<li class="nav-item "><a class="nav-link toolbar-color">번개무피</a></li>
+					<li class="nav-item "><a class="nav-link toolbar-color">무피게시판</a></li>
+					<li class="nav-item "><a class="nav-link toolbar-color">문의게시판</a></li>
 
 					<!-- sessionScope.id가 없으면 : 로그인을 하지 않았을 경우 -->
 					<c:if test="${empty sessionScope.dbUser}">
-						<li class="nav-item"><a class="nav-link">로그인</a></li>
+						<li class="nav-item"><a class="nav-link toolbar-color">로그인</a></li>
 					</c:if>
 
 					<!-- sessionScope.id가 있을시 : 로그인을 했을 경우 -->
@@ -181,12 +225,12 @@ body::-webkit-scrollbar {
 						<li class="nav-item noticebtn" data-bs-toggle="offcanvas"
 							data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"><a
 							class="nav-link" style="position: relative;"> <i
-								class="bi bi-envelope toolbar_i"></i><span id="noticeCount"
-								class="badge rounded-pill bg-danger"></span></a></li>
+								class="bi bi-envelope toolbar_i toolbar-color"></i><span
+								id="noticeCount" class="badge rounded-pill bg-danger"></span></a></li>
 
 						<!-- 채팅 -->
 						<li class="nav-item chatbtn"><a class="nav-link"><i
-								class="bi bi-chat toolbar_i"></i></a></li>
+								class="bi bi-chat toolbar_i toolbar-color"></i></a></li>
 
 						<!-- 로그인시 메뉴  -->
 						<li class="nav-item dropdown"><a class="nav-link "
@@ -220,7 +264,7 @@ body::-webkit-scrollbar {
 		style="background: white; display: none; border-bottom: 0.1px solid #f0f3f7;">
 		<div class="container">
 			<div style="max-width: 600px;">
-				<div style="margin-bottom: 10px;">
+				<div style="margin-bottom: 10px; padding-top: 10px;">
 					<div class="btn btn-primary saerchbar-btn active" type="1">모임</div>
 					<div class="btn btn-primary saerchbar-btn" type="2">번개</div>
 					<div class="btn btn-primary saerchbar-btn" type="3">포스팅</div>
@@ -344,14 +388,14 @@ body::-webkit-scrollbar {
 		$('#noticeCount').css('display', 'none');
 	})
 
-	function chatjoin(target) {
+	/* function chatjoin(target) {
 		popWin = window
 				.open(
 						"/chat/joinRoom?userId=" + dbUser + "&trgt=" + target
 								+ "&type=1",
 						"popWin",
 						"left=460, top=300, width=460, height=600, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");
-	}
+	} */
 
 	// 읽지않은 알림과 알림 리스트
 	if (dbUser !== '') {
@@ -894,10 +938,10 @@ body::-webkit-scrollbar {
 							let fileArry = data.list[i].boardFile.split("/");
 							
 							display += '<div class="card shadow-sm" style="width: 18rem; padding: 0px; margin: 5px;" onclick="location=\'/user/getMyHome?userId='+data.list[i].boardWriter.userId+'\'">'
-									+'<div class="search-thumbnail-wrapper">'
-					  				+'<div class="search-thumbnail">'
-					  				+'<div class="search-thumbnail-centered">'
-									+ '<img class="card-img-top search-thumbnail-img rounded-2 shadow-sm moim-img" src="/images/uploadFiles/'+data.list[i].fileArry[0]+'"/>'
+									+'<div class="thumbnail-wrapper">'
+					  				+'<div class="thumbnail">'
+					  				+'<div class="thumbnail-centered">'
+									+ '<img class="card-img-top thumbnail-img rounded-2 shadow-sm moim-img" src="/images/uploadFiles/'+fileArry[0]+'"/>'
 					    			+'</div>'
 					 	 			+'</div>'
 									+'</div>'
@@ -942,7 +986,7 @@ body::-webkit-scrollbar {
 					
 					
 					// 채팅 버튼
-					$('button:contains("채팅")').on('click', function(){
+					/* $('button:contains("채팅")').on('click', function(){
 						
 						let target = $(this).attr('target');
 						let type = $(this).attr('type');
@@ -955,13 +999,10 @@ body::-webkit-scrollbar {
 									console.log(JSON.stringify(data));
 									let url;
 									if(data.type == 1){
-										url = "http://localhost:82/chat?userId="+data.user.userId+"&trgt="+data.target.userId+"&type="+data.type
-												+"&name="+data.user.nickname+"&profile="+data.user.profileImage+"&trgtName="+data.target.nickname
-												+"&trgtProfile="+data.target.profileImage;  
 
-										/*  url = "https://bbung95-rtc.herokuapp.com/chat?userId="+data.user.userId+"&trgt="+data.target.userId+"&type="+data.type
+										  url = "https://bbung95-rtc.herokuapp.com/chat?userId="+data.user.userId+"&trgt="+data.target.userId+"&type="+data.type
 										+"&name="+data.user.nickname+"&profile="+data.user.profileImage+"&trgtName="+data.target.nickname
-										+"&trgtProfile="+data.target.profileImage; */
+										+"&trgtProfile="+data.target.profileImage; 
 									}else{
 
 										url = "https://bbung95-rtc.herokuapp.com/chat?userId="+data.user.userId+"&trgt="+data.target.mmNo+"&type="+data.type
@@ -977,7 +1018,7 @@ body::-webkit-scrollbar {
 							
 						})
 						
-					})
+					}) */
 					
 					// 채팅 버튼
 					$('button:contains("팔로우")').on('click', function(){
@@ -1042,5 +1083,21 @@ body::-webkit-scrollbar {
 	$('.searchlist').whenScrolledToBottom(function(){
 		searchList($('#search-input').val() , $('.type').val());
 	});
+	
+	
+	
+	$(document).scroll(function() {
+  		var maxHeight = $(document).height();
+ 		 var currentScroll = $(window).scrollTop() + $(window).height();
+  	
+ 		 if (maxHeight-70 >= maxHeight - $(window).scrollTop()) {
+  			 $('#toolbar').css('background', '#4299e1');
+  			 $('.toolbar-color').css('color', 'white');
+ 		 }
+ 		 if (maxHeight-70 <= maxHeight - $(window).scrollTop()) {
+  			 $('#toolbar').css('background', 'white');
+  			 $('.toolbar-color').css('color', 'black');
+		 }
+	})
 	
 </script>
