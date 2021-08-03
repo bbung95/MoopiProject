@@ -234,11 +234,10 @@ body {
 </style>
 
 <style>
-
-.word{
+.word {
 	color: #fff;
- 	text-shadow: 0 0 7px #fff, 0 0 10px #fff, 0 0 21px #fff, 0 0 42px #0fa,
-    0 0 82px #0fa, 0 0 92px #0fa, 0 0 102px #0fa, 0 0 151px #0fa;
+	text-shadow: 0 0 7px #fff, 0 0 10px #fff, 0 0 21px #fff, 0 0 42px #0fa,
+		0 0 82px #0fa, 0 0 92px #0fa, 0 0 102px #0fa, 0 0 151px #0fa;
 }
 
 .userProfile {
@@ -340,43 +339,48 @@ thumbnail-img {
 	<jsp:include page="../layout/toolbar.jsp" />
 	<!-- ToolBar End /////////////////////////////////////-->
 
+
 	<!-- 검색 조건 -->
 	<input type="hidden" id="addr" value="${search.addr }" />
 	<input type="hidden" id="interest" value="${search.interestNo }" />
 	<input type="hidden" id="searchCondition"
 		value="${search.searchCondition}" />
 
-	<!-- 메인 헤더 -->
-	<header id="carouselExampleSlidesOnly"
-		class="carousel slide carousel-fade" data-bs-ride="carousel">
-		<div class="carousel-inner">
-			<div class="carousel-item active" data-bs-interval="6000">
-				<img src="/images/background/moim4.png"
-					class="d-block w-100" alt="...">
-				<div class="carousel-caption d-none d-md-block">
-					<h4 class="word">Dale Carnegie</h4>
-					<p class="word">The royal road to a man's heart is to talk to him about the things he treasures most.</p>
+	<div id="wrapper">
+		<!-- 메인 헤더 -->
+		<header id="carouselExampleSlidesOnly"
+			class="carousel slide carousel-fade" data-bs-ride="carousel">
+			<div class="carousel-inner">
+				<div class="carousel-item active" data-bs-interval="6000">
+					<img src="/images/background/moim4.png" class="d-block w-100"
+						alt="...">
+					<div class="carousel-caption d-none d-md-block">
+						<h4 class="word">Dale Carnegie</h4>
+						<p class="word">The royal road to a man's heart is to talk to
+							him about the things he treasures most.</p>
+					</div>
+				</div>
+				<div class="carousel-item" data-bs-interval="6000">
+					<img src="/images/background/moim3.jpg" class="d-block w-100"
+						alt="...">
+					<div class="carousel-caption d-none d-md-block">
+						<h4 class="word">Tennesse Williams</h4>
+						<p class="word">Life is partly what we make it, and partly
+							what it is made by the friends we choose.</p>
+					</div>
+				</div>
+				<div class="carousel-item" data-bs-interval="6000">
+					<img src="/images/background/moim5.jpg" class="d-block w-100"
+						alt="...">
+					<div class="carousel-caption d-none d-md-block">
+						<h4 class="word">Albert Camus</h4>
+						<p class="word">Don't walk in front of me, I may not follow.
+							Don't walk behine me, I may not lead. Walk beside me and just be
+							my friend</p>
+					</div>
 				</div>
 			</div>
-			<div class="carousel-item" data-bs-interval="6000">
-				<img src="/images/background/moim3.jpg"
-					class="d-block w-100" alt="...">
-				<div class="carousel-caption d-none d-md-block">
-					<h4 class="word">Tennesse Williams</h4>
-					<p class="word">Life is partly what we make it, and partly what it is made by the friends we choose.</p>
-				</div>
-			</div>
-			<div class="carousel-item" data-bs-interval="6000">
-				<img src="/images/background/moim5.jpg"
-					class="d-block w-100" alt="...">
-				<div class="carousel-caption d-none d-md-block">
-					<h4 class="word">Albert Camus</h4>
-					<p class="word">Don't walk in front of me, I may not follow. Don't walk behine me, I may not lead. Walk beside me and just be my friend</p>
-				</div>
-			</div>
-		</div>
-		</div>
-
+		</header>
 
 		<!-- 정렬 -->
 		<div class="container d-flex">
@@ -444,224 +448,226 @@ thumbnail-img {
 				</div>
 			</div>
 		</div>
+	</div>
 
-		<!-- btn collector -->
-		<div id="btnbar">
-			<c:if test="${!empty dbUser}">
-				<button data-bs-toggle="modal" data-bs-target="#myModal">
-					<i class="bi bi-plus"></i>
-				</button>
-			</c:if>
-			<button onclick="location.href='#carouselExampleSlidesOnly'">
-				<i class="bi bi-chevron-up"></i>
+
+	<!-- btn collector -->
+	<div id="btnbar">
+		<c:if test="${!empty dbUser}">
+			<button data-bs-toggle="modal" data-bs-target="#myModal">
+				<i class="bi bi-plus"></i>
 			</button>
-		</div>
+		</c:if>
+		<button onclick="location.href='#carouselExampleSlidesOnly'">
+			<i class="bi bi-chevron-up"></i>
+		</button>
+	</div>
 
-		<!-- Modal 시작-->
-		<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
-			aria-labelledby="myModalLabel">
-			<div class="modal-dialog modal-lg" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h4 class="modal-title" id="myModalLabel">모임 무피 만들기!</h4>
-					</div>
-					<div class="modal-body">
-						<!-- 폼시작 -->
+	<!-- Modal 시작-->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title" id="myModalLabel">모임 무피 만들기!</h4>
+				</div>
+				<div class="modal-body">
+					<!-- 폼시작 -->
 
-						<!-- form Start /////////////////////////////////////-->
-						<form id="addMoim" class="form-horizontal" name="detailForm"
-							enctype="multipart/form-data">
-							<input type="hidden" id="userId" name="userId"
-								value="${dbUser.userId}">
-							<div class="form-group">
-								<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">모임무피명</label>
-								<div class="col-sm-20">
-									<input type="text" class="form-control" id="mmName"
-										name="mmName" placeholder="모임명">
+					<!-- form Start /////////////////////////////////////-->
+					<form id="addMoim" class="form-horizontal" name="detailForm"
+						enctype="multipart/form-data">
+						<input type="hidden" id="userId" name="userId"
+							value="${dbUser.userId}">
+						<div class="form-group">
+							<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">모임무피명</label>
+							<div class="col-sm-20">
+								<input type="text" class="form-control" id="mmName"
+									name="mmName" placeholder="모임명">
+							</div>
+						</div>
+
+						<br>
+
+						<div class="form-group">
+							<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">대표썸네일</label>
+							<div class="col-sm-40">
+								<input type="file" class="form-control" id="uploadFile"
+									name="uploadFile" placeholder="대표썸네일">
+							</div>
+						</div>
+
+						<br>
+
+						<%-- 							<center> --%>
+						<!-- 								<p>drag and drop your image!</p> -->
+						<!-- 								<div class="content"></div> -->
+						<%-- 							</center> --%>
+
+						<br>
+
+						<div class="form-group">
+							<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">간단소개글</label>
+							<div class="col-sm-40">
+								<textarea style="resize: none" class="form-control"
+									id="mmContent" name="mmContent" placeholder="50자이내"></textarea>
+							</div>
+						</div>
+
+						<br>
+
+						<div class="form-group">
+							<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">지역구</label>
+							<div class="col-sm-40">
+								<select class="form-control" id="mmAddr" name="mmAddr">
+									<option>종로구</option>
+									<option>중구</option>
+									<option>용산구</option>
+									<option>성동구</option>
+									<option>광진구</option>
+									<option>동대문구</option>
+									<option>중랑구</option>
+									<option>성북구</option>
+									<option>강북구</option>
+									<option>도봉구</option>
+									<option>노원구</option>
+									<option>은평구</option>
+									<option>서대문구</option>
+									<option>마포구</option>
+									<option>양천구</option>
+									<option>강서구</option>
+									<option>구로구</option>
+									<option>금천구</option>
+									<option>영등포구</option>
+									<option>동작구</option>
+									<option>관악구</option>
+									<option>서초구</option>
+									<option>강남구</option>
+									<option>송파구</option>
+									<option>강동구</option>
+								</select>
+							</div>
+						</div>
+
+						<br>
+
+						<div class="form-group">
+							<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">인원</label>
+							<div class="col-sm-40">
+								<input type="text" class="form-control" id="mmMaxCount"
+									name="mmMaxCount" placeholder="가입가능정원">
+							</div>
+						</div>
+
+						<br>
+
+						<div class="form-group">
+							<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">관심사선택</label>
+							<div class="col-sm-40">
+								<select class="form-control" id="mmInterest" name="mmInterest">
+									<option value="1">아웃도어/여행/사진/영상</option>
+									<option value="2">운동/스포츠</option>
+									<option value="3">인문학/책/글</option>
+									<option value="4">업종/직무</option>
+									<option value="5">외국/언어</option>
+									<option value="6">문화/공연/축제/음악/악기</option>
+									<option value="7">공예/만들기</option>
+									<option value="8">댄스/무용</option>
+									<option value="9">사교/인맥</option>
+									<option value="10">차/오토바이</option>
+									<option value="11">게임/오락</option>
+									<option value="12">맛집/카</option>
+								</select>
+							</div>
+						</div>
+
+						<br>
+
+						<div class="form-group">
+							<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">최소연령</label>
+							<div class="col-sm-40">
+								<input type="text" class="form-control" id="mmMinAge"
+									name="mmMinAge" placeholder="최소연령">
+							</div>
+						</div>
+
+						<br>
+
+						<div class="form-group">
+							<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">최대연령</label>
+							<div class="col-sm-40">
+								<input type="text" class="form-control" id="mmMaxAge"
+									name="mmMaxAge" placeholder="최대연령">
+							</div>
+						</div>
+
+						<br>
+
+						<div class="form-group">
+							<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">상태</label>
+							<div class="col-sm-40">
+								<div class="radio">
+									<label> <input type="radio" name="mmState"
+										id="mmState1" value="1" checked> 공개
+									</label>
+								</div>
+								<div class="radio">
+									<label> <input type="radio" name="mmState"
+										id="mmState2" value="2"> 비공개
+									</label>
 								</div>
 							</div>
+						</div>
 
-							<br>
+						<br>
 
-							<div class="form-group">
-								<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">대표썸네일</label>
-								<div class="col-sm-40">
-									<input type="file" class="form-control" id="uploadFile"
-										name="uploadFile" placeholder="대표썸네일">
+						<div class="form-group">
+							<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">유형</label>
+							<div class="col-sm-4">
+								<div class="radio">
+									<label> <input type="radio" name="mmType" id="mmType1"
+										value="1" checked> 일반 모임무피
+									</label>
+								</div>
+								<div class="radio">
+									<label> <input type="radio" name="mmType" id="mmType"
+										value="2"> 자유 모임무피
+									</label>
 								</div>
 							</div>
+						</div>
 
-							<br>
+						<!-- 		  <div class="form-group"> -->
+						<!-- 		    <div class="col-sm-offset-4  col-sm-4 text-center"> -->
+						<!-- 		      <button type="button" class="btn btn-primary" onClick="fncAddMoim()" >등록</button> -->
+						<!-- 			   <a class="btn btn-default btn" role="button"  onclick="history.back()">취소</a> -->
+						<!-- 		    </div> -->
+						<!-- 		  </div> -->
+					</form>
 
-							<%-- 							<center> --%>
-							<!-- 								<p>drag and drop your image!</p> -->
-							<!-- 								<div class="content"></div> -->
-							<%-- 							</center> --%>
-
-							<br>
-
-							<div class="form-group">
-								<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">간단소개글</label>
-								<div class="col-sm-40">
-									<textarea style="resize: none" class="form-control"
-										id="mmContent" name="mmContent" placeholder="50자이내"></textarea>
-								</div>
-							</div>
-
-							<br>
-
-							<div class="form-group">
-								<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">지역구</label>
-								<div class="col-sm-40">
-									<select class="form-control" id="mmAddr" name="mmAddr">
-										<option>종로구</option>
-										<option>중구</option>
-										<option>용산구</option>
-										<option>성동구</option>
-										<option>광진구</option>
-										<option>동대문구</option>
-										<option>중랑구</option>
-										<option>성북구</option>
-										<option>강북구</option>
-										<option>도봉구</option>
-										<option>노원구</option>
-										<option>은평구</option>
-										<option>서대문구</option>
-										<option>마포구</option>
-										<option>양천구</option>
-										<option>강서구</option>
-										<option>구로구</option>
-										<option>금천구</option>
-										<option>영등포구</option>
-										<option>동작구</option>
-										<option>관악구</option>
-										<option>서초구</option>
-										<option>강남구</option>
-										<option>송파구</option>
-										<option>강동구</option>
-									</select>
-								</div>
-							</div>
-
-							<br>
-
-							<div class="form-group">
-								<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">인원</label>
-								<div class="col-sm-40">
-									<input type="text" class="form-control" id="mmMaxCount"
-										name="mmMaxCount" placeholder="가입가능정원">
-								</div>
-							</div>
-
-							<br>
-
-							<div class="form-group">
-								<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">관심사선택</label>
-								<div class="col-sm-40">
-									<select class="form-control" id="mmInterest" name="mmInterest">
-										<option value="1">아웃도어/여행/사진/영상</option>
-										<option value="2">운동/스포츠</option>
-										<option value="3">인문학/책/글</option>
-										<option value="4">업종/직무</option>
-										<option value="5">외국/언어</option>
-										<option value="6">문화/공연/축제/음악/악기</option>
-										<option value="7">공예/만들기</option>
-										<option value="8">댄스/무용</option>
-										<option value="9">사교/인맥</option>
-										<option value="10">차/오토바이</option>
-										<option value="11">게임/오락</option>
-										<option value="12">맛집/카</option>
-									</select>
-								</div>
-							</div>
-
-							<br>
-
-							<div class="form-group">
-								<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">최소연령</label>
-								<div class="col-sm-40">
-									<input type="text" class="form-control" id="mmMinAge"
-										name="mmMinAge" placeholder="최소연령">
-								</div>
-							</div>
-
-							<br>
-
-							<div class="form-group">
-								<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">최대연령</label>
-								<div class="col-sm-40">
-									<input type="text" class="form-control" id="mmMaxAge"
-										name="mmMaxAge" placeholder="최대연령">
-								</div>
-							</div>
-
-							<br>
-
-							<div class="form-group">
-								<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">상태</label>
-								<div class="col-sm-40">
-									<div class="radio">
-										<label> <input type="radio" name="mmState"
-											id="mmState1" value="1" checked> 공개
-										</label>
-									</div>
-									<div class="radio">
-										<label> <input type="radio" name="mmState"
-											id="mmState2" value="2"> 비공개
-										</label>
-									</div>
-								</div>
-							</div>
-
-							<br>
-
-							<div class="form-group">
-								<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">유형</label>
-								<div class="col-sm-4">
-									<div class="radio">
-										<label> <input type="radio" name="mmType" id="mmType1"
-											value="1" checked> 일반 모임무피
-										</label>
-									</div>
-									<div class="radio">
-										<label> <input type="radio" name="mmType" id="mmType"
-											value="2"> 자유 모임무피
-										</label>
-									</div>
-								</div>
-							</div>
-
-							<!-- 		  <div class="form-group"> -->
-							<!-- 		    <div class="col-sm-offset-4  col-sm-4 text-center"> -->
-							<!-- 		      <button type="button" class="btn btn-primary" onClick="fncAddMoim()" >등록</button> -->
-							<!-- 			   <a class="btn btn-default btn" role="button"  onclick="history.back()">취소</a> -->
-							<!-- 		    </div> -->
-							<!-- 		  </div> -->
-						</form>
-
-						<!-- 폼끝 -->
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-primary"
-							onClick="fncAddMoim()">Create</button>
-					</div>
+					<!-- 폼끝 -->
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary"
+						onClick="fncAddMoim()">Create</button>
 				</div>
 			</div>
 		</div>
+	</div>
 
-		<!-- 모달끝 -->
-
-
-		<jsp:include page="../layout/footer.jsp" />
+	<!-- 모달끝 -->
 
 
-		<!-- Bootstrap core JS-->
-		<script
-			src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-		<!-- Core theme JS-->
-		<script src="/js/scripts.js"></script>
+	<jsp:include page="../layout/footer.jsp" />
 
-		<script>
+
+	<!-- Bootstrap core JS-->
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+	<!-- Core theme JS-->
+	<script src="/js/scripts.js"></script>
+
+	<script>
 							var currentPage = 1;
 
 							// 지역구

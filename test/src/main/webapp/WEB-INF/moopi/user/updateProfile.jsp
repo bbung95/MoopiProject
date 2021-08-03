@@ -83,8 +83,95 @@
 		}).open();				
 	}
 	
+	
+function edit(type){
+		
+		var userId = $("#userId").val();
+		var nickname = $("#userNickname").val();
+		var profileContent = $("#profileContent").val();
+		var fullAddr = $("#fullAddr").val();
+		var addr = $("#addr").val();
+		var interestFirst = $("#interestFirst").val();
+		var interestSecond = $("#interestSecond").val();
+		var interestThird = $("#interestThird").val();	
+		
+		if(type == 3){
+			$.ajax ({
+				url : "/user/json/updateUser/"+type,
+				type : "POST",
+				contentType : "application/JSON",
+				dataType : "text",
+				data : JSON.stringify ({ "userId" : userId, "nickname" : nickname }),
+				success : function(data, state) {
+						swal("SUCCESS!","닉네임 변경이 완료되었습니다.","success");
+						$('.mainNickname').text(data);
+				}	
+			});	
+		}else if(type == 4){
+			
+			$.ajax ({
+				url : "/user/json/updateUser/"+type,
+				method : "POST",
+				contentType : "application/JSON",
+				dataType : "text",
+				data : JSON.stringify({"userId" : userId, "profileContent" : profileContent}),					
+				success : function(data, state) {
+					swal("SUCCESS!","프로필소개 수정이 완료되었습니다.","success");
+					}					
+			});
+		}else if (type == 5){
+									
+				$.ajax ({
+					url : "/user/json/updateUser/"+type,
+					type : "POST",
+					contentType : "application/JSON",
+					dataType : "text",
+					data : JSON.stringify ({"userId" : userId, "fullAddr" : fullAddr, "addr" : addr}),
+					success : function(data, state) {
+						swal("SUCCESS!","주소지 변경이 완료되었습니다.","success");
+						}				
+				});
+			
+		}else if(type == 6){
+			
+			$.ajax ({
+				url : "/user/json/updateUser/"+type,
+				type : "POST",
+				contentType : "application/JSON",
+				dataType : "text",
+				data : JSON.stringify ({"userId" : userId, 
+										"interestFirst" : interestFirst,
+										"interestSecond" : interestSecond,
+										"interestThird" : interestThird}),
+				success : function(data, state) {
+					swal("SUCCESS!","관심사 변경이 완료되었습니다.","success");
+					}					
+			});
+		}
+	}
+	
+	
+	$('input[name="myhomeState"]').on('click', function() {			
+		var userId = $("#userId").val();
+		var myhomeState = $('.radio-value:checked').val();
+		
+		/* $.ajax ({
+			url : "/user/json/updateUser/7"
+			method : "POST",
+			contentType : "application/JSON",
+			dataType : "text",
+			data : JSON.stringify ({"userId" : userId, 
+									"myhomeState" : myhomeState}),
+			success : function(data, state) {
+				swal("SUCCESS!","마이홈 상태가 변경되었습니다.","success");
+			}	
+		})	 */			
+	})
+	
+	
+	
 <!-- [완료] Nickname 수정 -->
-	function updateNN(){	
+	/* function updateNN(){	
 		var userId = $("#userId").val();		
 		var nickname = $("#userNickname").val();		
 		$.ajax ({
@@ -98,10 +185,10 @@
 					$('.mainNickname').text(data);
 			}	
 		});	
-	}
+	} */
 	
 <!-- [완료] profileContent 수정 -->
-	function updatePC(){		
+	/* function updatePC(){		
 		var userId = $("#userId").val();		
 		var profileContent = $("#profileContent").val();			
 		$.ajax ({
@@ -114,10 +201,10 @@
 				swal("SUCCESS!","프로필소개 수정이 완료되었습니다.","success");
 				}					
 		});
-	}
+	} */
 	
 <!-- [완료] fullAddr, addr 수정 -->
-	function updateAddr(){		
+	/* function updateAddr(){		
 		var userId = $("#userId").val();		
 		var fullAddr = $("#fullAddr").val();
 		var addr = $("#addr").val();					
@@ -131,10 +218,10 @@
 				swal("SUCCESS!","주소지 변경이 완료되었습니다.","success");
 				}					
 		});
-	}
+	} */
 					
 <!-- [완료] interest 수정 -->
-	function updateInterest(){	
+	/* function updateInterest(){	
 		var userId = $("#userId").val();		
 		var interestFirst = $("#interestFirst").val();
 		var interestSecond = $("#interestSecond").val();
@@ -152,10 +239,10 @@
 				swal("SUCCESS!","관심사 변경이 완료되었습니다.","success");
 				}					
 		});
-	}
+	} */
 	
 <!-- [완료] 마이홈상태 수정 -->
-	$(function updateMyhome() {			
+	/* $(function updateMyhome() {			
 		$('input[name="myhomeState"]').on('click', function() {			
 			var userId = $("#userId").val();
 			var myhomeState = $('.radio-value:checked').val();
@@ -171,7 +258,9 @@
 				}	
 				})				
 		})
-	});
+	}); */
+	
+	
 	<!-- 모달 회원탈퇴 -->
 	 function fncLeave() {
      
@@ -344,14 +433,14 @@
                     <label class="block text-sm text-gray-00" for="userId">닉네임</label>
 					<input class="w-full px-4 py-1 text-gray-700 bg-gray-200 rounded" type="text" style="color:gray;" name="nickname" id="userNickname" value="${dbUser.nickname}" required="" placeholder="닉네임 입력해주세요">						
 					<div class="check_font" id="NNCheck" style="height: 20px; font-size : 12px" ></div>	
-					<button class="px-4 py-0 text-white font-light tracking-wider bg-gray-900 rounded button" id="updatebtn" name="updatebtn" type="button" onclick="javascript:updateNN()" style="margin-top: 0px;">수정</button>							
+					<button class="px-4 py-0 text-white font-light tracking-wider bg-gray-900 rounded button" id="updatebtn" name="updatebtn" type="button" onclick="javascript:edit(3)" style="margin-top: 0px;">수정</button>							
 				</div> 
                   
          	    <!-- 프로필소개 -->
                 <div class="profileContent px-4 px-1">
                     <label class="block text-sm text-gray-00" for="userId" >프로필소개</label>
 					<input class="w-full px-4 py-5 text-gray-700 bg-gray-200 rounded" style="color:gray;" id="profileContent" name="profileContent" type="text" required="" value="${dbUser.profileContent}" aria-label="profileContent" placeholder="프로필소개를 입력해주세요">						
-					<button class="px-4 py-0 text-white font-light tracking-wider bg-gray-900 rounded button" id="updateContent" name="updateContent" type="button" onclick="javascript:updatePC()" >수정</button>		
+					<button class="px-4 py-0 text-white font-light tracking-wider bg-gray-900 rounded button" id="updateContent" name="updateContent" type="button" onclick="javascript:edit(4)" >수정</button>		
                 </div>                               
                 
                 <!-- 주소 -->
@@ -360,7 +449,7 @@
 	                    <label class="block text-sm text-gray-00" for="address">주소</label>
 	                   
 	                    <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" type="text" style="width: 379px;" id="fullAddr" name="fullAddr" value="${dbUser.fullAddr}" onclick="javascript:searchAdr()" placeholder="주소지 검색을 눌러주세요" readonly >
-						<button class="px-4 py-0 text-white font-light tracking-wider bg-gray-900 rounded button" id="adrSearch" name="addr" type="button" onclick="javascript:updateAddr()">수정</button>		
+						<button class="px-4 py-0 text-white font-light tracking-wider bg-gray-900 rounded button" id="adrSearch" name="addr" type="button" onclick="javascript:edit(5)">수정</button>		
 	                </div>
 				</div>
 
@@ -422,7 +511,7 @@
 
 					</div>
 					<div>				
-						<button class="px-4 py-0 text-white font-light tracking-wider bg-gray-900 rounded" id="editBtn" name="img_btn" type="button" onclick="javascript:updateInterest()">수정</button>	
+						<button class="px-4 py-0 text-white font-light tracking-wider bg-gray-900 rounded" id="editBtn" name="img_btn" type="button" onclick="javascript:edit(6)">수정</button>	
 					</div>
 				</div>
 				
