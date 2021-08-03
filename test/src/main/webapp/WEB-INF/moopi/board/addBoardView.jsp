@@ -182,7 +182,7 @@ body{
 		  
 		</form>
 		
-		<div id="wrapper"><jsp:include page="../layout/footer.jsp"></jsp:include></div>
+<%-- 		<div id="wrapper"><jsp:include page="../layout/footer.jsp"></jsp:include></div> --%>
 		
 </body>
 </html>

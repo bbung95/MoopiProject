@@ -409,7 +409,7 @@ function fncMap(lat, lng){
 					"Content-Type" : "application/json"
 				},
 				success : function(JSONData , status) {
-					alert(status);
+// 					alert(status);
 				}
 		}); //ajax 종료
 // 	$(".frm").submit();
@@ -419,12 +419,12 @@ function fncMap(lat, lng){
 // function fncParentsMapView(lat, lng, mtAddr){
 function fncParentsMapView(lat, lng){
 	
-	alert("부모 함수 실행 성공")
+// 	alert("부모 함수 실행 성공")
 	
 //  	<script type=text/javascript src='/js/mapView.js'><\/script> 
-	alert(lat)
-	alert(lng)
-	alert(mtAddr)
+// 	alert(lat)
+// 	alert(lng)
+// 	alert(mtAddr)
 	
 }
 
