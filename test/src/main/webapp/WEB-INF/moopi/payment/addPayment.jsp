@@ -174,7 +174,7 @@
                                       
                                     </ul>
                                     <div class="d-grid">
-                                     <button class="btn btn-outline-primary" type="button" id="check_module" onclick="javascript:pay(100)" name="cp_item">선택</button>
+                                     <button class="btn btn-outline-primary" type="button" id="check_module" onclick="javascript:pay(10000)" name="cp_item">선택</button>
                                   <!--    <input type="hidden" name="cp_item" value="1000"></div>  -->
                                 	<!--<label class="box-radio-input"><input type="button" class="btn btn-outline-primary" name="cp_item" id="check_module" value="1000"><span>1,000원</span></label>-->
                                 </div>
@@ -205,7 +205,7 @@
 
 	<script>
 	let userId = $('#userId').val();
-	alert(userId);
+	//alert(userId);
 	
 		function pay(price) {
 			var IMP = window.IMP; // 생략가능
@@ -255,12 +255,12 @@
 			}, function(rsp) {
 				console.log(rsp);
 				if (rsp.success) {
-					var msg = '결제가 완료되었습니다.';
-					msg += '고유ID : ' + rsp.imp_uid;
-					msg += '상점 거래ID : ' + rsp.merchant_uid;
-					msg += '결제 금액 : ' + rsp.paid_amount;
-					msg += '카드 승인번호 : ' + rsp.apply_num;
-					document.location.href="/flash/flashMain";//아란트창 확인후 이동할 url
+					var msg = '결제가 완료되었습니다. 감사합니다.';
+					//msg += '고유ID : ' + rsp.imp_uid;
+					//msg += '상점 거래ID : ' + rsp.merchant_uid;
+					//msg += '결제 금액 : ' + rsp.paid_amount;
+					//msg += '카드 승인번호 : ' + rsp.apply_num;
+					document.location.href="/flash/listFlash";//아란트창 확인후 이동할 url
 					$.ajax({ 
 						type: "POST" ,
 						url: "/payment/addPayment",//충전 금액값을 보낼 url
@@ -269,6 +269,7 @@
 							"userId" : userId,
 							
 						},
+					
 					});
 				
 				} else {
