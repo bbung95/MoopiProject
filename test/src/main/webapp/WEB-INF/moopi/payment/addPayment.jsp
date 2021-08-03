@@ -31,6 +31,7 @@
 	<jsp:include page="../layout/toolbar.jsp"></jsp:include>
 	
 	<input type="hidden" id="userId" name="userId" value="${dbUser.userId}">
+	<div id="wrapper">
 	 <section class="bg-light py-5">
                 <div class="container px-5 my-5">
                     <div class="text-center mb-5">
@@ -186,7 +187,7 @@
 						</div>
 						</div>
 						</section>
-	
+						</div>
 	<!-- 
 	<input type="hidden" id="userId" name="userId" value="${dbUser.userId}">
 	  <div class="card-body bg-white mt-0 shadow">
