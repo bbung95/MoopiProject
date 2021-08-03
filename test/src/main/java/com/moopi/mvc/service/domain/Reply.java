@@ -21,7 +21,7 @@ public class Reply {
 	// 리플 내용
 	private String replyContent;
 	// 리플 작성시간
-	private Date replyRegDate;
+	private String replyRegDate;
 	// 리플 상태 1. 정상 2. 삭제 3.신고로인한 삭제
 	private String replyState;
 	// type 1. 마이홈 2. 모임

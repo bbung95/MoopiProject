@@ -272,49 +272,75 @@ public class UserRestController {
 		return true;
 	}
 
-	@PostMapping(value="/json/updateNickname")
-	public String updateNickname ( @RequestBody User user ) throws Exception {
-		userService.updateNickname(user);
-		return user.getNickname();
-	}
+//	@PostMapping(value="/json/updateNickname")
+//	public String updateNickname ( @RequestBody User user ) throws Exception {
+//		userService.updateNickname(user);
+//		return user.getNickname();
+//	}
+//	
+//	@PostMapping(value="/json/updateContent")
+//	public Boolean updateContent ( @RequestBody User user ) throws Exception {
+//		userService.updateContent(user);
+//		return true;
+//	}
+//	
+//	@PostMapping(value="/json/updateAddress")
+//	public Boolean updateAddress ( @RequestBody User user) throws Exception {
+//		userService.updateAddress(user);
+//		return true;
+//	}
+//	
+//	@PostMapping(value="/json/updateInterest")
+//	public Boolean updateInterest ( @RequestBody User user ) throws Exception {
+//		userService.updateInterest(user);
+//		return true;
+//	}
+//
+//	@PostMapping(value="/json/updateMyhomeStat")
+//	public Boolean updateMyhomeStat ( @RequestBody User user ) throws Exception {
+//		userService.updateMyhomeStat(user);
+//		return true;
+//	}
 	
-	@PostMapping(value="/json/updateContent")
-	public Boolean updateContent ( @RequestBody User user ) throws Exception {
-		userService.updateContent(user);
-		return true;
-	}
+//	@PostMapping(value="/json/updateUserPhone")
+//	public String updateUserPhone ( @RequestBody User user ) throws Exception {
+//		userService.updateUserPhone(user);
+//		return user.getPhone();
+//	}
+//	
+//	@PostMapping(value="/json/updateUserPWD")
+//	public Boolean updateUserPWD ( @RequestBody User user ) throws Exception {
+//		userService.updateUserPWD(user);
+//		return true;
+//	}
 	
-	@PostMapping(value="/json/updateAddress")
-	public Boolean updateAddress ( @RequestBody User user) throws Exception {
-		userService.updateAddress(user);
-		return true;
+	@PostMapping(value="/json/updateUser/{type}")
+	public String updateUser(@RequestBody User user ,@PathVariable int type) throws Exception {
+			
+		System.out.println("updateUser : POST");
+		
+		userService.updateUser(user, type);
+		
+		//모바일
+//		if(type == 1) {
+//			userService.updateUserPhone(user);
+//		}else if( type == 2) { // 패스워드
+//			userService.updateUserPWD(user);
+//		}else if (type == 3) { // 닉네임 
+//			userService.updateNickname(user);
+//			return user.getNickname();
+//		}else if ( type == 4) { // 소개
+//			userService.updateContent(user);
+//		}else if ( type == 5) { // 주소지
+//			userService.updateAddress(user);
+//		}else if ( type == 6) { // 관심사
+//			userService.updateInterest(user);
+//		}else if ( type == 7) { // 공개/비공개
+//			userService.updateMyhomeStat(user);
+//		}
+		
+		return "success";
 	}
-	
-	@PostMapping(value="/json/updateInterest")
-	public Boolean updateInterest ( @RequestBody User user ) throws Exception {
-		userService.updateInterest(user);
-		return true;
-	}
-
-	@PostMapping(value="/json/updateMyhomeStat")
-	public Boolean updateMyhomeStat ( @RequestBody User user ) throws Exception {
-		userService.updateMyhomeStat(user);
-		return true;
-	}
-	
-	@PostMapping(value="/json/updateUserPhone")
-	public String updateUserPhone ( @RequestBody User user ) throws Exception {
-		userService.updateUserPhone(user);
-		return user.getPhone();
-	}
-	
-	@PostMapping(value="/json/updateUserPWD")
-	public Boolean updateUserPWD ( @RequestBody User user ) throws Exception {
-		userService.updateUserPWD(user);
-		return true;
-	}
-	
-
 		
 	
 //	// 완료 - [관심사]

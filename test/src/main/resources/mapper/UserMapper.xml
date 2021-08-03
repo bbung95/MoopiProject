@@ -226,6 +226,39 @@
 						</if>
 					</where>
 	</select>
+	
+	
+	<update id="updateUser" >
+		UPDATE users
+			<set>
+			<if test="type == 1">
+			 	PHONE = #{user.phone}
+			</if>
+			<if test="type == 2">
+			 	PWD = #{user.password}
+			</if>
+			<if test="type == 3">
+			 	NICKNAME = #{user.nickname}
+			</if>
+			<if test="type == 4">
+				PROFILE_CONTENT = #{user.profileContent}
+			</if>
+			<if test="type == 5">
+			 	FULL_ADDR = #{user.fullAddr},
+				ADDR= #{user.addr}
+			</if>
+			<if test="type == 6">
+			 	INTEREST_FIRST = #{user.interestFirst},
+				INTEREST_SECOND= #{user.interestSecond},
+				INTEREST_THIRD = #{user.interestThird}
+			</if>
+			<if test="type == 7">
+			 	MYHOME_STATE = #{user.myhomeState}
+			</if>
+			</set>
+		WHERE USER_ID = #{user.userId}
+	</update>
+	
 		
 	<!-- 비밀번호변경 -->
 	<update id="updateUserPwd"		parameterType="user">

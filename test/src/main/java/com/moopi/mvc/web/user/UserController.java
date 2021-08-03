@@ -456,8 +456,8 @@ public class UserController {
 	}	
 	
 //-- [완료] 회원가입 addUserView.jsp로 단순 네비게이션  -------------------------------------------------------------------------------------------
-	@GetMapping("updateUserView")
-	public String updateUserView() throws Exception {					
+	@GetMapping("myInformation")
+	public String myInformation() throws Exception {					
 		return "redirect:/user/passwordConfirm";
 	}
 	
@@ -474,13 +474,6 @@ public class UserController {
 		}						
 		return "user/passwordConfirm";
 	}	
-	
-	@RequestMapping(value="myInformation")
-	public String myInformation() {
-		
-		System.out.println("myInformation 시작");
-		return "user/myInformation";
-	}
 	
 	@RequestMapping("findPwd")
 	public String findPwd() {

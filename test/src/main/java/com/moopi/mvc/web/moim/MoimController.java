@@ -187,8 +187,8 @@ public class MoimController {
 		Map<String, Object> map = moimService.getMyMoimList(userId);
 		model.addAttribute("list2", map.get("list2"));
 
-		System.out.println("forward:/moim/myMoimMain 으로 이동합니다.");
-		return "moim/myMoimMain";
+		System.out.println("forward:/moim/getMyListMoim 으로 이동합니다.");
+		return "moim/getMyListMoim";
 	}
 
 	// 초대리스트 가져오기

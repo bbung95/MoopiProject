@@ -54,33 +54,37 @@ body {
 					</div>
 					<div class="col-xs-9 col-sm-9 col-md-9">
 						
-						<div class="inforhead">내 결제</div>
+						<div class="inforhead">내 코인</div>
 						
 						<table class="table table-hover table-striped">
 							<thead>
 								<tr>
-									<th align="center">결제No</th>
-									<th align="left">회원아이디</th>
-									<th align="left">결 제 일</th>
-									<th align="left">결제금액</th>
-									<th align="left">충전된코인</th>
+									<th align="center">번개무피명</th>
+									<th align="left">번개무피방장</th>
+									<th align="left">내아이디</th>
+									<th align="left">사용일</th>
+									<th align="left">참여/생성</th>
+									<th align="left">사용한코인</th>
 								</tr>
 							</thead>
 
 
-							<input type="text" id="coin" name="coin" value="${user.coin}" />
+							<!-- <input type="text" id="coin" name="coin" value="${user.coin}"/> -->
 
 							<tbody>
 
 								<c:set var="i" value="0" />
-								<c:forEach var="payment" items="${ list }">
+								<c:forEach var="coin" items="${ coinList }">
 									<c:set var="i" value="${ i }" />
+
 									<tr>
-										<td align="center">${payment.paymentNo}</td>
-										<td align="left">${payment.paymentUserId.userId}</td>
-										<td align="left">${payment.paymentRegdate}</td>
-										<td align="left">${payment.paymentPrice}</td>
-										<td align="left">${payment.paymentCoinCount}</td>
+										<td align="left">${coin.flash.flashName}</td>
+										<td align="left">${coin.flash.flashConstructor.userId}</td>
+										<td align="left">${coin.coinUser.userId}</td>
+										<td align="left">${coin.coinRegdate}</td>
+										<td align="left">${coin.coinRole}</td>
+										<td align="left">${coin.coinCount}</td>
+
 									</tr>
 								</c:forEach>
 
@@ -88,7 +92,6 @@ body {
 
 
 						</table>
-
 					</div>
 				</div>
 			</div>
@@ -97,7 +100,7 @@ body {
 	</div>
 
 	<jsp:include page="../layout/footer.jsp"></jsp:include>
-	
+
 	<!-- Bootstrap core JS-->
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>

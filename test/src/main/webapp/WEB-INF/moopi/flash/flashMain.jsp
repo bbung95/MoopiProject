@@ -289,7 +289,7 @@ body {
 	<input type="hidden" id="searchCondition"
 		value="${search.searchCondition}" />
 
-
+<div id="wrapper">
 	<!-- 메인 헤더 -->
 	<div id="carouselExampleSlidesOnly"
 		class="carousel slide carousel-fade" data-bs-ride="carousel">
@@ -366,7 +366,7 @@ body {
 			</div>
 		</div>
 	</div>
-
+</div>
 	
 	<!-- btn collector -->
 	<div id="btnbar">
