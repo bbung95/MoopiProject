@@ -97,8 +97,8 @@ public Map<String, Object> getBoardList(Search search, String boardCategory, Str
 	
 
 	public void deleteBoard(Board board) throws Exception{
+		
 		boardDao.deleteBoard(board);
-
 	}
 	
 	public int getLike(String userId, String target) throws Exception {

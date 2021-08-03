@@ -119,6 +119,8 @@ img, svg {
 	<!-- ToolBar Start /////////////////////////////////////-->
 	<jsp:include page="../layout/toolbar.jsp" />
 	<!-- ToolBar End /////////////////////////////////////-->
+	
+<div id="wrapper">
 	<form class="form-horizontal3" name="detailForm"
 		enctype="multipart/form-data">
 		<!-- 	<div class="col-xs-12 col-sm-12 col-md-12"> -->
@@ -258,9 +260,8 @@ img, svg {
 
 
 	</form>
-
-
-<div id="wrapper"><jsp:include page="../layout/footer.jsp"></jsp:include></div>
+</div>
+<jsp:include page="../layout/footer.jsp"></jsp:include>
 
 
 </body>
