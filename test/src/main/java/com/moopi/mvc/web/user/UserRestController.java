@@ -503,6 +503,8 @@ public class UserRestController {
 	@PostMapping(value="json/deleteMyBoard")
 	public boolean deleteMyBoard(@RequestBody Board board) throws Exception {
 		
+		board.setBoardState("2");
+		
 		boardService.deleteBoard(board);
 		
 		return true;
