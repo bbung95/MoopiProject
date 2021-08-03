@@ -144,6 +144,11 @@ public class UserServiceImpl implements UserService{
 	}
 // 프로필수정 - updateProfile
 	
+	public void updateUser(User user , int type) throws Exception {
+		
+		userDao.updateUser(user, type);
+	}
+	
 	// 0. 프로필이미지수정
 	public void updateProfileImage(User user) {
 		System.out.println("updateProfileImage ServiceImpl 진입완료");

@@ -47,7 +47,7 @@ public class CoinController {
 		
 		System.out.println("coinHistory End::");
 		
-		return "coin/coinHistory";
+		return "payment/coinHistory";
 	}
 
 
