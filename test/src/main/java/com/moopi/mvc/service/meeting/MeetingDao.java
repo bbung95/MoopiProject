@@ -48,5 +48,7 @@ public interface MeetingDao {
 	//관심사 및 거주지로 필터링할것임
 	public int getTotalCount(Search search) throws Exception;
 	
+	public MeetingFlashMember getMEFl(@Param("mtNo") int mtNo, @Param("userId") String userId);
+	
 }
 
