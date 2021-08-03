@@ -46,18 +46,6 @@ public interface UserService {
 	
 	public void updateProfileImage(User user);
 
-	public void updateNickname(User user);
-
-	public void updateContent(User user);
-	
-	public void updateInterest(User user);
-	
-	public void updateAddress(User user);
-	
-	public void updateMyhomeStat(User user);
-	
-	public void updateUserPWD(User user);
-	
 	public void addFollow(String userId, String target);
 	
 	public User getFollow(String userId, String target);
@@ -79,5 +67,22 @@ public interface UserService {
 	public UserData getInterestData() throws Exception;
 
 	public int nicknameCheck(String nickname);
+	
+	public void updateUser(User user , int type) throws Exception;;
+	
+	
+	
+	
+	public void updateNickname(User user);
+
+	public void updateContent(User user);
+	
+	public void updateInterest(User user);
+	
+	public void updateAddress(User user);
+	
+	public void updateMyhomeStat(User user);
+	
+	public void updateUserPWD(User user);
 	
 }

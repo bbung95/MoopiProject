@@ -29,7 +29,7 @@ public interface UserDao {
 	public User getUser(String userId);
 	
 	// 회원정보수정
-	public void updateUser(User user) throws Exception;
+	public void updateUser(@Param("user") User user ,@Param("type") int type) throws Exception;
 	
 //	// 계정정보수정
 //	public User updateUserView(User user) throws Exception;

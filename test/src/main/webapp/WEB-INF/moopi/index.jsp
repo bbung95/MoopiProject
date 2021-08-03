@@ -107,7 +107,7 @@ header {
 <body>
 
 	<jsp:include page="layout/toolbar.jsp"></jsp:include>
-
+<div id="wrapper">
 	<header class=" py-5">
 		<div class="container px-5">
 			<div class="row gx-5 align-items-center justify-content-center">
@@ -168,6 +168,7 @@ header {
 			</div>
 		</div>
 	</header> 
+</div>
 
 	<jsp:include page="layout/footer.jsp"></jsp:include>
 

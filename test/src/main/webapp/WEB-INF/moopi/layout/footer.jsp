@@ -1,6 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <style>
+
+body{
+	width: 100%;
+	height: 100%;
+}
+
+#wrapper{
+	height: auto;
+	min-height: 100%;
+	padding-bottom: 200px;
+}
+
+footer{
+position: relative;
+transform : translateY(-100%);
+}
+
+
 .userEL9013227 {
 	padding: 20px 0px 20px 0px;
 	background-color: #ffffff;
@@ -49,7 +67,7 @@
 }
 </style>
 <hr />
-<div class="userEL9013227">
+<footer class="userEL9013227">
 	<div class="container">
 		<div class="row text-center" data-matrix-loop="true"
 			data-matrix-column="4">
@@ -120,4 +138,4 @@
 
 		</div>
 	</div>
-</div>
+</footer>
