@@ -101,6 +101,9 @@ public class MoimRestController {
 		System.out.println("::::::::::::::::::::::::::해당 유저 권한 확인중....");
 		System.out.println("멤버권한변경한다.");
 		moimService.updateMemeber(userId, mmNo, status);
+		if(status==4) {
+			moimService.subCount(mmNo);
+		}
 
 	}
 
