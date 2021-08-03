@@ -38,6 +38,13 @@ function fncGetList(currentPage){
 
 function fncGetPassword(boardNo){
 // 	alert("비번체크");
+
+// 	alert(${dbUser.userRole})
+	
+	if(${dbUser.userRole == 1}){
+		self.location ="/board/getBoard?boardNo="+boardNo;
+	}else{
+	
 	var boardPassword = prompt("작성하실때 입력하신 비밀번호를 입력해주세요.");
 // 	alert(boardPassword)
 	
@@ -63,10 +70,10 @@ function fncGetPassword(boardNo){
 // 		                	alert(JSONData.boardNo);
 		                	self.location ="/board/getBoard?boardNo="+JSONData.boardNo;
 		                }
-		            }
-		          })
-				};
-	
+            }
+          })
+	}
+	}
 		$(function(){
 			
 			$("button.btn.btn-default.search-btn").on("click", function(){
@@ -567,7 +574,7 @@ body {
 					<jsp:include page="../common/pageNavigator.jsp"/>	
             </div>
 
-<div id="wrapper"><jsp:include page="../layout/footer.jsp"></jsp:include></div>
+<%-- <div id="wrapper"><jsp:include page="../layout/footer.jsp"></jsp:include></div> --%>
 
 
 </body>

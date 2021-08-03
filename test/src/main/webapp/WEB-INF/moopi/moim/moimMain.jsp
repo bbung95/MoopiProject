@@ -122,6 +122,13 @@
 		});
 
 	});
+	
+	function number_check(){
+	    if(event.keyCode < 48 || event.keyCode > 57){
+	        event.returnValue=false;
+	    }
+	}
+	
 </script>
 
 <style>
@@ -483,7 +490,7 @@ thumbnail-img {
 							<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">모임무피명</label>
 							<div class="col-sm-20">
 								<input type="text" class="form-control" id="mmName"
-									name="mmName" placeholder="모임명">
+									name="mmName" placeholder="모임명 최대 20글자" maxlength="20">
 							</div>
 						</div>
 
@@ -510,7 +517,7 @@ thumbnail-img {
 							<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">간단소개글</label>
 							<div class="col-sm-40">
 								<textarea style="resize: none" class="form-control"
-									id="mmContent" name="mmContent" placeholder="50자이내"></textarea>
+									id="mmContent" name="mmContent" placeholder="50자이내" maxlength="50"></textarea>
 							</div>
 						</div>
 
@@ -555,7 +562,7 @@ thumbnail-img {
 							<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">인원</label>
 							<div class="col-sm-40">
 								<input type="text" class="form-control" id="mmMaxCount"
-									name="mmMaxCount" placeholder="가입가능정원">
+									name="mmMaxCount" placeholder="가입가능정원" onkeypress="number_check()" maxlength="2">
 							</div>
 						</div>
 
@@ -587,7 +594,7 @@ thumbnail-img {
 							<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">최소연령</label>
 							<div class="col-sm-40">
 								<input type="text" class="form-control" id="mmMinAge"
-									name="mmMinAge" placeholder="최소연령">
+									name="mmMinAge" placeholder="최소연령" onkeypress="number_check()" maxlength="2">
 							</div>
 						</div>
 
@@ -597,7 +604,7 @@ thumbnail-img {
 							<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">최대연령</label>
 							<div class="col-sm-40">
 								<input type="text" class="form-control" id="mmMaxAge"
-									name="mmMaxAge" placeholder="최대연령">
+									name="mmMaxAge" placeholder="최대연령" onkeypress="number_check()" maxlength="2">
 							</div>
 						</div>
 

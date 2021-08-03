@@ -304,7 +304,7 @@ function displayInfowindow(marker, title) {
 		selectlat = $(this).parent().find(".selectlat").val()
 		selectlng = $(this).parent().find(".selectlng").val()
 		
-		alert(mtAddr)
+// 		alert(mtAddr)
 		selectPlace(selectlat, selectlng, mtAddr)
 		
     });
@@ -322,9 +322,9 @@ function removeAllChildNods(el) {
 
 function selectPlace(lat, lng, mtAddr){
 	
-	alert(mtAddr);
-	alert(lat);
-	alert(lng);
+// 	alert(mtAddr);
+// 	alert(lat);
+// 	alert(lng);
 	
 	 opener.document.getElementById("lat").value = lat
 	 opener.document.getElementById("lng").value = lng
