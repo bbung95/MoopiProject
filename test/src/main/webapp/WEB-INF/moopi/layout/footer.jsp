@@ -54,31 +54,17 @@
 		<div class="row text-center" data-matrix-loop="true"
 			data-matrix-column="4">
 
-			<div class="col-xs-6 col-sm-6 col-md-2 item">
-				<h5 class="head_title" data-edit="true"
-					data-selector="h5.head_title">
-					<span class="fsize15"><strong>M O O P I</strong></span>
-				</h5>
-				<hr data-border="true" data-selector="hr" data-title="선 컬러">
-				<p class="desc" data-edit="true" data-selector="p.desc">
-					<span style="font-family: 'Open sans';">Java, Servlet&JSP,
-						SpringBoot, MyBatis, HTML5/CSS3, JavaScript, JQuery, Ajax, JSON,
-						JSTL, EL, BootStrap5, Apache Tomcat, MySQL, Eclipse </span>
-				</p>
-			</div>
+            <div class="col-xs-6 col-sm-6 col-md-2 item">
+                <h5 class="head_title" data-edit="true" data-selector="h5.head_title"><span class="fsize15"><strong>M O O P I</strong></span></h5>
+                <hr data-border="true" data-selector="hr" data-title="선 컬러">
+                <p class="desc" data-edit="true" data-selector="p.desc" ><span style="font-family: 'Open sans';">Java, Servlet&JSP, SpringBoot, MyBatis, HTML5/CSS3, JavaScript, JQuery, Ajax, JSON, JSTL, EL, BootStrap5, Apache Tomcat, MySQL, Eclipse </span></p>
+            </div>
 
-			<div class="col-xs-6 col-sm-6 col-md-2 item">
-				<h5 class="head_title" data-edit="true"
-					data-selector="h5.head_title">
-					<span class="fsize15"><strong>Choi Young Uk</strong></span>
-				</h5>
-				<hr data-border="true" data-selector="hr" data-title="선 컬러">
-				<p class="desc" data-edit="true" data-selector="p.desc">
-					<span class="fsize12">소모임<br>Full Calendar, Google
-						Calendar, Chart Js
-					</span>
-				</p>
-			</div>
+            <div class="col-xs-6 col-sm-6 col-md-2 item">
+                <h5 class="head_title" data-edit="true" data-selector="h5.head_title"><span class="fsize15"><strong>Choi Young Uk</strong></span></h5>
+                <hr data-border="true" data-selector="hr" data-title="선 컬러">
+                <p class="desc" data-edit="true" data-selector="p.desc"><span class="fsize12">소모임<br>Full Calendar, Google Calendar, Chart Js</span></p>
+            </div>
 
 			<div class="col-xs-6 col-sm-6 col-md-2 item">
 				<h5 class="head_title" data-edit="true"
