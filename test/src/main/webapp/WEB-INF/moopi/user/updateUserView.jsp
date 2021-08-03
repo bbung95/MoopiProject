@@ -447,12 +447,12 @@ padding-top: 200px ; .etcContent {
 	padding: 50px;
 }
 
-.inforhead{
+.inforhead {
 	font-size: 24px;
 	font-weight: bold;
 	line-height: 34px;
 	margin-bottom: 16px;
-	}
+}
 </style>
 </head>
 <body>
@@ -471,9 +471,9 @@ padding-top: 200px ; .etcContent {
 						<!----------------------------------------------------------------->
 					</div>
 					<div class="col-xs-9 col-sm-9 col-md-9">
-						
+
 						<div class="inforhead">내 정보</div>
-						
+
 						<!-- 수정창 시작 -->
 						<div
 							class="mx-auto h-full flex flex-1 justify-center items-center">
@@ -581,69 +581,69 @@ padding-top: 200px ; .etcContent {
 				</div>
 			</div>
 		</div>
-	</div>
 
 
-	<!-- Modal -->
-	<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
-		data-bs-keyboard="false" tabindex="-1"
-		aria-labelledby="staticBackdropLabel" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h2 class="modal-title" id="staticBackdropLabel">정말 무피를
-						떠나실건가요?</h2>
-					<button type="button" class="btn-close" data-bs-dismiss="modal"
-						aria-label="Close"></button>
-				</div>
 
-				<div class="modal-body">
-					<form id="deleteUser">
-						<!-- !!!! -->
-						<input type="hidden" id="deleteId" name="userId"
-							value="${dbUser.userId}" /> <input type="hidden" id="userRole"
-							name="userRole" value="${dbUser.userRole}" /> <input
-							type="hidden" id="stateReason" name="stateReason"
-							value="${dbUser.stateReason}" />
-						<h4 class="h4">회원탈퇴 신청 전 아래 사항을 확인 부탁드립니다 😊</h4>
+		<!-- Modal -->
+		<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
+			data-bs-keyboard="false" tabindex="-1"
+			aria-labelledby="staticBackdropLabel" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h2 class="modal-title" id="staticBackdropLabel">정말 무피를
+							떠나실건가요?</h2>
+						<button type="button" class="btn-close" data-bs-dismiss="modal"
+							aria-label="Close"></button>
+					</div>
 
-						<div class="delete_p" style="margin-top: 10px;">
-							<p>1. 신청일부터 30일 후 회원탈퇴가 처리되며, 회원탈퇴 처리 전까지 저희 무피사이트를 찾아주셔서 로그인
-								진행을 해주신다면 그 신청을 철회할 수 있습니다.</p>
-							<p>2. 회원탈퇴 후 기존 계정으로 회원가입을 신청할 수 없습니다.</p>
-							<p>3. 회원탈퇴 시 가입한 모임, 코인 등 회원이 가진 권리는 모두 소멸합니다. 회원탈퇴 후 잔여코인과
-								관련한 환불이 불가하므로 필요한 경우 탈퇴 전에 환불을 신청해주세요.</p>
-							<p>4. 회원탈퇴 시 회사가 보관하고 있는 회원 데이터는 모두 영구적으로 삭제됩니다. 다만, 관련 법령에
-								따라 회사가 보관할 의무가 있는 정보 또는 자료는 일정기간 동안 보관됩니다.</p>
-							<p>5. 회원탈퇴 후 저희 무피사이트에 게시한 게시물을 편집하거나 삭제할 수 없습니다. 필요한 경우 신청 전
-								게시물을 편집하거나 삭제해주세요.</p>
-						</div>
+					<div class="modal-body">
+						<form id="deleteUser">
+							<!-- !!!! -->
+							<input type="hidden" id="deleteId" name="userId"
+								value="${dbUser.userId}" /> <input type="hidden" id="userRole"
+								name="userRole" value="${dbUser.userRole}" /> <input
+								type="hidden" id="stateReason" name="stateReason"
+								value="${dbUser.stateReason}" />
+							<h4 class="h4">회원탈퇴 신청 전 아래 사항을 확인 부탁드립니다 😊</h4>
 
-						<div class="container mx-auto h-full flex flex-1"margin: 0px;>
-							<div class="pwd" style="margin-top: 40px;">
-								<h4>사유를 입력해주세요</h4>
-								<label class="block text-sm text-gray-00"
-									style="margin-top: 10px;"></label> <input type="text"
-									class="w-full px-30 py-1 text-gray-700 bg-gray-200 rounded"
-									id="leaveReason" max-width: 500px; name="leaveReason">
+							<div class="delete_p" style="margin-top: 10px;">
+								<p>1. 신청일부터 30일 후 회원탈퇴가 처리되며, 회원탈퇴 처리 전까지 저희 무피사이트를 찾아주셔서
+									로그인 진행을 해주신다면 그 신청을 철회할 수 있습니다.</p>
+								<p>2. 회원탈퇴 후 기존 계정으로 회원가입을 신청할 수 없습니다.</p>
+								<p>3. 회원탈퇴 시 가입한 모임, 코인 등 회원이 가진 권리는 모두 소멸합니다. 회원탈퇴 후 잔여코인과
+									관련한 환불이 불가하므로 필요한 경우 탈퇴 전에 환불을 신청해주세요.</p>
+								<p>4. 회원탈퇴 시 회사가 보관하고 있는 회원 데이터는 모두 영구적으로 삭제됩니다. 다만, 관련 법령에
+									따라 회사가 보관할 의무가 있는 정보 또는 자료는 일정기간 동안 보관됩니다.</p>
+								<p>5. 회원탈퇴 후 저희 무피사이트에 게시한 게시물을 편집하거나 삭제할 수 없습니다. 필요한 경우 신청
+									전 게시물을 편집하거나 삭제해주세요.</p>
 							</div>
-						</div>
-					</form>
-				</div>
 
-				<div class="modal-footer">
-					<button type="button"
-						class="btn btn-light text-black font-light bg-gray-300"
-						style="width: 500px;" data-bs-dismiss="modal">뒤로가기</button>
-					<button type="button"
-						class="btn btn-secondary text-white font-light bg-gray-900"
-						style="width: 500px;" onclick="javascript:fncLeave()">탈퇴하기</button>
+							<div class="container mx-auto h-full flex flex-1"margin: 0px;>
+								<div class="pwd" style="margin-top: 40px;">
+									<h4>사유를 입력해주세요</h4>
+									<label class="block text-sm text-gray-00"
+										style="margin-top: 10px;"></label> <input type="text"
+										class="w-full px-30 py-1 text-gray-700 bg-gray-200 rounded"
+										id="leaveReason" max-width: 500px; name="leaveReason">
+								</div>
+							</div>
+						</form>
+					</div>
+
+					<div class="modal-footer">
+						<button type="button"
+							class="btn btn-light text-black font-light bg-gray-300"
+							style="width: 500px;" data-bs-dismiss="modal">뒤로가기</button>
+						<button type="button"
+							class="btn btn-secondary text-white font-light bg-gray-900"
+							style="width: 500px;" onclick="javascript:fncLeave()">탈퇴하기</button>
+					</div>
 				</div>
 			</div>
 		</div>
+
 	</div>
-
-
 
 
 	<jsp:include page="../layout/footer.jsp"></jsp:include>

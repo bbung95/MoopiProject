@@ -438,6 +438,7 @@ figcaption > i{
 	<jsp:include page="../layout/toolbar.jsp" />
 	<!---------------------------------------------------------------------------------------------------------------------------->
 
+<div id="wrapper">
 	<main class="py-5">
 		<div class="container px-5 my-5 ">
 
@@ -521,7 +522,7 @@ figcaption > i{
 			</div>
 		</div>
 	</main>
-
+</div>
 
 	<!-- get board view -->
 	<div class="container" id="element_to_pop_up">
@@ -849,7 +850,7 @@ if(${followCheck}){
 								
 								let fileArry = list[i].boardFile.split("/");
 								
-								let displayValue = '<div class="col-xs-4 col-sm-4 col-md-4 no-padding item myitem" onclick="getMyBoard('+list[i].boardNo+')">'
+								let displayValue = '<div class="col-xs-4 col-sm-4 col-md-4 no-padding item myitem board'+list[i].boardNo+'" onclick="getMyBoard('+list[i].boardNo+')">'
 													+'<div class="border-wrap op_itemline10">'
 													+'<div class="thumb-wrap">'
 													+'<div class="tpl-forum-list-thumb" >'
@@ -1036,7 +1037,7 @@ if(${followCheck}){
 			
 			$.ajax({
 				url: "/user/json/deleteMyBoard",
-				type: "GET",
+				type: "POST",
 				dataType: "json",	
 				contentType : "application/json",
 				data : JSON.stringify({
@@ -1046,7 +1047,10 @@ if(${followCheck}){
 		    	
 	                alert(status);
 	                
+	                $(".board"+boardNo).remove();
+	                
 					$("#replyContent").remove();
+					
 	            }
 			})     
 		}

@@ -75,7 +75,7 @@
 												
 												
 												<c:if test="${search.searchCategory == 1}">
-												<th class="border px-4 py-2" width="7%">신고된<br>글번호</th>
+												<th class="border px-4 py-2" width="8%">신고된<br>글번호</th>
 												<th class="border px-4 py-2" width="10%">글제목</th>
 												<th class="border px-4 py-2" width="10%">아이디</th>
 												</c:if>
@@ -94,7 +94,6 @@
 												</c:if>
 												
 												<th class="border px-4 py-2" width="7%">닉네임</th>
-												<th class="border px-4 py-2" width="7%">이름</th>
 												<th class="border px-4 py-2" width="7%">신고 유형</th>
 												<th class="border px-4 py-2" width="15%">신고 내용</th>
 												<th class="border px-4 py-2" width="7%">신고<br>접수일</th>
@@ -112,23 +111,20 @@
 													
 													<c:if test="${search.searchCategory == 1}">
 														<td class="border px-4 py-2 boardNo get_board" >${report.reportTargetBd.boardNo}</td>
-														<td class="border px-4 py-2 ">${report.reportTargetBd.boardName}</td>
+														<td class="border px-4 py-2 " style="height:40px ">${report.reportTargetBd.boardName}</td>
 														<td class="border px-4 py-2 boardwriter">${report.reportTargetBd.boardWriter.userId}</td>
 														<td class="border px-4 py-2">${report.reportTargetBd.boardWriter.nickname}</td>
-														<td class="border px-4 py-2">${report.reportTargetBd.boardWriter.userName}</td>
 													</c:if>
 													<c:if test="${search.searchCategory == 2}">
 														<td class="border px-4 py-2 replyNo get_board">${report.reportTargetRe.replyNo}</td>
 														<td class="border px-4 py-2">${report.reportTargetRe.replyContent}</td>
 														<td class="border px-4 py-2 replywriter">${report.reportTargetRe.replyWriter.userId}</td>
 														<td class="border px-4 py-2">${report.reportTargetRe.replyWriter.nickname}</td>
-														<td class="border px-4 py-2">${report.reportTargetRe.replyWriter.userName}</td>
 														<td style="display: none;" class="boardNo" value="${ report.reportTargetRe.boardNo}">${ report.reportTargetRe.boardNo}</td>
 													</c:if> 
 													<c:if test="${search.searchCategory == 3}">
 														<td class="border px-4 py-2 rp_userId get_myboard">${report.reportTarget.userId}</td>
 														<td class="border px-4 py-2">${report.reportTarget.nickname}</td>
-														<td class="border px-4 py-2">${report.reportTarget.userName}</td>
 														
 													</c:if>
 													<c:if test="${search.searchCategory == 4}">

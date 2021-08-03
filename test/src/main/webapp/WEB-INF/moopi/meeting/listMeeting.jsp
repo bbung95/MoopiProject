@@ -15,7 +15,7 @@
 <!-- 타임픽커 -->
 <link rel="stylesheet" href="/css/bootstrap-material-datetimepicker.css" />
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-	rel="stylesheet">
+	rel="stylesheet">	
 
 
 
@@ -101,7 +101,7 @@ var mtMapX="";
 var mtMapY="";
 var lat = "";
 var lng = "";
-var check = ${dbUser.userId};
+var check = '${dbUser.userId}';
 
 
 
@@ -616,9 +616,14 @@ $(document).ready(function() {
     						$("#mtMapY").val(JSONData.mtMapY);
     						$("#UmtMapY").val(JSONData.mtMapY);
     						$("#getDate").slideDown('slow');
+    						
     						relayout();
     						setMarker(JSONData.mtMapX, JSONData.mtMapY, JSONData.mtAddr, JSONData.mtContent);
 //     						$('#myModal3').modal("show");
+
+							
+
+
     					}
     			}); //ajax 종료
       	  },
@@ -1096,7 +1101,6 @@ body {
 					type='hidden' id="mtMapY">
 
 				<div>
-
 						<button type="button" class="btn btn-success"
 							onClick="fncApplyMt(mtNo, '${dbUser.userId}')">참가</button>
 

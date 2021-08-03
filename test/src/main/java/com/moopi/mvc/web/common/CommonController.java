@@ -51,13 +51,13 @@ public class CommonController {
 	}
 
 	@RequestMapping("/")
-	public String home(Model model) {
+	public String main(Model model) {
 
 		System.out.println("/main");
 
 		model.addAttribute("interest", commonService.getInterest());
 
-		return "index";
+		return "main";
 	}
 
 	@GetMapping("common/adminMoopi")

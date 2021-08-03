@@ -5,7 +5,7 @@
 
  
 <nav class="d-flex justify-content-center"
-							aria-label="Page navigation example">
+							aria-label="Page navigation example" style="padding-bottom: 30px;" >
 							<ul class="pagination">
 
 								<!--  <<== ÁÂÃø nav -->
