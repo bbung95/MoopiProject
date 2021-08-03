@@ -481,7 +481,7 @@ figcaption > i{
 
 				<!-- 모임리스트 -->
 				<div class="col-xs-4 col-sm-4 col-md-4 item">
-					<div class="card border-0 bg-light ">
+					<%-- <div class="card border-0 bg-light ">
 						<div class="card-body p-4 py-lg-3">
 							<c:forEach var="moim" items="${moim}">
 								<div>
@@ -494,8 +494,9 @@ figcaption > i{
 								</div>
 							</c:forEach>
 						</div>
-					</div>
+					</div> --%>
 				</div>
+				
 			</div>
 
 			<hr style="margin-bottom: 25px;">

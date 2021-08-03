@@ -52,7 +52,7 @@ $(function(){
     });
 
     $('.warning').click(function () {
-    	swal("매니저 권한을 박탈한다.");
+    	swal("매니저 권한을 박탈합니다.");
     	fncMember2($(this).next().val(), mmNo);
    	 	$(this).text("매니저임명");
     });
@@ -139,11 +139,11 @@ $(document).ready(function(){
 <style>
 	body{
 		padding-top: 100px;
-		background-color:#f7f6f3;
+/* 		background-color:#f7f6f3; */
 	}
 	
 			main{
-font-family: 'Nanum Gothic', sans-serif;
+font-family: 'Open Sans', sans-serif;
 font-size: 16px;
 }
 	

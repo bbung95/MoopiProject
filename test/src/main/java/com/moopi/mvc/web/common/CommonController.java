@@ -8,40 +8,38 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.moopi.mvc.common.Page;
 import com.moopi.mvc.common.Search;
-import com.moopi.mvc.service.common.impl.CommonServiceImpl;
+import com.moopi.mvc.service.common.impl.CommonService;
 import com.moopi.mvc.service.domain.Payment;
 import com.moopi.mvc.service.domain.User;
 import com.moopi.mvc.service.domain.UserData;
-import com.moopi.mvc.service.flash.impl.FlashServiceImpl;
-import com.moopi.mvc.service.moim.impl.MoimServiceImpl;
-import com.moopi.mvc.service.payment.impl.PaymentServiceImpl;
-import com.moopi.mvc.service.report.impl.ReportServiceImpl;
-import com.moopi.mvc.service.user.impl.UserServiceImpl;
+import com.moopi.mvc.service.flash.impl.FlashService;
+import com.moopi.mvc.service.moim.impl.MoimService;
+import com.moopi.mvc.service.payment.impl.PaymentService;
+import com.moopi.mvc.service.report.impl.ReportService;
+import com.moopi.mvc.service.user.impl.UserService;
 
 @Controller
 public class CommonController {
 
 	@Autowired
-	private UserServiceImpl userService;
+	private UserService userService;
 	@Autowired
-	private MoimServiceImpl moimService;
+	private MoimService moimService;
 	@Autowired
-	private FlashServiceImpl flashService;
+	private FlashService flashService;
 	@Autowired
-	private CommonServiceImpl commonService;
+	private CommonService commonService;
 	@Autowired
-	private PaymentServiceImpl paymentService;
+	private PaymentService paymentService;
 	@Autowired
-	private ReportServiceImpl reportService;
+	private ReportService reportService;
 
 	@Value("${page.pageUnit}")
 	int pageUnit;
@@ -69,7 +67,7 @@ public class CommonController {
 		User user = (User) session.getAttribute("dbUser");
 		if (user != null && user.getUserRole().equals("1")) {
 
-			return "common/adminMain";
+			return "common/adminStatistics";
 		}
 		return "redirect:/";
 	}
@@ -196,7 +194,6 @@ public class CommonController {
 			System.out.println("moimSearch");
 			
 			model.addAttribute("search", search);
-//			model.addAttribute("list", moimService.getMoimList(search).get("list"));
 			if (user != null) {
 				model.addAttribute("list2", moimService.getMyMoimList(user.getUserId()).get("list2"));
 			}
@@ -218,27 +215,4 @@ public class CommonController {
 		return "common/getUserInfo";
 	}
 
-//		@CrossOrigin(origins = "http://localhost:82")
-//		@GetMapping(value="/chat/chatList")
-//		public String chatList() {
-//			System.out.println("chatList : GET");
-//			return "common/chatList";
-//		}
-//		
-//		@GetMapping(value="/chat/joinRoom")
-//		public String joinRoom(@RequestParam("userId") String userId, @RequestParam("trgt") String trgt,
-//				@RequestParam("type")String type, Model model) throws Exception {
-//			
-//			System.out.println("joinRoom : GET");
-//			
-//			model.addAttribute("user", userService.getUser(userId));
-//			model.addAttribute("type", type);
-//			if(type.equals("1")) {
-//				model.addAttribute("target", userService.getUser(trgt));
-//				return "common/chatRoom";
-//			}else{
-//				model.addAttribute("target", moimService.getMoim(Integer.parseInt(trgt)));
-//				return "common/groupRoom";
-//			}
-//		}
 }

@@ -1,6 +1,5 @@
 package com.moopi.mvc.web.meeting;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -13,32 +12,31 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.moopi.mvc.common.Search;
-import com.moopi.mvc.service.common.impl.CommonServiceImpl;
+import com.moopi.mvc.service.common.impl.CommonService;
 import com.moopi.mvc.service.domain.Meeting;
 import com.moopi.mvc.service.domain.Member;
 import com.moopi.mvc.service.domain.Moim;
 import com.moopi.mvc.service.domain.Notice;
 import com.moopi.mvc.service.domain.User;
-import com.moopi.mvc.service.meeting.impl.MeetingServiceImpl;
-import com.moopi.mvc.service.user.impl.UserServiceImpl;
-import com.moopi.mvc.service.moim.impl.MoimServiceImpl;
+import com.moopi.mvc.service.meeting.impl.MeetingService;
+import com.moopi.mvc.service.user.impl.UserService;
+import com.moopi.mvc.service.moim.impl.MoimService;
 
 @Controller
 @RequestMapping("/meeting/*")
 public class MeetingController {
 
 	@Autowired
-	private MeetingServiceImpl meetingService;
+	private MeetingService meetingService;
 	
 	@Autowired
-	private UserServiceImpl userService;
+	private UserService userService;
 	
 	@Autowired
-	private MoimServiceImpl moimService;
+	private MoimService moimService;
 	
 	@Autowired
-	private CommonServiceImpl commonService;
+	private CommonService commonService;
 	
 	
 	@RequestMapping("receiveCode")
@@ -144,33 +142,33 @@ public class MeetingController {
 	}
 	
 	//정모참가하기
-	@RequestMapping("applyMeeting")
-	public String applyMeeting(@RequestParam("mtNo") int mtNo,
-			@RequestParam("userId") String userId) throws Exception {
-		System.out.println("정모에 참가합니다.");
-		meetingService.applyMeeting(mtNo, userId);
-		
-		return "forward:정모상세조회페이지로이동";
-	}
+//	@RequestMapping("applyMeeting")
+//	public String applyMeeting(@RequestParam("mtNo") int mtNo,
+//			@RequestParam("userId") String userId) throws Exception {
+//		System.out.println("정모에 참가합니다.");
+//		meetingService.applyMeeting(mtNo, userId);
+//		
+//		return "forward:정모상세조회페이지로이동";
+//	}
 	
 	//정모참가취소하기
-	@RequestMapping("leaveMeeting")
-	public String leaveMeeting(@RequestParam("mtNo") int mtNo,
-			@RequestParam("userId") String userId) throws Exception {
-		System.out.println("정모참가를 취소합니다.");
-		meetingService.leaveMeeting(mtNo, userId);
-		return "forward:정모상세조회페이지로이동";
-	}
+//	@RequestMapping("leaveMeeting")
+//	public String leaveMeeting(@RequestParam("mtNo") int mtNo,
+//			@RequestParam("userId") String userId) throws Exception {
+//		System.out.println("정모참가를 취소합니다.");
+//		meetingService.leaveMeeting(mtNo, userId);
+//		return "forward:정모상세조회페이지로이동";
+//	}
 	
 	//정모 참가자 명단 조회
-	@RequestMapping("listMEFL")
-	public String getListMEFL(@RequestParam("mtNo") int mtNo, Model model) throws Exception {
-		
-		System.out.println("정모참가자명단을 보겠습니다.");
-		Map<String, Object> map = meetingService.getMEFLList(mtNo);
-		model.addAttribute("list", map.get("list"));
-		return "forward:정모상세조회페이지로이동";
-	}
+//	@RequestMapping("listMEFL")
+//	public String getListMEFL(@RequestParam("mtNo") int mtNo, Model model) throws Exception {
+//		
+//		System.out.println("정모참가자명단을 보겠습니다.");
+//		Map<String, Object> map = meetingService.getMEFLList(mtNo);
+//		model.addAttribute("list", map.get("list"));
+//		return "forward:정모상세조회페이지로이동";
+//	}
 	
 	
 	//카카오 지도...

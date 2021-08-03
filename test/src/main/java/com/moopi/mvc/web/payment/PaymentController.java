@@ -9,27 +9,22 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.moopi.mvc.common.Search;
-import com.moopi.mvc.service.coin.impl.CoinServiceImpl;
 import com.moopi.mvc.service.domain.Coin;
 import com.moopi.mvc.service.domain.Flash;
 import com.moopi.mvc.service.domain.Payment;
 import com.moopi.mvc.service.domain.User;
-import com.moopi.mvc.service.payment.impl.PaymentServiceImpl;
-import com.moopi.mvc.service.user.impl.UserServiceImpl;
+import com.moopi.mvc.service.payment.impl.PaymentService;
+import com.moopi.mvc.service.user.impl.UserService;
 
 @Controller
 @RequestMapping("/payment/*")
 public class PaymentController {
 
 	@Autowired
-	private PaymentServiceImpl paymentService;
+	private PaymentService paymentService;
 	
 	@Autowired
-	private UserServiceImpl userService;
-	
-	@Autowired
-	private CoinServiceImpl coinService;
+	private UserService userService;
 	
 	public PaymentController() {
 		System.out.println(this.getClass());

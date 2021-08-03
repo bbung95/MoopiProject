@@ -1,6 +1,5 @@
 package com.moopi.mvc.web.moim;
 
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,12 +9,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.moopi.mvc.service.moim.impl.MoimServiceImpl;
+import com.moopi.mvc.service.moim.impl.MoimService;
 import com.moopi.mvc.common.Search;
-import com.moopi.mvc.service.common.impl.CommonServiceImpl;
+import com.moopi.mvc.service.common.impl.CommonService;
 import com.moopi.mvc.service.domain.Member;
 import com.moopi.mvc.service.domain.Moim;
 import com.moopi.mvc.service.domain.Notice;
@@ -26,10 +24,10 @@ import com.moopi.mvc.service.domain.User;
 public class MoimRestController {
 
 	@Autowired
-	private MoimServiceImpl moimService;
+	private MoimService moimService;
 
 	@Autowired
-	private CommonServiceImpl commonService;
+	private CommonService commonService;
 	
 
 	@Value("6")
@@ -78,7 +76,7 @@ public class MoimRestController {
 	}
 
 	@RequestMapping("json/listMoim")
-	public Map getListMoim(@RequestBody Search search, Model model) throws Exception {
+	public Map<String, Object> getListMoim(@RequestBody Search search, Model model) throws Exception {
 
 		System.out.println("Ajax로 모임리스트를 가져옵니다. :::인피니티스크롤");
 		search.setPageSize(pageSize);
@@ -103,6 +101,9 @@ public class MoimRestController {
 		System.out.println("::::::::::::::::::::::::::해당 유저 권한 확인중....");
 		System.out.println("멤버권한변경한다.");
 		moimService.updateMemeber(userId, mmNo, status);
+		if(status==4) {
+			moimService.subCount(mmNo);
+		}
 
 	}
 

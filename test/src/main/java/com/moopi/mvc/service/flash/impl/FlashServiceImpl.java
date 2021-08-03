@@ -5,22 +5,18 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.moopi.mvc.common.Search;
 import com.moopi.mvc.service.domain.Flash;
 import com.moopi.mvc.service.domain.MeetingFlashMember;
 import com.moopi.mvc.service.flash.FlashDao;
-import com.moopi.mvc.service.user.UserDao;
 
 @Service
-public class FlashServiceImpl {
+public class FlashServiceImpl implements FlashService{
 
 	@Autowired
-	// @Qualifier("flashDaoImpl")
 	private FlashDao flashDao;
-	private UserDao userDao;
 	
 	// Constructor
 	public FlashServiceImpl() {

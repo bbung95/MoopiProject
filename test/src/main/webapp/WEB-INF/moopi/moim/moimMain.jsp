@@ -239,6 +239,13 @@ body {
 </style>
 
 <style>
+
+.word{
+	color: #fff;
+ 	text-shadow: 0 0 7px #fff, 0 0 10px #fff, 0 0 21px #fff, 0 0 42px #0fa,
+    0 0 82px #0fa, 0 0 92px #0fa, 0 0 102px #0fa, 0 0 151px #0fa;
+}
+
 .userProfile {
 	margin: 10px;
 	width: 40px;
@@ -329,27 +336,27 @@ body {
 		class="carousel slide carousel-fade" data-bs-ride="carousel">
 		<div class="carousel-inner">
 			<div class="carousel-item active" data-bs-interval="6000">
-				<img src="/images/background/moim1.jpg"
+				<img src="/images/background/moim4.png"
 					class="d-block w-100" alt="...">
 				<div class="carousel-caption d-none d-md-block">
-					<h4>First slide label</h4>
-					<p>Some representative placeholder content for the first slide.</p>
+					<h4 class="word">Dale Carnegie</h4>
+					<p class="word">The royal road to a man's heart is to talk to him about the things he treasures most.</p>
 				</div>
 			</div>
 			<div class="carousel-item" data-bs-interval="6000">
-				<img src="/images/background/moim2.jpg"
+				<img src="/images/background/moim3.jpg"
 					class="d-block w-100" alt="...">
 				<div class="carousel-caption d-none d-md-block">
-					<h4>Second slide label</h4>
-					<p>Some representative placeholder content for the first slide.</p>
+					<h4 class="word">Tennesse Williams</h4>
+					<p class="word">Life is partly what we make it, and partly what it is made by the friends we choose.</p>
 				</div>
 			</div>
 			<div class="carousel-item" data-bs-interval="6000">
-				<img src="/images/background/flash1.jpg"
+				<img src="/images/background/moim5.jpg"
 					class="d-block w-100" alt="...">
 				<div class="carousel-caption d-none d-md-block">
-					<h4>Third slide label</h4>
-					<p>Some representative placeholder content for the first slide.</p>
+					<h4 class="word">Albert Camus</h4>
+					<p class="word">Don't walk in front of me, I may not follow. Don't walk behine me, I may not lead. Walk beside me and just be my friend</p>
 				</div>
 			</div>
 		</div>
@@ -413,9 +420,9 @@ body {
 
 							</div>
 							<hr style="margin: 10px 0px 10px 0px;" />
+						</c:if>
 							모임 리스트
 							<hr style="margin: 10px 0px 10px 0px;" />
-						</c:if>
 
 						<div class="row" id="moimListView"></div>
 					</div>

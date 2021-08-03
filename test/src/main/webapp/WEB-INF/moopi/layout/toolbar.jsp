@@ -1001,6 +1001,13 @@ body::-webkit-scrollbar {
 			})
 	}
 	
+	function searchCollect(){
+		
+		searchPage = 1;
+		$('.searchlist').children().remove();
+		searchList($('#search-input').val() , $('.type').val());
+	}
+	
 	$('.saerchbar-btn').on('click', function(){
 		
 		let type = $(this).attr('type');
@@ -1009,16 +1016,16 @@ body::-webkit-scrollbar {
 		$('.active').attr('class', 'btn btn-primary saerchbar-btn');
 		$(this).attr('class', 'btn btn-primary saerchbar-btn active');
 		
-		searchList($('#searchkeyword').val() , $('.type').val());
+		searchCollect()
 	})
 	
 	// ajax search
 	$('#search-input').on('keypress', function(){
-		searchList($('#search-input').val() , $('.type').val());
+		searchCollect()
 	})
 	
 	$('#search-input').on('keyup', function(){
-		searchList($('#search-input').val() , $('.type').val());
+		searchCollect()
 	})
 	
 	

@@ -1,20 +1,17 @@
 package com.moopi.mvc.service.reply.impl;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.moopi.mvc.common.Search;
 import com.moopi.mvc.service.reply.ReplyDao;
 import com.moopi.mvc.service.domain.Reply;
 
 @Service
-public class ReplyServiceImpl {
+public class ReplyServiceImpl implements ReplyService{
 
 	@Autowired
 	private ReplyDao replyDao;

@@ -14,7 +14,7 @@ import com.moopi.mvc.service.domain.Board;
 
 
 @Service
-public class BoardServiceImpl {
+public class BoardServiceImpl implements BoardService{
 
 	@Autowired
 	private BoardDao boardDao;
@@ -36,7 +36,7 @@ public class BoardServiceImpl {
 	
 	public Map<String, Object> getBoardList(Search search, String boardCategory, String boardState) throws Exception{
 		
-		Map map = new HashMap<String, Object>();
+		Map<String, Object> map = new HashMap<String, Object>();
 		
 		map.put("boardCategory", boardCategory);
 		map.put("boardState", boardState);
@@ -53,7 +53,7 @@ public class BoardServiceImpl {
 	
 	public Map<String, Object> getBoardList(Search search, String boardCategory, String boardState, int boardMoimNo) throws Exception{
 		
-		Map map = new HashMap<String, Object>();
+		Map<String, Object> map = new HashMap<String, Object>();
 		
 		map.put("boardCategory", boardCategory);
 		map.put("boardState", boardState);
@@ -71,7 +71,7 @@ public class BoardServiceImpl {
 	
 public Map<String, Object> getBoardList(Search search, String boardCategory, String boardState, String userId) throws Exception{
 		
-		Map map = new HashMap<String, Object>();
+		Map<String, Object> map = new HashMap<String, Object>();
 		
 		map.put("boardCategory", boardCategory);
 		map.put("boardState", boardState);
@@ -88,35 +88,6 @@ public Map<String, Object> getBoardList(Search search, String boardCategory, Str
 	}
 		
 	
-//	public Map<String, Object> getBoardList(Map map) throws Exception{
-//		
-//		
-//		List<Board> list= boardDao.getBoardList(map);
-//		int totalCount =  boardDao.getTotalCount(map); 
-//
-//		map.put("list", list);
-//		map.put("totalCount", totalCount);
-//		System.out.println(map);
-//		return map;
-//	}
-
-
-//	public Map<String, Object> getBoardList(Search search, String boadCategory, int orderType) throws Exception{
-//		
-//		if(orderType=="1") {
-//			
-//		}else if()
-//		
-//		List<Board> list= boardDao.getBoardList(map);
-////		int totalCount =  boardDao.getTotalCount(map); 
-//
-//		map.put("list", list);
-////		map.put("totalCount", totalCount);
-//		
-//		return map;
-//	}
-	
-	
 	public void updateBoard(Board board) throws Exception{
 		boardDao.updateBoard(board);
 
@@ -130,7 +101,7 @@ public Map<String, Object> getBoardList(Search search, String boardCategory, Str
 	
 	public int getLike(String userId, String target) throws Exception {
 		
-		Map map = new HashMap();
+		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("userId", userId);
 		map.put("likeTarget", target);
 	
@@ -139,7 +110,7 @@ public Map<String, Object> getBoardList(Search search, String boardCategory, Str
 	
 	public void addLike(String userId, String target) throws Exception {
 		
-		Map map = new HashMap();
+		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("userId", userId);
 		map.put("likeTarget", target);
 		
@@ -148,7 +119,7 @@ public Map<String, Object> getBoardList(Search search, String boardCategory, Str
 	
 	public void deleteLike(String userId, String target) throws Exception {
 		
-		Map map = new HashMap();
+		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("userId", userId);
 		map.put("likeTarget", target);
 		
