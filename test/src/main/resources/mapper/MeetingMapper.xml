@@ -18,6 +18,7 @@
 		<result property="mtMaxCount" 			column="MT_MAX_COUNT" 			jdbcType="NUMERIC"  />
 		<result property="mtCurrentCount" 			column="MT_CURRENT_COUNT" 		jdbcType="NUMERIC" />
 		<result property="mtConstructor.userId" 			column="MT_CONSTRUCTOR" 			jdbcType="VARCHAR"  />
+		<result property="mtConstructor.nickname" 			column="NICKNAME" 			jdbcType="VARCHAR"  />
 		<result property="mtAddr" 			column="MT_ADDR" 			jdbcType="VARCHAR"  />
 		<result property="mtState" 			column="MT_STATE" 			jdbcType="NUMERIC"  />
 		<result property="mtMapX" 			column="MT_MAP_X" 			jdbcType="NUMERIC"  />
@@ -96,9 +97,10 @@
 	<select id="getMeeting" parameterType="int" resultMap="meetingSelectMap">
 		SELECT
 			MT_NO, MM_NO, MT_NAME, MT_CONTENT, MT_START_DATE, MT_END_DATE, MT_REGDATE, MT_MAX_COUNT, MT_CURRENT_COUNT, 
-			MT_CONSTRUCTOR, MT_ADDR, MT_STATE, MT_MAP_X, MT_MAP_Y		
-			FROM MEETING
-		WHERE MT_NO = #{mtNo}	
+			MT_CONSTRUCTOR, MT_ADDR, MT_STATE, MT_MAP_X, MT_MAP_Y, NICKNAME		
+			FROM MEETING, USERS
+		WHERE MT_NO = #{mtNo} 
+		AND MT_CONSTRUCTOR = USER_ID
 	</select>
 
 

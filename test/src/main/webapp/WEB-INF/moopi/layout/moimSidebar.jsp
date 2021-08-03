@@ -151,6 +151,7 @@ img.whale{
     display: none;
     position: fixed;
     top: 0;      
+    font-size: 36px;
     right: 0;
     background-color: #63B3F8;
     color: #fff;
