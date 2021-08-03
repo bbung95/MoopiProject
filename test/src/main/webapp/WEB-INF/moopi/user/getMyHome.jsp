@@ -437,7 +437,7 @@ figcaption > i{
 	<!-- Tool Bar ---------------------------------------------------------------------------------------------------------------->
 	<jsp:include page="../layout/toolbar.jsp" />
 	<!---------------------------------------------------------------------------------------------------------------------------->
-
+<div id="wrapper">
 	<main class="py-5">
 		<div class="container px-5 my-5 ">
 
@@ -521,7 +521,7 @@ figcaption > i{
 			</div>
 		</div>
 	</main>
-
+</div>
 
 	<!-- get board view -->
 	<div class="container" id="element_to_pop_up">
