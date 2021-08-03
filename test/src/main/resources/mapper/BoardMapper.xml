@@ -19,6 +19,7 @@
 		<result property="boardLike" 		column="LIKECOUNT" 			jdbcType="NUMERIC"  />
 		<result property="replyCount" 		column="REPLYCOUNT" 		jdbcType="NUMERIC"  />
 		<result property="boardFile"        column="BD_FILE"		jdbcType="VARCHAR"/>
+		<result property="boardHit"        column="BD_HIT"		jdbcType="NUMERIC"/>
 		
 		<association property="boardWriter"  javaType="user">
 			<id property="userId" 				column="USER_ID" 			jdbcType="VARCHAR"/>
@@ -47,6 +48,7 @@
 				  , BD.BD_STATE
 				  , BD.BD_CATEGORY 
 				  , BD.BD_FILE
+				  , BD.BD_HIT
 				  , LEFT(BD.BD_PASSWORD, 1) AS BD_PASSWORD
 				  , ( SELECT 
 						COUNT(*)
@@ -127,6 +129,7 @@
 		, BD.BD_CATEGORY
 		, BD_MM_NO
 		, BD.BD_FILE
+		, BD.BD_HIT
 		, U.USER_ID
 		, U.NICKNAME
 		, U.PROFILE_IMAGE
@@ -144,6 +147,8 @@
 		, USERS U
 		WHERE 
 		BD.BD_WRITER = U.USER_ID
+		AND
+		BD.BD_STATE = '1'
 		AND
 		BD.BD_NO = #{boardNo}  
 	</select>
@@ -301,6 +306,13 @@
 					
 	</select>
 	
+	<update id="updateHit" parameterType="int">
 	
+		UPDATE BOARD 
+		SET 
+			BD_HIT = BD_HIT+1
+		WHERE BD_NO =  #{boardNo}
+		
+	</update>
 	
 </mapper>	

@@ -503,6 +503,7 @@ body {
 			                            <th class="ntpl-forum-name tpl-forum-name tpl-forum-header-row">작성자</th>
 			                            <th class="ntpl-forum-date tpl-forum-date tpl-forum-header-row">작성일</th>
 			                            <th class="ntpl-forum-date tpl-forum-date tpl-forum-header-row">Like</th>
+			                            <th class="ntpl-forum-date tpl-forum-date tpl-forum-header-row">조회수</th>
 			                        </tr>
 			                    </thead>
 			                    <tbody data-loop="true" data-view="8">
@@ -523,6 +524,7 @@ body {
 			                            <td class="tpl-forum-list-name tpl-forum-list-etc op_itemline10"> ${board.boardWriter.nickname}</td>
 			                            <td class="tpl-forum-list-date tpl-forum-list-etc op_itemline10">${board.boardRegDate}</td>
 			                            <td class="tpl-forum-list-date tpl-forum-list-etc op_itemline10">${ board.boardLike}</td>
+			                            <td class="tpl-forum-list-date tpl-forum-list-etc op_itemline10">${ board.boardHit}</td>
 			                        </tr>
 			                        </c:forEach>
 			                        

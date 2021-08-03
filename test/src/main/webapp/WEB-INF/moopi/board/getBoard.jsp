@@ -151,7 +151,7 @@ img, svg {
 								${board.boardName}</div>
 							<div class="board_title">
 
-								<div style="display: inline-block; float: right;">${board.boardRegDate}
+								<div style="display: inline-block; float: right; text-align: right;">${board.boardRegDate}<br> 조회수 : ${board.boardHit}
 								</div>
 
 								<input class="board" type="hidden" id="boardNo" name="boardNo"
@@ -159,11 +159,13 @@ img, svg {
 
 								<div style="text-align: left;">
 									
-									<img src="/images/uploadFiles/${board.boardWriter.profileImage}" class="img-responsive profileImg">
-									${board.boardWriter.nickname}
+									<div class="tpl-forum-list-name tpl-forum-list-etc op_itemline10" style="display: flex !important; align-items: center !important;"> 
+			                            <img src="/images/uploadFiles/${board.boardWriter.profileImage}" class="img-responsive profileImg">
+			                            <div style="margin: 5px 5px 5px 5px;">${board.boardWriter.nickname}</div></div>
 								</div>
+								
 							</div>
-							<div class="board_content">${board.boardContent}</div>
+							<span class="board_content" >${board.boardContent}</span><span class="board_hit" style="float:right;padding-right:10px"></span>
 							<div style="float: right;">
 								<c:if test="${dbUser.userId eq board.boardWriter.userId}">
 									<button type="button" class="btn btn-primary updateBoard">수정</button>
@@ -185,8 +187,12 @@ img, svg {
 											value="${reply.replyNo}">
 										<div class="reply_head">
 											<div style="display: inline-block">
-											<img src="/images/uploadFiles/${reply.replyWriter.profileImage}" class="img-responsive profileImg">
-												${reply.replyWriter.nickname}</div>
+											<div class="tpl-forum-list-name tpl-forum-list-etc op_itemline10" style="display: flex !important; align-items: center !important;"> 
+			                            <img src="/images/uploadFiles/${reply.replyWriter.profileImage}" class="img-responsive profileImg">
+			                            <div style="margin: 5px 5px 5px 5px;">${reply.replyWriter.nickname}</div></div>
+			                            
+												
+												</div>
 											<div style="display: inline-block; float: right;">작성시간
 												: ${reply.replyRegDate}</div>
 										</div>
@@ -215,7 +221,7 @@ img, svg {
 							<!-- 					리플리스트 끝.	 -->
 						</section>
 
-						<c:if test="${dbUser.userRole eq '1'}">
+						<c:if test="${dbUser.userRole eq '1' and boardCategory eq 'QnA' }">
 						<section class="replyWrite">
 							<form name="detailForm" enctype="multipart/form-data">
 								<div id="addReplyForm"
@@ -248,7 +254,8 @@ img, svg {
 
 	</form>
 
-<jsp:include page="../layout/footer.jsp"></jsp:include>
+
+<div id="wrapper"><jsp:include page="../layout/footer.jsp"></jsp:include></div>
 
 
 </body>
@@ -341,7 +348,10 @@ img, svg {
 		function fncDeleteBoard(){
 			var boardNo = ${board.boardNo};
 			
-			$("form.form-horizontal3").attr("method" , "GET").attr("action" , "/board/deleteBoard").submit();
+			var result = confirm("게시글을 삭제하시겟습니까?");
+			if(result){
+				$("form.form-horizontal3").attr("method" , "GET").attr("action" , "/board/deleteBoard").submit();
+			}
 			
 		}
 		

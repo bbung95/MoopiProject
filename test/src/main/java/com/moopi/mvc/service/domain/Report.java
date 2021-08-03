@@ -26,11 +26,11 @@ public class Report {
 	//신고 내용
 	private String	reportContent;
 	//신고 일자
-	private Date	reportRegDate;
+	private String	reportRegDate;
 	//신고 유형
 	private String	reportType;
 	//신고처리일
-	private Date	reportResultUpdate;
+	private String	reportResultUpdate;
 	//신고처리결과
 	private String	reportResultState;
 	//신고자
