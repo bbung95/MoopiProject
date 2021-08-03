@@ -197,7 +197,7 @@ public class MoimController {
 
 		System.out.println("초대리스트를 가져옵니다.");
 		Moim moim = moimService.getMoim(mmNo);
-		int mmInterest = moim.getMmInterest();
+		String mmInterest = moim.getMmInterest();
 		String mmAddr = moim.getMmAddr();
 		// Map<String, Object> map = moimService.getMoimList(search);
 		Map<String, Object> map = moimService.getInviteList(mmInterest, mmAddr);

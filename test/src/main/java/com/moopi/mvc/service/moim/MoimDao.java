@@ -68,7 +68,7 @@ public interface MoimDao {
 			 	@Param("status") int status) throws Exception;
 	
 	//초대목록 리스트
-	public List<User> getInviteList(@Param("mmInterest") int mmInterest,
+	public List<User> getInviteList(@Param("mmInterest") String mmInterest,
 			@Param("mmAddr") String mmAddr) throws Exception;
 	
 	

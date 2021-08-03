@@ -23,7 +23,7 @@ public class Moim {
 	private int mmCurrentCount; //모임무피 현재정원
 	private User mmConstructor;   //모임무피 생성자
 	private String mmRegDate;  //모임무피 생성일
-	private int mmInterest;   //모임무피 관심사 넘버
+	private String mmInterest;   //모임무피 관심사 넘버
 	private String mmAddr;  //모임무피 거주지
 	private int mmState;  //모임무피 상태(1공개 2비공개 3삭제)
 	private int mmMinAge; //모임무피 최소가입연령

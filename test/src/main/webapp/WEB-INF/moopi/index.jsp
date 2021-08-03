@@ -31,7 +31,6 @@
 <!-- Core theme CSS (includes Bootstrap)-->
 <link href="/css/styles.css" rel="stylesheet" />
 
-
 <script type="text/javascript">
 	$(function() {
 		//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
@@ -104,7 +103,6 @@ header {
 	background-image: linear-gradient(120deg, #4299e1 50%, 60%, #b8d2ff 50%);
 }
 </style>
-
 </head>
 <body>
 
@@ -169,7 +167,7 @@ header {
 				</div>
 			</div>
 		</div>
-	</header>
+	</header> 
 
 	<jsp:include page="layout/footer.jsp"></jsp:include>
 
@@ -178,6 +176,8 @@ header {
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 	<!-- Core theme JS-->
 	<script src="/js/scripts.js"></script>
+	<script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+
 	<script>
 		let addrs = [ "종로구", "중구", "용산", "성동구", "광진구", "동대문구", "중랑구", "성북구",
 				"강북구", "도봉구", "노원구", "은평구", "마포구", "양천구", "강서구", "구로구", "금천구",

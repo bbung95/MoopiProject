@@ -631,24 +631,18 @@ $('button:contains("채팅")').on('click', function(){
 				method: "GET",
 				dataType: "JSON",
 				success: function(data,state){
-					console.log(JSON.stringify(data));
+					
 					let url;
 					if(data.type == 1){
-						url = "http://localhost:82/chat?userId="+data.user.userId+"&trgt="+data.target.userId+"&type="+data.type
-								+"&name="+data.user.nickname+"&profile="+data.user.profileImage+"&trgtName="+data.target.nickname
-								+"&trgtProfile="+data.target.profileImage; 
 						
-						/* url = "https://bbung95-rtc.herokuapp.com/chat?userId="+data.user.userId+"&trgt="+data.target.userId+"&type="+data.type
+						 url = "https://bbung95-rtc.herokuapp.com/chat?userId="+data.user.userId+"&trgt="+data.target.userId+"&type="+data.type
 						+"&name="+data.user.nickname+"&profile="+data.user.profileImage+"&trgtName="+data.target.nickname
-						+"&trgtProfile="+data.target.profileImage;*/
+						+"&trgtProfile="+data.target.profileImage;
 					}else{
-						 url = "http://localhost:82/chat?userId="+data.user.userId+"&trgt="+data.target.mmNo+"&type="+data.type
-						+"&name="+data.user.nickname+"&profile="+data.user.profileImage+"&trgtName="+data.target.mmName
-						+"&trgtProfile="+data.target.mmFile+"&roomNo="+data.target.mmNo; 
 						
-						/*url = "https://bbung95-rtc.herokuapp.com/chat?userId="+data.user.userId+"&trgt="+data.target.mmNo+"&type="+data.type
+						url = "https://bbung95-rtc.herokuapp.com/chat?userId="+data.user.userId+"&trgt="+data.target.mmNo+"&type="+data.type
 						+"&name="+data.user.nickname+"&profile="+data.user.profileImage+"&trgtName="+data.target.mmName
-						+"&trgtProfile="+data.target.mmFile+"&roomNo="+data.target.mmNo;*/
+						+"&trgtProfile="+data.target.mmFile+"&roomNo="+data.target.mmNo;
 					}
 				popWin = window.open(
 					url,
@@ -736,7 +730,7 @@ function upload(formData){
                 	setTimeout(function() {
                 		$('#close').click();
                 		$('#boardContent').val('');
-                		$('#dropbox').children().remove();
+                		$('#dropBox').children().remove();
                 		fileList = [];
     					$('#boardView').prepend(displayValue);
                 	}, 3000, displayValue)
