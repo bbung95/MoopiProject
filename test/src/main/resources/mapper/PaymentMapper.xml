@@ -10,10 +10,16 @@
 		<result property="paymentNo" 			column="PAYMENT_NO" 		jdbcType="NUMERIC"/>
 		<result property="paymentRegdate"		column="PAYMENT_REGDATE" 	jdbcType="DATE" />
 		<result property="paymentRole"			column="PAYMENT_ROLE" 		jdbcType="VARCHAR" />
-		<result property="paymentUserId.userId" column="PAYMENT_USER_ID" 	jdbcType="VARCHAR" />
 		<result property="paymentPrice" 		column="PAYMENT_PRICE" 		jdbcType="NUMERIC" />
 		<result property="paymentCoinCount" 	column="PAYMENT_COIN_COUNT" jdbcType="NUMERIC" />
 		<result property="paymentUid" 			column="PAYMENT_UID" 		jdbcType="VARCHAR" />
+		
+		<association property="paymentUserId" javaType="user">
+			<result property="userId" column="PAYMENT_USER_ID" 	jdbcType="VARCHAR"  />
+			<result property="userName" column="USER_NAME" jdbcType="VARCHAR"/>
+			<result property="nickname" column="NICKNAME" jdbcType="VARCHAR"/>
+			
+		</association>
 	</resultMap>
 	
 	<resultMap id="chartSelectMap" type="chartData">
@@ -92,9 +98,10 @@
 	
 	<!-- 관리자 파트 결제 코인 등 -->
 	<select id="adminPaymentList" resultMap="paymentSelectMap">
-		SELECT PAYMENT_NO, PAYMENT_REGDATE, PAYMENT_ROLE, PAYMENT_USER_ID , PAYMENT_PRICE, 
-		PAYMENT_COIN_COUNT
-		FROM PAYMENT
+		SELECT PAYMENT_NO, PAYMENT_REGDATE, PAYMENT_ROLE, PAYMENT_USER_ID, PAYMENT_PRICE, 
+		PAYMENT_COIN_COUNT, USER_NAME, NICKNAME
+		FROM PAYMENT, users
+		WHERE PAYMENT_USER_ID = USER_ID
 		ORDER BY
 		<choose>
 			<when test="payment.option == 'PRICE_ASC'">PAYMENT_PRICE ASC</when>

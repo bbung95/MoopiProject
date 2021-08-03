@@ -114,10 +114,21 @@ public class CommonController {
 	public String getFlashList(Model model) throws Exception {
 
 		Search search = new Search();
-
+		
+		if (search.getCurrentPage() == 0) {
+			search.setCurrentPage(1);
+		}
+		search.setPageSize(pageSize);
+				
+		Map<String, Object> map = flashService.getFlashList(search);
+		
+		Page resultPage = new Page(search.getCurrentPage(), 
+				((Integer) map.get("totalCount")).intValue(), pageUnit,	pageSize);
+		
 		System.out.println("common/getFlashList : GET");
-		model.addAttribute("list", flashService.getFlashList(search).get("list"));
-		model.addAttribute("totalCount", flashService.getFlashList(search).get("totalCount"));
+		model.addAttribute("list", map.get("list"));
+		model.addAttribute("totalCount", map.get("totalCount"));
+		model.addAttribute("resultPage", resultPage);
 		return "common/adminFlashList";
 	}
 
