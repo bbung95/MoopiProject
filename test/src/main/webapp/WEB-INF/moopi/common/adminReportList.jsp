@@ -111,7 +111,7 @@
 													
 													<c:if test="${search.searchCategory == 1}">
 														<td class="border px-4 py-2 boardNo get_board" >${report.reportTargetBd.boardNo}</td>
-														<td class="border px-4 py-2 ">${report.reportTargetBd.boardName}</td>
+														<td class="border px-4 py-2 " style="height:40px ">${report.reportTargetBd.boardName}</td>
 														<td class="border px-4 py-2 boardwriter">${report.reportTargetBd.boardWriter.userId}</td>
 														<td class="border px-4 py-2">${report.reportTargetBd.boardWriter.nickname}</td>
 													</c:if>
