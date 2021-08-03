@@ -160,20 +160,21 @@ font-size: 16px;
 }
 
 #left{
-	border:1.5px solid rgba(0,0,0,0.2);
+/* 	border:1.5px solid rgba(0,0,0,0.2); */
 	width:350px;
-	font-size:22px;
+	font-size:18px;
+	margin-top:10px;
+	margin-bottom:10px;
 /* 	padding-left : 59px; */
 	text-align: center;
 }
 
 .right{
-	border:1.5px solid rgba(0,0,0,0.2);
+/* 	border:1.5px solid rgba(0,0,0,0.2); */
 	width:650px;
 }
 
 #moimName{
-	font: 'Nanum Gothic', sans-serif;
 	font-size: 40px;
 	font-style:italic;
 	font-weight: bold;
@@ -182,7 +183,8 @@ font-size: 16px;
 
 #moimContent{
 	font-size : 20px;
-	padding-left : 28px;
+ 	padding-left : 28px; 
+ 	
 }
 
 
@@ -301,11 +303,12 @@ font-size: 16px;
 
 #information{
 	padding-top:20px;
+	
 }
 
 .name{
 	font-size:18px;
-	font-weight: bold;
+ 	font-weight: bold; 
 }
 
 @media ( min-width : 768px) {
@@ -337,6 +340,16 @@ font-size: 16px;
   margin-bottom: 2rem;
   background-color: #e9ecef;
   border-radius: .3rem;
+}
+
+.jumbotrons {
+  margin-top: 10px;
+  margin-right: 8px;
+  margin-left: 8px;
+  padding: 2px 1px;
+  margin-bottom: 10px;
+  background-color: #e9ecef;
+  border-radius: .4rem;
 }
 </style>
 <body>
@@ -372,23 +385,29 @@ font-size: 16px;
 	</div>
 <%-- 	<p>모임넘버:${moim.mmNo}</p> --%>
 	
-	<div id="information">Information</div>
-	<div><i class="bi bi-people-fill"></i> ${moim.mmMaxCount} / ${moim.mmCurrentCount}</div>
-	<div>창립일 &nbsp&nbsp ${moim.mmRegDate}</div>
-	<div>최소 연령 &nbsp&nbsp ${moim.mmMinAge}</div>
-	<div>최대 연령 &nbsp&nbsp ${moim.mmMaxAge}</div>
+	<div id="information">Information</div><br>
+	<span class="jumbotrons"><i class="bi bi-people-fill"></i> ${moim.mmMaxCount} / ${moim.mmCurrentCount}</span>
+	<br>
+	<span class="jumbotrons">창립일 &nbsp&nbsp ${moim.mmRegDate}</span>
+	<br>
+	<span class="jumbotrons">최소 연령 &nbsp&nbsp ${moim.mmMinAge}세</span>
+	<br>
+	<span class="jumbotrons">최대 연령 &nbsp&nbsp ${moim.mmMaxAge}세</span>
+	<br>
+	<span class="jumbotrons">관심사 &nbsp&nbsp ${moim.mmInterest}</span>
+	<br>
 	<c:if test = "${moim.mmType == 1}">
-	<div>일반 무피</div>
+	<span class="jumbotrons">일반 무피</span>
 	</c:if>
 	<c:if test = "${moim.mmType == 2}">
-	<div>자유 무피</div>
+	<span class="jumbotrons">자유 무피</span>
 	<br>
 	
 	</c:if>
 	<br>
-	<button type="button" class="btn btn-primary addReportMoim">신고</button>
+	<button type="button" class="btn btn-primary addReportMoim" style="margin-top: 10px">신고</button>
 	</div>
-	
+
 	<!-- 점보트론 시작 -->
 	<div class="right" >
 	<div class="jumbotron">

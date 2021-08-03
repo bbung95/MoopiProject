@@ -67,7 +67,7 @@ function invite(userId, mmNo){
 					"Content-Type" : "application/json"
 				},
 				success : function(JSONData , status) {
-					alert(status);
+// 					alert(status);
 					$(this).val("초대완료");
 					
 				}

@@ -67,7 +67,7 @@ public class CommonController {
 		User user = (User) session.getAttribute("dbUser");
 		if (user != null && user.getUserRole().equals("1")) {
 
-			return "common/adminMain";
+			return "common/adminStatistics";
 		}
 		return "redirect:/";
 	}

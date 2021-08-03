@@ -52,7 +52,7 @@ $(function(){
     });
 
     $('.warning').click(function () {
-    	swal("매니저 권한을 박탈한다.");
+    	swal("매니저 권한을 박탈합니다.");
     	fncMember2($(this).next().val(), mmNo);
    	 	$(this).text("매니저임명");
     });
