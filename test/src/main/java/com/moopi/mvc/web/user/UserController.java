@@ -31,13 +31,6 @@ public class UserController {
 	@Autowired
 	private CommonService commonService;
 	
-	@RequestMapping("getMyHomeBoard")
-	public String getMyHomeBoard () {
-		System.out.println("확인");
-		
-		return "user/getMyHomeBoard";
-	}
-		
 	// 카카오 로그인 및 회원가입
 	@RequestMapping("kakaoLogin")
 	public String kakaoLogin (	@ModelAttribute("user") User user,
@@ -279,7 +272,7 @@ public class UserController {
 //-- getMyHomeBoard.jsp  ------------------------------------------------------------
 
 	@RequestMapping("getMyHome")
-	public String getUser(@RequestParam("userId") String userId, HttpSession session, Model model) throws Exception {
+	public String getMyHome(@RequestParam("userId") String userId, HttpSession session, Model model) throws Exception {
 		
 		System.out.println(userService.getUser(userId));
 		
@@ -457,12 +450,22 @@ public class UserController {
 	
 //-- [완료] 회원가입 addUserView.jsp로 단순 네비게이션  -------------------------------------------------------------------------------------------
 	@GetMapping("myInformation")
-	public String myInformation() throws Exception {					
+	public String myInformation(HttpSession session) throws Exception {
+		
+		User user = (User)session.getAttribute("dbUser");	
+		if(user == null) {
+			return "redirect:/";
+		}						
 		return "redirect:/user/passwordConfirm";
 	}
 	
 	@PostMapping("updateUserView")
-	public String updateUserView(HttpSession session, Model model) throws Exception {			
+	public String updateUserView(HttpSession session, Model model) throws Exception {
+
+		User user = (User)session.getAttribute("dbUser");	
+		if(user == null) {
+			return "redirect:/";
+		}
 		return "user/updateUserView";
 	}
 	

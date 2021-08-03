@@ -275,7 +275,7 @@ function edit(type){
 </script>
 	<style>
 		body {
-			padding-top: 70px;
+			padding-top: 100px;
 		}		
 		
 		.profileImg {
@@ -394,6 +394,8 @@ function edit(type){
 
 	<!-- [툴바] ----------------------------------------------------------->
 		<jsp:include page="../layout/toolbar.jsp"/>
+
+<div id="wrapper">
 
 <div class="container px-5 my-5 ">
 <body class="h-screen font-sans login bg-cover">
@@ -530,13 +532,6 @@ function edit(type){
     </div>   
 </div>
 		        			  			
-	<form>			
-        <!--Footer-->
-        <footer class="bg-grey-darkest text-white p-2">
-            <div class="flex flex-1 mx-auto">&copy; Moopi (Move People)</div>
-        </footer>
-        <!--/footer-->
-    </div>
 </div>
 
 <jsp:include page="../layout/footer.jsp"></jsp:include>
