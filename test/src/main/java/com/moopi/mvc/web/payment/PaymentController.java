@@ -2,6 +2,8 @@ package com.moopi.mvc.web.payment;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -47,22 +49,17 @@ public class PaymentController {
 	}
 	
 	@RequestMapping("paymentList")
-	public String paymentList(@ModelAttribute("payment") Payment payment, Model model,
-			@RequestParam("userId") String userId )throws Exception{
+	public String paymentList(@ModelAttribute("payment") Payment payment, Model model, HttpSession session)throws Exception{
 		
 		//User user = userService.getUserId(userId);
-		User user = userService.getUser(userId);
+		User user = (User)session.getAttribute("dbUser");
 		Coin coin = new Coin();
-		Flash flash = new Flash();
-		//user.setCoin(coin);
 		payment.setPaymentUserId(user);
-		flash.getFlashNo();
-		coin.setCoinUser(user);
-		coin.setFlash(flash);
 		
 		System.out.println("paymentList Start::");
 		Map<String, Object> map = paymentService.paymentList(payment);
 		model.addAttribute("list",map.get("list"));
+		
 //		Map<String, Object> map2 = coinService.coinHistory(coin);
 //		model.addAttribute("coinList",map2.get("coinList"));
 		
@@ -76,16 +73,13 @@ public class PaymentController {
 	}
 	
 	@RequestMapping("coinHistory")
-	public String coinHistory(@ModelAttribute("coin") Coin coin ,Model model,
-			@RequestParam("userId") String userId) throws Exception{
+	public String coinHistory(@ModelAttribute("coin") Coin coin ,Model model, HttpSession session) throws Exception{
 		
 		System.out.println("coinHistory Start::");
 		
-		User user = userService.getUser(userId);
-		Flash flash = new Flash();
-		flash.getFlashNo();
+		User user = (User)session.getAttribute("dbUser");
+		
 		coin.setCoinUser(user);
-		coin.setFlash(flash);
 		
 		Map<String, Object> map = coinService.coinHistory(coin);
 		model.addAttribute("coinList",map.get("coinList"));

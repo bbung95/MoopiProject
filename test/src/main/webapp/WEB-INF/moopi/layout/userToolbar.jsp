@@ -66,4 +66,8 @@
 
 		location.href = "/payment/coinHistory?userId=" + dbUser;
 	})
+	
+	$.ajax({
+		url: "/user/getUser"
+	})
 </script>

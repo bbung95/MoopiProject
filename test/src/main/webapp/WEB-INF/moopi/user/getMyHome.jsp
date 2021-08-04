@@ -213,10 +213,6 @@ body {
 	margin: 0 auto;
 }
 
-.profileImg {
-	border-radius: 50%;
-}
-
 .boardProfile {
 	border-radius: 50%;
 	width: 40px;
@@ -251,11 +247,10 @@ body {
 }
 
 .interest {
-	padding: 17px 12px 17px 12px;
 	border-radius: 4px;
 	border: 0.5px solid gray;
-	padding: 17px 12px 17px 12px;
 	border-radius: 4px;
+	padding: 5px;
 	background: #ededed;
 }
 
@@ -277,6 +272,12 @@ body {
 	right: 0;
 	bottom: 0;
 	transform: translate(50%, 50%);
+}
+
+.thumbnail-img {
+	/*   max-width: 100%; */
+	/*   height: 박스의 height와 같아야 한다. */
+	transform: translate(-50%, -50%);
 }
 
 /* bpopup */
@@ -314,12 +315,6 @@ body {
 .board_i>i {
 	font-size: 20px;
 	margin-left: 10px;
-}
-
-.thumbnail-img {
-	/*   max-width: 100%; */
-	/*   height: 박스의 height와 같아야 한다. */
-	transform: translate(-50%, -50%);
 }
 
 pre {
@@ -432,6 +427,30 @@ figcaption>i {
 .follow-item {
 	margin: 0px 20px 0px 20px;
 }
+
+.followlistbtn {
+	background: #e4eff2;
+}
+
+.followAct {
+	background: #ADD8E6;
+}
+
+.my-moim-img {
+	width: 50px;
+	height: 50px;
+	border-radius: 30%;
+	display: inline-block;
+}
+
+.mybtn{
+	background: #ADD8E6;
+}
+
+.mybtn:hover{
+	background: #e4eff2;
+}
+
 </style>
 </head>
 <body>
@@ -445,26 +464,40 @@ figcaption>i {
 		<div class="container px-5 my-5 ">
 
 
-				<div class="row text-center" data-matrix-loop="true"
-					data-matrix-column="1">
+				<div class="row " data-matrix-loop="true"
+					style="padding-bottom: 20px;" data-matrix-column="1">
 
-					<div class="col-xs-4 col-sm-4 col-md-4 item"></div>
-					<div class="col-xs-4 col-sm-4 col-md-4 item">
-						<img src="/images/uploadFiles/${user.profileImage}"
-							class="img-responsive profileImg" data-attach="true"
-							data-fixedsize="true" data-fixed-width="250"
-							style="width: 250px;">
+					<div class="col-xs-3 col-sm-3 col-md-3 item"></div>
+					<div
+						class="col-xs-3 col-sm-3 col-md-3 item d-flex justify-content-center">
+
+
+						<div class="thumbnail-wrapper " style="border-radius : 50%; width: 150px ; height: 150px; border: 3px solid #4299e1;">
+							<div class="thumbnail" style="border-radius : 50%;">
+								<div class="thumbnail-centered ">
+									<img src="/images/uploadFiles/${user.profileImage}"
+										class="thumbnail-img "
+										data-attach="true" data-fixedsize="true"
+										data-fixed-width="250">
+								</div>
+							</div>
+						</div>
+
+	
+					</div>
+					<div class="col-xs-3 col-sm-3 col-md-3 item">
 						<div class="text-box" style="margin-top: 20px;">
+							<h5 class="head_title" data-edit="true"
+								data-selector="h5.head_title">
+								<span class="fsize13" style="font-size: 25px;"><strong>${user.nickname}</strong></span>
+							</h5>
 							<p class="desc" data-edit="true" data-selector="p">
 								<span class="fsize14">"${user.profileContent}"</span>
 							</p>
-							<h5 class="head_title" data-edit="true"
-								data-selector="h5.head_title">
-								<span class="fsize13"><strong>${user.nickname}</strong></span>
-							</h5>
 							<h6 class="sub_text" data-edit="true" data-selector="h6.sub_text">
-								<span class="followList" type="2">팔로워 ${followerCount}</span><span
-									class="followList" type="1">팔로잉${folloingCount}</span>
+								<span class="followList" type="2">팔로워 <span id="followCount">${followerCount}</span></span>
+								&nbsp; <span class="followList" type="1">팔로잉
+									${folloingCount}</span>
 							</h6>
 						</div>
 
@@ -472,37 +505,39 @@ figcaption>i {
 							<c:if test="${dbUser.userId == user.userId}">
 								<button class="btn btn-light mybtn">프로필수정</button>
 								<!-- Button trigger modal -->
-								<button type="button" class="btn btn-light"
+								<button type="button" class="btn btn-light mybtn"
 									data-bs-toggle="modal" data-bs-target="#register">게시글등록</button>
 							</c:if>
 							<c:if test="${dbUser.userId != user.userId}">
-								<button class="btn btn-primary mybtn" target="${user.userId}">팔로우</button>
-								<button class=" btn btn-light mybtn" target="${user.userId}"
+								<button class="btn mybtn" target="${user.userId}">팔로우</button>
+								<button class=" btn mybtn" target="${user.userId}"
 									type="1">채팅</button>
-								<button type="button" class="btn btn-light addReportUser">신고</button>
+								<button type="button" class="btn addReportUser mybtn ">신고</button>
 							</c:if>
 						</div>
+
 					</div>
 
 					<!-- 모임리스트 -->
-					<div class="col-xs-4 col-sm-4 col-md-4 item">
-						<%-- <div class="card border-0 bg-light ">
-						<div class="card-body p-4 py-lg-3">
-							<c:forEach var="moim" items="${moim}">
-								<div>
-									<span
-										style="background: white; margin: 5px; height: 100px; border-radius: 10px;"
-										onclick="location='/moim/getMoim?mmNo=${moim.mmNo}'"> <img
-										style="margin: 5px; height: 90px; width: 90px; border-radius: 10px;"
-										src="/images/uploadFiles/${moim.mmFile}"></img> <span>${moim.mmName}</span>
-									</span>
-								</div>
-							</c:forEach>
+					<div class="col-xs-3 col-sm-3 col-md-3 item">
+						<div style="font-weight: bold">모임</div>
+						<div class="card border-0 bg-light "
+							style="overflow: auto; height: 200px; border-radius: 20px;">
+							<div class="card-body p-4 py-lg-3">
+								<c:forEach var="moim" items="${moim}">
+									<div style="margin: 5px; border-radius: 10px;"
+										onclick="location='/moim/getMoim?mmNo=${moim.mmNo}'">
+
+										<img class="my-moim-img "
+											src="/images/uploadFiles/${moim.mmFile}" /> <span>${moim.mmName}</span>
+									</div>
+								</c:forEach>
+							</div>
 						</div>
-					</div> --%>
 					</div>
 
 				</div>
+
 
 				<hr style="margin-bottom: 25px;">
 
@@ -514,7 +549,7 @@ figcaption>i {
 						<span class="interest">${user.interestSecond}</span>
 					</c:if>
 					<c:if test="${!empty user.interestThird}">
-						<span class="interest"><i class="bi bi-joystick"></i>${user.interestThird}</span>
+						<span class="interest">${user.interestThird}</span>
 					</c:if>
 				</div>
 
@@ -609,8 +644,8 @@ figcaption>i {
 		<div class="modal-dialog modal-dialog-centered modal-sm">
 			<div class="modal-content follow-content">
 				<div id="followType" class="d-flex justify-content-center ">
-					<div class="button followlistbtn" type="2">팔로워</div>
-					<div class="button followlistbtn" type="1">팔로잉</div>
+					<div class="btn button followlistbtn" type="2">팔로워</div>
+					<div class="btn button followlistbtn" type="1">팔로잉</div>
 				</div>
 				<div class="followOut" style="padding-top: 50px;"></div>
 			</div>
@@ -683,7 +718,7 @@ $('button:contains("채팅")').on('click', function(){
 		
 })
 
-$('button:contains("팔로우")').on('click', function(){
+$('.mybtn:contains("팔로우")').on('click', function(){
 	
 	if(dbUser == ''){
 		
@@ -697,10 +732,15 @@ $('button:contains("팔로우")').on('click', function(){
 		method: "GET",
 		dataType: "JSON",
 		success: function(data,state){
+			
+			let count = parseInt($('#followCount').text().trim());
+			
 			if(data){
-				$('button:contains("팔로우")').attr('class', 'col-xl-6 btn btn-light mybtn')
+				$('.mybtn:contains("팔로우")').css('background', '#e4eff2')
+				$('#followCount').text(count+1);
 			}else{
-				$('button:contains("팔로우")').attr('class', 'col-xl-6 btn btn-primary mybtn')
+				$('.mybtn:contains("팔로우")').css('background', '#ADD8E6')
+				$('#followCount').text(count-1);
 			}
 		}
 	});
@@ -712,7 +752,7 @@ $('button:contains("프로필수정")').on('click', function(){
 
 // 팔로우 유무 체크
 if(${followCheck}){
-	$('button:contains("팔로우")').attr('class', 'col-xl-6 btn btn-light mybtn')
+	$('.mybtn:contains("팔로우")').css('background', '#e4eff2')
 }
 
 
@@ -842,11 +882,6 @@ $('.modal-footer > button:contains("등록")').on('click',function(){
 	upload(formData);
 })
 
-// 팔로우 유무 체크
-if(${followCheck}){
-	$('button:contains("팔로우")').css('background', 'gray');
-}
-
 ////  무한 스크롤  
 		var loading = false;
 
@@ -855,7 +890,7 @@ if(${followCheck}){
 		$(window).scroll(
 				function() {
 					if ($(document).height() - $(window).height() == $(window)
-							.scrollTop()) {
+							.scrollTop() + 300) {
 
 						if (!loading) {
 							loading = true;
@@ -1143,14 +1178,22 @@ if(${followCheck}){
 			
 			let order = $(this).attr("type");
 			
+			$('.followAct').attr('class', 'btn button followlistbtn' );
+			
+			if(order == 1){
+				$('.followlistbtn[type="1"]').attr('class','btn button followlistbtn followAct');
+			}else if(order == 2){
+				$('.followlistbtn[type="2"]').attr('class','btn button followlistbtn followAct');
+			}
+			
 			getFollowList(order);
 			followModal.show();
 		})
 		
 		$('.followlistbtn').on('click', function(){
 			
-			$('.active').attr('class', 'button followlistbtn' );
-			$(this).attr("class", "button followlistbtn active");
+			$('.followAct').attr('class', 'btn button followlistbtn' );
+			$(this).attr("class", "btn button followlistbtn followAct");
 			
 			let order = $(this).attr("type");
 			getFollowList(order);

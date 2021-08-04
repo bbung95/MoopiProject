@@ -1,5 +1,7 @@
 package com.moopi.mvc.web.payment;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,13 +27,13 @@ public class PaymentRestController {
 	}
 
 	@PostMapping("/payment/addPayment")
-	public void addPayment(int amount, Payment payment, String userId) throws Exception {
+	public void addPayment(int amount, Payment payment, String userId, HttpSession session) throws Exception {
 		
 		int paymentCoinCount = amount / 100;
 		System.out.println("amount::::" + amount);
 		System.out.println("paymentRest start!!!!!!!!!!!!!!!!!!!!!!!");
 
-		User user = userService.getUser(userId);
+		User user = (User)session.getAttribute("dbUser");
 		payment.setPaymentPrice(amount);
 
 		System.out.println("paymentCoinCount::" + paymentCoinCount);
@@ -43,7 +45,7 @@ public class PaymentRestController {
 		user.setCoin(paymentCoinCount);
 		user.setUserId(userId);
 		userService.paymentUpdateCoin(user);
-
+		
 		System.out.println("paymentRest End!!!!!!!!!!!!!!!!!!!!!!!");
 	}
 

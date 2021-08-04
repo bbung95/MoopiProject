@@ -112,9 +112,6 @@ font-size: 16px;
 }	
 	
 /* 코드펜 */
-body { 
-
-}
 
 h2 {
   text-align: center;
@@ -204,8 +201,8 @@ table.dataTable td {
 <!-- ToolBar End /////////////////////////////////////-->
 <body>
 
-<div id="wrapper">
-<h2>Apply List</h2>
+ <div id="wrapper">
+<h2>가입신청목록</h2>
 
 <main>
 <div class="container">
@@ -257,12 +254,10 @@ table.dataTable td {
 </div>
 
 </main>
-</div>
+</div> 
 <jsp:include page="../layout/moimSidebar.jsp"></jsp:include>
 <jsp:include page="../layout/footer.jsp"></jsp:include>
-</body>
-
-
+ </body>
 
 <%-- <c:forEach var="member" items="${list}"> --%>
 

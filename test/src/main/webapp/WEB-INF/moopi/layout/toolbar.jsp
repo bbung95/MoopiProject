@@ -17,7 +17,9 @@
 <!-- Maven Pro font -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Maven+Pro:wght@700&display=swap" rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/css2?family=Maven+Pro:wght@700&display=swap"
+	rel="stylesheet">
 
 
 <script defer
@@ -35,7 +37,8 @@ body {
 
 /* scorollbar hide */
 body::-webkit-scrollbar {
-	display: none;
+	/* display: none; */
+	
 }
 
 .weather {
@@ -52,15 +55,14 @@ body::-webkit-scrollbar {
 	transition: all 0.5s;
 }
 
-
-.toolbar-color{
+.toolbar-color {
 	font-size: 16px;
 	line-height: 24px;
 	font-weight: bold;
 	cursor: pointer;
 }
 
-#toolbar-main{
+#toolbar-main {
 	font-family: 'Maven Pro', sans-serif;
 	font-size: 25px;
 }
@@ -165,6 +167,14 @@ body::-webkit-scrollbar {
 	transform: translate(-50%, -50%);
 }
 
+.saerchbar-btn {
+	background: #ADD8E6;
+}
+
+.act {
+	background: #e4eff2;
+}
+
 /*사이즈*/
 @media ( min-width : 768px) {
 	.container {
@@ -198,7 +208,7 @@ body::-webkit-scrollbar {
 				<span class="navbar-toggler-icon"></span>
 			</button>
 
-			<form class="d-flex" style="margin-left: 40px;">
+			<form class="d-flex">
 				<input type="hidden" class='type' value="1"> <input
 					id="search-input" name="saerchkeyword" class="form-control"
 					type="search" placeholder="키워드를 입력해주세요" aria-label="Search"
@@ -235,9 +245,14 @@ body::-webkit-scrollbar {
 						<!-- 로그인시 메뉴  -->
 						<li class="nav-item dropdown"><a class="nav-link "
 							id="navbarDropdownPortfolio" href="#" role="button"
-							data-bs-toggle="dropdown" aria-expanded="false"><img
+							data-bs-toggle="dropdown" aria-expanded="false"> 
+							
+								<img
 								src="/images/uploadFiles/${dbUser.profileImage}"
-								style="width: 30px; height: 30px; border-radius: 50%;" /></a>
+								style="width: 30px; height: 30px; border-radius: 50%;" />
+
+
+						</a>
 							<ul class="dropdown-menu dropdown-menu-end"
 								aria-labelledby="navbarDropdownPortfolio">
 								<li><a class="dropdown-item">마이홈</a></li>
@@ -265,10 +280,10 @@ body::-webkit-scrollbar {
 		<div class="container">
 			<div style="max-width: 600px;">
 				<div style="margin-bottom: 10px; padding-top: 10px;">
-					<div class="btn btn-primary saerchbar-btn active" type="1">모임</div>
-					<div class="btn btn-primary saerchbar-btn" type="2">번개</div>
-					<div class="btn btn-primary saerchbar-btn" type="3">포스팅</div>
-					<div class="btn btn-primary saerchbar-btn" type="4">유저</div>
+					<div class="btn saerchbar-btn act" type="1">모임</div>
+					<div class="btn saerchbar-btn" type="2">번개</div>
+					<div class="btn saerchbar-btn" type="3">포스팅</div>
+					<div class="btn saerchbar-btn" type="4">유저</div>
 				</div>
 				<hr />
 				<div class="h4">검색 결과</div>
@@ -970,13 +985,7 @@ body::-webkit-scrollbar {
 									+ '<span class="interest rounded-3 shadow-sm p-1 h7">'+data.list[i].interestSecond+'</span>'
 									+ '<span class="interest rounded-3 shadow-sm p-1 h7">'+data.list[i].interestThird+'</span>'
 									+'</div>'
-							
-							/* if(dbUser != '' || dbUser != data.list[i].userId){
-								display += '<button class="btn btn-secondary" target="'+data.list[i].userId+'" type="1">채팅</button>'
-										+'<button class="btn btn-primary" target="'+data.list[i].userId+'">팔로우</button></div>';
-							}  */		
-									
-							display +='</div>'
+									+'</div>'
 							 		+'</div>'
 										
 						}
@@ -987,60 +996,6 @@ body::-webkit-scrollbar {
 					searchPage++;
 					$('.searchlist').append(display);
 					
-					
-					// 채팅 버튼
-					/* $('button:contains("채팅")').on('click', function(){
-						
-						let target = $(this).attr('target');
-						let type = $(this).attr('type');
-						
-						$.ajax({
-								url: "/common/chat/joinRoom/"+dbUser+"/"+target+"/"+type,
-								method: "GET",
-								dataType: "JSON",
-								success: function(data,state){
-									console.log(JSON.stringify(data));
-									let url;
-									if(data.type == 1){
-
-										  url = "https://bbung95-rtc.herokuapp.com/chat?userId="+data.user.userId+"&trgt="+data.target.userId+"&type="+data.type
-										+"&name="+data.user.nickname+"&profile="+data.user.profileImage+"&trgtName="+data.target.nickname
-										+"&trgtProfile="+data.target.profileImage; 
-									}else{
-
-										url = "https://bbung95-rtc.herokuapp.com/chat?userId="+data.user.userId+"&trgt="+data.target.mmNo+"&type="+data.type
-										+"&name="+data.user.nickname+"&profile="+data.user.profileImage+"&trgtName="+data.target.mmName
-										+"&trgtProfile="+data.target.mmFile+"&roomNo="+data.target.mmNo;
-									}
-								popWin = window.open(
-									url,
- 									"popWin"+target,
-									"left=460, top=300, width=460, height=600, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");
-								}
-								
-							
-						})
-						
-					}) */
-					
-					// 채팅 버튼
-					$('button:contains("팔로우")').on('click', function(){
-						
-						let button = $(this);
-						let target = $(this).attr('target');
-						$.ajax({
-							url: "/user/json/follow/"+target,
-							method: "GET",
-							dataType: "JSON",
-							success: function(data,state){
-								if(data){
-									button.attr('background', 'gray');
-								}else{
-									button.css('background', '');
-								}
-							}
-						});
-					});
 				}
 			})
 	}
@@ -1057,8 +1012,8 @@ body::-webkit-scrollbar {
 		let type = $(this).attr('type');
 		$('.type').val(type);
 		
-		$('.active').attr('class', 'btn btn-primary saerchbar-btn');
-		$(this).attr('class', 'btn btn-primary saerchbar-btn active');
+		$('.act').attr('class', 'btn saerchbar-btn');
+		$(this).attr('class', 'btn saerchbar-btn act');
 		
 		searchCollect()
 	})
@@ -1093,7 +1048,7 @@ body::-webkit-scrollbar {
   		var maxHeight = $(document).height();
  		 var currentScroll = $(window).scrollTop() + $(window).height();
   	
- 		 if (maxHeight-70 >= maxHeight - $(window).scrollTop()) {
+ 		 if (maxHeight-50 >= maxHeight - $(window).scrollTop()) {
   			 $('#toolbar').css('background', '#4299e1');
   			 $('.toolbar-color').css('color', 'white');
  		 }

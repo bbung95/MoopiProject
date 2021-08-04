@@ -88,13 +88,6 @@ public class MoimRestController {
 		return map;
 	}
 
-	@RequestMapping("json/test")
-	public String Test() throws Exception {
-		System.out.println("::::::::::::::::::::::::::해당 유저 권한 확인중....");
-
-		return "테스트성공";
-	}
-	
 	@RequestMapping("json/updateMember/{userId}/{mmNo}/{status}")
 	public void updateMember(@PathVariable("userId") String userId,
 			@PathVariable("mmNo") int mmNo, @PathVariable("status") int status) throws Exception {
@@ -104,7 +97,6 @@ public class MoimRestController {
 		if(status==4) {
 			moimService.subCount(mmNo);
 		}
-
 	}
 
 	// 가입신청수락하기

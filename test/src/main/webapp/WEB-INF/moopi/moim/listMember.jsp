@@ -139,10 +139,11 @@ $(document).ready(function(){
 <style>
 	body{
 		padding-top: 100px;
+		
 /* 		background-color:#f7f6f3; */
 	}
 	
-			main{
+main{
 font-family: 'Open Sans', sans-serif;
 font-size: 16px;
 }
@@ -254,7 +255,7 @@ table.dataTable td {
 
 <body>
 
-<div id="warpper">
+<div id="wrapper">
 <h2>Member List</h2>
 
 <main>

@@ -4,6 +4,9 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -60,17 +63,20 @@ public class MoimController {
 
 	// 모임상세조회
 	@RequestMapping("getMoim")
-	public String getMoim(@RequestParam("mmNo") int mmNo, Model model) throws Exception {
+	public String getMoim(@RequestParam("mmNo") int mmNo, Model model, HttpSession session) throws Exception {
 
 		System.out.println("getMoim :::");
 //		System.out.println(userId);
 //		System.out.println(userMapper.getUser(userId));
+		User user = (User)session.getAttribute("dbUser");
+		
 		Moim moim = moimService.getMoim(mmNo);
 		Map<String, Object> map = moimService.getMemberList(mmNo, 2);
 		System.out.println("모임정보:::" + moim);
 		System.out.println("모임의멤버리스트:::" + map);
 		model.addAttribute("list", map.get("list"));
 		model.addAttribute("moim", moimService.getMoim(mmNo));
+//		model.addAttribute("check", moimService.)
 		return "moim/getMoim";
 	}
 
@@ -137,14 +143,27 @@ public class MoimController {
 		System.out.println("모임을수정할게");
 		System.out.println("폼에서보내준모임값:::::" + moim);
 		System.out.println("폼에서보내준 모임의 생성자:::" + moim.getMmConstructor());
+		
+		String[] array = new String[6];
+		Random rd = new Random(); 
+		String key = new String();
+
+		for (int i = 0; i < array.length; i++) {
+			array[i] = Integer.toString(rd.nextInt(10));
+			key += array[i];
+		}
+		
+		
 		long currentTime = System.currentTimeMillis();
 		if (uploadFile.getSize() > 0) {
 			try {
+				String fileName = currentTime + key + uploadFile.getOriginalFilename().substring(uploadFile.getOriginalFilename().lastIndexOf("."));
 				System.out.println("수정할파일이있는경우");
-				String oriFileName = uploadFile.getOriginalFilename();
-				System.out.println("오리지널파일명::::::: " + oriFileName);
-				moim.setMmFile(currentTime + oriFileName);
-				uploadFile.transferTo(new File(saveDir + "/" + currentTime + oriFileName));
+//				String oriFileName = uploadFile.getOriginalFilename();
+//				System.out.println("오리지널파일명::::::: " + oriFileName);
+//				moim.setMmFile(currentTime + oriFileName);
+				moim.setMmFile(fileName);
+				uploadFile.transferTo(new File(saveDir + "/" + fileName));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -181,12 +200,15 @@ public class MoimController {
 	}
 
 	@RequestMapping("myListMoim")
-	public String getMyListMoim(@RequestParam("userId") String userId, Model model) throws Exception {
+	public String getMyListMoim(HttpSession session, Model model) throws Exception {
 
 		System.out.println("내가 가입한 모임리스트를 가져옵니다.");
-		Map<String, Object> map = moimService.getMyMoimList(userId);
+		
+		User user = (User)session.getAttribute("dbUser");
+		
+		Map<String, Object> map = moimService.getMyMoimList(user.getUserId());
 		model.addAttribute("list2", map.get("list2"));
-
+		
 		System.out.println("forward:/moim/getMyListMoim 으로 이동합니다.");
 		return "moim/getMyListMoim";
 	}
@@ -222,7 +244,7 @@ public class MoimController {
 		System.out.println("모임 가입탈퇴를 합니다.");
 		moimService.leaveMoim(userId, mmNo);
 		moimService.subCount(mmNo);
-		return "forward:모임상세조회페이지";
+		return "redirect:/";
 	}
 
 //	//가입신청 거절하기

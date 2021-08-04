@@ -28,9 +28,9 @@
 
         $(function(){
         	//alert('유저아이디:${user.userId}' +  '모임번호:${moim.mmNo}');
-        	<c:if test="${empty dbUser}">
+        	/* <c:if test="${empty dbUser}">
         	$("#choose").text('가입하기');
-        	</c:if>
+        	</c:if> */
         	
         	$.ajax( 
         			{
@@ -45,17 +45,16 @@
 //         					alert(JSONData.memberRole);
 //         					alert(status);
 //             				alert("JSONData : \n"+JSONData);
-        					if(JSONData.memberRole == 1){
-        						//alert('일반멤버');
+        					if(JSONData.memberRole == 1 || JSONData.memberRole == 7){
         						$("#choose").text('Plz Wait..');
-        					}else if(JSONData.memberRole == 5){
+        					}else if(JSONData.memberRole == 5 || JSONData.memberRole == 6){
         						$("#choose").text('Disapprove');
         					}else if(JSONData.memberRole >= 2 && JSONData.memberRole <= 4){
         						$("#choose").text('Withdraw');
+        						$('#sidebar').append('<h1>Chat</h1>');
         					}else {
         						$("#choose").text('Join Us');
         					}
-        					
         				}
         		}); //ajax 종료
         });
@@ -135,6 +134,7 @@ img.whale{
     animation: rotate_image 10s linear infinite;
     transform-origin: 50% 50%;
     vertical-align:middle;
+  	z-index: 2;
 }
  
 @keyframes rotate_image{
@@ -196,12 +196,13 @@ onClick="fncUptMoimView(${moim.mmNo})"
 		<div id="sidebar">
         <h1 onClick="fncGetMoim(${moim.mmNo})">Home</h1>
         <h1 onClick="fncGetBoard()">Board</h1>
-        <h1 id="choose">Join Us</h1>
+        <c:if test="${!empty dbUser}">
+      	  <h1 id="choose">Join Us</h1>
+        </c:if>
         <h1 onClick="fncListMeeting(${moim.mmNo})">Meeting</h1>
-        <h1 onClick="fncInvite(${moim.mmNo})">Invite</h1>
         <h1 onClick="fncListMember(${moim.mmNo})">Member</h1>
         <c:if test = "${dbUser.userId eq moim.mmConstructor.userId}">
-        <br>
+        <h1 onClick="fncInvite(${moim.mmNo})">Invite</h1>
 		<h3><div data-bs-target="#myModal" data-bs-toggle="modal">Update</div></h3>
 		<h3><dic onClick="fncApplyList(${moim.mmNo})" >List Apply</div></h3>
 		</c:if>
@@ -216,7 +217,7 @@ onClick="fncUptMoimView(${moim.mmNo})"
 	
     $("h1#choose").on("click", function(){
 		
-		if($("#choose").text('Join Us')){
+		if($("#choose").text() == 'Join Us'){
 			//alert("가입신청 완료");
 			swal("가입신청이 완료되었습니다", 'success');
 		        	$.ajax( 
@@ -231,8 +232,26 @@ onClick="fncUptMoimView(${moim.mmNo})"
         				success : function(JSONData , status) {
         					//alert(status);
         				}
-        		}); //ajax 종료
-		}				
+        		}); //ajax 종료 
+		} else if($("#choose").text() == 'Plz Wait..')	{
+			
+			swal("가입 승인 대기중입니다.", 'success');
+        	
+			return;
+			
+		}else if($("#choose").text() == 'Disapprove')	{
+			
+			swal("가입이 불가능합니다.", 'success');
+			
+			return;
+			
+		}else if($("#choose").text() == 'Withdraw')	{
+			
+			swal("모임을 탈퇴합니다.", 'success');
+			
+        	location.href = "/moim/leaveMoim?userId="+userId6+"&mmNo="+mmNo6; 
+		}
+		
 	});
 
 	$("h1:contains('Home')").on("click", function(){
@@ -250,6 +269,28 @@ onClick="fncUptMoimView(${moim.mmNo})"
 // 		alert("정모클릭");
 		location.href = "/meeting/listMeeting?userId=${dbUser.userId}&mmNo=${moim.mmNo}";
 		
+	})
+	
+	$('h1:contains("Chat")').on('click', function(){
+		
+		$.ajax({
+			url: "/common/chat/joinRoom/"+userId6+"/"+mmNo6+"/2",
+			method: "GET",
+			dataType: "JSON",
+			success: function(data,state){
+
+				let	url = "https://bbung95-rtc.herokuapp.com/chat?userId="+data.user.userId+"&trgt="+data.target.mmNo+"&type="+data.type
+					+"&name="+data.user.nickname+"&profile="+data.user.profileImage+"&trgtName="+data.target.mmName
+					+"&trgtProfile="+data.target.mmFile+"&roomNo="+data.target.mmNo;
+		
+				popWin = 
+					window.open(
+							url,
+							"popWin"+mmNo6,
+							"left=460, top=300, width=460, height=600, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");
+				}
+			})
+			
 	})
 	
 // 	$("h1:contains('Invite')").on("click", function(){
