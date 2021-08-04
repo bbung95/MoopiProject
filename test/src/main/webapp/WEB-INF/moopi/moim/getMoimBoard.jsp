@@ -1,216 +1,267 @@
-	<%@ page language="java" contentType="text/html; charset=UTF-8"
-	    pageEncoding="UTF-8"%>
-	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-	
-	<!DOCTYPE html>
-	<html>
-	<head>
-	<meta charset="UTF-8">
-	<title>Hello! Moopi!</title>
-	
-		<jsp:include page="../common/commonCDN.jsp"></jsp:include>
-		<script src="/javascript/summernote-lite.js"></script>
-		<script src="/javascript/lang/summernote-ko-KR.js"></script>
-		<link rel="stylesheet" href="/css/summernote-lite.css">
-	 		
-	  
-		<style>
-	html  { background-color: #ffffff; background-image:none;}	
-	
-	
-	body {
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Hello! Moopi!</title>
+
+<jsp:include page="../common/commonCDN.jsp"></jsp:include>
+<script src="/javascript/summernote-lite.js"></script>
+<script src="/javascript/lang/summernote-ko-KR.js"></script>
+<link rel="stylesheet" href="/css/summernote-lite.css">
+
+
+<style>
+html {
+	background-color: #ffffff;
+	background-image: none;
+}
+
+body {
 	padding-top: 100px;
 	margin: auto;
 }
 
-
-	main{
-font-family: 'Nanum Gothic', sans-serif;
-font-size: 16px;
+main {
+	font-family: 'Nanum Gothic', sans-serif;
+	font-size: 16px;
 }
 
+.hrLine {
+	position: relative;
+	padding: 0px 0;
+}
 
+.hrLine hr {
+	border: 0;
+	border-top: 3px solid #3073ac;
+	height: 1px;
+	width: 100%;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
 
+.replyHr hr {
+	border: 0;
+	border-top: 1px solid #3073ac;
+	height: 1px;
+	width: 100%;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
 
-	.hrLine { position: relative; padding: 0px 0; }
-	.hrLine hr{ border: 0; border-top:3px solid #3073ac; height:1px;width: 100%; margin-top: 10px;    margin-bottom: 10px; }			
-	.replyHr hr{ border: 0; border-top:1px solid #3073ac; height:1px;width: 100%; margin-top: 10px;    margin-bottom: 10px; }
-			
-	
-	.board_title	{
-     	border-top: 2px solid #2f5285;
-   		background-color: #e1eeff;
-	    padding: 2px 8px;
-	    align-items: center;
-	    font-weight:bold;
-	    height :50px;
+.board_title {
+	border-top: 2px solid #2f5285;
+	background-color: #e1eeff;
+	padding: 2px 8px;
+	align-items: center;
+	font-weight: bold;
+	height: 50px;
+}
+
+.reply_head {
+	font-weight: bold;
+	background-color: #e8e8e8;
+	border-radius: 4px;
+	display: flex;
+	justify-content: space-between;
+	padding: 5px;
+}
+
+.board_content {
+	font-weight: bold;
+	font-size: 25px;
+	min-height: 200px;
+	padding: 10px;
+}
+
+.reply_content {
+	font-weight: bold;
+	font-size: 20px;
+	padding: 15px;
+}
+
+@media ( min-width : 768px) {
+	.container {
+		width: 750px;
 	}
-			
-	.reply_head{
-		font-weight:bold;
-		background-color: #e8e8e8;
-	    border-radius: 4px;
-		display: flex;
-	    justify-content: space-between;
-	    padding: 5px;	   
+}
+
+@media ( min-width : 992px) {
+	.container {
+		width: 1000px;
 	}
-					
-	.board_content{
-		font-weight:bold;
-		font-size:25px;
-		min-height:200px;
-		padding:10px;
-	
+}
+
+/*사실 이 블럭은 없어도 된다*/
+@media ( min-width : 1200px) {
+	.container {
+		width: 1000px;
 	}
-	.reply_content{
-		font-weight:bold;
-		font-size:20px;
-		padding:15px;
-	}
-						
-	@media ( min-width : 768px) {
-		.container {
-			width: 750px;
-		}
-	}
-	
-	@media ( min-width : 992px) {
-		.container {
-			width: 1000px;
-		}
-	}
-	
-	/*사실 이 블럭은 없어도 된다*/
-	@media ( min-width : 1200px) {
-		.container {
-			width: 1000px;
-		}
-	}					
-	
-	
-	
-	
-	
-	</style>
-	</head>
-	<body>
+}
+.profileImg {
+	border-radius: 50%;
+	width: 40px;
+	height: 40px;
+}
+
+img, svg {
+	vertical-align: middle;
+}
+</style>
+</head>
+<body>
 	<!-- ToolBar Start /////////////////////////////////////-->
-		<jsp:include page="../layout/toolbar.jsp" />
-		
+	<jsp:include page="../layout/toolbar.jsp" />
+
 	<main>
-	<!-- ToolBar End /////////////////////////////////////-->
-	<form class="form-horizontal2" name="detailForm" enctype="multipart/form-data">
-<!-- 	<div class="col-xs-12 col-sm-12 col-md-12"> -->
-<!-- 			    <h3 class="head_title" data-edit="true" data-selector="h3.head_title" ><span class="fsize20" ><strong>QnA게시판조회</strong></span></h3> -->
-<!-- 		   </div> -->
-	<article>
-		
-	 	
-	 	
-		<div class="container hrLine"> 
-		
-	
-		
-		
-			<div class="row">
-				<div class="col-xs-8 col-sm-12 col-md-12" style="padding-bottom: 50px;">
-					<h2 class="head_title" data-edit="true" data-selector="h3.head_title" style="margin:0px"><span class="fsize40" ><strong>소모임 게시판</strong></span></h2><br><br>
-				
-				<section clsss="board">
-				<div style="font-size:35px; margin:0px"> ${board.boardName}</div>	
-				<div class="board_title">
-				
-				<div style="display:inline-block; float:right;text-align: right">작성시간 : ${board.boardRegDate} <br/> 조회수 : ${board.boardHit} 
-				</div>
-				
-				<input class="board" type="hidden" id="boardNo" name="boardNo" value="${board.boardNo}">
-				
-				<div style="text-align:left;">
-					${board.boardWriter.nickname} </div>
-					</div>
-					<div class="board_content" >
-					${board.boardContent}
-					</div>
-					<div style="float:right;">
-					<c:if test="${dbUser.userId eq board.boardWriter.userId}">
-						<button type="button" class="btn btn-primary updateBoard" >수정</button>
-						<button type="button" class="btn btn-primary deleteBoard" >삭제</button>
-					</c:if>
-						<button type="button" class="btn btn-primary addReportBoard" >신고</button>
-					</div>
-					<br>
-					<br>
-				</section>
-				
-<!-- 				리플리스트 시작 -->
-				<section class="reply-content">
-					<div class="container reply_list">
-						<c:forEach var="reply" items="${list}">
-							<div id="${reply.replyNo }">
-								<input type="hidden" class="reply"  name="replyNo" value="${reply.replyNo}">
-								<div class="reply_head">
-								<div style="display: inline-block">
-									${reply.replyWriter.nickname}
-								</div>
-								<div style="display: inline-block; float:right;">
-								    작성시간 : ${reply.replyRegDate}
-								</div>
-								</div>
-								<div class="reply_content" style="min-height:70px">
-								${reply.replyContent}
-								</div>
-								<div style="float:right;">
-								
-								
-								<c:if test="${dbUser.userId eq reply.replyWriter.userId}">
-									<button type="button" class="btn btn-primary updateReply">수정</button>
-									<button type="button" class="btn btn-primary deleteReply">삭제</button>
-								</c:if>
-									
-									<button type="button" class="btn btn-primary addReportReply">신고</button>
-								</div>
-								<br><br>
-							</div>	
-							
-						</c:forEach>
-						<div class="reply">
-						</div>
-					</div>								
-<!-- 				<div class="row"> -->
-						
- <!-- 					리플리스트 끝.	 -->
- 				</section>
- 				
- 				<section class="replyWrite">
-					<form name="detailForm" enctype="multipart/form-data">
-							<div id="addReplyForm" style="float:right; padding-right: 20px; padding-top: 20px;">
-								<div class="col-md-5" style="font-size: 20px; padding-left:100px;"> ${dbUser.nickname }</div>
-									<div style="padding-left:100px; width:1050px">
-										<textarea id="summernote" placeholder="댓글을 입력해주세요." name="replyContent" id="replyContent" ></textarea>						
-									</div>					
-										<input type="hidden" id = "replyWriter" value="${dbUser.userId}"> 
-			  							<input type="hidden" id = "boardNo" value="${board.boardNo }"> 
-			  						<div class="reply_button" style="padding-top:20px;">
-										<div class="btn btn-submit btn-round" style=" float:right; border-color: rgba(0, 0, 0, 0.4); color: rgba(0, 0, 0, 0.8);" id="addReply"> 
-											등록
+		<!-- ToolBar End /////////////////////////////////////-->
+		<form class="form-horizontal2" name="detailForm"
+			enctype="multipart/form-data">
+			<!-- 	<div class="col-xs-12 col-sm-12 col-md-12"> -->
+			<!-- 			    <h3 class="head_title" data-edit="true" data-selector="h3.head_title" ><span class="fsize20" ><strong>QnA게시판조회</strong></span></h3> -->
+			<!-- 		   </div> -->
+			<article>
+
+
+
+				<div class="container hrLine">
+
+
+
+
+					<div class="row">
+						<div class="col-xs-8 col-sm-12 col-md-12"
+							style="padding-bottom: 50px;">
+							<h2 class="head_title" data-edit="true"
+								data-selector="h3.head_title" style="margin: 0px">
+								<span class="fsize40"><strong>소모임 게시판</strong></span>
+							</h2>
+							<br>
+							<br>
+
+							<section clsss="board">
+								<div style="font-size: 35px; margin: 0px">
+									${board.boardName}</div>
+								<div class="board_title">
+
+									<div
+										style="display: inline-block; float: right; text-align: right">
+										작성시간 : ${board.boardRegDate} <br /> 조회수 : ${board.boardHit}
+									</div>
+
+									<input class="board" type="hidden" id="boardNo" name="boardNo"
+										value="${board.boardNo}">
+
+									<div style="text-align: left;">
+										<div
+											class="tpl-forum-list-name tpl-forum-list-etc op_itemline10"
+											style="display: flex !important; align-items: center !important;">
+											<img
+												src="/images/uploadFiles/${board.boardWriter.profileImage}"
+												class="img-responsive profileImg">
+											<div style="margin: 5px 5px 5px 5px;">${board.boardWriter.nickname}</div>
 										</div>
+									</div>
 								</div>
-							</div>
-					</form>	
-				</section>
-				</div>	
-	</article>
-	<p></p>
-	
-		 
-	
-	</form>	
-	
+								<div class="board_content">${board.boardContent}</div>
+								<div style="float: right;">
+									<c:if test="${dbUser.userId eq board.boardWriter.userId}">
+										<button type="button" class="btn btn-primary updateBoard">수정</button>
+										<button type="button" class="btn btn-primary deleteBoard">삭제</button>
+									</c:if>
+									<c:if
+										test="${dbUser.userId != board.boardWriter.userId }">
+									<button type="button" class="btn btn-primary addReportBoard">신고</button>
+									</c:if>
+								</div>
+								<br> <br>
+							</section>
+
+							<!-- 				리플리스트 시작 -->
+							<section class="reply-content">
+								<div class="container reply_list">
+									<c:forEach var="reply" items="${list}">
+										<div id="${reply.replyNo }">
+											<input type="hidden" class="reply" name="replyNo"
+												value="${reply.replyNo}">
+											<div class="reply_head">
+												<div
+														class="tpl-forum-list-name tpl-forum-list-etc op_itemline10"
+														style="display: flex !important; align-items: center !important;">
+														<img
+															src="/images/uploadFiles/${reply.replyWriter.profileImage}"
+															class="img-responsive profileImg">
+														<div style="margin: 5px 5px 5px 5px;">${reply.replyWriter.nickname}</div>
+													</div>
+											</div>
+											<div class="reply_content" style="min-height: 70px">
+												${reply.replyContent}</div>
+											<div style="float: right;">
+
+
+												<c:if test="${dbUser.userId eq reply.replyWriter.userId}">
+													<button type="button" class="btn btn-primary updateReply">수정</button>
+													<button type="button" class="btn btn-primary deleteReply">삭제</button>
+												</c:if>
+													<c:if test="${dbUser.userId != reply.replyWriter.userId}">
+												<button type="button" class="btn btn-primary addReportReply">신고</button>
+												</c:if>
+											</div>
+											<br>
+											<br>
+										</div>
+
+									</c:forEach>
+									<div class="reply"></div>
+								</div>
+								<!-- 				<div class="row"> -->
+
+								<!-- 					리플리스트 끝.	 -->
+							</section>
+
+							<section class="replyWrite">
+								<form name="detailForm" enctype="multipart/form-data">
+									<div id="addReplyForm"
+										style="float: right; padding-right: 20px; padding-top: 20px;">
+										<div
+												class="tpl-forum-list-name tpl-forum-list-etc op_itemline10"
+												style="display: flex !important; align-items: center !important;">
+												<img src="/images/uploadFiles/${dbUser.profileImage}"
+													class="img-responsive profileImg">
+												<div style="margin: 5px 5px 5px 5px;">${dbUser.nickname}</div>
+											</div>
+										<div style="padding-left: 100px; width: 1050px">
+											<textarea id="summernote" placeholder="댓글을 입력해주세요."
+												name="replyContent" id="replyContent"></textarea>
+										</div>
+										<input type="hidden" id="replyWriter" value="${dbUser.userId}">
+										<input type="hidden" id="boardNo" value="${board.boardNo }">
+										<div class="reply_button" style="padding-top: 20px;">
+											<div class="btn btn-submit btn-round"
+												style="float: right; border-color: rgba(0, 0, 0, 0.4); color: rgba(0, 0, 0, 0.8);"
+												id="addReply">등록</div>
+										</div>
+									</div>
+								</form>
+							</section>
+						</div>
+			</article>
+			<p></p>
+
+
+
+		</form>
+
 	</main>
 	<jsp:include page="../layout/moimSidebar.jsp"></jsp:include>
 	<jsp:include page="../layout/searchbar.jsp"></jsp:include>
-	</body>
-	<script type="text/javascript">
+</body>
+<script type="text/javascript">
 	
 	 $(document).ready(function() {
     	 $('#summernote').summernote({
@@ -272,8 +323,8 @@ font-size: 16px;
         e.preventDefault();
    })
    		</script>
-   		
-   		<script type="text/javascript">
+
+<script type="text/javascript">
    
 		
    		$(function() {
@@ -293,8 +344,11 @@ font-size: 16px;
 		
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 		$( ".deleteBoard" ).on("click" , function() {
-			alert( " 클릭");
-			fncDeleteBoard();
+// 			alert( " 클릭");
+			var result = confirm("댓글을 삭제하시겟습니까?");
+			if(result){
+				fncDeleteBoard();
+			}
 			
 		});
 		
@@ -337,9 +391,9 @@ font-size: 16px;
 		}
 			
 		</script>
-		
-		
-		<script type="text/javascript">
+
+
+<script type="text/javascript">
 		
 			$( "#addReply" ).on("click" , function() {
 				
@@ -366,6 +420,7 @@ font-size: 16px;
 					+'  <input type="hidden" class="reply" name="replyNo" value='+data.replyNo+'>'
 					+'	<div class="reply_head">'
 					+'	<div style="display: inline-block">'
+					+'  <img src="/images/uploadFiles/'+data.replyWriter.profileImage+'" class="img-responsive profileImg">'
 					+	 data.replyWriter.nickname
 					+'	</div>'
 					+'	<div style="display: inline-block; float:right;">'
@@ -378,7 +433,6 @@ font-size: 16px;
 					+'	<div style="float:right;">'
 					+'	<button type="button" class="btn btn-primary updateReply">수정</button>'
 					+'	<button type="button" class="btn btn-primary deleteReply">삭제</button>'
-					+'	<button type="button" class="btn btn-primary addReportReply">신고</button>'
 					+'	</div>'
 					+'	</div>'
 					+'	<br><br>'
@@ -395,7 +449,11 @@ font-size: 16px;
 	 		       			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 	 		       			$( ".deleteReply" ).on("click" , function() {
 	 		       				replyNo = $(this).parent().parent().find("input[name=replyNo]").val()
-	 		       				fncDelteReply(replyNo);
+	 		       				
+		 		       			var result = confirm("댓글을 삭제하시겟습니까?");
+		 		   				if(result){
+		 		   					fncDeleteReply(replyNo);
+	 		   				}
 	 		       			});
 	 		            	
 	 		       			$(  ".addReportReply"  ).on("click" , function() {
@@ -459,11 +517,12 @@ font-size: 16px;
 							            console.log(data);
 							            
 						            	var displayValue = 
-						            		 ' 	<div class='+data.replyNo+'>'		
+						            		' 	<div class='+data.replyNo+'>'		
 						 					+'  <input type="hidden" class="reply" name="replyNo" value='+data.replyNo+'>'
 						 					+'	<div class="reply_head">'
-						 					+'	<div style="display: inline-block">'
-						 					+	 data.replyWriter.nickname
+						 					+' <div class="tpl-forum-list-name tpl-forum-list-etc op_itemline10" style="display: flex !important; align-items: center !important;">' 
+						 					+' <img src="/images/uploadFiles/'+data.replyWriter.profileImage+'" class="img-responsive profileImg">'
+						 					+' <div style="margin: 5px 5px 5px 5px;">'+data.replyWriter.nickname+'</div></div>'
 						 					+'	</div>'
 						 					+'	<div style="display: inline-block; float:right;">'
 						 					+'    작성시간 : '+ data.replyRegDate
@@ -475,7 +534,6 @@ font-size: 16px;
 						 					+'	<div style="float:right;">'
 						 					+'	<button type="button" class="btn btn-primary updateReply">수정</button>'
 						 					+'	<button type="button" class="btn btn-primary deleteReply">삭제</button>'
-						 					+'	<button type="button" class="btn btn-primary addReportReply">신고</button>'
 						 					+'	</div>'
 						 					+'	</div>'
 						 					+'	<br><br>'	
@@ -503,7 +561,10 @@ font-size: 16px;
 					 		       			$( ".deleteReply" ).on("click" , function() {
 // 					 		       				alert("updateReply 내부 deleteReply")
 					 		       				replyNo = $(this).parent().parent().find("input[name=replyNo]").val()
-					 		       				fncDelteReply(replyNo);
+						 		       			var result = confirm("댓글을 삭제하시겟습니까?");
+						 		   				if(result){
+						 		   					fncDelteReply(replyNo);
+						 		   				}
 					 		       			});
 					 		            	
 					 		       			$(  ".addReportReply"  ).on("click" , function() {
@@ -520,10 +581,13 @@ font-size: 16px;
 			$( ".deleteReply" ).on("click" , function() {
 // 				alert("바깥의 deleteReply")
 				replyNo = $(this).parent().parent().find("input[name=replyNo]").val()
-				fncDelteReply(replyNo);
+				var result = confirm("댓글을 삭제하시겟습니까?");
+				if(result){
+					fncDeleteReply(replyNo);
+				}
 			});
 		
-		function fncDelteReply(replyNo){
+		function fncDeleteReply(replyNo){
 			$.ajax({
 				url: "/reply/json/deleteReply/"+replyNo,
 				type: "GET",
@@ -537,4 +601,4 @@ font-size: 16px;
 		};
 		
 	</script>
-	</html>
+</html>
