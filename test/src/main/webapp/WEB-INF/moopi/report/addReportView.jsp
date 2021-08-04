@@ -36,14 +36,14 @@ function fncAddReport(){
 	var reportCategory 		= $("#reportCategory").val();
 	var reportByUserId		= $("#reportByUser").val();
 // 	alert($(".reportType").val())
-	alert(reportType);
-	alert(reportContent);
-	alert(reportTarget);
-	alert(reportTargetBd);
-	alert(reportTargetRe);
-	alert(reportTargetMm);
-	alert(reportCategory);
-	alert(reportByUserId);
+// 	alert(reportType);
+// 	alert(reportContent);
+// 	alert(reportTarget);
+// 	alert(reportTargetBd);
+// 	alert(reportTargetRe);
+// 	alert(reportTargetMm);
+// 	alert(reportCategory);
+// 	alert(reportByUserId);
 	
 	$.ajax({
 		url: "/report/json/addReport",

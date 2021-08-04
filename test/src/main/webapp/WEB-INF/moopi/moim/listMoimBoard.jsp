@@ -28,12 +28,12 @@
 <script type="text/javascript">
 
 function fncAddBoardView(){
-	alert("게시글작성");
+// 	alert("게시글작성");
 	self.location ="/moim/addBoardView?boardMoimNo="+${moim.mmNo};
 }
 
 function fncGetBoard2(boardNo){
-	alert("게시글조회");
+// 	alert("게시글조회");
 	self.location ="/moim/getBoard?boardNo="+boardNo;
 }
 
