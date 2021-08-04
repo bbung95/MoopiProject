@@ -566,6 +566,7 @@ figcaption>i {
 				</div>
 
 
+
 				<!-- 바디 -->
 				<div class="userEL8990950 colorSet" data-forum-type="thumb"
 					data-fcolor="#191919">
@@ -574,75 +575,77 @@ figcaption>i {
 				</div>
 			</div>
 		</main>
+	</div>
 
 
-		<!-- get board view -->
-		 <div class="container" id="element_to_pop_up">
-			<div class="row">
-				<div class="col-xs-6 col-sm-6 col-md-6">
-					<div class="swiper-container">
-						<div class="swiper-wrapper">ㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㅁㄴ</div>
-						<div class="swiper-pagination">ㅁㄴㅇㅁ</div>
-						<div class="swiper-button-next">ㅁㄴㅇ</div>
-						<div class="swiper-button-prev">ㅁㄴㅇ</div>
-					</div>
+
+	<!-- get board view -->
+	<div class="container" id="element_to_pop_up">
+		<div class="row">
+			<div class="col-xs-8 col-sm-8 col-md-8">
+				<div class="swiper-container">
+					<div class="swiper-wrapper"></div>
+					<div class="swiper-pagination"></div>
+					<div class="swiper-button-next"></div>
+					<div class="swiper-button-prev"></div>
+
 				</div>
-				<div class="col-xs-4 col-sm-4 col-md-4 text-wrap"
-					style="background: white;" id="element_content"></div>
 			</div>
-		</div> 
+			<div class="col-xs-4 col-sm-4 col-md-4 text-wrap"
+				style="background: white;" id="element_content"></div>
+		</div>
+	</div>
 
-		
 
 
-		<!-- Modal -->
-		<div class="modal fade" id="register" data-bs-backdrop="static"
-			data-bs-keyboard="false" tabindex="-1"
-			aria-labelledby="staticBackdropLabel" aria-hidden="true">
-			<div class="modal-dialog modal-dialog-centered">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="staticBackdropLabel">게시글등록</h5>
-						<button type="button" id="close" class="btn-close"
-							data-bs-dismiss="modal" aria-label="Close"></button>
-					</div>
 
-					<div class="modal-body">
-						<form id="upload">
-							<div id="dropBox" style="width: 100%; height: 300px;"></div>
-							<input type="hidden" name="userId" value="${dbUser.userId}" />
-							<button type="button" class="uploadbtn btn btn-light">업로드</button>
-							<input style="display: none" id="uploadFiles" type="file"
-								multiple="multiple">
-							<textarea id="boardContent" name="boardContent"
-								style="width: 100%; height: 100px; resize: none"></textArea>
-						</form>
-					</div>
+	<!-- Modal -->
+	<div class="modal fade" id="register" data-bs-backdrop="static"
+		data-bs-keyboard="false" tabindex="-1"
+		aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="staticBackdropLabel">게시글등록</h5>
+					<button type="button" id="close" class="btn-close"
+						data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
 
-					<div class="modal-footer">
-						<button type="button" class="btn btn-light">등록</button>
-						<!-- <button type="button" 
+				<div class="modal-body">
+					<form id="upload">
+						<div id="dropBox" style="width: 100%; height: 300px;"></div>
+						<input type="hidden" name="userId" value="${dbUser.userId}" />
+						<button type="button" class="uploadbtn btn btn-light">업로드</button>
+						<input style="display: none" id="uploadFiles" type="file"
+							multiple="multiple">
+						<textarea id="boardContent" name="boardContent"
+							style="width: 100%; height: 100px; resize: none"></textArea>
+					</form>
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-light">등록</button>
+					<!-- <button type="button" 
 						class="btn btn-secondar		data-bs-dismiss="modal">Close</button> -->
-					</div>
 				</div>
 			</div>
 		</div>
+	</div>
 
 
-		<!-- Modal2 -->
-		<div class="modal fade " id="followList" data-bs-keyboard="false"
-			tabindex="-1" aria-labelledby="staticBackdropLabel"
-			aria-hidden="true">
-			<div class="modal-dialog modal-dialog-centered modal-sm">
-				<div class="modal-content follow-content">
-					<div id="followType" class="d-flex justify-content-center ">
-						<div class="btn button followlistbtn" type="2">팔로워</div>
-						<div class="btn button followlistbtn" type="1">팔로잉</div>
-					</div>
-					<div class="followOut" style="padding-top: 50px;"></div>
+	<!-- Modal2 -->
+	<div class="modal fade " id="followList" data-bs-keyboard="false"
+		tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered modal-sm">
+			<div class="modal-content follow-content">
+				<div id="followType" class="d-flex justify-content-center ">
+					<div class="btn button followlistbtn" type="2">팔로워</div>
+					<div class="btn button followlistbtn" type="1">팔로잉</div>
 				</div>
+				<div class="followOut" style="padding-top: 50px;"></div>
 			</div>
 		</div>
+	</div>
 
 	</div>
 	<jsp:include page="../layout/footer.jsp"></jsp:include>
@@ -966,7 +969,7 @@ $('.modal-footer > button:contains("등록")').on('click',function(){
 									+'<div class="thumbnail-wrapper">'
 									+'<div class="thumbnail">'
 									+'<div class="thumbnail-centered ">'
-									+'<img class="thumbnail-img" src="/images/uploadFiles/'+fileArry[i]+'" class="img-responsive" style=" height: auto;">'
+									+'<img class="thumbnail-img" src="/images/uploadFiles/'+fileArry[i]+'" class="img-responsive" style="width: 100%; height: auto;">'
 									+'</div>'
 									+'</div>'
 									+'</div>'
@@ -1041,8 +1044,8 @@ $('.modal-footer > button:contains("등록")').on('click',function(){
 			
  			  $('#element_to_pop_up').bPopup({
  				fadeSpeed: 'slow', //can be a string ('slow'/'fast') or int
- 				positionStyle: 'fixed',
-	        });  
+/*  				positionStyle: 'fixed',
+ */	        });  
 		}
 		
 		// 댓글등록

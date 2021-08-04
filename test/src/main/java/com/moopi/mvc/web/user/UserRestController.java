@@ -100,7 +100,7 @@ public class UserRestController {
 		    
 			// 문자보내기(테스트시 발신, 수신 둘다 내 번호로 하기)
 			params.put("to", phone); // 수신번호
-			params.put("from", "01049670511"); // 발신번호
+			params.put("from", "010-4967-0511"); // 발신번호
 			params.put("type", "SMS");
 			params.put("text", "[Moopi 본인확인] 본인인증 확인번호 ["+key+"]를 입력하세요"); // 문자전송
 			params.put("mode", "test");
