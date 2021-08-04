@@ -315,6 +315,8 @@ body {
 .board_i>i {
 	font-size: 20px;
 	margin-left: 10px;
+	position: absolute;
+	bottom: 0;
 }
 
 pre {
@@ -443,14 +445,25 @@ figcaption>i {
 	display: inline-block;
 }
 
-.mybtn{
+.mybtn {
 	background: #ADD8E6;
 }
 
-.mybtn:hover{
+.mybtn:hover {
 	background: #e4eff2;
 }
 
+#dropBox {
+	border: 0.5px solid black;
+	overflow: auto;
+	border-radius: 15px;
+}
+
+#boardContent {
+	border: 0.5px solid black;
+	border-radius: 15px;
+	outline: 0;
+}
 </style>
 </head>
 <body>
@@ -459,9 +472,9 @@ figcaption>i {
 	<jsp:include page="../layout/toolbar.jsp" />
 	<!---------------------------------------------------------------------------------------------------------------------------->
 
-<div id="wrapper">
-	<main class="py-5">
-		<div class="container px-5 my-5 ">
+	<div id="wrapper">
+		<main class="py-5">
+			<div class="container px-5 my-5 ">
 
 
 				<div class="row " data-matrix-loop="true"
@@ -472,18 +485,18 @@ figcaption>i {
 						class="col-xs-3 col-sm-3 col-md-3 item d-flex justify-content-center">
 
 
-						<div class="thumbnail-wrapper " style="border-radius : 50%; width: 150px ; height: 150px; border: 3px solid #4299e1;">
-							<div class="thumbnail" style="border-radius : 50%;">
+						<div class="thumbnail-wrapper "
+							style="border-radius: 50%; width: 150px; height: 150px; border: 3px solid #4299e1;">
+							<div class="thumbnail" style="border-radius: 50%;">
 								<div class="thumbnail-centered ">
 									<img src="/images/uploadFiles/${user.profileImage}"
-										class="thumbnail-img "
-										data-attach="true" data-fixedsize="true"
-										data-fixed-width="250">
+										class="thumbnail-img " data-attach="true"
+										data-fixedsize="true" data-fixed-width="250">
 								</div>
 							</div>
 						</div>
 
-	
+
 					</div>
 					<div class="col-xs-3 col-sm-3 col-md-3 item">
 						<div class="text-box" style="margin-top: 20px;">
@@ -495,9 +508,9 @@ figcaption>i {
 								<span class="fsize14">"${user.profileContent}"</span>
 							</p>
 							<h6 class="sub_text" data-edit="true" data-selector="h6.sub_text">
-								<span class="followList" type="2">팔로워 <span id="followCount">${followerCount}</span></span>
-								&nbsp; <span class="followList" type="1">팔로잉
-									${folloingCount}</span>
+								<span class="followList" type="2">팔로워 <span
+									id="followCount">${followerCount}</span></span> &nbsp; <span
+									class="followList" type="1">팔로잉 ${folloingCount}</span>
 							</h6>
 						</div>
 
@@ -510,8 +523,7 @@ figcaption>i {
 							</c:if>
 							<c:if test="${dbUser.userId != user.userId}">
 								<button class="btn mybtn" target="${user.userId}">팔로우</button>
-								<button class=" btn mybtn" target="${user.userId}"
-									type="1">채팅</button>
+								<button class=" btn mybtn" target="${user.userId}" type="1">채팅</button>
 								<button type="button" class="btn addReportUser mybtn ">신고</button>
 							</c:if>
 						</div>
@@ -553,19 +565,18 @@ figcaption>i {
 					</c:if>
 				</div>
 
-	
 
 
-			
-			<!-- 바디 -->
-			<div class="userEL8990950 colorSet" data-forum-type="thumb"
-				data-fcolor="#191919">
-				<!-- 게시글 생성박스 -->
-				<div id="boardView" class="row multi-columns-row"></div>
+				<!-- 바디 -->
+				<div class="userEL8990950 colorSet" data-forum-type="thumb"
+					data-fcolor="#191919">
+					<!-- 게시글 생성박스 -->
+					<div id="boardView" class="row multi-columns-row"></div>
+				</div>
 			</div>
-		</div>
-	</main>
-</div>
+		</main>
+	</div>
+
 
 
 	<!-- get board view -->
@@ -577,12 +588,15 @@ figcaption>i {
 					<div class="swiper-pagination"></div>
 					<div class="swiper-button-next"></div>
 					<div class="swiper-button-prev"></div>
+
 				</div>
 			</div>
 			<div class="col-xs-4 col-sm-4 col-md-4 text-wrap"
 				style="background: white;" id="element_content"></div>
 		</div>
 	</div>
+
+
 
 
 	<!-- Modal -->
@@ -633,6 +647,7 @@ figcaption>i {
 		</div>
 	</div>
 
+	</div>
 	<jsp:include page="../layout/footer.jsp"></jsp:include>
 
 	<!-- Bootstrap core JS-->
@@ -804,7 +819,7 @@ function preView(e , type){
 			fileList.push(image);
 			var reader = new FileReader();
 			reader.onload = function(e) {
-				var img = '<img src="'+event.target.result+'" style="width : 200px;">'		
+				var img = '<img class="inline-block" src="'+event.target.result+'" style="width : 200px;">'		
  				$('#dropBox').append(img) ;
 			}; 
 			reader.readAsDataURL(image); 
@@ -816,7 +831,7 @@ function preView(e , type){
   			var reader = new FileReader();
   			
   			reader.onload = function(e) {
-  				var img = '<img src="'+event.target.result+'" style="width : 200px;">'		
+  				var img = '<img class="inline-block" src="'+event.target.result+'" style="width : 200px;">'		
   	 			$('#dropBox').append(img) ;
   			}; 
   			reader.readAsDataURL(image); 
@@ -936,25 +951,33 @@ $('.modal-footer > button:contains("등록")').on('click',function(){
 		
 		function getMyBoard(boardNo){
 			
-			$.ajax({
+				$.ajax({
 				url: "/user/json/getMyBoard/"+boardNo,
 				method : "GET",
 				dataType : "JSON",
 				success: function(data, state){
-					let board = data.board;
+					 let board = data.board;
 					let reply = data.reply;
 					let fileArry = board.boardFile.split("/");
 					
 					let displayslide = '';
-					let display = '';
-					// 게시글 이미지 
+					let display = ''; 
+					 // 게시글 이미지 
 					for(var i= 0; i < fileArry.length-1; i++){
+						
 						displayslide += '<div class="swiper-slide">'
-								    + '<img src="/images/uploadFiles/'+fileArry[i]+'" class="img-responsive" data-attach="true" style="width: 80%; height: auto; max-height: 482px;"></div>';
-					}			
+									+'<div class="thumbnail-wrapper">'
+									+'<div class="thumbnail">'
+									+'<div class="thumbnail-centered ">'
+									+'<img class="thumbnail-img" src="/images/uploadFiles/'+fileArry[i]+'" class="img-responsive" style="width: 100%; height: auto;">'
+									+'</div>'
+									+'</div>'
+									+'</div>'
+									+'</div>'
+					}	 		
 					
 					// 게시글 상세내용
-					display += '<div class="d-flex align-items-center"><img class="boardProfile" src="/images/uploadFiles/'+board.boardWriter.profileImage+'" />'
+					 display += '<div class="d-flex align-items-center"><img class="boardProfile" src="/images/uploadFiles/'+board.boardWriter.profileImage+'" />'
 							+ '<div style="margin: 5px 5px 5px 5px;">'+board.boardWriter.nickname+'</div>'
 							+ '<div class="ms-auto" style="margin: 5px 5px 5px 5px;">'+board.boardRegDate+'</div>'
 							+ '<div onclick="deleteBoard('+board.boardNo+');">삭제</div></div>'
@@ -976,7 +999,7 @@ $('.modal-footer > button:contains("등록")').on('click',function(){
 							
 					// 리플 입력폼
 					display	+= '</ul><hr/ style="margin: 0;">'
-							+ '<div class="board_i">'
+							+ '<div class="board_i"><div>'
 					
 					// like 온 오프
 					if(data.likeCheck){
@@ -989,7 +1012,7 @@ $('.modal-footer > button:contains("등록")').on('click',function(){
 							+ '<input type="hidden" id="myBoardNo" value="'+board.boardNo+'"/>'
 							+ '<input type="text" class="form-control" placeholder="Recipient reply" name="replyContent" id="replyContent">'
 							+ '<button class="btn btn-outline-secondary" type="button" id="button-addon2" onclick="addReply('+board.boardNo+')">전송</button>'
-							+ '</div>'
+							+ '</div></div>'
 									
 					$('.swiper-wrapper').children().remove();
 					$('.swiper-wrapper').append(displayslide);
@@ -1015,14 +1038,14 @@ $('.modal-footer > button:contains("등록")').on('click',function(){
 								}
 							}
 						})
-					})
+					}) 
 				}
 			})
 			
- 			$('#element_to_pop_up').bPopup({
+ 			  $('#element_to_pop_up').bPopup({
  				fadeSpeed: 'slow', //can be a string ('slow'/'fast') or int
- 				positionStyle: 'fixed',
-	        });
+/*  				positionStyle: 'fixed',
+ */	        });  
 		}
 		
 		// 댓글등록

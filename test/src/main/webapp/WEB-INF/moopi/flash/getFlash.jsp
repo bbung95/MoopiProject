@@ -38,7 +38,7 @@
 
 <script>
 function fncUpdateFlash(){
-	alert("번개를 번개처럼 수정.");
+	//alert("번개를 번개처럼 수정.");
 	$("form").attr("method", "POST").attr("action", "/flash/updateFlash").submit();
 
 }
@@ -61,7 +61,7 @@ function fncGetJoinFlashList(flashNo){
 				success : function(JSONData , status) {
 					//Debug...
 					//alert("로딩중..");
-					alert(JSONData.list.length+"명 참가중 입니다.");
+					//alert(JSONData.list.length+"명 참가중 입니다.");
 					//$( ".cal" ).remove(displayValue);	
 					//let displayValue = '';
 					//Debug...

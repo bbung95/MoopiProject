@@ -23,6 +23,9 @@
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
+<!-- 스윗얼럿 -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 
 
@@ -75,8 +78,9 @@ body {
 
 .userEL8990950 .tpl-forum-list-etc {
 	color: #757575;
-/* 	text-align: center;
- */	line-height: 1.8;
+	/* 	text-align: center;
+ */
+	line-height: 1.8;
 	vertical-align: top;
 	font-size: 12px;
 	font-family: 'Lato', 'Nanum Gothic';
@@ -97,8 +101,9 @@ body {
 
 .userEL8990950 .item .cont-wrap {
 	padding: 25px 15px 20px;
-/* 	text-align: center;
- */	line-height: 1.8;
+	/* 	text-align: center;
+ */
+	line-height: 1.8;
 	vertical-align: top;
 }
 
@@ -221,17 +226,18 @@ body {
 	margin-bottom: 16px;
 }
 
-.span-round{
+.span-round {
 	background: #f5f6f7;
-	color: black;		
+	color: black;
+	font-size: 15px;
 }
 
-#item-head{
+#item-head {
 	font-weight: bold;
-	font-size : 18px;
+	font-size: 18px;
 }
 
-#flashProfile{
+#flashProfile {
 	width: 30px;
 	height: 30px;
 	border-radius: 50%;
@@ -240,8 +246,8 @@ body {
 	margin-right: 5px;
 }
 
-.flash-time{
-	font-size : 12px;
+.flash-time {
+	font-size: 12px;
 }
 </style>
 
@@ -259,30 +265,84 @@ body {
 	function fncAddFlash() {
 		//alert("번개생성 시작!");
 
-		// 	var name = $("name:flashName").val();
-		// 	var file = $("#uploadFile").val();
-		// 	var content = $("#flashContent").val();
-		// 	var time = $("#flashTime").val();
+		 	var name = $("#flashName").val();
+		 	var file = $("#uploadFile").val();
+		 	var content = $("#flashContent").val();
+		 	var time = $("#flashTime").val();
+		 	var addr = $("#flashAddr").val();
+		 	var detailAddr = $("#detailAddr").val();
+		 	
 
-		// 	if (name == null || name.length< 1)
-		// 		alert('번개무피명을 입력해주세요!');
-		// 		return
-		// 	}
+		 	if (name == null || name.length< 1){
+		 		swal({
+					  title: "번개무피명을 입력해주세요.",
+					  icon: "warning",
+					  dangerMode: true,
+				})
+				return; 
+		 	}
 
-		// 	if (file == null || file.length< 1)
-		// 		alert('썸네일 사진을 올려주세요');
-		// 		return
-		// 	}
+		 	if (file == null ||file.length<1){
+		 		swal({
+					  title: "대표사진을 등록해주세요.",
+					  icon: "warning",
+					  dangerMode: true,
+				})
+		 		return; 
+		 	}
 
-		// 	if (content == null || content.length< 1)
-		// 		alert('썸네일 사진을 올려주세요');
-		// 		return
-		// 	}	
-
-		// 	if (time == null || time.length< 1)
-		// 		alert('번개 시간 설정해주세요!');
-		// 		return
-		// 	}
+		 	if (content == null || content.length< 1){
+		 		swal({
+					  title: "소개글을 입력해주세요.",
+					  icon: "warning",
+					  dangerMode: true,
+				})
+		 		 return; 
+		 	}	
+			
+		 	if (addr == null || addr.length< 1){
+		 		swal({
+					  title: "거주지를 등록헤주세요.",
+					  icon: "warning",
+					  dangerMode: true,
+				})
+		 		 return; 
+		 	}
+		 	
+		 	if (detailAddr == null || detailAddr.length< 1){
+		 		swal({
+					  title: "상세주소를 입력해주세요",
+					  icon: "warning",
+					  dangerMode: true,
+				})
+		 		 return; 
+		 	}
+		 	
+		 	if (time == null || time.length< 1){
+		 		swal({
+					  title: "만나는 시간을 입력해주세요.",
+					  icon: "warning",
+					  dangerMode: true,
+				})
+		 		 return; 
+		 	}
+		 	
+		 	
+		 	swal({
+				  title: "번개무피를 생성하시겠습니까?",
+				  icon: "warning",
+				  buttons: true,
+				  dangerMode: true,
+			})
+			.then((willDelete) => {
+				  if (willDelete) {
+					   swal("번개무피가 생성되었습니다.", {
+					     icon: "success",
+					   });
+				  } else {
+					   return;
+				 }
+			})
 
 		$(".form-horizontal").attr("method", "POST").attr("action",
 				"/flash/addFlash").submit();
@@ -313,103 +373,105 @@ body {
 	<input type="hidden" id="searchCondition"
 		value="${search.searchCondition}" />
 
-<div id="wrapper">
-	<!-- 메인 헤더 -->
-	<div id="carouselExampleSlidesOnly"
-		class="carousel slide carousel-fade" data-bs-ride="carousel">
-		<div class="carousel-inner">
-			<div class="carousel-item active" data-bs-interval="6000">
-				<img src="/images/background/moim2.jpg" class="d-block w-100"
-					alt="...">
-				<div class="carousel-caption d-none d-md-block">
-					<h2>안녕하세요 자유로움을 추구하는 번개무피 여러분~</h2>
-					<!-- <p>Some representative placeholder content for the first slide.</p> -->
-				</div>
-			</div>
-			<div class="carousel-item " data-bs-interval="6000">
-				<img src="/images/background/moim1.jpg" class="d-block w-100"
-					alt="...">
-				<div class="carousel-caption d-none d-md-block">
-					<h2>여기는 무피에서 가장 자유로운 공간이에요.</h2>
-					<p>무피 회원 이라면 누구나 번개 생성 참가를 할수있어요.</p>
-				</div>
-			</div>
-			<div class="carousel-item" data-bs-interval="6000">
-				<img src="/images/background/flash1.jpg" class="d-block w-100"
-					alt="...">
-				<div class="carousel-caption d-none d-md-block">
-					<h2>하지만 자유에는 조금의 책임이 따른답니다 번개 생성시 2코인 참가시 1코인을 소비하게 되어요</h2>
-					<p>부족한 코인은 오른쪽 상단 충전에서 구매 하실수 있습니다!.</p>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<!-- 정렬 -->
-	<div class="container d-flex">
-		<input type="hidden" class="interest" name="interestNo" value="0">
-		<input type="hidden" class="addr" name="addr" value=""> <input
-			type="hidden" class="order" name="type" value=""> <input
-			type="hidden" class="searchCondition" name="searchCondition" value="">
-		<div class="me-auto p-2 bd-highlight h4">번개</div>
-		<div class="bd-highlight ">
-			<div class="dropdown mt-3">
-
-				<button class="btn btn-light dropdown-toggle selectbtn shadow-sm"
-					type="button" data-bs-toggle="dropdown" id="addrbtn" style="margin-right: 20px;">Addr</button>
-				<ul class="dropdown-menu addr" aria-labelledby="dropdownMenuButton"
-					 style="height: 200px; overflow: auto;">
-
-				</ul>
-			</div>
-		</div>
-	</div>
-
-
-
-	<!-- 리스트 뷰 -->
-	<div class="userEL8990950 colorSet" data-forum-type="thumb"
-		data-fcolor="#191919">
-		<div class="container">
-			<div class="row multi-columns-row">
-				<div class="row">
-					<div class="col-xs-3 col-sm-3 col-md-3">
-						<hr / style="margin: 0px 0px 15px 0px;">
-						<c:forEach var="interest" items="${interest}">
-							<div class="interestNo" type="${interest.interestNo}">${interest.interestName}</div>
-
-						</c:forEach>
+	<div id="wrapper">
+		<!-- 메인 헤더 -->
+		<div id="carouselExampleSlidesOnly"
+			class="carousel slide carousel-fade" data-bs-ride="carousel">
+			<div class="carousel-inner">
+				<div class="carousel-item active" data-bs-interval="6000">
+					<img src="/images/background/moim2.jpg" class="d-block w-100"
+						alt="...">
+					<div class="carousel-caption d-none d-md-block">
+						<h2>안녕하세요 자유로움을 추구하는 번개무피 여러분~</h2>
+						<!-- <p>Some representative placeholder content for the first slide.</p> -->
 					</div>
-					<div class="col-xs-9 col-sm-9 col-md-9">
-
-						<hr style="margin: 0px 0px 10px 0px;" />
-						 <div class="listhead">번개 리스트</div>
-						<div class="row" id="flashListView"></div>
+				</div>
+				<div class="carousel-item " data-bs-interval="6000">
+					<img src="/images/background/moim1.jpg" class="d-block w-100"
+						alt="...">
+					<div class="carousel-caption d-none d-md-block">
+						<h2>여기는 무피에서 가장 자유로운 공간이에요.</h2>
+						<p>무피 회원 이라면 누구나 번개 생성 참가를 할수있어요.</p>
+					</div>
+				</div>
+				<div class="carousel-item" data-bs-interval="6000">
+					<img src="/images/background/flash1.jpg" class="d-block w-100"
+						alt="...">
+					<div class="carousel-caption d-none d-md-block">
+						<h2>하지만 자유에는 조금의 책임이 따른답니다 번개 생성시 2코인 참가시 1코인을 소비하게 되어요</h2>
+						<p>부족한 코인은 오른쪽 상단 충전에서 구매 하실수 있습니다!.</p>
 					</div>
 				</div>
 			</div>
 		</div>
+
+		<!-- 정렬 -->
+		<div class="container d-flex">
+			<input type="hidden" class="interest" name="interestNo" value="0">
+			<input type="hidden" class="addr" name="addr" value=""> <input
+				type="hidden" class="order" name="type" value=""> <input
+				type="hidden" class="searchCondition" name="searchCondition"
+				value="">
+			<div class="me-auto p-2 bd-highlight h4">번개</div>
+			<div class="bd-highlight ">
+				<div class="dropdown mt-3">
+
+					<button class="btn btn-light dropdown-toggle selectbtn shadow-sm"
+						type="button" data-bs-toggle="dropdown" id="addrbtn"
+						style="margin-right: 20px;">Addr</button>
+					<ul class="dropdown-menu addr" aria-labelledby="dropdownMenuButton"
+						style="height: 200px; overflow: auto;">
+
+					</ul>
+				</div>
+			</div>
+		</div>
+
+
+
+		<!-- 리스트 뷰 -->
+		<div class="userEL8990950 colorSet" data-forum-type="thumb"
+			data-fcolor="#191919">
+			<div class="container">
+				<div class="row multi-columns-row">
+					<div class="row">
+						<div class="col-xs-3 col-sm-3 col-md-3">
+							<hr / style="margin: 0px 0px 15px 0px;">
+							<c:forEach var="interest" items="${interest}">
+								<div class="interestNo" type="${interest.interestNo}">${interest.interestName}</div>
+
+							</c:forEach>
+						</div>
+						<div class="col-xs-9 col-sm-9 col-md-9">
+
+							<hr style="margin: 0px 0px 10px 0px;" />
+							<div class="listhead">번개 리스트</div>
+							<div class="row" id="flashListView"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
-</div>
-	
+
 	<!-- btn collector -->
 	<div id="btnbar">
-	
-	<c:if test="${!empty dbUser}" >
-	<button data-bs-toggle="modal" data-bs-toggle="modal"
-			data-bs-target="#staticBackdrop">
-		<i class="bi bi-plus"></i>
-	</button>
-	</c:if>
-	<button onclick="location.href='#carouselExampleSlidesOnly'">
-		<i class="bi bi-chevron-up"></i>
-	</button>
+
+		<c:if test="${!empty dbUser}">
+			<button data-bs-toggle="modal" data-bs-toggle="modal"
+				data-bs-target="#staticBackdrop">
+				<i class="bi bi-plus"></i>
+			</button>
+		</c:if>
+		<button onclick="location.href='#carouselExampleSlidesOnly'">
+			<i class="bi bi-chevron-up"></i>
+		</button>
 	</div>
-	
+
 
 	<!-- Modal -->
 	<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
-		data-bs-keyboard="false" tabindex="-1"	
+		data-bs-keyboard="false" tabindex="-1"
 		aria-labelledby="staticBackdropLabel" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content">
@@ -462,18 +524,16 @@ body {
 							<div class="col-sm-40 d-flex">
 								<select id="flashAddr" name="flashAddr">
 									<option>지역구</option>
-									
-								</select>
-									
-								<input type="text" class="form-control" id="detailAddr"
-									name="detailAddr" placeholder="상세주소" >
+
+								</select> <input type="text" class="form-control" id="detailAddr"
+									name="detailAddr" placeholder="상세주소">
 							</div>
 						</div>
 
 						<div class="form-group">
 							<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">번개모임인원</label>
 							<div class="col-sm-20">
-								<select id="flashMaxCount" name="flashMaxCount" >
+								<select id="flashMaxCount" name="flashMaxCount">
 									<option value="2">2</option>
 									<option value="3">3</option>
 									<option value="4">4</option>
@@ -635,7 +695,7 @@ body {
 								for (var i = 0; i < data.list.length; i++) {
 									let displayValue = '';
 
-									displayValue = '<div data-aos="" class="col-xs-4 col-sm-4 col-md-4 no-padding item " id="getFlash" onClick="fncGetFlash('
+									displayValue = '<div data-aos="fade-up" class="col-xs-4 col-sm-4 col-md-4 no-padding item " id="getFlash" onClick="fncGetFlash('
 											+ list[i].flashNo
 											+ ')" >'
 											+ '<div class="border-wrap op_itemline10 img-thumbnail" >'

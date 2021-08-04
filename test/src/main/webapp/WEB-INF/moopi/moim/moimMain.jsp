@@ -346,7 +346,9 @@ thumbnail-img {
 }
 
 .span-round{
-	background: #f5f6f7;		
+	background: #f5f6f7;
+	color: black;	
+	font-size: 15px;	
 }
 </style>
 
@@ -369,29 +371,29 @@ thumbnail-img {
 			class="carousel slide carousel-fade" data-bs-ride="carousel">
 			<div class="carousel-inner">
 				<div class="carousel-item active" data-bs-interval="6000">
-					<img src="/images/background/moim4.png" class="d-block w-100"
+					<img src="/images/background/moim6.jpg" class="d-block w-100"
 						alt="...">
 					<div class="carousel-caption d-none d-md-block">
-						<h4 class="word">Dale Carnegie</h4>
-						<p class="word">The royal road to a man's heart is to talk to
+						<h4 >Dale Carnegie</h4>
+						<p >The royal road to a man's heart is to talk to
 							him about the things he treasures most.</p>
 					</div>
 				</div>
 				<div class="carousel-item" data-bs-interval="6000">
-					<img src="/images/background/moim3.jpg" class="d-block w-100"
+					<img src="/images/background/food.jpg" class="d-block w-100"
 						alt="...">
 					<div class="carousel-caption d-none d-md-block">
-						<h4 class="word">Tennesse Williams</h4>
-						<p class="word">Life is partly what we make it, and partly
+						<h4 >Tennesse Williams</h4>
+						<p >Life is partly what we make it, and partly
 							what it is made by the friends we choose.</p>
 					</div>
 				</div>
 				<div class="carousel-item" data-bs-interval="6000">
-					<img src="/images/background/moim5.jpg" class="d-block w-100"
+					<img src="/images/background/child.jpg" class="d-block w-100"
 						alt="...">
 					<div class="carousel-caption d-none d-md-block">
-						<h4 class="word">Albert Camus</h4>
-						<p class="word">Don't walk in front of me, I may not follow.
+						<h4 >Albert Camus</h4>
+						<p >Don't walk in front of me, I may not follow.
 							Don't walk behine me, I may not lead. Walk beside me and just be
 							my friend</p>
 					</div>
@@ -781,7 +783,7 @@ thumbnail-img {
 												var displayValue = '';
 												for (var i = 0; i < index; i++) {
 
-													displayValue = '<div data-aos="" class="col-xs-4 col-sm-4 col-md-4 no-padding item" id="getFlash" onClick="fncGetMoim( '
+													displayValue = '<div data-aos="fade-up" class="col-xs-4 col-sm-4 col-md-4 no-padding item" id="getFlash" onClick="fncGetMoim( '
 															+ JSONData.list[i].mmNo
 															+ ')" >'
 															+ '<div class="border-wrap op_itemline10 img-thumbnail shadow" >'
