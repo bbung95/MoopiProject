@@ -315,6 +315,8 @@ body {
 .board_i>i {
 	font-size: 20px;
 	margin-left: 10px;
+	position: absolute;
+	bottom: 0;
 }
 
 pre {
@@ -443,14 +445,25 @@ figcaption>i {
 	display: inline-block;
 }
 
-.mybtn{
+.mybtn {
 	background: #ADD8E6;
 }
 
-.mybtn:hover{
+.mybtn:hover {
 	background: #e4eff2;
 }
 
+#dropBox {
+	border: 0.5px solid black;
+	overflow: auto;
+	border-radius: 15px;
+}
+
+#boardContent {
+	border: 0.5px solid black;
+	border-radius: 15px;
+	outline: 0;
+}
 </style>
 </head>
 <body>
@@ -459,9 +472,9 @@ figcaption>i {
 	<jsp:include page="../layout/toolbar.jsp" />
 	<!---------------------------------------------------------------------------------------------------------------------------->
 
-<div id="wrapper">
-	<main class="py-5">
-		<div class="container px-5 my-5 ">
+	<div id="wrapper">
+		<main class="py-5">
+			<div class="container px-5 my-5 ">
 
 
 				<div class="row " data-matrix-loop="true"
@@ -472,18 +485,18 @@ figcaption>i {
 						class="col-xs-3 col-sm-3 col-md-3 item d-flex justify-content-center">
 
 
-						<div class="thumbnail-wrapper " style="border-radius : 50%; width: 150px ; height: 150px; border: 3px solid #4299e1;">
-							<div class="thumbnail" style="border-radius : 50%;">
+						<div class="thumbnail-wrapper "
+							style="border-radius: 50%; width: 150px; height: 150px; border: 3px solid #4299e1;">
+							<div class="thumbnail" style="border-radius: 50%;">
 								<div class="thumbnail-centered ">
 									<img src="/images/uploadFiles/${user.profileImage}"
-										class="thumbnail-img "
-										data-attach="true" data-fixedsize="true"
-										data-fixed-width="250">
+										class="thumbnail-img " data-attach="true"
+										data-fixedsize="true" data-fixed-width="250">
 								</div>
 							</div>
 						</div>
 
-	
+
 					</div>
 					<div class="col-xs-3 col-sm-3 col-md-3 item">
 						<div class="text-box" style="margin-top: 20px;">
@@ -495,9 +508,9 @@ figcaption>i {
 								<span class="fsize14">"${user.profileContent}"</span>
 							</p>
 							<h6 class="sub_text" data-edit="true" data-selector="h6.sub_text">
-								<span class="followList" type="2">팔로워 <span id="followCount">${followerCount}</span></span>
-								&nbsp; <span class="followList" type="1">팔로잉
-									${folloingCount}</span>
+								<span class="followList" type="2">팔로워 <span
+									id="followCount">${followerCount}</span></span> &nbsp; <span
+									class="followList" type="1">팔로잉 ${folloingCount}</span>
 							</h6>
 						</div>
 
@@ -510,8 +523,7 @@ figcaption>i {
 							</c:if>
 							<c:if test="${dbUser.userId != user.userId}">
 								<button class="btn mybtn" target="${user.userId}">팔로우</button>
-								<button class=" btn mybtn" target="${user.userId}"
-									type="1">채팅</button>
+								<button class=" btn mybtn" target="${user.userId}" type="1">채팅</button>
 								<button type="button" class="btn addReportUser mybtn ">신고</button>
 							</c:if>
 						</div>
@@ -553,6 +565,7 @@ figcaption>i {
 					</c:if>
 				</div>
 
+
 				<!-- 바디 -->
 				<div class="userEL8990950 colorSet" data-forum-type="thumb"
 					data-fcolor="#191919">
@@ -560,98 +573,78 @@ figcaption>i {
 					<div id="boardView" class="row multi-columns-row"></div>
 				</div>
 			</div>
+		</main>
 
 
-			<hr style="margin-bottom: 25px;">
-
-			<div class="text-center">
-				<c:if test="${!empty user.interestFirst}">
-					<span class="interest">${user.interestFirst}</span>
-				</c:if>
-				<c:if test="${!empty user.interestSecond}">
-					<span class="interest">${user.interestSecond}</span>
-				</c:if>
-				<c:if test="${!empty user.interestThird}">
-					<span class="interest"><i class="bi bi-joystick"></i>${user.interestThird}</span>
-				</c:if>
-			</div>
-
-			<!-- 바디 -->
-			<div class="userEL8990950 colorSet" data-forum-type="thumb"
-				data-fcolor="#191919">
-				<!-- 게시글 생성박스 -->
-				<div id="boardView" class="row multi-columns-row"></div>
-			</div>
-		</div>
-	</main>
-</div>
-
-
-	<!-- get board view -->
-	<div class="container" id="element_to_pop_up">
-		<div class="row">
-			<div class="col-xs-8 col-sm-8 col-md-8">
-				<div class="swiper-container">
-					<div class="swiper-wrapper"></div>
-					<div class="swiper-pagination"></div>
-					<div class="swiper-button-next"></div>
-					<div class="swiper-button-prev"></div>
+		<!-- get board view -->
+		 <div class="container" id="element_to_pop_up">
+			<div class="row">
+				<div class="col-xs-6 col-sm-6 col-md-6">
+					<div class="swiper-container">
+						<div class="swiper-wrapper">ㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㅁㄴ</div>
+						<div class="swiper-pagination">ㅁㄴㅇㅁ</div>
+						<div class="swiper-button-next">ㅁㄴㅇ</div>
+						<div class="swiper-button-prev">ㅁㄴㅇ</div>
+					</div>
 				</div>
+				<div class="col-xs-4 col-sm-4 col-md-4 text-wrap"
+					style="background: white;" id="element_content"></div>
 			</div>
-			<div class="col-xs-4 col-sm-4 col-md-4 text-wrap"
-				style="background: white;" id="element_content"></div>
-		</div>
-	</div>
+		</div> 
+
+		
 
 
-	<!-- Modal -->
-	<div class="modal fade" id="register" data-bs-backdrop="static"
-		data-bs-keyboard="false" tabindex="-1"
-		aria-labelledby="staticBackdropLabel" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="staticBackdropLabel">게시글등록</h5>
-					<button type="button" id="close" class="btn-close"
-						data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
+		<!-- Modal -->
+		<div class="modal fade" id="register" data-bs-backdrop="static"
+			data-bs-keyboard="false" tabindex="-1"
+			aria-labelledby="staticBackdropLabel" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="staticBackdropLabel">게시글등록</h5>
+						<button type="button" id="close" class="btn-close"
+							data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
 
-				<div class="modal-body">
-					<form id="upload">
-						<div id="dropBox" style="width: 100%; height: 300px;"></div>
-						<input type="hidden" name="userId" value="${dbUser.userId}" />
-						<button type="button" class="uploadbtn btn btn-light">업로드</button>
-						<input style="display: none" id="uploadFiles" type="file"
-							multiple="multiple">
-						<textarea id="boardContent" name="boardContent"
-							style="width: 100%; height: 100px; resize: none"></textArea>
-					</form>
-				</div>
+					<div class="modal-body">
+						<form id="upload">
+							<div id="dropBox" style="width: 100%; height: 300px;"></div>
+							<input type="hidden" name="userId" value="${dbUser.userId}" />
+							<button type="button" class="uploadbtn btn btn-light">업로드</button>
+							<input style="display: none" id="uploadFiles" type="file"
+								multiple="multiple">
+							<textarea id="boardContent" name="boardContent"
+								style="width: 100%; height: 100px; resize: none"></textArea>
+						</form>
+					</div>
 
-				<div class="modal-footer">
-					<button type="button" class="btn btn-light">등록</button>
-					<!-- <button type="button" 
+					<div class="modal-footer">
+						<button type="button" class="btn btn-light">등록</button>
+						<!-- <button type="button" 
 						class="btn btn-secondar		data-bs-dismiss="modal">Close</button> -->
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
 
 
-	<!-- Modal2 -->
-	<div class="modal fade " id="followList" data-bs-keyboard="false"
-		tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered modal-sm">
-			<div class="modal-content follow-content">
-				<div id="followType" class="d-flex justify-content-center ">
-					<div class="btn button followlistbtn" type="2">팔로워</div>
-					<div class="btn button followlistbtn" type="1">팔로잉</div>
+		<!-- Modal2 -->
+		<div class="modal fade " id="followList" data-bs-keyboard="false"
+			tabindex="-1" aria-labelledby="staticBackdropLabel"
+			aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered modal-sm">
+				<div class="modal-content follow-content">
+					<div id="followType" class="d-flex justify-content-center ">
+						<div class="btn button followlistbtn" type="2">팔로워</div>
+						<div class="btn button followlistbtn" type="1">팔로잉</div>
+					</div>
+					<div class="followOut" style="padding-top: 50px;"></div>
 				</div>
-				<div class="followOut" style="padding-top: 50px;"></div>
 			</div>
 		</div>
-	</div>
 
+	</div>
 	<jsp:include page="../layout/footer.jsp"></jsp:include>
 
 	<!-- Bootstrap core JS-->
@@ -823,7 +816,7 @@ function preView(e , type){
 			fileList.push(image);
 			var reader = new FileReader();
 			reader.onload = function(e) {
-				var img = '<img src="'+event.target.result+'" style="width : 200px;">'		
+				var img = '<img class="inline-block" src="'+event.target.result+'" style="width : 200px;">'		
  				$('#dropBox').append(img) ;
 			}; 
 			reader.readAsDataURL(image); 
@@ -835,7 +828,7 @@ function preView(e , type){
   			var reader = new FileReader();
   			
   			reader.onload = function(e) {
-  				var img = '<img src="'+event.target.result+'" style="width : 200px;">'		
+  				var img = '<img class="inline-block" src="'+event.target.result+'" style="width : 200px;">'		
   	 			$('#dropBox').append(img) ;
   			}; 
   			reader.readAsDataURL(image); 
@@ -955,25 +948,33 @@ $('.modal-footer > button:contains("등록")').on('click',function(){
 		
 		function getMyBoard(boardNo){
 			
-			$.ajax({
+				$.ajax({
 				url: "/user/json/getMyBoard/"+boardNo,
 				method : "GET",
 				dataType : "JSON",
 				success: function(data, state){
-					let board = data.board;
+					 let board = data.board;
 					let reply = data.reply;
 					let fileArry = board.boardFile.split("/");
 					
 					let displayslide = '';
-					let display = '';
-					// 게시글 이미지 
+					let display = ''; 
+					 // 게시글 이미지 
 					for(var i= 0; i < fileArry.length-1; i++){
+						
 						displayslide += '<div class="swiper-slide">'
-								    + '<img src="/images/uploadFiles/'+fileArry[i]+'" class="img-responsive" data-attach="true" style="width: 80%; height: auto; max-height: 482px;"></div>';
-					}			
+									+'<div class="thumbnail-wrapper">'
+									+'<div class="thumbnail">'
+									+'<div class="thumbnail-centered ">'
+									+'<img class="thumbnail-img" src="/images/uploadFiles/'+fileArry[i]+'" class="img-responsive" style=" height: auto;">'
+									+'</div>'
+									+'</div>'
+									+'</div>'
+									+'</div>'
+					}	 		
 					
 					// 게시글 상세내용
-					display += '<div class="d-flex align-items-center"><img class="boardProfile" src="/images/uploadFiles/'+board.boardWriter.profileImage+'" />'
+					 display += '<div class="d-flex align-items-center"><img class="boardProfile" src="/images/uploadFiles/'+board.boardWriter.profileImage+'" />'
 							+ '<div style="margin: 5px 5px 5px 5px;">'+board.boardWriter.nickname+'</div>'
 							+ '<div class="ms-auto" style="margin: 5px 5px 5px 5px;">'+board.boardRegDate+'</div>'
 							+ '<div onclick="deleteBoard('+board.boardNo+');">삭제</div></div>'
@@ -995,7 +996,7 @@ $('.modal-footer > button:contains("등록")').on('click',function(){
 							
 					// 리플 입력폼
 					display	+= '</ul><hr/ style="margin: 0;">'
-							+ '<div class="board_i">'
+							+ '<div class="board_i"><div>'
 					
 					// like 온 오프
 					if(data.likeCheck){
@@ -1008,7 +1009,7 @@ $('.modal-footer > button:contains("등록")').on('click',function(){
 							+ '<input type="hidden" id="myBoardNo" value="'+board.boardNo+'"/>'
 							+ '<input type="text" class="form-control" placeholder="Recipient reply" name="replyContent" id="replyContent">'
 							+ '<button class="btn btn-outline-secondary" type="button" id="button-addon2" onclick="addReply('+board.boardNo+')">전송</button>'
-							+ '</div>'
+							+ '</div></div>'
 									
 					$('.swiper-wrapper').children().remove();
 					$('.swiper-wrapper').append(displayslide);
@@ -1034,14 +1035,14 @@ $('.modal-footer > button:contains("등록")').on('click',function(){
 								}
 							}
 						})
-					})
+					}) 
 				}
 			})
 			
- 			$('#element_to_pop_up').bPopup({
+ 			  $('#element_to_pop_up').bPopup({
  				fadeSpeed: 'slow', //can be a string ('slow'/'fast') or int
  				positionStyle: 'fixed',
-	        });
+	        });  
 		}
 		
 		// 댓글등록
