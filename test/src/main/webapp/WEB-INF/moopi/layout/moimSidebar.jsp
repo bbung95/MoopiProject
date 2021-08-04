@@ -62,12 +62,12 @@
 
 
         function fncUptMoimView(mmNo){
-        	swal("모임수정");
+        	//swal("모임수정");
         	self.location ="/moim/updateMoimView?mmNo="+mmNo
         }
         
     	function fncUptMoim(){
-    		swal("모임을 수정합니다.");
+    		//swal("모임을 수정합니다.");
     		$("#uptMoim").attr("method", "POST").attr("action", "/moim/updateMoim").submit();
     	}
 
@@ -83,32 +83,32 @@
 //         }
 
         function fncApplyList(mmNo){
-        	swal("가입신청목록보기");
+        	//swal("가입신청목록보기");
         	self.location ="/moim/listMember?status=1&mmNo="+mmNo
         }
 
         function fncListMember(mmNo){
-        	swal("유저목록보기");
+        	//swal("유저목록보기");
         	self.location ="/moim/listMember?status=2&mmNo="+mmNo
         }
 
         function fncListMeeting(mmNo){
-        	swal("정모일정보기");
+        	//swal("정모일정보기");
         	self.location ="/meeting/listMeeting?userId=${dbUser.userId}&mmNo="+mmNo
         }
 
         function fncGetMoim(mmNo){
-        	swal("모임상세보기");
+        	//swal("모임상세보기");
         	self.location ="/moim/getMoim?mmNo="+mmNo
         };	
         
         function fncGetBoard(){
-        	swal("게시글보기");
+        	//swal("게시글보기");
         	self.location ="/moim/listMoimBoard?category=4&boardMoimNo=${moim.mmNo}"
         }
         
         function fncInvite(mmNo){
-        	swal("초대목록보기");
+        	//swal("초대목록보기");
         	console.log(mmNo);
         	self.location= "/moim/listInvite?mmNo="+mmNo
         }
@@ -217,7 +217,8 @@ onClick="fncUptMoimView(${moim.mmNo})"
     $("h1#choose").on("click", function(){
 		
 		if($("#choose").text('Join Us')){
-			alert("가입신청 완료");
+			//alert("가입신청 완료");
+			swal("가입신청이 완료되었습니다", 'success');
 		        	$.ajax( 
         			{
         				url : "/moim/json/applyMoim",
@@ -228,7 +229,7 @@ onClick="fncUptMoimView(${moim.mmNo})"
         					"mmNo" : mmNo6 , "memberRole": 1} ),
         				
         				success : function(JSONData , status) {
-        					alert(status);
+        					//alert(status);
         				}
         		}); //ajax 종료
 		}				

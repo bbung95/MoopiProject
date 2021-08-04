@@ -1,6 +1,7 @@
 package com.moopi.mvc.web.flash;
 
 import java.io.File;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -85,12 +86,23 @@ public class FlashController {
 		String flashFileName = uploadFile.getOriginalFilename();
 		System.out.println("flashFileName::" + flashFileName);
 		long currentTime = System.currentTimeMillis();// 시분초단위
+		
+		String[] array = new String[6];
+		Random rd = new Random(); 
+		String key = new String();
+
+		for (int i = 0; i < array.length; i++) {
+			array[i] = Integer.toString(rd.nextInt(10));
+			key += array[i];
+		}
+		
+		String fileName = currentTime + key + uploadFile.getOriginalFilename().substring(uploadFile.getOriginalFilename().lastIndexOf("."));
 		try {
-			uploadFile.transferTo(new File(saveDir + "/" + currentTime + flashFileName));
+			uploadFile.transferTo(new File(saveDir + "/" + fileName));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		flash.setFlashFile(currentTime + flashFileName); // 시간+파일이름
+		flash.setFlashFile(fileName); // 시간+파일이름
 		flash.getFlashNo();
 		// User user = new User();
 		Coin coin = new Coin();

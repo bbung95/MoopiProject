@@ -19,6 +19,7 @@ import com.moopi.mvc.service.domain.Meeting;
 import com.moopi.mvc.service.domain.MeetingFlashMember;
 import com.moopi.mvc.service.domain.Moim;
 import com.moopi.mvc.service.domain.Notice;
+import com.moopi.mvc.service.domain.User;
 import com.moopi.mvc.service.meeting.impl.MeetingService;
 
 @RestController
@@ -55,15 +56,24 @@ public class MeetingRestController {
 			String end3 = c+"T"+d;
 			meeting.setMtEnd2(end3);
 			
-			boolean bl = false;
+			// 한번도 가입하지 않은 유저
+			int check = 1;
 			MeetingFlashMember mefl = meetingService.getMFEL(mtNo , userId);
+			System.out.println("ddsdsdads" +mefl);
 			if(mefl != null) {
-				bl = true;
+				if(mefl.getJoinState() == 1) {
+					// 가입상태 유저
+					check = 2;
+				}else {
+					// 가입취소한 유저
+					check = 3;
+				}
 			}
 					
 			Map<String ,Object> map = new HashMap<String,Object>();
 			map.put("meeting", meeting);
-			map.put("check", bl);
+			map.put("check", check);
+			
 			
 //			System.out.println(userId);
 //			System.out.println(userMapper.getUser(userId));
@@ -114,7 +124,10 @@ public class MeetingRestController {
 			Meeting meeting = meetingService.getMeeting(mtNo);
 			Notice notice = new Notice();
 			Moim moim = new Moim();
+			User user = new User();
+			user.setUserId(userId);			
 			moim.setMmNo(mmNo);
+			notice.setNoticeUser(user);
 			notice.setToUserId(meeting.getMtConstructor().getUserId()); // 알림대상
 			notice.setNoticeContent("님이 정모에 참가했습니다");
 			notice.setMoim(moim);

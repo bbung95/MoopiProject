@@ -185,8 +185,7 @@ table.dataTable td {
 <!-- ToolBar End /////////////////////////////////////-->
 
 
-
-
+<div id="wrapper">
 <h2>Invite List</h2>
 <main>
 <div class="container">
@@ -259,6 +258,8 @@ table.dataTable td {
 <%-- <button type="button" class="btn btn-default" onClick="fncAccept('${user.userId}', '${member.mmNo}')">초대</button> --%>
 <%-- </c:forEach> --%>
 </main>
+ </div>
 <jsp:include page="../layout/moimSidebar.jsp"></jsp:include>
+<jsp:include page="../layout/footer.jsp"></jsp:include>
 </body>
 </html>

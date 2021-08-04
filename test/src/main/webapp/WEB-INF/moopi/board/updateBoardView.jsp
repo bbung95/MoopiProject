@@ -104,7 +104,7 @@ body {
 	<jsp:include page="../layout/toolbar.jsp" />
 
 	
-
+<div id="wrapper">
  	<div class="container">
 
 		<div class="col-xs-12 col-sm-12 col-md-12" style="padding-bottom: 50px;">
@@ -145,8 +145,8 @@ body {
 		</form>
  
 	</div>
-	
-<%-- 	<div id="wrapper"><jsp:include page="../layout/footer.jsp"></jsp:include></div> --%>
+	</div>
+<jsp:include page="../layout/footer.jsp"></jsp:include>
 	
 </body>
 </html>

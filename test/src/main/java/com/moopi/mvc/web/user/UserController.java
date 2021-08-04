@@ -329,44 +329,7 @@ public class UserController {
 		return "user/updateProfile";
 		
 	}
-	
-// [프로필 업데이트]-----------------------------------------------------------------------------------------------	
-	
 
-	 //1. [닉네임수정] - updateNickname
-	@RequestMapping("updateNickname")
-	public String updateNickname(	@RequestParam("userId") String userId,
-									@RequestParam("nickname") String nickname,
-									@ModelAttribute("user") User user) {
-		System.out.println("닉네임수정");		
-		userService.updateNickname(user);
-		return "user/updateUser";				
-	}
-	
-	// 2. [프로필소개수정] - updateContent
-	@RequestMapping("updateContent")
-	public String updateContent(	@RequestParam("userId") String userId,
-									@RequestParam("profileContent") String profileContent,
-									@ModelAttribute("user") User user) {
-		System.out.println("프로필소개수정");		
-		userService.updateContent(user);
-		return "user/updateContent";				
-	}
-		
-	// 3. [관심사수정] - updateInterest
-	@RequestMapping("updateInterest")
-	public String updateInterest(	@RequestParam("userId") String userId,
-									@RequestParam("interestFirst") String interestFirst,
-									@RequestParam("interestSecond") String interestSecond,
-									@RequestParam("interestThird") String interestThird,
-									@ModelAttribute("user") User user) {
-		System.out.println("관심사수정");		
-		userService.updateInterest(user);
-		return "user/updateInterest";				
-	}
-	
-
-	
 	// 회원탈퇴
 	@RequestMapping("updateLeaveUser")
 	public String updateLeaveUser (	@RequestParam("userId") String userId,
@@ -384,25 +347,6 @@ public class UserController {
 		return "redirect:/";
 	}
 	
-	// 회원블랙
-		@RequestMapping("updateBlackUser")
-		public String updateBlackUser (	@RequestParam("userId") String userId,
-										@RequestParam("userRole") String userRole,
-										@RequestParam("stateReason") String stateReason,
-										HttpSession session,
-										Model model) throws Exception {		
-			User user = new User();
-			user.setUserId(userId);
-			user.setStateReason(stateReason);		
-			model.addAttribute("dbUser", userId);
-			model.addAttribute("dbUser", stateReason);		
-			userService.updateBlackUser(user);
-			session.invalidate();
-			return "redirect:/";
-		}
-	
-
-	
 
 //-- [완료] 회원가입 addUserView.jsp로 단순 네비게이션  -------------------------------------------------------------------------------------------
 	@RequestMapping("getIdView")
@@ -419,13 +363,13 @@ public class UserController {
 	@RequestMapping("searchIdView")
 	public String searchIdView(	@RequestParam("phone") String phone,
 								Model model,
-								@ModelAttribute("user") User user) throws Exception{		
+								@ModelAttribute("user") User user ) throws Exception{		
 		
-		model.addAttribute("dbUser", userService.getId(phone));			
+		model.addAttribute("dbUser", userService.getId(phone));	
 		
 		
 		User dbUser = userService.getId(user.getPhone());		
-		
+
 		if (dbUser == null) {
 			System.out.println("널임");
 		} else if (dbUser != null) {

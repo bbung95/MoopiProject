@@ -789,40 +789,25 @@ thumbnail-img {
 															+ '<div class="cont-wrap">'
 															+ '<div class="tpl-forum-list-content"'
 															+ '<span class="tpl-forum-list-title"'
-								+'data-selector=".tpl-forum-list-title" data-font="true"'
-								+'data-title="title font">'
-															+ JSONData.list[i].mmName
+															+'data-selector=".tpl-forum-list-title" data-font="true"'
+															+'data-title="title font">'
+															+ JSONData.list[i].mmName+' <span class="rounded-3 shadow-sm p-1 h7 span-round">'
+															+ JSONData.list[i].mmAddr+'</sapn>'
 															+ '</span>'
 															+ '</div>'
 															+ '<div'
-								+'class="tpl-forum-list-name tpl-forum-list-etc config-font-etc"'
-								+'data-selector=".tpl-forum-list-etc" data-font="true"'
-								+'data-title="others">'
-															+ '<div><span class="rounded-3 shadow-sm p-1 h7">'
-															+ JSONData.list[i].mmAddr
-															+ '</span><span class="rounded-3 shadow-sm p-1 h7">'
+															+'class="tpl-forum-list-name tpl-forum-list-etc config-font-etc"'
+															+'data-selector=".tpl-forum-list-etc" data-font="true"'
+															+'data-title="others">'
+															+ '<div><span class="rounded-3 shadow-sm p-1 h7 span-round">'
 															+ JSONData.list[i].mmInterest
 															+ '</span>'
-															+ '<div class="inline-block rounded-3 shadow-sm p-1 h7"><i class="bi bi-people-fill"></i>'
+															+ '<div class="inline-block rounded-3 shadow-sm p-1 h7 span-round"><i class="bi bi-people-fill"></i>'
 															+ JSONData.list[i].mmCurrentCount
 															+ ' / '
 															+ JSONData.list[i].mmMaxCount
 															+ '</div>'
 															+ '</div>'
-															+ '<ul class="d-flex item-ul" style="list-style: none;">'
-															+ '<li class="tpl-forum-list-category tpl-forum-list-etc config-font-etc">'
-															//+ list[i].flashTime
-															+ '</li>'
-															+ '<li class="tpl-forum-list-date tpl-forum-list-etc config-font-etc">'
-															//+ list[i].flashAddr
-															+ '</li>'
-															+ '<li class="tpl-forum-list-hit tpl-forum-list-etc config-font-etc">'
-															//+ list[i].flashCurrentCount
-															+ '</li>'
-															+ '<li class="tpl-forum-list-comment tpl-forum-list-etc config-font-etc">'
-															//+ list[i].flashMaxCount
-															+ '</li>'
-															+ '</ul>'
 															+ '<div class="tpl-forum-list-cont"'
 								+'data-selector=".tpl-forum-list-cont" data-font="true"'
 								+'data-title="content font"></div>'

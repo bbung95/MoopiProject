@@ -253,6 +253,8 @@ table.dataTable td {
 
 
 <body>
+
+<div id="warpper">
 <h2>Member List</h2>
 
 <main>
@@ -327,10 +329,12 @@ table.dataTable td {
   </div>
 </div>
 </main>
-
+</div>
 
 
 <jsp:include page="../layout/moimSidebar.jsp"></jsp:include>
+<jsp:include page="../layout/footer.jsp"></jsp:include>
+
 </body>
 
 

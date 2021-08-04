@@ -204,7 +204,9 @@ table.dataTable td {
 <!-- ToolBar End /////////////////////////////////////-->
 <body>
 
+<div id="wrapper">
 <h2>Apply List</h2>
+
 <main>
 <div class="container">
   <div class="row">
@@ -255,8 +257,9 @@ table.dataTable td {
 </div>
 
 </main>
-
+</div>
 <jsp:include page="../layout/moimSidebar.jsp"></jsp:include>
+<jsp:include page="../layout/footer.jsp"></jsp:include>
 </body>
 
 
