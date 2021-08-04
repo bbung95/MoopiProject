@@ -818,7 +818,7 @@ body {
 			<h3>
 				Your Meeting Calendar
 				<!-- <button type="button" class="btn btn-success" onClick="fncAddMtView()">정모 생성하기</button> -->
-				<c:if test="${dbUser == ''}">
+				<c:if test="${dbUser != ''}">
 					<span><img class="add" src="/images/plus2.png" width="40"
 						height="40" data-bs-target="#myModal" data-bs-toggle="modal" /></span>
 				</c:if>
