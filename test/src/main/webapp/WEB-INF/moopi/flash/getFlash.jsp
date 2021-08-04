@@ -181,6 +181,7 @@ function fncGetJoinFlashList(flashNo){
 										<form class="mb-1 mt-lg-1">
 											<div class="fw-bold">-번개장소-</div>
 											<p>${flash.flashAddr}</p>
+											<p>${flash.detailAddr}</p>
 										</form>
 									</div>
 								</div>
