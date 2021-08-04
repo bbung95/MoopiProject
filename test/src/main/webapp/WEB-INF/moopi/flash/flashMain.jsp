@@ -75,8 +75,8 @@ body {
 
 .userEL8990950 .tpl-forum-list-etc {
 	color: #757575;
-	text-align: center;
-	line-height: 1.8;
+/* 	text-align: center;
+ */	line-height: 1.8;
 	vertical-align: top;
 	font-size: 12px;
 	font-family: 'Lato', 'Nanum Gothic';
@@ -97,8 +97,8 @@ body {
 
 .userEL8990950 .item .cont-wrap {
 	padding: 25px 15px 20px;
-	text-align: center;
-	line-height: 1.8;
+/* 	text-align: center;
+ */	line-height: 1.8;
 	vertical-align: top;
 }
 
@@ -219,21 +219,30 @@ body {
 	line-height: 34px;
 	margin-bottom: 16px;
 }
+
+.span-round{
+	background: #def0ff;		
+}
+
+#item-head{
+	font-weight: bold;
+	font-size : 18px;
+}
 </style>
 
 <script>
 	function fncAddFlashView() {
-		alert("번개생성");
+		//alert("번개생성");
 		self.location = "/flash/addFlashView?userId=${dbUser.userId}"
 	}
 
 	function fncGetFlash(flashNo) {
-		alert("번개무피 상세보기");
+		//alert("번개무피 상세보기");
 		self.location = "/flash/getFlash?flashNo=" + flashNo
 	}
 
 	function fncAddFlash() {
-		alert("번개생성 시작!");
+		//alert("번개생성 시작!");
 
 		// 	var name = $("name:flashName").val();
 		// 	var file = $("#uploadFile").val();
@@ -385,7 +394,7 @@ body {
 
 	<!-- Modal -->
 	<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
-		data-bs-keyboard="false" tabindex="-1"
+		data-bs-keyboard="false" tabindex="-1"	
 		aria-labelledby="staticBackdropLabel" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content">
@@ -435,17 +444,26 @@ body {
 
 						<div class="form-group">
 							<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">번개장소</label>
-							<div class="col-sm-5">
-								<input type="text" class="form-control" id="flashAddr"
-									name="flashAddr" placeholder="지역구">
+							<div class="col-sm-40 d-flex">
+								<select id="flashAddr" name="flashAddr">
+									<option>지역구</option>
+									
+								</select>
+									
+								<input type="text" class="form-control" id="detailAddr"
+									name="detailAddr" placeholder="상세주소" >
 							</div>
 						</div>
 
 						<div class="form-group">
 							<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">번개모임인원</label>
-							<div class="col-sm-5">
-								<input type="text" class="form-control" id="flashMaxCount"
-									name="flashMaxCount" placeholder="최대참가인원">
+							<div class="col-sm-20">
+								<select id="flashMaxCount" name="flashMaxCount" >
+									<option value="2">2</option>
+									<option value="3">3</option>
+									<option value="4">4</option>
+									<option value="5">5</option>
+								</select>
 							</div>
 						</div>
 
@@ -523,7 +541,10 @@ body {
 
 			let display = '<li><a class="dropdown-item" href="#">' + addrs[i]
 					+ '</a></li>';
+			let displayValue = '<option value="'+addrs[i]+'">'+addrs[i]+'</option>';
+					
 			$('.addr').append(display);
+			$('#flashAddr').append(displayValue);
 		}
 
 		$('.addr > li > a').on('click', function() {
@@ -616,35 +637,30 @@ body {
 											+ '</div>'
 											+ '<div class="cont-wrap">'
 											+ '<div class="tpl-forum-list-content"'
-											+ '<span class="tpl-forum-list-title"'
+											+ '<span id="item-head" class="tpl-forum-list-title"'
 											+'data-selector=".tpl-forum-list-title" data-font="true"'
 											+'data-title="title font">'
 											+ list[i].flashName
 											+ '</span>'
 											+ '</div>'
 											+ '<div'
-											+'class="tpl-forum-list-name tpl-forum-list-etc config-font-etc d-flex"'
+											+'class="tpl-forum-list-name tpl-forum-list-etc config-font-etc"'
 											+'data-selector=".tpl-forum-list-etc" data-font="true"'
 											+'data-title="others">'
-											+ '<img src="/images/uploadFiles/'
-											+ list[i].flashConstructor.profileImage
-											+ '" style="width: 40px; height:40px; border-radius: 50%;" />'
-											+ '<span>'+list[i].flashConstructor.nickname+'</span>'
-											+ '</div>'
-											+'<div><span class="rounded-3 shadow-sm p-1 h7">'
-											+list[i].flashAddr+'</span><span class="rounded-3 shadow-sm p-1 h7">'
-											+list[i].flashInterest+'</span></div>'
-											+ '<ul class="d-flex item-ul" style="list-style: none;">'
-											+ '<li class="tpl-forum-list-category tpl-forum-list-etc config-font-etc">'
-											+ list[i].flashTime
-											+ '</li>'
-											+ '<li class="tpl-forum-list-hit tpl-forum-list-etc config-font-etc">'
+											+'<div>'+list[i].flashConstructor.nickname+'</div>'
+											+ '<div><span class="rounded-3 shadow-sm p-1 h7 span-round">'
+											+ list[i].flashAddr
+											+ '</span><span class="rounded-3 shadow-sm p-1 h7 span-round">'
+											+ list[i].detailAddr
+											+ '</span><div><span class="rounded-3 shadow-sm p-1 h7 span-round">'
+											+ list[i].flashInterest
+											+ '</span>'
+											+ '<div class="inline-block rounded-3 shadow-sm p-1 h7 span-round"><i class="bi bi-people-fill"></i>'
 											+ list[i].flashCurrentCount
-											+ '</li>'
-											+ '<li class="tpl-forum-list-comment tpl-forum-list-etc config-font-etc">'
+											+ ' / '
 											+ list[i].flashMaxCount
-											+ '</li>'
-											+ '</ul>'
+											+ '</div></div>'
+											+ '</div>'
 											+ '<div class="tpl-forum-list-cont"'
 											+'data-selector=".tpl-forum-list-cont" data-font="true"'
 											+'data-title="content font"></div>'

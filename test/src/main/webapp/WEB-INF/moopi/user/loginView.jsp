@@ -419,6 +419,11 @@
 					</div>
 					</div>
 
+<script>
+	$('h3:contains("Moopi")').on('click', function(){
+		location.href = "/";
+	})
+</script>
 
 </body>
 </html>

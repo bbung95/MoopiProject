@@ -19,6 +19,7 @@
 		<result property="flashCurrentCount" column="FLASH_CURRENT_COUNT" 	jdbcType="NUMERIC"  />
 		<result property="flashMaxCount" 	column="FLASH_MAX_COUNT" 	jdbcType="NUMERIC" />
 		<result property="flashAddr" 		column="FLASH_ADDR" 		jdbcType="VARCHAR" />
+		<result property="detailAddr"       column="DETAIL_ADDR"		jdbcType="VARCHAR" />
 		<result property="flashState" 		column="FLASH_STATE" 		jdbcType="CHAR" />
 		<result property="flashInterest" 	column="INTEREST_NAME" 	jdbcType="NUMERIC" />
 		<result property="flashMapX" 		column="FLASH_MAP_X" 		jdbcType="VARCHAR" />
@@ -68,7 +69,7 @@
 	<select id="getFlash" parameterType="int" resultMap="flashSelectMap">
 		SELECT
 			FLASH_NO, FLASH_NAME, FLASH_CONTENT, FLASH_FILE, FLASH_CONSTRUCTOR, FLASH_REGDATE,
-			FLASH_TIME, FLASH_CURRENT_COUNT, FLASH_MAX_COUNT, FLASH_ADDR, FLASH_STATE, FLASH_INTEREST,
+			FLASH_TIME, FLASH_CURRENT_COUNT, FLASH_MAX_COUNT, FLASH_ADDR, DETAIL_ADDR, FLASH_STATE, FLASH_INTEREST,
 			FLASH_MAP_X, FLASH_MAP_Y , NICKNAME	, PROFILE_IMAGE	
 			FROM FLASH , users
 			WHERE FLASH.FLASH_CONSTRUCTOR = USERS.user_id
@@ -79,10 +80,10 @@
 		INSERT
 		INTO FLASH(FLASH_NO, FLASH_NAME, FLASH_CONTENT, FLASH_FILE, FLASH_CONSTRUCTOR, FLASH_REGDATE,
 			FLASH_TIME, FLASH_CURRENT_COUNT, FLASH_MAX_COUNT, FLASH_ADDR, FLASH_STATE, FLASH_INTEREST,
-			FLASH_MAP_X, FLASH_MAP_Y)
+			FLASH_MAP_X, FLASH_MAP_Y , DETAIL_ADDR)
 		VALUES(#{flashNo}, #{flashName}, #{flashContent}, #{flashFile}, #{flashConstructor.userId},
 		now(), #{flashTime}, '1', #{flashMaxCount}, #{flashAddr}, '1', 
-		#{flashInterest}, #{flashMapX}, #{flashMapY})
+		#{flashInterest}, #{flashMapX}, #{flashMapY} , #{detailAddr})
 	</insert>
 	
 	<update id="updateFlash" parameterType="flash">
@@ -92,6 +93,7 @@
 			FLASH_FILE = #{flashFile},
 			FLASH_CONTENT = #{flashContent},
 			FLASH_ADDR = #{flashAddr},
+			DETAIL_ADDR = #{detailAddr},
 			FLASH_MAX_COUNT = #{flashMaxCount},
 			FLASH_TIME = #{flashTime},
 			FLASH_INTEREST = #{flashInterest}
@@ -115,24 +117,24 @@
 			FROM(SELECT
 			
 			FLASH_NO, FLASH_NAME, FLASH_CONTENT, FLASH_FILE, FLASH_CONSTRUCTOR, FLASH_REGDATE,
-			FLASH_TIME, FLASH_CURRENT_COUNT, FLASH_MAX_COUNT, FLASH_ADDR, FLASH_STATE, FLASH_INTEREST,
+			FLASH_TIME, FLASH_CURRENT_COUNT, FLASH_MAX_COUNT, FLASH_ADDR, DETAIL_ADDR , FLASH_STATE, FLASH_INTEREST,
 			FLASH_MAP_X, FLASH_MAP_Y , INTEREST_NAME , NICKNAME , PROFILE_IMAGE 
 			FROM FLASH F , INTEREST I , USERS u
 			<where>
 			F.FLASH_INTEREST = I.INTEREST_NO AND F.FLASH_CONSTRUCTOR = u.USER_ID
 			<if test="searchCondition !=null">
-			<if test="searchCondition == 1 and interestNo !='' ">
-			AND FLASH_INTEREST = #{interestNo}
-			</if>
-			<if test="searchCondition == 2 and addr !='' ">
-			AND FLASH_ADDR = #{addr}
-			</if>
-			<if test="searchCondition == 3 and searchKeyword !='' ">
-			AND FLASH_NAME like '%${searchKeyword}%' <!-- OR I.INTEREST_NAME like '%${searchKeyword}%'  -->
-			</if>
-			<if test="searchCondition == 4 and searchKeyword !='' ">
+				<if test="searchCondition == 1 and interestNo !='' ">
+				AND FLASH_INTEREST = #{interestNo}
+				</if>
+				<if test="searchCondition == 2 and addr !='' ">
+				AND FLASH_ADDR = #{addr}
+				</if>
+				<if test="searchCondition == 3 and searchKeyword !='' ">
+				AND FLASH_NAME like '%${searchKeyword}%' <!-- OR I.INTEREST_NAME like '%${searchKeyword}%'  -->
+				</if>
+				<if test="searchCondition == 4 and searchKeyword !='' ">
 				AND FLASH_ADDR = #{addr} AND FLASH_INTEREST = #{interestNo}
-			</if> 
+				</if> 
 			</if>
 			</where>
 			) inner_table, (select @rownum := 0) as R )tables

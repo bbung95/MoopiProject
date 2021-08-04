@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.moopi.mvc.common.Search;
 import com.moopi.mvc.service.domain.Meeting;
+import com.moopi.mvc.service.domain.MeetingFlashMember;
 
 public interface MeetingService {
 	
@@ -29,4 +30,6 @@ public interface MeetingService {
 	public Map<String, Object> getMEFLList(int mtNo) throws Exception;
 	
 	public int getTotalCount(Search search) throws Exception;
+	
+	public MeetingFlashMember getMFEL(int mtNo, String userId) throws Exception;
 }

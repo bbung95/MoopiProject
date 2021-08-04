@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title> 비밀번호변경 View </title>
+<title> 비밀번호변경</title>
 <!-- 스윗얼럿 -->
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <! ------------------------------------------------ Bootstrap, jQuery CDN -------------------------------------------------->
@@ -61,11 +61,23 @@
 <!-------------------------------------------------------------------------------------------------------------------------->
 	function updatePwd() {
 		
-		var userId=$("input[name='userId'").val();
-		var password=$("input[name='password'").val();
+		var userId=$("input[name='userId']").val();
+		var password = $("input[name='password']").val();
+		var password2 = $("input[name='password2']").val();
+		
+		console.log(password);
+		console.log(password2);
+		console.log(password.length);
+		
+		if(password != password2 || password.length < 8){
+			
+			swal("FAIL!","올바르지 않은 형식입니다.","warning");
+			
+			return;
+		}
 		
 		$.ajax ({
-				url : "/user/json/updatePwdView",
+				url : "/user/json/updateUser/2",
 				method : "POST",
 				contentType : "application/JSON",
 				dataType : "text",
@@ -73,14 +85,20 @@
 					
 					success : function(data, state) {
 						
-						swal("SUCCESS!","변경이 완료되었습니다.","success"); 
-						close();
+/* 						swal("SUCCESS!","변경이 완료되었습니다.","success");
+ */						
+						swal({
+							title : "SUCCESS!",
+							text: "변경이 완료되었습니다.",
+						    icon  : "success",
+						    closeOnClickOutside : false
+						}).then(function(){
+							close();
+						});
+						
 					}
-					
-				});
-			
+		})
 	}
-	
 </script>
   <style>
     @font-face {

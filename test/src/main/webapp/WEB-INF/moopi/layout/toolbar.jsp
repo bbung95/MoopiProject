@@ -190,7 +190,7 @@ body::-webkit-scrollbar {
 <div class="fixed-top " id="toolbarbox">
 	<nav class="navbar navbar-expand-lg navbar-light" id="toolbar">
 		<div class="container px-5">
-			<a class="navbar-brand toolbar-color" id="toolbar-main" href="/">MOOPI</a>
+			<a class="navbar-brand toolbar-color" id="toolbar-main" href="/">MOOPi</a>
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
 				aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -405,10 +405,12 @@ body::-webkit-scrollbar {
 					method : "GET",
 					dataType : "JSON",
 					success : function(data, status) {
-
+						
+						
 						let display = '';
 						if (data.length > 0) {
 							for (var i = 0; i < data.length; i++) {
+						console.log(data[i]);
 
 								//채팅 알림 type 1
 								if (data[i].noticeType == '1') {
@@ -457,7 +459,8 @@ body::-webkit-scrollbar {
 
 									// 정모 가입 알림 type 3
 								} else if (data[i].noticeType == '3') {
-
+									console.log(data[i].noticeUser);
+									
 									display += '<div class="shadow-sm p-3 mb-1 bg-body rounded notice '+data[i].noticeNo+'">'
 											+ '<div class="toast-header">'
 											+ '<img src="/images/uploadFiles/'

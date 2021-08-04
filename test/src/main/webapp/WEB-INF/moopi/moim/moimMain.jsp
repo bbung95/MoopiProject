@@ -122,6 +122,13 @@
 		});
 
 	});
+	
+	function number_check(){
+	    if(event.keyCode < 48 || event.keyCode > 57){
+	        event.returnValue=false;
+	    }
+	}
+	
 </script>
 
 <style>
@@ -483,7 +490,7 @@ thumbnail-img {
 							<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">모임무피명</label>
 							<div class="col-sm-20">
 								<input type="text" class="form-control" id="mmName"
-									name="mmName" placeholder="모임명">
+									name="mmName" placeholder="모임명 최대 20글자" maxlength="20">
 							</div>
 						</div>
 
@@ -510,7 +517,7 @@ thumbnail-img {
 							<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">간단소개글</label>
 							<div class="col-sm-40">
 								<textarea style="resize: none" class="form-control"
-									id="mmContent" name="mmContent" placeholder="50자이내"></textarea>
+									id="mmContent" name="mmContent" placeholder="50자이내" maxlength="50"></textarea>
 							</div>
 						</div>
 
@@ -555,7 +562,7 @@ thumbnail-img {
 							<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">인원</label>
 							<div class="col-sm-40">
 								<input type="text" class="form-control" id="mmMaxCount"
-									name="mmMaxCount" placeholder="가입가능정원">
+									name="mmMaxCount" placeholder="가입가능정원" onkeypress="number_check()" maxlength="2">
 							</div>
 						</div>
 
@@ -587,7 +594,7 @@ thumbnail-img {
 							<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">최소연령</label>
 							<div class="col-sm-40">
 								<input type="text" class="form-control" id="mmMinAge"
-									name="mmMinAge" placeholder="최소연령">
+									name="mmMinAge" placeholder="최소연령" onkeypress="number_check()" maxlength="2">
 							</div>
 						</div>
 
@@ -597,7 +604,7 @@ thumbnail-img {
 							<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">최대연령</label>
 							<div class="col-sm-40">
 								<input type="text" class="form-control" id="mmMaxAge"
-									name="mmMaxAge" placeholder="최대연령">
+									name="mmMaxAge" placeholder="최대연령" onkeypress="number_check()" maxlength="2">
 							</div>
 						</div>
 
@@ -782,40 +789,25 @@ thumbnail-img {
 															+ '<div class="cont-wrap">'
 															+ '<div class="tpl-forum-list-content"'
 															+ '<span class="tpl-forum-list-title"'
-								+'data-selector=".tpl-forum-list-title" data-font="true"'
-								+'data-title="title font">'
-															+ JSONData.list[i].mmName
+															+'data-selector=".tpl-forum-list-title" data-font="true"'
+															+'data-title="title font">'
+															+ JSONData.list[i].mmName+' <span class="rounded-3 shadow-sm p-1 h7 span-round">'
+															+ JSONData.list[i].mmAddr+'</sapn>'
 															+ '</span>'
 															+ '</div>'
 															+ '<div'
-								+'class="tpl-forum-list-name tpl-forum-list-etc config-font-etc"'
-								+'data-selector=".tpl-forum-list-etc" data-font="true"'
-								+'data-title="others">'
-															+ '<div><span class="rounded-3 shadow-sm p-1 h7">'
-															+ JSONData.list[i].mmAddr
-															+ '</span><span class="rounded-3 shadow-sm p-1 h7">'
+															+'class="tpl-forum-list-name tpl-forum-list-etc config-font-etc"'
+															+'data-selector=".tpl-forum-list-etc" data-font="true"'
+															+'data-title="others">'
+															+ '<div><span class="rounded-3 shadow-sm p-1 h7 span-round">'
 															+ JSONData.list[i].mmInterest
 															+ '</span>'
-															+ '<div class="inline-block rounded-3 shadow-sm p-1 h7"><i class="bi bi-people-fill"></i>'
+															+ '<div class="inline-block rounded-3 shadow-sm p-1 h7 span-round"><i class="bi bi-people-fill"></i>'
 															+ JSONData.list[i].mmCurrentCount
 															+ ' / '
 															+ JSONData.list[i].mmMaxCount
 															+ '</div>'
 															+ '</div>'
-															+ '<ul class="d-flex item-ul" style="list-style: none;">'
-															+ '<li class="tpl-forum-list-category tpl-forum-list-etc config-font-etc">'
-															//+ list[i].flashTime
-															+ '</li>'
-															+ '<li class="tpl-forum-list-date tpl-forum-list-etc config-font-etc">'
-															//+ list[i].flashAddr
-															+ '</li>'
-															+ '<li class="tpl-forum-list-hit tpl-forum-list-etc config-font-etc">'
-															//+ list[i].flashCurrentCount
-															+ '</li>'
-															+ '<li class="tpl-forum-list-comment tpl-forum-list-etc config-font-etc">'
-															//+ list[i].flashMaxCount
-															+ '</li>'
-															+ '</ul>'
 															+ '<div class="tpl-forum-list-cont"'
 								+'data-selector=".tpl-forum-list-cont" data-font="true"'
 								+'data-title="content font"></div>'

@@ -253,6 +253,8 @@ table.dataTable td {
 
 
 <body>
+
+<div id="warpper">
 <h2>Member List</h2>
 
 <main>
@@ -311,8 +313,12 @@ table.dataTable td {
 			<button type="button" class="warning">매니저박탈</button>
 			<input type="hidden" value='${member.mmUser.userId}'>
 			</c:if>
+			<c:if test="${member.memberRole != '4' }">
+				<c:if test="${member.memberRole != '3' }">
 			<button type="button" class="danger">블랙</button>
 			<input type="hidden" value='${member.mmUser.userId}'>
+				</c:if>
+			</c:if>
 			</td>
           </tr>
         </c:forEach>  
@@ -327,10 +333,12 @@ table.dataTable td {
   </div>
 </div>
 </main>
-
+</div>
 
 
 <jsp:include page="../layout/moimSidebar.jsp"></jsp:include>
+<jsp:include page="../layout/footer.jsp"></jsp:include>
+
 </body>
 
 

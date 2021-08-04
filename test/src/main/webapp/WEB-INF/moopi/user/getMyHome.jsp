@@ -20,6 +20,9 @@
 <link href="/css/styles.css" rel="stylesheet" />
 <!-------------------------------------------------------------------------------------------------------------------------->
 
+<!-- 스윗얼럿 -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 
 <!-- jquery bpop -->
@@ -219,7 +222,7 @@ body {
 	width: 40px;
 	height: 40px;
 	margin-top: 10px;
-	margin-bottom : 10px;
+	margin-bottom: 10px;
 }
 
 .replyProfile {
@@ -319,7 +322,6 @@ body {
 	transform: translate(-50%, -50%);
 }
 
-
 pre {
 	white-space: normal;
 	word-break: break-all;
@@ -416,7 +418,7 @@ pre {
 	transition-delay: 0.1s;
 }
 
-figcaption > i{
+figcaption>i {
 	font-size: 40px;
 }
 
@@ -437,51 +439,54 @@ figcaption > i{
 	<!-- Tool Bar ---------------------------------------------------------------------------------------------------------------->
 	<jsp:include page="../layout/toolbar.jsp" />
 	<!---------------------------------------------------------------------------------------------------------------------------->
+
 <div id="wrapper">
 	<main class="py-5">
 		<div class="container px-5 my-5 ">
 
-			<div class="row text-center" data-matrix-loop="true"
-				data-matrix-column="1">
 
-				<div class="col-xs-4 col-sm-4 col-md-4 item"></div>
-				<div class="col-xs-4 col-sm-4 col-md-4 item">
-					<img src="/images/uploadFiles/${user.profileImage}"
-						class="img-responsive profileImg" data-attach="true"
-						data-fixedsize="true" data-fixed-width="250" style="width: 250px;">
-					<div class="text-box" style="margin-top: 20px;">
-						<p class="desc" data-edit="true" data-selector="p">
-							<span class="fsize14">"${user.profileContent}"</span>
-						</p>
-						<h5 class="head_title" data-edit="true"
-							data-selector="h5.head_title">
-							<span class="fsize13"><strong>${user.nickname}</strong></span>
-						</h5>
-						<h6 class="sub_text" data-edit="true" data-selector="h6.sub_text">
-							<span class="followList" type="2">팔로워 ${followerCount}</span><span
-								class="followList" type="1">팔로잉${folloingCount}</span>
-						</h6>
+				<div class="row text-center" data-matrix-loop="true"
+					data-matrix-column="1">
+
+					<div class="col-xs-4 col-sm-4 col-md-4 item"></div>
+					<div class="col-xs-4 col-sm-4 col-md-4 item">
+						<img src="/images/uploadFiles/${user.profileImage}"
+							class="img-responsive profileImg" data-attach="true"
+							data-fixedsize="true" data-fixed-width="250"
+							style="width: 250px;">
+						<div class="text-box" style="margin-top: 20px;">
+							<p class="desc" data-edit="true" data-selector="p">
+								<span class="fsize14">"${user.profileContent}"</span>
+							</p>
+							<h5 class="head_title" data-edit="true"
+								data-selector="h5.head_title">
+								<span class="fsize13"><strong>${user.nickname}</strong></span>
+							</h5>
+							<h6 class="sub_text" data-edit="true" data-selector="h6.sub_text">
+								<span class="followList" type="2">팔로워 ${followerCount}</span><span
+									class="followList" type="1">팔로잉${folloingCount}</span>
+							</h6>
+						</div>
+
+						<div>
+							<c:if test="${dbUser.userId == user.userId}">
+								<button class="btn btn-light mybtn">프로필수정</button>
+								<!-- Button trigger modal -->
+								<button type="button" class="btn btn-light"
+									data-bs-toggle="modal" data-bs-target="#register">게시글등록</button>
+							</c:if>
+							<c:if test="${dbUser.userId != user.userId}">
+								<button class="btn btn-primary mybtn" target="${user.userId}">팔로우</button>
+								<button class=" btn btn-light mybtn" target="${user.userId}"
+									type="1">채팅</button>
+								<button type="button" class="btn btn-light addReportUser">신고</button>
+							</c:if>
+						</div>
 					</div>
 
-					<div>
-						<c:if test="${dbUser.userId == user.userId}">
-							<button class="btn btn-light mybtn">프로필수정</button>
-							<!-- Button trigger modal -->
-							<button type="button" class="btn btn-light"
-								data-bs-toggle="modal" data-bs-target="#register">게시글등록</button>
-						</c:if>
-						<c:if test="${dbUser.userId != user.userId}">
-							<button class="btn btn-primary mybtn" target="${user.userId}">팔로우</button>
-							<button class=" btn btn-light mybtn" target="${user.userId}"
-								type="1">채팅</button>
-							<button type="button" class="btn btn-light addReportUser">신고</button>
-						</c:if>
-					</div>
-				</div>
-
-				<!-- 모임리스트 -->
-				<div class="col-xs-4 col-sm-4 col-md-4 item">
-					<%-- <div class="card border-0 bg-light ">
+					<!-- 모임리스트 -->
+					<div class="col-xs-4 col-sm-4 col-md-4 item">
+						<%-- <div class="card border-0 bg-light ">
 						<div class="card-body p-4 py-lg-3">
 							<c:forEach var="moim" items="${moim}">
 								<div>
@@ -495,9 +500,32 @@ figcaption > i{
 							</c:forEach>
 						</div>
 					</div> --%>
+					</div>
+
 				</div>
-				
+
+				<hr style="margin-bottom: 25px;">
+
+				<div class="text-center">
+					<c:if test="${!empty user.interestFirst}">
+						<span class="interest">${user.interestFirst}</span>
+					</c:if>
+					<c:if test="${!empty user.interestSecond}">
+						<span class="interest">${user.interestSecond}</span>
+					</c:if>
+					<c:if test="${!empty user.interestThird}">
+						<span class="interest"><i class="bi bi-joystick"></i>${user.interestThird}</span>
+					</c:if>
+				</div>
+
+				<!-- 바디 -->
+				<div class="userEL8990950 colorSet" data-forum-type="thumb"
+					data-fcolor="#191919">
+					<!-- 게시글 생성박스 -->
+					<div id="boardView" class="row multi-columns-row"></div>
+				</div>
 			</div>
+
 
 			<hr style="margin-bottom: 25px;">
 
@@ -522,6 +550,7 @@ figcaption > i{
 		</div>
 	</main>
 </div>
+
 
 	<!-- get board view -->
 	<div class="container" id="element_to_pop_up">
@@ -548,8 +577,8 @@ figcaption > i{
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title" id="staticBackdropLabel">게시글등록</h5>
-					<button type="button" id="close" class="btn-close" data-bs-dismiss="modal"
-						aria-label="Close"></button>
+					<button type="button" id="close" class="btn-close"
+						data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 
 				<div class="modal-body">
@@ -587,8 +616,8 @@ figcaption > i{
 			</div>
 		</div>
 	</div>
-	
-	 <jsp:include page="../layout/footer.jsp"></jsp:include>
+
+	<jsp:include page="../layout/footer.jsp"></jsp:include>
 
 	<!-- Bootstrap core JS-->
 	<script
@@ -856,7 +885,7 @@ if(${followCheck}){
 													 +'<div class="thumbnail-wrapper">'
 													+'<div class="thumbnail effect5">'
 													+ '<figcaption>'
-								      				 + '<h3><em><i class="bi bi-heart likebtn"></i><span class="likeCount">'+list[i].boardLike+' </span>&nbsp'
+								      				 + '<h3><em><i class="bi bi-heart likebtn"></i><span>'+list[i].boardLike+' </span>&nbsp'
 								      				 +'<i class="bi bi-chat-left"></i><span> '+list[i].replyCount+'</span></em></h3>'
 								    				 + '</figcaption>'
 													+'<div class="thumbnail-centered ">'
@@ -1032,26 +1061,37 @@ if(${followCheck}){
 		// 게시글삭제
 		function deleteBoard(boardNo){
 			
-			alert("ss");
-			
-			$.ajax({
-				url: "/user/json/deleteMyBoard",
-				type: "POST",
-				dataType: "json",	
-				contentType : "application/json",
-				data : JSON.stringify({
-							"boardNo" : boardNo
-				}),
-		  		success : function(data , status) {
-		    	
-	                alert(status);
-	                
-	                $(".board"+boardNo).remove();
-	                
-					$("#replyContent").remove();
-					
-	            }
-			})     
+			swal({
+				  title: "게시글을 삭제하시겠습니까?",
+				  icon: "warning",
+				  buttons: true,
+				  dangerMode: true,
+				})
+				.then((willDelete) => {
+				  if (willDelete) {
+				    swal("게시글이 삭제되었습니다.", {
+				      icon: "success",
+				    });
+				  } else {
+				    swal("삭제를 취소합니다");
+				    return;
+				  }
+				  
+				  $.ajax({
+						url: "/user/json/deleteMyBoard",
+						type: "POST",
+						dataType: "json",	
+						contentType : "application/json",
+						data : JSON.stringify({
+									"boardNo" : boardNo
+						}),
+				  		success : function(data , status) {
+				    	
+			                $(".board"+boardNo).remove();
+			                $('#element_to_pop_up').bPopup().close();
+			            }
+					})    
+				});
 		}
 		
 		// 팔로우 리스트 모달

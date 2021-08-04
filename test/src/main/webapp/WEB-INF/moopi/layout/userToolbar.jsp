@@ -64,6 +64,6 @@
 
 	$(".informenu:contains('My코인내역')").on("click", function() {
 
-		location.href = "/coin/coinHistory?userId=" + dbUser;
+		location.href = "/payment/coinHistory?userId=" + dbUser;
 	})
 </script>

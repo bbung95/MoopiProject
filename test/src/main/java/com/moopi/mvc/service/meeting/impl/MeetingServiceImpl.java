@@ -74,5 +74,10 @@ public class MeetingServiceImpl implements MeetingService{
 	public int getTotalCount(Search search) throws Exception {
 		return meetingDao.getTotalCount(search);
 	}
+	
+	public MeetingFlashMember getMFEL(int mtNo, String userId) throws Exception{
+		
+		return meetingDao.getMEFl(mtNo, userId);
+	}
 
 }

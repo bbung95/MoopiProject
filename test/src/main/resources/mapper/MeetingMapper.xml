@@ -91,7 +91,14 @@
 		AND USER_ID = MEFL_ID
 		</where>	
 	 </select>
-	
+	 
+	 <select id="getMEFl" resultMap="meflSelectMap">
+	 	SELECT
+		*	
+		FROM MEETING_FLASH_MEMBER
+		where 	TARGET_NO in (#{mtNo})
+				AND MEFL_ID in (#{userId})
+	 </select>
 	
 
 	<select id="getMeeting" parameterType="int" resultMap="meetingSelectMap">

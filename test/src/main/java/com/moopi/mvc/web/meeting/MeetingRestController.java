@@ -1,7 +1,10 @@
 package com.moopi.mvc.web.meeting;
 
 
+import java.util.HashMap;
 import java.util.Map;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -13,8 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.moopi.mvc.service.common.impl.CommonService;
 import com.moopi.mvc.service.domain.Meeting;
+import com.moopi.mvc.service.domain.MeetingFlashMember;
 import com.moopi.mvc.service.domain.Moim;
 import com.moopi.mvc.service.domain.Notice;
+import com.moopi.mvc.service.domain.User;
 import com.moopi.mvc.service.meeting.impl.MeetingService;
 
 @RestController
@@ -34,8 +39,8 @@ public class MeetingRestController {
 	
 		
 		//정모상세조회
-		@RequestMapping("json/getMeeting/{mtNo}")
-		public Meeting getMeeting(@PathVariable("mtNo") int mtNo) throws Exception{
+		@RequestMapping("json/getMeeting/{mtNo}/{userId}")
+		public Map<String , Object> getMeeting(@PathVariable("mtNo") int mtNo, @PathVariable("userId") String userId) throws Exception{
 			
 			System.out.println("getMeeting :::");
 			Meeting meeting = meetingService.getMeeting(mtNo);
@@ -50,6 +55,25 @@ public class MeetingRestController {
 			String d = end2.substring(11,19);
 			String end3 = c+"T"+d;
 			meeting.setMtEnd2(end3);
+			
+			// 한번도 가입하지 않은 유저
+			int check = 1;
+			MeetingFlashMember mefl = meetingService.getMFEL(mtNo , userId);
+			System.out.println("ddsdsdads" +mefl);
+			if(mefl != null) {
+				if(mefl.getJoinState() == 1) {
+					// 가입상태 유저
+					check = 2;
+				}else {
+					// 가입취소한 유저
+					check = 3;
+				}
+			}
+					
+			Map<String ,Object> map = new HashMap<String,Object>();
+			map.put("meeting", meeting);
+			map.put("check", check);
+			
 			
 //			System.out.println(userId);
 //			System.out.println(userMapper.getUser(userId));
@@ -69,7 +93,7 @@ public class MeetingRestController {
 //			System.out.println("엔드3의값:"+end3);
 //			meeting.setMtEnd2(end3);
 			System.out.println(meeting);
-			return meeting;
+			return map;
 		}
 		
 		//정모수정
@@ -100,7 +124,10 @@ public class MeetingRestController {
 			Meeting meeting = meetingService.getMeeting(mtNo);
 			Notice notice = new Notice();
 			Moim moim = new Moim();
+			User user = new User();
+			user.setUserId(userId);			
 			moim.setMmNo(mmNo);
+			notice.setNoticeUser(user);
 			notice.setToUserId(meeting.getMtConstructor().getUserId()); // 알림대상
 			notice.setNoticeContent("님이 정모에 참가했습니다");
 			notice.setMoim(moim);

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.moopi.mvc.service.coin.impl.CoinService;
 import com.moopi.mvc.service.domain.Coin;
 import com.moopi.mvc.service.domain.Flash;
 import com.moopi.mvc.service.domain.Payment;
@@ -26,23 +27,12 @@ public class PaymentController {
 	@Autowired
 	private UserService userService;
 	
+	@Autowired
+	private CoinService coinService;
+	
 	public PaymentController() {
 		System.out.println(this.getClass());
 	}
-	
-//	@RequestMapping("addPayment")
-//	public String addPayment(@ModelAttribute("payment") 
-//				Payment payment, @RequestParam("userId") String userId) throws Exception{
-//		
-//		System.out.println("addPayment Start::");
-//		User user = new User();
-//		user.setUserId(userId);
-//		payment.setPaymentUserId(user);
-//		
-//		System.out.println("addPayment End::");
-//		
-//		return "payment/addPayment";
-//	}
 	
 	@RequestMapping("addPaymentView")
 	public String addPaymentView(@ModelAttribute("payment") 
@@ -85,6 +75,24 @@ public class PaymentController {
 		return "payment/paymentList";
 	}
 	
-	
+	@RequestMapping("coinHistory")
+	public String coinHistory(@ModelAttribute("coin") Coin coin ,Model model,
+			@RequestParam("userId") String userId) throws Exception{
+		
+		System.out.println("coinHistory Start::");
+		
+		User user = userService.getUser(userId);
+		Flash flash = new Flash();
+		flash.getFlashNo();
+		coin.setCoinUser(user);
+		coin.setFlash(flash);
+		
+		Map<String, Object> map = coinService.coinHistory(coin);
+		model.addAttribute("coinList",map.get("coinList"));
+		
+		System.out.println("coinHistory End::");
+		
+		return "payment/coinHistory";
+	}
 	
 }

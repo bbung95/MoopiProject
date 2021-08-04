@@ -66,7 +66,7 @@
 						} else {
 						
 								var phone = $("#pnNum").val();
-								$("form").attr("method", "POST").attr("action", "/user/updatePwdViewMobile").submit();	
+								$("form").attr("method", "POST").attr("action", "/user/updatePwdView").submit();	
 						}							
 					
 						
@@ -176,6 +176,7 @@
 		
 		<!-- userId Hidden -->
  	  	<input type="hidden" class="form-control" id="userId" name="userId" value="${dbUser.userId}" readonly>
+ 	  	<input type="hidden" id="type" name="type" value=""/>
  	  	<p class="listUserJoin"> 회원가입시 입력하신 정보로 조회하실 수 있습니다 </p>
  	  	
 		<!-- 번호 입력 후 인증하기 버튼 -->
