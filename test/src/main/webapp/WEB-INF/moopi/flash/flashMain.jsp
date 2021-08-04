@@ -178,6 +178,7 @@ body {
 	bottom: 0;
 	right: 0;
 	margin: 20px;
+	z-index: 2;
 }
 
 #btnbar>button {
@@ -221,12 +222,26 @@ body {
 }
 
 .span-round{
-	background: #def0ff;		
+	background: #f5f6f7;
+	color: black;		
 }
 
 #item-head{
 	font-weight: bold;
 	font-size : 18px;
+}
+
+#flashProfile{
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;
+	border: 0.5px solid #4299e1;
+	display: inline-block;
+	margin-right: 5px;
+}
+
+.flash-time{
+	font-size : 12px;
 }
 </style>
 
@@ -565,17 +580,16 @@ body {
 			$('.interestActive').attr('class', 'interestNo');
 			$(this).attr('class', 'interestNo interestActive');
 			$('#interest').val(type);
-			$('#moimListView').children().remove();
+			$('#flashListView').children().remove();
 
 			location.href = "#carouselExampleSlidesOnly";
 			currentPage = 1;
-			getMoimList();
+			getListFlash();
 		})
 
 		$(window).scroll(
 				function() {
-					if ($(document).height() - $(window).height() == $(window)
-							.scrollTop()) {
+					if ($(document).height() - $(window).height() <= $(window).scrollTop() +300) {
 
 						if (!loading) {
 							loading = true;
@@ -616,6 +630,7 @@ body {
 						success : function(data, status) {
 
 							let list = data.list;
+							console.log(currentPage);
 							if (list.length > 0) {
 								for (var i = 0; i < data.list.length; i++) {
 									let displayValue = '';
@@ -647,15 +662,19 @@ body {
 											+'class="tpl-forum-list-name tpl-forum-list-etc config-font-etc"'
 											+'data-selector=".tpl-forum-list-etc" data-font="true"'
 											+'data-title="others">'
-											+'<div>'+list[i].flashConstructor.nickname+'</div>'
-											+ '<div><span class="rounded-3 shadow-sm p-1 h7 span-round">'
+											+'<div><img id="flashProfile" src="/images/uploadFiles/'+list[i].flashConstructor.profileImage+'" />'
+											+list[i].flashConstructor.nickname+'</div>'
+											+ '<div style="margin-top: 5px;"><span>'
 											+ list[i].flashAddr
-											+ '</span><span class="rounded-3 shadow-sm p-1 h7 span-round">'
+											+ '&nbsp</span><span>'
 											+ list[i].detailAddr
-											+ '</span><div><span class="rounded-3 shadow-sm p-1 h7 span-round">'
+											+ '</span></div>'
+											+ '<div class="flash-time "'
+											+ '>모임시간 : '+list[i].flashTime+'</div>'
+											+'<div class="d-flex"><span class="rounded-3 shadow-sm p-1 h7 span-round">'
 											+ list[i].flashInterest
 											+ '</span>'
-											+ '<div class="inline-block rounded-3 shadow-sm p-1 h7 span-round"><i class="bi bi-people-fill"></i>'
+											+ '<div class="inline-block rounded-3 shadow-sm p-1 h7 span-round ms-auto"><i class="bi bi-people-fill"></i>'
 											+ list[i].flashCurrentCount
 											+ ' / '
 											+ list[i].flashMaxCount
@@ -669,7 +688,6 @@ body {
 									$('#flashListView').append(displayValue);
 								}
 								loading = false;
-								console.log(currentPage);
 								currentPage++;
 							}
 

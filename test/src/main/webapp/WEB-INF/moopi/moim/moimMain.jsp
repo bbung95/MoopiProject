@@ -297,6 +297,7 @@ thumbnail-img {
 	bottom: 0;
 	right: 0;
 	margin: 20px;
+	z-index: 2;
 }
 
 #btnbar>button {
@@ -337,6 +338,15 @@ thumbnail-img {
 	font-weight: bold;
 	line-height: 34px;
 	margin-bottom: 16px;
+}
+
+#item-head{
+	font-weight: bold;
+	font-size : 17px;
+}
+
+.span-round{
+	background: #f5f6f7;		
 }
 </style>
 
@@ -663,7 +673,7 @@ thumbnail-img {
 	</div>
 
 	<!-- 모달끝 -->
-
+	
 
 	<jsp:include page="../layout/footer.jsp" />
 
@@ -724,7 +734,7 @@ thumbnail-img {
 												.scrollTop()
 												+ $(window).height();
 
-										if (maxHeight <= currentScroll + 100) {
+										if (maxHeight <= currentScroll + 300) {
 
 											getMoimList()
 
@@ -787,30 +797,31 @@ thumbnail-img {
 															+ '</div>'
 															+ '</div>'
 															+ '<div class="cont-wrap">'
-															+ '<div class="tpl-forum-list-content"'
-															+ '<span class="tpl-forum-list-title"'
+															+ '<div class="tpl-forum-list-content d-flex">'
+															+ '<span id="item-head" class="tpl-forum-list-title"'
 															+'data-selector=".tpl-forum-list-title" data-font="true"'
 															+'data-title="title font">'
-															+ JSONData.list[i].mmName+' <span class="rounded-3 shadow-sm p-1 h7 span-round">'
-															+ JSONData.list[i].mmAddr+'</sapn>'
+															+ JSONData.list[i].mmName
+															+'</span> <span class="ms-auto rounded-3 shadow-sm p-1 span-round">'
+															+ JSONData.list[i].mmAddr
 															+ '</span>'
 															+ '</div>'
 															+ '<div'
 															+'class="tpl-forum-list-name tpl-forum-list-etc config-font-etc"'
 															+'data-selector=".tpl-forum-list-etc" data-font="true"'
 															+'data-title="others">'
-															+ '<div><span class="rounded-3 shadow-sm p-1 h7 span-round">'
+															+ '<div class="d-flex" style="margin-top : 5px;"><span class="rounded-3 shadow-sm p-1 span-round">'
 															+ JSONData.list[i].mmInterest
 															+ '</span>'
-															+ '<div class="inline-block rounded-3 shadow-sm p-1 h7 span-round"><i class="bi bi-people-fill"></i>'
+															+ '<div class="inline-block rounded-3 shadow-sm p-1 span-round ms-auto" style="font-size: 15px;"><i class="bi bi-people-fill"></i>'
 															+ JSONData.list[i].mmCurrentCount
 															+ ' / '
 															+ JSONData.list[i].mmMaxCount
 															+ '</div>'
 															+ '</div>'
 															+ '<div class="tpl-forum-list-cont"'
-								+'data-selector=".tpl-forum-list-cont" data-font="true"'
-								+'data-title="content font"></div>'
+															+'data-selector=".tpl-forum-list-cont" data-font="true"'
+															+'data-title="content font"></div>'
 															+ '</div>'
 															+ '</div>'
 															+ '</div>'

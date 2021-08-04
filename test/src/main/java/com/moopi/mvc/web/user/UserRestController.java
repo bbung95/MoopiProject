@@ -159,7 +159,6 @@ public class UserRestController {
 		return userService.nicknameCheck(nickname);
 	}
 	
-	
 
 	/*
 	 * // 카카오 로그인 및 회원가입
@@ -394,12 +393,12 @@ public class UserRestController {
 			notice.setNoticeUser(user);
 			commonService.addNotice(notice);
 			//
-			return false;
+			return true;
 		}
 
 		userService.deleteFollow(user.getUserId(), target);
 
-		return true;
+		return false;
 	}
 	
 	@GetMapping(value="json/getFollowList/{userId}/{order}")
@@ -580,4 +579,5 @@ public class UserRestController {
 		
 		return true;
 	}
+	
 }

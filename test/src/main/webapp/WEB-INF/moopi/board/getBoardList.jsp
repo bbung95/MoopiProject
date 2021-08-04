@@ -558,7 +558,7 @@ body {
 
 .carousel-item>img {
 	max-height: 500px;
-	opacity: 0.7;
+	min-height: 500px;
 }
 </style>
 </head>

@@ -14,8 +14,10 @@ body{
 }
 
 footer{
+height : 200px;
 position: relative;
 transform : translateY(-100%);
+z-index: 1;
 }
 
 

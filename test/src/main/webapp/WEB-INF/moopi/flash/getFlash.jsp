@@ -97,10 +97,12 @@ function fncGetJoinFlashList(flashNo){
 </script>
 
 <style>
+
+.flash-btn{
+	padding: 5px;
+	border-radius: 10px;
+}
 </style>
-
-
-
 </head>
 <body>
 
@@ -118,7 +120,7 @@ function fncGetJoinFlashList(flashNo){
 							<div class="d-flex align-items-center mt-lg-5 mb-4">
 								<img class="img-fluid rounded-circle"
 									src="/images/uploadFiles/${flash.flashConstructor.profileImage}"
-									width="50" height="50 " />
+									style="width: 50px; height: 50px;" />
 								<div class="ms-3">
 									<%-- 								<div class="fw-bold">${flash.flashConstructor.userId}</div> --%>
 									<div class="fw-bold">${flash.flashConstructor.nickname}</div>
@@ -140,21 +142,21 @@ function fncGetJoinFlashList(flashNo){
 									<!-- Post meta content-->
 									<div class="text-muted fst-italic mb-2">게시일:${flash.flashRegdate}</div>
 									<!-- Post categories-->
-									<a class="badge bg-secondary text-decoration-none link-light"
-										href="#!">${flash.flashInterest}</a>
+									<a class="flash-btn bg-secondary text-decoration-none link-light"
+											href="#!">${flash.flashInterest}</a>
 									<c:if test="${flash.flashState == 1 }">
-										<a class="badge bg-secondary text-decoration-none link-light"
+										<a class="flash-btn bg-secondary text-decoration-none link-light"
 											href="#!">모집중</a>
 									</c:if>
 									<c:if test="${flash.flashCurrentCount != flash.flashMaxCount}">
 										<c:if test="${flash.flashState == 2 }">
-											<a class="badge bg-secondary text-decoration-none link-light"
+											<a class="flash-btn bg-secondary text-decoration-none link-light"
 												href="#!">모집완료</a>
 										</c:if>
 									</c:if>
-									<a class="badge bg-secondary text-decoration-none link-light"
+									<a class=" flash-btn bg-secondary text-decoration-none link-light"
 										href="#!">참가인원:${flash.flashCurrentCount}</a> <a
-										class="badge bg-secondary text-decoration-none link-light"
+										class=" flash-btn bg-secondary text-decoration-none link-light"
 										href="#!">모집인원:${flash.flashMaxCount}</a>
 								</header>
 								<!-- Preview image figure-->
@@ -201,7 +203,6 @@ function fncGetJoinFlashList(flashNo){
 									</c:if>
 								</c:if>
 							</c:if>
-							<jsp:include page="../layout/searchbar.jsp"></jsp:include>
 
 
 						</div>

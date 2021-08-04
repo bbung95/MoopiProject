@@ -399,7 +399,7 @@ main {
 							&nbsp&nbsp ${moim.mmRegDate}</span> <br> <span class="jumbotrons">최소
 							연령 &nbsp&nbsp ${moim.mmMinAge}세</span> <br> <span
 							class="jumbotrons">최대 연령 &nbsp&nbsp ${moim.mmMaxAge}세</span> <br>
-						<span class="jumbotrons">관심사 &nbsp&nbsp ${moim.mmInterest}</span>
+						<span class="jumbotrons">${moim.mmInterest}</span>
 						<br>
 						<c:if test="${moim.mmType == 1}">
 							<span class="jumbotrons">일반 무피</span>

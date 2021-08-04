@@ -394,13 +394,14 @@ public class UserController {
 	
 //-- [완료] 회원가입 addUserView.jsp로 단순 네비게이션  -------------------------------------------------------------------------------------------
 	@GetMapping("myInformation")
-	public String myInformation(HttpSession session) throws Exception {
+	public String myInformation(HttpSession session ,Model model) throws Exception {
 		
 		User user = (User)session.getAttribute("dbUser");	
 		if(user == null) {
 			return "redirect:/";
-		}						
-		return "redirect:/user/passwordConfirm";
+		}
+		
+		return "user/passwordConfirm";
 	}
 	
 	@PostMapping("updateUserView")
@@ -408,19 +409,10 @@ public class UserController {
 
 		User user = (User)session.getAttribute("dbUser");	
 		if(user == null) {
-			return "redirect:/";
+			return "redirect:/user/myInformation";
 		}
 		return "user/updateUserView";
 	}
-	
-	@RequestMapping("passwordConfirm")
-	public String passwordConfirm ( HttpSession session, Model model ) throws Exception {		
-		User user = (User)session.getAttribute("dbUser");		
-		if(user == null) {
-			return "redirect:/";
-		}						
-		return "user/passwordConfirm";
-	}	
 	
 	@RequestMapping("findPwd")
 	public String findPwd() {
