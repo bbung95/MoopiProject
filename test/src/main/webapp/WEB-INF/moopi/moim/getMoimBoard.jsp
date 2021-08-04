@@ -103,6 +103,15 @@ main {
 		width: 1000px;
 	}
 }
+.profileImg {
+	border-radius: 50%;
+	width: 40px;
+	height: 40px;
+}
+
+img, svg {
+	vertical-align: middle;
+}
 </style>
 </head>
 <body>
@@ -150,7 +159,15 @@ main {
 										value="${board.boardNo}">
 
 									<div style="text-align: left;">
-										${board.boardWriter.nickname}</div>
+										<div
+											class="tpl-forum-list-name tpl-forum-list-etc op_itemline10"
+											style="display: flex !important; align-items: center !important;">
+											<img
+												src="/images/uploadFiles/${board.boardWriter.profileImage}"
+												class="img-responsive profileImg">
+											<div style="margin: 5px 5px 5px 5px;">${board.boardWriter.nickname}</div>
+										</div>
+									</div>
 								</div>
 								<div class="board_content">${board.boardContent}</div>
 								<div style="float: right;">
@@ -158,7 +175,10 @@ main {
 										<button type="button" class="btn btn-primary updateBoard">수정</button>
 										<button type="button" class="btn btn-primary deleteBoard">삭제</button>
 									</c:if>
+									<c:if
+										test="${dbUser.userId != board.boardWriter.userId }">
 									<button type="button" class="btn btn-primary addReportBoard">신고</button>
+									</c:if>
 								</div>
 								<br> <br>
 							</section>
@@ -171,10 +191,14 @@ main {
 											<input type="hidden" class="reply" name="replyNo"
 												value="${reply.replyNo}">
 											<div class="reply_head">
-												<div style="display: inline-block">
-													${reply.replyWriter.nickname}</div>
-												<div style="display: inline-block; float: right;">
-													작성시간 : ${reply.replyRegDate}</div>
+												<div
+														class="tpl-forum-list-name tpl-forum-list-etc op_itemline10"
+														style="display: flex !important; align-items: center !important;">
+														<img
+															src="/images/uploadFiles/${reply.replyWriter.profileImage}"
+															class="img-responsive profileImg">
+														<div style="margin: 5px 5px 5px 5px;">${reply.replyWriter.nickname}</div>
+													</div>
 											</div>
 											<div class="reply_content" style="min-height: 70px">
 												${reply.replyContent}</div>
@@ -185,8 +209,9 @@ main {
 													<button type="button" class="btn btn-primary updateReply">수정</button>
 													<button type="button" class="btn btn-primary deleteReply">삭제</button>
 												</c:if>
-
+													<c:if test="${dbUser.userId != reply.replyWriter.userId}">
 												<button type="button" class="btn btn-primary addReportReply">신고</button>
+												</c:if>
 											</div>
 											<br>
 											<br>
@@ -204,9 +229,13 @@ main {
 								<form name="detailForm" enctype="multipart/form-data">
 									<div id="addReplyForm"
 										style="float: right; padding-right: 20px; padding-top: 20px;">
-										<div class="col-md-5"
-											style="font-size: 20px; padding-left: 100px;">
-											${dbUser.nickname }</div>
+										<div
+												class="tpl-forum-list-name tpl-forum-list-etc op_itemline10"
+												style="display: flex !important; align-items: center !important;">
+												<img src="/images/uploadFiles/${dbUser.profileImage}"
+													class="img-responsive profileImg">
+												<div style="margin: 5px 5px 5px 5px;">${dbUser.nickname}</div>
+											</div>
 										<div style="padding-left: 100px; width: 1050px">
 											<textarea id="summernote" placeholder="댓글을 입력해주세요."
 												name="replyContent" id="replyContent"></textarea>
@@ -317,8 +346,11 @@ main {
 		
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 		$( ".deleteBoard" ).on("click" , function() {
-			alert( " 클릭");
-			fncDeleteBoard();
+// 			alert( " 클릭");
+			var result = confirm("댓글을 삭제하시겟습니까?");
+			if(result){
+				fncDeleteBoard();
+			}
 			
 		});
 		
@@ -390,6 +422,7 @@ main {
 					+'  <input type="hidden" class="reply" name="replyNo" value='+data.replyNo+'>'
 					+'	<div class="reply_head">'
 					+'	<div style="display: inline-block">'
+					+'  <img src="/images/uploadFiles/'+data.replyWriter.profileImage+'" class="img-responsive profileImg">'
 					+	 data.replyWriter.nickname
 					+'	</div>'
 					+'	<div style="display: inline-block; float:right;">'
@@ -402,7 +435,6 @@ main {
 					+'	<div style="float:right;">'
 					+'	<button type="button" class="btn btn-primary updateReply">수정</button>'
 					+'	<button type="button" class="btn btn-primary deleteReply">삭제</button>'
-					+'	<button type="button" class="btn btn-primary addReportReply">신고</button>'
 					+'	</div>'
 					+'	</div>'
 					+'	<br><br>'
@@ -419,7 +451,11 @@ main {
 	 		       			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 	 		       			$( ".deleteReply" ).on("click" , function() {
 	 		       				replyNo = $(this).parent().parent().find("input[name=replyNo]").val()
-	 		       				fncDelteReply(replyNo);
+	 		       				
+		 		       			var result = confirm("댓글을 삭제하시겟습니까?");
+		 		   				if(result){
+		 		   					fncDeleteReply(replyNo);
+	 		   				}
 	 		       			});
 	 		            	
 	 		       			$(  ".addReportReply"  ).on("click" , function() {
@@ -483,11 +519,12 @@ main {
 							            console.log(data);
 							            
 						            	var displayValue = 
-						            		 ' 	<div class='+data.replyNo+'>'		
+						            		' 	<div class='+data.replyNo+'>'		
 						 					+'  <input type="hidden" class="reply" name="replyNo" value='+data.replyNo+'>'
 						 					+'	<div class="reply_head">'
-						 					+'	<div style="display: inline-block">'
-						 					+	 data.replyWriter.nickname
+						 					+' <div class="tpl-forum-list-name tpl-forum-list-etc op_itemline10" style="display: flex !important; align-items: center !important;">' 
+						 					+' <img src="/images/uploadFiles/'+data.replyWriter.profileImage+'" class="img-responsive profileImg">'
+						 					+' <div style="margin: 5px 5px 5px 5px;">'+data.replyWriter.nickname+'</div></div>'
 						 					+'	</div>'
 						 					+'	<div style="display: inline-block; float:right;">'
 						 					+'    작성시간 : '+ data.replyRegDate
@@ -499,7 +536,6 @@ main {
 						 					+'	<div style="float:right;">'
 						 					+'	<button type="button" class="btn btn-primary updateReply">수정</button>'
 						 					+'	<button type="button" class="btn btn-primary deleteReply">삭제</button>'
-						 					+'	<button type="button" class="btn btn-primary addReportReply">신고</button>'
 						 					+'	</div>'
 						 					+'	</div>'
 						 					+'	<br><br>'	
@@ -527,7 +563,10 @@ main {
 					 		       			$( ".deleteReply" ).on("click" , function() {
 // 					 		       				alert("updateReply 내부 deleteReply")
 					 		       				replyNo = $(this).parent().parent().find("input[name=replyNo]").val()
-					 		       				fncDelteReply(replyNo);
+						 		       			var result = confirm("댓글을 삭제하시겟습니까?");
+						 		   				if(result){
+						 		   					fncDelteReply(replyNo);
+						 		   				}
 					 		       			});
 					 		            	
 					 		       			$(  ".addReportReply"  ).on("click" , function() {
@@ -544,10 +583,13 @@ main {
 			$( ".deleteReply" ).on("click" , function() {
 // 				alert("바깥의 deleteReply")
 				replyNo = $(this).parent().parent().find("input[name=replyNo]").val()
-				fncDelteReply(replyNo);
+				var result = confirm("댓글을 삭제하시겟습니까?");
+				if(result){
+					fncDeleteReply(replyNo);
+				}
 			});
 		
-		function fncDelteReply(replyNo){
+		function fncDeleteReply(replyNo){
 			$.ajax({
 				url: "/reply/json/deleteReply/"+replyNo,
 				type: "GET",
