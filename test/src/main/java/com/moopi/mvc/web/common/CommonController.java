@@ -44,7 +44,7 @@ public class CommonController {
 	@Value("${page.pageUnit}")
 	int pageUnit;
 
-	@Value("${page.pageSize}")
+	@Value("10")
 	int pageSize;
 
 	public CommonController() {
@@ -95,25 +95,32 @@ public class CommonController {
 		return "common/adminUserList";
 	}
 
-	@GetMapping("common/getMoimList")
-	public String getMoimList(Model model) throws Exception {
+	@RequestMapping("common/getMoimList")
+	public String getMoimList(@ModelAttribute Search search , Model model) throws Exception {
 		
-		Search search = new Search();
-		search.setCurrentPage(1);
+		System.out.println("common/getMoimList : GET");
+		
+		if (search.getCurrentPage() == 0) {
+			search.setCurrentPage(1);
+		}
 		search.setPageSize(pageSize);
 		
-
-		System.out.println("common/getMoimList : GET");
-		model.addAttribute("list", moimService.getMoimList(search).get("list"));
-		model.addAttribute("totalCount", moimService.getMoimList(search).get("totalCount"));
+		Map<String, Object> map = moimService.getMoimList(search);
+		
+		Page resultPage = new Page(search.getCurrentPage(), ((Integer) map.get("totalCount")).intValue(), pageUnit,
+				pageSize);
+		
+		model.addAttribute("list", map.get("list"));
+		model.addAttribute("resultPage", resultPage);
+		model.addAttribute("totalCount", map.get("totalCount"));
 
 		return "common/adminMoimList";
 	}
 
-	@GetMapping("common/getFlashList")
-	public String getFlashList(Model model) throws Exception {
+	@RequestMapping("common/getFlashList")
+	public String getFlashList(@ModelAttribute Search search , Model model) throws Exception {
 
-		Search search = new Search();
+		System.out.println("common/getFlashList : GET");
 		
 		if (search.getCurrentPage() == 0) {
 			search.setCurrentPage(1);
@@ -125,14 +132,14 @@ public class CommonController {
 		Page resultPage = new Page(search.getCurrentPage(), 
 				((Integer) map.get("totalCount")).intValue(), pageUnit,	pageSize);
 		
-		System.out.println("common/getFlashList : GET");
 		model.addAttribute("list", map.get("list"));
 		model.addAttribute("totalCount", map.get("totalCount"));
 		model.addAttribute("resultPage", resultPage);
+		
 		return "common/adminFlashList";
 	}
 
-	@GetMapping("common/getReportList")
+	@RequestMapping("common/getReportList")
 	public String getReportList(@ModelAttribute("search") Search search, Model model) throws Exception {
 
 		if (search.getCurrentPage() == 0) {
@@ -161,12 +168,21 @@ public class CommonController {
 
 		System.out.println("common/getPaymentList");
 
-//		if(search.getCurrentPage() == null) {
-//			search.setCurrentPage(1);
-//		}
-
-		model.addAttribute("list", paymentService.adminPaymentList(payment, search).get("list"));
-		model.addAttribute("totalCount", paymentService.adminPaymentList(payment, search).get("totalCount"));
+		if(search.getCurrentPage() == 0) {
+			search.setCurrentPage(1);
+		}
+		search.setPageSize(pageSize);
+			
+		Map<String, Object> map = paymentService.adminPaymentList(payment, search);
+		
+		Page resultPage = new Page(search.getCurrentPage(), 
+				((Integer) map.get("totalCount")).intValue(), pageUnit,	pageSize);
+		
+		model.addAttribute("list", map.get("list"));
+		model.addAttribute("option", payment.getOption());
+		model.addAttribute("resultPage", resultPage);
+		model.addAttribute("totalCount", map.get("totalCount"));
+		
 		return "common/adminPaymentList";
 	}
 

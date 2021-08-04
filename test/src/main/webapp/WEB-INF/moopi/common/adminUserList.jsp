@@ -12,7 +12,6 @@
 <meta name="keywords"
 	content="tailwind,tailwindcss,tailwind css,css,starter template,free template,admin templates, admin template, admin dashboard, free tailwind templates, tailwind example">
 
-<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 
 <! ------------------------------------------------ Bootstrap, jQuery CDN -------------------------------------------------->
 <!-- Favicon-->
@@ -31,6 +30,8 @@
 <link
 	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i,700,700i"
 	rel="stylesheet">
+	
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 </head>
 
 <script>
@@ -170,12 +171,6 @@
 				<!--/Main-->
 			</div>
 
-
-			<!--Footer-->
-			<footer class="bg-grey-darkest text-white p-2">
-				<div class="flex flex-1 mx-auto">&copy; My Design</div>
-			</footer>
-			<!--/footer-->
 
 		</div>
 

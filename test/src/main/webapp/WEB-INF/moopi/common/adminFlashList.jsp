@@ -12,7 +12,16 @@
 <meta name="keywords"
 	content="tailwind,tailwindcss,tailwind css,css,starter template,free template,admin templates, admin template, admin dashboard, free tailwind templates, tailwind example">
 
-<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<! ------------------------------------------------ Bootstrap, jQuery CDN -------------------------------------------------->
+<!-- Favicon-->
+<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+<!-- Bootstrap icons-->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
+	rel="stylesheet" />
+<!-- Core theme CSS (includes Bootstrap)-->
+<link href="/css/styles.css" rel="stylesheet" />
+<!-------------------------------------------------------------------------------------------------------------------------->
 
 <!-- Css -->
 <link rel="stylesheet" href="/css/admin/styles.css">
@@ -20,6 +29,7 @@
 <link
 	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i,700,700i"
 	rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 </head>
 
 <body>
@@ -28,7 +38,7 @@
 		<!--Screen-->
 		<div class="min-h-screen flex flex-col">
 			<!--Header Section Starts Here-->
-						<jsp:include page="../layout/adminHeader.jsp" />
+			<jsp:include page="../layout/adminHeader.jsp" />
 
 			<!--/Header-->
 
@@ -61,7 +71,8 @@
 												<th class="border px-4 py-2" width="5%">최대정원</th>
 												<th class="border px-4 py-2" width="10%">거주지</th>
 												<th class="border px-4 py-2" width="20%">관심사</th>
-												<th class="border px-4 py-2" width="6%">모집<br>상태</th>
+												<th class="border px-4 py-2" width="6%">모집<br>상태
+												</th>
 												<th class="border px-4 py-2" width="5%">현재상태</th>
 											</tr>
 										</thead>
@@ -75,12 +86,11 @@
 													<td class="border px-4 py-2">${flash.flashRegdate}</td>
 													<td class="border px-4 py-2">${flash.flashCurrentCount}</td>
 													<td class="border px-4 py-2">${flash.flashMaxCount}</td>
-													<td class="border px-4 py-2">${flash.flashAddr}</td>											
+													<td class="border px-4 py-2">${flash.flashAddr}</td>
 													<td class="border px-4 py-2">${flash.flashInterest}</td>
-													<td class="border px-4 py-2">
-													<c:if test="${flash.flashState eq '1'}">모집<br>완료</c:if>
-													<c:if test="${flash.flashState eq '0'}"></c:if>
-													</td>
+													<td class="border px-4 py-2"><c:if
+															test="${flash.flashState eq '1'}">모집<br>완료</c:if> <c:if
+															test="${flash.flashState eq '0'}"></c:if></td>
 													<td class="border px-4 py-2"><i
 														class="fas fa-check text-green-500 mx-2"></i></td>
 												</tr>
@@ -93,17 +103,19 @@
 						<!--/Grid Form-->
 
 
-						<form class="form-inline" name="detailForm">
+						<!-- SearchBar -->
+						<form id="detailForm"
+							class="form-inline d-flex justify-content-end" name="detailForm">
 
 							<div class="form-group">
 								<select name="searchCondition" class="form-control"
 									style="width: 110px">
-									<option value="0"
-										${! empty search.searchCondition && search.searchCondition== 0 ? "selected" : ""  }>제목+내용</option>
-									<option value="1"
-										${! empty search.searchCondition && search.searchCondition== 1 ? "selected" : ""  }>제목</option>
-									<option value="2"
-										${! empty search.searchCondition && search.searchCondition== 2 ? "selected" : ""  }>작성자</option>
+									<option value="3"
+										${! empty search.searchCondition && search.searchCondition== 3 ? "selected" : ""  }>번개명</option>
+									<option value="5"
+										${! empty search.searchCondition && search.searchCondition== 5 ? "selected" : ""  }>아이디</option>
+									<option value="6"
+										${! empty search.searchCondition && search.searchCondition== 6 ? "selected" : ""  }>닉네임</option>
 								</select>
 							</div>
 
@@ -111,31 +123,60 @@
 								<label class="sr-only" for="searchKeyword">검색어</label> <input
 									type="text" class="form-control" id="searchKeyword"
 									name="searchKeyword" placeholder="검색어"
-									value="${! empty search.searchKeyword ? search.searchKeyword : '' }">
+									value="${! empty search.searchKeyword ? search.searchKeyword : '' }"
+									style="width: 200px;">
 							</div>
 
-							<button type="button" class="btn btn-default">검색</button>
+							<button type="button" class="btn btn-primary">검색</button>
 
-							<input type="hidden" id="currentPage" name="currentPage" value="" />
+
+							<input type="hidden" id="searchState" name="searchState"
+								value="0" /> <input type="hidden" id="currentPage"
+								name="currentPage" value="1" />
 						</form>
 
 
+						<!--  네비게이션  -->
+						<jsp:include page="pageNavigator.jsp"></jsp:include>
 
 					</div>
 				</main>
 				<!--/Main-->
 			</div>
-			<!--Footer-->
-			<footer class="bg-grey-darkest text-white p-2">
-				<div class="flex flex-1 mx-auto">&copy; My Design</div>
-			</footer>
-			<!--/footer-->
 
 		</div>
 
 	</div>
 
 	<script src="/js/admin/main.js"></script>
+	<!-- Bootstrap core JS-->
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+	<!-- Core theme JS-->
+	<script src="/js/scripts.js"></script>
+
+	<script>
+		let searchState = $('#searchState').val();
+		let userId;
+
+		function flashSearch() {
+
+			$('#detailForm').attr("method", "POST").attr("action",
+					"/common/getMoimList").submit();
+		}
+
+		function fncGetList(currentPage) {
+
+			$('#currentPage').val(currentPage);
+			flashSearch()
+		}
+
+		$('button:contains("검색")').on('click', function() {
+
+			flashSearch()
+		})
+
+	</script>
 
 </body>
 

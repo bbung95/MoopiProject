@@ -136,6 +136,12 @@
 				<if test="searchCondition == 4 and searchKeyword !='' ">
 				AND FLASH_ADDR = #{addr} AND FLASH_INTEREST = #{interestNo}
 				</if> 
+				<if test="searchCondition == 5 and searchKeyword !='' ">
+				AND USER_ID like '%${searchKeyword}%'
+				</if> 
+				<if test="searchCondition == 6 and searchKeyword !='' ">
+				AND NICKNAME like '%${searchKeyword}%'
+				</if> 
 			</if>
 			</where>
 			) inner_table, (select @rownum := 0) as R )tables

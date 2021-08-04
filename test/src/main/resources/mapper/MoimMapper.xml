@@ -329,11 +329,12 @@
 		MM_NO, MM_NAME, MM_CONTENT, MM_IMAGE, MM_MAX_COUNT,
 		 MM_CONSTRUCTOR, MM_REGDATE,
 		MM_INTEREST, MM_ADDR,
-		MM_STATE, MM_MIN_AGE, MM_MAX_AGE, MM_TYPE , INTEREST_NAME
+		MM_STATE, MM_MIN_AGE, MM_MAX_AGE, MM_TYPE , INTEREST_NAME , nickname
 		,(SELECT COUNT(MEMBER_NO) FROM MEMBER WHERE MM_NO = M.MM_NO AND MM_MEMBER_ROLE IN ('2','3','4')) AS MM_CURRENT_COUNT 
-		FROM MOIM M, INTEREST I
+		FROM MOIM M, INTEREST I ,USERS U
 		<where>
 			M.mm_interest = I.INTEREST_NO
+			AND M.MM_CONSTRUCTOR = U.USER_ID
 			<if test="searchCondition != null">
 				<if test="searchCondition == 1 and searchKeyword !='' ">
 					AND mm_interest = #{interestNo}
@@ -346,6 +347,12 @@
 				</if>
 				<if test="searchCondition == 4 and searchKeyword !='' ">
 					AND mm_addr = #{addr} AND mm_interest = #{interestNo}
+				</if>
+				<if test="searchCondition == 5 and searchKeyword !='' ">
+					AND MM_CONSTRUCTOR like '%${searchKeyword}%'
+				</if>
+				<if test="searchCondition == 6 and searchKeyword !='' ">
+					AND nickname like '%${searchKeyword}%'
 				</if>
 			</if>
 		</where>

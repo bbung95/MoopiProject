@@ -19,10 +19,6 @@
 	href="https://fonts.googleapis.com/css2?family=Gaegu:wght@300&display=swap"
 	rel="stylesheet">
 
-
-
-<!-- Favicon-->
-<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
 <!-- Bootstrap icons-->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
@@ -36,6 +32,10 @@
 <!-- Core theme JS-->
 <script src="/js/scripts.js"></script>
 
+
+<!-- 스윗얼럿 -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 <script>
 function fncUpdateFlash(){
 	//alert("번개를 번개처럼 수정.");
@@ -47,7 +47,24 @@ function fncJoinFlash(flashNo){
 	
 	/* alert("번개참여");
 	alert("번개참여완료!"); */
-	self.location ="/flash/joinFlash?userId=${dbUser.userId}&flashNo="+flashNo
+	
+	swal({
+		  title: "코인이 1개가 소모됩니다. 참여하시겠습니까?",
+		  icon: "warning",
+		  buttons: true,
+		  dangerMode: true,
+	})
+	.then((willDelete) => {
+		  if (willDelete) {
+			   swal("번개무피의 참여하였습니다.", {
+			     icon: "success",
+			   });
+			self.location ="/flash/joinFlash?userId=${dbUser.userId}&flashNo="+flashNo
+		  } else {
+			   return;
+		 }
+	})
+	
 }
 
 
@@ -97,8 +114,7 @@ function fncGetJoinFlashList(flashNo){
 </script>
 
 <style>
-
-.flash-btn{
+.flash-btn {
 	padding: 5px;
 	border-radius: 10px;
 }
@@ -142,19 +158,23 @@ function fncGetJoinFlashList(flashNo){
 									<!-- Post meta content-->
 									<div class="text-muted fst-italic mb-2">게시일:${flash.flashRegdate}</div>
 									<!-- Post categories-->
-									<a class="flash-btn bg-secondary text-decoration-none link-light"
-											href="#!">${flash.flashInterest}</a>
+									<a
+										class="flash-btn bg-secondary text-decoration-none link-light"
+										href="#!">${flash.flashInterest}</a>
 									<c:if test="${flash.flashState == 1 }">
-										<a class="flash-btn bg-secondary text-decoration-none link-light"
+										<a
+											class="flash-btn bg-secondary text-decoration-none link-light"
 											href="#!">모집중</a>
 									</c:if>
 									<c:if test="${flash.flashCurrentCount != flash.flashMaxCount}">
 										<c:if test="${flash.flashState == 2 }">
-											<a class="flash-btn bg-secondary text-decoration-none link-light"
+											<a
+												class="flash-btn bg-secondary text-decoration-none link-light"
 												href="#!">모집완료</a>
 										</c:if>
 									</c:if>
-									<a class=" flash-btn bg-secondary text-decoration-none link-light"
+									<a
+										class=" flash-btn bg-secondary text-decoration-none link-light"
 										href="#!">참가인원:${flash.flashCurrentCount}</a> <a
 										class=" flash-btn bg-secondary text-decoration-none link-light"
 										href="#!">모집인원:${flash.flashMaxCount}</a>
@@ -261,10 +281,20 @@ function fncGetJoinFlashList(flashNo){
 							</div>
 
 							<div class="form-group">
-								<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">번개장소</label>
+								<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">번개주소</label>
 								<div class="col-sm-5">
-									<input type="text" class="form-control" id="flashAddr"
-										name="flashAddr" placeholder="지역구" value="${flash.flashAddr}">
+									<select class="form-control" id="flashAddr" name="flashAddr" 
+									placeholder="지역구" value="${flash.flashAddr}">
+									</select>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">번개상세주소</label>
+								<div class="col-sm-5">
+									<input type="text" class="form-control" id="detailAddr"
+										name="detailAddr" placeholder="지역구"
+										value="${flash.detailAddr}">
 								</div>
 							</div>
 
@@ -331,5 +361,19 @@ function fncGetJoinFlashList(flashNo){
 
 	<jsp:include page="../layout/footer.jsp"></jsp:include>
 
+	<script>
+//지역구
+let addrs = [ "종로구", "중구", "용산", "성동구", "광진구", "동대문구", "중랑구", "성북구",
+		"강북구", "도봉구", "노원구", "은평구", "마포구", "양천구", "강서구", "구로구", "금천구",
+		"영등포구", "동작구", "관악구", "서초구", "강남구", "송파구", "강동구" ];
+
+for (var i = 0; i < addrs.length; i++) {
+
+	
+	let displayValue = '<option value="'+addrs[i]+'">'+addrs[i]+'</option>';
+			
+	$('#flashAddr').append(displayValue);
+}
+</script>
 </body>
 </html>

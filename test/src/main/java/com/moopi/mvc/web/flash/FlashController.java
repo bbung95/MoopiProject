@@ -126,7 +126,7 @@ public class FlashController {
 		flashService.getFlash(flashNo);
 		flash = flashService.getFlash(flashNo);
 		model.addAttribute("flash", flash);
-		return "flash/updateFlashView";
+		return "redirect:/flash/getFlash?flashNo="+flashNo;
 	}
 
 	@RequestMapping("updateFlash")
@@ -148,7 +148,7 @@ public class FlashController {
 		flash.setFlashConstructor(user);// userId = flashConstructor
 		flashService.updateFlash(flash); // addFlash bl 로직
 		System.out.println("updateFlash done.");
-		return "flash/flashMain";
+		return "redirect:/flash/getFlash?flashNo="+flash.getFlashNo();
 	}
 
 	@RequestMapping("listFlash")

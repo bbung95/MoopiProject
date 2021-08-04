@@ -12,7 +12,16 @@
 <meta name="keywords"
 	content="tailwind,tailwindcss,tailwind css,css,starter template,free template,admin templates, admin template, admin dashboard, free tailwind templates, tailwind example">
 
-<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<! ------------------------------------------------ Bootstrap, jQuery CDN -------------------------------------------------->
+<!-- Favicon-->
+<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+<!-- Bootstrap icons-->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
+	rel="stylesheet" />
+<!-- Core theme CSS (includes Bootstrap)-->
+<link href="/css/styles.css" rel="stylesheet" />
+<!-------------------------------------------------------------------------------------------------------------------------->
 
 <!-- Css -->
 <link rel="stylesheet" href="/css/admin/styles.css">
@@ -20,6 +29,9 @@
 <link
 	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i,700,700i"
 	rel="stylesheet">
+	
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
 </head>
 
 <body>
@@ -83,17 +95,24 @@
 						<!--/Grid Form-->
 
 
-						<form class="form-inline" name="detailForm">
-
+						<!-- SearchBar -->
+						<form id="detailForm"
+							class="form-inline d-flex justify-content-end" name="detailForm">
+							
+							<select class="option">
+								<option value="PRICE_ASC">가격 낮은순</option>
+								<option value="PRICE_DESC">가격 높은순</option>
+								<option value="REGDATE_ASC">구매 오래된순</option>
+								<option value="REGDATE_DESC">구매 최근순</option>
+							</select>
+							
 							<div class="form-group">
 								<select name="searchCondition" class="form-control"
 									style="width: 110px">
-									<option value="0"
-										${! empty search.searchCondition && search.searchCondition== 0 ? "selected" : ""  }>제목+내용</option>
-									<option value="1"
-										${! empty search.searchCondition && search.searchCondition== 1 ? "selected" : ""  }>제목</option>
-									<option value="2"
-										${! empty search.searchCondition && search.searchCondition== 2 ? "selected" : ""  }>작성자</option>
+									<option value="3"
+										${! empty search.searchCondition && search.searchCondition== 1 ? "selected" : ""  }>아이디</option>
+									<option value="5"
+										${! empty search.searchCondition && search.searchCondition== 3 ? "selected" : ""  }>닉네임</option>
 								</select>
 							</div>
 
@@ -101,31 +120,65 @@
 								<label class="sr-only" for="searchKeyword">검색어</label> <input
 									type="text" class="form-control" id="searchKeyword"
 									name="searchKeyword" placeholder="검색어"
-									value="${! empty search.searchKeyword ? search.searchKeyword : '' }">
+									value="${! empty search.searchKeyword ? search.searchKeyword : '' }"
+									style="width: 200px;">
 							</div>
 
-							<button type="button" class="btn btn-default">검색</button>
+							<button type="button" class="btn btn-primary">검색</button>
 
-							<input type="hidden" id="currentPage" name="currentPage" value="" />
+
+							<input type="hidden" id="option" name="option"
+								value="${option}" /> <input type="hidden" id="currentPage"
+								name="currentPage" value="1" />
 						</form>
 
 
+						<!--  네비게이션  -->
+						<jsp:include page="pageNavigator.jsp"></jsp:include>
 
 					</div>
 				</main>
 				<!--/Main-->
 			</div>
-			<!--Footer-->
-			<footer class="bg-grey-darkest text-white p-2">
-				<div class="flex flex-1 mx-auto">&copy; My Design</div>
-			</footer>
-			<!--/footer-->
 
 		</div>
 
 	</div>
 
 	<script src="/js/admin/main.js"></script>
+	<!-- Bootstrap core JS-->
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+	<!-- Core theme JS-->
+	<script src="/js/scripts.js"></script>
+
+	<script>
+		let searchState = $('#searchState').val();
+		let userId;
+
+		function paymentSearch() {
+
+			$('#detailForm').attr("method", "POST").attr("action",
+					"/common/getPaymentList").submit();
+		}
+
+		function fncGetList(currentPage) {
+
+			$('#currentPage').val(currentPage);
+			paymentSearch()
+		}
+
+		$('button:contains("검색")').on('click', function() {
+
+			paymentSearch()
+		})
+		
+		$('.option').on("change", function(){
+			$('#option').val($(this).val());
+			paymentSearch();
+		})
+
+	</script>
 
 </body>
 

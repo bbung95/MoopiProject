@@ -329,7 +329,7 @@ body {
 		 	
 		 	
 		 	swal({
-				  title: "번개무피를 생성하시겠습니까?",
+				  title: "코인이 2개가 소모됩니다. 번개무피를 생성하시겠습니까?",
 				  icon: "warning",
 				  buttons: true,
 				  dangerMode: true,
@@ -339,13 +339,14 @@ body {
 					   swal("번개무피가 생성되었습니다.", {
 					     icon: "success",
 					   });
+					   $(".form-horizontal").attr("method", "POST").attr("action",
+						"/flash/addFlash").submit();
 				  } else {
 					   return;
 				 }
 			})
 
-		$(".form-horizontal").attr("method", "POST").attr("action",
-				"/flash/addFlash").submit();
+		
 
 	}
 
@@ -382,7 +383,9 @@ body {
 					<img src="/images/background/moim2.jpg" class="d-block w-100"
 						alt="...">
 					<div class="carousel-caption d-none d-md-block">
-						<h2>안녕하세요 자유로움을 추구하는 번개무피 여러분~</h2>
+						<h2 style="font-size: 25px; color: black">
+							안녕하세요 자유로움을 추구하는<br /> 번개무피 여러분~
+						</h2>
 						<!-- <p>Some representative placeholder content for the first slide.</p> -->
 					</div>
 				</div>
@@ -390,16 +393,20 @@ body {
 					<img src="/images/background/moim1.jpg" class="d-block w-100"
 						alt="...">
 					<div class="carousel-caption d-none d-md-block">
-						<h2>여기는 무피에서 가장 자유로운 공간이에요.</h2>
-						<p>무피 회원 이라면 누구나 번개 생성 참가를 할수있어요.</p>
+						<h2 style="font-size: 25px; color: black">여기는 무피에서 가장 자유로운
+							공간이에요.</h2>
+						<p style="font-size: 25px; color: black">무피 회원 이라면 누구나 번개 생성
+							참가를 할수있어요.</p>
 					</div>
 				</div>
 				<div class="carousel-item" data-bs-interval="6000">
 					<img src="/images/background/flash1.jpg" class="d-block w-100"
 						alt="...">
 					<div class="carousel-caption d-none d-md-block">
-						<h2>하지만 자유에는 조금의 책임이 따른답니다 번개 생성시 2코인 참가시 1코인을 소비하게 되어요</h2>
-						<p>부족한 코인은 오른쪽 상단 충전에서 구매 하실수 있습니다!.</p>
+						<h2 style="font-size: 25px; color: black">하지만 자유에는 조금의 책임이
+							따른답니다 번개 생성시 2코인 참가시 1코인을 소비하게 되어요</h2>
+						<p style="font-size: 25px; color: black">부족한 코인은 오른쪽 상단 충전에서
+							구매 하실수 있습니다!.</p>
 					</div>
 				</div>
 			</div>

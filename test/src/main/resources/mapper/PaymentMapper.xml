@@ -102,12 +102,21 @@
 		PAYMENT_COIN_COUNT, USER_NAME, NICKNAME
 		FROM PAYMENT, users
 		WHERE PAYMENT_USER_ID = USER_ID
+			<if test="search.searchCondition != null">
+				<if test="search.searchCondition == 1 and search.searchKeyword !=''">
+				AND	PAYMENT_USER_ID LIKE '%${search.searchKeyword}%'
+				</if>
+				<if test="search.searchCondition == 3 and search.searchKeyword !=''">
+				AND	NICKNAME LIKE '%${search.searchKeyword}%'
+				</if>
+			</if>
+			
 		ORDER BY
 		<choose>
 			<when test="payment.option == 'PRICE_ASC'">PAYMENT_PRICE ASC</when>
 			<when test="payment.option == 'PRICE_DESC'">PAYMENT_PRICE DESC</when>
-			<when test="payment.option == 'REGDATE_ASC'">PAYMENT_PRICE ASC</when>
-			<when test="payment.option == 'REGDATE_DESC'">PAYMENT_PRICE DESC</when>
+			<when test="payment.option == 'REGDATE_ASC'">PAYMENT_REGDATE ASC</when>
+			<when test="payment.option == 'REGDATE_DESC'">PAYMENT_REGDATE DESC</when>
 			<otherwise>PAYMENT_REGDATE DESC</otherwise>
 		</choose>
 	</select>
