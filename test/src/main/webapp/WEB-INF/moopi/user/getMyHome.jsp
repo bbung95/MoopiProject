@@ -459,9 +459,10 @@ figcaption>i {
 	<jsp:include page="../layout/toolbar.jsp" />
 	<!---------------------------------------------------------------------------------------------------------------------------->
 
-	<div id="wrapper">
-		<main class="py-5">
-			<div class="container px-5 my-5 ">
+<div id="wrapper">
+	<main class="py-5">
+		<div class="container px-5 my-5 ">
+
 
 				<div class="row " data-matrix-loop="true"
 					style="padding-bottom: 20px;" data-matrix-column="1">
@@ -559,8 +560,32 @@ figcaption>i {
 					<div id="boardView" class="row multi-columns-row"></div>
 				</div>
 			</div>
-		</main>
-	</div>
+
+
+			<hr style="margin-bottom: 25px;">
+
+			<div class="text-center">
+				<c:if test="${!empty user.interestFirst}">
+					<span class="interest">${user.interestFirst}</span>
+				</c:if>
+				<c:if test="${!empty user.interestSecond}">
+					<span class="interest">${user.interestSecond}</span>
+				</c:if>
+				<c:if test="${!empty user.interestThird}">
+					<span class="interest"><i class="bi bi-joystick"></i>${user.interestThird}</span>
+				</c:if>
+			</div>
+
+			<!-- 바디 -->
+			<div class="userEL8990950 colorSet" data-forum-type="thumb"
+				data-fcolor="#191919">
+				<!-- 게시글 생성박스 -->
+				<div id="boardView" class="row multi-columns-row"></div>
+			</div>
+		</div>
+	</main>
+</div>
+
 
 	<!-- get board view -->
 	<div class="container" id="element_to_pop_up">
