@@ -94,8 +94,13 @@
 															자유
 														</c:if>
 													</td>
-													<td class="border px-4 py-2"><i
-														class="fas fa-check text-green-500 mx-2"></i></td>
+													<td class="border px-4 py-2">
+													<c:if test="${moim.mmState== 1 || moim.mmState == 2}">
+																<i class="fas fa-check text-green-500 mx-2"></i>
+															</c:if>
+															<c:if test="${moim.mmState == 3 }">
+															<i class="fas fa-times text-red-500 mx-2"></i>
+															</c:if>
 												</tr>
 											</c:forEach>
 										</tbody>
