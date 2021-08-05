@@ -175,6 +175,12 @@ body::-webkit-scrollbar {
 	background: #e4eff2;
 }
 
+.span-round{
+	background: #f5f6f7;
+	color: black;	
+	font-size: 15px;	
+}
+
 /*사이즈*/
 @media ( min-width : 768px) {
 	.container {
@@ -915,10 +921,10 @@ body::-webkit-scrollbar {
 							 	 	+'</div>'
 									+'</div>'
 									+'<div style="margin-left: 20px;">'
-									+'<div class="h5">'+data.list[i].mmName+'<span class="rounded-3 shadow-sm p-1 h7">'
-									+data.list[i].mmAddr+'</span><span class="rounded-3 shadow-sm p-1 h7">'
+									+'<div class="h5">'+data.list[i].mmName+'<span class="rounded-3 shadow-sm p-1 h7 span-round">'
+									+data.list[i].mmAddr+'</span><span class="rounded-3 shadow-sm p-1 h7 span-round">'
 									+data.list[i].mmInterest+'</span>'
-									+'<div class="inline-block rounded-3 shadow-sm p-1 h7"><i class="bi bi-people-fill"></i>'
+									+'<div class="inline-block rounded-3 shadow-sm p-1 h7 span-round"><i class="bi bi-people-fill"></i>'
 									+data.list[i].mmCurrentCount+' / '+data.list[i].mmMaxCount+'</div>'
 									+'</div>'
 									+'<div>'+data.list[i].mmContent+'</div>'
@@ -939,10 +945,10 @@ body::-webkit-scrollbar {
 					 	 			+'</div>'
 									+'</div>'
 									+'<div style="margin-left: 20px;">'
-									+'<div class="h5">'+data.list[i].flashName+'<span class="rounded-3 shadow-sm p-1 h7">'
-									+data.list[i].flashAddr+'</span><span class="rounded-3 shadow-sm p-1 h7">'
+									+'<div class="h5">'+data.list[i].flashName+'<span class="rounded-3 shadow-sm p-1 h7 span-round">'
+									+data.list[i].flashAddr+'</span><span class="rounded-3 shadow-sm p-1 h7 span-round">'
 									+data.list[i].flashInterest+'</span>'
-									+'<div class="inline-block rounded-3 shadow-sm p-1 h7"><i class="bi bi-people-fill"></i>'
+									+'<div class="inline-block rounded-3 shadow-sm p-1 h7 span-round"><i class="bi bi-people-fill"></i>'
 									+data.list[i].flashCurrentCount+' / '+data.list[i].flashMaxCount+'</div>'
 									+'</div>'
 									+'<div>'+data.list[i].flashContent+'</div>'
@@ -981,9 +987,9 @@ body::-webkit-scrollbar {
 									+'</div>'
 									+'<div style="margin-left: 10px;">'
 									+'<div class="h7">'+data.list[i].nickname
-									+ '<span class="interest rounded-3 shadow-sm p-1 h7">'+data.list[i].interestFirst+'</span>'
-									+ '<span class="interest rounded-3 shadow-sm p-1 h7">'+data.list[i].interestSecond+'</span>'
-									+ '<span class="interest rounded-3 shadow-sm p-1 h7">'+data.list[i].interestThird+'</span>'
+									+ '<span class="interest rounded-3 shadow-sm p-1 h7 span-round">'+data.list[i].interestFirst+'</span>'
+									+ '<span class="interest rounded-3 shadow-sm p-1 h7 span-round">'+data.list[i].interestSecond+'</span>'
+									+ '<span class="interest rounded-3 shadow-sm p-1 h7 span-round">'+data.list[i].interestThird+'</span>'
 									+'</div>'
 									+'</div>'
 							 		+'</div>'

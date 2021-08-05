@@ -161,7 +161,7 @@ img.whale{
     height: 100vh;
     text-align: center;
     padding-top : 150px;
-    z-index:1;
+    z-index:2;
     background-image:url("/images/uploadFiles/${moim.mmFile}");
 }
 

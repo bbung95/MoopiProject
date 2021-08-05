@@ -374,28 +374,30 @@ thumbnail-img {
 					<img src="/images/background/moim6.jpg" class="d-block w-100"
 						alt="...">
 					<div class="carousel-caption d-none d-md-block">
-						<h4 >Dale Carnegie</h4>
-						<p >The royal road to a man's heart is to talk to
-							him about the things he treasures most.</p>
+						<h2 style="font-size: 20px; color: black">
+							안녕하세요<br /> 모임무피 여러분~
+						</h2>
+						<!-- <p>Some representative placeholder content for the first slide.</p> -->
 					</div>
 				</div>
 				<div class="carousel-item" data-bs-interval="6000">
 					<img src="/images/background/food.jpg" class="d-block w-100"
 						alt="...">
 					<div class="carousel-caption d-none d-md-block">
-						<h4 >Tennesse Williams</h4>
-						<p >Life is partly what we make it, and partly
-							what it is made by the friends we choose.</p>
+						<h2 style="font-size: 20px; color: black">
+							안녕하세요 자유로움을 추구하는<br /> 번개무피 여러분~
+						</h2>
+						<!-- <p>Some representative placeholder content for the first slide.</p> -->
 					</div>
 				</div>
 				<div class="carousel-item" data-bs-interval="6000">
 					<img src="/images/background/child.jpg" class="d-block w-100"
 						alt="...">
 					<div class="carousel-caption d-none d-md-block">
-						<h4 >Albert Camus</h4>
-						<p >Don't walk in front of me, I may not follow.
-							Don't walk behine me, I may not lead. Walk beside me and just be
-							my friend</p>
+						<h2 style="font-size: 20px; color: black">
+							안녕하세요 자유로움을 추구하는<br /> 번개무피 여러분~
+						</h2>
+						<!-- <p>Some representative placeholder content for the first slide.</p> -->
 					</div>
 				</div>
 			</div>

@@ -233,9 +233,9 @@
 		LEFT OUTER JOIN INTEREST z
 		ON INTEREST_THIRD = z.INTEREST_NO
 		<where>
-			( x.INTEREST_NO = #{mmInterest} OR
-			y.INTEREST_NO = #{mmInterest} OR
-			z.INTEREST_NO = #{mmInterest} ) AND
+			( x.INTEREST_NAME = #{mmInterest} OR
+			y.INTEREST_NAME = #{mmInterest} OR
+			z.INTEREST_NAME = #{mmInterest} ) AND
 			ADDR = #{mmAddr}
 		</where>
 	</select>

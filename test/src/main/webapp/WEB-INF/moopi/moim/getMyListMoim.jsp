@@ -55,12 +55,18 @@ thumbnail-img {
 	transform: translate(-50%, -50%);
 }
 
-.inforhead{
+.inforhead {
 	font-size: 24px;
 	font-weight: bold;
 	line-height: 34px;
 	margin-bottom: 16px;
-	}
+}
+
+.span-round{
+	background: #f5f6f7;
+	color: black;	
+	font-size: 15px;	
+}
 </style>
 </head>
 <body>
@@ -86,8 +92,9 @@ thumbnail-img {
 						<div class="myMoimList">
 							<c:forEach var="moim" items="${ list2 }">
 
-								<div class="card mb-3 moim-item" style="max-width: 540px;" type="${moim.mmNo}" >
-									<div class="row g-0 " >
+								<div class="card mb-3 moim-item" style="max-width: 540px;"
+									type="${moim.mmNo}">
+									<div class="row g-0 ">
 										<div class="col-md-4">
 											<div class="thumbnail-wrapper ">
 												<div class="thumbnail">
@@ -100,13 +107,17 @@ thumbnail-img {
 
 										</div>
 										<div class="col-md-8">
-											<div class="card-body" >
+											<div class="card-body">
 												<h5 class="card-title">${moim.mmName}</h5>
-												<p class="card-text">This is a wider card with
-													supporting text below as a natural lead-in to additional
-													content. This content is a little bit longer.</p>
+												<p class="card-text">${moim.mmContent}</p>
 												<p class="card-text">
-													<small class="text-muted">Last updated 3 mins ago</small>
+													<small class="text-muted">${moim.mmConstructor.nickname}
+														<div
+															class="inline-block rounded-3 shadow-sm p-1 h7 span-round">
+															<i class="bi bi-people-fill"></i> ${ moim.mmCurrentCount}
+															/ ${moim.mmMaxCount}
+														</div>
+													</small>
 												</p>
 											</div>
 										</div>
@@ -131,15 +142,13 @@ thumbnail-img {
 	<!-- Core theme JS-->
 	<script src="/js/scripts.js"></script>
 	<script>
-		
-		$(".moim-item").on('click', function(){
-			
+		$(".moim-item").on('click', function() {
+
 			let mmNo = $(this).attr('type');
-			
-			location.href = "/moim/getMoim?mmNo="+mmNo;
+
+			location.href = "/moim/getMoim?mmNo=" + mmNo;
 		})
-	
 	</script>
-	
+
 </body>
 </html>

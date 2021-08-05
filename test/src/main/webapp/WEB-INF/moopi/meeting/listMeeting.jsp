@@ -623,6 +623,7 @@ $(document).ready(function() {
     						let btnlist = '';
     						let checkUserId = meeting.mtConstructor.userId;
     						
+    						$('.btnlist').children().remove();
     						
     						if(data.check == 2){
     							btnlist += '<button type="button" class="btn btn-success"'
