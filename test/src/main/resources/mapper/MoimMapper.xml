@@ -262,6 +262,7 @@
 		FROM MOIM , INTEREST
 		WHERE 	MOIM.MM_INTEREST = INTEREST.INTEREST_NO
 				AND MM_NO = #{mmNo}
+					AND MM_STATE IN ('1', '2')
 	</select>
 
 	<select id="getMoim2" parameterType="String"
@@ -272,6 +273,8 @@
 		MM_INTEREST, MM_ADDR, MM_STATE, MM_MIN_AGE, MM_MAX_AGE, MM_TYPE
 		FROM MOIM
 		WHERE MM_NAME = #{mmName}
+			AND MM_STATE IN ('1', '2')
+			
 	</select>
 
 	<insert id="addMoim" parameterType="moim"
@@ -335,6 +338,7 @@
 		<where>
 			M.mm_interest = I.INTEREST_NO
 			AND M.MM_CONSTRUCTOR = U.USER_ID
+			AND M.MM_STATE IN ('1', '2')
 			<if test="searchCondition != null">
 				<if test="searchCondition == 1 and searchKeyword !='' ">
 					AND mm_interest = #{interestNo}
@@ -370,6 +374,7 @@
 		<where>
 			M.MM_NO = E.MM_NO
 			AND MM_MEMBER_ID = #{userId}
+			AND M.MM_STATE IN ('1', '2')
 			AND (MM_MEMBER_ROLE = 2 OR  MM_MEMBER_ROLE = 3 OR MM_MEMBER_ROLE = 4)
 		</where>
 	</select>
