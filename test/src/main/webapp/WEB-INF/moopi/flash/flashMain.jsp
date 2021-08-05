@@ -175,8 +175,6 @@ body {
 
 .carousel-item>img {
 	max-height: 500px;
-	min-height: 500px;
-	opacity: 0.7;
 }
 
 #btnbar {
@@ -381,33 +379,21 @@ body {
 			class="carousel slide carousel-fade" data-bs-ride="carousel">
 			<div class="carousel-inner">
 				<div class="carousel-item active" data-bs-interval="6000">
-					<img src="/images/background/study.jpg" class="d-block w-100"
+					<img src="/images/background/flash4.jpg" class="d-block w-100"
 						alt="...">
 					<div class="carousel-caption d-none d-md-block">
-						<h2 style="font-size: 20px; color: black">
-							안녕하세요 자유로움을 추구하는<br /> 번개무피 여러분~
-						</h2>
-						<!-- <p>Some representative placeholder content for the first slide.</p> -->
 					</div>
 				</div>
 				<div class="carousel-item " data-bs-interval="6000">
-					<img src="/images/background/child.jpg" class="d-block w-100"
+					<img src="/images/background/flash3.jpg" class="d-block w-100"
 						alt="...">
 					<div class="carousel-caption d-none d-md-block">
-						<h2 style="font-size: 20px; color: black">여기는 무피에서 가장 자유로운
-							공간이에요.</h2>
-						<p style="font-size: 20px; color: black">무피 회원 이라면 누구나 번개 생성
-							참가를 할수있어요.</p>
 					</div>
 				</div>
 				<div class="carousel-item" data-bs-interval="6000">
 					<img src="/images/background/food.jpg" class="d-block w-100"
 						alt="...">
 					<div class="carousel-caption d-none d-md-block">
-						<h2 style="font-size: 20px; color: black">하지만 자유에는 조금의 책임이
-							따른답니다 번개 생성시 2코인 참가시 1코인을 소비하게 되어요</h2>
-						<p style="font-size: 20px; color: black">부족한 코인은 오른쪽 상단 충전에서
-							구매 하실수 있습니다!.</p>
 					</div>
 				</div>
 			</div>
