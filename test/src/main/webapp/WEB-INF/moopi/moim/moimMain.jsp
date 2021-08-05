@@ -35,15 +35,6 @@
 
 
 <script type="text/javascript">
-	function fncAddMoimView() {
-		swal({
-			title : "모임무피를 만들까요?",
-			icon : "info",
-			closeOnClickOutside : false
-		}).then(function() {
-			self.location = "/moim/addMoimView?userId=${dbUser.userId}";
-		})
-	}
 
 	function fncGetMoim(mmNo) {
 		//swal("모임상세보기");
@@ -55,9 +46,72 @@
 	};
 
 	function fncAddMoim() {
-		//swal("모임을 생성합니다.");
-		$("#addMoim").attr("method", "POST").attr("action", "/moim/addMoim")
-				.submit();
+		
+		let mmName = $('#mmName').val();
+		let uploadFile = $('#uploadFile').val();
+		let mmContent = $('#mmContent').val();
+		let mmMaxCount = $('#mmMaxCount').val();
+		
+		if(mmName == '' || mmName.length < 1 ){
+			
+			swal({
+				  title: "모임무피명을 입력해주세요",
+				  icon: "warning",
+				  dangerMode: true,
+			})
+			
+			return;
+		}
+		if(uploadFile == '' || uploadFile.length < 1 ){
+			
+			swal({
+				  title: "대표 썸네일을 등록해주세요",
+				  icon: "warning",
+				  dangerMode: true,
+			})
+			
+			return;
+		}
+		if(mmContent == '' || mmContent.length < 1 ){
+			
+			swal({
+				  title: "간단 소개글을 입력해주세요",
+				  icon: "warning",
+				  dangerMode: true,
+			})
+			
+			return;
+		}
+		if(mmMaxCount == '' || mmMaxCount.length < 1 ){
+			
+			swal({
+				  title: "최대정원을 입력해주세요",
+				  icon: "warning",
+				  dangerMode: true,
+			})
+			
+			return;
+		}
+		
+		
+		swal({
+			  title: "모임무피를 생성하시겠습니까?",
+			  icon: "warning",
+			  buttons: true,
+			  dangerMode: true,
+		})
+		.then((willDelete) => {
+			  if (willDelete) {
+				   swal("모임무피가 생성되었습니다.", {
+				     icon: "success",
+				   });
+				   $("#addMoim").attr("method", "POST").attr("action", "/moim/addMoim")
+					.submit();
+			  } else {
+				   return;
+			 }
+		})
+		
 	}
 
 	$('.content').on("dragover", dragOver).on("dragleave", dragOver).on("drop",
@@ -339,15 +393,15 @@ thumbnail-img {
 	margin-bottom: 16px;
 }
 
-#item-head{
+#item-head {
 	font-weight: bold;
-	font-size : 17px;
+	font-size: 17px;
 }
 
-.span-round{
+.span-round {
 	background: #f5f6f7;
-	color: black;	
-	font-size: 15px;	
+	color: black;
+	font-size: 15px;
 }
 </style>
 
@@ -372,26 +426,22 @@ thumbnail-img {
 				<div class="carousel-item active" data-bs-interval="6000">
 					<img src="/images/background/study.jpg" class="d-block w-100"
 						alt="...">
-					<div class="carousel-caption d-none d-md-block">
-					</div>
+					<div class="carousel-caption d-none d-md-block"></div>
 				</div>
 				<div class="carousel-item" data-bs-interval="6000">
 					<img src="/images/background/moim7.jpg" class="d-block w-100"
 						alt="...">
-					<div class="carousel-caption d-none d-md-block">
-					</div>
+					<div class="carousel-caption d-none d-md-block"></div>
 				</div>
 				<div class="carousel-item" data-bs-interval="6000">
 					<img src="/images/background/food.jpg" class="d-block w-100"
 						alt="...">
-					<div class="carousel-caption d-none d-md-block">
-					</div>
+					<div class="carousel-caption d-none d-md-block"></div>
 				</div>
 				<div class="carousel-item" data-bs-interval="6000">
 					<img src="/images/background/flash5.jpg" class="d-block w-100"
 						alt="...">
-					<div class="carousel-caption d-none d-md-block">
-					</div>
+					<div class="carousel-caption d-none d-md-block"></div>
 				</div>
 			</div>
 		</header>
@@ -524,7 +574,8 @@ thumbnail-img {
 							<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">간단소개글</label>
 							<div class="col-sm-40">
 								<textarea style="resize: none" class="form-control"
-									id="mmContent" name="mmContent" placeholder="50자이내" maxlength="50"></textarea>
+									id="mmContent" name="mmContent" placeholder="50자이내"
+									maxlength="50"></textarea>
 							</div>
 						</div>
 
@@ -569,7 +620,8 @@ thumbnail-img {
 							<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">인원</label>
 							<div class="col-sm-40">
 								<input type="text" class="form-control" id="mmMaxCount"
-									name="mmMaxCount" placeholder="가입가능정원" onkeypress="number_check()" maxlength="2">
+									name="mmMaxCount" placeholder="가입가능정원"
+									onkeypress="number_check()" maxlength="2">
 							</div>
 						</div>
 
@@ -601,7 +653,8 @@ thumbnail-img {
 							<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">최소연령</label>
 							<div class="col-sm-40">
 								<input type="text" class="form-control" id="mmMinAge"
-									name="mmMinAge" placeholder="최소연령" onkeypress="number_check()" maxlength="2">
+									name="mmMinAge" placeholder="최소연령" onkeypress="number_check()"
+									maxlength="2">
 							</div>
 						</div>
 
@@ -611,7 +664,8 @@ thumbnail-img {
 							<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">최대연령</label>
 							<div class="col-sm-40">
 								<input type="text" class="form-control" id="mmMaxAge"
-									name="mmMaxAge" placeholder="최대연령" onkeypress="number_check()" maxlength="2">
+									name="mmMaxAge" placeholder="최대연령" onkeypress="number_check()"
+									maxlength="2">
 							</div>
 						</div>
 
@@ -670,7 +724,7 @@ thumbnail-img {
 	</div>
 
 	<!-- 모달끝 -->
-	
+
 
 	<jsp:include page="../layout/footer.jsp" />
 
@@ -703,10 +757,11 @@ thumbnail-img {
 								$('#addrbtn').text($(this).text());
 								$('#addr').val($(this).text().trim());
 								$('#moimListView').children().remove();
+								
 
-								location.href = "#carouselExampleSlidesOnly";
 								currentPage = 1;
 								getMoimList();
+								location.href = "#carouselExampleSlidesOnly";
 							})
 
 							// 관심사
@@ -717,10 +772,11 @@ thumbnail-img {
 								$(this).attr('class', 'interestNo interestActive');
 								$('#interest').val(type);
 								$('#moimListView').children().remove();
-
-								location.href = "#carouselExampleSlidesOnly";
+								
+								
 								currentPage = 1;
 								getMoimList();
+								location.href = "#carouselExampleSlidesOnly";
 							})
 
 							/* 스크롤  */
@@ -742,8 +798,8 @@ thumbnail-img {
 
 								let addr = $('#addr').val();
 								let interest = $('#interest').val();
-								let searchCondition = $('#searchCondition')
-										.val();
+								
+								console.log(addr +" : "+interest);
 
 								if (interest != 0 && addr != '') {
 									$('#searchCondition').val("4");
@@ -754,6 +810,9 @@ thumbnail-img {
 								} else {
 									$('#searchCondition').val("0");
 								}
+								
+								let searchCondition = $('#searchCondition')
+										.val();
 
 								$
 										.ajax({

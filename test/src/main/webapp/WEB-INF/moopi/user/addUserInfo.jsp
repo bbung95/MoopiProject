@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
 <html>
@@ -7,57 +8,71 @@
 <meta charset="UTF-8">
 <title>회원가입</title>
 
-<! -- jQuery CDN -->	
-	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-	
-	<!-- 이게있으면 모달이 안된다 -->
-	<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
-	
-<!-- 구글폰트api -->	
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@300&display=swap" rel="stylesheet">
-	
+<! -- jQuery CDN -->
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+<!-- 이게있으면 모달이 안된다 -->
+<script type="text/javascript"
+	src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<!-- 구글폰트api -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+	href="https://fonts.googleapis.com/css2?family=Gaegu:wght@300&display=swap"
+	rel="stylesheet">
+
 <!-- Bootstrap Dropdown Hover JS -->
-	<script src="/javascript/bootstrap-dropdownhover.min.js"></script>	
+<script src="/javascript/bootstrap-dropdownhover.min.js"></script>
 
 <!-- Favicon-->
-	<link rel="icon" type="image/x-icon" href="assets/favicon.ico"/>
-	
+<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+
 <!-- 스윗얼럿 -->
-	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <!-- Bootstrap icons-->
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
+	rel="stylesheet" />
 
 <!-- Core theme CSS (includes Bootstrap)-->
-	<link href="/css/admin/styles.css" rel="stylesheet" />
-	
+<link href="/css/admin/styles.css" rel="stylesheet" />
+
 <!-- 카카오로그인 -->
-	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 
 <!-- 구글로그인 -->
-	<script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
-	<meta name="google-signin-scope" content="profile email">
-	<meta name ="google-signin-client_id" content="959630660117-f5d12kulu8hloob7jid8f0jfeenr57sv.apps.googleusercontent.com">
-	<script src="https://apis.google.com/js/platform.js" async defer></script>
+<script src="https://apis.google.com/js/platform.js?onload=init" async
+	defer></script>
+<meta name="google-signin-scope" content="profile email">
+<meta name="google-signin-client_id"
+	content="959630660117-f5d12kulu8hloob7jid8f0jfeenr57sv.apps.googleusercontent.com">
+<script src="https://apis.google.com/js/platform.js" async defer></script>
 
 <!-- 네이버로그인 -->
-	<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
-	<script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js"></script>
-	
+<script type="text/javascript"
+	src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js"
+	charset="utf-8"></script>
+<script
+	src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js"></script>
+
 <!-- 템플릿 관련 CDN -->
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="../css/admin/styles.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
-          crossorigin="anonymous">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" href="../css/admin/styles.css">
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
+	integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
+	crossorigin="anonymous">
 
 <!-- 다음주소 -->
-	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-	
-	
-<!-------------------------------------------------------------------------------------------------------------------------->   
-  
+<script
+	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
+
+<!-------------------------------------------------------------------------------------------------------------------------->
+
 <script>
 
 <!-- 이름 적합성검사 -->
@@ -160,12 +175,87 @@
 		var interest2=$("select[name='interestSecond']").val();
 		var interest3=$("select[name='interestThird']").val();	
 		var birth = $("input[name='birth']").val();
-
-		swal("회원가입이 완료되었습니다.", "로그인을 진행해주세요","success");
-		//alert("반갑습니다 "+userName+"님 회원가입을 축하드립니다.");
-		w=
 		
-		$("form").attr("method" , "POST").attr("action" , "/user/addUser").submit();
+		if(userName == '' || userName.length < 1 ){
+			
+			swal({
+				  title: "이름을 입력해주세요",
+				  icon: "warning",
+				  dangerMode: true,
+			})
+			return;
+		}
+		
+		if(gender == '' || gender.length < 1 ){
+			
+			swal({
+				  title: "성별을 선택해주세요",
+				  icon: "warning",
+				  dangerMode: true,
+			})
+			return;
+		}
+		if(phone == '' || phone.length < 1 ){
+			
+			swal({
+				  title: "모바일번호를 입력해주세요",
+				  icon: "warning",
+				  dangerMode: true,
+			})
+			return;
+		}
+		if(nickname == '' || nickname.length < 1 ){
+			
+			swal({
+				  title: "닉네임을 입력해주세요",
+				  icon: "warning",
+				  dangerMode: true,
+			})
+			return;
+		}
+		if(birth == '' || birth.length < 1 ){
+			
+			swal({
+				  title: "생년월일을 입력해주세요",
+				  icon: "warning",
+				  dangerMode: true,
+			})
+			return;
+		}
+		if(fullAddr == '' || fullAddr.length < 1 ){
+			
+			swal({
+				  title: "주소를 입력해주세요",
+				  icon: "warning",
+				  dangerMode: true,
+			})
+			return;
+		}
+		
+		
+		swal({
+			  title: "회원가입을 하시겠습니까",
+			  icon: "warning",
+			  buttons: true,
+			  dangerMode: true,
+		})
+		.then((willDelete) => {
+			  if (willDelete) {
+				   $("form").attr("method" , "POST").attr("action" , "/user/addUser").submit();
+			  } else {
+				   return;
+			 }
+		})
+		
+		
+		
+		
+		
+		//swal("회원가입이 완료되었습니다.", "로그인을 진행해주세요","success");
+		//alert("반갑습니다 "+userName+"님 회원가입을 축하드립니다.");
+		//w=
+		
+		//$("form").attr("method" , "POST").attr("action" , "/user/addUser").submit();
 	
 	};
 	
@@ -174,164 +264,177 @@
 
 
 </script>
-  
-    <style>
-        .login{
-            background-color : #D6D6D6;
-        }
-        
-        #nameCheck{
-        	text-align: left;	
-			height : 20px;	
-        }
-        
-        #mobileAuth{		
-        	position: relative;	
-	        border: 1px solid gray;
-			top : -38px;
-			font-size: 12px;
-		    width: 70px;
-		    margin-left: 323px;
-       	}
-       	
-       	.nickname{
-       		position: relative;	
-       	}
-       	
-       	#adrSearch{		
-        	position: relative;	
-	        border: 1px solid gray;
-			top : -38px;
-			font-size: 12px;
-		    width: 70px;
-		    margin-left: 323px;
-		    padding-down : -150px;
-       	}
-    </style>
+
+<style>
+.login {
+	background-color: #D6D6D6;
+}
+
+#nameCheck {
+	text-align: left;
+	height: 20px;
+}
+
+#mobileAuth {
+	position: relative;
+	border: 1px solid gray;
+	top: -38px;
+	font-size: 12px;
+	width: 70px;
+	margin-left: 323px;
+}
+
+.nickname {
+	position: relative;
+}
+
+#adrSearch {
+	position: relative;
+	border: 1px solid gray;
+	top: -38px;
+	font-size: 12px;
+	width: 70px;
+	margin-left: 323px;
+	padding-down: -150px;
+}
+</style>
 
 </head>
 
 <!-- 화면구성 div Start ---------------------------------------------------------------------------------------------------------------->
 
 <body class="h-screen font-sans login bg-cover">
-<div class="container mx-auto h-full flex flex-1 justify-center items-center">
-    <div class="w-full max-w-lg">    
-        <div class="leading-loose">
-            <form class="max-w-xl m-4 p-10 bg-white rounded shadow-xl">
-                <p class="text-gray-800 font-medium">추가정보입력</p>
-         	    
-                <div class="id">
-                    <label class="block text-sm text-gray-00" for="userId">아이디</label>
-					<input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" id="userId" name="userId" type="text" required="" value="${user.userId}" readonly aria-label="Id">
-                </div>    
-                
-                <input type="hidden" class="form-control" id="password" name="password" value="${user.password}">
-                
-				<div class="userName">
-                    <label class="block text-sm text-gray-00" for="userName">이름</label>
-                    <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" id="userName" name="userName" type="text" required="" placeholder="이름을 입력해주세요" aria-label="userName">
-                    <div class="check_font" id="nameCheck" style="font-size : 12px" ></div>
-                </div>
-                
-				<div class="gender">
-                    <label class="block text-sm text-gray-00" for="gender">성별</label>
-                    	<input type="radio" name="gender" value="1">남
-                    	<input type="radio" name="gender" value="2">여             
-					</span>
-                </div>
-                
-				<div class="phone">
-                    <label class="block text-sm text-gray-00" for="phone">모바일번호</label>
-                    <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" id="pInput" name="phone" type="text" required="" placeholder="인증을 진행해주세요" aria-label="phone" >
-                    <button class="micro_btn" type="button" id="mobileAuth" onclick="javascript:addUser()" style="color:gray;">인증하기</button>	
-                </div>
-                
-				<div class="nickname">
-                    <label class="block text-sm text-gray-00" for="nickname">닉네임</label>
-                    <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" id="nickname" name="nickname" type="text" required="" placeholder="닉네임을 입력해주세요" aria-label="nickname">
-                    <div class="check_font" id="NNCheck" style="font-size : 12px" ></div>	
-                </div>
-                
-				<div class="birth">
-                    <label class="block text-sm text-gray-00" for="birth">생년월일
-                    <p><input type="date" id="birth" name="birth" value="2021-07-24" min="1900-01-01" max="2022-01-01"></p>
-                </div>
-                
-                <div class="address">
-                    <label class="block text-sm text-gray-00" for="address">주소</label>
-                    <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" type="text"  id="fullAddr" name="fullAddr" placeholder="주소지 검색을 눌러주세요" readonly>
-					<button type="button" id="adrSearch" name="addr" onclick="javascript:searchAdr()" style="color:gray;"> 주소지검색</button>
-                </div>
-                
-                <input type="hidden" class="form-control" id="addr" name="addr">
+	<div
+		class="container mx-auto h-full flex flex-1 justify-center items-center">
+		<div class="w-full max-w-lg">
+			<div class="leading-loose">
+				<form class="max-w-xl m-4 p-10 bg-white rounded shadow-xl">
+					<p class="text-gray-800 font-medium">추가정보입력</p>
 
-<!-- 관심사입력 -->
-		<div class="form-group">
-			<label for="interest" class="col-sm-offset-1 col-sm-3 control-label"></label>
-			<span class="col-sm-1">
-				
-				<!-- #관심사1 추가구현예정 -->
-				<select name="interestFirst">
-						<option>관심사1</option>
-						<option value="1">아웃도어/여행/사진/영상</option>
-						<option value="2">운동/스포츠</option>
-						<option value="3">인문학/책/글</option>
-						<option value="4">업종/직무</option>
-						<option value="5">외국/언어</option>
-						<option value="6">문화/공연/축제/음악/악기</option>
-						<option value="7">공예/만들기</option>
-						<option value="8">댄스/무용</option>
-						<option value="9">사교/인맥</option>                                    
-						<option value="10">차/오토바이</option>
-						<option value="11">게임/오락</option>
-						<option value="12">맛집/카페</option>
-				</select> 
-				
-				<!-- #관심사2 추가구현예정 -->
-				<select name="interestSecond">
-						<option>관심사2</option>
-						<option value="1">아웃도어/여행/사진/영상</option>
-						<option value="2">운동/스포츠</option>
-						<option value="3">인문학/책/글</option>
-						<option value="4">업종/직무</option>
-						<option value="5">외국/언어</option>
-						<option value="6">문화/공연/축제/음악/악기</option>
-						<option value="7">공예/만들기</option>
-						<option value="8">댄스/무용</option>
-						<option value="9">사교/인맥</option>                                    
-						<option value="10">차/오토바이</option>
-						<option value="11">게임/오락</option>
-						<option value="12">맛집/카페</option>
-				</select> 
-				
-				<!-- #관심사3 추가구현예정 -->
-				<select name="interestThird"> 
-						<option>관심사3</option>
-						<option value="1">아웃도어/여행/사진/영상</option>
-						<option value="2">운동/스포츠</option>
-						<option value="3">인문학/책/글</option>
-						<option value="4">업종/직무</option>
-						<option value="5">외국/언어</option>
-						<option value="6">문화/공연/축제/음악/악기</option>
-						<option value="7">공예/만들기</option>
-						<option value="8">댄스/무용</option> 
-						<option value="9">사교/인맥</option>                                    
-						<option value="10">차/오토바이</option>
-						<option value="11">게임/오락</option>
-						<option value="12">맛집/카페</option>
-				</select> 
-				
-			</span>
+					<div class="id">
+						<label class="block text-sm text-gray-00" for="userId">아이디</label>
+						<input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
+							id="userId" name="userId" type="text" required=""
+							value="${user.userId}" readonly aria-label="Id">
+					</div>
+
+					<input type="hidden" class="form-control" id="password"
+						name="password" value="${user.password}">
+
+					<div class="userName">
+						<label class="block text-sm text-gray-00" for="userName">이름</label>
+						<input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
+							id="userName" name="userName" type="text" required=""
+							placeholder="이름을 입력해주세요" aria-label="userName">
+						<div class="check_font" id="nameCheck" style="font-size: 12px"></div>
+					</div>
+
+					<div class="gender">
+						<label class="block text-sm text-gray-00" for="gender">성별</label>
+						<input type="radio" name="gender" value="1">남 <input
+							type="radio" name="gender" value="2">여 </span>
+					</div>
+
+					<div class="phone">
+						<label class="block text-sm text-gray-00" for="phone">모바일번호</label>
+						<input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
+							id="pInput" name="phone" type="text" required=""
+							placeholder="인증을 진행해주세요" aria-label="phone">
+						<button class="micro_btn" type="button" id="mobileAuth"
+							onclick="javascript:addUser()" style="color: gray;">인증하기</button>
+					</div>
+
+					<div class="nickname">
+						<label class="block text-sm text-gray-00" for="nickname">닉네임</label>
+						<input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
+							id="nickname" name="nickname" type="text" required=""
+							placeholder="닉네임을 입력해주세요" aria-label="nickname">
+						<div class="check_font" id="NNCheck" style="font-size: 12px"></div>
+					</div>
+
+					<div class="birth">
+						<label class="block text-sm text-gray-00" for="birth">생년월일
+							<p>
+								<input type="date" id="birth" name="birth" value="2021-07-24"
+									min="1900-01-01" max="2022-01-01">
+							</p>
+					</div>
+
+					<div class="address">
+						<label class="block text-sm text-gray-00" for="address">주소</label>
+						<input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
+							type="text" id="fullAddr" name="fullAddr"
+							placeholder="주소지 검색을 눌러주세요" readonly>
+						<button type="button" id="adrSearch" name="addr"
+							onclick="javascript:searchAdr()" style="color: gray;">
+							주소지검색</button>
+					</div>
+
+					<input type="hidden" class="form-control" id="addr" name="addr">
+
+					<!-- 관심사입력 -->
+					<div class="form-group">
+						<label for="interest"
+							class="col-sm-offset-1 col-sm-3 control-label"></label> <span
+							class="col-sm-1"> <!-- #관심사1 추가구현예정 --> <select
+							name="interestFirst">
+								<option>관심사1</option>
+								<option value="1">아웃도어/여행/사진/영상</option>
+								<option value="2">운동/스포츠</option>
+								<option value="3">인문학/책/글</option>
+								<option value="4">업종/직무</option>
+								<option value="5">외국/언어</option>
+								<option value="6">문화/공연/축제/음악/악기</option>
+								<option value="7">공예/만들기</option>
+								<option value="8">댄스/무용</option>
+								<option value="9">사교/인맥</option>
+								<option value="10">차/오토바이</option>
+								<option value="11">게임/오락</option>
+								<option value="12">맛집/카페</option>
+						</select> <!-- #관심사2 추가구현예정 --> <select name="interestSecond">
+								<option>관심사2</option>
+								<option value="1">아웃도어/여행/사진/영상</option>
+								<option value="2">운동/스포츠</option>
+								<option value="3">인문학/책/글</option>
+								<option value="4">업종/직무</option>
+								<option value="5">외국/언어</option>
+								<option value="6">문화/공연/축제/음악/악기</option>
+								<option value="7">공예/만들기</option>
+								<option value="8">댄스/무용</option>
+								<option value="9">사교/인맥</option>
+								<option value="10">차/오토바이</option>
+								<option value="11">게임/오락</option>
+								<option value="12">맛집/카페</option>
+						</select> <!-- #관심사3 추가구현예정 --> <select name="interestThird">
+								<option>관심사3</option>
+								<option value="1">아웃도어/여행/사진/영상</option>
+								<option value="2">운동/스포츠</option>
+								<option value="3">인문학/책/글</option>
+								<option value="4">업종/직무</option>
+								<option value="5">외국/언어</option>
+								<option value="6">문화/공연/축제/음악/악기</option>
+								<option value="7">공예/만들기</option>
+								<option value="8">댄스/무용</option>
+								<option value="9">사교/인맥</option>
+								<option value="10">차/오토바이</option>
+								<option value="11">게임/오락</option>
+								<option value="12">맛집/카페</option>
+						</select>
+
+						</span>
+					</div>
+
+					<div class="mt-4">
+						<button
+							class="px-4 py-1 text-white font-light tracking-wider bg-gray-900 rounded"
+							id="joinButton" name="join" type="submit"
+							onclick="javascript:fncAddUser()">등록</button>
+					</div>
+
+				</form>
+			</div>
 		</div>
-		
-		<div class="mt-4">
-			<button class="px-4 py-1 text-white font-light tracking-wider bg-gray-900 rounded" id="joinButton" name="join" type="submit" onclick="javascript:fncAddUser()">등록</button>
-		</div>
-		             
-            </form>
-        </div>
-    </div>
-</div>
+	</div>
 
 </body>
 </html>

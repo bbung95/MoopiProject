@@ -20,7 +20,7 @@
 }
 
 .informenu {
-	padding-left:20px;
+	padding-left: 20px;
 	font-size: 16px;
 	font-weight: bold;
 	height: 40px;
@@ -32,10 +32,12 @@
 
 <!-- ToolBar Start /////////////////////////////////////-->
 <div class="navmenu">
-	<div class="inforbox">
+	<div class="inforbox d-flex align-items-center ">
 		<img class="inforimg" src="/images/uploadFiles/${dbUser.profileImage}">
-		<span class="h4" style="margin-left: 10px;">${dbUser.nickname}</span>
-		<span>코인 : ${dbUser.coin}</span>
+		<div style="margin-left: 10px;">
+			<div class="h5">${dbUser.nickname}</div>
+			<div class="h6">코인 : ${dbUser.coin}</div>
+		</div>
 	</div>
 	<hr / style="margin: 10px 0px 10px 0px;">
 	<div class="informenu">내 정보</div>
@@ -66,8 +68,8 @@
 
 		location.href = "/payment/coinHistory?userId=" + dbUser;
 	})
-	
+
 	$.ajax({
-		url: "/user/getUser"
+		url : "/user/getUser"
 	})
 </script>

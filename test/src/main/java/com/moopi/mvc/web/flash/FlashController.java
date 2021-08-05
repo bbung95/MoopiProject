@@ -116,7 +116,7 @@ public class FlashController {
 		coinService.addCoin(coin);
 
 		System.out.println("번개생성 완료.");
-		return "redirect:/flash/listFlash";
+		return "redirect:/flash/getFlash?flashNo="+flash.getFlashNo();
 	}
 
 	// 번개무피 수정 View

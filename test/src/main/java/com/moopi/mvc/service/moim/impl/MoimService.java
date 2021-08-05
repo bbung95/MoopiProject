@@ -15,7 +15,7 @@ public interface MoimService {
 
 	public void addMoim(Moim moim) throws Exception;
 
-	public Map<String, Object> getInviteList(String mmInterest, String mmAddr) throws Exception;
+	public Map<String, Object> getInviteList(String mmInterest, String mmAddr , int mmNo) throws Exception;
 
 	public Map<String, Object> getMoimList(Search search) throws Exception;
 

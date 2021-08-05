@@ -657,7 +657,6 @@ body {
 
 			let addr = $('#addr').val();
 			let interest = $('#interest').val();
-			let searchCondition = $('#searchCondition').val();
 
 			if (interest != 0 && addr != '') {
 				$('#searchCondition').val("4");
@@ -669,6 +668,8 @@ body {
 				$('#searchCondition').val("0");
 			}
 
+			let searchCondition = $('#searchCondition').val();
+			
 			$
 					.ajax({
 						url : "/flash/json/getListFlash",

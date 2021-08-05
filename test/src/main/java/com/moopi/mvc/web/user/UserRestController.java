@@ -235,8 +235,12 @@ public class UserRestController {
 	
 	@PostMapping(value="json/getRole")
 	public User getRole(@RequestBody User user) throws Exception {				
-		user = userService.getUser(user.getUserId());
-		return user;
+		User returnUser = userService.getUser(user.getUserId());
+		
+		if(returnUser == null) {
+			return user;
+		}
+		return returnUser;
 	}
 
 // [프로필 업데이트]-----------------------------------------------------------------------------------------------	

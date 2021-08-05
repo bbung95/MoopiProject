@@ -580,7 +580,7 @@ figcaption>i {
 
 
 	<!-- get board view -->
-	<div class="container" id="element_to_pop_up">
+	<div class="container" id="element_to_pop_up" style="max-width: 1000px;">
 		<div class="row">
 			<div class="col-xs-8 col-sm-8 col-md-8">
 				<div class="swiper-container">
@@ -963,7 +963,7 @@ $('.modal-footer > button:contains("등록")').on('click',function(){
 					 // 게시글 이미지 
 					for(var i= 0; i < fileArry.length-1; i++){
 						
-						displayslide += '<div class="swiper-slide">'
+						displayslide += '<div class="swiper-slide" >'
 									+'<div class="thumbnail-wrapper">'
 									+'<div class="thumbnail">'
 									+'<div class="thumbnail-centered ">'
@@ -978,10 +978,13 @@ $('.modal-footer > button:contains("등록")').on('click',function(){
 					 display += '<div class="d-flex align-items-center"><img class="boardProfile" src="/images/uploadFiles/'+board.boardWriter.profileImage+'" />'
 							+ '<div style="margin: 5px 5px 5px 5px;">'+board.boardWriter.nickname+'</div>'
 							+ '<div class="ms-auto" style="margin: 5px 5px 5px 5px;">'+board.boardRegDate+'</div>'
-							+ '<div onclick="deleteBoard('+board.boardNo+');">삭제</div></div>'
-							+ '<hr/>'
+					if(dbUser == board.boardWriter.userId){
+						display	+= '<div onclick="deleteBoard('+board.boardNo+');">삭제</div>'
+					}	
+							
+					display	+= '</div><hr/>'
 							+ '<pre data-edit="true" data-selector="p" >'
-							+ '<span class="fsize13">'+board.boardContent+'</span>'
+							+ board.boardContent
 							+ '</pre>'
 							+ '<ul id="replyContents" style="overflow: auto; max-height: 300px;">'
 
@@ -1067,8 +1070,10 @@ $('.modal-footer > button:contains("등록")').on('click',function(){
 				success: function(data, state){
 					
 					let display = '<li>'
-								+ '<div style="align-items: center; font-size: 13px" onclick="location.href=\'/user/getMyHome?userId='+data.replyWriter.userId+'\'">'
-								+ '<img class="replyProfile" src="/images/uploadFiles/'+data.replyWriter.profileImage+'" />'+data.replyWriter.nickname+' '+data.replyRegDate+'</div>'
+								+ '<div class="d-flex align-items-center" style="font-size: 13px" onclick="location.href=\'/user/getMyHome?userId='+data.replyWriter.userId+'\'">'
+								+ '<img class="replyProfile" src="/images/uploadFiles/'+data.replyWriter.profileImage+'" />'
+								+'<div style="margin: 5px 5px 5px 5px;">'+data.replyWriter.nickname+'</div>'
+								+'<div style="margin: 5px 5px 5px 5px;">'+data.replyRegDate+'</div></div>'
 								+ '<pre style="font-size : 13px; padding-left: 40px;">'+data.replyContent+'</pre></li>';
 					
 					$('#replyContents').append(display);
@@ -1154,8 +1159,6 @@ $('.modal-footer > button:contains("등록")').on('click',function(){
 								+ '" style="width: 50px; height: 50px; border-radius: 50%; margin-right: 20px;" />'
 								+ i.nickname
 								+ '</div>'
-								+ '<button type="button" class="btn btn-primary me-2 m-auto"'
-								+ 'data-bs-dismiss="toast" aria-label="Close">팔로우</button>'
 								+ '</div>'
 						}else{
 							
@@ -1164,10 +1167,10 @@ $('.modal-footer > button:contains("등록")').on('click',function(){
 								+ '" style="width: 50px; height: 50px; border-radius: 50%; margin-right: 20px;" />'
 								+ i.nickname 
 								+ '</div>'
-								+ '<button type="button" class="btn btn-primary me-2 m-auto"'
-								+ 'data-bs-dismiss="toast" aria-label="Close">팔로우</button>'
 								+ '</div>'
 						}
+								//+ '<button type="button" class="btn btn-primary me-2 m-auto"'
+								//+ 'data-bs-dismiss="toast" aria-label="Close">팔로우</button>'
 						
 						$('.followOut').append(display);
 					}				

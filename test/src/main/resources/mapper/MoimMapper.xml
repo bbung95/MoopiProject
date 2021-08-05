@@ -232,11 +232,14 @@
 		ON INTEREST_SECOND = y.INTEREST_NO
 		LEFT OUTER JOIN INTEREST z
 		ON INTEREST_THIRD = z.INTEREST_NO
+		LEFT OUTER JOIN MEMBER m
+		ON USER_ID = m.mm_member_id
 		<where>
 			( x.INTEREST_NAME = #{mmInterest} OR
 			y.INTEREST_NAME = #{mmInterest} OR
 			z.INTEREST_NAME = #{mmInterest} ) AND
-			ADDR = #{mmAddr}
+			ADDR = #{mmAddr} AND
+			(m.mm_no is null or m.mm_no != #{mmNo})
 		</where>
 	</select>
 

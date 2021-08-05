@@ -13,8 +13,6 @@
 
 <title>Moopi</title>
 
-<! -- jQuery CDN -->
-<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 
 <! ------------------------------------------------ Bootstrap, jQuery CDN -------------------------------------------------->
 <!-- Favicon-->
@@ -38,12 +36,8 @@
 <!-- 필수 Core theme CSS (includes Bootstrap)-->
 <link href="/css/admin/styles.css" rel="stylesheet" />
 
-<!-- Bootstrap core JS-->
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-
-<!-- Core theme JS-->
-<script src="/js/scripts.js"></script>
+<! -- jQuery CDN -->
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 
 <!-- 스윗얼럿 -->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -188,9 +182,9 @@
      	var userRole = $("#userRole").val();
      	var stateReason = $("input[name='leaveReason']").val();
    	
-     	alert("유저아이디 : "+userId);
+     	/* alert("유저아이디 : "+userId);
      	alert("유저롤 : "+userRole);
-     	alert("탈퇴사유 : "+stateReason);
+     	alert("탈퇴사유 : "+stateReason); */
      	
      	location.href = "/user/updateLeaveUser?userId="+userId+"&userRole="+userRole+"&stateReason="+stateReason;
      	//$("form").attr("method" , "POST").attr("action" , "/user/updateLeaveUser").submit();
