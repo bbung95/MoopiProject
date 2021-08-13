@@ -502,7 +502,7 @@ a:hover {
 							<button
 								class="px-4 py-0 text-white font-light tracking-wider bg-gray-900 rounded button"
 								id="updatebtn" name="updatebtn" type="button"
-								onclick="javascript:edit(3)" style="margin-top: 0px;">수정</button>
+								onclick="javascript:edit(3)" >수정</button>
 						</div>
 
 						<!-- 프로필소개 -->
@@ -546,7 +546,21 @@ a:hover {
 									<select name="interestFirst" id="interestFirst"
 										style="width: 378px;"
 										class="px-4 py-0 text-black font-light tracking-wider bg-gray-200 rounded">
-										<option>${dbUser.interestFirst}</option>
+										
+										<c:forEach var="interest" items="${interest}">
+											<c:choose>
+												<c:when test="${dbUser.interestFirst == interest.interestName}">
+												<option value="${interest.interestNo}" selected>${interest.interestName}</option>
+												
+												</c:when>
+												<c:otherwise>
+													<option value="${interest.interestNo}">${interest.interestName}</option>
+												</c:otherwise>
+											</c:choose>
+										</c:forEach>
+										
+										
+										<%-- <option>${dbUser.interestFirst}</option>
 										<option value="1">아웃도어/여행/사진/영상</option>
 										<option value="2">운동/스포츠</option>
 										<option value="3">인문학/책/글</option>
@@ -558,39 +572,39 @@ a:hover {
 										<option value="9">사교/인맥</option>
 										<option value="10">차/오토바이</option>
 										<option value="11">게임/오락</option>
-										<option value="12">맛집/카페</option>
+										<option value="12">맛집/카페</option> --%>
 									</select> <select name="interestSecond" id="interestSecond"
 										style="width: 378px;"
 										class="px-4 py-0 text-black font-light tracking-wider bg-gray-200 rounded">
-										<option>${dbUser.interestSecond}</option>
-										<option value="1">아웃도어/여행/사진/영상</option>
-										<option value="2">운동/스포츠</option>
-										<option value="3">인문학/책/글</option>
-										<option value="4">업종/직무</option>
-										<option value="5">외국/언어</option>
-										<option value="6">문화/공연/축제/음악/악기</option>
-										<option value="7">공예/만들기</option>
-										<option value="8">댄스/무용</option>
-										<option value="9">사교/인맥</option>
-										<option value="10">차/오토바이</option>
-										<option value="11">게임/오락</option>
-										<option value="12">맛집/카페</option>
+										
+										<c:forEach var="interest" items="${interest}">
+											<c:choose>
+												<c:when test="${dbUser.interestSecond == interest.interestName}">
+												<option value="${interest.interestNo}" selected>${interest.interestName}</option>
+												
+												</c:when>
+												<c:otherwise>
+													<option value="${interest.interestNo}">${interest.interestName}</option>
+												</c:otherwise>
+											</c:choose>
+										</c:forEach>
+										
 									</select> <select name="interestThird" id="interestThird"
 										style="width: 378px;"
 										class="px-4 py-0 text-black font-light tracking-wider bg-gray-200 rounded">
-										<option>${dbUser.interestThird}</option>
-										<option value="1">아웃도어/여행/사진/영상</option>
-										<option value="2">운동/스포츠</option>
-										<option value="3">인문학/책/글</option>
-										<option value="4">업종/직무</option>
-										<option value="5">외국/언어</option>
-										<option value="6">문화/공연/축제/음악/악기</option>
-										<option value="7">공예/만들기</option>
-										<option value="8">댄스/무용</option>
-										<option value="9">사교/인맥</option>
-										<option value="10">차/오토바이</option>
-										<option value="11">게임/오락</option>
-										<option value="12">맛집/카페</option>
+										
+										<c:forEach var="interest" items="${interest}">
+											<c:choose>
+												<c:when test="${dbUser.interestThird == interest.interestName}">
+												<option value="${interest.interestNo}" selected>${interest.interestName}</option>
+												
+												</c:when>
+												<c:otherwise>
+													<option value="${interest.interestNo}">${interest.interestName}</option>
+												</c:otherwise>
+											</c:choose>
+										</c:forEach>
+
 									</select>
 
 								</div>

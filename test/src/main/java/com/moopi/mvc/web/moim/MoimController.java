@@ -110,7 +110,7 @@ public class MoimController {
 		moimService.newApplyMoim(userId, moim.getMmNo());
 		System.out.println("생성자를 해당 모임의 모임장으로 설정 완료");
 		System.out.println("모임생성완료");
-		return "forward:/moim/listMoim";
+		return "redirect:/moim/getMoim?mmNo="+moim.getMmNo();
 	}
 
 	// 방금 모임을 생성한 유저를 그 모임의 모임장으로 만드는 메서드...
@@ -222,7 +222,7 @@ public class MoimController {
 		String mmInterest = moim.getMmInterest();
 		String mmAddr = moim.getMmAddr();
 		// Map<String, Object> map = moimService.getMoimList(search);
-		Map<String, Object> map = moimService.getInviteList(mmInterest, mmAddr);
+		Map<String, Object> map = moimService.getInviteList(mmInterest, mmAddr , mmNo);
 		model.addAttribute("list", map.get("list"));
 		model.addAttribute("moim", moim);
 		return "moim/listInvite";
@@ -272,7 +272,8 @@ public class MoimController {
 
 	// 멤버 리스트 조회하기
 	@RequestMapping("listMember")
-	public String getListMember(@RequestParam("mmNo") int mmNo, @RequestParam("status") int status, Model model)
+	public String getListMember(@RequestParam("mmNo") int mmNo, @RequestParam("status") int status,
+								@RequestParam("userId") String userId, Model model)
 			throws Exception {
 
 		System.out.println("멤버리스트를 가져옵니다.");
@@ -280,6 +281,8 @@ public class MoimController {
 		model.addAttribute("moim", moim);
 		Map<String, Object> map = moimService.getMemberList(mmNo, status);
 		model.addAttribute("list", map.get("list"));
+		model.addAttribute("moim", moim);
+		model.addAttribute("check", moimService.checkMember(userId, mmNo));
 		if (status == 1) {
 			return "moim/listApply";
 		} else {

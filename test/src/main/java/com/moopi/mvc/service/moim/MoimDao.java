@@ -69,7 +69,7 @@ public interface MoimDao {
 	
 	//초대목록 리스트
 	public List<User> getInviteList(@Param("mmInterest") String mmInterest,
-			@Param("mmAddr") String mmAddr) throws Exception;
+			@Param("mmAddr") String mmAddr ,@Param("mmNo") int mmNo) throws Exception;
 	
 	
 	//해당 유저의 권한 조회

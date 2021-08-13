@@ -37,7 +37,13 @@
 		
 			var userId=$('input[name=userId]').val();
 			var AuthNum = $("#AuthNum").val()	
+			var phone = $("#pnNum").val()
 			
+			if(phone == null || phone.length != 11){
+				
+				swal("올바른 형식의 모바일번호가 아닙니다.","","warning");
+				return;
+			}
 			
 			if(AuthNum == key){				
 				$(function() {	
@@ -81,9 +87,15 @@
 // [모바일인증API]
 		
 		function fncAuth(){
-		swal("모바일 인증번호 발송이 완료되었습니다.","success");
-
+	
 			var phone = $("#pnNum").val()
+			
+			if(phone == null || phone.length != 11){
+				
+				swal("올바른 형식의 모바일번호가 아닙니다.","","warning");
+				return;
+			}
+			swal("모바일 인증번호가 발송되었습니다.","","success");
 			
 			$.ajax({
 						url : "/user/json/sms/"+phone ,
@@ -100,7 +112,7 @@
 								
 						}
 						
-				});	 //ajax종료
+				});	 //ajax종료 */
 		};
 </script>	
 	
@@ -184,7 +196,7 @@
 			<div class="form-group">
 					<label for="mobileAuth" class="col-sm-offset-1 col-sm-2 control-label" id="Content1">모바일번호 인증을 진행해주세요</label>
 					<div class="col-sm-2">
-						<input type="text" class="form-control" id="pnNum" name="phone" placeholder="번호를 입력하세요">
+						<input type="text" class="form-control" id="pnNum" name="phone" placeholder="번호를 입력하세요" >
 					</div>
 					<div class="col-sm-1">
 						<button type="button" id="mobileAuth" class="micro_btn" onClick="fncAuth()">인증하기</button>

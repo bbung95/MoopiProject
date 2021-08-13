@@ -138,6 +138,7 @@ public class MeetingController {
 		model.addAttribute("mtContent", "캠핑가요");
 		model.addAttribute("mtAddr", "우이도가족캠핑장");
 		model.addAttribute("mmNo", mmNo);
+		model.addAttribute("check", moimService.checkMember(userId, mmNo));
 		return "meeting/listMeeting";
 	}
 	

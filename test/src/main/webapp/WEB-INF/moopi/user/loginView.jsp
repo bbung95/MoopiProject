@@ -82,7 +82,8 @@
 				contentType : "application/JSON",
 				dataType : "JSON",				
 				data : JSON.stringify({"userId" : id}),
-				success : function(data, state) {					
+				success : function(data, state) {	
+					
 					if(data.userRole == 5){
 						popWin = window.open(
 								"/user/updateRestoreUser?userId="+data.userId+"&profileImage="+data.profileImage+"&nickname="+data.nickname,
@@ -90,14 +91,18 @@
 								"left=460, top=300, width=600, height=465, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");
 					
 					} else if(data.userRole == 6){
-						swal("이미 탈퇴하신 회원입니다","새로 가입을 진행해주세요","success");
+						swal("이미 탈퇴하신 회원입니다","새로 가입을 진행해주세요","warning");
 						return;
 					} else if(data.userRole == 4) {
 						popWin = window.open(
 								"/user/getBlackUser?userId="+data.userId+"&profileImage="+data.profileImage+"&nickname="+data.nickname+"&stateReason="+data.stateReason,
 								"popWin",
 								"left=460, top=300, width=600, height=465, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");
+					} else if(data.userRole == null){
+						swal("아이디와 비밀번호가 일치하지 않습니다","다시 입력해주세요","warning");
+					
 					} else {
+						
 						$("form").attr("method", "POST").attr("action", "/user/loginUser").submit();
 					}
 				}	
@@ -423,6 +428,25 @@
 	$('h3:contains("Moopi")').on('click', function(){
 		location.href = "/";
 	})
+	
+	// 엔터 로그인
+	$('input[name=userId]').keydown(function (key) {
+ 
+        if(key.keyCode == 13){//키가 13이면 실행 (엔터는 13)
+        	fncLogin();
+        }
+ 
+    });
+	
+	$('input[name=password]').keydown(function (key) {
+ 
+        if(key.keyCode == 13){//키가 13이면 실행 (엔터는 13)
+        	fncLogin();
+        }
+ 
+    });
+
+
 </script>
 
 </body>
