@@ -694,13 +694,13 @@ $('button:contains("채팅")').on('click', function(){
 					
 					let url;
 					
-						/*  url = "https://bbung95-rtc.herokuapp.com/chat?userId="+data.user.userId+"&trgt="+data.target.userId+"&type="+data.type
+						  url = "https://bbung95-rtc.herokuapp.com/chat?userId="+data.user.userId+"&trgt="+data.target.userId+"&type="+data.type
 						+"&name="+data.user.nickname+"&profile="+data.user.profileImage+"&trgtName="+data.target.nickname
-						+"&trgtProfile="+data.target.profileImage; */
+						+"&trgtProfile="+data.target.profileImage; 
 						 
-						 url = "http://localhost:82/chat?userId="+data.user.userId+"&trgt="+data.target.userId+"&type="+data.type
+						 /* url = "http://localhost:82/chat?userId="+data.user.userId+"&trgt="+data.target.userId+"&type="+data.type
 							+"&name="+data.user.nickname+"&profile="+data.user.profileImage+"&trgtName="+data.target.nickname
-							+"&trgtProfile="+data.target.profileImage;
+							+"&trgtProfile="+data.target.profileImage; */
 					
 				popWin = window.open(
 					url,
