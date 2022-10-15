@@ -57,9 +57,12 @@ public class MoimController {
 
 	private Board board;
 
-	public static final String saveDir = ClassLoader.getSystemResource("./static/").getPath().substring(0,
-			ClassLoader.getSystemResource("./static/").getPath().lastIndexOf("bin"))
-			+ "src/main/resources/static/images/uploadFiles";
+//	public static final String saveDir = ClassLoader.getSystemResource("./static/").getPath().substring(0,
+//			ClassLoader.getSystemResource("./static/").getPath().lastIndexOf("bin"))
+//			+ "src/main/resources/static/images/uploadFiles";
+
+	public static final String saveDir = "/";
+
 
 	// 모임상세조회
 	@RequestMapping("getMoim")

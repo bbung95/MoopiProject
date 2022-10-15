@@ -10,9 +10,6 @@ import com.moopi.mvc.service.domain.User;
 @SpringBootTest
 class TestApplicationTests {
 	
-	@Autowired
-	//private UserServiceImpl userService;
-	
 	@Test
 	void contextLoads() {
 	}

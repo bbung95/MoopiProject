@@ -60,9 +60,12 @@ public class UserRestController {
 	@Value("10")
 	private int pageUnit;
 
-	public static final String saveDir = ClassLoader.getSystemResource("./static/").getPath().substring(0,
-			ClassLoader.getSystemResource("./static/").getPath().lastIndexOf("bin"))
-			+ "src/main/resources/static/images/uploadFiles";
+//	public static final String saveDir = ClassLoader.getSystemResource("./static/").getPath().substring(0,
+//			ClassLoader.getSystemResource("./static/").getPath().lastIndexOf("bin"))
+//			+ "src/main/resources/static/images/uploadFiles";
+
+	public static final String saveDir = "/";
+
 
 	public UserRestController() {
 		System.out.println(this.getClass());

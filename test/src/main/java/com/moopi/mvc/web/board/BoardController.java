@@ -49,9 +49,11 @@ public class BoardController{
 	@Value("${page.pageSize}")
 	int pageSize;
 	
-	public static final String saveDir = ClassLoader.getSystemResource("./static/").getPath().
-			substring(0, ClassLoader.getSystemResource("./static/").getPath().lastIndexOf("bin"))
-			+"src/main/resources/static/images/uploadFiles/";
+//	public static final String saveDir = ClassLoader.getSystemResource("./static/").getPath().
+//			substring(0, ClassLoader.getSystemResource("./static/").getPath().lastIndexOf("bin"))
+//			+"src/main/resources/static/images/uploadFiles/";
+
+	public static final String saveDir = "/";
 	
 	@RequestMapping("listBoard")
 	public String getBoardList(@ModelAttribute("search")Search search, @ModelAttribute("category")String category,

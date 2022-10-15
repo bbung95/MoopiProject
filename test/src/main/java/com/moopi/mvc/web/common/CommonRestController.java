@@ -48,10 +48,12 @@ public class CommonRestController {
 	private int pageUnit;
 
 	//public static final String saveDir = "/Users/bbung_/git/MoopiProject/test/src/main/resources/static/images/uploadFiles/chat";
-	public static final String saveDir = ClassLoader.getSystemResource("./static/").getPath().
-										substring(0, ClassLoader.getSystemResource("./static/").getPath().lastIndexOf("bin"))
-										+"src/main/resources/static/images/uploadFiles/chat";
-	
+//	public static final String saveDir = ClassLoader.getSystemResource("./static/").getPath().
+//										substring(0, ClassLoader.getSystemResource("./static/").getPath().lastIndexOf("bin"))
+//										+"src/main/resources/static/images/uploadFiles/chat";
+	public static final String saveDir = "/";
+
+
 	@PostMapping(value = "json/addNotice")
 	public void addNotice(@RequestBody Notice notice) {
 		System.out.println("addNotice : POST");
